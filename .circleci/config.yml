@@ -1,0 +1,105 @@
+palantir_aliases:
+  - &always-run
+    filters:
+      branches:
+        only: /.*/
+      tags:
+        only: /.*/
+
+version: 2.1
+jobs:
+  test:
+    parameters:
+      python_version:
+        type: string
+      pydantic_version:
+        type: string
+      urllib3_version:
+        type: string
+    docker:
+      - image: cimg/python:<< parameters.python_version >>
+    steps:
+      - checkout
+      - run: pip install --user tox
+      - run: tox -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-urllib3<< parameters.urllib3_version >>
+
+  pyright:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run: pip install --user tox
+      - run: python -m tox -e pyright
+
+  black:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run: pip install --user tox
+      - run: python -m tox -e black
+
+  publish:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run: poetry publish -v -u $PYPI_USERNAME -p $PYPI_PASSWORD --build
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test:
+          <<: *always-run
+          name: python-<< matrix.python_version>>
+          matrix:
+            parameters:
+              python_version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+              pydantic_version: ["2.4"]
+              urllib3_version: ["2.1"]
+      - test:
+          <<: *always-run
+          name: pydantic-<< matrix.pydantic_version >>
+          matrix:
+            parameters:
+              python_version: ["3.12"]
+              pydantic_version: ["2.1.0", "2.1", "2.2", "2.3", "2.4", "2.5"]
+              urllib3_version: ["2.1"]
+      - test:
+          <<: *always-run
+          name: urllib3-<< matrix.urllib3_version >>
+          matrix:
+            parameters:
+              python_version: ["3.12"]
+              pydantic_version: ["2.4"]
+              urllib3_version: ["1.26.5", "1.26", "2.0", "2.1"]
+      - pyright:
+        <<: *always-run
+      - black:
+        <<: *always-run
+      - publish:
+          requires:
+            - python-3.8
+            - python-3.9
+            - python-3.10
+            - python-3.11
+            - python-3.12
+
+            - pydantic-2.1.0
+            - pydantic-2.1
+            - pydantic-2.2
+            - pydantic-2.3
+            - pydantic-2.4
+            - pydantic-2.5
+
+            - urllib3-1.26.5
+            - urllib3-1.26
+            - urllib3-2.0
+            - urllib3-2.1
+
+            - pyright
+            - black
+          filters:
+            tags: { only: '/^[0-9]+(\.[0-9]+)+(-[a-zA-Z]+[0-9]*)*$/' }
+            branches: { ignore: /.*/ }

@@ -1,0 +1,52 @@
+from typing import Annotated, Union
+
+from pydantic import Field
+
+from foundry.models.search_json_query import SearchJsonQuery
+from foundry.builders import SearchQuery
+
+"""
+This is commented out since we don't currently have any builders. These may be added back in the future
+if we need any builders!
+"""
+
+
+def test_eq():
+    assert SearchQuery.eq(field="myProp", value=21).to_dict() == {
+        "field": "myProp",
+        "type": "eq",
+        "value": 21,
+    }
+
+
+def test_and():
+    assert SearchQuery.and_(
+        SearchQuery.eq(field="myProp", value=21),
+        SearchQuery.lte(field="myProp", value=21),
+    ).to_dict() == {
+        "type": "and",
+        "value": [
+            {"field": "myProp", "type": "eq", "value": 21},
+            {"field": "myProp", "type": "lte", "value": 21},
+        ],
+    }
+
+
+def test_or():
+    assert SearchQuery.or_(
+        SearchQuery.eq(field="myProp", value=21),
+        SearchQuery.lte(field="myProp", value=21),
+    ).to_dict() == {
+        "type": "or",
+        "value": [
+            {"field": "myProp", "type": "eq", "value": 21},
+            {"field": "myProp", "type": "lte", "value": 21},
+        ],
+    }
+
+
+def test_not():
+    assert SearchQuery.not_(SearchQuery.eq(field="myProp", value=21)).to_dict() == {
+        "type": "not",
+        "value": {"field": "myProp", "type": "eq", "value": 21},
+    }
