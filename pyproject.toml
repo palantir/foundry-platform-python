@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "foundry"
-version = "0.1.25"
+version = "0.1.0"
 description = "The official Python library for the Foundry API"
 authors = ["Jacob Smith <jacobas@palantir.com>"]
 license = "Apache-2.0"

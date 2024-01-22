@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-__version__ = "0.1.25"
+__version__ = "0.1.0"
 __openapi_document_version__ = "1.738.0"
 __openapi_specification_version__ = "3.0.1"
 __openapi_generator_version__ = "7.1.0"

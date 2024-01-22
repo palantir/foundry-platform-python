@@ -102,7 +102,7 @@ class ApiClient:
         self.rest_client = rest.RESTClientObject(configuration)
 
         self.default_headers = {
-            "User-Agent": "foundry-platform-sdk/0.1.25",
+            "User-Agent": "foundry-platform-sdk/0.1.0",
         }
 
         if header_name is not None and header_value is not None:
