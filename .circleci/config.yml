@@ -59,7 +59,7 @@ workflows:
             parameters:
               python_version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
               pydantic_version: ["2.4"]
-              requests_version: ["2.1"]
+              requests_version: ["2.31"]
       - test:
           <<: *always-run
           name: pydantic-<< matrix.pydantic_version >>
@@ -67,7 +67,7 @@ workflows:
             parameters:
               python_version: ["3.12"]
               pydantic_version: ["2.1.0", "2.1", "2.2", "2.3", "2.4", "2.5"]
-              requests_version: ["2.1"]
+              requests_version: ["2.31"]
       - test:
           <<: *always-run
           name: requests-<< matrix.requests_version >>
@@ -75,7 +75,7 @@ workflows:
             parameters:
               python_version: ["3.12"]
               pydantic_version: ["2.4"]
-              requests_version: ["2.0", "2.10", "2.20", "2.31"]
+              requests_version: ["2.22", "2.24", "2.26", "2.31"]
       - pyright:
         <<: *always-run
       - black:
