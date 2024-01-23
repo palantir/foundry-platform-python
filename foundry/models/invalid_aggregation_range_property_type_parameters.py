@@ -37,27 +37,21 @@ from pydantic import BaseModel, StrictStr
 from pydantic import Field
 from typing_extensions import Self
 
-
 class InvalidAggregationRangePropertyTypeParameters(BaseModel):
     """
     InvalidAggregationRangePropertyTypeParameters
-    """  # noqa: E501
-
-    object_type: StrictStr = Field(
-        description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ",
-        alias="objectType",
-    )
-    var_property: StrictStr = Field(
-        description="The name of the property in the API. To find the API name for your property, use the `Get object type` endpoint or check the **Ontology Manager**. ",
-        alias="property",
-    )
-    property_base_type: StrictStr = Field(
-        description="A string indicating the type of each data value. Note that these types can be nested, for example an array of structs.  | Type                | JSON value                                                                                                        | |---------------------|-------------------------------------------------------------------------------------------------------------------| | Array               | `Array<T>`, where `T` is the type of the array elements, e.g. `Array<String>`.                                    | | Attachment          | `Attachment`                                                                                                      | | Boolean             | `Boolean`                                                                                                         | | Byte                | `Byte`                                                                                                            | | Date                | `LocalDate`                                                                                                       | | Decimal             | `Decimal`                                                                                                         | | Double              | `Double`                                                                                                          | | Float               | `Float`                                                                                                           | | Integer             | `Integer`                                                                                                         | | Long                | `Long`                                                                                                            | | OntologyObject      | `OntologyObject<T>` where `T` is the API name of the referenced object type.                                      | | Short               | `Short`                                                                                                           | | String              | `String`                                                                                                          | | Struct              | `Struct<T>` where `T` contains field name and type pairs, e.g. `Struct<{ firstName: String, lastName: string }>`  | | Timeseries          | `TimeSeries<T>` where `T` is either `String` for an enum series or `Double` for a numeric series.                 | | Timestamp           | `Timestamp`                                                                                                       | ",
-        alias="propertyBaseType",
-    )
+    """ # noqa: E501
+    object_type: StrictStr = Field(description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ", alias="objectType")
+    var_property: StrictStr = Field(description="The name of the property in the API. To find the API name for your property, use the `Get object type` endpoint or check the **Ontology Manager**. ", alias="property")
+    property_base_type: StrictStr = Field(description="A string indicating the type of each data value. Note that these types can be nested, for example an array of structs.  | Type                | JSON value                                                                                                        | |---------------------|-------------------------------------------------------------------------------------------------------------------| | Array               | `Array<T>`, where `T` is the type of the array elements, e.g. `Array<String>`.                                    | | Attachment          | `Attachment`                                                                                                      | | Boolean             | `Boolean`                                                                                                         | | Byte                | `Byte`                                                                                                            | | Date                | `LocalDate`                                                                                                       | | Decimal             | `Decimal`                                                                                                         | | Double              | `Double`                                                                                                          | | Float               | `Float`                                                                                                           | | Integer             | `Integer`                                                                                                         | | Long                | `Long`                                                                                                            | | OntologyObject      | `OntologyObject<T>` where `T` is the API name of the referenced object type.                                      | | Short               | `Short`                                                                                                           | | String              | `String`                                                                                                          | | Struct              | `Struct<T>` where `T` contains field name and type pairs, e.g. `Struct<{ firstName: String, lastName: string }>`  | | Timeseries          | `TimeSeries<T>` where `T` is either `String` for an enum series or `Double` for a numeric series.                 | | Timestamp           | `Timestamp`                                                                                                       | ", alias="propertyBaseType")
     __properties: ClassVar[Set[str]] = set(("objectType", "property", "propertyBaseType"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -85,7 +79,8 @@ class InvalidAggregationRangePropertyTypeParameters(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -99,10 +94,12 @@ class InvalidAggregationRangePropertyTypeParameters(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

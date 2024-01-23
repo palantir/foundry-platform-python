@@ -37,27 +37,21 @@ from pydantic import BaseModel, StrictStr
 from pydantic import Field
 from typing_extensions import Self
 
-
 class ParametersNotFoundParameters(BaseModel):
     """
     ParametersNotFoundParameters
-    """  # noqa: E501
+    """ # noqa: E501
+    action_type: StrictStr = Field(description="The name of the action type in the API. To find the API name for your Action Type, use the `List action types` endpoint or check the **Ontology Manager**. ", alias="actionType")
+    configured_parameter_ids: Optional[List[StrictStr]] = Field(default=None, alias="configuredParameterIds")
+    unknown_parameter_ids: Optional[List[StrictStr]] = Field(default=None, alias="unknownParameterIds")
+    __properties: ClassVar[Set[str]] = set(("actionType", "configuredParameterIds", "unknownParameterIds"))
 
-    action_type: StrictStr = Field(
-        description="The name of the action type in the API. To find the API name for your Action Type, use the `List action types` endpoint or check the **Ontology Manager**. ",
-        alias="actionType",
-    )
-    configured_parameter_ids: Optional[List[StrictStr]] = Field(
-        default=None, alias="configuredParameterIds"
-    )
-    unknown_parameter_ids: Optional[List[StrictStr]] = Field(
-        default=None, alias="unknownParameterIds"
-    )
-    __properties: ClassVar[Set[str]] = set(
-        ("actionType", "configuredParameterIds", "unknownParameterIds")
-    )
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -85,7 +79,8 @@ class ParametersNotFoundParameters(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -99,10 +94,12 @@ class ParametersNotFoundParameters(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

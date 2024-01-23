@@ -16,7 +16,7 @@ import subprocess
 
 gitversion = subprocess.check_output("git describe --tags --abbrev=0".split()).decode().strip()
 
-path = "{{packageName}}/versions.py"
+path = "foundry/versions.py"
 
 with open(path, "r") as f:
     content = f.read()

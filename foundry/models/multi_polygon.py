@@ -38,34 +38,21 @@ from pydantic import Field
 from typing_extensions import Annotated
 from typing_extensions import Self
 
-
 class MultiPolygon(BaseModel):
     """
     MultiPolygon
-    """  # noqa: E501
-
-    bbox: Optional[List[Union[StrictFloat, StrictInt]]] = Field(
-        default=None,
-        description='A GeoJSON object MAY have a member named "bbox" to include information on the coordinate range for its Geometries, Features, or FeatureCollections. The value of the bbox member MUST be an array of length 2*n where n is the number of dimensions represented in the contained geometries, with all axes of the most southwesterly point followed by all axes of the more northeasterly point. The axes order of a bbox follows the axes order of geometries. ',
-    )
-    coordinates: Optional[
-        List[
-            List[
-                Annotated[
-                    List[
-                        Annotated[
-                            List[Union[StrictFloat, StrictInt]], Field(min_length=2, max_length=3)
-                        ]
-                    ],
-                    Field(min_length=4),
-                ]
-            ]
-        ]
-    ] = None
+    """ # noqa: E501
+    bbox: Optional[List[Union[StrictFloat, StrictInt]]] = Field(default=None, description="A GeoJSON object MAY have a member named \"bbox\" to include information on the coordinate range for its Geometries, Features, or FeatureCollections. The value of the bbox member MUST be an array of length 2*n where n is the number of dimensions represented in the contained geometries, with all axes of the most southwesterly point followed by all axes of the more northeasterly point. The axes order of a bbox follows the axes order of geometries. ")
+    coordinates: Optional[List[List[Annotated[List[Annotated[List[Union[StrictFloat, StrictInt]], Field(min_length=2, max_length=3)]], Field(min_length=4)]]]] = None
     type: Literal["MultiPolygon"]
     __properties: ClassVar[Set[str]] = set(("bbox", "coordinates", "type"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -93,7 +80,8 @@ class MultiPolygon(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -107,10 +95,12 @@ class MultiPolygon(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

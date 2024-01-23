@@ -38,25 +38,21 @@ from pydantic import Field
 from foundry.models.query_data_type import QueryDataType
 from typing_extensions import Self
 
-
 class InvalidQueryParameterValueParameters(BaseModel):
     """
     InvalidQueryParameterValueParameters
-    """  # noqa: E501
-
+    """ # noqa: E501
     parameter_data_type: QueryDataType = Field(alias="parameterDataType")
-    parameter_id: StrictStr = Field(
-        description="The unique identifier of the parameter. Parameters are used as inputs when an action or query is applied. Parameters can be viewed and managed in the **Ontology Manager**. ",
-        alias="parameterId",
-    )
-    parameter_value: Optional[Any] = Field(
-        default=None,
-        description='Represents the value of data in the following format. Note that these values can be nested, for example an array of structs. | Type                        | JSON encoding                                         | Example                                                                       | |-----------------------------|-------------------------------------------------------|-------------------------------------------------------------------------------| | Array                       | array                                                 | `["alpha", "bravo", "charlie"]`                                               | | Attachment                  | string                                                | `"ri.attachments.main.attachment.2f944bae-5851-4204-8615-920c969a9f2e"`       | | Boolean                     | boolean                                               | `true`                                                                        | | Byte                        | number                                                | `31`                                                                          | | Date                        | ISO 8601 extended local date string                   | `"2021-05-01"`                                                                | | Decimal                     | string                                                | `"2.718281828"`                                                               | | Float                       | number                                                | `3.14159265`                                                                  | | Double                      | number                                                | `3.14159265`                                                                  | | Integer                     | number                                                | `238940`                                                                      | | Long                        | string                                                | `"58319870951433"`                                                            | | Null                        | null                                                  | `null`                                                                        | | Object Set                  | string                                                | `ri.object-set.main.versioned-object-set.h13274m8-23f5-431c-8aee-a4554157c57z`| | Ontology Object Reference   | JSON encoding of the object\'s primary key             | `10033123` or `"EMP1234"`                                                     | | Set                         | array                                                 | `["alpha", "bravo", "charlie"]`                                               | | Short                       | number                                                | `8739`                                                                        | | String                      | string                                                | `"Call me Ishmael"`                                                           | | Struct                      | JSON object                                           | `{"name": "John Doe", "age": 42}`                                             | | TwoDimensionalAggregation   | JSON object                                           | `{"groups": [{"key": "alpha", "value": 100}, {"key": "beta", "value": 101}]}` | | ThreeDimensionalAggregation | JSON object                                           | `{"groups": [{"key": "NYC", "groups": [{"key": "Engineer", "value" : 100}]}]}`| | Timestamp                   | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                      | ',
-        alias="parameterValue",
-    )
+    parameter_id: StrictStr = Field(description="The unique identifier of the parameter. Parameters are used as inputs when an action or query is applied. Parameters can be viewed and managed in the **Ontology Manager**. ", alias="parameterId")
+    parameter_value: Optional[Any] = Field(default=None, description="Represents the value of data in the following format. Note that these values can be nested, for example an array of structs. | Type                        | JSON encoding                                         | Example                                                                       | |-----------------------------|-------------------------------------------------------|-------------------------------------------------------------------------------| | Array                       | array                                                 | `[\"alpha\", \"bravo\", \"charlie\"]`                                               | | Attachment                  | string                                                | `\"ri.attachments.main.attachment.2f944bae-5851-4204-8615-920c969a9f2e\"`       | | Boolean                     | boolean                                               | `true`                                                                        | | Byte                        | number                                                | `31`                                                                          | | Date                        | ISO 8601 extended local date string                   | `\"2021-05-01\"`                                                                | | Decimal                     | string                                                | `\"2.718281828\"`                                                               | | Float                       | number                                                | `3.14159265`                                                                  | | Double                      | number                                                | `3.14159265`                                                                  | | Integer                     | number                                                | `238940`                                                                      | | Long                        | string                                                | `\"58319870951433\"`                                                            | | Null                        | null                                                  | `null`                                                                        | | Object Set                  | string                                                | `ri.object-set.main.versioned-object-set.h13274m8-23f5-431c-8aee-a4554157c57z`| | Ontology Object Reference   | JSON encoding of the object's primary key             | `10033123` or `\"EMP1234\"`                                                     | | Set                         | array                                                 | `[\"alpha\", \"bravo\", \"charlie\"]`                                               | | Short                       | number                                                | `8739`                                                                        | | String                      | string                                                | `\"Call me Ishmael\"`                                                           | | Struct                      | JSON object                                           | `{\"name\": \"John Doe\", \"age\": 42}`                                             | | TwoDimensionalAggregation   | JSON object                                           | `{\"groups\": [{\"key\": \"alpha\", \"value\": 100}, {\"key\": \"beta\", \"value\": 101}]}` | | ThreeDimensionalAggregation | JSON object                                           | `{\"groups\": [{\"key\": \"NYC\", \"groups\": [{\"key\": \"Engineer\", \"value\" : 100}]}]}`| | Timestamp                   | ISO 8601 extended offset date-time string in UTC zone | `\"2021-01-04T05:00:00Z\"`                                                      | ", alias="parameterValue")
     __properties: ClassVar[Set[str]] = set(("parameterDataType", "parameterId", "parameterValue"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -84,16 +80,17 @@ class InvalidQueryParameterValueParameters(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of parameter_data_type
         if self.parameter_data_type:
-            _dict["parameterDataType"] = self.parameter_data_type.to_dict()
+            _dict['parameterDataType'] = self.parameter_data_type.to_dict()
         # set to None if parameter_value (nullable) is None
         # and model_fields_set contains the field
         if self.parameter_value is None and "parameter_value" in self.model_fields_set:
-            _dict["parameterValue"] = None
+            _dict['parameterValue'] = None
 
         return _dict
 
@@ -106,10 +103,12 @@ class InvalidQueryParameterValueParameters(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

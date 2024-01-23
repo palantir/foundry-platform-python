@@ -42,7 +42,6 @@ from pydantic import __version__ as __pydantic__version__
 from pydantic_core import __version__ as __pydantic_core__version__
 from pydantic import ValidationError
 
-
 class OpenApiException(Exception):
     """The base exception class for all OpenAPIExceptions"""
 
@@ -54,7 +53,7 @@ class SDKInternalError(Exception):
     def __str__(self):
         message = self.msg
 
-        sys_version = sys.version.replace("\n", " ")
+        sys_version = sys.version.replace('\n', ' ')
         message += (
             "\n\nThis is an unexpected issue and should be reported. "
             "When filing an issue, make sure to copy the package information "
@@ -64,9 +63,9 @@ class SDKInternalError(Exception):
             f"SDK Version: {__version__}\n"
             f"OpenAPI Document Version: {__openapi_document_version__}\n"
             f"OpenAPI Specification Version: {__openapi_specification_version__}\n"
-            f"OpenAPI Generator Version: {__openapi_generator_version__}\n"
-            f"Pydantic Version: {__pydantic__version__}\n"
-            f"Pydantic Core Version: {__pydantic_core__version__}\n"
+            f"OpenAPI Generator Version: {__openapi_generator_version__}\n" 
+            f"Pydantic Version: {__pydantic__version__}\n" 
+            f"Pydantic Core Version: {__pydantic_core__version__}\n" 
         )
 
         return message
@@ -168,7 +167,7 @@ class ApiException(OpenApiException):
             self.json = json.loads(self.body or "")
         except Exception as e:
             raise SDKInternalError(f"Unable to parse error body: {self.body}")
-
+        
         try:
             self.error_code = self.json["errorCode"]
             self.error_name = self.json["errorName"]
@@ -187,7 +186,6 @@ class ApiException(OpenApiException):
             error_message += "HTTP response body: {0}\n".format(self.body)
 
         return error_message
-
 
 class BadRequestException(ApiException):
     pass
@@ -218,7 +216,6 @@ def render_path(path_to_item):
         else:
             result += "['{0}']".format(pth)
     return result
-
 
 # Delayed import since the rest module imports exceptions from the module
 from foundry.rest import RESTResponse

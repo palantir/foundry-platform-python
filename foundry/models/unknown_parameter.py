@@ -38,28 +38,29 @@ from pydantic import Field
 from foundry.models.unknown_parameter_parameters import UnknownParameterParameters
 from typing_extensions import Self
 
-
 class UnknownParameter(BaseModel):
     """
-    The provided parameters were not found. Please look at the `knownParameters` field to see which ones are available.
-    """  # noqa: E501
-
+    The provided parameters were not found. Please look at the `knownParameters` field to see which ones are available. 
+    """ # noqa: E501
     error_code: StrictStr = Field(alias="errorCode")
     error_instance_id: Optional[StrictStr] = Field(default=None, alias="errorInstanceId")
     error_name: StrictStr = Field(alias="errorName")
     parameters: UnknownParameterParameters
-    __properties: ClassVar[Set[str]] = set(
-        ("errorCode", "errorInstanceId", "errorName", "parameters")
-    )
+    __properties: ClassVar[Set[str]] = set(("errorCode", "errorInstanceId", "errorName", "parameters"))
 
-    @field_validator("error_code")
+    @field_validator('error_code')
     def error_code_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in ("INVALID_ARGUMENT"):
+        if value not in ('INVALID_ARGUMENT'):
             raise ValueError("must be one of enum values ('INVALID_ARGUMENT')")
         return value
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -87,12 +88,13 @@ class UnknownParameter(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of parameters
         if self.parameters:
-            _dict["parameters"] = self.parameters.to_dict()
+            _dict['parameters'] = self.parameters.to_dict()
         return _dict
 
     @classmethod
@@ -104,10 +106,12 @@ class UnknownParameter(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

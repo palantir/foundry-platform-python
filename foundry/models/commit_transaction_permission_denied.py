@@ -35,33 +35,32 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing import Set
 from pydantic import BaseModel, StrictStr, field_validator
 from pydantic import Field
-from foundry.models.abort_transaction_permission_denied_parameters import (
-    AbortTransactionPermissionDeniedParameters,
-)
+from foundry.models.abort_transaction_permission_denied_parameters import AbortTransactionPermissionDeniedParameters
 from typing_extensions import Self
-
 
 class CommitTransactionPermissionDenied(BaseModel):
     """
     The provided token does not have permission to commit the given treansaction on the given dataset.
-    """  # noqa: E501
-
+    """ # noqa: E501
     error_code: StrictStr = Field(alias="errorCode")
     error_instance_id: Optional[StrictStr] = Field(default=None, alias="errorInstanceId")
     error_name: StrictStr = Field(alias="errorName")
     parameters: AbortTransactionPermissionDeniedParameters
-    __properties: ClassVar[Set[str]] = set(
-        ("errorCode", "errorInstanceId", "errorName", "parameters")
-    )
+    __properties: ClassVar[Set[str]] = set(("errorCode", "errorInstanceId", "errorName", "parameters"))
 
-    @field_validator("error_code")
+    @field_validator('error_code')
     def error_code_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in ("PERMISSION_DENIED"):
+        if value not in ('PERMISSION_DENIED'):
             raise ValueError("must be one of enum values ('PERMISSION_DENIED')")
         return value
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -89,12 +88,13 @@ class CommitTransactionPermissionDenied(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of parameters
         if self.parameters:
-            _dict["parameters"] = self.parameters.to_dict()
+            _dict['parameters'] = self.parameters.to_dict()
         return _dict
 
     @classmethod
@@ -106,10 +106,12 @@ class CommitTransactionPermissionDenied(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

@@ -39,42 +39,24 @@ from foundry.models.link_type_side_cardinality import LinkTypeSideCardinality
 from foundry.models.release_status import ReleaseStatus
 from typing_extensions import Self
 
-
 class LinkTypeSideV2(BaseModel):
     """
     LinkTypeSideV2
-    """  # noqa: E501
-
-    api_name: StrictStr = Field(
-        description="The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager** application. ",
-        alias="apiName",
-    )
+    """ # noqa: E501
+    api_name: StrictStr = Field(description="The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager** application. ", alias="apiName")
     cardinality: LinkTypeSideCardinality
-    display_name: StrictStr = Field(
-        description="The display name of the entity.", alias="displayName"
-    )
-    foreign_key_property_api_name: Optional[StrictStr] = Field(
-        default=None,
-        description="The name of the property in the API. To find the API name for your property, use the `Get object type` endpoint or check the **Ontology Manager**. ",
-        alias="foreignKeyPropertyApiName",
-    )
-    object_type_api_name: StrictStr = Field(
-        description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ",
-        alias="objectTypeApiName",
-    )
+    display_name: StrictStr = Field(description="The display name of the entity.", alias="displayName")
+    foreign_key_property_api_name: Optional[StrictStr] = Field(default=None, description="The name of the property in the API. To find the API name for your property, use the `Get object type` endpoint or check the **Ontology Manager**. ", alias="foreignKeyPropertyApiName")
+    object_type_api_name: StrictStr = Field(description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ", alias="objectTypeApiName")
     status: ReleaseStatus
-    __properties: ClassVar[Set[str]] = set(
-        (
-            "apiName",
-            "cardinality",
-            "displayName",
-            "foreignKeyPropertyApiName",
-            "objectTypeApiName",
-            "status",
-        )
-    )
+    __properties: ClassVar[Set[str]] = set(("apiName", "cardinality", "displayName", "foreignKeyPropertyApiName", "objectTypeApiName", "status"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -102,7 +84,8 @@ class LinkTypeSideV2(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -116,10 +99,12 @@ class LinkTypeSideV2(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

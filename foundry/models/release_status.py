@@ -33,6 +33,7 @@ import re  # noqa: F401
 from enum import Enum
 
 
+
 try:
     from typing import Self
 except ImportError:
@@ -47,11 +48,13 @@ class ReleaseStatus(str, Enum):
     """
     allowed enum values
     """
-    ACTIVE = "ACTIVE"
-    EXPERIMENTAL = "EXPERIMENTAL"
-    DEPRECATED = "DEPRECATED"
+    ACTIVE = 'ACTIVE'
+    EXPERIMENTAL = 'EXPERIMENTAL'
+    DEPRECATED = 'DEPRECATED'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of ReleaseStatus from a JSON string"""
         return cls(json.loads(json_str))
+
+

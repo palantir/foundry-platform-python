@@ -38,18 +38,19 @@ from pydantic import Field
 from foundry.models.ontology import Ontology
 from typing_extensions import Self
 
-
 class ListOntologiesResponse(BaseModel):
     """
     ListOntologiesResponse
-    """  # noqa: E501
-
-    data: Optional[List[Ontology]] = Field(
-        default=None, description="The list of Ontologies the user has access to."
-    )
+    """ # noqa: E501
+    data: Optional[List[Ontology]] = Field(default=None, description="The list of Ontologies the user has access to.")
     __properties: ClassVar[Set[str]] = set(("data"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -77,7 +78,8 @@ class ListOntologiesResponse(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in data (list)
@@ -86,7 +88,7 @@ class ListOntologiesResponse(BaseModel):
             for _item in self.data:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict["data"] = _items
+            _dict['data'] = _items
         return _dict
 
     @classmethod
@@ -98,10 +100,12 @@ class ListOntologiesResponse(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

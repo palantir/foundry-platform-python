@@ -37,40 +37,23 @@ from pydantic import BaseModel, StrictStr
 from pydantic import Field
 from typing_extensions import Self
 
-
 class DeleteLinkRule(BaseModel):
     """
     DeleteLinkRule
-    """  # noqa: E501
-
-    a_side_object_type_api_name: StrictStr = Field(
-        description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ",
-        alias="aSideObjectTypeApiName",
-    )
-    b_side_object_type_api_name: StrictStr = Field(
-        description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ",
-        alias="bSideObjectTypeApiName",
-    )
-    link_type_api_name_ato_b: StrictStr = Field(
-        description="The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager** application. ",
-        alias="linkTypeApiNameAtoB",
-    )
-    link_type_api_name_bto_a: StrictStr = Field(
-        description="The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager** application. ",
-        alias="linkTypeApiNameBtoA",
-    )
+    """ # noqa: E501
+    a_side_object_type_api_name: StrictStr = Field(description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ", alias="aSideObjectTypeApiName")
+    b_side_object_type_api_name: StrictStr = Field(description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ", alias="bSideObjectTypeApiName")
+    link_type_api_name_ato_b: StrictStr = Field(description="The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager** application. ", alias="linkTypeApiNameAtoB")
+    link_type_api_name_bto_a: StrictStr = Field(description="The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager** application. ", alias="linkTypeApiNameBtoA")
     type: Literal["deleteLink"]
-    __properties: ClassVar[Set[str]] = set(
-        (
-            "aSideObjectTypeApiName",
-            "bSideObjectTypeApiName",
-            "linkTypeApiNameAtoB",
-            "linkTypeApiNameBtoA",
-            "type",
-        )
-    )
+    __properties: ClassVar[Set[str]] = set(("aSideObjectTypeApiName", "bSideObjectTypeApiName", "linkTypeApiNameAtoB", "linkTypeApiNameBtoA", "type"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -98,7 +81,8 @@ class DeleteLinkRule(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -112,10 +96,12 @@ class DeleteLinkRule(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

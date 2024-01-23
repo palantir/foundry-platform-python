@@ -71,24 +71,20 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def abort_transaction(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset that contains the Transaction."
-            ),
-        ],
-        transaction_rid: Annotated[
-            StrictStr, Field(description="The Resource Identifier (RID) of the Transaction.")
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset that contains the Transaction.")],
+        transaction_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Transaction.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Transaction:
         """abort_transaction
 
-        Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is not updated.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is not updated.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction. (required)
         :type dataset_rid: str
@@ -100,9 +96,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -113,24 +111,35 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if transaction_rid is not None:
-            _path_params["transactionRid"] = transaction_rid
+            _path_params['transactionRid'] = transaction_rid
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Transaction"
+            
+        }
         response_data = self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort",
+            method='POST',
+            resource_path='/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -139,7 +148,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -151,24 +160,20 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def commit_transaction(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset that contains the Transaction."
-            ),
-        ],
-        transaction_rid: Annotated[
-            StrictStr, Field(description="The Resource Identifier (RID) of the Transaction.")
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset that contains the Transaction.")],
+        transaction_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Transaction.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Transaction:
         """commit_transaction
 
-        Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is updated to point to the Transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is updated to point to the Transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction. (required)
         :type dataset_rid: str
@@ -180,9 +185,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -193,24 +200,35 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if transaction_rid is not None:
-            _path_params["transactionRid"] = transaction_rid
+            _path_params['transactionRid'] = transaction_rid
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Transaction"
+            
+        }
         response_data = self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit",
+            method='POST',
+            resource_path='/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -219,7 +237,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -231,22 +249,20 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def create_branch(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset on which to create the Branch."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset on which to create the Branch.")],
         create_branch_request: CreateBranchRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Branch:
         """create_branch
 
-        Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Branch. (required)
         :type dataset_rid: str
@@ -258,9 +274,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -271,7 +289,7 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -279,21 +297,37 @@ class DatasetsApiServiceApi:
         if create_branch_request is not None:
             _body_params = create_branch_request
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
 
         # set the HTTP header `Content-Type`
-        _default_content_type = self._api_client.select_header_content_type(["application/json"])
+        _default_content_type = (
+            self._api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
+            )
+        )
         if _default_content_type is not None:
-            _header_params["Content-Type"] = _default_content_type
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Branch"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Branch"
+            
+        }
         response_data = self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/branches",
+            method='POST',
+            resource_path='/v1/datasets/{datasetRid}/branches',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -302,7 +336,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -318,12 +352,15 @@ class DatasetsApiServiceApi:
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Dataset:
         """create_dataset
 
-        Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param create_dataset_request: (required)
         :type create_dataset_request: CreateDatasetRequest
@@ -333,9 +370,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -352,21 +391,37 @@ class DatasetsApiServiceApi:
         if create_dataset_request is not None:
             _body_params = create_dataset_request
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
 
         # set the HTTP header `Content-Type`
-        _default_content_type = self._api_client.select_header_content_type(["application/json"])
+        _default_content_type = (
+            self._api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
+            )
+        )
         if _default_content_type is not None:
-            _header_params["Content-Type"] = _default_content_type
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Dataset"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Dataset"
+            
+        }
         response_data = self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets",
+            method='POST',
+            resource_path='/v1/datasets',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -375,7 +430,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -387,34 +442,27 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def create_transaction(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset on which to create the Transaction."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset on which to create the Transaction.")],
         create_transaction_request: CreateTransactionRequest,
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments. "
-            ),
-        ] = None,
+        branch_id: Annotated[Optional[StrictStr], Field(description="The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Transaction:
         """create_transaction
 
-        Creates a Transaction on a Branch of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Creates a Transaction on a Branch of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Transaction. (required)
         :type dataset_rid: str
         :param create_transaction_request: (required)
         :type create_transaction_request: CreateTransactionRequest
-        :param branch_id: The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
+        :param branch_id: The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments. 
         :type branch_id: str
         :param _request_timeout: timeout setting for this request in seconds. If
                                  one number provided, it will be total request
@@ -422,9 +470,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -435,32 +485,49 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
         if create_transaction_request is not None:
             _body_params = create_transaction_request
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
 
         # set the HTTP header `Content-Type`
-        _default_content_type = self._api_client.select_header_content_type(["application/json"])
+        _default_content_type = (
+            self._api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
+            )
+        )
         if _default_content_type is not None:
-            _header_params["Content-Type"] = _default_content_type
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Transaction"
+            
+        }
         response_data = self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/transactions",
+            method='POST',
+            resource_path='/v1/datasets/{datasetRid}/transactions',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -469,7 +536,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -481,22 +548,20 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def delete_branch(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset that contains the Branch."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset that contains the Branch.")],
         branch_id: Annotated[StrictStr, Field(description="The identifier (name) of the Branch.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> None:
         """delete_branch
 
-        Deletes the Branch with the given BranchId.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Deletes the Branch with the given BranchId.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch. (required)
         :type dataset_rid: str
@@ -508,9 +573,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -521,21 +588,28 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if branch_id is not None:
-            _path_params["branchId"] = branch_id
+            _path_params['branchId'] = branch_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-        # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {}
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            
+        }
         response_data = self._api_client.call_api(
-            method="DELETE",
-            resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
+            method='DELETE',
+            resource_path='/v1/datasets/{datasetRid}/branches/{branchId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -544,7 +618,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -556,34 +630,22 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def delete_file(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset on which to delete the File."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset on which to delete the File.")],
         file_path: Annotated[StrictStr, Field(description="The File path within the Dataset.")],
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The identifier (name) of the Branch on which to delete the File. Defaults to `master` for most enrollments."
-            ),
-        ] = None,
-        transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The Resource Identifier (RID) of the open delete Transaction on which to delete the File."
-            ),
-        ] = None,
+        branch_id: Annotated[Optional[StrictStr], Field(description="The identifier (name) of the Branch on which to delete the File. Defaults to `master` for most enrollments.")] = None,
+        transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the open delete Transaction on which to delete the File.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> None:
         """delete_file
 
-        Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default  branch - `master` for most enrollments. The file will still be visible on historical views.  #### Advanced Usage               See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.  To **delete a File from a specific Branch** specify the Branch's identifier as `branchId`. A new delete Transaction  will be created and committed on this branch.  To **delete a File using a manually opened Transaction**, specify the Transaction's resource identifier  as `transactionRid`. The transaction must be of type `DELETE`. This is useful for deleting multiple files in a single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to  open a transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default  branch - `master` for most enrollments. The file will still be visible on historical views.  #### Advanced Usage               See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.  To **delete a File from a specific Branch** specify the Branch's identifier as `branchId`. A new delete Transaction  will be created and committed on this branch.  To **delete a File using a manually opened Transaction**, specify the Transaction's resource identifier  as `transactionRid`. The transaction must be of type `DELETE`. This is useful for deleting multiple files in a single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to  open a transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to delete the File. (required)
         :type dataset_rid: str
@@ -599,9 +661,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -612,27 +676,36 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if file_path is not None:
-            _path_params["filePath"] = file_path
+            _path_params['filePath'] = file_path
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if transaction_rid is not None:
-            _query_params.append(("transactionRid", transaction_rid))
-
+            
+            _query_params.append(('transactionRid', transaction_rid))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-        # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {}
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            
+        }
         response_data = self._api_client.call_api(
-            method="DELETE",
-            resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
+            method='DELETE',
+            resource_path='/v1/datasets/{datasetRid}/files/{filePath}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -641,7 +714,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -653,33 +726,28 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def delete_schema(
         self,
-        dataset_rid: Annotated[
-            StrictStr, Field(description="The RID of the Dataset on which to delete the schema. ")
-        ],
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(description="The ID of the Branch on which to delete the schema. "),
-        ] = None,
-        transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The RID of the Transaction on which to delete the schema. "),
-        ] = None,
+        dataset_rid: Annotated[StrictStr, Field(description="The RID of the Dataset on which to delete the schema. ")],
+        branch_id: Annotated[Optional[StrictStr], Field(description="The ID of the Branch on which to delete the schema. ")] = None,
+        transaction_rid: Annotated[Optional[StrictStr], Field(description="The RID of the Transaction on which to delete the schema. ")] = None,
         preview: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> None:
         """delete_schema
 
-        Deletes the Schema from a Dataset and Branch.
+        Deletes the Schema from a Dataset and Branch. 
 
         :param dataset_rid: The RID of the Dataset on which to delete the schema.  (required)
         :type dataset_rid: str
-        :param branch_id: The ID of the Branch on which to delete the schema.
+        :param branch_id: The ID of the Branch on which to delete the schema. 
         :type branch_id: str
-        :param transaction_rid: The RID of the Transaction on which to delete the schema.
+        :param transaction_rid: The RID of the Transaction on which to delete the schema. 
         :type transaction_rid: str
         :param preview:
         :type preview: bool
@@ -689,9 +757,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -702,28 +772,38 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if transaction_rid is not None:
-            _query_params.append(("transactionRid", transaction_rid))
-
+            
+            _query_params.append(('transactionRid', transaction_rid))
+            
         if preview is not None:
-            _query_params.append(("preview", preview))
-
+            
+            _query_params.append(('preview', preview))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-        # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {}
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            
+        }
         response_data = self._api_client.call_api(
-            method="DELETE",
-            resource_path="/v1/datasets/{datasetRid}/schema",
+            method='DELETE',
+            resource_path='/v1/datasets/{datasetRid}/schema',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -732,7 +812,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -744,22 +824,20 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def get_branch(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset that contains the Branch."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset that contains the Branch.")],
         branch_id: Annotated[StrictStr, Field(description="The identifier (name) of the Branch.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Branch:
         """get_branch
 
-        Get a Branch of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Get a Branch of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch. (required)
         :type dataset_rid: str
@@ -771,9 +849,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -784,24 +864,35 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if branch_id is not None:
-            _path_params["branchId"] = branch_id
+            _path_params['branchId'] = branch_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Branch"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Branch"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/branches/{branchId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -810,7 +901,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -826,12 +917,15 @@ class DatasetsApiServiceApi:
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Dataset:
         """get_dataset
 
-        Gets the Dataset with the given DatasetRid.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Gets the Dataset with the given DatasetRid.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: (required)
         :type dataset_rid: str
@@ -841,9 +935,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -854,22 +950,33 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Dataset"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Dataset"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -878,7 +985,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -890,36 +997,23 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def get_file_content(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset that contains the File."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset that contains the File.")],
         file_path: Annotated[StrictStr, Field(description="The File's path within the Dataset.")],
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments."
-            ),
-        ] = None,
-        start_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the start Transaction."),
-        ] = None,
-        end_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the end Transaction."),
-        ] = None,
+        branch_id: Annotated[Optional[StrictStr], Field(description="The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.")] = None,
+        start_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the start Transaction.")] = None,
+        end_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the end Transaction.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> bytearray:
         """get_file_content
 
-        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest view of the default branch - `master` for most enrollments.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.   To **get a file's content from a specific Branch** specify the Branch's identifier as `branchId`. This will  retrieve the content for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction of the branch if there are no snapshot transactions.  To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.  To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the  `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior is undefined when the start and end transactions do not belong to the same root-to-leaf path.  To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the  `startTransactionRid` and `endTransactionRid`.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest view of the default branch - `master` for most enrollments.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.   To **get a file's content from a specific Branch** specify the Branch's identifier as `branchId`. This will  retrieve the content for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction of the branch if there are no snapshot transactions.  To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.  To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the  `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior is undefined when the start and end transactions do not belong to the same root-to-leaf path.  To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the  `startTransactionRid` and `endTransactionRid`.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File. (required)
         :type dataset_rid: str
@@ -937,9 +1031,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -950,33 +1046,47 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if file_path is not None:
-            _path_params["filePath"] = file_path
+            _path_params['filePath'] = file_path
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if start_transaction_rid is not None:
-            _query_params.append(("startTransactionRid", start_transaction_rid))
-
+            
+            _query_params.append(('startTransactionRid', start_transaction_rid))
+            
         if end_transaction_rid is not None:
-            _query_params.append(("endTransactionRid", end_transaction_rid))
-
+            
+            _query_params.append(('endTransactionRid', end_transaction_rid))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["*/*"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                '*/*'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "bytearray"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "bytearray"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/files/{filePath}/content",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/files/{filePath}/content',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -985,7 +1095,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -997,36 +1107,23 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def get_file_metadata(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset that contains the File."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset that contains the File.")],
         file_path: Annotated[StrictStr, Field(description="The File's path within the Dataset.")],
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments."
-            ),
-        ] = None,
-        start_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the start Transaction."),
-        ] = None,
-        end_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the end Transaction."),
-        ] = None,
+        branch_id: Annotated[Optional[StrictStr], Field(description="The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.")] = None,
+        start_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the start Transaction.")] = None,
+        end_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the end Transaction.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> File:
         """get_file_metadata
 
-        Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest view of the default branch - `master` for most enrollments.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.   To **get a file's metadata from a specific Branch** specify the Branch's identifier as `branchId`. This will  retrieve metadata for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction of the branch if there are no snapshot transactions.  To **get a file's metadata from the resolved view of a transaction** specify the Transaction's resource identifier as `endTransactionRid`. This will retrieve metadata for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.  To **get a file's metadata from the resolved view of a range of transactions** specify the the start transaction's resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This will retrieve metadata for the most recent version of the file since the `startTransactionRid` up to the  `endTransactionRid`. Behavior is undefined when the start and end transactions do not belong to the same root-to-leaf path.  To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the  `startTransactionRid` and `endTransactionRid`.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest view of the default branch - `master` for most enrollments.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.   To **get a file's metadata from a specific Branch** specify the Branch's identifier as `branchId`. This will  retrieve metadata for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction of the branch if there are no snapshot transactions.  To **get a file's metadata from the resolved view of a transaction** specify the Transaction's resource identifier as `endTransactionRid`. This will retrieve metadata for the most recent version of the file since the latest snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.  To **get a file's metadata from the resolved view of a range of transactions** specify the the start transaction's resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This will retrieve metadata for the most recent version of the file since the `startTransactionRid` up to the  `endTransactionRid`. Behavior is undefined when the start and end transactions do not belong to the same root-to-leaf path.  To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the  `startTransactionRid` and `endTransactionRid`.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File. (required)
         :type dataset_rid: str
@@ -1044,9 +1141,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1057,33 +1156,47 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if file_path is not None:
-            _path_params["filePath"] = file_path
+            _path_params['filePath'] = file_path
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if start_transaction_rid is not None:
-            _query_params.append(("startTransactionRid", start_transaction_rid))
-
+            
+            _query_params.append(('startTransactionRid', start_transaction_rid))
+            
         if end_transaction_rid is not None:
-            _query_params.append(("endTransactionRid", end_transaction_rid))
-
+            
+            _query_params.append(('endTransactionRid', end_transaction_rid))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "File"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "File"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/files/{filePath}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1092,7 +1205,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -1105,28 +1218,27 @@ class DatasetsApiServiceApi:
     def get_schema(
         self,
         dataset_rid: Annotated[StrictStr, Field(description="The RID of the Dataset. ")],
-        branch_id: Annotated[
-            Optional[StrictStr], Field(description="The ID of the Branch. ")
-        ] = None,
-        transaction_rid: Annotated[
-            Optional[StrictStr], Field(description="The TransactionRid that contains the Schema. ")
-        ] = None,
+        branch_id: Annotated[Optional[StrictStr], Field(description="The ID of the Branch. ")] = None,
+        transaction_rid: Annotated[Optional[StrictStr], Field(description="The TransactionRid that contains the Schema. ")] = None,
         preview: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> object:
         """get_schema
 
-        Retrieves the Schema for a Dataset and Branch, if it exists.
+        Retrieves the Schema for a Dataset and Branch, if it exists. 
 
         :param dataset_rid: The RID of the Dataset.  (required)
         :type dataset_rid: str
-        :param branch_id: The ID of the Branch.
+        :param branch_id: The ID of the Branch. 
         :type branch_id: str
-        :param transaction_rid: The TransactionRid that contains the Schema.
+        :param transaction_rid: The TransactionRid that contains the Schema. 
         :type transaction_rid: str
         :param preview:
         :type preview: bool
@@ -1136,9 +1248,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1149,31 +1263,46 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if transaction_rid is not None:
-            _query_params.append(("transactionRid", transaction_rid))
-
+            
+            _query_params.append(('transactionRid', transaction_rid))
+            
         if preview is not None:
-            _query_params.append(("preview", preview))
-
+            
+            _query_params.append(('preview', preview))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "object", "204": None}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '204': None
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/schema",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/schema',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1182,7 +1311,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -1194,24 +1323,20 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def get_transaction(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset that contains the Transaction."
-            ),
-        ],
-        transaction_rid: Annotated[
-            StrictStr, Field(description="The Resource Identifier (RID) of the Transaction.")
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset that contains the Transaction.")],
+        transaction_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Transaction.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> Transaction:
         """get_transaction
 
-        Gets a Transaction of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Gets a Transaction of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction. (required)
         :type dataset_rid: str
@@ -1223,9 +1348,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1236,24 +1363,35 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         if transaction_rid is not None:
-            _path_params["transactionRid"] = transaction_rid
+            _path_params['transactionRid'] = transaction_rid
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Transaction"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/transactions/{transactionRid}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1262,7 +1400,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -1274,32 +1412,25 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def list_branches(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset on which to list Branches."
-            ),
-        ],
-        page_size: Annotated[
-            Optional[StrictInt],
-            Field(
-                description="The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
-            ),
-        ] = None,
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset on which to list Branches.")],
+        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> ListBranchesResponse:
         """list_branches
 
-        Lists the Branches of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Lists the Branches of a Dataset.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches. (required)
         :type dataset_rid: str
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -1309,9 +1440,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1322,28 +1455,41 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if page_size is not None:
-            _query_params.append(("pageSize", page_size))
-
+            
+            _query_params.append(('pageSize', page_size))
+            
         if page_token is not None:
-            _query_params.append(("pageToken", page_token))
-
+            
+            _query_params.append(('pageToken', page_token))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "ListBranchesResponse"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListBranchesResponse"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/branches",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/branches',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1352,7 +1498,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -1364,42 +1510,24 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def list_files(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset on which to list Files."
-            ),
-        ],
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments."
-            ),
-        ] = None,
-        start_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the start Transaction."),
-        ] = None,
-        end_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the end Transaction."),
-        ] = None,
-        page_size: Annotated[
-            Optional[StrictInt],
-            Field(
-                description="The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
-            ),
-        ] = None,
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset on which to list Files.")],
+        branch_id: Annotated[Optional[StrictStr], Field(description="The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.")] = None,
+        start_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the start Transaction.")] = None,
+        end_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the end Transaction.")] = None,
+        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> ListFilesResponse:
         """list_files
 
-        Lists Files contained in a Dataset. By default files are listed on the latest view of the default  branch - `master` for most enrollments.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.  To **list files on a specific Branch** specify the Branch's identifier as `branchId`. This will include the most recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the  branch if there are no snapshot transactions.  To **list files on the resolved view of a transaction** specify the Transaction's resource identifier as `endTransactionRid`. This will include the most recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.  To **list files on the resolved view of a range of transactions** specify the the start transaction's resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This will include the most recent version of all files since the `startTransactionRid` up to the `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior is undefined when  the start and end transactions do not belong to the same root-to-leaf path.  To **list files on a specific transaction** specify the Transaction's resource identifier as both the  `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that Transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Lists Files contained in a Dataset. By default files are listed on the latest view of the default  branch - `master` for most enrollments.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.  To **list files on a specific Branch** specify the Branch's identifier as `branchId`. This will include the most recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the  branch if there are no snapshot transactions.  To **list files on the resolved view of a transaction** specify the Transaction's resource identifier as `endTransactionRid`. This will include the most recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.  To **list files on the resolved view of a range of transactions** specify the the start transaction's resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This will include the most recent version of all files since the `startTransactionRid` up to the `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior is undefined when  the start and end transactions do not belong to the same root-to-leaf path.  To **list files on a specific transaction** specify the Transaction's resource identifier as both the  `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that Transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files. (required)
         :type dataset_rid: str
@@ -1409,7 +1537,7 @@ class DatasetsApiServiceApi:
         :type start_transaction_rid: str
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: str
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -1419,9 +1547,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1432,37 +1562,53 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if start_transaction_rid is not None:
-            _query_params.append(("startTransactionRid", start_transaction_rid))
-
+            
+            _query_params.append(('startTransactionRid', start_transaction_rid))
+            
         if end_transaction_rid is not None:
-            _query_params.append(("endTransactionRid", end_transaction_rid))
-
+            
+            _query_params.append(('endTransactionRid', end_transaction_rid))
+            
         if page_size is not None:
-            _query_params.append(("pageSize", page_size))
-
+            
+            _query_params.append(('pageSize', page_size))
+            
         if page_token is not None:
-            _query_params.append(("pageToken", page_token))
-
+            
+            _query_params.append(('pageToken', page_token))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "ListFilesResponse"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListFilesResponse"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/files",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/files',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1471,7 +1617,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -1483,30 +1629,28 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def put_schema(
         self,
-        dataset_rid: Annotated[
-            StrictStr, Field(description="The RID of the Dataset on which to put the Schema. ")
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The RID of the Dataset on which to put the Schema. ")],
         body: Dict[str, Any],
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(description="The ID of the Branch on which to put the Schema. "),
-        ] = None,
+        branch_id: Annotated[Optional[StrictStr], Field(description="The ID of the Branch on which to put the Schema. ")] = None,
         preview: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> None:
         """put_schema
 
-        Puts a Schema on an existing Dataset and Branch.
+        Puts a Schema on an existing Dataset and Branch. 
 
         :param dataset_rid: The RID of the Dataset on which to put the Schema.  (required)
         :type dataset_rid: str
         :param body: (required)
         :type body: object
-        :param branch_id: The ID of the Branch on which to put the Schema.
+        :param branch_id: The ID of the Branch on which to put the Schema. 
         :type branch_id: str
         :param preview:
         :type preview: bool
@@ -1516,9 +1660,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1529,32 +1675,46 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if preview is not None:
-            _query_params.append(("preview", preview))
-
+            
+            _query_params.append(('preview', preview))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
         if body is not None:
             _body_params = body
 
+
+
         # set the HTTP header `Content-Type`
-        _default_content_type = self._api_client.select_header_content_type(["application/json"])
+        _default_content_type = (
+            self._api_client.select_header_content_type(
+                [
+                    'application/json'
+                ]
+            )
+        )
         if _default_content_type is not None:
-            _header_params["Content-Type"] = _default_content_type
+            _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {}
+        _response_types_map: Dict[str, Optional[str]] = {
+            
+        }
         response_data = self._api_client.call_api(
-            method="PUT",
-            resource_path="/v1/datasets/{datasetRid}/schema",
+            method='PUT',
+            resource_path='/v1/datasets/{datasetRid}/schema',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1563,7 +1723,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -1576,47 +1736,25 @@ class DatasetsApiServiceApi:
     def read_table(
         self,
         dataset_rid: Annotated[StrictStr, Field(description="The RID of the Dataset. ")],
-        format: Annotated[
-            TableExportFormat, Field(description="The export format. Must be `ARROW` or `CSV`. ")
-        ],
-        branch_id: Annotated[
-            Optional[StrictStr], Field(description="The identifier (name) of the Branch.")
-        ] = None,
-        start_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the start Transaction."),
-        ] = None,
-        end_transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(description="The Resource Identifier (RID) of the end Transaction."),
-        ] = None,
-        columns: Annotated[
-            Optional[List[StrictStr]],
-            Field(
-                description="A subset of the dataset columns to include in the result. Defaults to all columns. "
-            ),
-        ] = None,
-        row_limit: Annotated[
-            Optional[StrictInt],
-            Field(
-                description="A limit on the number of rows to return. Note that row ordering is non-deterministic. "
-            ),
-        ] = None,
-        preview: Annotated[
-            Optional[StrictBool],
-            Field(
-                description="A boolean flag that, when set to true, enables the use of beta features in preview mode. "
-            ),
-        ] = None,
+        format: Annotated[TableExportFormat, Field(description="The export format. Must be `ARROW` or `CSV`. ")],
+        branch_id: Annotated[Optional[StrictStr], Field(description="The identifier (name) of the Branch.")] = None,
+        start_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the start Transaction.")] = None,
+        end_transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the end Transaction.")] = None,
+        columns: Annotated[Optional[List[StrictStr]], Field(description="A subset of the dataset columns to include in the result. Defaults to all columns. ")] = None,
+        row_limit: Annotated[Optional[StrictInt], Field(description="A limit on the number of rows to return. Note that row ordering is non-deterministic. ")] = None,
+        preview: Annotated[Optional[StrictBool], Field(description="A boolean flag that, when set to true, enables the use of beta features in preview mode. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> bytearray:
         """read_table
 
-        :::callout{theme=warning title=Warning}   This endpoint is in preview and may be modified or removed at any time.   To use this endpoint, add `preview=true` to the request query parameters.   Furthermore, this endpoint currently does not support views (Virtual datasets composed of other datasets). :::  Gets the content of a dataset as a table in the specified format.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        :::callout{theme=warning title=Warning}   This endpoint is in preview and may be modified or removed at any time.   To use this endpoint, add `preview=true` to the request query parameters.   Furthermore, this endpoint currently does not support views (Virtual datasets composed of other datasets). :::  Gets the content of a dataset as a table in the specified format.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`. 
 
         :param dataset_rid: The RID of the Dataset.  (required)
         :type dataset_rid: str
@@ -1628,11 +1766,11 @@ class DatasetsApiServiceApi:
         :type start_transaction_rid: str
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: str
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns. 
         :type columns: List[str]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic. 
         :type row_limit: int
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode. 
         :type preview: bool
         :param _request_timeout: timeout setting for this request in seconds. If
                                  one number provided, it will be total request
@@ -1640,10 +1778,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
         _collection_formats: Dict[str, str] = {
-            "columns": "multi",
+            
+            'columns': 'multi',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1655,43 +1794,61 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if start_transaction_rid is not None:
-            _query_params.append(("startTransactionRid", start_transaction_rid))
-
+            
+            _query_params.append(('startTransactionRid', start_transaction_rid))
+            
         if end_transaction_rid is not None:
-            _query_params.append(("endTransactionRid", end_transaction_rid))
-
+            
+            _query_params.append(('endTransactionRid', end_transaction_rid))
+            
         if format is not None:
-            _query_params.append(("format", format.value))
-
+            
+            _query_params.append(('format', format.value))
+            
         if columns is not None:
-            _query_params.append(("columns", columns))
-
+            
+            _query_params.append(('columns', columns))
+            
         if row_limit is not None:
-            _query_params.append(("rowLimit", row_limit))
-
+            
+            _query_params.append(('rowLimit', row_limit))
+            
         if preview is not None:
-            _query_params.append(("preview", preview))
-
+            
+            _query_params.append(('preview', preview))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["*/*"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                '*/*'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "bytearray"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "bytearray"
+            
+        }
         response_data = self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/readTable",
+            method='GET',
+            resource_path='/v1/datasets/{datasetRid}/readTable',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1700,7 +1857,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(
@@ -1712,41 +1869,24 @@ class DatasetsApiServiceApi:
     @handle_unexpected
     def upload_file(
         self,
-        dataset_rid: Annotated[
-            StrictStr,
-            Field(
-                description="The Resource Identifier (RID) of the Dataset on which to upload the File."
-            ),
-        ],
+        dataset_rid: Annotated[StrictStr, Field(description="The Resource Identifier (RID) of the Dataset on which to upload the File.")],
         file_path: Annotated[StrictStr, Field(description="The File's path within the Dataset.")],
         body: Union[StrictBytes, StrictStr],
-        branch_id: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The identifier (name) of the Branch on which to upload the File. Defaults to `master` for most enrollments."
-            ),
-        ] = None,
-        transaction_type: Annotated[
-            Optional[TransactionType],
-            Field(
-                description="The type of the Transaction to create when using branchId. Defaults to `UPDATE`."
-            ),
-        ] = None,
-        transaction_rid: Annotated[
-            Optional[StrictStr],
-            Field(
-                description="The Resource Identifier (RID) of the open Transaction on which to upload the File."
-            ),
-        ] = None,
+        branch_id: Annotated[Optional[StrictStr], Field(description="The identifier (name) of the Branch on which to upload the File. Defaults to `master` for most enrollments.")] = None,
+        transaction_type: Annotated[Optional[TransactionType], Field(description="The type of the Transaction to create when using branchId. Defaults to `UPDATE`.")] = None,
+        transaction_rid: Annotated[Optional[StrictStr], Field(description="The Resource Identifier (RID) of the open Transaction on which to upload the File.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
         ] = None,
     ) -> File:
         """upload_file
 
-        Uploads a File to an existing Dataset. The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.  By default the file is uploaded to a new transaction on the default branch - `master` for most enrollments. If the file already exists only the most recent version will be visible in the updated view.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.   To **upload a file to a specific Branch** specify the Branch's identifier as `branchId`. A new transaction will  be created and committed on this branch. By default the TransactionType will be `UPDATE`, to override this default specify `transactionType` in addition to `branchId`.  See [createBranch](/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.  To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as `transactionRid`. This is useful for uploading multiple files in a single transaction.  See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Uploads a File to an existing Dataset. The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.  By default the file is uploaded to a new transaction on the default branch - `master` for most enrollments. If the file already exists only the most recent version will be visible in the updated view.  #### Advanced Usage  See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.   To **upload a file to a specific Branch** specify the Branch's identifier as `branchId`. A new transaction will  be created and committed on this branch. By default the TransactionType will be `UPDATE`, to override this default specify `transactionType` in addition to `branchId`.  See [createBranch](/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.  To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as `transactionRid`. This is useful for uploading multiple files in a single transaction.  See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`. 
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to upload the File. (required)
         :type dataset_rid: str
@@ -1766,9 +1906,11 @@ class DatasetsApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """  # noqa: E501
+        """ # noqa: E501
 
-        _collection_formats: Dict[str, str] = {}
+        _collection_formats: Dict[str, str] = {
+            
+        }
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1779,20 +1921,24 @@ class DatasetsApiServiceApi:
 
         # process the path parameters
         if dataset_rid is not None:
-            _path_params["datasetRid"] = dataset_rid
+            _path_params['datasetRid'] = dataset_rid
         # process the query parameters
         if file_path is not None:
-            _query_params.append(("filePath", file_path))
-
+            
+            _query_params.append(('filePath', file_path))
+            
         if branch_id is not None:
-            _query_params.append(("branchId", branch_id))
-
+            
+            _query_params.append(('branchId', branch_id))
+            
         if transaction_type is not None:
-            _query_params.append(("transactionType", transaction_type.value))
-
+            
+            _query_params.append(('transactionType', transaction_type.value))
+            
         if transaction_rid is not None:
-            _query_params.append(("transactionRid", transaction_rid))
-
+            
+            _query_params.append(('transactionRid', transaction_rid))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -1804,16 +1950,27 @@ class DatasetsApiServiceApi:
             else:
                 _body_params = body
 
+
         # set the HTTP header `Accept`
-        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
+        _header_params['Accept'] = self._api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
 
         # authentication setting
-        _auth_settings: List[str] = ["BearerAuth"]
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
 
-        _response_types_map: Dict[str, Optional[str]] = {"200": "File"}
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "File"
+            
+        }
         response_data = self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/files:upload",
+            method='POST',
+            resource_path='/v1/datasets/{datasetRid}/files:upload',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1822,7 +1979,7 @@ class DatasetsApiServiceApi:
             files=_files,
             auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
+            _request_timeout=_request_timeout
         )
         response_data.read()
         return self._api_client.response_deserialize(

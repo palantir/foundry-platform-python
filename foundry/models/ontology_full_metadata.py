@@ -41,19 +41,22 @@ from foundry.models.ontology_v2 import OntologyV2
 from foundry.models.query_type_v2 import QueryTypeV2
 from typing_extensions import Self
 
-
 class OntologyFullMetadata(BaseModel):
     """
     OntologyFullMetadata
-    """  # noqa: E501
-
+    """ # noqa: E501
     action_types: Optional[Dict[str, ActionTypeV2]] = Field(default=None, alias="actionTypes")
     object_types: Optional[Dict[str, ObjectTypeWithLink]] = Field(default=None, alias="objectTypes")
     ontology: OntologyV2
     query_types: Optional[Dict[str, QueryTypeV2]] = Field(default=None, alias="queryTypes")
     __properties: ClassVar[Set[str]] = set(("actionTypes", "objectTypes", "ontology", "queryTypes"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -81,7 +84,8 @@ class OntologyFullMetadata(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each value in action_types (dict)
@@ -90,24 +94,24 @@ class OntologyFullMetadata(BaseModel):
             for _key in self.action_types:
                 if self.action_types[_key]:
                     _field_dict[_key] = self.action_types[_key].to_dict()
-            _dict["actionTypes"] = _field_dict
+            _dict['actionTypes'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each value in object_types (dict)
         _field_dict = {}
         if self.object_types:
             for _key in self.object_types:
                 if self.object_types[_key]:
                     _field_dict[_key] = self.object_types[_key].to_dict()
-            _dict["objectTypes"] = _field_dict
+            _dict['objectTypes'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of ontology
         if self.ontology:
-            _dict["ontology"] = self.ontology.to_dict()
+            _dict['ontology'] = self.ontology.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each value in query_types (dict)
         _field_dict = {}
         if self.query_types:
             for _key in self.query_types:
                 if self.query_types[_key]:
                     _field_dict[_key] = self.query_types[_key].to_dict()
-            _dict["queryTypes"] = _field_dict
+            _dict['queryTypes'] = _field_dict
         return _dict
 
     @classmethod
@@ -119,10 +123,12 @@ class OntologyFullMetadata(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

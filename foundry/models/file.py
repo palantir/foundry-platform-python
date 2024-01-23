@@ -37,24 +37,22 @@ from pydantic import BaseModel, StrictStr
 from pydantic import Field
 from typing_extensions import Self
 
-
 class File(BaseModel):
     """
     File
-    """  # noqa: E501
-
-    path: StrictStr = Field(
-        description="The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`. "
-    )
+    """ # noqa: E501
+    path: StrictStr = Field(description="The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`. ")
     size_bytes: Optional[StrictStr] = Field(default=None, alias="sizeBytes")
-    transaction_rid: StrictStr = Field(
-        description="The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`. ",
-        alias="transactionRid",
-    )
+    transaction_rid: StrictStr = Field(description="The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`. ", alias="transactionRid")
     updated_time: datetime = Field(alias="updatedTime")
     __properties: ClassVar[Set[str]] = set(("path", "sizeBytes", "transactionRid", "updatedTime"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -82,7 +80,8 @@ class File(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -96,10 +95,12 @@ class File(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

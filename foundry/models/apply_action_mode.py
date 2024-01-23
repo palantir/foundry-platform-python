@@ -33,6 +33,7 @@ import re  # noqa: F401
 from enum import Enum
 
 
+
 try:
     from typing import Self
 except ImportError:
@@ -47,10 +48,12 @@ class ApplyActionMode(str, Enum):
     """
     allowed enum values
     """
-    VALIDATE_ONLY = "VALIDATE_ONLY"
-    VALIDATE_AND_EXECUTE = "VALIDATE_AND_EXECUTE"
+    VALIDATE_ONLY = 'VALIDATE_ONLY'
+    VALIDATE_AND_EXECUTE = 'VALIDATE_AND_EXECUTE'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of ApplyActionMode from a JSON string"""
         return cls(json.loads(json_str))
+
+

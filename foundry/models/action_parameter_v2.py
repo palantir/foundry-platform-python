@@ -38,18 +38,21 @@ from pydantic import Field
 from foundry.models.action_parameter_type import ActionParameterType
 from typing_extensions import Self
 
-
 class ActionParameterV2(BaseModel):
     """
     Details about a parameter of an action.
-    """  # noqa: E501
-
+    """ # noqa: E501
     data_type: ActionParameterType = Field(alias="dataType")
     description: Optional[StrictStr] = None
     required: StrictBool
     __properties: ClassVar[Set[str]] = set(("dataType", "description", "required"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -77,12 +80,13 @@ class ActionParameterV2(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of data_type
         if self.data_type:
-            _dict["dataType"] = self.data_type.to_dict()
+            _dict['dataType'] = self.data_type.to_dict()
         return _dict
 
     @classmethod
@@ -94,10 +98,12 @@ class ActionParameterV2(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

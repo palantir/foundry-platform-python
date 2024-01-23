@@ -40,49 +40,26 @@ from foundry.models.object_type_visibility import ObjectTypeVisibility
 from foundry.models.release_status import ReleaseStatus
 from typing_extensions import Self
 
-
 class ObjectType(BaseModel):
     """
     Represents an object type in the Ontology.
-    """  # noqa: E501
-
-    api_name: StrictStr = Field(
-        description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ",
-        alias="apiName",
-    )
-    description: Optional[StrictStr] = Field(
-        default=None, description="The description of the object type."
-    )
-    display_name: Optional[StrictStr] = Field(
-        default=None, description="The display name of the entity.", alias="displayName"
-    )
-    primary_key: Optional[List[StrictStr]] = Field(
-        default=None,
-        description="The primary key of the object. This is a list of properties that can be used to uniquely identify the object.",
-        alias="primaryKey",
-    )
-    properties: Optional[Dict[str, ModelProperty]] = Field(
-        default=None, description="A map of the properties of the object type."
-    )
-    rid: StrictStr = Field(
-        description="The unique resource identifier of an object type, useful for interacting with other Foundry APIs."
-    )
+    """ # noqa: E501
+    api_name: StrictStr = Field(description="The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**. ", alias="apiName")
+    description: Optional[StrictStr] = Field(default=None, description="The description of the object type.")
+    display_name: Optional[StrictStr] = Field(default=None, description="The display name of the entity.", alias="displayName")
+    primary_key: Optional[List[StrictStr]] = Field(default=None, description="The primary key of the object. This is a list of properties that can be used to uniquely identify the object.", alias="primaryKey")
+    properties: Optional[Dict[str, ModelProperty]] = Field(default=None, description="A map of the properties of the object type.")
+    rid: StrictStr = Field(description="The unique resource identifier of an object type, useful for interacting with other Foundry APIs.")
     status: ReleaseStatus
     visibility: Optional[ObjectTypeVisibility] = None
-    __properties: ClassVar[Set[str]] = set(
-        (
-            "apiName",
-            "description",
-            "displayName",
-            "primaryKey",
-            "properties",
-            "rid",
-            "status",
-            "visibility",
-        )
-    )
+    __properties: ClassVar[Set[str]] = set(("apiName", "description", "displayName", "primaryKey", "properties", "rid", "status", "visibility"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -110,7 +87,8 @@ class ObjectType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each value in properties (dict)
@@ -119,7 +97,7 @@ class ObjectType(BaseModel):
             for _key in self.properties:
                 if self.properties[_key]:
                     _field_dict[_key] = self.properties[_key].to_dict()
-            _dict["properties"] = _field_dict
+            _dict['properties'] = _field_dict
         return _dict
 
     @classmethod
@@ -131,10 +109,12 @@ class ObjectType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

@@ -20,7 +20,6 @@ from pydantic import Field, StrictInt, StrictStr, StrictBytes, BaseModel
 
 T = TypeVar("T")
 
-
 class ApiResponse(BaseModel, Generic[T]):
     """
     API response object
@@ -31,4 +30,6 @@ class ApiResponse(BaseModel, Generic[T]):
     data: T = Field(description="Deserialized data given the data type")
     raw_data: StrictBytes = Field(description="Raw data (HTTP response body)")
 
-    model_config = {"arbitrary_types_allowed": True}
+    model_config = {
+        "arbitrary_types_allowed": True
+    }

@@ -36,16 +36,19 @@ from typing import Set
 from pydantic import BaseModel, StrictStr
 from typing_extensions import Self
 
-
 class DuplicateOrderByParameters(BaseModel):
     """
     DuplicateOrderByParameters
-    """  # noqa: E501
-
+    """ # noqa: E501
     properties: Optional[List[StrictStr]] = None
     __properties: ClassVar[Set[str]] = set(("properties"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -73,7 +76,8 @@ class DuplicateOrderByParameters(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -87,10 +91,12 @@ class DuplicateOrderByParameters(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

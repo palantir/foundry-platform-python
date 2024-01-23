@@ -38,23 +38,20 @@ from pydantic import Field
 from foundry.models.link_type_side import LinkTypeSide
 from typing_extensions import Self
 
-
 class ListOutgoingLinkTypesResponse(BaseModel):
     """
     ListOutgoingLinkTypesResponse
-    """  # noqa: E501
-
-    data: Optional[List[LinkTypeSide]] = Field(
-        default=None, description="The list of link type sides in the current page."
-    )
-    next_page_token: Optional[StrictStr] = Field(
-        default=None,
-        description="The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and populate the next request's `pageToken` field with it. ",
-        alias="nextPageToken",
-    )
+    """ # noqa: E501
+    data: Optional[List[LinkTypeSide]] = Field(default=None, description="The list of link type sides in the current page.")
+    next_page_token: Optional[StrictStr] = Field(default=None, description="The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and populate the next request's `pageToken` field with it. ", alias="nextPageToken")
     __properties: ClassVar[Set[str]] = set(("data", "nextPageToken"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -82,7 +79,8 @@ class ListOutgoingLinkTypesResponse(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in data (list)
@@ -91,7 +89,7 @@ class ListOutgoingLinkTypesResponse(BaseModel):
             for _item in self.data:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict["data"] = _items
+            _dict['data'] = _items
         return _dict
 
     @classmethod
@@ -103,10 +101,12 @@ class ListOutgoingLinkTypesResponse(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

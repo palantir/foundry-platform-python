@@ -33,6 +33,7 @@ import re  # noqa: F401
 from enum import Enum
 
 
+
 try:
     from typing import Self
 except ImportError:
@@ -47,10 +48,12 @@ class LanguageModelSource(str, Enum):
     """
     allowed enum values
     """
-    GLOBAL = "global"
-    HOSTED = "hosted"
+    GLOBAL = 'global'
+    HOSTED = 'hosted'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of LanguageModelSource from a JSON string"""
         return cls(json.loads(json_str))
+
+

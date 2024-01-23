@@ -37,23 +37,20 @@ from pydantic import BaseModel, StrictStr
 from pydantic import Field
 from typing_extensions import Self
 
-
 class CreateBranchRequest(BaseModel):
     """
     CreateBranchRequest
-    """  # noqa: E501
-
-    branch_id: StrictStr = Field(
-        description="The identifier (name) of a Branch. Example: `master`. ", alias="branchId"
-    )
-    transaction_rid: Optional[StrictStr] = Field(
-        default=None,
-        description="The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`. ",
-        alias="transactionRid",
-    )
+    """ # noqa: E501
+    branch_id: StrictStr = Field(description="The identifier (name) of a Branch. Example: `master`. ", alias="branchId")
+    transaction_rid: Optional[StrictStr] = Field(default=None, description="The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`. ", alias="transactionRid")
     __properties: ClassVar[Set[str]] = set(("branchId", "transactionRid"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -81,7 +78,8 @@ class CreateBranchRequest(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         return _dict
@@ -95,10 +93,12 @@ class CreateBranchRequest(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

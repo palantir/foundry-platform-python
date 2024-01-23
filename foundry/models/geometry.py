@@ -30,7 +30,6 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
-
 try:
     from typing import Annotated
 except ImportError:
@@ -55,18 +54,19 @@ from foundry.models.polygon import Polygon
 
 class GeometryCollection(BaseModel):
     """
-    GeoJSon geometry collection  GeometryCollections composed of a single part or a number of parts of a single type SHOULD be avoided when that single part or a single object of multipart type (MultiPoint, MultiLineString, or MultiPolygon) could be used instead.
-    """  # noqa: E501
-
-    bbox: Optional[List[Union[StrictFloat, StrictInt]]] = Field(
-        default=None,
-        description='A GeoJSON object MAY have a member named "bbox" to include information on the coordinate range for its Geometries, Features, or FeatureCollections. The value of the bbox member MUST be an array of length 2*n where n is the number of dimensions represented in the contained geometries, with all axes of the most southwesterly point followed by all axes of the more northeasterly point. The axes order of a bbox follows the axes order of geometries. ',
-    )
+    GeoJSon geometry collection  GeometryCollections composed of a single part or a number of parts of a single type SHOULD be avoided when that single part or a single object of multipart type (MultiPoint, MultiLineString, or MultiPolygon) could be used instead. 
+    """ # noqa: E501
+    bbox: Optional[List[Union[StrictFloat, StrictInt]]] = Field(default=None, description="A GeoJSON object MAY have a member named \"bbox\" to include information on the coordinate range for its Geometries, Features, or FeatureCollections. The value of the bbox member MUST be an array of length 2*n where n is the number of dimensions represented in the contained geometries, with all axes of the most southwesterly point followed by all axes of the more northeasterly point. The axes order of a bbox follows the axes order of geometries. ")
     geometries: Optional[Annotated[List[Geometry], Field(min_length=0)]] = None
     type: Literal["GeometryCollection"]
     __properties: ClassVar[Set[str]] = set(("bbox", "geometries", "type"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -94,7 +94,8 @@ class GeometryCollection(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in geometries (list)
@@ -103,7 +104,7 @@ class GeometryCollection(BaseModel):
             for _item in self.geometries:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict["geometries"] = _items
+            _dict['geometries'] = _items
         return _dict
 
     @classmethod
@@ -115,14 +116,13 @@ class GeometryCollection(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
 
 # TODO: Rewrite to not use raise_errors
 GeometryCollection.model_rebuild(raise_errors=False)
@@ -131,12 +131,9 @@ GeometryCollection.model_rebuild(raise_errors=False)
 """
 Abstract type for all GeoJSon object except Feature and FeatureCollection
 """
-Geometry = Annotated[
-    Union[
-        GeoPoint, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Polygon
-    ],
-    Field(discriminator="type"),
-]
+Geometry = Annotated[Union[GeoPoint, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Polygon], Field(discriminator="type")]
+
+
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according

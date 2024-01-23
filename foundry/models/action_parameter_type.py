@@ -30,7 +30,6 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
-
 try:
     from typing import Annotated
 except ImportError:
@@ -58,13 +57,17 @@ from foundry.models.timestamp_type import TimestampType
 class ActionParameterArrayType(BaseModel):
     """
     ActionParameterArrayType
-    """  # noqa: E501
-
+    """ # noqa: E501
     sub_type: ActionParameterType = Field(alias="subType")
     type: Literal["array"]
     __properties: ClassVar[Set[str]] = set(("subType", "type"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -92,12 +95,13 @@ class ActionParameterArrayType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of sub_type
         if self.sub_type:
-            _dict["subType"] = self.sub_type.to_dict()
+            _dict['subType'] = self.sub_type.to_dict()
         return _dict
 
     @classmethod
@@ -109,14 +113,13 @@ class ActionParameterArrayType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
 
 # TODO: Rewrite to not use raise_errors
 ActionParameterArrayType.model_rebuild(raise_errors=False)
@@ -125,22 +128,9 @@ ActionParameterArrayType.model_rebuild(raise_errors=False)
 """
 A union of all the types supported by Ontology Action parameters. 
 """
-ActionParameterType = Annotated[
-    Union[
-        ActionParameterArrayType,
-        AttachmentType,
-        BooleanType,
-        DateType,
-        DoubleType,
-        IntegerType,
-        LongType,
-        OntologyObjectSetType,
-        OntologyObjectType,
-        StringType,
-        TimestampType,
-    ],
-    Field(discriminator="type"),
-]
+ActionParameterType = Annotated[Union[ActionParameterArrayType, AttachmentType, BooleanType, DateType, DoubleType, IntegerType, LongType, OntologyObjectSetType, OntologyObjectType, StringType, TimestampType], Field(discriminator="type")]
+
+
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according

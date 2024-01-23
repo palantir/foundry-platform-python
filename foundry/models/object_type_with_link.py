@@ -39,17 +39,20 @@ from foundry.models.link_type_side_v2 import LinkTypeSideV2
 from foundry.models.object_type_v2 import ObjectTypeV2
 from typing_extensions import Self
 
-
 class ObjectTypeWithLink(BaseModel):
     """
     ObjectTypeWithLink
-    """  # noqa: E501
-
+    """ # noqa: E501
     link_types: Optional[List[LinkTypeSideV2]] = Field(default=None, alias="linkTypes")
     object_type: ObjectTypeV2 = Field(alias="objectType")
     __properties: ClassVar[Set[str]] = set(("linkTypes", "objectType"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -77,7 +80,8 @@ class ObjectTypeWithLink(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in link_types (list)
@@ -86,10 +90,10 @@ class ObjectTypeWithLink(BaseModel):
             for _item in self.link_types:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict["linkTypes"] = _items
+            _dict['linkTypes'] = _items
         # override the default output from pydantic by calling `to_dict()` of object_type
         if self.object_type:
-            _dict["objectType"] = self.object_type.to_dict()
+            _dict['objectType'] = self.object_type.to_dict()
         return _dict
 
     @classmethod
@@ -101,10 +105,12 @@ class ObjectTypeWithLink(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

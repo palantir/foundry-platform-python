@@ -30,7 +30,6 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
-
 try:
     from typing import Annotated
 except ImportError:
@@ -46,17 +45,16 @@ from foundry.models.integer_type import IntegerType
 from foundry.models.timestamp_type import TimestampType
 
 
+
 """
 A union of all the types supported by query aggregation ranges. 
 """
-QueryAggregationRangeSubType = Annotated[
-    Union[DateType, DoubleType, IntegerType, TimestampType], Field(discriminator="type")
-]
+QueryAggregationRangeSubType = Annotated[Union[DateType, DoubleType, IntegerType, TimestampType], Field(discriminator="type")]
+
+
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according
 # to the documentation so we do this once. This also forces us to validate the
 # correctness of the discriminator.
-object.__setattr__(
-    QueryAggregationRangeSubType, "type_adapter", TypeAdapter(QueryAggregationRangeSubType)
-)
+object.__setattr__(QueryAggregationRangeSubType, "type_adapter", TypeAdapter(QueryAggregationRangeSubType))
