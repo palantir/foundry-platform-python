@@ -20,6 +20,7 @@ import base64
 
 from urllib.parse import urlencode
 from typing import Optional
+from typing import List
 
 import requests
 from pydantic import BaseModel
@@ -116,7 +117,7 @@ class ConfidentialClientOAuthFlowProvider:
         client_secret: str,
         url: str,
         multipass_context_path: Optional[str] = None,
-        scopes: Optional[list[str]] = None,
+        scopes: Optional[List[str]] = None,
     ):
         self._client_id = client_id
         self._client_secret = client_secret

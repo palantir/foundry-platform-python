@@ -75,7 +75,7 @@ workflows:
             parameters:
               python_version: ["3.12"]
               pydantic_version: ["2.4"]
-              requests_version: ["2.22", "2.24", "2.26", "2.31"]
+              requests_version: ["2.25", "2.26", "2.31"]
       - pyright:
         <<: *always-run
       - black:
@@ -95,8 +95,7 @@ workflows:
             - pydantic-2.4
             - pydantic-2.5
 
-            - requests-2.22
-            - requests-2.24
+            - requests-2.25
             - requests-2.26
             - requests-2.31
 
