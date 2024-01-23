@@ -44,6 +44,8 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - run: python scripts/set_version.py
+      - run: poetry version $(git describe --tags --abbrev=0)
       - run: poetry publish -v -u $PYPI_USERNAME -p $PYPI_PASSWORD --build
 
 workflows:

@@ -49,6 +49,7 @@ from foundry.auth._auth_utils import Token
 from foundry.configuration import Configuration
 import foundry.models
 from foundry import rest
+from foundry.versions import __version__
 from foundry.exceptions import (
     ApiValueError,
     ApiException,
@@ -102,7 +103,7 @@ class ApiClient:
         self.rest_client = rest.RESTClientObject(configuration)
 
         self.default_headers = {
-            "User-Agent": "foundry-platform-sdk/0.1.0",
+            "User-Agent": f"foundry-platform-sdk/{__version__}",
         }
 
         if header_name is not None and header_value is not None:

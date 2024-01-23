@@ -12,7 +12,16 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-__version__ = "0.0.0"
-__openapi_document_version__ = "1.738.0"
-__openapi_specification_version__ = "3.0.1"
-__openapi_generator_version__ = "7.1.0"
+import subprocess
+
+gitversion = subprocess.check_output("git describe --tags --abbrev=0".split()).decode().strip()
+
+path = "{{packageName}}/versions.py"
+
+with open(path, "r") as f:
+    content = f.read()
+
+content = content.replace('__version__ = "0.0.0"', f'__version__ = "{gitversion}"')
+
+with open(path, "w") as f:
+    f.write(content)
