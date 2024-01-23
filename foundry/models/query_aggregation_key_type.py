@@ -30,6 +30,7 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
+
 try:
     from typing import Annotated
 except ImportError:
@@ -48,13 +49,21 @@ from foundry.models.string_type import StringType
 from foundry.models.timestamp_type import TimestampType
 
 
-
 """
 A union of all the types supported by query aggregation keys. 
 """
-QueryAggregationKeyType = Annotated[Union[BooleanType, DateType, DoubleType, IntegerType, QueryAggregationRangeType, StringType, TimestampType], Field(discriminator="type")]
-
-
+QueryAggregationKeyType = Annotated[
+    Union[
+        BooleanType,
+        DateType,
+        DoubleType,
+        IntegerType,
+        QueryAggregationRangeType,
+        StringType,
+        TimestampType,
+    ],
+    Field(discriminator="type"),
+]
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according

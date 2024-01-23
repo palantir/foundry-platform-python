@@ -40,25 +40,31 @@ from foundry.models.logic_rule import LogicRule
 from foundry.models.release_status import ReleaseStatus
 from typing_extensions import Self
 
+
 class ActionTypeV2(BaseModel):
     """
     Represents an action type in the Ontology.
-    """ # noqa: E501
-    api_name: StrictStr = Field(description="The name of the action type in the API. To find the API name for your Action Type, use the `List action types` endpoint or check the **Ontology Manager**. ", alias="apiName")
+    """  # noqa: E501
+
+    api_name: StrictStr = Field(
+        description="The name of the action type in the API. To find the API name for your Action Type, use the `List action types` endpoint or check the **Ontology Manager**. ",
+        alias="apiName",
+    )
     description: Optional[StrictStr] = None
-    display_name: Optional[StrictStr] = Field(default=None, description="The display name of the entity.", alias="displayName")
+    display_name: Optional[StrictStr] = Field(
+        default=None, description="The display name of the entity.", alias="displayName"
+    )
     operations: Optional[List[LogicRule]] = None
     parameters: Optional[Dict[str, ActionParameterV2]] = None
-    rid: StrictStr = Field(description="The unique resource identifier of an action type, useful for interacting with other Foundry APIs. ")
+    rid: StrictStr = Field(
+        description="The unique resource identifier of an action type, useful for interacting with other Foundry APIs. "
+    )
     status: ReleaseStatus
-    __properties: ClassVar[Set[str]] = set(("apiName", "description", "displayName", "operations", "parameters", "rid", "status"))
+    __properties: ClassVar[Set[str]] = set(
+        ("apiName", "description", "displayName", "operations", "parameters", "rid", "status")
+    )
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -86,8 +92,7 @@ class ActionTypeV2(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in operations (list)
@@ -96,14 +101,14 @@ class ActionTypeV2(BaseModel):
             for _item in self.operations:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict['operations'] = _items
+            _dict["operations"] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in parameters (dict)
         _field_dict = {}
         if self.parameters:
             for _key in self.parameters:
                 if self.parameters[_key]:
                     _field_dict[_key] = self.parameters[_key].to_dict()
-            _dict['parameters'] = _field_dict
+            _dict["parameters"] = _field_dict
         return _dict
 
     @classmethod
@@ -115,12 +120,10 @@ class ActionTypeV2(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

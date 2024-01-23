@@ -38,20 +38,21 @@ from pydantic import Field
 from foundry.models.query_type_v2 import QueryTypeV2
 from typing_extensions import Self
 
+
 class ListQueryTypesResponseV2(BaseModel):
     """
     ListQueryTypesResponseV2
-    """ # noqa: E501
+    """  # noqa: E501
+
     data: Optional[List[QueryTypeV2]] = None
-    next_page_token: Optional[StrictStr] = Field(default=None, description="The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and populate the next request's `pageToken` field with it. ", alias="nextPageToken")
+    next_page_token: Optional[StrictStr] = Field(
+        default=None,
+        description="The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and populate the next request's `pageToken` field with it. ",
+        alias="nextPageToken",
+    )
     __properties: ClassVar[Set[str]] = set(("data", "nextPageToken"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -79,8 +80,7 @@ class ListQueryTypesResponseV2(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in data (list)
@@ -89,7 +89,7 @@ class ListQueryTypesResponseV2(BaseModel):
             for _item in self.data:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict['data'] = _items
+            _dict["data"] = _items
         return _dict
 
     @classmethod
@@ -101,12 +101,10 @@ class ListQueryTypesResponseV2(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

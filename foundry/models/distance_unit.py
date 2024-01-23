@@ -33,7 +33,6 @@ import re  # noqa: F401
 from enum import Enum
 
 
-
 try:
     from typing import Self
 except ImportError:
@@ -48,19 +47,17 @@ class DistanceUnit(str, Enum):
     """
     allowed enum values
     """
-    MILLIMETERS = 'MILLIMETERS'
-    CENTIMETERS = 'CENTIMETERS'
-    METERS = 'METERS'
-    KILOMETERS = 'KILOMETERS'
-    INCHES = 'INCHES'
-    FEET = 'FEET'
-    YARDS = 'YARDS'
-    MILES = 'MILES'
-    NAUTICAL_MILES = 'NAUTICAL_MILES'
+    MILLIMETERS = "MILLIMETERS"
+    CENTIMETERS = "CENTIMETERS"
+    METERS = "METERS"
+    KILOMETERS = "KILOMETERS"
+    INCHES = "INCHES"
+    FEET = "FEET"
+    YARDS = "YARDS"
+    MILES = "MILES"
+    NAUTICAL_MILES = "NAUTICAL_MILES"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of DistanceUnit from a JSON string"""
         return cls(json.loads(json_str))
-
-

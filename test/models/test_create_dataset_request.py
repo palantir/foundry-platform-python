@@ -39,9 +39,7 @@ def test_to_dict():
 def test_from_fails_bad_type():
     assert pytest.raises(
         ValidationError,
-        lambda: CreateDatasetRequest.from_dict(
-            {"name": "FOLDER_NAME", "parentFolderRid": 123}
-        ),
+        lambda: CreateDatasetRequest.from_dict({"name": "FOLDER_NAME", "parentFolderRid": 123}),
     )
 
 
@@ -55,7 +53,5 @@ def test_from_fails_missing():
 def test_init_fails_bad_type():
     assert pytest.raises(
         ValidationError,
-        lambda: CreateDatasetRequest(
-            name="FOLDER_NAME", parentFolderRid=123  # type: ignore
-        ),
+        lambda: CreateDatasetRequest(name="FOLDER_NAME", parentFolderRid=123),  # type: ignore
     )

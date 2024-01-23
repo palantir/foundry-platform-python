@@ -33,7 +33,6 @@ import re  # noqa: F401
 from enum import Enum
 
 
-
 try:
     from typing import Self
 except ImportError:
@@ -42,18 +41,16 @@ except ImportError:
 
 class TableExportFormat(str, Enum):
     """
-    Format for tabular dataset export. 
+    Format for tabular dataset export.
     """
 
     """
     allowed enum values
     """
-    ARROW = 'ARROW'
-    CSV = 'CSV'
+    ARROW = "ARROW"
+    CSV = "CSV"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of TableExportFormat from a JSON string"""
         return cls(json.loads(json_str))
-
-

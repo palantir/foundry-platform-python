@@ -37,20 +37,20 @@ from pydantic import BaseModel, StrictStr
 from pydantic import Field
 from typing_extensions import Self
 
+
 class InvalidPropertyFiltersCombinationParameters(BaseModel):
     """
     InvalidPropertyFiltersCombinationParameters
-    """ # noqa: E501
-    var_property: StrictStr = Field(description="The name of the property in the API. To find the API name for your property, use the `Get object type` endpoint or check the **Ontology Manager**. ", alias="property")
+    """  # noqa: E501
+
+    var_property: StrictStr = Field(
+        description="The name of the property in the API. To find the API name for your property, use the `Get object type` endpoint or check the **Ontology Manager**. ",
+        alias="property",
+    )
     property_filters: Optional[List[StrictStr]] = Field(default=None, alias="propertyFilters")
     __properties: ClassVar[Set[str]] = set(("property", "propertyFilters"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -78,8 +78,7 @@ class InvalidPropertyFiltersCombinationParameters(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         return _dict
@@ -93,12 +92,10 @@ class InvalidPropertyFiltersCombinationParameters(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

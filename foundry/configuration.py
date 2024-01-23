@@ -49,7 +49,7 @@ class Configuration:
         self.logger["urllib3_logger"] = logging.getLogger("urllib3")
 
         """Log format"""
-        self.logger_format = '%(asctime)s %(levelname)s %(message)s'
+        self.logger_format = "%(asctime)s %(levelname)s %(message)s"
 
         """Log stream handler"""
         self.logger_stream_handler = None
@@ -62,7 +62,6 @@ class Configuration:
 
         """Debug file location"""
         self.debug = False
-
 
         """Adding retries to override urllib3 default value 3"""
         self.retries = None

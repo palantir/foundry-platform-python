@@ -37,10 +37,12 @@ from pydantic import BaseModel, StrictStr
 from pydantic import Field
 from typing_extensions import Self
 
+
 class InvalidRangeQueryParameters(BaseModel):
     """
     InvalidRangeQueryParameters
-    """ # noqa: E501
+    """  # noqa: E501
+
     field: StrictStr
     gt: Optional[Any] = Field(default=None, description="Greater than")
     gte: Optional[Any] = Field(default=None, description="Greater than or equal")
@@ -48,12 +50,7 @@ class InvalidRangeQueryParameters(BaseModel):
     lte: Optional[Any] = Field(default=None, description="Less than or equal")
     __properties: ClassVar[Set[str]] = set(("field", "gt", "gte", "lt", "lte"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -81,29 +78,28 @@ class InvalidRangeQueryParameters(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # set to None if gt (nullable) is None
         # and model_fields_set contains the field
         if self.gt is None and "gt" in self.model_fields_set:
-            _dict['gt'] = None
+            _dict["gt"] = None
 
         # set to None if gte (nullable) is None
         # and model_fields_set contains the field
         if self.gte is None and "gte" in self.model_fields_set:
-            _dict['gte'] = None
+            _dict["gte"] = None
 
         # set to None if lt (nullable) is None
         # and model_fields_set contains the field
         if self.lt is None and "lt" in self.model_fields_set:
-            _dict['lt'] = None
+            _dict["lt"] = None
 
         # set to None if lte (nullable) is None
         # and model_fields_set contains the field
         if self.lte is None and "lte" in self.model_fields_set:
-            _dict['lte'] = None
+            _dict["lte"] = None
 
         return _dict
 
@@ -116,12 +112,10 @@ class InvalidRangeQueryParameters(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

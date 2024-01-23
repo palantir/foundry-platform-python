@@ -37,19 +37,16 @@ from pydantic import BaseModel
 from foundry.models.deployment_transform_api import DeploymentTransformApi
 from typing_extensions import Self
 
+
 class DeploymentApi(BaseModel):
     """
     DeploymentApi
-    """ # noqa: E501
+    """  # noqa: E501
+
     transform: Optional[DeploymentTransformApi] = None
     __properties: ClassVar[Set[str]] = set(("transform"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -77,13 +74,12 @@ class DeploymentApi(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of transform
         if self.transform:
-            _dict['transform'] = self.transform.to_dict()
+            _dict["transform"] = self.transform.to_dict()
         return _dict
 
     @classmethod
@@ -95,12 +91,10 @@ class DeploymentApi(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

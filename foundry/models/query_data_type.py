@@ -30,6 +30,7 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
+
 try:
     from typing import Annotated
 except ImportError:
@@ -62,17 +63,13 @@ from foundry.models.unsupported_type import UnsupportedType
 class QueryUnionType(BaseModel):
     """
     QueryUnionType
-    """ # noqa: E501
+    """  # noqa: E501
+
     type: Literal["union"]
     union_types: Optional[List[QueryDataType]] = Field(default=None, alias="unionTypes")
     __properties: ClassVar[Set[str]] = set(("type", "unionTypes"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -100,8 +97,7 @@ class QueryUnionType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in union_types (list)
@@ -110,7 +106,7 @@ class QueryUnionType(BaseModel):
             for _item in self.union_types:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict['unionTypes'] = _items
+            _dict["unionTypes"] = _items
         return _dict
 
     @classmethod
@@ -122,31 +118,29 @@ class QueryUnionType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 QueryUnionType.model_rebuild(raise_errors=False)
+
 
 class QueryStructField(BaseModel):
     """
     QueryStructField
-    """ # noqa: E501
+    """  # noqa: E501
+
     field_type: QueryDataType = Field(alias="fieldType")
     name: StrictStr = Field(description="The name of a field in a `Struct`. ")
     __properties: ClassVar[Set[str]] = set(("fieldType", "name"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -174,13 +168,12 @@ class QueryStructField(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of field_type
         if self.field_type:
-            _dict['fieldType'] = self.field_type.to_dict()
+            _dict["fieldType"] = self.field_type.to_dict()
         return _dict
 
     @classmethod
@@ -192,31 +185,29 @@ class QueryStructField(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 QueryStructField.model_rebuild(raise_errors=False)
+
 
 class QueryStructType(BaseModel):
     """
     QueryStructType
-    """ # noqa: E501
+    """  # noqa: E501
+
     fields: Optional[List[QueryStructField]] = None
     type: Literal["struct"]
     __properties: ClassVar[Set[str]] = set(("fields", "type"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -244,8 +235,7 @@ class QueryStructType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in fields (list)
@@ -254,7 +244,7 @@ class QueryStructType(BaseModel):
             for _item in self.fields:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict['fields'] = _items
+            _dict["fields"] = _items
         return _dict
 
     @classmethod
@@ -266,31 +256,29 @@ class QueryStructType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 QueryStructType.model_rebuild(raise_errors=False)
+
 
 class QuerySetType(BaseModel):
     """
     QuerySetType
-    """ # noqa: E501
+    """  # noqa: E501
+
     sub_type: QueryDataType = Field(alias="subType")
     type: Literal["set"]
     __properties: ClassVar[Set[str]] = set(("subType", "type"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -318,13 +306,12 @@ class QuerySetType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of sub_type
         if self.sub_type:
-            _dict['subType'] = self.sub_type.to_dict()
+            _dict["subType"] = self.sub_type.to_dict()
         return _dict
 
     @classmethod
@@ -336,31 +323,29 @@ class QuerySetType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 QuerySetType.model_rebuild(raise_errors=False)
+
 
 class QueryArrayType(BaseModel):
     """
     QueryArrayType
-    """ # noqa: E501
+    """  # noqa: E501
+
     sub_type: QueryDataType = Field(alias="subType")
     type: Literal["array"]
     __properties: ClassVar[Set[str]] = set(("subType", "type"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -388,13 +373,12 @@ class QueryArrayType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of sub_type
         if self.sub_type:
-            _dict['subType'] = self.sub_type.to_dict()
+            _dict["subType"] = self.sub_type.to_dict()
         return _dict
 
     @classmethod
@@ -406,13 +390,14 @@ class QueryArrayType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
 
 # TODO: Rewrite to not use raise_errors
 QueryArrayType.model_rebuild(raise_errors=False)
@@ -421,9 +406,30 @@ QueryArrayType.model_rebuild(raise_errors=False)
 """
 A union of all the types supported by Ontology Query parameters or outputs. 
 """
-QueryDataType = Annotated[Union[AttachmentType, BooleanType, DateType, DoubleType, FloatType, IntegerType, LongType, NullType, OntologyObjectSetType, OntologyObjectType, QueryArrayType, QuerySetType, QueryStructType, QueryUnionType, StringType, ThreeDimensionalAggregation, TimestampType, TwoDimensionalAggregation, UnsupportedType], Field(discriminator="type")]
-
-
+QueryDataType = Annotated[
+    Union[
+        AttachmentType,
+        BooleanType,
+        DateType,
+        DoubleType,
+        FloatType,
+        IntegerType,
+        LongType,
+        NullType,
+        OntologyObjectSetType,
+        OntologyObjectType,
+        QueryArrayType,
+        QuerySetType,
+        QueryStructType,
+        QueryUnionType,
+        StringType,
+        ThreeDimensionalAggregation,
+        TimestampType,
+        TwoDimensionalAggregation,
+        UnsupportedType,
+    ],
+    Field(discriminator="type"),
+]
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according

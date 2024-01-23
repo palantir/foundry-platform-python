@@ -38,21 +38,21 @@ from pydantic import Field
 from foundry.models.deployment_api import DeploymentApi
 from typing_extensions import Self
 
+
 class DeploymentMetadata(BaseModel):
     """
-    Metadata related to a model deployment. 
-    """ # noqa: E501
+    Metadata related to a model deployment.
+    """  # noqa: E501
+
     api: DeploymentApi
     api_name: StrictStr = Field(alias="apiName")
-    description: Optional[StrictStr] = Field(default=None, description="A description or explanation of what this model deployment does and is intended to be used for. ")
+    description: Optional[StrictStr] = Field(
+        default=None,
+        description="A description or explanation of what this model deployment does and is intended to be used for. ",
+    )
     __properties: ClassVar[Set[str]] = set(("api", "apiName", "description"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -80,13 +80,12 @@ class DeploymentMetadata(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of api
         if self.api:
-            _dict['api'] = self.api.to_dict()
+            _dict["api"] = self.api.to_dict()
         return _dict
 
     @classmethod
@@ -98,12 +97,10 @@ class DeploymentMetadata(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

@@ -37,29 +37,28 @@ from pydantic import BaseModel, StrictStr, field_validator
 from pydantic import Field
 from typing_extensions import Self
 
+
 class InvalidContentLength(BaseModel):
     """
     A `Content-Length` header is required for all uploads, but was missing or invalid.
-    """ # noqa: E501
+    """  # noqa: E501
+
     error_code: StrictStr = Field(alias="errorCode")
     error_instance_id: Optional[StrictStr] = Field(default=None, alias="errorInstanceId")
     error_name: StrictStr = Field(alias="errorName")
     parameters: Union[str, Any]
-    __properties: ClassVar[Set[str]] = set(("errorCode", "errorInstanceId", "errorName", "parameters"))
+    __properties: ClassVar[Set[str]] = set(
+        ("errorCode", "errorInstanceId", "errorName", "parameters")
+    )
 
-    @field_validator('error_code')
+    @field_validator("error_code")
     def error_code_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in ('INVALID_ARGUMENT'):
+        if value not in ("INVALID_ARGUMENT"):
             raise ValueError("must be one of enum values ('INVALID_ARGUMENT')")
         return value
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -87,8 +86,7 @@ class InvalidContentLength(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         return _dict
@@ -102,12 +100,10 @@ class InvalidContentLength(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

@@ -37,20 +37,17 @@ from pydantic import BaseModel, StrictInt
 from pydantic import Field
 from typing_extensions import Self
 
+
 class AggregationGroupCountExceededLimitParameters(BaseModel):
     """
     AggregationGroupCountExceededLimitParameters
-    """ # noqa: E501
+    """  # noqa: E501
+
     groups_count: StrictInt = Field(alias="groupsCount")
     groups_limit: StrictInt = Field(alias="groupsLimit")
     __properties: ClassVar[Set[str]] = set(("groupsCount", "groupsLimit"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -78,8 +75,7 @@ class AggregationGroupCountExceededLimitParameters(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         return _dict
@@ -93,12 +89,10 @@ class AggregationGroupCountExceededLimitParameters(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-
