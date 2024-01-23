@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: Set initial version
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/3
