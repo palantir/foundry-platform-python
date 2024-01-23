@@ -33,6 +33,7 @@ import re  # noqa: F401
 from enum import Enum
 
 
+
 try:
     from typing import Self
 except ImportError:
@@ -41,18 +42,20 @@ except ImportError:
 
 class TransactionType(str, Enum):
     """
-    The type of a Transaction.
+    The type of a Transaction. 
     """
 
     """
     allowed enum values
     """
-    APPEND = "APPEND"
-    UPDATE = "UPDATE"
-    SNAPSHOT = "SNAPSHOT"
-    DELETE = "DELETE"
+    APPEND = 'APPEND'
+    UPDATE = 'UPDATE'
+    SNAPSHOT = 'SNAPSHOT'
+    DELETE = 'DELETE'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of TransactionType from a JSON string"""
         return cls(json.loads(json_str))
+
+

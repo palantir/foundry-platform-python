@@ -12,14 +12,12 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-"""This file was auto-generated from our API Definition."""
-
+from foundry._core.auth_utils import Auth
+from foundry.api.ontologies_v2_api_service_api import OntologiesV2ApiServiceApi
 from foundry.api.datasets_api_service_api import DatasetsApiServiceApi
 from foundry.api.ontologies_api_service_api import OntologiesApiServiceApi
-from foundry.api.ontologies_v2_api_service_api import OntologiesV2ApiServiceApi
 from foundry.api_client import ApiClient
-from foundry.auth._auth_utils import Auth
-from foundry.configuration import Configuration
+from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 
 
 class FoundryClient:
@@ -27,12 +25,11 @@ class FoundryClient:
     The Foundry API client.
 
     :param auth: Your auth configuration.
-
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
     """
 
-    def __init__(self, auth: Auth):
-        self.configuration = Configuration(auth=auth)
-        _api_client = ApiClient(configuration=self.configuration)
-        self.ontologies_v2 = OntologiesV2ApiServiceApi(api_client=_api_client)
-        self.datasets = DatasetsApiServiceApi(api_client=_api_client)
-        self.ontologies = OntologiesApiServiceApi(api_client=_api_client)
+    def __init__(self, auth: Auth, hostname: str):
+        api_client = ApiClient(auth=auth, hostname=hostname)
+        self.ontologies_v2 = OntologiesV2ApiServiceApi(api_client=api_client)
+        self.datasets = DatasetsApiServiceApi(api_client=api_client)
+        self.ontologies = OntologiesApiServiceApi(api_client=api_client)

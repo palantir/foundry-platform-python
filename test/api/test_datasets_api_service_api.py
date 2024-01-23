@@ -158,5 +158,7 @@ def test_read_table_can_pass_in_str(client: FoundryClient, monkeypatch):
 
 def test_read_table_can_pass_enum(client: FoundryClient, monkeypatch):
     mock_data_read(monkeypatch, data=b"hello")
-    res = client.datasets.read_table(format=TableExportFormat.CSV, dataset_rid="test.rid")
+    res = client.datasets.read_table(
+        format=TableExportFormat.CSV, dataset_rid="test.rid"
+    )
     assert res == b"hello"

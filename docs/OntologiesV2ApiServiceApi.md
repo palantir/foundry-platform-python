@@ -2,8 +2,6 @@
 
 The official Python library for the Foundry API
 
-All URIs are relative to *http://localhost*
-
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_action_type**](<OntologiesV2ApiServiceApi.md#get_action_type>) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
@@ -36,7 +34,7 @@ from foundry.models.action_type_v2 import ActionTypeV2
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 action_type = 'promote-employee' # str | The name of the action type in the API. 
@@ -95,7 +93,7 @@ from foundry.models.deployment_metadata import DeploymentMetadata
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 deployment = 'nextTokenPredictor' # str | The API name of the deployment you want to fetch information about. 
@@ -154,7 +152,7 @@ from foundry.models.object_type_v2 import ObjectTypeV2
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 object_type = 'employee' # str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**. 
@@ -213,7 +211,7 @@ from foundry.models.ontology_full_metadata import OntologyFullMetadata
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 
@@ -270,7 +268,7 @@ from foundry.models.ontology_v2 import OntologyV2
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 
@@ -327,7 +325,7 @@ from foundry.models.link_type_side_v2 import LinkTypeSideV2
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 object_type = 'Employee' # str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. 
@@ -388,7 +386,7 @@ from foundry.models.query_type_v2 import QueryTypeV2
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 query_api_name = 'getEmployeesInCity' # str | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**. 
@@ -447,7 +445,7 @@ from foundry.models.list_action_types_response_v2 import ListActionTypesResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 page_size = 56 # int | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  (optional)
@@ -508,7 +506,7 @@ from foundry.models.list_deployments_response import ListDeploymentsResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 
@@ -565,7 +563,7 @@ from foundry.models.list_object_types_v2_response import ListObjectTypesV2Respon
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 page_size = 56 # int | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  (optional)
@@ -626,7 +624,7 @@ from foundry.models.list_ontologies_v2_response import ListOntologiesV2Response
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 
 try:
@@ -680,7 +678,7 @@ from foundry.models.list_outgoing_link_types_response_v2 import ListOutgoingLink
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 object_type = 'Flight' # str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. 
@@ -743,7 +741,7 @@ from foundry.models.list_query_types_response_v2 import ListQueryTypesResponseV2
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology = 'palantir' # str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. 
 page_size = 56 # int | The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  (optional)

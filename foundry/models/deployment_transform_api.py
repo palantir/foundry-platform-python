@@ -37,17 +37,20 @@ from pydantic import BaseModel
 from foundry.models.model_api_data_type import ModelApiDataType
 from typing_extensions import Self
 
-
 class DeploymentTransformApi(BaseModel):
     """
     DeploymentTransformApi
-    """  # noqa: E501
-
+    """ # noqa: E501
     inputs: Optional[List[ModelApiDataType]] = None
     outputs: Optional[List[ModelApiDataType]] = None
     __properties: ClassVar[Set[str]] = set(("inputs", "outputs"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -75,7 +78,8 @@ class DeploymentTransformApi(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in inputs (list)
@@ -84,14 +88,14 @@ class DeploymentTransformApi(BaseModel):
             for _item in self.inputs:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict["inputs"] = _items
+            _dict['inputs'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in outputs (list)
         _items = []
         if self.outputs:
             for _item in self.outputs:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict["outputs"] = _items
+            _dict['outputs'] = _items
         return _dict
 
     @classmethod
@@ -103,10 +107,12 @@ class DeploymentTransformApi(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

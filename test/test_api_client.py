@@ -14,20 +14,14 @@
 
 import json
 import re
+from typing import Dict
 from unittest.mock import ANY, Mock
 
 import pytest
-from foundry.api_client import ApiClient
-from foundry.configuration import Configuration
-from foundry.exceptions import BadRequestException
-from foundry.exceptions import UnauthorizedException
-from foundry.exceptions import ForbiddenException
-from foundry.exceptions import NotFoundException
-from foundry.exceptions import ServiceException
-from foundry.exceptions import SDKInternalError
-from foundry.rest import RESTResponse
+from foundry import PalantirRPCException
 from foundry import UserTokenAuth
 from foundry import __version__
+from foundry.api_client import ApiClient
 
 
 class AttrDict(dict):
@@ -48,8 +42,8 @@ EXAMPLE_ERROR = json.dumps(
 
 def test_user_agent():
     """Test that the user agent is set correctly."""
-    client = ApiClient(configuration=Configuration(UserTokenAuth(hostname="foo", token="bar")))
-    client.rest_client.request = Mock()
+    client = ApiClient(auth=UserTokenAuth(hostname="foo", token="bar"), hostname="foo")
+    client.session.request = Mock(return_value=AttrDict(status_code=200))
 
     client.call_api(
         method="POST",
@@ -60,11 +54,11 @@ def test_user_agent():
         body={},
         post_params={},
         files={},
-        auth_settings={},
         collection_formats={},
+        response_types_map={},
     )
 
-    client.rest_client.request.assert_called_with(
+    client.session.request.assert_called_with(
         ANY,
         ANY,
         headers={"User-Agent": f"foundry-platform-sdk/{__version__}"},
@@ -74,30 +68,42 @@ def test_user_agent():
     )
 
 
-def response_deserialize(
+def call_api_helper(
     status_code: int,
     data: str,
-    headers: str,
+    headers: Dict[str, str],
 ):
-    client = ApiClient(configuration=Configuration(UserTokenAuth(hostname="foo", token="bar")))
-    res = RESTResponse(
-        AttrDict(status=status_code, reason=None, data=data.encode(), headers=headers)  # type: ignore
+    client = ApiClient(auth=UserTokenAuth(hostname="foo", token="bar"), hostname="foo")
+
+    client.session.request = Mock(
+        return_value=AttrDict(
+            status_code=status_code,
+            headers=headers,
+            content=data.encode(),
+            text=data,
+            json=lambda: json.loads(data),
+        )
     )
-    res.read()
-    client.response_deserialize(
-        res,
-        {},
+
+    return client.call_api(
+        method="POST",
+        resource_path="/abc",
+        path_params={},
+        query_params={},
+        header_params={},
+        body={},
+        post_params={},
+        files={},
+        collection_formats={},
+        response_types_map={},
     )
 
 
-def test_response_deserialize_400():
-    with pytest.raises(BadRequestException) as info:
-        response_deserialize(status_code=400, data=EXAMPLE_ERROR, headers="Header: A")
+def test_call_api_400():
+    with pytest.raises(PalantirRPCException) as info:
+        call_api_helper(status_code=400, data=EXAMPLE_ERROR, headers={"Header": "A"})
 
-    assert info.value.status == 400
-    assert info.value.body == EXAMPLE_ERROR
-    assert info.value.error_code == "ERROR_CODE"
-    assert info.value.error_name == "ERROR_NAME"
+    assert info.value.name == "ERROR_NAME"
     assert info.value.error_instance_id == "123"
     assert info.value.parameters == {}
     assert (
@@ -106,32 +112,26 @@ def test_response_deserialize_400():
     )
 
 
-def test_response_deserialize_401():
-    with pytest.raises(UnauthorizedException) as info:
-        response_deserialize(status_code=401, data=EXAMPLE_ERROR, headers="Header: A")
-
-    assert info.value.status == 401
-    assert (
-        str(info.value)
-        == f"(401)\nReason: None\nHTTP response headers: Header: A\nHTTP response body: {EXAMPLE_ERROR}\n"
-    )
+def test_call_api_401():
+    with pytest.raises(PalantirRPCException) as info:
+        call_api_helper(status_code=401, data=EXAMPLE_ERROR, headers={"Header": "A"})
 
 
-def test_response_deserialize_403():
-    with pytest.raises(ForbiddenException) as info:
-        response_deserialize(status_code=403, data=EXAMPLE_ERROR, headers="Ha: Ha")
+def test_call_api_403():
+    with pytest.raises(PalantirRPCException) as info:
+        call_api_helper(status_code=403, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})
 
 
-def test_response_deserialize_404():
-    with pytest.raises(NotFoundException) as info:
-        response_deserialize(status_code=404, data=EXAMPLE_ERROR, headers="Ha: Ha")
+def test_call_api_404():
+    with pytest.raises(PalantirRPCException) as info:
+        call_api_helper(status_code=404, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})
 
 
-def test_response_deserialize_500():
-    with pytest.raises(ServiceException) as info:
-        response_deserialize(status_code=500, data=EXAMPLE_ERROR, headers="Ha: Ha")
+def test_call_api_500():
+    with pytest.raises(PalantirRPCException) as info:
+        call_api_helper(status_code=500, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})
 
 
-def test_response_deserialize_333():
-    with pytest.raises(SDKInternalError) as info:
-        response_deserialize(status_code=333, data=EXAMPLE_ERROR, headers="Ha: Ha")
+def test_call_api_333():
+    with pytest.raises(PalantirRPCException) as info:
+        call_api_helper(status_code=333, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})

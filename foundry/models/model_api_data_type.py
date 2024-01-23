@@ -38,18 +38,21 @@ from pydantic import Field
 from foundry.models.model_api_type import ModelApiType
 from typing_extensions import Self
 
-
 class ModelApiDataType(BaseModel):
     """
-    An object definition representing an input or an output type for the deployment API.
-    """  # noqa: E501
-
+    An object definition representing an input or an output type for the deployment API. 
+    """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="The name of a field. ")
     property_type: Optional[ModelApiType] = Field(default=None, alias="propertyType")
     required: Optional[StrictBool] = None
     __properties: ClassVar[Set[str]] = set(("name", "propertyType", "required"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -77,12 +80,13 @@ class ModelApiDataType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of property_type
         if self.property_type:
-            _dict["propertyType"] = self.property_type.to_dict()
+            _dict['propertyType'] = self.property_type.to_dict()
         return _dict
 
     @classmethod
@@ -94,10 +98,12 @@ class ModelApiDataType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
+

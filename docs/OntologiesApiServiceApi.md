@@ -2,8 +2,6 @@
 
 The official Python library for the Foundry API
 
-All URIs are relative to *http://localhost*
-
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_action_type**](<OntologiesApiServiceApi.md#get_action_type>) | **GET** /v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName} |
@@ -33,7 +31,7 @@ from foundry.models.action_type import ActionType
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the action type. 
 action_type_api_name = 'promote-employee' # str | The name of the action type in the API. 
@@ -92,7 +90,7 @@ from foundry.models.object_type import ObjectType
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. 
 object_type = 'employee' # str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**. 
@@ -151,7 +149,7 @@ from foundry.models.ontology import Ontology
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. 
 
@@ -208,7 +206,7 @@ from foundry.models.link_type_side import LinkTypeSide
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application. 
 object_type = 'Employee' # str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. 
@@ -269,7 +267,7 @@ from foundry.models.query_type import QueryType
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the query type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. 
 query_api_name = 'getEmployeesInCity' # str | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**. 
@@ -330,7 +328,7 @@ from foundry.models.list_action_types_response import ListActionTypesResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. 
 page_size = 56 # int | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  (optional)
@@ -391,7 +389,7 @@ from foundry.models.list_object_types_response import ListObjectTypesResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. 
 page_size = 56 # int | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  (optional)
@@ -452,7 +450,7 @@ from foundry.models.list_ontologies_response import ListOntologiesResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 
 try:
@@ -506,7 +504,7 @@ from foundry.models.list_outgoing_link_types_response import ListOutgoingLinkTyp
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application. 
 object_type = 'Flight' # str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. 
@@ -569,7 +567,7 @@ from foundry.models.list_query_types_response import ListQueryTypesResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 ontology_rid = 'ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367' # str | The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. 
 page_size = 56 # int | The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  (optional)

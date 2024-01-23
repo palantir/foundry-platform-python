@@ -30,7 +30,6 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
-
 try:
     from typing import Annotated
 except ImportError:
@@ -64,14 +63,18 @@ from foundry.models.unsupported_type import UnsupportedType
 class OntologyStructField(BaseModel):
     """
     OntologyStructField
-    """  # noqa: E501
-
+    """ # noqa: E501
     field_type: OntologyDataType = Field(alias="fieldType")
     name: StrictStr = Field(description="The name of a field in a `Struct`. ")
     required: StrictBool
     __properties: ClassVar[Set[str]] = set(("fieldType", "name", "required"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -99,12 +102,13 @@ class OntologyStructField(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of field_type
         if self.field_type:
-            _dict["fieldType"] = self.field_type.to_dict()
+            _dict['fieldType'] = self.field_type.to_dict()
         return _dict
 
     @classmethod
@@ -116,29 +120,31 @@ class OntologyStructField(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
-
 # TODO: Rewrite to not use raise_errors
 OntologyStructField.model_rebuild(raise_errors=False)
-
 
 class OntologyStructType(BaseModel):
     """
     OntologyStructType
-    """  # noqa: E501
-
+    """ # noqa: E501
     fields: Optional[List[OntologyStructField]] = None
     type: Literal["struct"]
     __properties: ClassVar[Set[str]] = set(("fields", "type"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -166,7 +172,8 @@ class OntologyStructType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in fields (list)
@@ -175,7 +182,7 @@ class OntologyStructType(BaseModel):
             for _item in self.fields:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict["fields"] = _items
+            _dict['fields'] = _items
         return _dict
 
     @classmethod
@@ -187,29 +194,31 @@ class OntologyStructType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
-
 # TODO: Rewrite to not use raise_errors
 OntologyStructType.model_rebuild(raise_errors=False)
-
 
 class OntologySetType(BaseModel):
     """
     OntologySetType
-    """  # noqa: E501
-
+    """ # noqa: E501
     item_type: OntologyDataType = Field(alias="itemType")
     type: Literal["set"]
     __properties: ClassVar[Set[str]] = set(("itemType", "type"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -237,12 +246,13 @@ class OntologySetType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of item_type
         if self.item_type:
-            _dict["itemType"] = self.item_type.to_dict()
+            _dict['itemType'] = self.item_type.to_dict()
         return _dict
 
     @classmethod
@@ -254,30 +264,32 @@ class OntologySetType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
-
 # TODO: Rewrite to not use raise_errors
 OntologySetType.model_rebuild(raise_errors=False)
-
 
 class OntologyMapType(BaseModel):
     """
     OntologyMapType
-    """  # noqa: E501
-
+    """ # noqa: E501
     key_type: OntologyDataType = Field(alias="keyType")
     type: Literal["map"]
     value_type: OntologyDataType = Field(alias="valueType")
     __properties: ClassVar[Set[str]] = set(("keyType", "type", "valueType"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -305,15 +317,16 @@ class OntologyMapType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of key_type
         if self.key_type:
-            _dict["keyType"] = self.key_type.to_dict()
+            _dict['keyType'] = self.key_type.to_dict()
         # override the default output from pydantic by calling `to_dict()` of value_type
         if self.value_type:
-            _dict["valueType"] = self.value_type.to_dict()
+            _dict['valueType'] = self.value_type.to_dict()
         return _dict
 
     @classmethod
@@ -325,29 +338,31 @@ class OntologyMapType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
-
 # TODO: Rewrite to not use raise_errors
 OntologyMapType.model_rebuild(raise_errors=False)
-
 
 class OntologyArrayType(BaseModel):
     """
     OntologyArrayType
-    """  # noqa: E501
-
+    """ # noqa: E501
     item_type: OntologyDataType = Field(alias="itemType")
     type: Literal["array"]
     __properties: ClassVar[Set[str]] = set(("itemType", "type"))
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    model_config = {
+        "populate_by_name": True,
+        "validate_assignment": True,
+        "extra": "forbid"
+    }
+
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -375,12 +390,13 @@ class OntologyArrayType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={},
+            exclude={
+            },
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of item_type
         if self.item_type:
-            _dict["itemType"] = self.item_type.to_dict()
+            _dict['itemType'] = self.item_type.to_dict()
         return _dict
 
     @classmethod
@@ -392,14 +408,13 @@ class OntologyArrayType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra
-            and isinstance(obj, dict)
-            and any(key not in cls.__properties for key in obj)
+            allow_extra and
+            isinstance(obj, dict) and
+            any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
 
 # TODO: Rewrite to not use raise_errors
 OntologyArrayType.model_rebuild(raise_errors=False)
@@ -408,31 +423,9 @@ OntologyArrayType.model_rebuild(raise_errors=False)
 """
 A union of all the primitive types used by Palantir's Ontology-based products. 
 """
-OntologyDataType = Annotated[
-    Union[
-        AnyType,
-        BinaryType,
-        BooleanType,
-        ByteType,
-        DateType,
-        DecimalType,
-        DoubleType,
-        FloatType,
-        IntegerType,
-        LongType,
-        OntologyArrayType,
-        OntologyMapType,
-        OntologyObjectSetType,
-        OntologyObjectType,
-        OntologySetType,
-        OntologyStructType,
-        ShortType,
-        StringType,
-        TimestampType,
-        UnsupportedType,
-    ],
-    Field(discriminator="type"),
-]
+OntologyDataType = Annotated[Union[AnyType, BinaryType, BooleanType, ByteType, DateType, DecimalType, DoubleType, FloatType, IntegerType, LongType, OntologyArrayType, OntologyMapType, OntologyObjectSetType, OntologyObjectType, OntologySetType, OntologyStructType, ShortType, StringType, TimestampType, UnsupportedType], Field(discriminator="type")]
+
+
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according

@@ -14,9 +14,9 @@
 
 import re
 import pytest
-from foundry.exceptions import SDKInternalError
-from foundry.exceptions import OpenApiException
-from foundry.exceptions import handle_unexpected
+from foundry._errors.sdk_internal_error import SDKInternalError
+from foundry._errors.sdk_internal_error import handle_unexpected
+from foundry._errors.palantir_rpc_exception import PalantirRPCException
 
 
 def test_sdk_internal_error():
@@ -56,9 +56,9 @@ def test_handle_unexpected_fails_for_unkonwn_exception():
 def test_handle_unexpected_ignores_known_exception():
     @handle_unexpected
     def raises_known_exception():
-        raise OpenApiException("test")
+        raise PalantirRPCException("test")
 
-    with pytest.raises(OpenApiException) as error:
+    with pytest.raises(PalantirRPCException) as error:
         raises_known_exception()
 
     assert str(error.value) == "test"
