@@ -10,7 +10,7 @@ keywords = ["OpenAPI", "OpenAPI-Generator", "Palantir OpenAPI"]
 packages = [{ include = "foundry" }]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 requests = "^2.0.0"
 python-dateutil = "*"
 pydantic = "^2.1.0"
