@@ -159,7 +159,7 @@ class ConfidentialClientOAuthFlowProvider:
         revoke_token_response = requests.post(token_url, data=body)
         revoke_token_response.raise_for_status()
 
-    def get_scopes(self) -> list[str]:
+    def get_scopes(self) -> List[str]:
         scopes = []
         if self.scopes:
             scopes.extend(self.scopes)
@@ -190,7 +190,7 @@ class PublicClientOAuthFlowProvider:
         redirect_url: str,
         url: str,
         multipass_context_path: Optional[str] = None,
-        scopes: Optional[list[str]] = None,
+        scopes: Optional[List[str]] = None,
     ):
         self._client_id = client_id
         self._redirect_url = redirect_url
@@ -272,7 +272,7 @@ class PublicClientOAuthFlowProvider:
         revoke_token_response = requests.post(token_url, data=body)
         revoke_token_response.raise_for_status()
 
-    def get_scopes(self) -> list[str]:
+    def get_scopes(self) -> List[str]:
         scopes = []
         if self.scopes:
             scopes.extend(self.scopes)
