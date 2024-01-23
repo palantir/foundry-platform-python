@@ -30,6 +30,7 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
+
 try:
     from typing import Annotated
 except ImportError:
@@ -55,17 +56,13 @@ from foundry.models.timestamp_type import TimestampType
 class ModelApiUnionType(BaseModel):
     """
     ModelApiUnionType
-    """ # noqa: E501
+    """  # noqa: E501
+
     type: Literal["union"]
     union_types: Optional[List[ModelApiType]] = Field(default=None, alias="unionTypes")
     __properties: ClassVar[Set[str]] = set(("type", "unionTypes"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -93,8 +90,7 @@ class ModelApiUnionType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in union_types (list)
@@ -103,7 +99,7 @@ class ModelApiUnionType(BaseModel):
             for _item in self.union_types:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict['unionTypes'] = _items
+            _dict["unionTypes"] = _items
         return _dict
 
     @classmethod
@@ -115,31 +111,29 @@ class ModelApiUnionType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 ModelApiUnionType.model_rebuild(raise_errors=False)
+
 
 class ModelApiStructField(BaseModel):
     """
     ModelApiStructField
-    """ # noqa: E501
+    """  # noqa: E501
+
     field_type: ModelApiType = Field(alias="fieldType")
     name: StrictStr
     __properties: ClassVar[Set[str]] = set(("fieldType", "name"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -167,13 +161,12 @@ class ModelApiStructField(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of field_type
         if self.field_type:
-            _dict['fieldType'] = self.field_type.to_dict()
+            _dict["fieldType"] = self.field_type.to_dict()
         return _dict
 
     @classmethod
@@ -185,31 +178,29 @@ class ModelApiStructField(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 ModelApiStructField.model_rebuild(raise_errors=False)
+
 
 class ModelApiStructType(BaseModel):
     """
     ModelApiStructType
-    """ # noqa: E501
+    """  # noqa: E501
+
     fields: Optional[List[ModelApiStructField]] = None
     type: Literal["struct"]
     __properties: ClassVar[Set[str]] = set(("fields", "type"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -237,8 +228,7 @@ class ModelApiStructType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of each item in fields (list)
@@ -247,7 +237,7 @@ class ModelApiStructType(BaseModel):
             for _item in self.fields:
                 if _item:
                     _items.append(_item.to_dict())
-            _dict['fields'] = _items
+            _dict["fields"] = _items
         return _dict
 
     @classmethod
@@ -259,32 +249,30 @@ class ModelApiStructType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 ModelApiStructType.model_rebuild(raise_errors=False)
+
 
 class ModelApiMapType(BaseModel):
     """
     ModelApiMapType
-    """ # noqa: E501
+    """  # noqa: E501
+
     key_type: ModelApiType = Field(alias="keyType")
     type: Literal["map"]
     value_type: ModelApiType = Field(alias="valueType")
     __properties: ClassVar[Set[str]] = set(("keyType", "type", "valueType"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -312,16 +300,15 @@ class ModelApiMapType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of key_type
         if self.key_type:
-            _dict['keyType'] = self.key_type.to_dict()
+            _dict["keyType"] = self.key_type.to_dict()
         # override the default output from pydantic by calling `to_dict()` of value_type
         if self.value_type:
-            _dict['valueType'] = self.value_type.to_dict()
+            _dict["valueType"] = self.value_type.to_dict()
         return _dict
 
     @classmethod
@@ -333,31 +320,29 @@ class ModelApiMapType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
 
+
 # TODO: Rewrite to not use raise_errors
 ModelApiMapType.model_rebuild(raise_errors=False)
+
 
 class ModelApiArrayType(BaseModel):
     """
     ModelApiArrayType
-    """ # noqa: E501
+    """  # noqa: E501
+
     sub_type: ModelApiType = Field(alias="subType")
     type: Literal["array"]
     __properties: ClassVar[Set[str]] = set(("subType", "type"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -385,13 +370,12 @@ class ModelApiArrayType(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of sub_type
         if self.sub_type:
-            _dict['subType'] = self.sub_type.to_dict()
+            _dict["subType"] = self.sub_type.to_dict()
         return _dict
 
     @classmethod
@@ -403,13 +387,14 @@ class ModelApiArrayType(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
+
 
 # TODO: Rewrite to not use raise_errors
 ModelApiArrayType.model_rebuild(raise_errors=False)
@@ -418,9 +403,23 @@ ModelApiArrayType.model_rebuild(raise_errors=False)
 """
 A union of all the types supported by models. 
 """
-ModelApiType = Annotated[Union[AnyType, BooleanType, DateType, FloatType, IntegerType, ModelApiArrayType, ModelApiMapType, ModelApiStructType, ModelApiUnionType, NullType, StringType, TimestampType], Field(discriminator="type")]
-
-
+ModelApiType = Annotated[
+    Union[
+        AnyType,
+        BooleanType,
+        DateType,
+        FloatType,
+        IntegerType,
+        ModelApiArrayType,
+        ModelApiMapType,
+        ModelApiStructType,
+        ModelApiUnionType,
+        NullType,
+        StringType,
+        TimestampType,
+    ],
+    Field(discriminator="type"),
+]
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according

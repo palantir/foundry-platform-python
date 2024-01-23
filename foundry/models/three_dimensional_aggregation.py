@@ -39,21 +39,18 @@ from foundry.models.query_aggregation_key_type import QueryAggregationKeyType
 from foundry.models.two_dimensional_aggregation import TwoDimensionalAggregation
 from typing_extensions import Self
 
+
 class ThreeDimensionalAggregation(BaseModel):
     """
     ThreeDimensionalAggregation
-    """ # noqa: E501
+    """  # noqa: E501
+
     key_type: QueryAggregationKeyType = Field(alias="keyType")
     type: Literal["threeDimensionalAggregation"]
     value_type: TwoDimensionalAggregation = Field(alias="valueType")
     __properties: ClassVar[Set[str]] = set(("keyType", "type", "valueType"))
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -81,16 +78,15 @@ class ThreeDimensionalAggregation(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of key_type
         if self.key_type:
-            _dict['keyType'] = self.key_type.to_dict()
+            _dict["keyType"] = self.key_type.to_dict()
         # override the default output from pydantic by calling `to_dict()` of value_type
         if self.value_type:
-            _dict['valueType'] = self.value_type.to_dict()
+            _dict["valueType"] = self.value_type.to_dict()
         return _dict
 
     @classmethod
@@ -102,12 +98,10 @@ class ThreeDimensionalAggregation(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

@@ -25,7 +25,8 @@ from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry._errors.not_authenticated import NotAuthenticated
 
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class ConfidentialClientAuth(Auth):
     """
@@ -37,9 +38,19 @@ class ConfidentialClientAuth(Auth):
     :param scopes: The list of scopes to request.
     :param hostname: Hostname for authentication and ontology endpoints.
     """
-    def __init__(self, client_id: str, client_secret: str, hostname: str, scopes: List[str], should_refresh: bool = False) -> None:
+
+    def __init__(
+        self,
+        client_id: str,
+        client_secret: str,
+        hostname: str,
+        scopes: List[str],
+        should_refresh: bool = False,
+    ) -> None:
         if len(scopes) == 0:
-            raise ValueError("You have not provided any scopes. At least one scope must be provided.")
+            raise ValueError(
+                "You have not provided any scopes. At least one scope must be provided."
+            )
 
         self._client_id = client_id
         self._client_secret = client_secret
@@ -47,7 +58,9 @@ class ConfidentialClientAuth(Auth):
         self._should_refresh = should_refresh
         self._refresh_task: Optional[asyncio.Task] = None
         self._hostname = hostname
-        self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(client_id, client_secret, self.url, scopes=scopes)
+        self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
+            client_id, client_secret, self.url, scopes=scopes
+        )
 
     def get_token(self) -> OAuthToken:
         if self._token is None:
@@ -60,7 +73,6 @@ class ConfidentialClientAuth(Auth):
         except Exception as e:
             self.sign_out()
             raise e
-
 
     def run_with_token(self, func: Callable[[OAuthToken], T]) -> None:
         try:
@@ -105,7 +117,9 @@ class ConfidentialClientAuth(Auth):
         if self._should_refresh:
             loop = asyncio.get_event_loop()
             self._refresh_task = loop.create_task(refresh_token_task())
-        return SignInResponse(session={"accessToken": token.access_token, "expiresIn": token.expires_in})
+        return SignInResponse(
+            session={"accessToken": token.access_token, "expiresIn": token.expires_in}
+        )
 
     def sign_out(self) -> SignOutResponse:
         if self._refresh_task:

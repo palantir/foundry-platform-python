@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 import json as jsn
+from typing import Any, Dict, List, Optional, Tuple, TypedDict
 from unittest.mock import Mock
 
 import pytest
@@ -27,7 +28,20 @@ def client():
     yield FoundryClient(auth=UserTokenAuth(hostname="test.com", token="test"), hostname="test.com")
 
 
-def mock_responses(monkeypatch, request_responses: list):
+class MockRequest(TypedDict):
+    method: str
+    url: str
+    params: Optional[Dict[str, Any]]
+    json: Optional[Any]
+
+
+class MockResponse(TypedDict):
+    status: int
+    content: Optional[bytes]
+    json: Optional[Any]
+
+
+def mock_responses(monkeypatch, request_responses: List[Tuple[MockRequest, MockResponse]]):
     # Define a side_effect function for our mock. This will be called instead of the original method
     def mock_request(_, method, url, json=None, **kwargs):
         for request, response in request_responses:
@@ -37,17 +51,17 @@ def mock_responses(monkeypatch, request_responses: list):
             if request["url"] != url:
                 continue
 
-            if json is not None and json != request["body"]:
+            if json is not None and json != request["json"]:
                 continue
 
             # Mock response
             mock_response = Mock()
             mock_response.status_code = response["status"]
 
-            if "body" in response:
-                mock_response.content = jsn.dumps(response["body"]).encode()
-            elif "data" in response:
-                mock_response.content = response["data"]
+            if response["json"]:
+                mock_response.content = jsn.dumps(response["json"]).encode()
+            elif response["content"]:
+                mock_response.content = response["content"]
             else:
                 mock_response.content = None
 

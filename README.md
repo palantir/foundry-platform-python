@@ -180,44 +180,24 @@ the [Pydantic error documentation](https://docs.pydantic.dev/latest/errors/error
 experience. See [Static Type Analysis](#static-types) below for more information.
 
 ### HTTP exceptions
-When an HTTP error status is returned, a specific exception class is thrown. All HTTP error exception classes inherit from `ApiException`.
+When an HTTP error status is returned, a `PalantirRPCException` is thrown. All HTTP error exception classes inherit from `ApiException`.
 
 ```python
-from foundry import ApiException
-from foundry import UnauthorizedException
+from foundry import PalantirRPCException
 
 
 try:
     api_response = foundry_client.datasets.abort_transaction(dataset_rid, transaction_rid)
     ...
-except UnauthorizedException:
-    print("You are not authorized to abort the transaction")
-except ApiException as e:
+except PalantirRPCException as e:
     print("Another HTTP exception occurred: " + str(e))
 ```
 
-| Status Code | Exception             |
-| ----------- | --------------------- |
-| 400         | BadRequestException   |
-| 401         | UnauthorizedException |
-| 403         | ForbiddenException    |
-| 404         | NotFoundException     |
-| 500-599     | ServiceException      |
-| Other       | ApiException          |
-
-> The full list of different HTTP exceptions that might be thrown.
-
-Each exception will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
+This exception will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
 
 | Property          | Type                   | Description                                                                                                                    |
 | ----------------- | -----------------------| ------------------------------------------------------------------------------------------------------------------------------ |
-| status            | int                    | The HTTP status code                                                                                                           |
-| reason            | Optional[str]          | The HTTP response reason                                                                                                       |
-| body              | Optional[str]          | The HTTP response body                                                                                                         |
-| headers           | urllib3.HTTPHeaderDict | The HTTP response headers                                                                                                      |
-| json              | dict                   | The HTTP response body parsed as JSON                                                                                          |
-| error_code        | str                    | The Palantir error code. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
-| error_name        | str                    | The Palantir error name. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
+| name              | str                    | The Palantir error name. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
 | error_instance_id | str                    | The Palantir error instance ID. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors). |
 | parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).  |
 

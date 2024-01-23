@@ -14,14 +14,14 @@ jobs:
         type: string
       pydantic_version:
         type: string
-      urllib3_version:
+      requests_version:
         type: string
     docker:
       - image: cimg/python:<< parameters.python_version >>
     steps:
       - checkout
       - run: pip install --user tox
-      - run: tox -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-urllib3<< parameters.urllib3_version >>
+      - run: tox -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-requests<< parameters.requests_version >>
 
   pyright:
     docker:
@@ -59,7 +59,7 @@ workflows:
             parameters:
               python_version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
               pydantic_version: ["2.4"]
-              urllib3_version: ["2.1"]
+              requests_version: ["2.1"]
       - test:
           <<: *always-run
           name: pydantic-<< matrix.pydantic_version >>
@@ -67,15 +67,15 @@ workflows:
             parameters:
               python_version: ["3.12"]
               pydantic_version: ["2.1.0", "2.1", "2.2", "2.3", "2.4", "2.5"]
-              urllib3_version: ["2.1"]
+              requests_version: ["2.1"]
       - test:
           <<: *always-run
-          name: urllib3-<< matrix.urllib3_version >>
+          name: requests-<< matrix.requests_version >>
           matrix:
             parameters:
               python_version: ["3.12"]
               pydantic_version: ["2.4"]
-              urllib3_version: ["1.26.5", "1.26", "2.0", "2.1"]
+              requests_version: ["2.0", "2.10", "2.20", "2.31"]
       - pyright:
         <<: *always-run
       - black:
@@ -95,10 +95,10 @@ workflows:
             - pydantic-2.4
             - pydantic-2.5
 
-            - urllib3-1.26.5
-            - urllib3-1.26
-            - urllib3-2.0
-            - urllib3-2.1
+            - requests-2.0
+            - requests-2.10
+            - requests-2.20
+            - requests-2.31
 
             - pyright
             - black

@@ -59,12 +59,12 @@ def test_user_agent():
     )
 
     client.session.request.assert_called_with(
-        ANY,
-        ANY,
+        method="POST",
+        url="https://foo/api/abc",
         headers={"User-Agent": f"foundry-platform-sdk/{__version__}"},
-        body=ANY,
-        post_params=ANY,
-        _request_timeout=ANY,
+        json=ANY,
+        params=ANY,
+        stream=False,
     )
 
 
@@ -106,10 +106,6 @@ def test_call_api_400():
     assert info.value.name == "ERROR_NAME"
     assert info.value.error_instance_id == "123"
     assert info.value.parameters == {}
-    assert (
-        str(info.value)
-        == f"(400)\nReason: None\nHTTP response headers: Header: A\nHTTP response body: {EXAMPLE_ERROR}\n"
-    )
 
 
 def test_call_api_401():

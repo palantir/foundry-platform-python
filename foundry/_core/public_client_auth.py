@@ -26,7 +26,8 @@ from foundry._errors.not_authenticated import NotAuthenticated
 import webbrowser
 
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class PublicClientAuth(Auth):
     scopes: list[str] = ["api:read-data", "api:write-data", "offline_access"]
@@ -39,7 +40,10 @@ class PublicClientAuth(Auth):
     :param client_secret: OAuth client secret to be used by the application.
     :param hostname: Hostname for authentication and ontology endpoints.
     """
-    def __init__(self, client_id: str, redirect_url: str, hostname: str, should_refresh: bool = False) -> None:
+
+    def __init__(
+        self, client_id: str, redirect_url: str, hostname: str, should_refresh: bool = False
+    ) -> None:
         self._client_id = client_id
         self._redirect_url = redirect_url
 
@@ -47,10 +51,9 @@ class PublicClientAuth(Auth):
         self._should_refresh = should_refresh
         self._stop_refresh_event = threading.Event()
         self._hostname = hostname
-        self._server_oauth_flow_provider = PublicClientOAuthFlowProvider(client_id=client_id,
-                                                                         redirect_url=redirect_url,
-                                                                         url=self.url,
-                                                                         scopes=self.scopes)
+        self._server_oauth_flow_provider = PublicClientOAuthFlowProvider(
+            client_id=client_id, redirect_url=redirect_url, url=self.url, scopes=self.scopes
+        )
         self._auth_request: Optional[AuthorizeRequest] = None
 
     def get_token(self) -> OAuthToken:

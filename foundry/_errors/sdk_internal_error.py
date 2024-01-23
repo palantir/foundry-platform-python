@@ -64,10 +64,10 @@ class SDKInternalError(Exception):
             f"SDK Version: {__version__}\n"
             f"OpenAPI Document Version: {__openapi_document_version__}\n"
             f"OpenAPI Specification Version: {__openapi_specification_version__}\n"
-            f"OpenAPI Generator Version: {__openapi_generator_version__}\n" 
-            f"Pydantic Version: {__pydantic__version__}\n" 
-            f"Pydantic Core Version: {__pydantic_core_version__}\n" 
-            f"Requests Version: {__requests_version__}\n" 
+            f"OpenAPI Generator Version: {__openapi_generator_version__}\n"
+            f"Pydantic Version: {__pydantic__version__}\n"
+            f"Pydantic Core Version: {__pydantic_core_version__}\n"
+            f"Requests Version: {__requests_version__}\n"
         )
 
         return message

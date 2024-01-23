@@ -70,20 +70,24 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def get_action_type(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the action type. ")],
-        action_type_api_name: Annotated[StrictStr, Field(description="The name of the action type in the API. ")],
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the action type. "
+            ),
+        ],
+        action_type_api_name: Annotated[
+            StrictStr, Field(description="The name of the action type in the API. ")
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ActionType:
         """get_action_type
 
-        Gets a specific action type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific action type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action type.  (required)
         :type ontology_rid: str
@@ -95,11 +99,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -110,35 +112,24 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         if action_type_api_name is not None:
-            _path_params['actionTypeApiName'] = action_type_api_name
+            _path_params["actionTypeApiName"] = action_type_api_name
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionType"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ActionType"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName}',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -153,20 +144,27 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def get_object_type(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        object_type: Annotated[StrictStr, Field(description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**. ")],
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        object_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ObjectType:
         """get_object_type
 
-        Gets a specific object type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific object type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology_rid: str
@@ -178,11 +176,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -193,35 +189,24 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         if object_type is not None:
-            _path_params['objectType'] = object_type
+            _path_params["objectType"] = object_type
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ObjectType"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ObjectType"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/objectTypes/{objectType}',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -236,19 +221,21 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def get_ontology(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> Ontology:
         """get_ontology
 
-        Gets a specific ontology with the given Ontology RID.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific ontology with the given Ontology RID.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology_rid: str
@@ -258,11 +245,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -273,33 +258,22 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Ontology"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "Ontology"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -314,21 +288,33 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def get_outgoing_link_type(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application. ")],
-        object_type: Annotated[StrictStr, Field(description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. ")],
-        link_type: Annotated[StrictStr, Field(description="The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**. ")],
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application. "
+            ),
+        ],
+        object_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. "
+            ),
+        ],
+        link_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> LinkTypeSide:
         """get_outgoing_link_type
 
-        Get an outgoing link for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`. 
+        Get an outgoing link for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.  (required)
         :type ontology_rid: str
@@ -342,11 +328,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -357,37 +341,26 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         if object_type is not None:
-            _path_params['objectType'] = object_type
+            _path_params["objectType"] = object_type
         if link_type is not None:
-            _path_params['linkType'] = link_type
+            _path_params["linkType"] = link_type
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LinkTypeSide"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "LinkTypeSide"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -402,21 +375,28 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def get_query_type(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the query type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        query_api_name: Annotated[StrictStr, Field(description="The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**. ")],
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the query type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        query_api_name: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         preview: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> QueryType:
         """get_query_type
 
-        Gets a specific query type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific query type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the query type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology_rid: str
@@ -430,11 +410,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -445,39 +423,27 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         if query_api_name is not None:
-            _path_params['queryApiName'] = query_api_name
+            _path_params["queryApiName"] = query_api_name
         # process the query parameters
         if preview is not None:
-            
-            _query_params.append(('preview', preview))
-            
+            _query_params.append(("preview", preview))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "QueryType"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "QueryType"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/queryTypes/{queryApiName}',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/queryTypes/{queryApiName}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -492,25 +458,32 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def list_action_types(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt],
+            Field(
+                description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
+            ),
+        ] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListActionTypesResponse:
         """list_action_types
 
-        Lists the action types for the given Ontology.  Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the action types for the given Ontology.  Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology_rid: str
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -520,11 +493,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -535,41 +506,28 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListActionTypesResponse"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListActionTypesResponse"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/actionTypes',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/actionTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -584,25 +542,32 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def list_object_types(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt],
+            Field(
+                description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
+            ),
+        ] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListObjectTypesResponse:
         """list_object_types
 
-        Lists the object types for the given Ontology.  Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the object types for the given Ontology.  Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology_rid: str
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -612,11 +577,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -627,41 +590,28 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListObjectTypesResponse"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListObjectTypesResponse"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/objectTypes',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -679,15 +629,12 @@ class OntologiesApiServiceApi:
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListOntologiesResponse:
         """list_ontologies
 
-        Lists the Ontologies visible to the current user.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the Ontologies visible to the current user.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param _request_timeout: timeout setting for this request in seconds. If
                                  one number provided, it will be total request
@@ -695,11 +642,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -714,27 +659,16 @@ class OntologiesApiServiceApi:
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListOntologiesResponse"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListOntologiesResponse"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies',
+            method="GET",
+            resource_path="/v1/ontologies",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -749,22 +683,31 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def list_outgoing_link_types(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application. ")],
-        object_type: Annotated[StrictStr, Field(description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned.")] = None,
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application. "
+            ),
+        ],
+        object_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt], Field(description="The desired size of the page to be returned.")
+        ] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListOutgoingLinkTypesResponse:
         """list_outgoing_link_types
 
-        List the outgoing links for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`. 
+        List the outgoing links for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.  (required)
         :type ontology_rid: str
@@ -780,11 +723,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -795,43 +736,30 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         if object_type is not None:
-            _path_params['objectType'] = object_type
+            _path_params["objectType"] = object_type
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListOutgoingLinkTypesResponse"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListOutgoingLinkTypesResponse"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -846,26 +774,33 @@ class OntologiesApiServiceApi:
     @handle_unexpected
     def list_query_types(
         self,
-        ontology_rid: Annotated[StrictStr, Field(description="The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
+        ontology_rid: Annotated[
+            StrictStr,
+            Field(
+                description="The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt],
+            Field(
+                description="The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
+            ),
+        ] = None,
         page_token: Optional[StrictStr] = None,
         preview: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListQueryTypesResponse:
         """list_query_types
 
-        Lists the query types for the given Ontology.  Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the query types for the given Ontology.  Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology_rid: str
-        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -877,11 +812,9 @@ class OntologiesApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -892,45 +825,31 @@ class OntologiesApiServiceApi:
 
         # process the path parameters
         if ontology_rid is not None:
-            _path_params['ontologyRid'] = ontology_rid
+            _path_params["ontologyRid"] = ontology_rid
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         if preview is not None:
-            
-            _query_params.append(('preview', preview))
-            
+            _query_params.append(("preview", preview))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListQueryTypesResponse"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListQueryTypesResponse"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v1/ontologies/{ontologyRid}/queryTypes',
+            method="GET",
+            resource_path="/v1/ontologies/{ontologyRid}/queryTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

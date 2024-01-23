@@ -19,7 +19,9 @@ import foundry
 from foundry._core.auth_utils import Auth, Token
 
 
-def _run_with_401_status_check(callable: Callable[[Token], requests.Response]) -> Callable[[Token], requests.Response]:
+def _run_with_401_status_check(
+    callable: Callable[[Token], requests.Response]
+) -> Callable[[Token], requests.Response]:
     def f(token: Token) -> requests.Response:
         response = callable(token)
         if response.status_code == 401:
@@ -36,6 +38,7 @@ class PalantirSession:
     :param auth: Dependency that provides credentials for authentication.
     :param preview: Boolean that enables access to endpoints in Preview Mode by default. Defaults to False.
     """
+
     def __init__(self, auth: Auth, hostname: str, preview: bool = False) -> None:
         self._auth = auth
         self._hostname = hostname.removeprefix("https://").removeprefix("http://")
@@ -45,7 +48,7 @@ class PalantirSession:
     @property
     def hostname(self) -> str:
         return self._remove_host_prefix(self._hostname)
-    
+
     def request(
         self,
         method: str,
@@ -78,7 +81,16 @@ class PalantirSession:
         json: Optional[Any] = None,
         stream: bool = True,
     ) -> requests.Response:
-        request_fn = _run_with_401_status_check(lambda token: self._session.get(url=url, params=params, data=data, json=json, headers=self._add_user_agent_and_auth_headers(token, headers), stream=stream))
+        request_fn = _run_with_401_status_check(
+            lambda token: self._session.get(
+                url=url,
+                params=params,
+                data=data,
+                json=json,
+                headers=self._add_user_agent_and_auth_headers(token, headers),
+                stream=stream,
+            )
+        )
         return self._auth.execute_with_token(request_fn)
 
     def post(
@@ -90,7 +102,16 @@ class PalantirSession:
         json: Optional[Any] = None,
         stream: bool = True,
     ) -> requests.Response:
-        request_fn = _run_with_401_status_check(lambda token: self._session.post(url=url, params=params, data=data, json=json, headers=self._add_user_agent_and_auth_headers(token, headers), stream=stream))
+        request_fn = _run_with_401_status_check(
+            lambda token: self._session.post(
+                url=url,
+                params=params,
+                data=data,
+                json=json,
+                headers=self._add_user_agent_and_auth_headers(token, headers),
+                stream=stream,
+            )
+        )
         return self._auth.execute_with_token(request_fn)
 
     def put(
@@ -102,7 +123,16 @@ class PalantirSession:
         json: Optional[Any] = None,
         stream: bool = True,
     ) -> requests.Response:
-        request_fn = _run_with_401_status_check(lambda token: self._session.put(url=url, params=params, data=data, json=json, headers=self._add_user_agent_and_auth_headers(token, headers), stream=stream))
+        request_fn = _run_with_401_status_check(
+            lambda token: self._session.put(
+                url=url,
+                params=params,
+                data=data,
+                json=json,
+                headers=self._add_user_agent_and_auth_headers(token, headers),
+                stream=stream,
+            )
+        )
         return self._auth.execute_with_token(request_fn)
 
     def delete(
@@ -114,7 +144,16 @@ class PalantirSession:
         json: Optional[Any] = None,
         stream: bool = True,
     ) -> requests.Response:
-        request_fn = _run_with_401_status_check(lambda token: self._session.delete(url=url, params=params, data=data, json=json, headers=self._add_user_agent_and_auth_headers(token, headers), stream=stream))
+        request_fn = _run_with_401_status_check(
+            lambda token: self._session.delete(
+                url=url,
+                params=params,
+                data=data,
+                json=json,
+                headers=self._add_user_agent_and_auth_headers(token, headers),
+                stream=stream,
+            )
+        )
         return self._auth.execute_with_token(request_fn)
 
     def patch(
@@ -126,11 +165,21 @@ class PalantirSession:
         json: Optional[Any] = None,
         stream: bool = True,
     ) -> requests.Response:
-        request_fn = _run_with_401_status_check(lambda token: self._session.patch(url=url, params=params, data=data, json=json, headers=self._add_user_agent_and_auth_headers(token, headers), stream=stream))
+        request_fn = _run_with_401_status_check(
+            lambda token: self._session.patch(
+                url=url,
+                params=params,
+                data=data,
+                json=json,
+                headers=self._add_user_agent_and_auth_headers(token, headers),
+                stream=stream,
+            )
+        )
         return self._auth.execute_with_token(request_fn)
 
-
-    def _add_user_agent_and_auth_headers(self, token: Token, headers: Optional[Mapping[str, Any]] = None) -> Dict[str, str]:
+    def _add_user_agent_and_auth_headers(
+        self, token: Token, headers: Optional[Mapping[str, Any]] = None
+    ) -> Dict[str, str]:
         return {
             **(headers or {}),
             "Authorization": "Bearer " + token.access_token,

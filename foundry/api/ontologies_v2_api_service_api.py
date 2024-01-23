@@ -73,20 +73,24 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def get_action_type(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        action_type: Annotated[StrictStr, Field(description="The name of the action type in the API. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        action_type: Annotated[
+            StrictStr, Field(description="The name of the action type in the API. ")
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ActionTypeV2:
         """get_action_type
 
-        Gets a specific action type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific action type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -98,11 +102,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -113,35 +115,24 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         if action_type is not None:
-            _path_params['actionType'] = action_type
+            _path_params["actionType"] = action_type
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActionTypeV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ActionTypeV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/actionTypes/{actionType}',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -156,20 +147,27 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def get_deployment(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        deployment: Annotated[StrictStr, Field(description="The API name of the deployment you want to fetch information about. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        deployment: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the deployment you want to fetch information about. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> DeploymentMetadata:
         """get_deployment
 
-        Fetches information about a model deployment within a given Ontology. 
+        Fetches information about a model deployment within a given Ontology.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -181,11 +179,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -196,35 +192,24 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         if deployment is not None:
-            _path_params['deployment'] = deployment
+            _path_params["deployment"] = deployment
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeploymentMetadata"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "DeploymentMetadata"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/models/deployments/{deployment}',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/models/deployments/{deployment}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -239,20 +224,27 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def get_object_type(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        object_type: Annotated[StrictStr, Field(description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        object_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ObjectTypeV2:
         """get_object_type
 
-        Gets a specific object type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific object type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -264,11 +256,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -279,35 +269,24 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         if object_type is not None:
-            _path_params['objectType'] = object_type
+            _path_params["objectType"] = object_type
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ObjectTypeV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ObjectTypeV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/objectTypes/{objectType}',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -322,19 +301,21 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def get_ontology_full_metadata(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> OntologyFullMetadata:
         """get_ontology_full_metadata
 
-        Get the full Ontology metadata. This includes the objects, links, actions, and queries. 
+        Get the full Ontology metadata. This includes the objects, links, actions, and queries.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -344,11 +325,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -359,33 +338,22 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "OntologyFullMetadata"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "OntologyFullMetadata"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/fullMetadata',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/fullMetadata",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -400,19 +368,21 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def get_ontology(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> OntologyV2:
         """get_ontology
 
-        Gets a specific ontology with the given Ontology RID.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific ontology with the given Ontology RID.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -422,11 +392,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -437,33 +405,22 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "OntologyV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "OntologyV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -478,21 +435,33 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def get_outgoing_link_type(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        object_type: Annotated[StrictStr, Field(description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. ")],
-        link_type: Annotated[StrictStr, Field(description="The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        object_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. "
+            ),
+        ],
+        link_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> LinkTypeSideV2:
         """get_outgoing_link_type
 
-        Get an outgoing link for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`. 
+        Get an outgoing link for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -506,11 +475,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -521,37 +488,26 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         if object_type is not None:
-            _path_params['objectType'] = object_type
+            _path_params["objectType"] = object_type
         if link_type is not None:
-            _path_params['linkType'] = link_type
+            _path_params["linkType"] = link_type
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LinkTypeSideV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "LinkTypeSideV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -566,20 +522,27 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def get_query_type(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        query_api_name: Annotated[StrictStr, Field(description="The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        query_api_name: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> QueryTypeV2:
         """get_query_type
 
-        Gets a specific query type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Gets a specific query type with the given API name.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -591,11 +554,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -606,35 +567,24 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         if query_api_name is not None:
-            _path_params['queryApiName'] = query_api_name
+            _path_params["queryApiName"] = query_api_name
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "QueryTypeV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "QueryTypeV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/queryTypes/{queryApiName}',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -649,25 +599,32 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def list_action_types(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt],
+            Field(
+                description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
+            ),
+        ] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListActionTypesResponseV2:
         """list_action_types
 
-        Lists the action types for the given Ontology.  Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the action types for the given Ontology.  Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -677,11 +634,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -692,41 +647,28 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListActionTypesResponseV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListActionTypesResponseV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/actionTypes',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/actionTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -741,19 +683,21 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def list_deployments(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListDeploymentsResponse:
         """list_deployments
 
-        Fetches a list of the available model deployments within a given Ontology. 
+        Fetches a list of the available model deployments within a given Ontology.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -763,11 +707,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -778,33 +720,22 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListDeploymentsResponse"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListDeploymentsResponse"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/models/deployments',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/models/deployments",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -819,25 +750,32 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def list_object_types(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt],
+            Field(
+                description="The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
+            ),
+        ] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListObjectTypesV2Response:
         """list_object_types
 
-        Lists the object types for the given Ontology.  Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the object types for the given Ontology.  Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -847,11 +785,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -862,41 +798,28 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListObjectTypesV2Response"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListObjectTypesV2Response"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/objectTypes',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/objectTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -914,15 +837,12 @@ class OntologiesV2ApiServiceApi:
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListOntologiesV2Response:
         """list_ontologies
 
-        Lists the Ontologies visible to the current user.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the Ontologies visible to the current user.  Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param _request_timeout: timeout setting for this request in seconds. If
                                  one number provided, it will be total request
@@ -930,11 +850,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -949,27 +867,16 @@ class OntologiesV2ApiServiceApi:
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListOntologiesV2Response"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListOntologiesV2Response"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies',
+            method="GET",
+            resource_path="/v2/ontologies",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -984,22 +891,31 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def list_outgoing_link_types(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        object_type: Annotated[StrictStr, Field(description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned.")] = None,
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        object_type: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt], Field(description="The desired size of the page to be returned.")
+        ] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListOutgoingLinkTypesResponseV2:
         """list_outgoing_link_types
 
-        List the outgoing links for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`. 
+        List the outgoing links for an object type.  Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
@@ -1015,11 +931,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1030,43 +944,30 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         if object_type is not None:
-            _path_params['objectType'] = object_type
+            _path_params["objectType"] = object_type
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListOutgoingLinkTypesResponseV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListOutgoingLinkTypesResponseV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1081,25 +982,32 @@ class OntologiesV2ApiServiceApi:
     @handle_unexpected
     def list_query_types(
         self,
-        ontology: Annotated[StrictStr, Field(description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. ")],
-        page_size: Annotated[Optional[StrictInt], Field(description="The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. ")] = None,
+        ontology: Annotated[
+            StrictStr,
+            Field(
+                description="The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**. "
+            ),
+        ],
+        page_size: Annotated[
+            Optional[StrictInt],
+            Field(
+                description="The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. "
+            ),
+        ] = None,
         page_token: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
         ] = None,
     ) -> ListQueryTypesResponseV2:
         """list_query_types
 
-        Lists the query types for the given Ontology.          Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.          Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`. 
+        Lists the query types for the given Ontology.          Each page may be smaller than the requested page size. However, it is guaranteed that if there are more results available, at least one result will be present in the response.          Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  (required)
         :type ontology: str
-        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details. 
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: int
         :param page_token:
         :type page_token: str
@@ -1109,11 +1017,9 @@ class OntologiesV2ApiServiceApi:
                                  (connection, read) timeouts.
         :type _request_timeout: int, tuple(int, int), optional
         :return: Returns the result object.
-        """ # noqa: E501
+        """  # noqa: E501
 
-        _collection_formats: Dict[str, str] = {
-            
-        }
+        _collection_formats: Dict[str, str] = {}
 
         _path_params: Dict[str, str] = {}
         _query_params: List[Tuple[str, Any]] = []
@@ -1124,41 +1030,28 @@ class OntologiesV2ApiServiceApi:
 
         # process the path parameters
         if ontology is not None:
-            _path_params['ontology'] = ontology
+            _path_params["ontology"] = ontology
         # process the query parameters
         if page_size is not None:
-            
-            _query_params.append(('pageSize', page_size))
-            
+            _query_params.append(("pageSize", page_size))
+
         if page_token is not None:
-            
-            _query_params.append(('pageToken', page_token))
-            
+            _query_params.append(("pageToken", page_token))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
-
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self._api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
+        _header_params["Accept"] = self._api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: List[str] = [
-            'BearerAuth'
-        ]
+        _auth_settings: List[str] = ["BearerAuth"]
 
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListQueryTypesResponseV2"
-            
-        }
+        _response_types_map: Dict[str, Optional[str]] = {"200": "ListQueryTypesResponseV2"}
         return self._api_client.call_api(
-            method='GET',
-            resource_path='/v2/ontologies/{ontology}/queryTypes',
+            method="GET",
+            resource_path="/v2/ontologies/{ontology}/queryTypes",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

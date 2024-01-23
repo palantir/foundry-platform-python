@@ -39,25 +39,30 @@ from foundry.models.query_data_type import QueryDataType
 from foundry.models.query_parameter_v2 import QueryParameterV2
 from typing_extensions import Self
 
+
 class QueryTypeV2(BaseModel):
     """
     Represents a query type in the Ontology.
-    """ # noqa: E501
+    """  # noqa: E501
+
     api_name: StrictStr = Field(description="The name of the Query in the API. ", alias="apiName")
     description: Optional[StrictStr] = None
-    display_name: Optional[StrictStr] = Field(default=None, description="The display name of the entity.", alias="displayName")
+    display_name: Optional[StrictStr] = Field(
+        default=None, description="The display name of the entity.", alias="displayName"
+    )
     output: QueryDataType
     parameters: Optional[Dict[str, QueryParameterV2]] = None
-    rid: StrictStr = Field(description="The unique resource identifier of a Function, useful for interacting with other Foundry APIs. ")
-    version: StrictStr = Field(description="The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional. Examples: `1.2.3`, `1.2.3-rc1`. ")
-    __properties: ClassVar[Set[str]] = set(("apiName", "description", "displayName", "output", "parameters", "rid", "version"))
+    rid: StrictStr = Field(
+        description="The unique resource identifier of a Function, useful for interacting with other Foundry APIs. "
+    )
+    version: StrictStr = Field(
+        description="The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional. Examples: `1.2.3`, `1.2.3-rc1`. "
+    )
+    __properties: ClassVar[Set[str]] = set(
+        ("apiName", "description", "displayName", "output", "parameters", "rid", "version")
+    )
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -85,20 +90,19 @@ class QueryTypeV2(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of output
         if self.output:
-            _dict['output'] = self.output.to_dict()
+            _dict["output"] = self.output.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each value in parameters (dict)
         _field_dict = {}
         if self.parameters:
             for _key in self.parameters:
                 if self.parameters[_key]:
                     _field_dict[_key] = self.parameters[_key].to_dict()
-            _dict['parameters'] = _field_dict
+            _dict["parameters"] = _field_dict
         return _dict
 
     @classmethod
@@ -110,12 +114,10 @@ class QueryTypeV2(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

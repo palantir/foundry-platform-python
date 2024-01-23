@@ -30,6 +30,7 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
+
 try:
     from typing import Annotated
 except ImportError:
@@ -46,13 +47,13 @@ from foundry.models.delete_object_rule import DeleteObjectRule
 from foundry.models.modify_object_rule import ModifyObjectRule
 
 
-
 """
 LogicRule
 """
-LogicRule = Annotated[Union[CreateLinkRule, CreateObjectRule, DeleteLinkRule, DeleteObjectRule, ModifyObjectRule], Field(discriminator="type")]
-
-
+LogicRule = Annotated[
+    Union[CreateLinkRule, CreateObjectRule, DeleteLinkRule, DeleteObjectRule, ModifyObjectRule],
+    Field(discriminator="type"),
+]
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according

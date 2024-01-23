@@ -15,6 +15,7 @@
 from typing import Any, Dict
 from foundry._errors.helpers import format_error_message
 
+
 class PalantirRPCException(Exception):
     def __init__(self, error_metadata: Dict[str, Any]):
         super().__init__(format_error_message(error_metadata))

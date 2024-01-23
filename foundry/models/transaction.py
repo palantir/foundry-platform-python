@@ -39,23 +39,31 @@ from foundry.models.transaction_status import TransactionStatus
 from foundry.models.transaction_type import TransactionType
 from typing_extensions import Self
 
+
 class Transaction(BaseModel):
     """
-    An operation that modifies the files within a dataset. 
-    """ # noqa: E501
-    closed_time: Optional[datetime] = Field(default=None, description="The timestamp when the transaction was closed, in ISO 8601 timestamp format.", alias="closedTime")
-    created_time: datetime = Field(description="The timestamp when the transaction was created, in ISO 8601 timestamp format.", alias="createdTime")
-    rid: StrictStr = Field(description="The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`. ")
+    An operation that modifies the files within a dataset.
+    """  # noqa: E501
+
+    closed_time: Optional[datetime] = Field(
+        default=None,
+        description="The timestamp when the transaction was closed, in ISO 8601 timestamp format.",
+        alias="closedTime",
+    )
+    created_time: datetime = Field(
+        description="The timestamp when the transaction was created, in ISO 8601 timestamp format.",
+        alias="createdTime",
+    )
+    rid: StrictStr = Field(
+        description="The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`. "
+    )
     status: TransactionStatus
     transaction_type: TransactionType = Field(alias="transactionType")
-    __properties: ClassVar[Set[str]] = set(("closedTime", "createdTime", "rid", "status", "transactionType"))
+    __properties: ClassVar[Set[str]] = set(
+        ("closedTime", "createdTime", "rid", "status", "transactionType")
+    )
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "extra": "forbid"
-    }
-
+    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -83,8 +91,7 @@ class Transaction(BaseModel):
         """
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude={},
             exclude_none=True,
         )
         return _dict
@@ -98,12 +105,10 @@ class Transaction(BaseModel):
         # We need to do this since the model config forbids additional properties
         # and this cannot be changed at runtime
         if (
-            allow_extra and
-            isinstance(obj, dict) and
-            any(key not in cls.__properties for key in obj)
+            allow_extra
+            and isinstance(obj, dict)
+            and any(key not in cls.__properties for key in obj)
         ):
             obj = {key: value for key, value in obj.items() if key in cls.__properties}
 
         return cls.model_validate(obj)
-
-

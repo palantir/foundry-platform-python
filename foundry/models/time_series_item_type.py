@@ -30,6 +30,7 @@ from __future__ import annotations
 import json
 import pprint
 from typing import Union
+
 try:
     from typing import Annotated
 except ImportError:
@@ -43,13 +44,10 @@ from foundry.models.double_type import DoubleType
 from foundry.models.string_type import StringType
 
 
-
 """
 A union of the types supported by time series properties. 
 """
 TimeSeriesItemType = Annotated[Union[DoubleType, StringType], Field(discriminator="type")]
-
-
 
 
 # Create an instance of a type adapter. This has a non-trivial overhead according
