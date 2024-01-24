@@ -40,6 +40,8 @@ jobs:
       - run: python -m tox -e black
 
   all-checks:
+    docker:
+      - image: node:lts
     steps:
       - run: echo "Done!"
 
