@@ -1,7 +1,7 @@
 # Foundry Platform SDK
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/foundry-platform-sdk)
-[![PyPI](https://img.shields.io/pypi/v/foundry-platform-sdk)](https://pypi.org/project/foundry-platform-sdk/)
+![Supported Python Versions](https://img.shields.io/pypi/pyversions/foundry-platform-sdk)
+[![PyPI Version](https://img.shields.io/pypi/v/foundry-platform-sdk)](https://pypi.org/project/foundry-platform-sdk/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg)](https://opensource.org/licenses/Apache-2.0)
 
 > [!WARNING]
