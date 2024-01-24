@@ -85,6 +85,7 @@ workflows:
       - black:
         <<: *always-run
       - all-checks:
+          <<: *always-run
           requires:
             - python-3.9
             - python-3.10
