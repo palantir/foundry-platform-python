@@ -19,7 +19,7 @@ import re
 def test_no_remaining_references():
     try:
         # If this works, it means we are in the generator repository
-        from foundry_platform_sdk_generator.config import Config
+        from foundry_sdk_generator.config import Config
 
         config = Config.load_config()
         docs_path = config.docs_path
