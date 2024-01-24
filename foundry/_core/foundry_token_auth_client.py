@@ -12,8 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-#  (c) Copyright 2023 Palantir Technologies Inc. All rights reserved.
-
 import os
 from typing import Tuple, TypeVar, Callable
 
