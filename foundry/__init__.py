@@ -25,28 +25,37 @@
 
 
 # The SDK version
-from foundry.versions import __version__
+from foundry._versions import __version__
 
 # The OpenAPI document version from the spec information
 # See https://swagger.io/specification/#info-object
-from foundry.versions import __openapi_document_version__
+from foundry._versions import __openapi_document_version__
 
 # The OpenAPI specification version
 # See https://swagger.io/specification/#versions
-from foundry.versions import __openapi_specification_version__
+from foundry._versions import __openapi_specification_version__
 
 # The version of the generator used to generate the SDK
-from foundry.versions import __openapi_generator_version__
+from foundry._versions import __openapi_generator_version__
 
 
-# import ApiClient
-from foundry.api_response import ApiResponse
-from foundry.auth.foundry_oauth_client import ConfidentialClientAuth
-from foundry.auth.foundry_auth_token_client import UserTokenAuth
-from foundry.configuration import Configuration
-from foundry.exceptions import OpenApiException
-from foundry.exceptions import ApiValueError
-from foundry.exceptions import ApiKeyError
-from foundry.exceptions import ApiAttributeError
-from foundry.exceptions import ApiException
+from foundry._core.confidential_client_auth import ConfidentialClientAuth
+from foundry._core.foundry_token_auth_client import UserTokenAuth
+from foundry._errors.not_authenticated import NotAuthenticated
+from foundry._errors.environment_not_configured import EnvironmentNotConfigured
+from foundry._errors.palantir_rpc_exception import PalantirRPCException
 from foundry.foundry_client import FoundryClient
+
+
+__all__ = [
+    "__version__",
+    "__openapi_document_version__",
+    "__openapi_specification_version__",
+    "__openapi_generator_version__",
+    "ConfidentialClientAuth",
+    "UserTokenAuth",
+    "NotAuthenticated",
+    "EnvironmentNotConfigured",
+    "PalantirRPCException",
+    "FoundryClient",
+]

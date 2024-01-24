@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "foundry"
-version = "0.1.25"
+version = "0.0.0"
 description = "The official Python library for the Foundry API"
 authors = ["Jacob Smith <jacobas@palantir.com>"]
 license = "Apache-2.0"
@@ -10,8 +10,8 @@ keywords = ["OpenAPI", "OpenAPI-Generator", "Palantir OpenAPI"]
 packages = [{ include = "foundry" }]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-urllib3 = ">=1.26.5"
+python = "^3.9"
+requests = "^2.25.0"
 python-dateutil = "*"
 pydantic = "^2.1.0"
 typing-extensions = ">=4.7.1"

@@ -54,7 +54,7 @@ from foundry.models.transaction import Transaction
 from foundry.models.transaction_type import TransactionType
 
 from foundry.api_client import ApiClient
-from foundry.exceptions import handle_unexpected
+from foundry._errors.sdk_internal_error import handle_unexpected
 
 
 class DatasetsApiServiceApi:
@@ -128,7 +128,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="POST",
             resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort",
             path_params=_path_params,
@@ -137,15 +137,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -208,7 +202,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="POST",
             resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit",
             path_params=_path_params,
@@ -217,15 +211,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -291,7 +279,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Branch"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="POST",
             resource_path="/v1/datasets/{datasetRid}/branches",
             path_params=_path_params,
@@ -300,15 +288,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -364,7 +346,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Dataset"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="POST",
             resource_path="/v1/datasets",
             path_params=_path_params,
@@ -373,15 +355,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -458,7 +434,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="POST",
             resource_path="/v1/datasets/{datasetRid}/transactions",
             path_params=_path_params,
@@ -467,15 +443,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -533,7 +503,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="DELETE",
             resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
             path_params=_path_params,
@@ -542,15 +512,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -630,7 +594,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="DELETE",
             resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
             path_params=_path_params,
@@ -639,15 +603,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -721,7 +679,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="DELETE",
             resource_path="/v1/datasets/{datasetRid}/schema",
             path_params=_path_params,
@@ -730,15 +688,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -799,7 +751,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Branch"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
             path_params=_path_params,
@@ -808,15 +760,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -867,7 +813,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Dataset"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}",
             path_params=_path_params,
@@ -876,15 +822,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -974,7 +914,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "bytearray"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/files/{filePath}/content",
             path_params=_path_params,
@@ -983,15 +923,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1081,7 +1015,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "File"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
             path_params=_path_params,
@@ -1090,15 +1024,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1171,7 +1099,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "object", "204": None}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/schema",
             path_params=_path_params,
@@ -1180,15 +1108,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1251,7 +1173,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Transaction"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}",
             path_params=_path_params,
@@ -1260,15 +1182,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1341,7 +1257,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ListBranchesResponse"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/branches",
             path_params=_path_params,
@@ -1350,15 +1266,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1460,7 +1370,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ListFilesResponse"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/files",
             path_params=_path_params,
@@ -1469,15 +1379,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1552,7 +1456,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="PUT",
             resource_path="/v1/datasets/{datasetRid}/schema",
             path_params=_path_params,
@@ -1561,15 +1465,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1689,7 +1587,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "bytearray"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/datasets/{datasetRid}/readTable",
             path_params=_path_params,
@@ -1698,15 +1596,9 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -1811,7 +1703,7 @@ class DatasetsApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "File"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="POST",
             resource_path="/v1/datasets/{datasetRid}/files:upload",
             path_params=_path_params,
@@ -1820,12 +1712,6 @@ class DatasetsApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )

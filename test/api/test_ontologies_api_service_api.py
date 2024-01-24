@@ -28,13 +28,16 @@ def mock_list_ontologies(monkeypatch):
                 {
                     "method": "GET",
                     "url": "https://test.com/api/v1/ontologies/MyOntology/objectTypes",
+                    "json": None,
+                    "params": None,
                 },
                 {
                     "status": 200,
-                    "body": {
+                    "json": {
                         "nextPageToken": None,
                         "data": [{"rid": "123", "apiName": "API", "status": "ACTIVE"}],
                     },
+                    "content": None,
                 },
             )
         ],

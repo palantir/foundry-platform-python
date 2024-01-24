@@ -16,7 +16,6 @@ import json
 from unittest.mock import Mock
 from pydantic import ValidationError
 import pytest
-from urllib3 import PoolManager
 from foundry import FoundryClient
 from foundry.models.branch import Branch
 from foundry.models.create_branch_request import CreateBranchRequest
@@ -33,11 +32,13 @@ def mock_create_branch(monkeypatch, dataset_rid: str, branch_id: str):
                 {
                     "method": "POST",
                     "url": f"https://test.com/api/v1/datasets/{dataset_rid}/branches",
-                    "body": {"branchId": branch_id},
+                    "json": {"branchId": branch_id},
+                    "params": {},
                 },
                 {
                     "status": 200,
-                    "body": {"branchId": branch_id},
+                    "json": {"branchId": branch_id},
+                    "content": None,
                 },
             )
         ],
@@ -139,11 +140,14 @@ def mock_data_read(monkeypatch, data: bytes):
             (
                 {
                     "method": "GET",
-                    "url": "https://test.com/api/v1/datasets/test.rid/readTable?format=CSV",
+                    "url": "https://test.com/api/v1/datasets/test.rid/readTable",
+                    "params": {"format": "CSV"},
+                    "json": None,
                 },
                 {
                     "status": 200,
-                    "data": data,
+                    "json": None,
+                    "content": data,
                 },
             )
         ],

@@ -29,10 +29,12 @@ def mock_list_ontologies(monkeypatch):
                 {
                     "method": "GET",
                     "url": "https://test.com/api/v2/ontologies/MyOntology/objectTypes",
+                    "json": None,
+                    "params": None,
                 },
                 {
                     "status": 200,
-                    "body": {
+                    "json": {
                         "nextPageToken": None,
                         "data": [
                             {
@@ -43,6 +45,7 @@ def mock_list_ontologies(monkeypatch):
                             }
                         ],
                     },
+                    "content": None,
                 },
             )
         ],

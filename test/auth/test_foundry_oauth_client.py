@@ -14,7 +14,7 @@
 
 import pytest
 from foundry import ConfidentialClientAuth
-from foundry.exceptions import OpenApiException
+from foundry._errors.not_authenticated import NotAuthenticated
 
 
 def test_fails_no_escopes():
@@ -39,14 +39,11 @@ def test_can_pass_config():
         scopes=["hello"],
     )
 
-    assert config.hostname == "hey.com"
+    assert config._hostname == "hey.com"
     assert config._client_id == "123"
     assert config._client_secret == "abc"
 
-    with pytest.raises(OpenApiException) as info:
+    with pytest.raises(NotAuthenticated) as info:
         config.get_token()
 
-    assert (
-        str(info.value)
-        == "ConfidentialClientAuth has not been authenticated. Please call sign_in_as_service_user() first."
-    )
+    assert str(info.value) == "Client has not been authenticated."

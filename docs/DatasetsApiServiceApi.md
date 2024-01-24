@@ -2,8 +2,6 @@
 
 The official Python library for the Foundry API
 
-All URIs are relative to *http://localhost*
-
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**abort_transaction**](<DatasetsApiServiceApi.md#abort_transaction>) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/abort |
@@ -42,7 +40,7 @@ from foundry.models.transaction import Transaction
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 transaction_rid = 'ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496' # str | The Resource Identifier (RID) of the Transaction.
@@ -101,7 +99,7 @@ from foundry.models.transaction import Transaction
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 transaction_rid = 'ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496' # str | The Resource Identifier (RID) of the Transaction.
@@ -161,7 +159,7 @@ from foundry.models.create_branch_request import CreateBranchRequest
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset on which to create the Branch.
 create_branch_request = {"branchId":"my-branch"} # CreateBranchRequest | 
@@ -221,7 +219,7 @@ from foundry.models.dataset import Dataset
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 create_dataset_request = {"name":"My Dataset","parentFolderRid":"ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4"} # CreateDatasetRequest | 
 
@@ -279,7 +277,7 @@ from foundry.models.transaction import Transaction
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset on which to create the Transaction.
 create_transaction_request = {"transactionType":"SNAPSHOT"} # CreateTransactionRequest | 
@@ -299,7 +297,7 @@ except Exception as e:
 ```python
 import foundry
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 my_transaction = foundry_client.datasets.create_transaction(
     dataset_rid="...",
@@ -358,7 +356,7 @@ import foundry
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset that contains the Branch.
 branch_id = 'my-branch' # str | The identifier (name) of the Branch.
@@ -414,7 +412,7 @@ import foundry
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset on which to delete the File.
 file_path = 'q3-data%2fmy-file.csv' # str | The File path within the Dataset.
@@ -474,7 +472,7 @@ import foundry
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'dataset_rid_example' # str | The RID of the Dataset on which to delete the schema. 
 branch_id = 'branch_id_example' # str | The ID of the Branch on which to delete the schema.  (optional)
@@ -535,7 +533,7 @@ from foundry.models.branch import Branch
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset that contains the Branch.
 branch_id = 'master' # str | The identifier (name) of the Branch.
@@ -594,7 +592,7 @@ from foundry.models.dataset import Dataset
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | 
 
@@ -650,7 +648,7 @@ import foundry
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'dataset_rid_example' # str | The Resource Identifier (RID) of the Dataset that contains the File.
 file_path = 'q3-data%2fmy-file.csv' # str | The File's path within the Dataset.
@@ -715,7 +713,7 @@ from foundry.models.file import File
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset that contains the File.
 file_path = 'q3-data%2fmy-file.csv' # str | The File's path within the Dataset.
@@ -779,7 +777,7 @@ import foundry
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'dataset_rid_example' # str | The RID of the Dataset. 
 branch_id = 'branch_id_example' # str | The ID of the Branch.  (optional)
@@ -843,7 +841,7 @@ from foundry.models.transaction import Transaction
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 transaction_rid = 'ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496' # str | The Resource Identifier (RID) of the Transaction.
@@ -902,7 +900,7 @@ from foundry.models.list_branches_response import ListBranchesResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da' # str | The Resource Identifier (RID) of the Dataset on which to list Branches.
 page_size = 56 # int | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  (optional)
@@ -963,7 +961,7 @@ from foundry.models.list_files_response import ListFilesResponse
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'dataset_rid_example' # str | The Resource Identifier (RID) of the Dataset on which to list Files.
 branch_id = 'branch_id_example' # str | The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments. (optional)
@@ -986,7 +984,7 @@ except Exception as e:
 ```python
 import foundry
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 files = list(foundry_client.datasets.list_files(dataset_rid="..."))
 
@@ -1048,7 +1046,7 @@ import foundry
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'dataset_rid_example' # str | The RID of the Dataset on which to put the Schema. 
 body = None # object | 
@@ -1110,7 +1108,7 @@ from foundry.models.table_export_format import TableExportFormat
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'dataset_rid_example' # str | The RID of the Dataset. 
 format = foundry.TableExportFormat() # TableExportFormat | The export format. Must be `ARROW` or `CSV`. 
@@ -1137,7 +1135,7 @@ import foundry
 from foundry.models import TableExportFormat
 from foundry.rest import ApiException
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 try:
     api_response = foundry_client.datasets.read_table(dataset_rid="...", format="CSV", columns=[...])
@@ -1159,7 +1157,7 @@ from foundry.models import TableExportFormat
 from foundry.rest import ApiException
 import pyarrow as pa
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 try:
     api_response = foundry_client.datasets.read_table(dataset_rid="...", format="ARROW", columns=[...])
@@ -1239,7 +1237,7 @@ from foundry.models.transaction_type import TransactionType
 from foundry.rest import ApiException
 from pprint import pprint
 
-foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth())
+foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 dataset_rid = 'dataset_rid_example' # str | The Resource Identifier (RID) of the Dataset on which to upload the File.
 file_path = 'q3-data%2fmy-file.csv' # str | The File's path within the Dataset.

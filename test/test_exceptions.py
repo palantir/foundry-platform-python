@@ -12,11 +12,12 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import json
 import re
 import pytest
-from foundry.exceptions import SDKInternalError
-from foundry.exceptions import OpenApiException
-from foundry.exceptions import handle_unexpected
+from foundry._errors.sdk_internal_error import SDKInternalError
+from foundry._errors.sdk_internal_error import handle_unexpected
+from foundry._errors.palantir_rpc_exception import PalantirRPCException
 
 
 def test_sdk_internal_error():
@@ -35,6 +36,7 @@ OpenAPI Specification Version: \d+\.\d+\.\d+
 OpenAPI Generator Version: \d+\.\d+\.\d+
 Pydantic Version: \d+\.\d+\.\d+
 Pydantic Core Version: \d+\.\d+\.\d+
+Requests Version: \d+\.\d+\.\d+
 $""",
             str(error.value),
         )
@@ -56,9 +58,16 @@ def test_handle_unexpected_fails_for_unkonwn_exception():
 def test_handle_unexpected_ignores_known_exception():
     @handle_unexpected
     def raises_known_exception():
-        raise OpenApiException("test")
+        raise PalantirRPCException({"errorName": "", "parameters": "", "errorInstanceId": ""})
 
-    with pytest.raises(OpenApiException) as error:
+    with pytest.raises(PalantirRPCException) as error:
         raises_known_exception()
 
-    assert str(error.value) == "test"
+    assert str(error.value) == json.dumps(
+        {
+            "errorInstanceId": "",
+            "errorName": "",
+            "parameters": "",
+        },
+        indent=4,
+    )

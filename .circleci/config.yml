@@ -14,14 +14,14 @@ jobs:
         type: string
       pydantic_version:
         type: string
-      urllib3_version:
+      requests_version:
         type: string
     docker:
       - image: cimg/python:<< parameters.python_version >>
     steps:
       - checkout
       - run: pip install --user tox
-      - run: tox -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-urllib3<< parameters.urllib3_version >>
+      - run: tox -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-requests<< parameters.requests_version >>
 
   pyright:
     docker:
@@ -39,11 +39,19 @@ jobs:
       - run: pip install --user tox
       - run: python -m tox -e black
 
+  circle-all:
+    docker:
+      - image: node:lts
+    steps:
+      - run: echo "Done!"
+
   publish:
     docker:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - run: python scripts/set_version.py
+      - run: poetry version $(git describe --tags --abbrev=0)
       - run: poetry publish -v -u $PYPI_USERNAME -p $PYPI_PASSWORD --build
 
 workflows:
@@ -55,9 +63,9 @@ workflows:
           name: python-<< matrix.python_version>>
           matrix:
             parameters:
-              python_version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+              python_version: ["3.9", "3.10", "3.11", "3.12"]
               pydantic_version: ["2.4"]
-              urllib3_version: ["2.1"]
+              requests_version: ["2.31"]
       - test:
           <<: *always-run
           name: pydantic-<< matrix.pydantic_version >>
@@ -65,22 +73,22 @@ workflows:
             parameters:
               python_version: ["3.12"]
               pydantic_version: ["2.1.0", "2.1", "2.2", "2.3", "2.4", "2.5"]
-              urllib3_version: ["2.1"]
+              requests_version: ["2.31"]
       - test:
           <<: *always-run
-          name: urllib3-<< matrix.urllib3_version >>
+          name: requests-<< matrix.requests_version >>
           matrix:
             parameters:
               python_version: ["3.12"]
               pydantic_version: ["2.4"]
-              urllib3_version: ["1.26.5", "1.26", "2.0", "2.1"]
+              requests_version: ["2.25", "2.26", "2.31"]
       - pyright:
         <<: *always-run
       - black:
         <<: *always-run
-      - publish:
+      - circle-all:
+          <<: *always-run
           requires:
-            - python-3.8
             - python-3.9
             - python-3.10
             - python-3.11
@@ -93,13 +101,15 @@ workflows:
             - pydantic-2.4
             - pydantic-2.5
 
-            - urllib3-1.26.5
-            - urllib3-1.26
-            - urllib3-2.0
-            - urllib3-2.1
+            - requests-2.25
+            - requests-2.26
+            - requests-2.31
 
             - pyright
             - black
+      - publish:
+          requires:
+            - circle-all
           filters:
             tags: { only: '/^[0-9]+(\.[0-9]+)+(-[a-zA-Z]+[0-9]*)*$/' }
             branches: { ignore: /.*/ }

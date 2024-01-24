@@ -12,22 +12,38 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import json
+import json as jsn
+from typing import Any, Dict, List, Optional, Tuple, TypedDict
 from unittest.mock import Mock
+
 import pytest
-from urllib3 import PoolManager
+from requests import Session
+
 from foundry import FoundryClient
 from foundry import UserTokenAuth
 
 
 @pytest.fixture
 def client():
-    yield FoundryClient(auth=UserTokenAuth(hostname="test.com", token="test"))
+    yield FoundryClient(auth=UserTokenAuth(hostname="test.com", token="test"), hostname="test.com")
 
 
-def mock_responses(monkeypatch, request_responses: list):
+class MockRequest(TypedDict):
+    method: str
+    url: str
+    params: Optional[Dict[str, Any]]
+    json: Optional[Any]
+
+
+class MockResponse(TypedDict):
+    status: int
+    content: Optional[bytes]
+    json: Optional[Any]
+
+
+def mock_responses(monkeypatch, request_responses: List[Tuple[MockRequest, MockResponse]]):
     # Define a side_effect function for our mock. This will be called instead of the original method
-    def mock_request(_, method, url, body=None, **kwargs):
+    def mock_request(_, method, url, json=None, **kwargs):
         for request, response in request_responses:
             if request["method"] != method:
                 continue
@@ -35,25 +51,25 @@ def mock_responses(monkeypatch, request_responses: list):
             if request["url"] != url:
                 continue
 
-            if body is not None and request["body"] != json.loads(body):
+            if json is not None and json != request["json"]:
                 continue
 
             # Mock response
             mock_response = Mock()
-            mock_response.status = response["status"]
+            mock_response.status_code = response["status"]
 
-            if "body" in response:
-                mock_response.data = json.dumps(response["body"]).encode()
-            elif "data" in response:
-                mock_response.data = response["data"]
+            if response["json"]:
+                mock_response.content = jsn.dumps(response["json"]).encode()
+            elif response["content"]:
+                mock_response.content = response["content"]
             else:
-                mock_response.data = None
+                mock_response.content = None
 
             mock_response.headers = {}
 
             return mock_response
 
-        pytest.fail(f"Unexpected request: {method} {url} {body}")
+        pytest.fail(f"Unexpected request: {method} {url} {json}")
 
     # Use monkeypatch to replace the PoolManager.request method with our side_effect function
-    monkeypatch.setattr(PoolManager, "request", mock_request)
+    monkeypatch.setattr(Session, "request", mock_request)

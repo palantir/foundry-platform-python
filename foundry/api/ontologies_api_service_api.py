@@ -53,7 +53,7 @@ from foundry.models.ontology import Ontology
 from foundry.models.query_type import QueryType
 
 from foundry.api_client import ApiClient
-from foundry.exceptions import handle_unexpected
+from foundry._errors.sdk_internal_error import handle_unexpected
 
 
 class OntologiesApiServiceApi:
@@ -127,7 +127,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ActionType"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName}",
             path_params=_path_params,
@@ -136,15 +136,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -210,7 +204,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ObjectType"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}",
             path_params=_path_params,
@@ -219,15 +213,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -283,7 +271,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "Ontology"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}",
             path_params=_path_params,
@@ -292,15 +280,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -376,7 +358,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "LinkTypeSide"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
             path_params=_path_params,
@@ -385,15 +367,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -465,7 +441,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "QueryType"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/queryTypes/{queryApiName}",
             path_params=_path_params,
@@ -474,15 +450,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -555,7 +525,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ListActionTypesResponse"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/actionTypes",
             path_params=_path_params,
@@ -564,15 +534,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -645,7 +609,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ListObjectTypesResponse"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
             path_params=_path_params,
@@ -654,15 +618,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -708,7 +666,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ListOntologiesResponse"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies",
             path_params=_path_params,
@@ -717,15 +675,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -805,7 +757,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ListOutgoingLinkTypesResponse"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
             path_params=_path_params,
@@ -814,15 +766,9 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
 
     @validate_call
     @handle_unexpected
@@ -901,7 +847,7 @@ class OntologiesApiServiceApi:
         _auth_settings: List[str] = ["BearerAuth"]
 
         _response_types_map: Dict[str, Optional[str]] = {"200": "ListQueryTypesResponse"}
-        response_data = self._api_client.call_api(
+        return self._api_client.call_api(
             method="GET",
             resource_path="/v1/ontologies/{ontologyRid}/queryTypes",
             path_params=_path_params,
@@ -910,12 +856,6 @@ class OntologiesApiServiceApi:
             body=_body_params,
             post_params=_form_params,
             files=_files,
-            auth_settings=_auth_settings,
             collection_formats=_collection_formats,
-            _request_timeout=_request_timeout,
-        )
-        response_data.read()
-        return self._api_client.response_deserialize(
-            response_data=response_data,
             response_types_map=_response_types_map,
-        ).data
+        )
