@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: Fix version script
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/4
