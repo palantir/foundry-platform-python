@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: Fix pyproject name
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/5

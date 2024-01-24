@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "foundry"
+name = "foundry-platform-sdk"
 version = "0.0.0"
 description = "The official Python library for the Foundry API"
 authors = ["Jacob Smith <jacobas@palantir.com>"]
