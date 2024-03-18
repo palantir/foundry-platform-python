@@ -2,11 +2,10 @@
 name = "foundry-platform-sdk"
 version = "0.0.0"
 description = "The official Python library for the Foundry API"
-authors = ["Jacob Smith <jacobas@palantir.com>"]
 license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/palantir/foundry-platform-python"
-keywords = ["OpenAPI", "OpenAPI-Generator", "Palantir OpenAPI"]
+keywords = ["Palantir", "Foundry", "SDK", "Client", "API"]
 packages = [{ include = "foundry" }]
 
 [tool.poetry.dependencies]
