@@ -136,19 +136,14 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset.
- |  |
+**dataset_rid** | DatasetRid | The RID of the Dataset.  |  |
 **branch_id** | Optional[BranchId] | The identifier (name) of the Branch. | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction. | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. | [optional] |
-**format** | TableExportFormat | The export format. Must be `ARROW` or `CSV`.
- |  |
-**columns** | Optional[List[StrictStr]] | A subset of the dataset columns to include in the result. Defaults to all columns.
- | [optional] |
-**row_limit** | Optional[StrictInt] | A limit on the number of rows to return. Note that row ordering is non-deterministic.
- | [optional] |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
- | [optional] |
+**format** | TableExportFormat | The export format. Must be `ARROW` or `CSV`.  |  |
+**columns** | Optional[List[StrictStr]] | A subset of the dataset columns to include in the result. Defaults to all columns.  | [optional] |
+**row_limit** | Optional[StrictInt] | A limit on the number of rows to return. Note that row ordering is non-deterministic.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **bytes**
@@ -260,10 +255,8 @@ Puts a Schema on an existing Dataset and Branch.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset on which to put the Schema.
- |  |
-**branch_id** | Optional[BranchId] | The ID of the Branch on which to put the Schema.
- | [optional] |
+**dataset_rid** | DatasetRid | The RID of the Dataset on which to put the Schema.  |  |
+**branch_id** | Optional[BranchId] | The ID of the Branch on which to put the Schema.  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 **body** | object | Body of the request |  |
 
@@ -316,12 +309,9 @@ Retrieves the Schema for a Dataset and Branch, if it exists.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset.
- |  |
-**branch_id** | Optional[BranchId] | The ID of the Branch.
- | [optional] |
-**transaction_rid** | Optional[TransactionRid] | The TransactionRid that contains the Schema.
- | [optional] |
+**dataset_rid** | DatasetRid | The RID of the Dataset.  |  |
+**branch_id** | Optional[BranchId] | The ID of the Branch.  | [optional] |
+**transaction_rid** | Optional[TransactionRid] | The TransactionRid that contains the Schema.  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -374,12 +364,9 @@ Deletes the Schema from a Dataset and Branch.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset on which to delete the schema.
- |  |
-**branch_id** | Optional[BranchId] | The ID of the Branch on which to delete the schema.
- | [optional] |
-**transaction_rid** | Optional[TransactionRid] | The RID of the Transaction on which to delete the schema.
- | [optional] |
+**dataset_rid** | DatasetRid | The RID of the Dataset on which to delete the schema.  |  |
+**branch_id** | Optional[BranchId] | The ID of the Branch on which to delete the schema.  | [optional] |
+**transaction_rid** | Optional[TransactionRid] | The RID of the Transaction on which to delete the schema.  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type

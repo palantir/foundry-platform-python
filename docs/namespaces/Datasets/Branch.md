@@ -185,9 +185,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Branches. |  |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
- | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type

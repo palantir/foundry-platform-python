@@ -18,12 +18,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the
-**List ontologies** endpoint or check the **Ontology Manager**.
- |  |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 100.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
- | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
@@ -78,12 +74,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the query type. To look up your Ontology RID, please use the
-**List ontologies** endpoint or check the **Ontology Manager**.
- |  |
-**query_api_name** | QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or
-check the **Ontology Manager**.
- |  |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the query type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**query_api_name** | QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.  |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type

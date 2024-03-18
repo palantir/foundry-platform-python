@@ -45,9 +45,7 @@ Name | Type | Description  | Notes |
 **branch_id** | Optional[BranchId] | The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments. | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction. | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. | [optional] |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
- | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type

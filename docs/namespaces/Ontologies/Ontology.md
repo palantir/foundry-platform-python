@@ -63,9 +63,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the
-**List ontologies** endpoint or check the **Ontology Manager**.
- |  |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 
 ### Return type
 **Ontology**

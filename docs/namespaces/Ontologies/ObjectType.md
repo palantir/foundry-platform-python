@@ -21,12 +21,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the
-**List ontologies** endpoint or check the **Ontology Manager**.
- |  |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
- | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
@@ -79,12 +75,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the
-**List ontologies** endpoint or check the **Ontology Manager**.
- |  |
-**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or
-check the **Ontology Manager**.
- |  |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 
 ### Return type
 **ObjectType**
@@ -140,12 +132,8 @@ following operation scopes: `api:read-data`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the
-**List ontologies** endpoint or check the **Ontology Manager** application.
- |  |
-**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or
-check the **Ontology Manager** application.
- |  |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.  |  |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 
@@ -201,15 +189,9 @@ following operation scopes: `api:read-data`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the
-**List ontologies** endpoint or check the **Ontology Manager** application.
- |  |
-**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or
-check the **Ontology Manager** application.
- |  |
-**link_type** | LinkTypeApiName | The API name of the outgoing link.
-To find the API name for your link type, check the **Ontology Manager**.
- |  |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.  |  |
+**link_type** | LinkTypeApiName | The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.  |  |
 
 ### Return type
 **LinkTypeSide**

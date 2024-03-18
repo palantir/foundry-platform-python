@@ -18,8 +18,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Transaction. |  |
-**branch_id** | Optional[BranchId] | The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
- | [optional] |
+**branch_id** | Optional[BranchId] | The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.  | [optional] |
 **create_transaction_request** | CreateTransactionRequest | CreateTransactionRequest |  |
 
 ### Return type
