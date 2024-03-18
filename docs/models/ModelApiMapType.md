@@ -3,8 +3,8 @@
 ModelApiMapType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **key_type** | ModelApiType | Yes | A union of all the types supported by models.  |
 **value_type** | ModelApiType | Yes | A union of all the types supported by models.  |
 **type** | Literal["map"] | Yes | None |

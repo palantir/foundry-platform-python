@@ -3,8 +3,8 @@
 IntegerType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **type** | Literal["integer"] | Yes | None |
 
 

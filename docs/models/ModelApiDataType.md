@@ -4,8 +4,8 @@ An object definition representing an input or an output type for the deployment 
 
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **name** | FieldName | No | The name of a field.  |
 **required** | StrictBool | No | None |
 **property_type** | ModelApiType | No | A union of all the types supported by models.  |

@@ -3,8 +3,8 @@
 LongType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **type** | Literal["long"] | Yes | None |
 
 

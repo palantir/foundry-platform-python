@@ -3,8 +3,8 @@
 QueryUnionType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **union_types** | List[QueryDataType] | No | None |
 **type** | Literal["union"] | Yes | None |
 

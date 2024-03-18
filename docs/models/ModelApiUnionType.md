@@ -3,8 +3,8 @@
 ModelApiUnionType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **union_types** | List[ModelApiType] | No | None |
 **type** | Literal["union"] | Yes | None |
 

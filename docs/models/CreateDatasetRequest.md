@@ -3,8 +3,8 @@
 CreateDatasetRequest
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **name** | DatasetName | Yes | DatasetName |
 **parent_folder_rid** | FolderRid | Yes | FolderRid |
 

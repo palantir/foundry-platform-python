@@ -3,8 +3,8 @@
 UnsupportedType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **unsupported_type** | StrictStr | Yes | None |
 **type** | Literal["unsupported"] | Yes | None |
 

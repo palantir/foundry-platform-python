@@ -3,8 +3,8 @@
 LinkTypeSide
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **api_name** | LinkTypeApiName | Yes | The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager** application.  |
 **display_name** | DisplayName | Yes | The display name of the entity. |
 **status** | ReleaseStatus | Yes | The release status of the entity. |

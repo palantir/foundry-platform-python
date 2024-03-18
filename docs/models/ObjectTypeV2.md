@@ -3,8 +3,8 @@
 Represents an object type in the Ontology.
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **api_name** | ObjectTypeApiName | Yes | The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**.  |
 **display_name** | DisplayName | No | The display name of the entity. |
 **status** | ReleaseStatus | Yes | The release status of the entity. |

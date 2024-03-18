@@ -3,8 +3,8 @@
 ActionParameterArrayType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **sub_type** | ActionParameterType | Yes | A union of all the types supported by Ontology Action parameters.  |
 **type** | Literal["array"] | Yes | None |
 

@@ -3,8 +3,8 @@
 ModelApiStructField
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **name** | StrictStr | Yes | None |
 **field_type** | ModelApiType | Yes | A union of all the types supported by models.  |
 

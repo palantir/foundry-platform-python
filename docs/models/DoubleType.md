@@ -3,8 +3,8 @@
 DoubleType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **type** | Literal["double"] | Yes | None |
 
 

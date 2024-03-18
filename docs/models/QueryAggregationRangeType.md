@@ -3,8 +3,8 @@
 QueryAggregationRangeType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **sub_type** | QueryAggregationRangeSubType | Yes | A union of all the types supported by query aggregation ranges.  |
 **type** | Literal["range"] | Yes | None |
 

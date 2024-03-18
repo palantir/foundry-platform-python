@@ -3,8 +3,8 @@
 OntologyStructField
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **name** | StructFieldName | Yes | The name of a field in a `Struct`.  |
 **field_type** | OntologyDataType | Yes | A union of all the primitive types used by Palantir's Ontology-based products.  |
 **required** | StrictBool | Yes | None |

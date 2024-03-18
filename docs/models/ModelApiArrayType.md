@@ -3,8 +3,8 @@
 ModelApiArrayType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **sub_type** | ModelApiType | Yes | A union of all the types supported by models.  |
 **type** | Literal["array"] | Yes | None |
 

@@ -3,8 +3,8 @@
 Represents an action type in the Ontology.
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **api_name** | ActionTypeApiName | Yes | The name of the action type in the API. To find the API name for your Action Type, use the `List action types` endpoint or check the **Ontology Manager**.  |
 **description** | StrictStr | No | None |
 **display_name** | DisplayName | No | The display name of the entity. |

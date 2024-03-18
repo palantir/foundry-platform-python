@@ -8,8 +8,8 @@ of of the models listed below.
 
 This discriminator class uses the `type` field to differentiate between classes.
 
-Class | Value
------------- | -------------
+| Class | Value
+| ------------ | -------------
 [DateType](DateType.md) | date
 [DoubleType](DoubleType.md) | double
 [IntegerType](IntegerType.md) | integer

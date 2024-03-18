@@ -3,8 +3,8 @@
 ListOntologiesV2Response
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **data** | List[OntologyV2] | No | The list of Ontologies the user has access to. |
 
 

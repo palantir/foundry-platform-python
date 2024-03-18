@@ -3,8 +3,8 @@
 QueryStructType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **fields** | List[QueryStructField] | No | None |
 **type** | Literal["struct"] | Yes | None |
 

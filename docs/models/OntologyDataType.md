@@ -8,8 +8,8 @@ of of the models listed below.
 
 This discriminator class uses the `type` field to differentiate between classes.
 
-Class | Value
------------- | -------------
+| Class | Value
+| ------------ | -------------
 [AnyType](AnyType.md) | any
 [BinaryType](BinaryType.md) | binary
 [BooleanType](BooleanType.md) | boolean

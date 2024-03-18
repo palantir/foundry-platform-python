@@ -3,8 +3,8 @@
 OntologyStructType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **fields** | List[OntologyStructField] | No | None |
 **type** | Literal["struct"] | Yes | None |
 

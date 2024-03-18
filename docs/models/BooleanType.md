@@ -3,8 +3,8 @@
 BooleanType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **type** | Literal["boolean"] | Yes | None |
 
 

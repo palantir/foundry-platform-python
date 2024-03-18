@@ -3,8 +3,8 @@
 OntologyFullMetadata
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **ontology** | OntologyV2 | Yes | Metadata about an Ontology. |
 **object_types** | Dict[str, ObjectTypeWithLink] | No | None |
 **action_types** | Dict[str, ActionTypeV2] | No | None |

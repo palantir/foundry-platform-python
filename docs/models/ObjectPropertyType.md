@@ -8,8 +8,8 @@ of of the models listed below.
 
 This discriminator class uses the `type` field to differentiate between classes.
 
-Class | Value
------------- | -------------
+| Class | Value
+| ------------ | -------------
 [OntologyObjectArrayType](OntologyObjectArrayType.md) | array
 [AttachmentType](AttachmentType.md) | attachment
 [BooleanType](BooleanType.md) | boolean

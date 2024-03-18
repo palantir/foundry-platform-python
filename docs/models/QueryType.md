@@ -3,8 +3,8 @@
 Represents a query type in the Ontology.
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **api_name** | QueryApiName | Yes | The name of the Query in the API.  |
 **description** | StrictStr | No | None |
 **display_name** | DisplayName | No | The display name of the entity. |

@@ -3,8 +3,8 @@
 ModelApiStructType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **fields** | List[ModelApiStructField] | No | None |
 **type** | Literal["struct"] | Yes | None |
 

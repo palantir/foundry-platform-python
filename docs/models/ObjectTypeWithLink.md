@@ -3,8 +3,8 @@
 ObjectTypeWithLink
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **object_type** | ObjectTypeV2 | Yes | Represents an object type in the Ontology. |
 **link_types** | List[LinkTypeSideV2] | No | None |
 

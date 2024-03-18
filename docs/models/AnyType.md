@@ -3,8 +3,8 @@
 AnyType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **type** | Literal["any"] | Yes | None |
 
 

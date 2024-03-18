@@ -3,8 +3,8 @@
 DecimalType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **precision** | StrictInt | No | None |
 **scale** | StrictInt | No | None |
 **type** | Literal["decimal"] | Yes | None |

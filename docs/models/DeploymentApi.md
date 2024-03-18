@@ -3,8 +3,8 @@
 DeploymentApi
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **transform** | DeploymentTransformApi | No | DeploymentTransformApi |
 
 

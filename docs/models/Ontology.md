@@ -3,8 +3,8 @@
 Metadata about an Ontology.
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **api_name** | OntologyApiName | Yes | OntologyApiName |
 **display_name** | DisplayName | Yes | The display name of the entity. |
 **description** | StrictStr | Yes | None |

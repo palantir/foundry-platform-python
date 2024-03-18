@@ -3,8 +3,8 @@
 OntologyObjectSetType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **object_api_name** | ObjectTypeApiName | No | The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**.  |
 **object_type_api_name** | ObjectTypeApiName | No | The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**.  |
 **type** | Literal["objectSet"] | Yes | None |

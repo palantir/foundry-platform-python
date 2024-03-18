@@ -3,8 +3,8 @@
 GeoShapeType
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **type** | Literal["geoshape"] | Yes | None |
 
 

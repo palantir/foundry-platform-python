@@ -3,8 +3,8 @@
 CreateBranchRequest
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **branch_id** | BranchId | Yes | The identifier (name) of a Branch. Example: `master`.  |
 **transaction_rid** | TransactionRid | No | The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`.  |
 

@@ -3,8 +3,8 @@
 Details about a parameter of a query.
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **description** | StrictStr | No | None |
 **data_type** | QueryDataType | Yes | A union of all the types supported by Ontology Query parameters or outputs.  |
 

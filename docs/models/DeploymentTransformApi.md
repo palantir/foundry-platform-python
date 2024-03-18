@@ -3,8 +3,8 @@
 DeploymentTransformApi
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **inputs** | List[ModelApiDataType] | No | None |
 **outputs** | List[ModelApiDataType] | No | None |
 

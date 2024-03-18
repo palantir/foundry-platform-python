@@ -4,8 +4,8 @@ Name and description associated with a model deployment.
 
 
 ## Properties
-Name | Type | Required | Description |
------------- | ------------- | ------------- | ------------- |
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
 **api_name** | DeploymentApiName | Yes | DeploymentApiName |
 **description** | DeploymentDescription | No | A description or explanation of what this model deployment does and is intended to be used for.  |
 
