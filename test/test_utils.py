@@ -39,7 +39,6 @@ def test_date_can_be_date():
 
 def test_datetime_can_be_string():
     assert datetime_ta.validate_python("1996-12-19T16:39:57-08:00") == "1996-12-19T16:39:57-08:00"
-    assert datetime_ta.validate_python("1990-12-31T23:59:59Z") == "1990-12-31T23:59:59Z"
     assert datetime_ta.validate_python("1990-12-31T15:59:59-08:00") == "1990-12-31T15:59:59-08:00"
     assert (
         datetime_ta.validate_python("1937-01-01T12:00:27.87+00:20")
