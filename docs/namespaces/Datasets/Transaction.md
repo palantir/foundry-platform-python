@@ -76,7 +76,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Transaction  | An operation that modifies the files within a dataset.  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **get**
 Gets a Transaction of a Dataset.
@@ -132,7 +132,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Transaction  | An operation that modifies the files within a dataset.  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **commit**
 Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
@@ -189,7 +189,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Transaction  | An operation that modifies the files within a dataset.  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **abort**
 Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
@@ -246,5 +246,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Transaction  | An operation that modifies the files within a dataset.  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

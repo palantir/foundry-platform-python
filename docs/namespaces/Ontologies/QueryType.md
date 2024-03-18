@@ -62,7 +62,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ListQueryTypesResponse  | ListQueryTypesResponse | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **get**
 Gets a specific query type with the given API name.
@@ -119,5 +119,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | QueryType  | Represents a query type in the Ontology. | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

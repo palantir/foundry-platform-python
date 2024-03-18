@@ -63,7 +63,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Dataset  | Dataset | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **get**
 Gets the Dataset with the given DatasetRid.
@@ -118,7 +118,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Dataset  | Dataset | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **read_table**
 :::callout{theme=warning title=Warning}
@@ -245,7 +245,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | bytes  | None | */* |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **put_schema**
 Puts a Schema on an existing Dataset and Branch.
@@ -299,7 +299,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **204** | None  | No content | None |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **get_schema**
 Retrieves the Schema for a Dataset and Branch, if it exists.
@@ -354,7 +354,7 @@ See [README](../README.md#authorization)
 **200** | object  | None | application/json |
 **204** | None  | No content | None |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **delete_schema**
 Deletes the Schema from a Dataset and Branch.
@@ -408,5 +408,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **204** | None  | No content | None |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

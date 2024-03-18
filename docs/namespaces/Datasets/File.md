@@ -109,7 +109,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ListFilesResponse  | A page of Files and an optional page token that can be used to retrieve the next page. | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **upload**
 Uploads a File to an existing Dataset.
@@ -186,7 +186,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | File  | File | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **get_metadata**
 Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
@@ -265,7 +265,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | File  | File | application/json |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **delete**
 Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default 
@@ -334,7 +334,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **204** | None  | No content | None |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **get_content**
 Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
@@ -414,5 +414,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | bytes  | None | */* |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
