@@ -60,7 +60,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ListActionTypesResponse  | ListActionTypesResponse | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get**
 Gets a specific action type with the given API name.
@@ -118,5 +118,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ActionType  | Represents an action type in the Ontology. | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

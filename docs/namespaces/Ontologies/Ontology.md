@@ -51,7 +51,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ListOntologiesResponse  | ListOntologiesResponse | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get**
 Gets a specific ontology with the given Ontology RID.
@@ -104,5 +104,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Ontology  | Metadata about an Ontology. | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

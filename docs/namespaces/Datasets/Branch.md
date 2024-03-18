@@ -60,7 +60,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Branch  | A Branch of a Dataset.  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get**
 Get a Branch of a Dataset.
@@ -116,7 +116,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | Branch  | A Branch of a Dataset.  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **delete**
 Deletes the Branch with the given BranchId.
@@ -172,7 +172,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **204** | None  | No content | None |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **iterator**
 Lists the Branches of a Dataset.
@@ -226,5 +226,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ListBranchesResponse  | ListBranchesResponse | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

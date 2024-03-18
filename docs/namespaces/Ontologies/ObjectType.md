@@ -63,7 +63,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ListObjectTypesResponse  | ListObjectTypesResponse | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get**
 Gets a specific object type with the given API name.
@@ -119,7 +119,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ObjectType  | Represents an object type in the Ontology. | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **list_outgoing_link_types**
 List the outgoing links for an object type.
@@ -176,7 +176,7 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | ListOutgoingLinkTypesResponse  | ListOutgoingLinkTypesResponse | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get_outgoing_link_type**
 Get an outgoing link for an object type.
@@ -236,5 +236,5 @@ See [README](../README.md#authorization)
 |-------------|-------------|-------------|------------------|
 **200** | LinkTypeSide  | LinkTypeSide | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
