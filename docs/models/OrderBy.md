@@ -12,5 +12,10 @@ Example: use `orderBy=properties.lastName:asc` to order by a single property,
 You may also use the shorthand `p` instead of `properties` such as `orderBy=p.lastName:asc`.
 
 
+## Type
+```python
+StrictStr
+```
+
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

@@ -4,5 +4,10 @@ The name of the link type in the API. To find the API name for your Link Type, c
 application.
 
 
+## Type
+```python
+StrictStr
+```
+
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

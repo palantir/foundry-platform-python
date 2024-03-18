@@ -5,5 +5,10 @@ To fetch the next page, clients should take the value from the `nextPageToken` f
 and populate the next request's `pageToken` field with it.
 
 
+## Type
+```python
+StrictStr
+```
+
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

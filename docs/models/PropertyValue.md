@@ -21,5 +21,10 @@ Represents the value of a property in the following format.
 | Timestamp  | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                                           |
 
 
+## Type
+```python
+Any
+```
+
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

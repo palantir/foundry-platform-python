@@ -4,5 +4,10 @@ The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml)
 Examples: `application/json`, `application/pdf`, `application/octet-stream`, `image/jpeg`
 
 
+## Type
+```python
+StrictStr
+```
+
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
