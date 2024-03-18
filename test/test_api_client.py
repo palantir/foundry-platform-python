@@ -62,6 +62,7 @@ def test_user_agent():
         },
         json=ANY,
         params=ANY,
+        data=ANY,
         stream=False,
         timeout=None,
     )

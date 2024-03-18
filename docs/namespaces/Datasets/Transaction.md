@@ -55,15 +55,20 @@ import foundry
 
 foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-my_transaction = foundry_client.datasets.Transaction.create(
+transaction = foundry_client.datasets.Transaction.create(
     dataset_rid="...",
     create_transaction_request={},
 )
 
 with open("my/path/to/file.txt", 'rb') as f:
-    foundry_client.datasets.File.upload(body=f.read(), dataset_rid="....", file_path="...")
+    foundry_client.datasets.File.upload(
+        body=f.read(),
+        dataset_rid="....",
+        file_path="...",
+        transaction_rid=transaction.rid,
+    )
 
-foundry_client.datasets.Transaction.commit(dataset_rid="...", transaction_rid=my_transaction.rid)
+foundry_client.datasets.Transaction.commit(dataset_rid="...", transaction_rid=transaction.rid)
 ```
 
 

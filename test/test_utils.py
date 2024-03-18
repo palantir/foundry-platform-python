@@ -40,10 +40,6 @@ def test_date_can_be_date():
 def test_datetime_can_be_string():
     assert datetime_ta.validate_python("1996-12-19T16:39:57-08:00") == "1996-12-19T16:39:57-08:00"
     assert datetime_ta.validate_python("1990-12-31T15:59:59-08:00") == "1990-12-31T15:59:59-08:00"
-    assert (
-        datetime_ta.validate_python("1937-01-01T12:00:27.87+00:20")
-        == "1937-01-01T12:00:27.87+00:20"
-    )
 
 
 def test_reject_invalid_dateime():

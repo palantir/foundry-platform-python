@@ -73,7 +73,8 @@ class ApiClient:
             url=url,
             headers=headers,
             params=self._process_query_parameters(query_params),
-            json=body,
+            json=None if isinstance(body, bytes) else body,
+            data=body if isinstance(body, bytes) else None,
             stream=False,
             timeout=request_timeout,
         )
