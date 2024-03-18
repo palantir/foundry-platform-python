@@ -4,6 +4,7 @@ version = "0.0.0"
 description = "The official Python library for the Foundry API"
 license = "Apache-2.0"
 readme = "README.md"
+authors = "Palantir Technologies, Inc."
 repository = "https://github.com/palantir/foundry-platform-python"
 keywords = ["Palantir", "Foundry", "SDK", "Client", "API"]
 packages = [{ include = "foundry" }]
