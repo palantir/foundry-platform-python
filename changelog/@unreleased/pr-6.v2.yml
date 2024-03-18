@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: 0.4.0
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/6
