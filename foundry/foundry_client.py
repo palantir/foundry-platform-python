@@ -16,6 +16,7 @@
 from foundry._core.auth_utils import Auth
 from foundry._namespaces.namespaces import Datasets
 from foundry._namespaces.namespaces import Ontologies
+from foundry._namespaces.namespaces import OntologiesV2
 from foundry.api_client import ApiClient
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 
@@ -32,3 +33,4 @@ class FoundryClient:
         api_client = ApiClient(auth=auth, hostname=hostname)
         self.datasets = Datasets(api_client=api_client)
         self.ontologies = Ontologies(api_client=api_client)
+        self.ontologiesv2 = OntologiesV2(api_client=api_client)

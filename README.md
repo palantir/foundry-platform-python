@@ -282,6 +282,19 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | ActionType | [**get**](docs/namespaces/Ontologies/ActionType.md#get) | **GET** /v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName} |
 **Ontologies** | QueryType | [**iterator**](docs/namespaces/Ontologies/QueryType.md#iterator) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
 **Ontologies** | QueryType | [**get**](docs/namespaces/Ontologies/QueryType.md#get) | **GET** /v1/ontologies/{ontologyRid}/queryTypes/{queryApiName} |
+**OntologiesV2** | OntologyV2 | [**iterator**](docs/namespaces/OntologiesV2/OntologyV2.md#iterator) | **GET** /v2/ontologies |
+**OntologiesV2** | OntologyV2 | [**get**](docs/namespaces/OntologiesV2/OntologyV2.md#get) | **GET** /v2/ontologies/{ontology} |
+**OntologiesV2** | OntologyV2 | [**get_ontology_full_metadata**](docs/namespaces/OntologiesV2/OntologyV2.md#get_ontology_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata |
+**OntologiesV2** | ActionTypeV2 | [**iterator**](docs/namespaces/OntologiesV2/ActionTypeV2.md#iterator) | **GET** /v2/ontologies/{ontology}/actionTypes |
+**OntologiesV2** | ActionTypeV2 | [**get**](docs/namespaces/OntologiesV2/ActionTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
+**OntologiesV2** | ObjectTypeV2 | [**iterator**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#iterator) | **GET** /v2/ontologies/{ontology}/objectTypes |
+**OntologiesV2** | ObjectTypeV2 | [**get**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
+**OntologiesV2** | ObjectTypeV2 | [**list_outgoing_link_types_v2**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#list_outgoing_link_types_v2) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+**OntologiesV2** | ObjectTypeV2 | [**get_outgoing_link_type_v2**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#get_outgoing_link_type_v2) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
+**OntologiesV2** | QueryType | [**iterator**](docs/namespaces/OntologiesV2/QueryType.md#iterator) | **GET** /v2/ontologies/{ontology}/queryTypes |
+**OntologiesV2** | QueryType | [**get**](docs/namespaces/OntologiesV2/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
+**OntologiesV2** | OntologyModelDeployment | [**get**](docs/namespaces/OntologiesV2/OntologyModelDeployment.md#get) | **GET** /v2/ontologies/{ontology}/models/deployments/{deployment} |
+**OntologiesV2** | OntologyModelDeployment | [**list**](docs/namespaces/OntologiesV2/OntologyModelDeployment.md#list) | **GET** /v2/ontologies/{ontology}/models/deployments |
 
 
 <a id="models"></a>
@@ -357,29 +370,67 @@ Namespace | Resource | Operation | HTTP request |
 - [CreateLinkRule](docs/models/CreateLinkRule.md)
 - [LinkTypeApiName](docs/models/LinkTypeApiName.md)
 - [DeleteLinkRule](docs/models/DeleteLinkRule.md)
-- [SelectedPropertyApiName](docs/models/SelectedPropertyApiName.md)
-- [OrderBy](docs/models/OrderBy.md)
-- [ListObjectsResponse](docs/models/ListObjectsResponse.md)
-- [OntologyObject](docs/models/OntologyObject.md)
-- [PropertyValue](docs/models/PropertyValue.md)
-- [ObjectRid](docs/models/ObjectRid.md)
-- [PropertyValueEscapedString](docs/models/PropertyValueEscapedString.md)
-- [ListLinkedObjectsResponse](docs/models/ListLinkedObjectsResponse.md)
-- [ActionRid](docs/models/ActionRid.md)
-- [AsyncActionOperation](docs/models/AsyncActionOperation.md)
 - [ListQueryTypesResponse](docs/models/ListQueryTypesResponse.md)
 - [QueryType](docs/models/QueryType.md)
 - [QueryApiName](docs/models/QueryApiName.md)
 - [FunctionRid](docs/models/FunctionRid.md)
 - [FunctionVersion](docs/models/FunctionVersion.md)
-- [AttachmentRid](docs/models/AttachmentRid.md)
-- [Attachment](docs/models/Attachment.md)
-- [Filename](docs/models/Filename.md)
-- [SizeBytes](docs/models/SizeBytes.md)
-- [MediaType](docs/models/MediaType.md)
 - [ListOutgoingLinkTypesResponse](docs/models/ListOutgoingLinkTypesResponse.md)
 - [LinkTypeSide](docs/models/LinkTypeSide.md)
 - [LinkTypeSideCardinality](docs/models/LinkTypeSideCardinality.md)
+- [ListOntologiesV2Response](docs/models/ListOntologiesV2Response.md)
+- [OntologyV2](docs/models/OntologyV2.md)
+- [OntologyIdentifier](docs/models/OntologyIdentifier.md)
+- [OntologyFullMetadata](docs/models/OntologyFullMetadata.md)
+- [ObjectTypeWithLink](docs/models/ObjectTypeWithLink.md)
+- [ObjectTypeV2](docs/models/ObjectTypeV2.md)
+- [PropertyV2](docs/models/PropertyV2.md)
+- [ObjectPropertyType](docs/models/ObjectPropertyType.md)
+- [OntologyObjectArrayType](docs/models/OntologyObjectArrayType.md)
+- [AttachmentType](docs/models/AttachmentType.md)
+- [GeoPointType](docs/models/GeoPointType.md)
+- [GeoShapeType](docs/models/GeoShapeType.md)
+- [TimeseriesType](docs/models/TimeseriesType.md)
+- [TimeSeriesItemType](docs/models/TimeSeriesItemType.md)
+- [LinkTypeSideV2](docs/models/LinkTypeSideV2.md)
+- [ActionTypeV2](docs/models/ActionTypeV2.md)
+- [ActionParameterV2](docs/models/ActionParameterV2.md)
+- [ActionParameterType](docs/models/ActionParameterType.md)
+- [ActionParameterArrayType](docs/models/ActionParameterArrayType.md)
+- [QueryTypeV2](docs/models/QueryTypeV2.md)
+- [QueryParameterV2](docs/models/QueryParameterV2.md)
+- [QueryDataType](docs/models/QueryDataType.md)
+- [QueryArrayType](docs/models/QueryArrayType.md)
+- [QuerySetType](docs/models/QuerySetType.md)
+- [QueryStructType](docs/models/QueryStructType.md)
+- [QueryStructField](docs/models/QueryStructField.md)
+- [ThreeDimensionalAggregation](docs/models/ThreeDimensionalAggregation.md)
+- [QueryAggregationKeyType](docs/models/QueryAggregationKeyType.md)
+- [QueryAggregationRangeType](docs/models/QueryAggregationRangeType.md)
+- [QueryAggregationRangeSubType](docs/models/QueryAggregationRangeSubType.md)
+- [TwoDimensionalAggregation](docs/models/TwoDimensionalAggregation.md)
+- [QueryAggregationValueType](docs/models/QueryAggregationValueType.md)
+- [QueryUnionType](docs/models/QueryUnionType.md)
+- [NullType](docs/models/NullType.md)
+- [ListQueryTypesResponseV2](docs/models/ListQueryTypesResponseV2.md)
+- [ListDeploymentsResponse](docs/models/ListDeploymentsResponse.md)
+- [DeploymentListing](docs/models/DeploymentListing.md)
+- [DeploymentApiName](docs/models/DeploymentApiName.md)
+- [DeploymentDescription](docs/models/DeploymentDescription.md)
+- [DeploymentMetadata](docs/models/DeploymentMetadata.md)
+- [DeploymentApi](docs/models/DeploymentApi.md)
+- [DeploymentTransformApi](docs/models/DeploymentTransformApi.md)
+- [ModelApiDataType](docs/models/ModelApiDataType.md)
+- [FieldName](docs/models/FieldName.md)
+- [ModelApiType](docs/models/ModelApiType.md)
+- [ModelApiArrayType](docs/models/ModelApiArrayType.md)
+- [ModelApiMapType](docs/models/ModelApiMapType.md)
+- [ModelApiStructType](docs/models/ModelApiStructType.md)
+- [ModelApiStructField](docs/models/ModelApiStructField.md)
+- [ModelApiUnionType](docs/models/ModelApiUnionType.md)
+- [ListObjectTypesV2Response](docs/models/ListObjectTypesV2Response.md)
+- [ListActionTypesResponseV2](docs/models/ListActionTypesResponseV2.md)
+- [ListOutgoingLinkTypesResponseV2](docs/models/ListOutgoingLinkTypesResponseV2.md)
 
 ## Contributions
 
