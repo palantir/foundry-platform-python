@@ -16,8 +16,8 @@ from typing import Any
 from foundry.foundry_client import FoundryClient
 
 # from foundry.models.search_json_query import EqualsQuery
-from test.utils import mock_responses
-from test.utils import client
+from ..utils import mock_responses
+from ..utils import client
 
 
 def mock_list_ontologies(monkeypatch):

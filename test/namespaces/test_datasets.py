@@ -16,8 +16,8 @@ from pydantic import ValidationError
 import pytest
 from foundry import FoundryClient
 from foundry.models import Branch
-from test.utils import mock_responses
-from test.utils import client
+from ..utils import mock_responses
+from ..utils import client
 
 TEST_RID = "ri.foundry.main.dataset.abc"
 

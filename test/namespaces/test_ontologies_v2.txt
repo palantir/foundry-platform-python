@@ -5,8 +5,8 @@ from foundry.foundry_client import FoundryClient
 
 # from foundry.models.search_json_query_v2 import EqualsQuery
 # from foundry.models.search_json_query_v2 import SearchJsonQueryV2
-from test.utils import mock_responses
-from test.utils import client
+from ..utils import mock_responses
+from ..utils import client
 
 
 def mock_list_ontologies(monkeypatch):

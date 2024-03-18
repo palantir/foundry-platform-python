@@ -1,7 +1,7 @@
 import pytest
 from foundry.exceptions import SDKInternalError
-from test.utils import mock_responses
-from test.utils import client
+from ..utils import mock_responses
+from ..utils import client
 
 
 def test_get_operation(client, monkeypatch):
