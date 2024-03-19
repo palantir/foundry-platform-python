@@ -40,7 +40,7 @@ page_token = None # Optional[PageToken] | pageToken
 
 
 try:
-    api_response = foundry_client.ontologiesv2.ActionTypeV2.iterator(
+    api_response = foundry_client.ontologies_v2.ActionTypeV2.iterator(
 ontology,page_size=page_sizepage_token=page_token    )
     print("The ActionTypeV2.iterator response:\n")
     pprint(api_response)
@@ -94,7 +94,7 @@ action_type = "promote-employee"  # ActionTypeApiName | The name of the action t
 
 
 try:
-    api_response = foundry_client.ontologiesv2.ActionTypeV2.get(
+    api_response = foundry_client.ontologies_v2.ActionTypeV2.get(
         ontology,
         action_type,
     )

@@ -26,7 +26,7 @@ def mock_list_ontologies(monkeypatch):
                         "nextPageToken": None,
                         "data": [
                             {
-                                "rid": "123",
+                                "rid": "ri.a.b.c.d",
                                 "apiName": "API",
                                 "status": "ACTIVE",
                                 "primaryKey": "123",
@@ -40,11 +40,10 @@ def mock_list_ontologies(monkeypatch):
     )
 
 
-@pytest.mark.skip()
 def test_can_list_object_types(client: FoundryClient, monkeypatch):
     mock_list_ontologies(monkeypatch)
 
-    result = client.ontologies_v2.ObjectType.iterator(
+    result = client.ontologies_v2.ObjectTypeV2.iterator(
         ontology="MyOntology",
     )
 

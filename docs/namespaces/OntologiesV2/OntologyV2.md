@@ -33,7 +33,7 @@ foundry_client = FoundryClient(
 
 
 try:
-    api_response = foundry_client.ontologiesv2.OntologyV2.iterator()
+    api_response = foundry_client.ontologies_v2.OntologyV2.iterator()
     print("The OntologyV2.iterator response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -84,7 +84,7 @@ ontology = "palantir"  # OntologyIdentifier | The API name of the ontology. To f
 
 
 try:
-    api_response = foundry_client.ontologiesv2.OntologyV2.get(
+    api_response = foundry_client.ontologies_v2.OntologyV2.get(
         ontology,
     )
     print("The OntologyV2.get response:\n")
@@ -135,7 +135,7 @@ ontology = "palantir"  # OntologyIdentifier | The API name of the ontology. To f
 
 
 try:
-    api_response = foundry_client.ontologiesv2.OntologyV2.get_ontology_full_metadata(
+    api_response = foundry_client.ontologies_v2.OntologyV2.get_ontology_full_metadata(
         ontology,
     )
     print("The OntologyV2.get_ontology_full_metadata response:\n")

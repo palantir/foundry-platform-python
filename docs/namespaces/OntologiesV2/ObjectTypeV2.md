@@ -43,7 +43,7 @@ page_token = None # Optional[PageToken] | pageToken
 
 
 try:
-    api_response = foundry_client.ontologiesv2.ObjectTypeV2.iterator(
+    api_response = foundry_client.ontologies_v2.ObjectTypeV2.iterator(
 ontology,page_size=page_sizepage_token=page_token    )
     print("The ObjectTypeV2.iterator response:\n")
     pprint(api_response)
@@ -97,7 +97,7 @@ object_type = "employee"  # ObjectTypeApiName | The API name of the object type.
 
 
 try:
-    api_response = foundry_client.ontologiesv2.ObjectTypeV2.get(
+    api_response = foundry_client.ontologies_v2.ObjectTypeV2.get(
         ontology,
         object_type,
     )
@@ -156,7 +156,7 @@ page_token = None # Optional[PageToken] | pageToken
 
 
 try:
-    api_response = foundry_client.ontologiesv2.ObjectTypeV2.list_outgoing_link_types_v2(
+    api_response = foundry_client.ontologies_v2.ObjectTypeV2.list_outgoing_link_types_v2(
 ontology,object_type,page_size=page_sizepage_token=page_token    )
     print("The ObjectTypeV2.list_outgoing_link_types_v2 response:\n")
     pprint(api_response)
@@ -213,7 +213,7 @@ link_type = "directReport"  # LinkTypeApiName | The API name of the outgoing lin
 
 
 try:
-    api_response = foundry_client.ontologiesv2.ObjectTypeV2.get_outgoing_link_type_v2(
+    api_response = foundry_client.ontologies_v2.ObjectTypeV2.get_outgoing_link_type_v2(
         ontology,
         object_type,
         link_type,

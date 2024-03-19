@@ -33,4 +33,4 @@ class FoundryClient:
         api_client = ApiClient(auth=auth, hostname=hostname)
         self.datasets = Datasets(api_client=api_client)
         self.ontologies = Ontologies(api_client=api_client)
-        self.ontologiesv2 = OntologiesV2(api_client=api_client)
+        self.ontologies_v2 = OntologiesV2(api_client=api_client)

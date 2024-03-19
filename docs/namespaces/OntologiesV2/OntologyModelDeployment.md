@@ -35,7 +35,7 @@ deployment = "nextTokenPredictor"  # DeploymentApiName | The API name of the dep
 
 
 try:
-    api_response = foundry_client.ontologiesv2.OntologyModelDeployment.get(
+    api_response = foundry_client.ontologies_v2.OntologyModelDeployment.get(
         ontology,
         deployment,
     )
@@ -87,7 +87,7 @@ ontology = "palantir"  # OntologyIdentifier | The API name of the ontology. To f
 
 
 try:
-    api_response = foundry_client.ontologiesv2.OntologyModelDeployment.list(
+    api_response = foundry_client.ontologies_v2.OntologyModelDeployment.list(
         ontology,
     )
     print("The OntologyModelDeployment.list response:\n")

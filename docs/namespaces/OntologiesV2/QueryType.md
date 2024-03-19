@@ -40,7 +40,7 @@ page_token = None # Optional[PageToken] | pageToken
 
 
 try:
-    api_response = foundry_client.ontologiesv2.QueryType.iterator(
+    api_response = foundry_client.ontologies_v2.QueryType.iterator(
 ontology,page_size=page_sizepage_token=page_token    )
     print("The QueryType.iterator response:\n")
     pprint(api_response)
@@ -94,7 +94,7 @@ query_api_name = "getEmployeesInCity"  # QueryApiName | The API name of the quer
 
 
 try:
-    api_response = foundry_client.ontologiesv2.QueryType.get(
+    api_response = foundry_client.ontologies_v2.QueryType.get(
         ontology,
         query_api_name,
     )
