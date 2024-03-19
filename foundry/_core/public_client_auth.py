@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
 import requests
 import threading
 import time
@@ -23,6 +24,7 @@ from foundry._core.oauth_utils import OAuthToken
 from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
 from foundry._core.oauth import SignOutResponse
 from foundry._errors.not_authenticated import NotAuthenticated
+from foundry._errors.sdk_internal_error import SDKInternalError
 import webbrowser
 
 
@@ -77,7 +79,6 @@ class PublicClientAuth(Auth):
 
     def _refresh_token(self):
         if self._token is None:
-            # TODO
             raise Exception("")
 
         self._token = self._server_oauth_flow_provider.refresh_token(
@@ -124,12 +125,9 @@ class PublicClientAuth(Auth):
         refresh_thread.start()
 
     def set_token(self, code: str, state: str) -> None:
-        if self._auth_request is None:
-            raise Exception("")
-            # TODO
+        if self._auth_request is None or state != self._auth_request.state:
+            raise RuntimeError("Unable to verify the state")
 
-        if state != self._auth_request.state:
-            raise RuntimeError("Unable to verify state")
         self._token = self._server_oauth_flow_provider.get_token(
             code=code, code_verifier=self._auth_request.code_verifier
         )

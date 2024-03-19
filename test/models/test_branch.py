@@ -14,18 +14,18 @@
 
 from pydantic import ValidationError
 import pytest
-from foundry.models.branch import Branch
+from foundry.models import Branch
 
 
 def test_from_dict():
     r = Branch.from_dict(
         {
             "branchId": "123",
-            "transactionRid": "456",
+            "transactionRid": "ri.a.b.c.d",
         }
     )
     assert r.branch_id == "123"
-    assert r.transaction_rid == "456"
+    assert r.transaction_rid == "ri.a.b.c.d"
 
 
 def test_from_dict_extra():

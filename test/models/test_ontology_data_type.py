@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 from pydantic import TypeAdapter
-from foundry.models.ontology_data_type import OntologyDataType
+from foundry.models import OntologyDataType
 
 
 def test_model_validate():

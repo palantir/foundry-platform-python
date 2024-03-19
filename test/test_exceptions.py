@@ -33,7 +33,6 @@ Python Version: \d+\.\d+\.\d+[^\n]+
 SDK Version: \d+\.\d+\.\d+
 OpenAPI Document Version: \d+\.\d+\.\d+
 OpenAPI Specification Version: \d+\.\d+\.\d+
-OpenAPI Generator Version: \d+\.\d+\.\d+
 Pydantic Version: \d+\.\d+\.\d+
 Pydantic Core Version: \d+\.\d+\.\d+
 Requests Version: \d+\.\d+\.\d+

@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 import json
-import re
+import sys
 from typing import Dict
 from unittest.mock import ANY, Mock
 
@@ -48,23 +48,23 @@ def test_user_agent():
     client.call_api(
         method="POST",
         resource_path="/abc",
-        path_params={},
         query_params={},
         header_params={},
         body={},
-        post_params={},
-        files={},
-        collection_formats={},
         response_types_map={},
     )
 
     client.session.request.assert_called_with(
         method="POST",
         url="https://foo/api/abc",
-        headers={"User-Agent": f"foundry-platform-sdk/{__version__}"},
+        headers={
+            "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}"
+        },
         json=ANY,
         params=ANY,
+        data=ANY,
         stream=False,
+        timeout=None,
     )
 
 
@@ -88,13 +88,9 @@ def call_api_helper(
     return client.call_api(
         method="POST",
         resource_path="/abc",
-        path_params={},
         query_params={},
         header_params={},
         body={},
-        post_params={},
-        files={},
-        collection_formats={},
         response_types_map={},
     )
 

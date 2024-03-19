@@ -23,7 +23,7 @@ from foundry import FoundryClient
 from foundry import UserTokenAuth
 
 
-@pytest.fixture
+@pytest.fixture()
 def client():
     yield FoundryClient(auth=UserTokenAuth(hostname="test.com", token="test"), hostname="test.com")
 

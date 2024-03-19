@@ -12,7 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from typing import Union
 from pydantic import PydanticUndefinedAnnotation, ValidationError
 from pydantic import TypeAdapter
 import pytest
@@ -28,7 +27,7 @@ def test_can_validate_types():
     for model_name in dir(models):
         klass = getattr(models, model_name)
 
-        if "Union[" not in str(klass):
+        if "Annotated[Union[" not in str(klass):
             continue
 
         try:

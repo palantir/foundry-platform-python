@@ -12,25 +12,29 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from pydantic import ValidationError
+from pydantic import TypeAdapter, ValidationError
 import pytest
-from foundry.models.create_dataset_request import CreateDatasetRequest
+from foundry.models import CreateDatasetRequest
+
+validator = TypeAdapter(CreateDatasetRequest)
 
 
 def test_from_dict():
-    req = CreateDatasetRequest.from_dict(
+    req = validator.validate_python(
         {"name": "FOLDER_NAME", "parentFolderRid": "ri.foundry.main.folder.1234567890"}
     )
 
-    assert req.name == "FOLDER_NAME"
-    assert req.parent_folder_rid == "ri.foundry.main.folder.1234567890"
+    assert req["name"] == "FOLDER_NAME"
+    assert req["parentFolderRid"] == "ri.foundry.main.folder.1234567890"
 
 
 def test_to_dict():
     req = CreateDatasetRequest(
-        name="FOLDER_NAME", parentFolderRid="ri.foundry.main.folder.1234567890"
+        name="FOLDER_NAME",
+        parentFolderRid="ri.foundry.main.folder.1234567890",
     )
-    assert req.to_dict() == {
+
+    assert req == {
         "name": "FOLDER_NAME",
         "parentFolderRid": "ri.foundry.main.folder.1234567890",
     }
@@ -39,19 +43,12 @@ def test_to_dict():
 def test_from_fails_bad_type():
     assert pytest.raises(
         ValidationError,
-        lambda: CreateDatasetRequest.from_dict({"name": "FOLDER_NAME", "parentFolderRid": 123}),
+        lambda: validator.validate_python({"name": "FOLDER_NAME", "parentFolderRid": 123}),
     )
 
 
 def test_from_fails_missing():
     assert pytest.raises(
         ValidationError,
-        lambda: CreateDatasetRequest.from_dict({"name": "FOLDER_NAME"}),
-    )
-
-
-def test_init_fails_bad_type():
-    assert pytest.raises(
-        ValidationError,
-        lambda: CreateDatasetRequest(name="FOLDER_NAME", parentFolderRid=123),  # type: ignore
+        lambda: validator.validate_python({"name": "FOLDER_NAME"}),
     )

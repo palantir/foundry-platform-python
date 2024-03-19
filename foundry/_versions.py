@@ -20,5 +20,3 @@ __version__ = "0.0.0"
 __openapi_document_version__ = "1.738.0"
 
 __openapi_specification_version__ = "3.0.1"
-
-__openapi_generator_version__ = "7.1.0"

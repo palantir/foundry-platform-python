@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: New namespace resource SDK model
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/6
