@@ -5,8 +5,8 @@ TwoDimensionalAggregation
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**key_type** | QueryAggregationKeyType | Yes | A union of all the types supported by query aggregation keys.  |
-**value_type** | QueryAggregationValueType | Yes | A union of all the types supported by query aggregation keys.  |
+**key_type** | QueryAggregationKeyType | Yes |  |
+**value_type** | QueryAggregationValueType | Yes |  |
 **type** | Literal["twoDimensionalAggregation"] | Yes | None |
 
 

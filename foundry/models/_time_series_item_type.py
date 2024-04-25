@@ -14,15 +14,14 @@
 
 
 from __future__ import annotations
+
 from typing import Annotated
 from typing import Union
 
 from pydantic import Field
 
-
 from foundry.models._double_type import DoubleType
 from foundry.models._string_type import StringType
-
 
 TimeSeriesItemType = Annotated[Union[DoubleType, StringType], Field(discriminator="type")]
 """A union of the types supported by time series properties."""

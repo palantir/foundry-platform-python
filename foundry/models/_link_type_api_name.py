@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 LinkTypeApiName = StrictStr
 """
 The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager**

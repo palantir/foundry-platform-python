@@ -5,7 +5,7 @@ TimeseriesType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**item_type** | TimeSeriesItemType | Yes | A union of the types supported by time series properties.  |
+**item_type** | TimeSeriesItemType | Yes |  |
 **type** | Literal["timeseries"] | Yes | None |
 
 

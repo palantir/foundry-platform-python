@@ -5,7 +5,7 @@ QueryStructType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**fields** | List[QueryStructField] | No | None |
+**fields** | List[QueryStructField] | Yes |  |
 **type** | Literal["struct"] | Yes | None |
 
 

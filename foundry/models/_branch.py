@@ -14,16 +14,14 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
-from typing import Dict
+
 from typing import Optional
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 
-
+from foundry.models._branch_dict import BranchDict
 from foundry.models._branch_id import BranchId
 from foundry.models._transaction_rid import TransactionRid
 
@@ -32,32 +30,11 @@ class Branch(BaseModel):
     """A Branch of a Dataset."""
 
     branch_id: BranchId = Field(alias="branchId")
-    """The identifier (name) of a Branch. Example: `master`."""
 
     transaction_rid: Optional[TransactionRid] = Field(alias="transactionRid", default=None)
-    """The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`."""
 
-    _properties: ClassVar[Set[str]] = set(["branchId", "transactionRid"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "Branch":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> BranchDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(BranchDict, self.model_dump(by_alias=True, exclude_unset=True))

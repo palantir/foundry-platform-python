@@ -14,18 +14,21 @@
 
 import json
 import sys
+from typing import Any
 from typing import Dict
-from unittest.mock import ANY, Mock
+from unittest.mock import ANY
+from unittest.mock import Mock
 
 import pytest
 from foundry import PalantirRPCException
 from foundry import UserTokenAuth
 from foundry import __version__
 from foundry.api_client import ApiClient
+from foundry.api_client import RequestInfo
 
 
-class AttrDict(dict):
-    def __init__(self, *args, **kwargs):
+class AttrDict(Dict[str, Any]):
+    def __init__(self, *args: Any, **kwargs: Any):
         super(AttrDict, self).__init__(*args, **kwargs)
         self.__dict__ = self
 
@@ -43,15 +46,19 @@ EXAMPLE_ERROR = json.dumps(
 def test_user_agent():
     """Test that the user agent is set correctly."""
     client = ApiClient(auth=UserTokenAuth(hostname="foo", token="bar"), hostname="foo")
-    client.session.request = Mock(return_value=AttrDict(status_code=200))
+    client.session.request = Mock(return_value=AttrDict(status_code=200, headers={}))
 
     client.call_api(
-        method="POST",
-        resource_path="/abc",
-        query_params={},
-        header_params={},
-        body={},
-        response_types_map={},
+        RequestInfo(
+            method="POST",
+            resource_path="/abc",
+            query_params={},
+            header_params={},
+            body={},
+            body_type=Any,
+            response_type=None,
+            request_timeout=None,
+        )
     )
 
     client.session.request.assert_called_with(
@@ -60,7 +67,6 @@ def test_user_agent():
         headers={
             "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}"
         },
-        json=ANY,
         params=ANY,
         data=ANY,
         stream=False,
@@ -86,12 +92,16 @@ def call_api_helper(
     )
 
     return client.call_api(
-        method="POST",
-        resource_path="/abc",
-        query_params={},
-        header_params={},
-        body={},
-        response_types_map={},
+        RequestInfo(
+            method="POST",
+            resource_path="/abc",
+            query_params={},
+            header_params={},
+            body={},
+            body_type=Any,
+            response_type={},
+            request_timeout=None,
+        )
     )
 
 
@@ -105,25 +115,25 @@ def test_call_api_400():
 
 
 def test_call_api_401():
-    with pytest.raises(PalantirRPCException) as info:
+    with pytest.raises(PalantirRPCException):
         call_api_helper(status_code=401, data=EXAMPLE_ERROR, headers={"Header": "A"})
 
 
 def test_call_api_403():
-    with pytest.raises(PalantirRPCException) as info:
+    with pytest.raises(PalantirRPCException):
         call_api_helper(status_code=403, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})
 
 
 def test_call_api_404():
-    with pytest.raises(PalantirRPCException) as info:
+    with pytest.raises(PalantirRPCException):
         call_api_helper(status_code=404, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})
 
 
 def test_call_api_500():
-    with pytest.raises(PalantirRPCException) as info:
+    with pytest.raises(PalantirRPCException):
         call_api_helper(status_code=500, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})
 
 
 def test_call_api_333():
-    with pytest.raises(PalantirRPCException) as info:
+    with pytest.raises(PalantirRPCException):
         call_api_helper(status_code=333, data=EXAMPLE_ERROR, headers={"Ha": "Ha"})

@@ -5,7 +5,7 @@ UnsupportedType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**unsupported_type** | StrictStr | Yes | None |
+**unsupported_type** | StrictStr | Yes |  |
 **type** | Literal["unsupported"] | Yes | None |
 
 

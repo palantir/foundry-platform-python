@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 FunctionVersion = StrictStr
 """
 The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional.

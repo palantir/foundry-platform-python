@@ -14,9 +14,8 @@
 
 
 from __future__ import annotations
+
 from typing import Literal
-from typing import Union
 
-
-ReleaseStatus = Union[Literal["ACTIVE"], Literal["EXPERIMENTAL"], Literal["DEPRECATED"]]
+ReleaseStatus = Literal["ACTIVE", "EXPERIMENTAL", "DEPRECATED"]
 """The release status of the entity."""

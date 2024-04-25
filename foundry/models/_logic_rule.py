@@ -14,11 +14,11 @@
 
 
 from __future__ import annotations
+
 from typing import Annotated
 from typing import Union
 
 from pydantic import Field
-
 
 from foundry.models._create_link_rule import CreateLinkRule
 from foundry.models._create_object_rule import CreateObjectRule
@@ -26,9 +26,8 @@ from foundry.models._delete_link_rule import DeleteLinkRule
 from foundry.models._delete_object_rule import DeleteObjectRule
 from foundry.models._modify_object_rule import ModifyObjectRule
 
-
 LogicRule = Annotated[
-    Union[CreateLinkRule, CreateObjectRule, DeleteLinkRule, DeleteObjectRule, ModifyObjectRule],
+    Union[CreateObjectRule, ModifyObjectRule, DeleteObjectRule, CreateLinkRule, DeleteLinkRule],
     Field(discriminator="type"),
 ]
 """LogicRule"""

@@ -13,14 +13,18 @@
 #  limitations under the License.
 
 import json as jsn
-from typing import Any, Dict, List, Optional, Tuple, TypedDict
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Tuple
+from typing import TypedDict
 from unittest.mock import Mock
 
 import pytest
-from requests import Session
-
 from foundry import FoundryClient
 from foundry import UserTokenAuth
+from requests import Session
 
 
 @pytest.fixture()
@@ -41,9 +45,9 @@ class MockResponse(TypedDict):
     json: Optional[Any]
 
 
-def mock_responses(monkeypatch, request_responses: List[Tuple[MockRequest, MockResponse]]):
+def mock_responses(monkeypatch: Any, request_responses: List[Tuple[MockRequest, MockResponse]]):
     # Define a side_effect function for our mock. This will be called instead of the original method
-    def mock_request(_, method, url, json=None, **kwargs):
+    def mock_request(_, method: str, url: str, json: Any = None, **kwargs: dict[str, Any]):
         for request, response in request_responses:
             if request["method"] != method:
                 continue

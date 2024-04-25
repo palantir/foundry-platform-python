@@ -14,17 +14,16 @@
 
 
 from __future__ import annotations
+
 from typing import Annotated
 from typing import Union
 
 from pydantic import Field
 
-
 from foundry.models._date_type import DateType
 from foundry.models._double_type import DoubleType
 from foundry.models._integer_type import IntegerType
 from foundry.models._timestamp_type import TimestampType
-
 
 QueryAggregationRangeSubType = Annotated[
     Union[DateType, DoubleType, IntegerType, TimestampType], Field(discriminator="type")

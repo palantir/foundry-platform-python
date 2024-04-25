@@ -15,17 +15,25 @@
 
 from __future__ import annotations
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+from typing import Optional
+from typing import cast
 
+from pydantic import BaseModel
+from pydantic import Field
 
+from foundry.models._create_transaction_request_dict import CreateTransactionRequestDict
 from foundry.models._transaction_type import TransactionType
 
 
-class CreateTransactionRequest(TypedDict):
+class CreateTransactionRequest(BaseModel):
     """CreateTransactionRequest"""
 
-    __pydantic_config__ = {"extra": "forbid"}  # type: ignore
+    transaction_type: Optional[TransactionType] = Field(alias="transactionType", default=None)
 
-    transactionType: NotRequired[TransactionType]
-    """The type of a Transaction."""
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> CreateTransactionRequestDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            CreateTransactionRequestDict, self.model_dump(by_alias=True, exclude_unset=True)
+        )

@@ -15,6 +15,7 @@ structs.
 | Float               | `Float`                                                                                                           |
 | Integer             | `Integer`                                                                                                         |
 | Long                | `Long`                                                                                                            |
+| Marking             | `Marking`                                                                                                         |
 | OntologyObject      | `OntologyObject<T>` where `T` is the API name of the referenced object type.                                      |
 | Short               | `Short`                                                                                                           |
 | String              | `String`                                                                                                          |

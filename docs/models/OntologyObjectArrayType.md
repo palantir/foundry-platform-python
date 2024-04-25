@@ -5,7 +5,7 @@ OntologyObjectArrayType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**sub_type** | ObjectPropertyType | Yes | A union of all the types supported by Ontology Object properties.  |
+**sub_type** | ObjectPropertyType | Yes |  |
 **type** | Literal["array"] | Yes | None |
 
 

@@ -14,18 +14,19 @@
 
 
 from __future__ import annotations
-from pydantic import StrictInt
+
 from typing import Annotated
 from typing import Any
 from typing import Dict
 from typing import Optional
 
 from pydantic import Field
+from pydantic import StrictInt
 from pydantic import validate_call
 
-from foundry._errors.sdk_internal_error import handle_unexpected
+from foundry._errors import handle_unexpected
 from foundry.api_client import ApiClient
-
+from foundry.api_client import RequestInfo
 from foundry.models._list_ontologies_response import ListOntologiesResponse
 from foundry.models._ontology import Ontology
 from foundry.models._ontology_rid import OntologyRid
@@ -37,7 +38,50 @@ class OntologyResource:
 
     @validate_call
     @handle_unexpected
-    def iterator(
+    def get(
+        self,
+        ontology_rid: OntologyRid,
+        *,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> Ontology:
+        """
+        Gets a specific ontology with the given Ontology RID.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+
+        :param ontology_rid: ontologyRid
+        :type ontology_rid: OntologyRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Ontology
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = None
+
+        _path_params["ontologyRid"] = ontology_rid
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies/{ontologyRid}".format(**_path_params),
+                query_params=_query_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=Ontology,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def list(
         self,
         *,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
@@ -53,67 +97,22 @@ class OntologyResource:
         :rtype: ListOntologiesResponse
         """
 
-        _path_params: Dict[str, str] = {}
+        _path_params: Dict[str, Any] = {}
         _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, str] = {}
+        _header_params: Dict[str, Any] = {}
         _body_params: Any = None
 
         _header_params["Accept"] = "application/json"
 
-        _response_types_map: Dict[int, Any] = {
-            200: ListOntologiesResponse,
-        }
-
         return self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/ontologies",
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            response_types_map=_response_types_map,
-            request_timeout=request_timeout,
-        )
-
-    @validate_call
-    @handle_unexpected
-    def get(
-        self,
-        ontology_rid: OntologyRid,
-        *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> Ontology:
-        """
-        Gets a specific ontology with the given Ontology RID.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
-
-        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: OntologyRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: Ontology
-        """
-
-        _path_params: Dict[str, str] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, str] = {}
-        _body_params: Any = None
-
-        _path_params["ontologyRid"] = ontology_rid
-
-        _header_params["Accept"] = "application/json"
-
-        _response_types_map: Dict[int, Any] = {
-            200: Ontology,
-        }
-
-        return self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/ontologies/{ontologyRid}".format(**_path_params),
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            response_types_map=_response_types_map,
-            request_timeout=request_timeout,
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies",
+                query_params=_query_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=ListOntologiesResponse,
+                request_timeout=request_timeout,
+            ),
         )

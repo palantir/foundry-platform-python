@@ -14,9 +14,8 @@
 
 
 from __future__ import annotations
+
 from typing import Literal
-from typing import Union
 
-
-LinkTypeSideCardinality = Union[Literal["ONE"], Literal["MANY"]]
+LinkTypeSideCardinality = Literal["ONE", "MANY"]
 """LinkTypeSideCardinality"""

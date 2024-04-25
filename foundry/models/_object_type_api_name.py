@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 ObjectTypeApiName = StrictStr
 """
 The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the

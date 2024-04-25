@@ -1,15 +1,14 @@
 from typing import Any
 
-import pytest
 from foundry.foundry_client import FoundryClient
 
 # from foundry.models.search_json_query_v2 import EqualsQuery
 # from foundry.models.search_json_query_v2 import SearchJsonQueryV2
+from ..utils import client  # type: ignore
 from ..utils import mock_responses
-from ..utils import client
 
 
-def mock_list_ontologies(monkeypatch):
+def mock_list_ontologies(monkeypatch: Any):
     mock_responses(
         monkeypatch,
         [
@@ -30,6 +29,9 @@ def mock_list_ontologies(monkeypatch):
                                 "apiName": "API",
                                 "status": "ACTIVE",
                                 "primaryKey": "123",
+                                "primaryKey": "abc",
+                                "titleProperty": "abc",
+                                "properties": {},
                             }
                         ],
                     },
@@ -40,14 +42,14 @@ def mock_list_ontologies(monkeypatch):
     )
 
 
-def test_can_list_object_types(client: FoundryClient, monkeypatch):
+def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
     mock_list_ontologies(monkeypatch)
 
-    result = client.ontologies_v2.ObjectTypeV2.iterator(
+    result = client.ontologies_v2.ObjectTypeV2.list(
         ontology="MyOntology",
     )
 
-    assert result.data is not None and len(result.data) == 1
+    assert len(list(result)) == 1
 
 
 # def mock_search_query(monkeypatch):

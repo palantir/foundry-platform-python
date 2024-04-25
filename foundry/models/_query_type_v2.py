@@ -14,73 +14,44 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
+
 from typing import Dict
 from typing import Optional
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import StrictStr
 
-
 from foundry.models._display_name import DisplayName
 from foundry.models._function_rid import FunctionRid
 from foundry.models._function_version import FunctionVersion
+from foundry.models._parameter_id import ParameterId
 from foundry.models._query_api_name import QueryApiName
 from foundry.models._query_data_type import QueryDataType
 from foundry.models._query_parameter_v2 import QueryParameterV2
+from foundry.models._query_type_v2_dict import QueryTypeV2Dict
 
 
 class QueryTypeV2(BaseModel):
     """Represents a query type in the Ontology."""
 
     api_name: QueryApiName = Field(alias="apiName")
-    """The name of the Query in the API."""
 
-    description: Optional[StrictStr] = Field(default=None)
+    description: Optional[StrictStr] = None
 
     display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
-    """The display name of the entity."""
 
-    parameters: Optional[Dict[str, QueryParameterV2]] = Field(default=None)
+    parameters: Dict[ParameterId, QueryParameterV2]
 
-    output: QueryDataType = Field()
-    """A union of all the types supported by Ontology Query parameters or outputs."""
+    output: QueryDataType
 
-    rid: FunctionRid = Field()
-    """The unique resource identifier of a Function, useful for interacting with other Foundry APIs."""
+    rid: FunctionRid
 
-    version: FunctionVersion = Field()
-    """
-    The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional.
-    Examples: `1.2.3`, `1.2.3-rc1`.
-    """
+    version: FunctionVersion
 
-    _properties: ClassVar[Set[str]] = set(
-        ["apiName", "description", "displayName", "parameters", "output", "rid", "version"]
-    )
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "QueryTypeV2":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> QueryTypeV2Dict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(QueryTypeV2Dict, self.model_dump(by_alias=True, exclude_unset=True))

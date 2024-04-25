@@ -5,18 +5,18 @@ from ..utils import client
 
 
 def test_get_operation(client, monkeypatch):
-    operation_id = "ri.actions.main.action.75dd58b0-e773-4b13-af10-7dde1e095332"
+    id = "ri.actions.main.action.75dd58b0-e773-4b13-af10-7dde1e095332"
     mock_responses(
         monkeypatch,
         [
             (
                 {
                     "method": "GET",
-                    "url": f"https://test.com/api/v2/operations/{operation_id}",
+                    "url": f"https://test.com/api/v2/operations/{id}",
                 },
                 {
                     "status": 200,
-                    "body": {"type": "applyActionAsync", "id": operation_id},
+                    "body": {"type": "applyActionAsync", "id": id},
                 },
             )
         ],
@@ -24,7 +24,7 @@ def test_get_operation(client, monkeypatch):
 
     with pytest.raises(SDKInternalError):
         r = client.operations.Operation.get(
-            operation_id=operation_id,
+            id=id,
         )
 
-        # assert r.id == operation_id
+        # assert r.id == id

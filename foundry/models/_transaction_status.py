@@ -14,9 +14,8 @@
 
 
 from __future__ import annotations
+
 from typing import Literal
-from typing import Union
 
-
-TransactionStatus = Union[Literal["ABORTED"], Literal["COMMITTED"], Literal["OPEN"]]
+TransactionStatus = Literal["ABORTED", "COMMITTED", "OPEN"]
 """The status of a Transaction."""

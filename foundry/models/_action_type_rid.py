@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-
 from foundry._core.utils import RID
-
 
 ActionTypeRid = RID
 """The unique resource identifier of an action type, useful for interacting with other Foundry APIs."""

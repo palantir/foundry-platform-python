@@ -5,7 +5,7 @@ QueryUnionType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**union_types** | List[QueryDataType] | No | None |
+**union_types** | List[QueryDataType] | Yes |  |
 **type** | Literal["union"] | Yes | None |
 
 

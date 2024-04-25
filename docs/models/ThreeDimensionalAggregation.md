@@ -5,8 +5,8 @@ ThreeDimensionalAggregation
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**key_type** | QueryAggregationKeyType | Yes | A union of all the types supported by query aggregation keys.  |
-**value_type** | TwoDimensionalAggregation | Yes | TwoDimensionalAggregation |
+**key_type** | QueryAggregationKeyType | Yes |  |
+**value_type** | TwoDimensionalAggregation | Yes |  |
 **type** | Literal["threeDimensionalAggregation"] | Yes | None |
 
 

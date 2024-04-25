@@ -5,7 +5,7 @@ QueryAggregationRangeType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**sub_type** | QueryAggregationRangeSubType | Yes | A union of all the types supported by query aggregation ranges.  |
+**sub_type** | QueryAggregationRangeSubType | Yes |  |
 **type** | Literal["range"] | Yes | None |
 
 

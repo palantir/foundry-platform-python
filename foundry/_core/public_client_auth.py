@@ -13,26 +13,29 @@
 #  limitations under the License.
 
 
-import requests
 import threading
 import time
-from typing import Callable, Optional, TypeVar
+import webbrowser
+from typing import Callable
+from typing import List
+from typing import Optional
+from typing import TypeVar
+
+import requests
 
 from foundry._core.auth_utils import Auth
+from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import AuthorizeRequest
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
-from foundry._core.oauth import SignOutResponse
 from foundry._errors.not_authenticated import NotAuthenticated
 from foundry._errors.sdk_internal_error import SDKInternalError
-import webbrowser
-
 
 T = TypeVar("T")
 
 
 class PublicClientAuth(Auth):
-    scopes: list[str] = ["api:read-data", "api:write-data", "offline_access"]
+    scopes: List[str] = ["api:read-data", "api:write-data", "offline_access"]
 
     """
     Client for Public Client OAuth-authenticated Ontology applications.

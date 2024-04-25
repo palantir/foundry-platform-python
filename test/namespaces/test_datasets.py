@@ -12,17 +12,21 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from pydantic import ValidationError
+from typing import Any
+
 import pytest
 from foundry import FoundryClient
 from foundry.models import Branch
+from foundry.models import CreateBranchRequest
+from pydantic import ValidationError
+
+from ..utils import client  # type: ignore
 from ..utils import mock_responses
-from ..utils import client
 
 TEST_RID = "ri.foundry.main.dataset.abc"
 
 
-def mock_create_branch(monkeypatch, dataset_rid: str, branch_id: str):
+def mock_create_branch(monkeypatch: Any, dataset_rid: str, branch_id: str):
     mock_responses(
         monkeypatch,
         [
@@ -56,7 +60,7 @@ def test_create_branch_fails_bad_body(client: FoundryClient):
         )
 
 
-def test_fails_with_extra_property(client: FoundryClient, monkeypatch):
+def test_works_with_extra_property(client: FoundryClient, monkeypatch: Any):
     dataset_rid = TEST_RID
     mock_create_branch(
         monkeypatch,
@@ -70,15 +74,14 @@ def test_fails_with_extra_property(client: FoundryClient, monkeypatch):
         create_branch_request={"branchId": "branch_test"},
     )
 
-    with pytest.raises(ValidationError):
-        # This ensures we fail if the user passes in an extra property
-        client.datasets.Branch.create(
-            dataset_rid=dataset_rid,
-            create_branch_request={"branchId": "branch_test", "foo": "bar"},  # type: ignore
-        )
+    # This ensures we don't fail if the user passes in an extra property
+    client.datasets.Branch.create(
+        dataset_rid=dataset_rid,
+        create_branch_request={"branchId": "branch_test", "foo": "bar"},  # type: ignore
+    )
 
 
-def test_create_branch_can_create_branch(client: FoundryClient, monkeypatch):
+def test_create_branch_with_dict(client: FoundryClient, monkeypatch: Any):
     dataset_rid = TEST_RID
     mock_create_branch(
         monkeypatch,
@@ -97,11 +100,19 @@ def test_create_branch_can_create_branch(client: FoundryClient, monkeypatch):
     assert res.branch_id == "branch_test"
     assert res.transaction_rid is None
 
+
+def test_create_branch_with_model(client: FoundryClient, monkeypatch: Any):
+    mock_create_branch(
+        monkeypatch,
+        dataset_rid=TEST_RID,
+        branch_id="branch_test",
+    )
+
     res = client.datasets.Branch.create(
-        dataset_rid,
-        create_branch_request={
-            "branchId": "branch_test",
-        },  # type: ignore
+        TEST_RID,
+        create_branch_request=CreateBranchRequest(
+            branchId="branch_test",
+        ),
     )
 
     assert isinstance(res, Branch)
@@ -109,7 +120,7 @@ def test_create_branch_can_create_branch(client: FoundryClient, monkeypatch):
     assert res.transaction_rid is None
 
 
-def test_create_branch_doesnt_fail_extra_property(client: FoundryClient, monkeypatch):
+def test_create_branch_doesnt_fail_extra_property(client: FoundryClient, monkeypatch: Any):
     """
     We want to make sure that additional properties don't cause a failure when the extra
     properties come from the server.
@@ -129,7 +140,7 @@ def test_create_branch_doesnt_fail_extra_property(client: FoundryClient, monkeyp
     assert res.branch_id == "branch_test"
 
 
-def mock_data_read(monkeypatch, data: bytes):
+def mock_data_read(monkeypatch: Any, data: bytes):
     mock_responses(
         monkeypatch,
         [
@@ -137,7 +148,7 @@ def mock_data_read(monkeypatch, data: bytes):
                 {
                     "method": "GET",
                     "url": f"https://test.com/api/v1/datasets/{TEST_RID}/readTable",
-                    "params": {"format": "CSV"},
+                    "params": {"format": "CSV", "columns": []},
                     "json": None,
                 },
                 {
@@ -150,13 +161,7 @@ def mock_data_read(monkeypatch, data: bytes):
     )
 
 
-def test_read_table_can_pass_in_str(client: FoundryClient, monkeypatch):
+def test_read_table_can_pass_in_str(client: FoundryClient, monkeypatch: Any):
     mock_data_read(monkeypatch, data=b"hello")
-    res = client.datasets.Dataset.read_table(format="CSV", dataset_rid=TEST_RID)  # type: ignore
-    assert res == b"hello"
-
-
-def test_read_table_can_pass_enum(client: FoundryClient, monkeypatch):
-    mock_data_read(monkeypatch, data=b"hello")
-    res = client.datasets.Dataset.read_table(format="CSV", dataset_rid=TEST_RID)
+    res = client.datasets.Dataset.read(format="CSV", dataset_rid=TEST_RID, columns=[])
     assert res == b"hello"

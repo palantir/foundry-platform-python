@@ -14,20 +14,23 @@
 
 
 from __future__ import annotations
-from pydantic import StrictInt
+
 from typing import Annotated
 from typing import Any
 from typing import Dict
 from typing import Optional
+from typing import Union
 
 from pydantic import Field
+from pydantic import StrictInt
 from pydantic import validate_call
 
-from foundry._errors.sdk_internal_error import handle_unexpected
+from foundry._errors import handle_unexpected
 from foundry.api_client import ApiClient
-
+from foundry.api_client import RequestInfo
 from foundry.models._branch_id import BranchId
 from foundry.models._create_transaction_request import CreateTransactionRequest
+from foundry.models._create_transaction_request_dict import CreateTransactionRequestDict
 from foundry.models._dataset_rid import DatasetRid
 from foundry.models._transaction import Transaction
 from foundry.models._transaction_rid import TransactionRid
@@ -39,60 +42,7 @@ class TransactionResource:
 
     @validate_call
     @handle_unexpected
-    def create(
-        self,
-        dataset_rid: DatasetRid,
-        *,
-        create_transaction_request: CreateTransactionRequest,
-        branch_id: Optional[BranchId] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> Transaction:
-        """
-        Creates a Transaction on a Branch of a Dataset.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Transaction.
-        :type dataset_rid: DatasetRid
-        :param branch_id: The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
-        :type branch_id: Optional[BranchId]
-        :param create_transaction_request: CreateTransactionRequest
-        :type create_transaction_request: CreateTransactionRequest
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: Transaction
-        """
-
-        _path_params: Dict[str, str] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, str] = {}
-        _body_params: Any = create_transaction_request
-        _query_params["branchId"] = branch_id
-
-        _path_params["datasetRid"] = dataset_rid
-
-        _header_params["Accept"] = "application/json"
-
-        _header_params["Content-Type"] = "application/json"
-
-        _response_types_map: Dict[int, Any] = {
-            200: Transaction,
-        }
-
-        return self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/transactions".format(**_path_params),
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            response_types_map=_response_types_map,
-            request_timeout=request_timeout,
-        )
-
-    @validate_call
-    @handle_unexpected
-    def get(
+    def abort(
         self,
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
@@ -100,13 +50,14 @@ class TransactionResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Transaction:
         """
-        Gets a Transaction of a Dataset.
+        Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
+        not updated.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
+        :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
-        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
+        :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -114,9 +65,9 @@ class TransactionResource:
         :rtype: Transaction
         """
 
-        _path_params: Dict[str, str] = {}
+        _path_params: Dict[str, Any] = {}
         _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, str] = {}
+        _header_params: Dict[str, Any] = {}
         _body_params: Any = None
 
         _path_params["datasetRid"] = dataset_rid
@@ -125,20 +76,19 @@ class TransactionResource:
 
         _header_params["Accept"] = "application/json"
 
-        _response_types_map: Dict[int, Any] = {
-            200: Transaction,
-        }
-
         return self._api_client.call_api(
-            method="GET",
-            resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}".format(
-                **_path_params
+            RequestInfo(
+                method="POST",
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort".format(
+                    **_path_params
+                ),
+                query_params=_query_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
             ),
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            response_types_map=_response_types_map,
-            request_timeout=request_timeout,
         )
 
     @validate_call
@@ -156,9 +106,9 @@ class TransactionResource:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
+        :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
-        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
+        :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -166,9 +116,9 @@ class TransactionResource:
         :rtype: Transaction
         """
 
-        _path_params: Dict[str, str] = {}
+        _path_params: Dict[str, Any] = {}
         _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, str] = {}
+        _header_params: Dict[str, Any] = {}
         _body_params: Any = None
 
         _path_params["datasetRid"] = dataset_rid
@@ -177,25 +127,76 @@ class TransactionResource:
 
         _header_params["Accept"] = "application/json"
 
-        _response_types_map: Dict[int, Any] = {
-            200: Transaction,
-        }
-
         return self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit".format(
-                **_path_params
+            RequestInfo(
+                method="POST",
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit".format(
+                    **_path_params
+                ),
+                query_params=_query_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
             ),
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            response_types_map=_response_types_map,
-            request_timeout=request_timeout,
         )
 
     @validate_call
     @handle_unexpected
-    def abort(
+    def create(
+        self,
+        dataset_rid: DatasetRid,
+        create_transaction_request: Union[CreateTransactionRequest, CreateTransactionRequestDict],
+        *,
+        branch_id: Optional[BranchId] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> Transaction:
+        """
+        Creates a Transaction on a Branch of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param create_transaction_request: Body of the request
+        :type create_transaction_request: Union[CreateTransactionRequest, CreateTransactionRequestDict]
+        :param branch_id: branchId
+        :type branch_id: Optional[BranchId]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Transaction
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = create_transaction_request
+        _query_params["branchId"] = branch_id
+
+        _path_params["datasetRid"] = dataset_rid
+
+        _header_params["Content-Type"] = "application/json"
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v1/datasets/{datasetRid}/transactions".format(**_path_params),
+                query_params=_query_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=Union[CreateTransactionRequest, CreateTransactionRequestDict],
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def get(
         self,
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
@@ -203,14 +204,13 @@ class TransactionResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Transaction:
         """
-        Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
-        not updated.
+        Gets a Transaction of a Dataset.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
+        :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
-        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
+        :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -218,9 +218,9 @@ class TransactionResource:
         :rtype: Transaction
         """
 
-        _path_params: Dict[str, str] = {}
+        _path_params: Dict[str, Any] = {}
         _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, str] = {}
+        _header_params: Dict[str, Any] = {}
         _body_params: Any = None
 
         _path_params["datasetRid"] = dataset_rid
@@ -229,18 +229,17 @@ class TransactionResource:
 
         _header_params["Accept"] = "application/json"
 
-        _response_types_map: Dict[int, Any] = {
-            200: Transaction,
-        }
-
         return self._api_client.call_api(
-            method="POST",
-            resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort".format(
-                **_path_params
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}".format(
+                    **_path_params
+                ),
+                query_params=_query_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
             ),
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            response_types_map=_response_types_map,
-            request_timeout=request_timeout,
         )

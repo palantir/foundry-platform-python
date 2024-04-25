@@ -20,6 +20,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 [FloatType](FloatType.md) | float
 [IntegerType](IntegerType.md) | integer
 [LongType](LongType.md) | long
+[MarkingType](MarkingType.md) | marking
 [ShortType](ShortType.md) | short
 [StringType](StringType.md) | string
 [TimestampType](TimestampType.md) | timestamp

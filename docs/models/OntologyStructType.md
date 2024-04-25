@@ -5,7 +5,7 @@ OntologyStructType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**fields** | List[OntologyStructField] | No | None |
+**fields** | List[OntologyStructField] | Yes |  |
 **type** | Literal["struct"] | Yes | None |
 
 

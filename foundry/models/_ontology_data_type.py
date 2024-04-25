@@ -14,20 +14,16 @@
 
 
 from __future__ import annotations
+
 from typing import Annotated
-from typing import Any
-from typing import ClassVar
-from typing import Dict
 from typing import List
 from typing import Literal
-from typing import Optional
-from typing import Set
 from typing import Union
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import StrictBool
-
 
 from foundry.models._any_type import AnyType
 from foundry.models._binary_type import BinaryType
@@ -39,6 +35,12 @@ from foundry.models._double_type import DoubleType
 from foundry.models._float_type import FloatType
 from foundry.models._integer_type import IntegerType
 from foundry.models._long_type import LongType
+from foundry.models._marking_type import MarkingType
+from foundry.models._ontology_data_type_dict import OntologyArrayTypeDict
+from foundry.models._ontology_data_type_dict import OntologyMapTypeDict
+from foundry.models._ontology_data_type_dict import OntologySetTypeDict
+from foundry.models._ontology_data_type_dict import OntologyStructFieldDict
+from foundry.models._ontology_data_type_dict import OntologyStructTypeDict
 from foundry.models._ontology_object_set_type import OntologyObjectSetType
 from foundry.models._ontology_object_type import OntologyObjectType
 from foundry.models._short_type import ShortType
@@ -52,175 +54,74 @@ class OntologyArrayType(BaseModel):
     """OntologyArrayType"""
 
     item_type: OntologyDataType = Field(alias="itemType")
-    """A union of all the primitive types used by Palantir's Ontology-based products."""
 
-    type: Literal["array"] = Field()
+    type: Literal["array"]
 
-    _properties: ClassVar[Set[str]] = set(["itemType", "type"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "OntologyArrayType":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> OntologyArrayTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologyArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 class OntologyMapType(BaseModel):
     """OntologyMapType"""
 
     key_type: OntologyDataType = Field(alias="keyType")
-    """A union of all the primitive types used by Palantir's Ontology-based products."""
 
     value_type: OntologyDataType = Field(alias="valueType")
-    """A union of all the primitive types used by Palantir's Ontology-based products."""
 
-    type: Literal["map"] = Field()
+    type: Literal["map"]
 
-    _properties: ClassVar[Set[str]] = set(["keyType", "valueType", "type"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "OntologyMapType":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> OntologyMapTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologyMapTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 class OntologySetType(BaseModel):
     """OntologySetType"""
 
     item_type: OntologyDataType = Field(alias="itemType")
-    """A union of all the primitive types used by Palantir's Ontology-based products."""
 
-    type: Literal["set"] = Field()
+    type: Literal["set"]
 
-    _properties: ClassVar[Set[str]] = set(["itemType", "type"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "OntologySetType":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> OntologySetTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologySetTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 class OntologyStructField(BaseModel):
     """OntologyStructField"""
 
-    name: StructFieldName = Field()
-    """The name of a field in a `Struct`."""
+    name: StructFieldName
 
     field_type: OntologyDataType = Field(alias="fieldType")
-    """A union of all the primitive types used by Palantir's Ontology-based products."""
 
-    required: StrictBool = Field()
+    required: StrictBool
 
-    _properties: ClassVar[Set[str]] = set(["name", "fieldType", "required"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "OntologyStructField":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> OntologyStructFieldDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologyStructFieldDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 class OntologyStructType(BaseModel):
     """OntologyStructType"""
 
-    fields: Optional[List[OntologyStructField]] = Field(default=None)
+    fields: List[OntologyStructField]
 
-    type: Literal["struct"] = Field()
+    type: Literal["struct"]
 
-    _properties: ClassVar[Set[str]] = set(["fields", "type"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "OntologyStructType":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> OntologyStructTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologyStructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 OntologyDataType = Annotated[
@@ -235,15 +136,16 @@ OntologyDataType = Annotated[
         FloatType,
         IntegerType,
         LongType,
-        OntologyArrayType,
-        OntologyMapType,
-        OntologyObjectSetType,
-        OntologyObjectType,
-        OntologySetType,
-        OntologyStructType,
+        MarkingType,
         ShortType,
         StringType,
         TimestampType,
+        OntologyArrayType,
+        OntologyMapType,
+        OntologySetType,
+        OntologyStructType,
+        OntologyObjectType,
+        OntologyObjectSetType,
         UnsupportedType,
     ],
     Field(discriminator="type"),

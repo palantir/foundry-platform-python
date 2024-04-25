@@ -14,78 +14,33 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
-from typing import Dict
+
 from typing import Optional
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import StrictBool
 from pydantic import StrictStr
 
-
 from foundry.models._ontology_data_type import OntologyDataType
+from foundry.models._parameter_dict import ParameterDict
 from foundry.models._value_type import ValueType
 
 
 class Parameter(BaseModel):
     """Details about a parameter of an action or query."""
 
-    description: Optional[StrictStr] = Field(default=None)
+    description: Optional[StrictStr] = None
 
     base_type: ValueType = Field(alias="baseType")
-    """
-    A string indicating the type of each data value. Note that these types can be nested, for example an array of
-    structs.
-
-    | Type                | JSON value                                                                                                        |
-    |---------------------|-------------------------------------------------------------------------------------------------------------------|
-    | Array               | `Array<T>`, where `T` is the type of the array elements, e.g. `Array<String>`.                                    |
-    | Attachment          | `Attachment`                                                                                                      |
-    | Boolean             | `Boolean`                                                                                                         |
-    | Byte                | `Byte`                                                                                                            |
-    | Date                | `LocalDate`                                                                                                       |
-    | Decimal             | `Decimal`                                                                                                         |
-    | Double              | `Double`                                                                                                          |
-    | Float               | `Float`                                                                                                           |
-    | Integer             | `Integer`                                                                                                         |
-    | Long                | `Long`                                                                                                            |
-    | OntologyObject      | `OntologyObject<T>` where `T` is the API name of the referenced object type.                                      |
-    | Short               | `Short`                                                                                                           |
-    | String              | `String`                                                                                                          |
-    | Struct              | `Struct<T>` where `T` contains field name and type pairs, e.g. `Struct<{ firstName: String, lastName: string }>`  |
-    | Timeseries          | `TimeSeries<T>` where `T` is either `String` for an enum series or `Double` for a numeric series.                 |
-    | Timestamp           | `Timestamp`                                                                                                       |
-    """
 
     data_type: Optional[OntologyDataType] = Field(alias="dataType", default=None)
-    """A union of all the primitive types used by Palantir's Ontology-based products."""
 
-    required: StrictBool = Field()
+    required: StrictBool
 
-    _properties: ClassVar[Set[str]] = set(["description", "baseType", "dataType", "required"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "Parameter":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> ParameterDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(ParameterDict, self.model_dump(by_alias=True, exclude_unset=True))

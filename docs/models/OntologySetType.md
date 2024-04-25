@@ -5,7 +5,7 @@ OntologySetType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**item_type** | OntologyDataType | Yes | A union of all the primitive types used by Palantir's Ontology-based products.  |
+**item_type** | OntologyDataType | Yes |  |
 **type** | Literal["set"] | Yes | None |
 
 

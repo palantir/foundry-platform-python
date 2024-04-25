@@ -14,17 +14,15 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
-from typing import Dict
+
 from typing import List
 from typing import Optional
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 
-
+from foundry.models._list_object_types_v2_response_dict import ListObjectTypesV2ResponseDict  # NOQA
 from foundry.models._object_type_v2 import ObjectTypeV2
 from foundry.models._page_token import PageToken
 
@@ -33,36 +31,14 @@ class ListObjectTypesV2Response(BaseModel):
     """ListObjectTypesV2Response"""
 
     next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
-    """
-    The page token indicates where to start paging. This should be omitted from the first page's request.
-    To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-    and populate the next request's `pageToken` field with it.
-    """
 
-    data: Optional[List[ObjectTypeV2]] = Field(default=None)
+    data: List[ObjectTypeV2]
     """The list of object types in the current page."""
 
-    _properties: ClassVar[Set[str]] = set(["nextPageToken", "data"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "ListObjectTypesV2Response":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> ListObjectTypesV2ResponseDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            ListObjectTypesV2ResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
+        )

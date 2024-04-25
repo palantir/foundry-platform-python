@@ -17,6 +17,5 @@ from __future__ import annotations
 
 from pydantic import StrictBool
 
-
 PreviewMode = StrictBool
 """Enables the use of preview functionality."""

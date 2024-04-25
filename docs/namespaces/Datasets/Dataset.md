@@ -3,11 +3,11 @@
 Method | HTTP request |
 ------------- | ------------- |
 [**create**](#create) | **POST** /v1/datasets |
-[**get**](#get) | **GET** /v1/datasets/{datasetRid} |
-[**read_table**](#read_table) | **GET** /v1/datasets/{datasetRid}/readTable |
-[**put_schema**](#put_schema) | **PUT** /v1/datasets/{datasetRid}/schema |
-[**get_schema**](#get_schema) | **GET** /v1/datasets/{datasetRid}/schema |
 [**delete_schema**](#delete_schema) | **DELETE** /v1/datasets/{datasetRid}/schema |
+[**get**](#get) | **GET** /v1/datasets/{datasetRid} |
+[**get_schema**](#get_schema) | **GET** /v1/datasets/{datasetRid}/schema |
+[**read**](#read) | **GET** /v1/datasets/{datasetRid}/readTable |
+[**replace_schema**](#replace_schema) | **PUT** /v1/datasets/{datasetRid}/schema |
 
 # **create**
 Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
@@ -19,7 +19,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**create_dataset_request** | CreateDatasetRequest | CreateDatasetRequest |  |
+**create_dataset_request** | Union[CreateDatasetRequest, CreateDatasetRequestDict] | Body of the request |  |
 
 ### Return type
 **Dataset**
@@ -35,15 +35,16 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
+# Union[CreateDatasetRequest, CreateDatasetRequestDict] | Body of the request
 create_dataset_request = {
     "name": "My Dataset",
     "parentFolderRid": "ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4",
-}  # CreateDatasetRequest | CreateDatasetRequest
+}
 
 
 try:
     api_response = foundry_client.datasets.Dataset.create(
-        create_dataset_request=create_dataset_request
+        create_dataset_request,
     )
     print("The Dataset.create response:\n")
     pprint(api_response)
@@ -61,7 +62,68 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Dataset  | Dataset | application/json |
+**200** | Dataset  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
+
+# **delete_schema**
+Deletes the Schema from a Dataset and Branch.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid | datasetRid |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry import FoundryClient
+from foundry import PalantirRPCException
+from pprint import pprint
+
+foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid | datasetRid
+dataset_rid = None
+
+# Optional[BranchId] | branchId
+branch_id = None
+
+# Optional[PreviewMode] | preview
+preview = true
+
+# Optional[TransactionRid] | transactionRid
+transaction_rid = None
+
+
+
+try:
+    api_response = foundry_client.datasets.Dataset.delete_schema(dataset_rid, branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
+    print("The Dataset.delete_schema response:\n")
+    pprint(api_response)
+except PalantirRPCException as e:
+    print("HTTP error when calling Dataset.delete_schema: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  | Schema deleted. | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -91,9 +153,8 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-dataset_rid = (
-    "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"  # DatasetRid | datasetRid
-)
+# DatasetRid | datasetRid
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 
 try:
@@ -116,18 +177,75 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Dataset  | Dataset | application/json |
+**200** | Dataset  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
-# **read_table**
-:::callout{theme=warning title=Warning}
-  This endpoint is in preview and may be modified or removed at any time.
-  To use this endpoint, add `preview=true` to the request query parameters.
-  Furthermore, this endpoint currently does not support views (Virtual datasets composed of other datasets).
-:::
+# **get_schema**
+Retrieves the Schema for a Dataset and Branch, if it exists.
 
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid | datasetRid |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
+
+### Return type
+**Any**
+
+### Example
+
+```python
+from foundry import FoundryClient
+from foundry import PalantirRPCException
+from pprint import pprint
+
+foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid | datasetRid
+dataset_rid = None
+
+# Optional[BranchId] | branchId
+branch_id = None
+
+# Optional[PreviewMode] | preview
+preview = true
+
+# Optional[TransactionRid] | transactionRid
+transaction_rid = None
+
+
+
+try:
+    api_response = foundry_client.datasets.Dataset.get_schema(dataset_rid, branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
+    print("The Dataset.get_schema response:\n")
+    pprint(api_response)
+except PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_schema: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Any  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
+
+# **read**
 Gets the content of a dataset as a table in the specified format.
+
+This endpoint currently does not support views (Virtual datasets composed of other datasets).
 
 Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
@@ -136,14 +254,13 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset.  |  |
-**branch_id** | Optional[BranchId] | The identifier (name) of the Branch. | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction. | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. | [optional] |
-**format** | TableExportFormat | The export format. Must be `ARROW` or `CSV`.  |  |
-**columns** | Optional[List[StrictStr]] | A subset of the dataset columns to include in the result. Defaults to all columns.  | [optional] |
-**row_limit** | Optional[StrictInt] | A limit on the number of rows to return. Note that row ordering is non-deterministic.  | [optional] |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**dataset_rid** | DatasetRid | datasetRid |  |
+**columns** | List[StrictStr] | columns |  |
+**format** | TableExportFormat | format |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
+**row_limit** | Optional[StrictInt] | rowLimit | [optional] |
+**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **bytes**
@@ -157,23 +274,35 @@ from pprint import pprint
 
 foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-dataset_rid = None # DatasetRid | The RID of the Dataset. 
-branch_id = None # Optional[BranchId] | The identifier (name) of the Branch.
-start_transaction_rid = None # Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.
-end_transaction_rid = None # Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.
-format = "CSV" # TableExportFormat | The export format. Must be `ARROW` or `CSV`. 
-columns = None # Optional[List[StrictStr]] | A subset of the dataset columns to include in the result. Defaults to all columns. 
-row_limit = None # Optional[StrictInt] | A limit on the number of rows to return. Note that row ordering is non-deterministic. 
-preview = None # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode. 
+# DatasetRid | datasetRid
+dataset_rid = None
+
+# List[StrictStr] | columns
+columns = None
+
+# TableExportFormat | format
+format = "CSV"
+
+# Optional[BranchId] | branchId
+branch_id = None
+
+# Optional[TransactionRid] | endTransactionRid
+end_transaction_rid = None
+
+# Optional[StrictInt] | rowLimit
+row_limit = None
+
+# Optional[TransactionRid] | startTransactionRid
+start_transaction_rid = None
+
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.read_table(
-dataset_rid,branch_id=branch_idstart_transaction_rid=start_transaction_ridend_transaction_rid=end_transaction_ridformat=formatcolumns=columnsrow_limit=row_limitpreview=preview    )
-    print("The Dataset.read_table response:\n")
+    api_response = foundry_client.datasets.Dataset.read(dataset_rid, columns=columnsformat=formatbranch_id=branch_idend_transaction_rid=end_transaction_ridrow_limit=row_limitstart_transaction_rid=start_transaction_rid)
+    print("The Dataset.read response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling Dataset.read_table: %s\n" % e)
+    print("HTTP error when calling Dataset.read: %s\n" % e)
 
 ```
 
@@ -187,14 +316,14 @@ from foundry import PalantirRPCException
 foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 try:
-    api_response = foundry_client.datasets.Dataset.read_table(
+    api_response = foundry_client.datasets.Dataset.read(
         dataset_rid="...", format="CSV", columns=[...]
     )
 
     with open("my_table.csv", "wb") as f:
         f.write(api_response)
 except PalantirRPCException as e:
-    print("PalantirRPCException when calling DatasetsApiServiceApi -> read_table: %s\n" % e)
+    print("PalantirRPCException when calling DatasetsApiServiceApi -> read: %s\n" % e)
 ```
 
 ### Read a Foundry Dataset into a Pandas DataFrame
@@ -211,11 +340,11 @@ import pyarrow as pa
 foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 try:
-    api_response = foundry_client.datasets.Dataset.read_table(dataset_rid="...", format="ARROW", columns=[...])
+    api_response = foundry_client.datasets.Dataset.read(dataset_rid="...", format="ARROW", columns=[...])
     df = pa.ipc.open_stream(api_response).read_all().to_pandas()
     print(df)
 except Exception as e:
-    print("Exception when calling DatasetsApiServiceApi -> read_table: %s\n" % e)
+    print("Exception when calling DatasetsApiServiceApi -> read: %s\n" % e)
 ```
 
 ```
@@ -243,11 +372,11 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | bytes  | None | */* |
+**200** | bytes  | The content stream. | */* |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
-# **put_schema**
+# **replace_schema**
 Puts a Schema on an existing Dataset and Branch.
 
 
@@ -255,118 +384,9 @@ Puts a Schema on an existing Dataset and Branch.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset on which to put the Schema.  |  |
-**branch_id** | Optional[BranchId] | The ID of the Branch on which to put the Schema.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**body** | object | Body of the request |  |
-
-### Return type
-**None**
-
-### Example
-
-```python
-from foundry import FoundryClient
-from foundry import PalantirRPCException
-from pprint import pprint
-
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-dataset_rid = None # DatasetRid | The RID of the Dataset on which to put the Schema. 
-branch_id = None # Optional[BranchId] | The ID of the Branch on which to put the Schema. 
-preview = True # Optional[PreviewMode] | preview
-body = None # object | Body of the request
-
-
-try:
-    api_response = foundry_client.datasets.Dataset.put_schema(
-dataset_rid,branch_id=branch_idpreview=previewbody=body    )
-    print("The Dataset.put_schema response:\n")
-    pprint(api_response)
-except PalantirRPCException as e:
-    print("HTTP error when calling Dataset.put_schema: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**204** | None  | No content | None |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
-
-# **get_schema**
-Retrieves the Schema for a Dataset and Branch, if it exists.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset.  |  |
-**branch_id** | Optional[BranchId] | The ID of the Branch.  | [optional] |
-**transaction_rid** | Optional[TransactionRid] | The TransactionRid that contains the Schema.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-
-### Return type
-**Union[object, None]**
-
-### Example
-
-```python
-from foundry import FoundryClient
-from foundry import PalantirRPCException
-from pprint import pprint
-
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-dataset_rid = None # DatasetRid | The RID of the Dataset. 
-branch_id = None # Optional[BranchId] | The ID of the Branch. 
-transaction_rid = None # Optional[TransactionRid] | The TransactionRid that contains the Schema. 
-preview = True # Optional[PreviewMode] | preview
-
-
-try:
-    api_response = foundry_client.datasets.Dataset.get_schema(
-dataset_rid,branch_id=branch_idtransaction_rid=transaction_ridpreview=preview    )
-    print("The Dataset.get_schema response:\n")
-    pprint(api_response)
-except PalantirRPCException as e:
-    print("HTTP error when calling Dataset.get_schema: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | object  | None | application/json |
-**204** | None  | No content | None |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
-
-# **delete_schema**
-Deletes the Schema from a Dataset and Branch.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The RID of the Dataset on which to delete the schema.  |  |
-**branch_id** | Optional[BranchId] | The ID of the Branch on which to delete the schema.  | [optional] |
-**transaction_rid** | Optional[TransactionRid] | The RID of the Transaction on which to delete the schema.  | [optional] |
+**dataset_rid** | DatasetRid | datasetRid |  |
+**body** | Any | Body of the request |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -381,19 +401,26 @@ from pprint import pprint
 
 foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-dataset_rid = None # DatasetRid | The RID of the Dataset on which to delete the schema. 
-branch_id = None # Optional[BranchId] | The ID of the Branch on which to delete the schema. 
-transaction_rid = None # Optional[TransactionRid] | The RID of the Transaction on which to delete the schema. 
-preview = True # Optional[PreviewMode] | preview
+# DatasetRid | datasetRid
+dataset_rid = None
+
+# Any | Body of the request
+body = None
+
+# Optional[BranchId] | branchId
+branch_id = None
+
+# Optional[PreviewMode] | preview
+preview = true
+
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.delete_schema(
-dataset_rid,branch_id=branch_idtransaction_rid=transaction_ridpreview=preview    )
-    print("The Dataset.delete_schema response:\n")
+    api_response = foundry_client.datasets.Dataset.replace_schema(dataset_rid,body, branch_id=branch_idpreview=preview)
+    print("The Dataset.replace_schema response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling Dataset.delete_schema: %s\n" % e)
+    print("HTTP error when calling Dataset.replace_schema: %s\n" % e)
 
 ```
 
@@ -406,7 +433,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**204** | None  | No content | None |
+**204** | None  |  | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

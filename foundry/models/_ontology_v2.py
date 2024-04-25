@@ -15,8 +15,31 @@
 
 from __future__ import annotations
 
+from typing import cast
 
-from foundry.models._ontology import Ontology
+from pydantic import BaseModel
+from pydantic import Field
+from pydantic import StrictStr
 
-OntologyV2 = Ontology
-"""Metadata about an Ontology."""
+from foundry.models._display_name import DisplayName
+from foundry.models._ontology_api_name import OntologyApiName
+from foundry.models._ontology_rid import OntologyRid
+from foundry.models._ontology_v2_dict import OntologyV2Dict
+
+
+class OntologyV2(BaseModel):
+    """Metadata about an Ontology."""
+
+    api_name: OntologyApiName = Field(alias="apiName")
+
+    display_name: DisplayName = Field(alias="displayName")
+
+    description: StrictStr
+
+    rid: OntologyRid
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> OntologyV2Dict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologyV2Dict, self.model_dump(by_alias=True, exclude_unset=True))

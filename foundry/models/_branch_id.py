@@ -17,6 +17,5 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 BranchId = StrictStr
 """The identifier (name) of a Branch. Example: `master`."""

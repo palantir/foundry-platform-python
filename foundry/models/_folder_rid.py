@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-
 from foundry._core.utils import RID
-
 
 FolderRid = RID
 """FolderRid"""

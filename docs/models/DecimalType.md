@@ -5,8 +5,8 @@ DecimalType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**precision** | StrictInt | No | None |
-**scale** | StrictInt | No | None |
+**precision** | Optional[StrictInt] | No |  |
+**scale** | Optional[StrictInt] | No |  |
 **type** | Literal["decimal"] | Yes | None |
 
 

@@ -17,6 +17,5 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 OntologyIdentifier = StrictStr
 """Either an ontology rid or an ontology api name."""

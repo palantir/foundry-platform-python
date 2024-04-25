@@ -14,16 +14,14 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
-from typing import Dict
+
 from typing import Literal
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 
-
+from foundry.models._create_object_rule_dict import CreateObjectRuleDict
 from foundry.models._object_type_api_name import ObjectTypeApiName
 
 
@@ -31,34 +29,11 @@ class CreateObjectRule(BaseModel):
     """CreateObjectRule"""
 
     object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
-    """
-    The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the
-    `List object types` endpoint or check the **Ontology Manager**.
-    """
 
-    type: Literal["createObject"] = Field()
+    type: Literal["createObject"]
 
-    _properties: ClassVar[Set[str]] = set(["objectTypeApiName", "type"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "CreateObjectRule":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> CreateObjectRuleDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(CreateObjectRuleDict, self.model_dump(by_alias=True, exclude_unset=True))

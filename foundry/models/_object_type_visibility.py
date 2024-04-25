@@ -14,9 +14,8 @@
 
 
 from __future__ import annotations
+
 from typing import Literal
-from typing import Union
 
-
-ObjectTypeVisibility = Union[Literal["NORMAL"], Literal["PROMINENT"], Literal["HIDDEN"]]
+ObjectTypeVisibility = Literal["NORMAL", "PROMINENT", "HIDDEN"]
 """The suggested visibility of the object type."""

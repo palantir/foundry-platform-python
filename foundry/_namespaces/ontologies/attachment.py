@@ -14,17 +14,19 @@
 
 
 from __future__ import annotations
-from pydantic import StrictInt
+
 from typing import Annotated
 from typing import Any
 from typing import Dict
 from typing import Optional
 
 from pydantic import Field
+from pydantic import StrictInt
 from pydantic import validate_call
 
-from foundry._errors.sdk_internal_error import handle_unexpected
+from foundry._errors import handle_unexpected
 from foundry.api_client import ApiClient
+from foundry.api_client import RequestInfo
 
 
 class AttachmentResource:

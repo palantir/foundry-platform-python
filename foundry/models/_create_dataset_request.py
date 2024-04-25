@@ -15,20 +15,25 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing import cast
 
+from pydantic import BaseModel
+from pydantic import Field
 
+from foundry.models._create_dataset_request_dict import CreateDatasetRequestDict
 from foundry.models._dataset_name import DatasetName
 from foundry.models._folder_rid import FolderRid
 
 
-class CreateDatasetRequest(TypedDict):
+class CreateDatasetRequest(BaseModel):
     """CreateDatasetRequest"""
 
-    __pydantic_config__ = {"extra": "forbid"}  # type: ignore
-
     name: DatasetName
-    """DatasetName"""
 
-    parentFolderRid: FolderRid
-    """FolderRid"""
+    parent_folder_rid: FolderRid = Field(alias="parentFolderRid")
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> CreateDatasetRequestDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(CreateDatasetRequestDict, self.model_dump(by_alias=True, exclude_unset=True))

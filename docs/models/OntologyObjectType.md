@@ -5,8 +5,8 @@ OntologyObjectType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**object_api_name** | ObjectTypeApiName | Yes | The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**.  |
-**object_type_api_name** | ObjectTypeApiName | Yes | The name of the object type in the API in camelCase format. To find the API name for your Object Type, use the `List object types` endpoint or check the **Ontology Manager**.  |
+**object_api_name** | ObjectTypeApiName | Yes |  |
+**object_type_api_name** | ObjectTypeApiName | Yes |  |
 **type** | Literal["object"] | Yes | None |
 
 

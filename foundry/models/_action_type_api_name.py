@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 ActionTypeApiName = StrictStr
 """
 The name of the action type in the API. To find the API name for your Action Type, use the `List action types`

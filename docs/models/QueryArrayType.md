@@ -5,7 +5,7 @@ QueryArrayType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**sub_type** | QueryDataType | Yes | A union of all the types supported by Ontology Query parameters or outputs.  |
+**sub_type** | QueryDataType | Yes |  |
 **type** | Literal["array"] | Yes | None |
 
 

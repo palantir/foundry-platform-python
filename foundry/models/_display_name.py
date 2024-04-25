@@ -17,6 +17,5 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 DisplayName = StrictStr
 """The display name of the entity."""

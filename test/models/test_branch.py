@@ -12,13 +12,13 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from pydantic import ValidationError
 import pytest
 from foundry.models import Branch
+from pydantic import ValidationError
 
 
-def test_from_dict():
-    r = Branch.from_dict(
+def test_model_validate():
+    r = Branch.model_validate(
         {
             "branchId": "123",
             "transactionRid": "ri.a.b.c.d",
@@ -28,22 +28,11 @@ def test_from_dict():
     assert r.transaction_rid == "ri.a.b.c.d"
 
 
-def test_from_dict_extra():
-    with pytest.raises(ValidationError) as error:
-        # Expect extra property to be forbidden to be default
-        r = Branch.from_dict(
+def test_invalid_type():
+    with pytest.raises(ValidationError):
+        Branch.model_validate(
             {
                 "branchId": "123",
-                "DOES_NOT_EXIST": "FOO",
+                "transactionRid": 123,
             },
         )
-
-    r = Branch.from_dict(
-        {
-            "branchId": "123",
-            "DOES_NOT_EXIST": "FOO",
-        },
-        allow_extra=True,
-    )
-
-    assert r.branch_id == "123"

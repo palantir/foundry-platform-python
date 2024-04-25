@@ -13,14 +13,15 @@
 #  limitations under the License.
 
 from typing import Any
+
 from foundry.foundry_client import FoundryClient
 
 # from foundry.models.search_json_query import EqualsQuery
+from ..utils import client  # type: ignore
 from ..utils import mock_responses
-from ..utils import client
 
 
-def mock_list_ontologies(monkeypatch):
+def mock_list_ontologies(monkeypatch: Any):
     mock_responses(
         monkeypatch,
         [
@@ -35,7 +36,15 @@ def mock_list_ontologies(monkeypatch):
                     "status": 200,
                     "json": {
                         "nextPageToken": None,
-                        "data": [{"rid": "ri.a.b.c.d", "apiName": "API", "status": "ACTIVE"}],
+                        "data": [
+                            {
+                                "rid": "ri.a.b.c.d",
+                                "apiName": "API",
+                                "status": "ACTIVE",
+                                "primaryKey": ["abc"],
+                                "properties": {},
+                            }
+                        ],
                     },
                     "content": None,
                 },
@@ -44,14 +53,14 @@ def mock_list_ontologies(monkeypatch):
     )
 
 
-def test_can_list_object_types(client: FoundryClient, monkeypatch):
+def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
     mock_list_ontologies(monkeypatch)
 
-    result = client.ontologies.ObjectType.iterator(
+    result = client.ontologies.ObjectType.list(
         ontology_rid="ri.a.b.c.d",
     )
 
-    assert result.data is not None and len(result.data) == 1
+    assert len(list(result)) == 1
 
 
 # def mock_search_query(monkeypatch):

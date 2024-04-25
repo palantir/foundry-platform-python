@@ -15,21 +15,26 @@
 
 from __future__ import annotations
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+from typing import Optional
+from typing import cast
 
+from pydantic import BaseModel
+from pydantic import Field
 
 from foundry.models._branch_id import BranchId
+from foundry.models._create_branch_request_dict import CreateBranchRequestDict
 from foundry.models._transaction_rid import TransactionRid
 
 
-class CreateBranchRequest(TypedDict):
+class CreateBranchRequest(BaseModel):
     """CreateBranchRequest"""
 
-    __pydantic_config__ = {"extra": "forbid"}  # type: ignore
+    branch_id: BranchId = Field(alias="branchId")
 
-    branchId: BranchId
-    """The identifier (name) of a Branch. Example: `master`."""
+    transaction_rid: Optional[TransactionRid] = Field(alias="transactionRid", default=None)
 
-    transactionRid: NotRequired[TransactionRid]
-    """The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`."""
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> CreateBranchRequestDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(CreateBranchRequestDict, self.model_dump(by_alias=True, exclude_unset=True))

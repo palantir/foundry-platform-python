@@ -13,17 +13,19 @@
 #  limitations under the License.
 
 
-import requests
 from typing import Any
 from typing import Callable
-from typing import Mapping
-from typing import Optional
 from typing import Dict
 from typing import List
+from typing import Mapping
+from typing import Optional
 from typing import Tuple
 from typing import Union
 
-from foundry._core.auth_utils import Auth, Token
+import requests
+
+from foundry._core.auth_utils import Auth
+from foundry._core.auth_utils import Token
 
 
 def _run_with_401_status_check(

@@ -17,6 +17,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 [DoubleType](DoubleType.md) | double
 [IntegerType](IntegerType.md) | integer
 [LongType](LongType.md) | long
+[MarkingType](MarkingType.md) | marking
 [OntologyObjectSetType](OntologyObjectSetType.md) | objectSet
 [OntologyObjectType](OntologyObjectType.md) | object
 [StringType](StringType.md) | string

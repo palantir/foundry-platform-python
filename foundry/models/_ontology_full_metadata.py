@@ -14,55 +14,46 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
+
 from typing import Dict
-from typing import Optional
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 
-
+from foundry.models._action_type_api_name import ActionTypeApiName
 from foundry.models._action_type_v2 import ActionTypeV2
-from foundry.models._object_type_with_link import ObjectTypeWithLink
+from foundry.models._interface_type import InterfaceType
+from foundry.models._interface_type_api_name import InterfaceTypeApiName
+from foundry.models._object_type_api_name import ObjectTypeApiName
+from foundry.models._object_type_full_metadata import ObjectTypeFullMetadata
+from foundry.models._ontology_full_metadata_dict import OntologyFullMetadataDict
 from foundry.models._ontology_v2 import OntologyV2
+from foundry.models._query_api_name import QueryApiName
 from foundry.models._query_type_v2 import QueryTypeV2
+from foundry.models._shared_property_type import SharedPropertyType
+from foundry.models._shared_property_type_api_name import SharedPropertyTypeApiName
 
 
 class OntologyFullMetadata(BaseModel):
     """OntologyFullMetadata"""
 
-    ontology: OntologyV2 = Field()
-    """Metadata about an Ontology."""
+    ontology: OntologyV2
 
-    object_types: Optional[Dict[str, ObjectTypeWithLink]] = Field(alias="objectTypes", default=None)
+    object_types: Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = Field(alias="objectTypes")
 
-    action_types: Optional[Dict[str, ActionTypeV2]] = Field(alias="actionTypes", default=None)
+    action_types: Dict[ActionTypeApiName, ActionTypeV2] = Field(alias="actionTypes")
 
-    query_types: Optional[Dict[str, QueryTypeV2]] = Field(alias="queryTypes", default=None)
+    query_types: Dict[QueryApiName, QueryTypeV2] = Field(alias="queryTypes")
 
-    _properties: ClassVar[Set[str]] = set(["ontology", "objectTypes", "actionTypes", "queryTypes"])
+    interface_types: Dict[InterfaceTypeApiName, InterfaceType] = Field(alias="interfaceTypes")
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
+    shared_property_types: Dict[SharedPropertyTypeApiName, SharedPropertyType] = Field(
+        alias="sharedPropertyTypes"
+    )
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
+    model_config = {"extra": "allow"}
 
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "OntologyFullMetadata":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> OntologyFullMetadataDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologyFullMetadataDict, self.model_dump(by_alias=True, exclude_unset=True))

@@ -15,8 +15,40 @@
 
 from __future__ import annotations
 
+from typing import Optional
+from typing import cast
 
-from foundry.models._link_type_side import LinkTypeSide
+from pydantic import BaseModel
+from pydantic import Field
 
-LinkTypeSideV2 = LinkTypeSide
-"""LinkTypeSide"""
+from foundry.models._display_name import DisplayName
+from foundry.models._link_type_api_name import LinkTypeApiName
+from foundry.models._link_type_side_cardinality import LinkTypeSideCardinality
+from foundry.models._link_type_side_v2_dict import LinkTypeSideV2Dict
+from foundry.models._object_type_api_name import ObjectTypeApiName
+from foundry.models._property_api_name import PropertyApiName
+from foundry.models._release_status import ReleaseStatus
+
+
+class LinkTypeSideV2(BaseModel):
+    """LinkTypeSideV2"""
+
+    api_name: LinkTypeApiName = Field(alias="apiName")
+
+    display_name: DisplayName = Field(alias="displayName")
+
+    status: ReleaseStatus
+
+    object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
+
+    cardinality: LinkTypeSideCardinality
+
+    foreign_key_property_api_name: Optional[PropertyApiName] = Field(
+        alias="foreignKeyPropertyApiName", default=None
+    )
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> LinkTypeSideV2Dict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(LinkTypeSideV2Dict, self.model_dump(by_alias=True, exclude_unset=True))

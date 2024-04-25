@@ -14,10 +14,11 @@
 
 import json
 import re
+
 import pytest
+from foundry._errors.palantir_rpc_exception import PalantirRPCException
 from foundry._errors.sdk_internal_error import SDKInternalError
 from foundry._errors.sdk_internal_error import handle_unexpected
-from foundry._errors.palantir_rpc_exception import PalantirRPCException
 
 
 def test_sdk_internal_error():
@@ -32,7 +33,6 @@ OS: \w+
 Python Version: \d+\.\d+\.\d+[^\n]+
 SDK Version: \d+\.\d+\.\d+
 OpenAPI Document Version: \d+\.\d+\.\d+
-OpenAPI Specification Version: \d+\.\d+\.\d+
 Pydantic Version: \d+\.\d+\.\d+
 Pydantic Core Version: \d+\.\d+\.\d+
 Requests Version: \d+\.\d+\.\d+

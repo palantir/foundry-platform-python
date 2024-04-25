@@ -14,23 +14,23 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
+
 from typing import Dict
 from typing import List
 from typing import Optional
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import StrictStr
 
-
 from foundry.models._action_type_api_name import ActionTypeApiName
+from foundry.models._action_type_dict import ActionTypeDict
 from foundry.models._action_type_rid import ActionTypeRid
 from foundry.models._display_name import DisplayName
 from foundry.models._logic_rule import LogicRule
 from foundry.models._parameter import Parameter
+from foundry.models._parameter_id import ParameterId
 from foundry.models._release_status import ReleaseStatus
 
 
@@ -38,49 +38,21 @@ class ActionType(BaseModel):
     """Represents an action type in the Ontology."""
 
     api_name: ActionTypeApiName = Field(alias="apiName")
-    """
-    The name of the action type in the API. To find the API name for your Action Type, use the `List action types`
-    endpoint or check the **Ontology Manager**.
-    """
 
-    description: Optional[StrictStr] = Field(default=None)
+    description: Optional[StrictStr] = None
 
     display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
-    """The display name of the entity."""
 
-    status: ReleaseStatus = Field()
-    """The release status of the entity."""
+    status: ReleaseStatus
 
-    parameters: Optional[Dict[str, Parameter]] = Field(default=None)
+    parameters: Dict[ParameterId, Parameter]
 
-    rid: ActionTypeRid = Field()
-    """The unique resource identifier of an action type, useful for interacting with other Foundry APIs."""
+    rid: ActionTypeRid
 
-    operations: Optional[List[LogicRule]] = Field(default=None)
+    operations: List[LogicRule]
 
-    _properties: ClassVar[Set[str]] = set(
-        ["apiName", "description", "displayName", "status", "parameters", "rid", "operations"]
-    )
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "ActionType":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> ActionTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(ActionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))

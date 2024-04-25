@@ -22,7 +22,7 @@ def test_fails_no_escopes():
         ConfidentialClientAuth(
             client_id="123",
             client_secret="abc",
-            hostname="hey.com",
+            hostname="example.com",
             scopes=[],
         )
 
@@ -35,13 +35,13 @@ def test_can_pass_config():
     config = ConfidentialClientAuth(
         client_id="123",
         client_secret="abc",
-        hostname="hey.com",
+        hostname="example.com",
         scopes=["hello"],
     )
 
-    assert config._hostname == "hey.com"
-    assert config._client_id == "123"
-    assert config._client_secret == "abc"
+    assert config._hostname == "example.com"  # type: ignore
+    assert config._client_id == "123"  # type: ignore
+    assert config._client_secret == "abc"  # type: ignore
 
     with pytest.raises(NotAuthenticated) as info:
         config.get_token()

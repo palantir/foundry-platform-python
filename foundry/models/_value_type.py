@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 ValueType = StrictStr
 """
 A string indicating the type of each data value. Note that these types can be nested, for example an array of
@@ -35,6 +34,7 @@ structs.
 | Float               | `Float`                                                                                                           |
 | Integer             | `Integer`                                                                                                         |
 | Long                | `Long`                                                                                                            |
+| Marking             | `Marking`                                                                                                         |
 | OntologyObject      | `OntologyObject<T>` where `T` is the API name of the referenced object type.                                      |
 | Short               | `Short`                                                                                                           |
 | String              | `String`                                                                                                          |

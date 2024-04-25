@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from pydantic import StrictStr
 
-
 PropertyApiName = StrictStr
 """
 The name of the property in the API. To find the API name for your property, use the `Get object type`

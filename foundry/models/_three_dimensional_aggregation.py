@@ -14,17 +14,17 @@
 
 
 from __future__ import annotations
-from typing import Any
-from typing import ClassVar
-from typing import Dict
+
 from typing import Literal
-from typing import Set
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 
-
 from foundry.models._query_aggregation_key_type import QueryAggregationKeyType
+from foundry.models._three_dimensional_aggregation_dict import (
+    ThreeDimensionalAggregationDict,
+)  # NOQA
 from foundry.models._two_dimensional_aggregation import TwoDimensionalAggregation
 
 
@@ -32,34 +32,15 @@ class ThreeDimensionalAggregation(BaseModel):
     """ThreeDimensionalAggregation"""
 
     key_type: QueryAggregationKeyType = Field(alias="keyType")
-    """A union of all the types supported by query aggregation keys."""
 
     value_type: TwoDimensionalAggregation = Field(alias="valueType")
-    """TwoDimensionalAggregation"""
 
-    type: Literal["threeDimensionalAggregation"] = Field()
+    type: Literal["threeDimensionalAggregation"]
 
-    _properties: ClassVar[Set[str]] = set(["keyType", "valueType", "type"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "ThreeDimensionalAggregation":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> ThreeDimensionalAggregationDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            ThreeDimensionalAggregationDict, self.model_dump(by_alias=True, exclude_unset=True)
+        )

@@ -14,17 +14,14 @@
 
 
 from __future__ import annotations
+
 from typing import Annotated
-from typing import Any
-from typing import ClassVar
-from typing import Dict
 from typing import Literal
-from typing import Set
 from typing import Union
+from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
-
 
 from foundry.models._attachment_type import AttachmentType
 from foundry.models._boolean_type import BooleanType
@@ -37,6 +34,8 @@ from foundry.models._geo_point_type import GeoPointType
 from foundry.models._geo_shape_type import GeoShapeType
 from foundry.models._integer_type import IntegerType
 from foundry.models._long_type import LongType
+from foundry.models._marking_type import MarkingType
+from foundry.models._object_property_type_dict import OntologyObjectArrayTypeDict
 from foundry.models._short_type import ShortType
 from foundry.models._string_type import StringType
 from foundry.models._timeseries_type import TimeseriesType
@@ -47,38 +46,19 @@ class OntologyObjectArrayType(BaseModel):
     """OntologyObjectArrayType"""
 
     sub_type: ObjectPropertyType = Field(alias="subType")
-    """A union of all the types supported by Ontology Object properties."""
 
-    type: Literal["array"] = Field()
+    type: Literal["array"]
 
-    _properties: ClassVar[Set[str]] = set(["subType", "type"])
+    model_config = {"extra": "allow"}
 
-    model_config = {"populate_by_name": True, "validate_assignment": True, "extra": "forbid"}
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-        """
-        return self.model_dump(by_alias=True)
-
-    @classmethod
-    def from_dict(cls, obj: Dict, *, allow_extra=False) -> "OntologyObjectArrayType":
-        """Create an instance of AsyncActionOperation from a dict"""
-        # If allowing extra properties and the given object is a dict,
-        # then remove any properties in the dict that aren't present
-        # in the model properties list
-        # We need to do this since the model config forbids additional properties
-        # and this cannot be changed at runtime
-        if allow_extra and isinstance(obj, dict) and any(key not in cls._properties for key in obj):
-            obj = {key: value for key, value in obj.items() if key in cls._properties}
-
-        return cls.model_validate(obj)
+    def to_dict(self) -> OntologyObjectArrayTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(OntologyObjectArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 ObjectPropertyType = Annotated[
     Union[
+        OntologyObjectArrayType,
         AttachmentType,
         BooleanType,
         ByteType,
@@ -90,11 +70,11 @@ ObjectPropertyType = Annotated[
         GeoShapeType,
         IntegerType,
         LongType,
-        OntologyObjectArrayType,
+        MarkingType,
         ShortType,
         StringType,
-        TimeseriesType,
         TimestampType,
+        TimeseriesType,
     ],
     Field(discriminator="type"),
 ]

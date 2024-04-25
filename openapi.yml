@@ -3,7 +3,7 @@ info:
   title: Palantir OpenAPI
   description: The Palantir REST API. Please see https://www.palantir.com/docs for
     more details.
-  version: 3.0.1
+  version: 1.818.0
 externalDocs:
   description: API Documentation
   url: https://www.palantir.com/docs
@@ -48,6 +48,7 @@ paths:
             schema:
               type: string
               format: binary
+        required: true
       responses:
         "200":
           description: Success response.
@@ -140,6 +141,7 @@ paths:
             example:
               name: My Dataset
               parentFolderRid: ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4
+        required: true
       responses:
         "200":
           description: ""
@@ -253,6 +255,7 @@ paths:
               $ref: '#/components/schemas/CreateBranchRequest'
             example:
               branchId: my-branch
+        required: true
       responses:
         "200":
           description: ""
@@ -687,6 +690,7 @@ paths:
             schema:
               type: string
               format: binary
+        required: true
       responses:
         "200":
           description: ""
@@ -706,13 +710,9 @@ paths:
       tags:
       - DatasetsApiService
       description: |
-        :::callout{theme=warning title=Warning}
-          This endpoint is in preview and may be modified or removed at any time.
-          To use this endpoint, add `preview=true` to the request query parameters.
-          Furthermore, this endpoint currently does not support views (Virtual datasets composed of other datasets).
-        :::
-
         Gets the content of a dataset as a table in the specified format.
+
+        This endpoint currently does not support views (Virtual datasets composed of other datasets).
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
       operationId: readTable
@@ -766,13 +766,6 @@ paths:
         required: false
         schema:
           type: integer
-      - name: preview
-        in: query
-        description: |
-          A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        required: false
-        schema:
-          $ref: '#/components/schemas/PreviewMode'
       responses:
         "200":
           description: The content stream.
@@ -861,6 +854,7 @@ paths:
           application/json:
             schema:
               type: object
+        required: true
       responses:
         "204":
           description: ""
@@ -937,6 +931,7 @@ paths:
               $ref: '#/components/schemas/CreateTransactionRequest'
             example:
               transactionType: SNAPSHOT
+        required: true
       responses:
         "200":
           description: ""
@@ -1128,6 +1123,7 @@ paths:
                 role: USER
               parameters:
                 temperature: 0.8
+        required: true
       responses:
         "200":
           description: Success response.
@@ -1170,6 +1166,7 @@ paths:
                 role: USER
               parameters:
                 temperature: 0.8
+        required: true
       responses:
         "200":
           description: Success response.
@@ -1402,6 +1399,7 @@ paths:
               parameters:
                 id: 80060
                 newName: Anna Smith-Doe
+        required: true
       responses:
         "200":
           description: Success response.
@@ -1462,6 +1460,7 @@ paths:
               parameters:
                 id: 80060
                 newName: Anna Smith-Doe
+        required: true
       responses:
         "202":
           description: Success response.
@@ -1578,6 +1577,7 @@ paths:
               - parameters:
                   id: 80061
                   newName: Joe Bloggs
+        required: true
       responses:
         "200":
           description: Success response.
@@ -1644,6 +1644,7 @@ paths:
                 objectSet: ri.object-set.main.object-set.39a9f4bd-f77e-45ce-9772-70f25852f623
                 percentage: 41.3
                 reference: Chuck
+        required: true
       responses:
         "200":
           description: Success response.
@@ -2124,6 +2125,7 @@ paths:
                 not:
                   eq: john
                   field: properties.name
+        required: true
       responses:
         "200":
           description: Success response.
@@ -2208,6 +2210,7 @@ paths:
                 not:
                   eq: 21
                   field: properties.age
+        required: true
       responses:
         "200":
           description: Success response.
@@ -2519,6 +2522,7 @@ paths:
             example:
               parameters:
                 city: New York
+        required: true
       responses:
         "200":
           description: Success response.
@@ -2912,6 +2916,7 @@ paths:
               parameters:
                 id: 80060
                 newName: Anna Smith-Doe
+        required: true
       responses:
         "200":
           description: Success response.
@@ -2986,6 +2991,7 @@ paths:
               parameters:
                 id: 80060
                 newName: Anna Smith-Doe
+        required: true
       responses:
         "200":
           description: Success response.
@@ -3057,6 +3063,7 @@ paths:
               - parameters:
                   id: 80061
                   newName: Joe Bloggs
+        required: true
       responses:
         "200":
           description: Success response.
@@ -3072,7 +3079,7 @@ paths:
       tags:
       - OntologiesV2ApiService
       description: |
-        Get the full Ontology metadata. This includes the objects, links, actions, and queries.
+        Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
       operationId: getOntologyFullMetadata
       parameters:
       - name: ontology
@@ -3093,13 +3100,19 @@ paths:
                 $ref: '#/components/schemas/OntologyFullMetadata'
       security:
       - BearerAuth: []
-  /v2/ontologies/{ontology}/models/deployments:
+  /v2/ontologies/{ontology}/interfaceTypes:
     get:
       tags:
       - OntologiesV2ApiService
-      description: |
-        Fetches a list of the available model deployments within a given Ontology.
-      operationId: listDeployments
+      description: ":::callout{theme=warning title=Warning}\n  This endpoint is in\
+        \ preview and may be modified or removed at any time.\n  To use this endpoint,\
+        \ add `preview=true` to the request query parameters.\n:::\n\nLists the interface\
+        \ types for the given Ontology.\n\nEach page may be smaller than the requested\
+        \ page size. However, it is guaranteed that if there are more\nresults available,\
+        \ at least one result will be present in the response.        \n\nThird-party\
+        \ applications using this endpoint via OAuth2 must request the following operation\
+        \ scope: `api:read-data`.\n"
+      operationId: listInterfaceTypes
       parameters:
       - name: ontology
         in: path
@@ -3110,58 +3123,64 @@ paths:
         schema:
           $ref: '#/components/schemas/OntologyIdentifier'
         example: palantir
+      - name: pageSize
+        in: query
+        description: |
+          The desired size of the page to be returned. Defaults to 500.
+          See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PageSize'
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/PageToken'
+      - name: preview
+        in: query
+        description: |
+          A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PreviewMode'
       responses:
         "200":
           description: Success response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListDeploymentsResponse'
+                $ref: '#/components/schemas/ListInterfaceTypesResponse'
               example:
-                deployments:
-                - api:
-                    transform:
-                      inputs:
-                      - name: inputData
-                        propertyType:
-                          subType:
-                            fields:
-                            - fieldType:
-                                type: string
-                              name: text
-                            type: struct
-                          type: array
-                        required: true
-                      - name: temperature
-                        propertyType:
-                          type: StringType
-                        required: false
-                      outputs:
-                      - name: outputData
-                        propertyType:
-                          subType:
-                            fields:
-                            - fieldType:
-                                type: string
-                              name: character
-                            type: struct
-                          type: array
-                        required: true
-                  apiName: nextTokenPredictor
-                  description: A light-weight model that takes in a string of text
-                    and outputs the next most likely character
-                - apiName: weatherPrediction
-                  description: A weather prediction model that takes in atmospheric
-                    predictions and outputs the likelihood of weather events
+                data:
+                - apiName: Athlete
+                  description: Good at sportsball
+                  displayName: Athlete
+                  extendsInterfaces:
+                  - Human
+                  properties:
+                    name:
+                      apiName: name
+                      dataType: string
+                      displayName: Name
+                      rid: com.palantir.property.d1abdbfe-0ce2-4fff-b0af-af21002c314b
+                  rid: ri.ontology.main.interface.bea1af8c-7d5c-4ec9-b845-8eeed6d77482
+                nextPageToken: v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv
       security:
       - BearerAuth: []
-  /v2/ontologies/{ontology}/models/deployments/{deployment}:
+  /v2/ontologies/{ontology}/interfaceTypes/{interfaceType}:
     get:
       tags:
       - OntologiesV2ApiService
       description: |
-        Fetches information about a model deployment within a given Ontology.
-      operationId: getDeployment
+        :::callout{theme=warning title=Warning}
+          This endpoint is in preview and may be modified or removed at any time.
+          To use this endpoint, add `preview=true` to the request query parameters.
+        :::
+
+        Gets a specific object type with the given API name.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+      operationId: getInterfaceType
       parameters:
       - name: ontology
         in: path
@@ -3172,64 +3191,56 @@ paths:
         schema:
           $ref: '#/components/schemas/OntologyIdentifier'
         example: palantir
-      - name: deployment
+      - name: interfaceType
         in: path
         description: |
-          The API name of the deployment you want to fetch information about.
+          The API name of the interface type. To find the API name, use the **List interface types** endpoint or
+          check the **Ontology Manager**.
         required: true
         schema:
-          $ref: '#/components/schemas/DeploymentApiName'
-        example: nextTokenPredictor
+          $ref: '#/components/schemas/InterfaceTypeApiName'
+        example: Employee
+      - name: preview
+        in: query
+        description: |
+          A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PreviewMode'
       responses:
         "200":
           description: Success response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeploymentMetadata'
+                $ref: '#/components/schemas/InterfaceType'
               example:
-                api:
-                  transform:
-                    inputs:
-                    - name: inputData
-                      propertyType:
-                        subType:
-                          fields:
-                          - fieldType:
-                              type: string
-                            name: text
-                          type: struct
-                        type: array
-                      required: true
-                    - name: temperature
-                      propertyType:
-                        type: StringType
-                      required: false
-                    outputs:
-                    - name: outputData
-                      propertyType:
-                        subType:
-                          fields:
-                          - fieldType:
-                              type: string
-                            name: character
-                          type: struct
-                        type: array
-                      required: true
-                apiName: nextTokenPredictor
-                description: A light-weight model that takes in a string of text and
-                  outputs the next most likely character
+                apiName: Athlete
+                description: Good at sportsball
+                displayName: Athlete
+                extendsInterfaces:
+                - Human
+                properties:
+                  name:
+                    apiName: name
+                    dataType: string
+                    displayName: Name
+                    rid: com.palantir.property.d1abdbfe-0ce2-4fff-b0af-af21002c314b
+                rid: ri.ontology.main.interface.bea1af8c-7d5c-4ec9-b845-8eeed6d77482
       security:
       - BearerAuth: []
-  /v2/ontologies/{ontology}/models/deployments/{deployment}/transform:
+  /v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate:
     post:
       tags:
       - OntologiesV2ApiService
-      description: |
-        Use a given model deployment to transform the provided data.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
-      operationId: transformDeployment
+      description: ":::callout{theme=warning title=Warning}\n  This endpoint is in\
+        \ preview and may be modified or removed at any time.\n  To use this endpoint,\
+        \ add `preview=true` to the request query parameters.\n:::\n\nPerform functions\
+        \ on object fields in the specified ontology and of the specified interface\
+        \ type. Any \nproperties specified in the query must be shared property type\
+        \ API names defined on the interface.\n\nThird-party applications using this\
+        \ endpoint via OAuth2 must request the following operation scope: `api:read-data`.\n"
+      operationId: aggregateObjectsForInterface
       parameters:
       - name: ontology
         in: path
@@ -3240,37 +3251,186 @@ paths:
         schema:
           $ref: '#/components/schemas/OntologyIdentifier'
         example: palantir
-      - name: deployment
+      - name: interfaceType
         in: path
         description: |
-          The API name of the deployment you want to run inference.
+          The API name of the interface type. To find the API name, use the **List interface types** endpoint or
+          check the **Ontology Manager**.
         required: true
         schema:
-          $ref: '#/components/schemas/DeploymentApiName'
-        example: nextTokenPredictor
+          $ref: '#/components/schemas/InterfaceTypeApiName'
+        example: Employee
+      - name: preview
+        in: query
+        description: |
+          A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PreviewMode'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TransformDataRequest'
+              $ref: '#/components/schemas/AggregateObjectsRequestV2'
             example:
-              inputs:
-                inputData:
-                - text: "1,2,3,4,"
-                - text: What is your name
-                temperature: 0.5
+              aggregation:
+              - field: properties.tenure
+                name: min_tenure
+                type: min
+              - field: properties.tenure
+                name: avg_tenure
+                type: avg
+              groupBy:
+              - field: startDate
+                ranges:
+                - endValue: 2020-06-01
+                  startValue: 2020-01-01
+                type: range
+              - field: city
+                type: exact
+              query:
+                not:
+                  eq: john
+                  field: name
+        required: true
       responses:
         "200":
           description: Success response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransformDataResponse'
+                $ref: '#/components/schemas/AggregateObjectsResponseV2'
               example:
-                outputs:
-                  outputData:
-                  - character: "5"
-                  - character: '?'
+                data:
+                - group:
+                    city: New York City
+                    startDate:
+                      endValue: 2020-06-01
+                      startValue: 2020-01-01
+                  metrics:
+                  - name: min_tenure
+                    value: 1
+                  - name: avg_tenure
+                    value: 3
+                - group:
+                    city: San Francisco
+                    startDate:
+                      endValue: 2020-06-01
+                      startValue: 2020-01-01
+                  metrics:
+                  - name: min_tenure
+                    value: 2
+                  - name: avg_tenure
+                    value: 3
+      security:
+      - BearerAuth: []
+  /v2/ontologies/{ontology}/interfaces/{interfaceType}/search:
+    post:
+      tags:
+      - OntologiesV2ApiService
+      description: ":::callout{theme=warning title=Warning}\n  This endpoint is in\
+        \ preview and may be modified or removed at any time.\n  To use this endpoint,\
+        \ add `preview=true` to the request query parameters.\n:::\n\nSearch for objects\
+        \ in the specified ontology and interface type. Any properties specified in\
+        \ the \"where\" or \n\"orderBy\" parameters must be shared property type API\
+        \ names defined on the interface. The following search \nqueries are supported:\n\
+        \n| Query type                              | Description                \
+        \                                                                        \
+        \               | Supported Types                 |\n|-----------------------------------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|\n\
+        | lt                                      | The provided property is less\
+        \ than the provided value.                                               \
+        \             | number, string, date, timestamp |\n| gt                  \
+        \                    | The provided property is greater than the provided\
+        \ value.                                                         | number,\
+        \ string, date, timestamp |\n| lte                                     | The\
+        \ provided property is less than or equal to the provided value.         \
+        \                                       | number, string, date, timestamp\
+        \ |\n| gte                                     | The provided property is\
+        \ greater than or equal to the provided value.                           \
+        \                  | number, string, date, timestamp |\n| eq             \
+        \                         | The provided property is exactly equal to the\
+        \ provided value.                                                     | number,\
+        \ string, date, timestamp |\n| isNull                                  | The\
+        \ provided property is (or is not) null.                                 \
+        \                                       | all                            \
+        \ |\n| contains                                | The provided property contains\
+        \ the provided value.                                                    \
+        \            | array                           |\n| not                  \
+        \                   | The sub-query does not match.                      \
+        \                                                               | N/A (applied\
+        \ on a query)        |\n| and                                     | All the\
+        \ sub-queries match.                                                     \
+        \                                   | N/A (applied on queries)        |\n\
+        | or                                      | At least one of the sub-queries\
+        \ match.                                                                 \
+        \           | N/A (applied on queries)        |\n| startsWith            \
+        \                  | The provided property starts with the provided value.\
+        \                                                             | string   \
+        \                       |\n| containsAllTermsInOrderPrefixLastTerm   | The\
+        \ provided property contains all the terms provided in order. The last term\
+        \ can be a partial prefix match.      | string                          |\n\
+        | containsAllTermsInOrder                 | The provided property contains\
+        \ the provided value as a substring.                                     \
+        \            | string                          |\n| containsAnyTerm      \
+        \                   | The provided property contains at least one of the terms\
+        \ separated by whitespace.                                 | string      \
+        \                    |\n| containsAllTerms                        | The provided\
+        \ property contains all the terms separated by whitespace.               \
+        \                              | string                          |       \
+        \                                                          \n\nAttempting\
+        \ to use an unsupported query will result in a validation error. Third-party\
+        \ applications using this \nendpoint via OAuth2 must request the following\
+        \ operation scope: `api:read-data`.\n"
+      operationId: searchObjectsForInterface
+      parameters:
+      - name: ontology
+        in: path
+        description: |
+          The API name of the ontology. To find the API name, use the **List ontologies** endpoint or
+          check the **Ontology Manager**.
+        required: true
+        schema:
+          $ref: '#/components/schemas/OntologyIdentifier'
+        example: palantir
+      - name: interfaceType
+        in: path
+        description: |
+          The API name of the interface type. To find the API name, use the **List interface types** endpoint or
+          check the **Ontology Manager**.
+        required: true
+        schema:
+          $ref: '#/components/schemas/InterfaceTypeApiName'
+        example: Employee
+      - name: preview
+        in: query
+        description: |
+          A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PreviewMode'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchObjectsForInterfaceRequest'
+        required: true
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchObjectsResponseV2'
+              example:
+                data:
+                - __apiName: Employee
+                  __primaryKey: 1000
+                  __rid: ri.phonograph2-objects.main.object.5b5dbc28-7f05-4e83-a33a-1e5b851ababb
+                  age: 21
+                  employeeId: 1000
+                  firstName: john
+                  lastName: smith
+                nextPageToken: v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv
       security:
       - BearerAuth: []
   /v2/ontologies/{ontology}/objectSets/aggregate:
@@ -3306,18 +3466,26 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/SdkPackageName'
+      - name: preview
+        in: query
+        description: |
+          A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PreviewMode'
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AggregateObjectSetRequestV2'
+        required: true
       responses:
         "200":
           description: Success response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AggregateObjectSetResponseV2'
+                $ref: '#/components/schemas/AggregateObjectsResponseV2'
               example:
                 data:
                 - group:
@@ -3391,6 +3559,7 @@ paths:
                 objectType: Employee
                 type: base
               pageSize: 10000
+        required: true
       responses:
         "200":
           description: Success response.
@@ -3830,139 +3999,6 @@ paths:
                 nextPageToken: v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv
       security:
       - BearerAuth: []
-  /v2/ontologies/{ontology}/objects/{objectType}/_aggregate:
-    post:
-      tags:
-      - OntologiesV2ApiService
-      description: |
-        Temporary endpoint for aggregations
-      operationId: deprecatedAggregateObjectsV2
-      parameters:
-      - name: ontology
-        in: path
-        description: |
-          The API name of the ontology. To find the API name, use the **List ontologies** endpoint or
-          check the **Ontology Manager**.
-        required: true
-        schema:
-          $ref: '#/components/schemas/OntologyIdentifier'
-        example: palantir
-      - name: objectType
-        in: path
-        description: The type of the object to aggregate on.
-        required: true
-        schema:
-          $ref: '#/components/schemas/ObjectTypeApiName'
-        example: employee
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AggregateObjectsRequestV2'
-            example:
-              aggregation:
-              - field: properties.tenure
-                name: min_tenure
-                type: min
-              - field: properties.tenure
-                name: avg_tenure
-                type: avg
-              groupBy:
-              - field: startDate
-                ranges:
-                - endValue: 2020-06-01
-                  startValue: 2020-01-01
-                type: range
-              - field: city
-                type: exact
-              query:
-                not:
-                  eq: john
-                  field: name
-      responses:
-        "200":
-          description: Success response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AggregateObjectsResponseV2'
-              example:
-                data:
-                - group:
-                    city: New York City
-                    startDate:
-                      endValue: 2020-06-01
-                      startValue: 2020-01-01
-                  metrics:
-                  - name: min_tenure
-                    value: 1
-                  - name: avg_tenure
-                    value: 3
-                - group:
-                    city: San Francisco
-                    startDate:
-                      endValue: 2020-06-01
-                      startValue: 2020-01-01
-                  metrics:
-                  - name: min_tenure
-                    value: 2
-                  - name: avg_tenure
-                    value: 3
-      security:
-      - BearerAuth: []
-  /v2/ontologies/{ontology}/objects/{objectType}/_search:
-    post:
-      tags:
-      - OntologiesV2ApiService
-      description: Temporary endpoint for search.
-      operationId: deprecatedSearchObjectsV2
-      parameters:
-      - name: ontology
-        in: path
-        description: |
-          The API name of the ontology. To find the API name, use the **List ontologies** endpoint or
-          check the **Ontology Manager**.
-        required: true
-        schema:
-          $ref: '#/components/schemas/OntologyIdentifier'
-        example: palantir
-      - name: objectType
-        in: path
-        description: |
-          The API name of the object type. To find the API name, use the **List object types** endpoint or
-          check the **Ontology Manager**.
-        required: true
-        schema:
-          $ref: '#/components/schemas/ObjectTypeApiName'
-        example: employee
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SearchObjectsRequestV2'
-            example:
-              query:
-                field: age
-                type: eq
-                value: 21
-      responses:
-        "200":
-          description: Success response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SearchObjectsResponseV2'
-              example:
-                data:
-                - __apiName: Employee
-                  __primaryKey: 1000
-                  __rid: ri.phonograph2-objects.main.object.5b5dbc28-7f05-4e83-a33a-1e5b851ababb
-                  age: 21
-                  employeeId: 1000
-                  firstName: john
-                  lastName: smith
-      security:
-      - BearerAuth: []
   /v2/ontologies/{ontology}/objects/{objectType}/aggregate:
     post:
       tags:
@@ -4003,6 +4039,13 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/SdkPackageName'
+      - name: preview
+        in: query
+        description: |
+          A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PreviewMode'
       requestBody:
         content:
           application/json:
@@ -4028,6 +4071,7 @@ paths:
                 not:
                   eq: john
                   field: name
+        required: true
       responses:
         "200":
           description: Success response.
@@ -4205,10 +4249,11 @@ paths:
             schema:
               $ref: '#/components/schemas/SearchObjectsRequestV2'
             example:
-              query:
+              where:
                 field: age
                 type: eq
                 value: 21
+        required: true
       responses:
         "200":
           description: Success response.
@@ -5071,6 +5116,7 @@ paths:
                   value: 5
                   when: BEFORE
                 type: relative
+        required: true
       responses:
         "200":
           description: Success response.
@@ -5129,6 +5175,7 @@ paths:
             example:
               parameters:
                 city: New York
+        required: true
       responses:
         "200":
           description: Success response.
@@ -5494,6 +5541,7 @@ components:
           double: '#/components/schemas/DoubleType'
           integer: '#/components/schemas/IntegerType'
           long: '#/components/schemas/LongType'
+          marking: '#/components/schemas/MarkingType'
           object: '#/components/schemas/OntologyObjectType'
           objectSet: '#/components/schemas/OntologyObjectSetType'
           string: '#/components/schemas/StringType'
@@ -5506,6 +5554,7 @@ components:
       - $ref: '#/components/schemas/DoubleType'
       - $ref: '#/components/schemas/IntegerType'
       - $ref: '#/components/schemas/LongType'
+      - $ref: '#/components/schemas/MarkingType'
       - $ref: '#/components/schemas/OntologyObjectSetType'
       - $ref: '#/components/schemas/OntologyObjectType'
       - $ref: '#/components/schemas/StringType'
@@ -5682,25 +5731,18 @@ components:
       - objectSet
       type: object
       properties:
+        accuracy:
+          $ref: '#/components/schemas/AggregationAccuracyRequest'
         aggregation:
           type: array
           items:
-            $ref: '#/components/schemas/Aggregation'
+            $ref: '#/components/schemas/AggregationV2'
         groupBy:
           type: array
           items:
             $ref: '#/components/schemas/AggregationGroupByV2'
         objectSet:
           $ref: '#/components/schemas/ObjectSet'
-    AggregateObjectSetResponseV2:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AggregateObjectsResponseItemV2'
-        excludedItems:
-          type: integer
     AggregateObjectsRequest:
       type: object
       properties:
@@ -5717,10 +5759,12 @@ components:
     AggregateObjectsRequestV2:
       type: object
       properties:
+        accuracy:
+          $ref: '#/components/schemas/AggregationAccuracyRequest'
         aggregation:
           type: array
           items:
-            $ref: '#/components/schemas/Aggregation'
+            $ref: '#/components/schemas/AggregationV2'
         groupBy:
           type: array
           items:
@@ -5763,6 +5807,8 @@ components:
     AggregateObjectsResponseV2:
       type: object
       properties:
+        accuracy:
+          $ref: '#/components/schemas/AggregationAccuracy'
         data:
           type: array
           items:
@@ -5787,6 +5833,16 @@ components:
       - $ref: '#/components/schemas/SumAggregation'
       - $ref: '#/components/schemas/CountAggregation'
       - $ref: '#/components/schemas/ApproximateDistinctAggregation'
+    AggregationAccuracy:
+      type: string
+      enum:
+      - ACCURATE
+      - APPROXIMATE
+    AggregationAccuracyRequest:
+      type: string
+      enum:
+      - REQUIRE_ACCURATE
+      - ALLOW_APPROXIMATE
     AggregationDurationGrouping:
       required:
       - duration
@@ -5797,7 +5853,7 @@ components:
         duration:
           $ref: '#/components/schemas/Duration'
         field:
-          type: string
+          $ref: '#/components/schemas/FieldNameV1'
         type:
           type: string
       description: |
@@ -5812,14 +5868,13 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         unit:
           $ref: '#/components/schemas/TimeUnit'
         value:
-          type: number
-          format: double
+          type: integer
       description: |
         Divides objects into groups according to an interval. Note that this grouping applies only on date and timestamp types.
         When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be set to `1`.
@@ -5830,7 +5885,20 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        maxGroupCount:
+          type: integer
+        type:
           type: string
+      description: Divides objects into groups according to an exact value.
+    AggregationExactGroupingV2:
+      required:
+      - field
+      - type
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         maxGroupCount:
           type: integer
         type:
@@ -5844,7 +5912,21 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        fixedWidth:
+          type: integer
+        type:
           type: string
+      description: Divides objects into groups with the specified width.
+    AggregationFixedWidthGroupingV2:
+      required:
+      - field
+      - fixedWidth
+      - type
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         fixedWidth:
           type: integer
         type:
@@ -5870,13 +5952,13 @@ components:
         propertyName: type
         mapping:
           duration: '#/components/schemas/AggregationDurationGroupingV2'
-          exact: '#/components/schemas/AggregationExactGrouping'
-          fixedWidth: '#/components/schemas/AggregationFixedWidthGrouping'
+          exact: '#/components/schemas/AggregationExactGroupingV2'
+          fixedWidth: '#/components/schemas/AggregationFixedWidthGroupingV2'
           ranges: '#/components/schemas/AggregationRangesGroupingV2'
       oneOf:
-      - $ref: '#/components/schemas/AggregationFixedWidthGrouping'
+      - $ref: '#/components/schemas/AggregationFixedWidthGroupingV2'
       - $ref: '#/components/schemas/AggregationRangesGroupingV2'
-      - $ref: '#/components/schemas/AggregationExactGrouping'
+      - $ref: '#/components/schemas/AggregationExactGroupingV2'
       - $ref: '#/components/schemas/AggregationDurationGroupingV2'
     AggregationGroupCountExceededLimit:
       required:
@@ -5894,9 +5976,6 @@ components:
         errorName:
           type: string
         parameters:
-          required:
-          - groupsCount
-          - groupsLimit
           type: object
           properties:
             groupsCount:
@@ -5936,6 +6015,11 @@ components:
           description: |
             The value of the metric. This will be a double in the case of
             a numeric metric, or a date string in the case of a date metric.
+    AggregationObjectTypeGrouping:
+      type: object
+      description: "Divides objects into groups based on their object type. This grouping\
+        \ is only useful when aggregating across \nmultiple object types, such as\
+        \ when aggregating over an interface type.\n"
     AggregationOrderBy:
       required:
       - metricName
@@ -5975,7 +6059,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/FieldNameV1'
         ranges:
           type: array
           items:
@@ -5990,7 +6074,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         ranges:
           type: array
           items:
@@ -5998,6 +6082,26 @@ components:
         type:
           type: string
       description: Divides objects into groups according to specified ranges.
+    AggregationV2:
+      description: Specifies an aggregation function.
+      discriminator:
+        propertyName: type
+        mapping:
+          approximateDistinct: '#/components/schemas/ApproximateDistinctAggregationV2'
+          approximatePercentile: '#/components/schemas/ApproximatePercentileAggregationV2'
+          avg: '#/components/schemas/AvgAggregationV2'
+          count: '#/components/schemas/CountAggregationV2'
+          max: '#/components/schemas/MaxAggregationV2'
+          min: '#/components/schemas/MinAggregationV2'
+          sum: '#/components/schemas/SumAggregationV2'
+      oneOf:
+      - $ref: '#/components/schemas/MaxAggregationV2'
+      - $ref: '#/components/schemas/MinAggregationV2'
+      - $ref: '#/components/schemas/AvgAggregationV2'
+      - $ref: '#/components/schemas/SumAggregationV2'
+      - $ref: '#/components/schemas/CountAggregationV2'
+      - $ref: '#/components/schemas/ApproximateDistinctAggregationV2'
+      - $ref: '#/components/schemas/ApproximatePercentileAggregationV2'
     AllTermsQuery:
       required:
       - field
@@ -6006,7 +6110,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/FieldNameV1'
         fuzzy:
           $ref: '#/components/schemas/Fuzzy'
         type:
@@ -6048,7 +6152,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/FieldNameV1'
         fuzzy:
           $ref: '#/components/schemas/Fuzzy'
         type:
@@ -6159,20 +6263,55 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/FieldNameV1'
         name:
           $ref: '#/components/schemas/AggregationMetricName'
         type:
           type: string
       description: Computes an approximate number of distinct values for the provided
         field.
+    ApproximateDistinctAggregationV2:
+      required:
+      - field
+      - type
+      type: object
+      properties:
+        direction:
+          $ref: '#/components/schemas/OrderByDirection'
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
+        name:
+          $ref: '#/components/schemas/AggregationMetricName'
+        type:
+          type: string
+      description: Computes an approximate number of distinct values for the provided
+        field.
+    ApproximatePercentileAggregationV2:
+      required:
+      - approximatePercentile
+      - field
+      - type
+      type: object
+      properties:
+        approximatePercentile:
+          type: number
+          format: double
+        direction:
+          $ref: '#/components/schemas/OrderByDirection'
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
+        name:
+          $ref: '#/components/schemas/AggregationMetricName'
+        type:
+          type: string
+      description: Computes the approximate percentile value for the provided field.
     ArchiveFileFormat:
       type: string
       description: |
         The format of an archive file.
       enum:
       - ZIP
-    ArraySize:
+    ArraySizeConstraint:
       required:
       - type
       type: object
@@ -6444,7 +6583,22 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        name:
+          $ref: '#/components/schemas/AggregationMetricName'
+        type:
           type: string
+      description: Computes the average value for the provided field.
+    AvgAggregationV2:
+      required:
+      - field
+      - type
+      type: object
+      properties:
+        direction:
+          $ref: '#/components/schemas/OrderByDirection'
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         name:
           $ref: '#/components/schemas/AggregationMetricName'
         type:
@@ -6758,7 +6912,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -6774,7 +6928,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -6790,9 +6944,9 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         fuzzy:
-          $ref: '#/components/schemas/Fuzzy'
+          $ref: '#/components/schemas/FuzzyV2'
         type:
           type: string
         value:
@@ -6808,9 +6962,9 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         fuzzy:
-          $ref: '#/components/schemas/Fuzzy'
+          $ref: '#/components/schemas/FuzzyV2'
         type:
           type: string
         value:
@@ -6826,7 +6980,21 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        type:
           type: string
+        value:
+          description: Contains value
+      description: Returns objects where the specified array contains a value.
+    ContainsQueryV2:
+      required:
+      - field
+      - type
+      - value
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -6845,6 +7013,18 @@ components:
       - type
       type: object
       properties:
+        name:
+          $ref: '#/components/schemas/AggregationMetricName'
+        type:
+          type: string
+      description: Computes the total count of objects.
+    CountAggregationV2:
+      required:
+      - type
+      type: object
+      properties:
+        direction:
+          $ref: '#/components/schemas/OrderByDirection'
         name:
           $ref: '#/components/schemas/AggregationMetricName'
         type:
@@ -7012,8 +7192,9 @@ components:
         | Double                      | number                                                | `3.14159265`                                                                  |
         | Integer                     | number                                                | `238940`                                                                      |
         | Long                        | string                                                | `"58319870951433"`                                                            |
+        | Marking                     | string                                                | `"MU"`                                                                        |
         | Null                        | null                                                  | `null`                                                                        |
-        | Object Set                  | string                                                | `ri.object-set.main.versioned-object-set.h13274m8-23f5-431c-8aee-a4554157c57z`|
+        | Object Set                  | string OR the object set definition                   | `ri.object-set.main.versioned-object-set.h13274m8-23f5-431c-8aee-a4554157c57z`|
         | Ontology Object Reference   | JSON encoding of the object's primary key             | `10033123` or `"EMP1234"`                                                     |
         | Set                         | array                                                 | `["alpha", "bravo", "charlie"]`                                               |
         | Short                       | number                                                | `8739`                                                                        |
@@ -7167,101 +7348,6 @@ components:
             transactionRid:
               $ref: '#/components/schemas/TransactionRid'
       description: todo
-    DeploymentApi:
-      type: object
-      properties:
-        transform:
-          $ref: '#/components/schemas/DeploymentTransformApi'
-    DeploymentApiName:
-      type: string
-    DeploymentDescription:
-      type: string
-      description: |
-        A description or explanation of what this model deployment does and is intended to be used for.
-    DeploymentListing:
-      required:
-      - apiName
-      type: object
-      properties:
-        apiName:
-          $ref: '#/components/schemas/DeploymentApiName'
-        description:
-          $ref: '#/components/schemas/DeploymentDescription'
-      description: |
-        Name and description associated with a model deployment.
-    DeploymentMetadata:
-      required:
-      - api
-      - apiName
-      type: object
-      properties:
-        api:
-          $ref: '#/components/schemas/DeploymentApi'
-        apiName:
-          $ref: '#/components/schemas/DeploymentApiName'
-        description:
-          $ref: '#/components/schemas/DeploymentDescription'
-      description: |
-        Metadata related to a model deployment.
-    DeploymentNotAvailable:
-      required:
-      - errorName
-      - errorCode
-      - parameters
-      properties:
-        errorCode:
-          type: string
-          enum:
-          - INTERNAL
-        errorInstanceId:
-          type: string
-          format: uuid
-        errorName:
-          type: string
-        parameters:
-          type: object
-          properties:
-            deploymentApiName:
-              $ref: '#/components/schemas/DeploymentApiName'
-            ontologyApiName:
-              $ref: '#/components/schemas/OntologyApiName'
-      description: The requested model deployment does not have a model deployed.
-        It may be disabled or failed.
-    DeploymentNotFound:
-      required:
-      - errorName
-      - errorCode
-      - parameters
-      properties:
-        errorCode:
-          type: string
-          enum:
-          - NOT_FOUND
-        errorInstanceId:
-          type: string
-          format: uuid
-        errorName:
-          type: string
-        parameters:
-          type: object
-          properties:
-            deploymentApiName:
-              $ref: '#/components/schemas/DeploymentApiName'
-            ontologyApiName:
-              $ref: '#/components/schemas/OntologyApiName'
-      description: "The requested model deployment is not found, or the client token\
-        \ does not have access to it."
-    DeploymentTransformApi:
-      type: object
-      properties:
-        inputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModelApiDataType'
-        outputs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModelApiDataType'
     DisplayName:
       type: string
       description: The display name of the entity.
@@ -7297,7 +7383,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -7312,7 +7398,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -7379,7 +7465,21 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        type:
           type: string
+        value:
+          description: Equals to value
+      description: Returns objects where the specified field is equal to a value.
+    EqualsQueryV2:
+      required:
+      - field
+      - type
+      - value
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -7448,10 +7548,9 @@ components:
       - $ref: '#/components/schemas/Feature'
     FeaturePropertyKey:
       type: string
-    FieldName:
+    FieldNameV1:
       type: string
-      description: |
-        The name of a field.
+      description: "A reference to an Ontology object property with the form `properties.{propertyApiName}`."
     File:
       required:
       - path
@@ -7726,6 +7825,10 @@ components:
       type: boolean
       description: Setting fuzzy to `true` allows approximate matching in search queries
         that support it.
+    FuzzyV2:
+      type: boolean
+      description: Setting fuzzy to `true` allows approximate matching in search queries
+        that support it.
     GeoJsonObject:
       description: |
         GeoJSon object
@@ -7829,7 +7932,7 @@ components:
         single type SHOULD be avoided when that single part or a single object
         of multipart type (MultiPoint, MultiLineString, or MultiPolygon) could
         be used instead.
-    GroupMember:
+    GroupMemberConstraint:
       required:
       - type
       type: object
@@ -7846,7 +7949,21 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        type:
           type: string
+        value:
+          description: Greater than value
+      description: Returns objects where the specified field is greater than a value.
+    GtQueryV2:
+      required:
+      - field
+      - type
+      - value
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -7860,7 +7977,22 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        type:
           type: string
+        value:
+          description: Greater than or equal to value
+      description: Returns objects where the specified field is greater than or equal
+        to a value.
+    GteQueryV2:
+      required:
+      - field
+      - type
+      - value
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -7874,6 +8006,133 @@ components:
       properties:
         type:
           type: string
+    InterfaceLinkType:
+      required:
+      - apiName
+      - cardinality
+      - displayName
+      - linkedEntityApiName
+      - required
+      - rid
+      type: object
+      properties:
+        apiName:
+          $ref: '#/components/schemas/InterfaceLinkTypeApiName'
+        cardinality:
+          $ref: '#/components/schemas/InterfaceLinkTypeCardinality'
+        description:
+          type: string
+          description: The description of the interface link type.
+        displayName:
+          $ref: '#/components/schemas/DisplayName'
+        linkedEntityApiName:
+          $ref: '#/components/schemas/InterfaceLinkTypeLinkedEntityApiName'
+        required:
+          type: boolean
+          description: |
+            Whether each implementing object type must declare at least one implementation of this link.
+        rid:
+          $ref: '#/components/schemas/InterfaceLinkTypeRid'
+      description: |
+        A link type constraint defined at the interface level where the implementation of the links is provided
+        by the implementing object types.
+    InterfaceLinkTypeApiName:
+      type: string
+      description: A string indicating the API name to use for the interface link.
+    InterfaceLinkTypeCardinality:
+      type: string
+      description: |
+        The cardinality of the link in the given direction. Cardinality can be "ONE", meaning an object can
+        link to zero or one other objects, or "MANY", meaning an object can link to any number of other objects.
+      enum:
+      - ONE
+      - MANY
+    InterfaceLinkTypeLinkedEntityApiName:
+      description: A reference to the linked entity. This can either be an object
+        or an interface type.
+      discriminator:
+        propertyName: type
+        mapping:
+          interfaceTypeApiName: '#/components/schemas/LinkedInterfaceTypeApiName'
+          objectTypeApiName: '#/components/schemas/LinkedObjectTypeApiName'
+      oneOf:
+      - $ref: '#/components/schemas/LinkedInterfaceTypeApiName'
+      - $ref: '#/components/schemas/LinkedObjectTypeApiName'
+    InterfaceLinkTypeRid:
+      type: string
+      description: |
+        The unique resource identifier of an interface link type, useful for interacting with other Foundry APIs.
+    InterfaceType:
+      required:
+      - apiName
+      - displayName
+      - rid
+      type: object
+      properties:
+        apiName:
+          $ref: '#/components/schemas/InterfaceTypeApiName'
+        description:
+          type: string
+          description: The description of the interface.
+        displayName:
+          $ref: '#/components/schemas/DisplayName'
+        extendsInterfaces:
+          type: array
+          description: "A list of interface API names that this interface extends.\
+            \ An interface can extend other interfaces to \ninherit their properties.\n"
+          items:
+            $ref: '#/components/schemas/InterfaceTypeApiName'
+        links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InterfaceLinkType'
+          description: |
+            A map from an interface link type API name to the corresponding interface link type. The map describes the
+            set of link types the interface has.
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SharedPropertyType'
+          description: "A map from a shared property type API name to the corresponding\
+            \ shared property type. The map describes the \nset of properties the\
+            \ interface has. A shared property type must be unique across all of the\
+            \ properties.\n"
+        rid:
+          $ref: '#/components/schemas/InterfaceTypeRid'
+      description: Represents an interface type in the Ontology.
+    InterfaceTypeApiName:
+      type: string
+      description: |
+        The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
+        type, use the `List interface types` endpoint or check the **Ontology Manager**.
+    InterfaceTypeNotFound:
+      required:
+      - errorName
+      - errorCode
+      - parameters
+      properties:
+        errorCode:
+          type: string
+          enum:
+          - NOT_FOUND
+        errorInstanceId:
+          type: string
+          format: uuid
+        errorName:
+          type: string
+        parameters:
+          type: object
+          properties:
+            apiName:
+              $ref: '#/components/schemas/InterfaceTypeApiName'
+            rid:
+              $ref: '#/components/schemas/InterfaceTypeRid'
+      description: "The requested interface type is not found, or the client token\
+        \ does not have access to it."
+    InterfaceTypeRid:
+      type: string
+      description: "The unique resource identifier of an interface, useful for interacting\
+        \ with other Foundry APIs."
     IntersectsBoundingBoxQuery:
       required:
       - field
@@ -7882,7 +8141,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -7897,13 +8156,32 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
           $ref: '#/components/schemas/PolygonValue'
       description: |
         Returns objects where the specified field intersects the polygon provided.
+    InvalidAggregationOrdering:
+      required:
+      - errorName
+      - errorCode
+      - parameters
+      properties:
+        errorCode:
+          type: string
+          enum:
+          - INVALID_ARGUMENT
+        errorInstanceId:
+          type: string
+          format: uuid
+        errorName:
+          type: string
+        parameters:
+          type: object
+      description: |
+        Aggregation ordering can only be applied to metrics with exactly one groupBy clause.
     InvalidAggregationRange:
       required:
       - errorName
@@ -8116,7 +8394,9 @@ components:
         parameters:
           type: object
       description: |
-        Duration groupBy value is invalid.
+        Duration groupBy value is invalid. Units larger than day must have value `1` and date properties do not support
+        filtering on units smaller than day. As examples, neither bucketing by every two weeks nor bucketing a date by
+        every two hours are allowed.
     InvalidFields:
       required:
       - errorName
@@ -8139,7 +8419,9 @@ components:
               type: array
               items:
                 type: string
-      description: TBD
+      description: |
+        The value of the given field does not match the expected pattern. For example, an Ontology object property `id`
+        should be written `properties.id`.
     InvalidGroupId:
       required:
       - errorName
@@ -8563,7 +8845,21 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        type:
           type: string
+        value:
+          type: boolean
+      description: Returns objects based on the existence of the specified field.
+    IsNullQueryV2:
+      required:
+      - field
+      - type
+      - value
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -8752,6 +9048,17 @@ components:
           $ref: '#/components/schemas/ObjectTypeApiName'
         status:
           $ref: '#/components/schemas/ReleaseStatus'
+    LinkedInterfaceTypeApiName:
+      required:
+      - apiName
+      - type
+      type: object
+      properties:
+        apiName:
+          $ref: '#/components/schemas/InterfaceTypeApiName'
+        type:
+          type: string
+      description: A reference to the linked interface type.
     LinkedObjectNotFound:
       required:
       - errorName
@@ -8783,6 +9090,17 @@ components:
               $ref: '#/components/schemas/ObjectTypeApiName'
       description: "The linked object with the given primary key is not found, or\
         \ the user does not have access to it."
+    LinkedObjectTypeApiName:
+      required:
+      - apiName
+      - type
+      type: object
+      properties:
+        apiName:
+          $ref: '#/components/schemas/ObjectTypeApiName'
+        type:
+          type: string
+      description: A reference to the linked object type.
     ListActionTypesResponse:
       type: object
       properties:
@@ -8824,13 +9142,6 @@ components:
             $ref: '#/components/schemas/Branch'
         nextPageToken:
           $ref: '#/components/schemas/PageToken'
-    ListDeploymentsResponse:
-      type: object
-      properties:
-        deployments:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeploymentListing'
     ListFilesResponse:
       type: object
       properties:
@@ -8842,6 +9153,15 @@ components:
           $ref: '#/components/schemas/PageToken'
       description: A page of Files and an optional page token that can be used to
         retrieve the next page.
+    ListInterfaceTypesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterfaceType'
+        nextPageToken:
+          $ref: '#/components/schemas/PageToken'
     ListLanguageModelsResponse:
       type: object
       properties:
@@ -8975,7 +9295,7 @@ components:
         objectSet:
           $ref: '#/components/schemas/ObjectSet'
         orderBy:
-          $ref: '#/components/schemas/SearchOrderBy'
+          $ref: '#/components/schemas/SearchOrderByV2'
         pageSize:
           $ref: '#/components/schemas/PageSize'
         pageToken:
@@ -9028,7 +9348,21 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        type:
           type: string
+        value:
+          description: Less than value
+      description: Returns objects where the specified field is less than a value.
+    LtQueryV2:
+      required:
+      - field
+      - type
+      - value
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -9042,7 +9376,22 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        type:
           type: string
+        value:
+          description: Less than or equal to value
+      description: Returns objects where the specified field is less than or equal
+        to a value.
+    LteQueryV2:
+      required:
+      - field
+      - type
+      - value
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -9148,7 +9497,6 @@ components:
           required:
           - artifactRepository
           - linkType
-          - objectType
           - packageName
           type: object
           properties:
@@ -9156,8 +9504,6 @@ components:
               $ref: '#/components/schemas/ArtifactRepositoryRid'
             linkType:
               $ref: '#/components/schemas/LinkTypeApiName'
-            objectType:
-              $ref: '#/components/schemas/ObjectTypeApiName'
             packageName:
               $ref: '#/components/schemas/SdkPackageName'
       description: The given link could not be mapped to a Marketplace installation.
@@ -9219,6 +9565,13 @@ components:
             queryType:
               $ref: '#/components/schemas/QueryApiName'
       description: The given query could not be mapped to a Marketplace installation.
+    MarkingType:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
     MaxAggregation:
       required:
       - field
@@ -9226,7 +9579,22 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        name:
+          $ref: '#/components/schemas/AggregationMetricName'
+        type:
           type: string
+      description: Computes the maximum value for the provided field.
+    MaxAggregationV2:
+      required:
+      - field
+      - type
+      type: object
+      properties:
+        direction:
+          $ref: '#/components/schemas/OrderByDirection'
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         name:
           $ref: '#/components/schemas/AggregationMetricName'
         type:
@@ -9244,7 +9612,22 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        name:
+          $ref: '#/components/schemas/AggregationMetricName'
+        type:
           type: string
+      description: Computes the minimum value for the provided field.
+    MinAggregationV2:
+      required:
+      - field
+      - type
+      type: object
+      properties:
+        direction:
+          $ref: '#/components/schemas/OrderByDirection'
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         name:
           $ref: '#/components/schemas/AggregationMetricName'
         type:
@@ -9294,103 +9677,6 @@ components:
           type: object
       description: "A post body is required for this endpoint, but was not found in\
         \ the request."
-    ModelApiArrayType:
-      required:
-      - subType
-      - type
-      type: object
-      properties:
-        subType:
-          $ref: '#/components/schemas/ModelApiType'
-        type:
-          type: string
-    ModelApiDataType:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/FieldName'
-        propertyType:
-          $ref: '#/components/schemas/ModelApiType'
-        required:
-          type: boolean
-      description: |
-        An object definition representing an input or an output type for the deployment API.
-    ModelApiMapType:
-      required:
-      - keyType
-      - type
-      - valueType
-      type: object
-      properties:
-        keyType:
-          $ref: '#/components/schemas/ModelApiType'
-        type:
-          type: string
-        valueType:
-          $ref: '#/components/schemas/ModelApiType'
-    ModelApiStructField:
-      required:
-      - fieldType
-      - name
-      type: object
-      properties:
-        fieldType:
-          $ref: '#/components/schemas/ModelApiType'
-        name:
-          type: string
-    ModelApiStructType:
-      required:
-      - type
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModelApiStructField'
-        type:
-          type: string
-    ModelApiType:
-      description: |
-        A union of all the types supported by models.
-      discriminator:
-        propertyName: type
-        mapping:
-          any: '#/components/schemas/AnyType'
-          array: '#/components/schemas/ModelApiArrayType'
-          boolean: '#/components/schemas/BooleanType'
-          date: '#/components/schemas/DateType'
-          float: '#/components/schemas/FloatType'
-          integer: '#/components/schemas/IntegerType'
-          map: '#/components/schemas/ModelApiMapType'
-          "null": '#/components/schemas/NullType'
-          string: '#/components/schemas/StringType'
-          struct: '#/components/schemas/ModelApiStructType'
-          timestamp: '#/components/schemas/TimestampType'
-          union: '#/components/schemas/ModelApiUnionType'
-      oneOf:
-      - $ref: '#/components/schemas/AnyType'
-      - $ref: '#/components/schemas/ModelApiArrayType'
-      - $ref: '#/components/schemas/BooleanType'
-      - $ref: '#/components/schemas/DateType'
-      - $ref: '#/components/schemas/FloatType'
-      - $ref: '#/components/schemas/IntegerType'
-      - $ref: '#/components/schemas/ModelApiMapType'
-      - $ref: '#/components/schemas/NullType'
-      - $ref: '#/components/schemas/StringType'
-      - $ref: '#/components/schemas/ModelApiStructType'
-      - $ref: '#/components/schemas/TimestampType'
-      - $ref: '#/components/schemas/ModelApiUnionType'
-    ModelApiUnionType:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-        unionTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModelApiType'
     ModifyObject:
       required:
       - objectType
@@ -9599,6 +9885,8 @@ components:
       required:
       - addedLinksCount
       - addedObjectCount
+      - deletedLinksCount
+      - deletedObjectsCount
       - modifiedObjectsCount
       - type
       type: object
@@ -9606,6 +9894,10 @@ components:
         addedLinksCount:
           type: integer
         addedObjectCount:
+          type: integer
+        deletedLinksCount:
+          type: integer
+        deletedObjectsCount:
           type: integer
         edits:
           type: array
@@ -9659,6 +9951,7 @@ components:
           geoshape: '#/components/schemas/GeoShapeType'
           integer: '#/components/schemas/IntegerType'
           long: '#/components/schemas/LongType'
+          marking: '#/components/schemas/MarkingType'
           short: '#/components/schemas/ShortType'
           string: '#/components/schemas/StringType'
           timeseries: '#/components/schemas/TimeseriesType'
@@ -9676,11 +9969,12 @@ components:
       - $ref: '#/components/schemas/GeoShapeType'
       - $ref: '#/components/schemas/IntegerType'
       - $ref: '#/components/schemas/LongType'
+      - $ref: '#/components/schemas/MarkingType'
       - $ref: '#/components/schemas/ShortType'
       - $ref: '#/components/schemas/StringType'
       - $ref: '#/components/schemas/TimestampType'
       - $ref: '#/components/schemas/TimeseriesType'
-    ObjectPropertyValue:
+    ObjectPropertyValueConstraint:
       required:
       - type
       type: object
@@ -9689,7 +9983,7 @@ components:
           type: string
       description: |
         The parameter value must be a property value of an object found within an object set.
-    ObjectQueryResult:
+    ObjectQueryResultConstraint:
       required:
       - type
       type: object
@@ -9864,6 +10158,42 @@ components:
             $ref: '#/components/schemas/ObjectTypeApiName'
         type:
           type: string
+    ObjectTypeFullMetadata:
+      required:
+      - objectType
+      type: object
+      properties:
+        implementsInterfaces:
+          type: array
+          description: A list of interfaces that this object type implements.
+          items:
+            $ref: '#/components/schemas/InterfaceTypeApiName'
+        implementsInterfaces2:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ObjectTypeInterfaceImplementation'
+          description: A list of interfaces that this object type implements and how
+            it implements them.
+        linkTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkTypeSideV2'
+        objectType:
+          $ref: '#/components/schemas/ObjectTypeV2'
+        sharedPropertyTypeMapping:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PropertyApiName'
+          description: "A map from shared property type API name to backing local\
+            \ property API name for the shared property types \npresent on this object\
+            \ type.\n"
+    ObjectTypeInterfaceImplementation:
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PropertyApiName'
     ObjectTypeNotFound:
       required:
       - errorName
@@ -9911,7 +10241,7 @@ components:
             objectType:
               $ref: '#/components/schemas/ObjectTypeApiName'
       description: |
-        The requested object types are not synced into the ontology. Please reach out to your Ontology
+        The requested object type is not synced into the ontology. Please reach out to your Ontology
         Administrator to re-index the object type in Ontology Management Application.
     ObjectTypeRid:
       type: string
@@ -9923,6 +10253,7 @@ components:
       - primaryKey
       - rid
       - status
+      - titleProperty
       type: object
       properties:
         apiName:
@@ -9943,6 +10274,8 @@ components:
           $ref: '#/components/schemas/ObjectTypeRid'
         status:
           $ref: '#/components/schemas/ReleaseStatus'
+        titleProperty:
+          $ref: '#/components/schemas/PropertyApiName'
         visibility:
           $ref: '#/components/schemas/ObjectTypeVisibility'
       description: Represents an object type in the Ontology.
@@ -9953,17 +10286,31 @@ components:
       - NORMAL
       - PROMINENT
       - HIDDEN
-    ObjectTypeWithLink:
+    ObjectTypesNotSynced:
       required:
-      - objectType
-      type: object
+      - errorName
+      - errorCode
+      - parameters
       properties:
-        linkTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkTypeSideV2'
-        objectType:
-          $ref: '#/components/schemas/ObjectTypeV2'
+        errorCode:
+          type: string
+          enum:
+          - CONFLICT
+        errorInstanceId:
+          type: string
+          format: uuid
+        errorName:
+          type: string
+        parameters:
+          type: object
+          properties:
+            objectTypes:
+              type: array
+              items:
+                $ref: '#/components/schemas/ObjectTypeApiName'
+      description: |
+        One or more of the requested object types are not synced into the ontology. Please reach out to your Ontology
+        Administrator to re-index the object type(s) in Ontology Management Application.
     ObjectsExceededLimit:
       required:
       - errorName
@@ -9984,7 +10331,7 @@ components:
       description: |
         There are more objects, but they cannot be returned by this API. Only 10,000 objects are available through this
         API for a given request.
-    OneOf:
+    OneOfConstraint:
       required:
       - otherValuesAllowed
       - type
@@ -10050,6 +10397,7 @@ components:
           integer: '#/components/schemas/IntegerType'
           long: '#/components/schemas/LongType'
           map: '#/components/schemas/OntologyMapType'
+          marking: '#/components/schemas/MarkingType'
           object: '#/components/schemas/OntologyObjectType'
           objectSet: '#/components/schemas/OntologyObjectSetType'
           set: '#/components/schemas/OntologySetType'
@@ -10069,6 +10417,7 @@ components:
       - $ref: '#/components/schemas/FloatType'
       - $ref: '#/components/schemas/IntegerType'
       - $ref: '#/components/schemas/LongType'
+      - $ref: '#/components/schemas/MarkingType'
       - $ref: '#/components/schemas/ShortType'
       - $ref: '#/components/schemas/StringType'
       - $ref: '#/components/schemas/TimestampType'
@@ -10117,16 +10466,24 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/ActionTypeV2'
+        interfaceTypes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InterfaceType'
         objectTypes:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/ObjectTypeWithLink'
+            $ref: '#/components/schemas/ObjectTypeFullMetadata'
         ontology:
           $ref: '#/components/schemas/OntologyV2'
         queryTypes:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/QueryTypeV2'
+        sharedPropertyTypes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SharedPropertyType'
     OntologyIdentifier:
       type: string
       description: Either an ontology rid or an ontology api name.
@@ -10284,6 +10641,31 @@ components:
       description: |
         The requested object type has been changed in the **Ontology Manager** and changes are currently being applied. Wait a
         few seconds and try again.
+    OntologySyncingObjectTypes:
+      required:
+      - errorName
+      - errorCode
+      - parameters
+      properties:
+        errorCode:
+          type: string
+          enum:
+          - CONFLICT
+        errorInstanceId:
+          type: string
+          format: uuid
+        errorName:
+          type: string
+        parameters:
+          type: object
+          properties:
+            objectTypes:
+              type: array
+              items:
+                $ref: '#/components/schemas/ObjectTypeApiName'
+      description: |
+        One or more requested object types have been changed in the **Ontology Manager** and changes are currently being
+        applied. Wait a few seconds and try again.
     OntologyV2:
       required:
       - apiName
@@ -10387,6 +10769,11 @@ components:
         \ \n`orderBy=properties.lastName,properties.firstName,properties.age:desc`\
         \ to order by multiple properties. \nYou may also use the shorthand `p` instead\
         \ of `properties` such as `orderBy=p.lastName:asc`.\n"
+    OrderByDirection:
+      type: string
+      enum:
+      - ASC
+      - DESC
     PageSize:
       type: integer
       description: The page size to use for the endpoint.
@@ -10455,25 +10842,25 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          arraySize: '#/components/schemas/ArraySize'
-          groupMember: '#/components/schemas/GroupMember'
-          objectPropertyValue: '#/components/schemas/ObjectPropertyValue'
-          objectQueryResult: '#/components/schemas/ObjectQueryResult'
-          oneOf: '#/components/schemas/OneOf'
-          range: '#/components/schemas/Range'
-          stringLength: '#/components/schemas/StringLength'
-          stringRegexMatch: '#/components/schemas/StringRegexMatch'
-          unevaluable: '#/components/schemas/Unevaluable'
+          arraySize: '#/components/schemas/ArraySizeConstraint'
+          groupMember: '#/components/schemas/GroupMemberConstraint'
+          objectPropertyValue: '#/components/schemas/ObjectPropertyValueConstraint'
+          objectQueryResult: '#/components/schemas/ObjectQueryResultConstraint'
+          oneOf: '#/components/schemas/OneOfConstraint'
+          range: '#/components/schemas/RangeConstraint'
+          stringLength: '#/components/schemas/StringLengthConstraint'
+          stringRegexMatch: '#/components/schemas/StringRegexMatchConstraint'
+          unevaluable: '#/components/schemas/UnevaluableConstraint'
       oneOf:
-      - $ref: '#/components/schemas/ArraySize'
-      - $ref: '#/components/schemas/GroupMember'
-      - $ref: '#/components/schemas/ObjectPropertyValue'
-      - $ref: '#/components/schemas/ObjectQueryResult'
-      - $ref: '#/components/schemas/OneOf'
-      - $ref: '#/components/schemas/Range'
-      - $ref: '#/components/schemas/StringLength'
-      - $ref: '#/components/schemas/StringRegexMatch'
-      - $ref: '#/components/schemas/Unevaluable'
+      - $ref: '#/components/schemas/ArraySizeConstraint'
+      - $ref: '#/components/schemas/GroupMemberConstraint'
+      - $ref: '#/components/schemas/ObjectPropertyValueConstraint'
+      - $ref: '#/components/schemas/ObjectQueryResultConstraint'
+      - $ref: '#/components/schemas/OneOfConstraint'
+      - $ref: '#/components/schemas/RangeConstraint'
+      - $ref: '#/components/schemas/StringLengthConstraint'
+      - $ref: '#/components/schemas/StringRegexMatchConstraint'
+      - $ref: '#/components/schemas/UnevaluableConstraint'
     ParameterEvaluationResult:
       required:
       - required
@@ -10650,7 +11037,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/FieldNameV1'
         type:
           type: string
         value:
@@ -10706,7 +11093,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/FieldNameV1'
         type:
           type: string
         value:
@@ -10719,6 +11106,30 @@ components:
     PrimaryKeyValue:
       description: Represents the primary key value that is used as a unique identifier
         for an object.
+    PropertiesHaveDifferentIds:
+      required:
+      - errorName
+      - errorCode
+      - parameters
+      properties:
+        errorCode:
+          type: string
+          enum:
+          - INVALID_ARGUMENT
+        errorInstanceId:
+          type: string
+          format: uuid
+        errorName:
+          type: string
+        parameters:
+          type: object
+          properties:
+            properties:
+              type: array
+              items:
+                $ref: '#/components/schemas/SharedPropertyTypeApiName'
+      description: |
+        Properties used in ordering must have the same ids. Temporary restriction imposed due to OSS limitations.
     PropertiesNotFilterable:
       required:
       - errorName
@@ -11421,7 +11832,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueryDataType'
-    Range:
+    RangeConstraint:
       required:
       - type
       type: object
@@ -11618,21 +12029,21 @@ components:
         propertyName: type
         mapping:
           and: '#/components/schemas/AndQueryV2'
-          contains: '#/components/schemas/ContainsQuery'
+          contains: '#/components/schemas/ContainsQueryV2'
           containsAllTerms: '#/components/schemas/ContainsAllTermsQuery'
           containsAllTermsInOrder: '#/components/schemas/ContainsAllTermsInOrderQuery'
           containsAllTermsInOrderPrefixLastTerm: '#/components/schemas/ContainsAllTermsInOrderPrefixLastTerm'
           containsAnyTerm: '#/components/schemas/ContainsAnyTermQuery'
           doesNotIntersectBoundingBox: '#/components/schemas/DoesNotIntersectBoundingBoxQuery'
           doesNotIntersectPolygon: '#/components/schemas/DoesNotIntersectPolygonQuery'
-          eq: '#/components/schemas/EqualsQuery'
-          gt: '#/components/schemas/GtQuery'
-          gte: '#/components/schemas/GteQuery'
+          eq: '#/components/schemas/EqualsQueryV2'
+          gt: '#/components/schemas/GtQueryV2'
+          gte: '#/components/schemas/GteQueryV2'
           intersectsBoundingBox: '#/components/schemas/IntersectsBoundingBoxQuery'
           intersectsPolygon: '#/components/schemas/IntersectsPolygonQuery'
-          isNull: '#/components/schemas/IsNullQuery'
-          lt: '#/components/schemas/LtQuery'
-          lte: '#/components/schemas/LteQuery'
+          isNull: '#/components/schemas/IsNullQueryV2'
+          lt: '#/components/schemas/LtQueryV2'
+          lte: '#/components/schemas/LteQueryV2'
           not: '#/components/schemas/NotQueryV2'
           or: '#/components/schemas/OrQueryV2'
           startsWith: '#/components/schemas/StartsWithQuery'
@@ -11640,13 +12051,13 @@ components:
           withinDistanceOf: '#/components/schemas/WithinDistanceOfQuery'
           withinPolygon: '#/components/schemas/WithinPolygonQuery'
       oneOf:
-      - $ref: '#/components/schemas/LtQuery'
-      - $ref: '#/components/schemas/GtQuery'
-      - $ref: '#/components/schemas/LteQuery'
-      - $ref: '#/components/schemas/GteQuery'
-      - $ref: '#/components/schemas/EqualsQuery'
-      - $ref: '#/components/schemas/IsNullQuery'
-      - $ref: '#/components/schemas/ContainsQuery'
+      - $ref: '#/components/schemas/LtQueryV2'
+      - $ref: '#/components/schemas/GtQueryV2'
+      - $ref: '#/components/schemas/LteQueryV2'
+      - $ref: '#/components/schemas/GteQueryV2'
+      - $ref: '#/components/schemas/EqualsQueryV2'
+      - $ref: '#/components/schemas/IsNullQueryV2'
+      - $ref: '#/components/schemas/ContainsQueryV2'
       - $ref: '#/components/schemas/AndQueryV2'
       - $ref: '#/components/schemas/OrQueryV2'
       - $ref: '#/components/schemas/NotQueryV2'
@@ -11662,6 +12073,59 @@ components:
       - $ref: '#/components/schemas/WithinPolygonQuery'
       - $ref: '#/components/schemas/IntersectsPolygonQuery'
       - $ref: '#/components/schemas/DoesNotIntersectPolygonQuery'
+    SearchObjectsForInterfaceRequest:
+      type: object
+      properties:
+        augmentedProperties:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/PropertyApiName'
+          description: "A map from object type API name to a list of property type\
+            \ API names. For each returned object, if the \nobject’s object type is\
+            \ a key in the map, then we augment the response for that object type\
+            \ with the list \nof properties specified in the value.\n"
+        augmentedSharedPropertyTypes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/SharedPropertyTypeApiName'
+          description: "A map from interface type API name to a list of shared property\
+            \ type API names. For each returned object, if\nthe object implements\
+            \ an interface that is a key in the map, then we augment the response\
+            \ for that object \ntype with the list of properties specified in the\
+            \ value.\n"
+        orderBy:
+          $ref: '#/components/schemas/SearchOrderByV2'
+        otherInterfaceTypes:
+          type: array
+          description: "A list of interface type API names. Object types must implement\
+            \ all the mentioned interfaces in order to be \nincluded in the response.\n"
+          items:
+            $ref: '#/components/schemas/InterfaceTypeApiName'
+        pageSize:
+          $ref: '#/components/schemas/PageSize'
+        pageToken:
+          $ref: '#/components/schemas/PageToken'
+        selectedObjectTypes:
+          type: array
+          description: "A list of object type API names that should be included in\
+            \ the response. If non-empty, object types that are\nnot mentioned will\
+            \ not be included in the response even if they implement the specified\
+            \ interface. Omit the \nparameter to include all object types.\n"
+          items:
+            $ref: '#/components/schemas/ObjectTypeApiName'
+        selectedSharedPropertyTypes:
+          type: array
+          description: "A list of shared property type API names of the interface\
+            \ type that should be included in the response. \nOmit this parameter\
+            \ to include all properties of the interface type in the response.\n"
+          items:
+            $ref: '#/components/schemas/SharedPropertyTypeApiName'
+        where:
+          $ref: '#/components/schemas/SearchJsonQueryV2'
     SearchObjectsRequest:
       required:
       - query
@@ -11690,7 +12154,7 @@ components:
             A flag to exclude the retrieval of the `__rid` property.
             Setting this to true may improve performance of this endpoint for object types in OSV2.
         orderBy:
-          $ref: '#/components/schemas/SearchOrderBy'
+          $ref: '#/components/schemas/SearchOrderByV2'
         pageSize:
           $ref: '#/components/schemas/PageSize'
         pageToken:
@@ -11730,6 +12194,15 @@ components:
             $ref: '#/components/schemas/SearchOrdering'
       description: Specifies the ordering of search results by a field and an ordering
         direction.
+    SearchOrderByV2:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchOrderingV2'
+      description: Specifies the ordering of search results by a field and an ordering
+        direction.
     SearchOrdering:
       required:
       - field
@@ -11739,8 +12212,17 @@ components:
           type: string
           description: Specifies the ordering direction (can be either `asc` or `desc`)
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+    SearchOrderingV2:
+      required:
+      - field
+      type: object
+      properties:
+        direction:
           type: string
-          description: Specifies the field to order search results by.
+          description: Specifies the ordering direction (can be either `asc` or `desc`)
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
     SelectedPropertyApiName:
       type: string
       description: |
@@ -11759,6 +12241,87 @@ components:
         Unknown properties specified in the `properties` list will result in a `PropertiesNotFound` error.
 
         To find the API name for your property, use the `Get object type` endpoint or check the **Ontology Manager**.
+    SharedPropertiesNotFound:
+      required:
+      - errorName
+      - errorCode
+      - parameters
+      properties:
+        errorCode:
+          type: string
+          enum:
+          - NOT_FOUND
+        errorInstanceId:
+          type: string
+          format: uuid
+        errorName:
+          type: string
+        parameters:
+          type: object
+          properties:
+            missingSharedProperties:
+              type: array
+              items:
+                $ref: '#/components/schemas/SharedPropertyTypeApiName'
+            objectType:
+              type: array
+              items:
+                $ref: '#/components/schemas/ObjectTypeApiName'
+      description: The requested shared property types are not present on every object
+        type.
+    SharedPropertyType:
+      required:
+      - apiName
+      - dataType
+      - displayName
+      - rid
+      type: object
+      properties:
+        apiName:
+          $ref: '#/components/schemas/SharedPropertyTypeApiName'
+        dataType:
+          $ref: '#/components/schemas/ObjectPropertyType'
+        description:
+          type: string
+          description: A short text that describes the SharedPropertyType.
+        displayName:
+          $ref: '#/components/schemas/DisplayName'
+        rid:
+          $ref: '#/components/schemas/SharedPropertyTypeRid'
+      description: A property type that can be shared across object types.
+    SharedPropertyTypeApiName:
+      type: string
+      description: |
+        The name of the shared property type in the API in lowerCamelCase format. To find the API name for your
+        shared property type, use the `List shared property types` endpoint or check the **Ontology Manager**.
+    SharedPropertyTypeNotFound:
+      required:
+      - errorName
+      - errorCode
+      - parameters
+      properties:
+        errorCode:
+          type: string
+          enum:
+          - NOT_FOUND
+        errorInstanceId:
+          type: string
+          format: uuid
+        errorName:
+          type: string
+        parameters:
+          type: object
+          properties:
+            apiName:
+              $ref: '#/components/schemas/SharedPropertyTypeApiName'
+            rid:
+              $ref: '#/components/schemas/SharedPropertyTypeRid'
+      description: "The requested shared property type is not found, or the client\
+        \ token does not have access to it."
+    SharedPropertyTypeRid:
+      type: string
+      description: |
+        The unique resource identifier of an shared property type, useful for interacting with other Foundry APIs.
     ShortType:
       required:
       - type
@@ -11778,7 +12341,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -11797,7 +12360,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimeSeriesPoint'
-    StringLength:
+    StringLengthConstraint:
       required:
       - type
       type: object
@@ -11815,7 +12378,7 @@ components:
       description: |
         The parameter value must have a length within the defined range.
         *This range is always inclusive.*
-    StringRegexMatch:
+    StringRegexMatchConstraint:
       required:
       - regex
       - type
@@ -11867,7 +12430,22 @@ components:
       type: object
       properties:
         field:
+          $ref: '#/components/schemas/FieldNameV1'
+        name:
+          $ref: '#/components/schemas/AggregationMetricName'
+        type:
           type: string
+      description: Computes the sum of values for the provided field.
+    SumAggregationV2:
+      required:
+      - field
+      - type
+      type: object
+      properties:
+        direction:
+          $ref: '#/components/schemas/OrderByDirection'
+        field:
+          $ref: '#/components/schemas/PropertyApiName'
         name:
           $ref: '#/components/schemas/AggregationMetricName'
         type:
@@ -12096,22 +12674,6 @@ components:
       - UPDATE
       - SNAPSHOT
       - DELETE
-    TransformDataRequest:
-      type: object
-      properties:
-        inputs:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DataValue'
-          nullable: true
-    TransformDataResponse:
-      type: object
-      properties:
-        outputs:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/DataValue'
-          nullable: true
     TwoDimensionalAggregation:
       required:
       - keyType
@@ -12125,7 +12687,7 @@ components:
           type: string
         valueType:
           $ref: '#/components/schemas/QueryAggregationValueType'
-    Unevaluable:
+    UnevaluableConstraint:
       required:
       - type
       type: object
@@ -12321,6 +12883,7 @@ components:
         | Float               | `Float`                                                                                                           |
         | Integer             | `Integer`                                                                                                         |
         | Long                | `Long`                                                                                                            |
+        | Marking             | `Marking`                                                                                                         |
         | OntologyObject      | `OntologyObject<T>` where `T` is the API name of the referenced object type.                                      |
         | Short               | `Short`                                                                                                           |
         | String              | `String`                                                                                                          |
@@ -12366,7 +12929,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -12381,7 +12944,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:
@@ -12396,7 +12959,7 @@ components:
       type: object
       properties:
         field:
-          type: string
+          $ref: '#/components/schemas/PropertyApiName'
         type:
           type: string
         value:

@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-
 from foundry._core.utils import RID
-
 
 FunctionRid = RID
 """The unique resource identifier of a Function, useful for interacting with other Foundry APIs."""

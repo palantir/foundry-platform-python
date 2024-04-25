@@ -14,11 +14,8 @@
 
 
 from __future__ import annotations
+
 from typing import Literal
-from typing import Union
 
-
-TransactionType = Union[
-    Literal["APPEND"], Literal["UPDATE"], Literal["SNAPSHOT"], Literal["DELETE"]
-]
+TransactionType = Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 """The type of a Transaction."""
