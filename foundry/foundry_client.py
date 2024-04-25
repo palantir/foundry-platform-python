@@ -32,7 +32,7 @@ class FoundryClient:
 
     def __init__(self, auth: Auth, hostname: str):
         api_client = ApiClient(auth=auth, hostname=hostname)
-        self.ontologies = Ontologies(api_client=api_client)
         self.datasets = Datasets(api_client=api_client)
+        self.ontologies = Ontologies(api_client=api_client)
         self.ontologies_v2 = OntologiesV2(api_client=api_client)
         self.security = Security(api_client=api_client)

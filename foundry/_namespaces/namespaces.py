@@ -37,6 +37,14 @@ from foundry._namespaces.security.user import UserResource
 from foundry.api_client import ApiClient
 
 
+class Datasets:
+    def __init__(self, api_client: ApiClient):
+        self.Branch = BranchResource(api_client=api_client)
+        self.Dataset = DatasetResource(api_client=api_client)
+        self.File = FileResource(api_client=api_client)
+        self.Transaction = TransactionResource(api_client=api_client)
+
+
 class Ontologies:
     def __init__(self, api_client: ApiClient):
         self.ActionType = ActionTypeResource(api_client=api_client)
@@ -45,14 +53,6 @@ class Ontologies:
         self.Ontology = OntologyResource(api_client=api_client)
         self.OntologyObject = OntologyObjectResource(api_client=api_client)
         self.QueryType = QueryTypeResource(api_client=api_client)
-
-
-class Datasets:
-    def __init__(self, api_client: ApiClient):
-        self.Branch = BranchResource(api_client=api_client)
-        self.Dataset = DatasetResource(api_client=api_client)
-        self.File = FileResource(api_client=api_client)
-        self.Transaction = TransactionResource(api_client=api_client)
 
 
 class OntologiesV2:

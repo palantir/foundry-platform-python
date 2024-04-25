@@ -126,22 +126,22 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# DatasetRid | datasetRid
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
-# ActionTypeApiName | actionTypeApiName
-action_type_api_name = "promote-employee"
+# Union[CreateBranchRequest, CreateBranchRequestDict] | Body of the request
+create_branch_request = {"branchId": "my-branch"}
 
 
 try:
-    api_response = foundry_client.ontologies.ActionType.get(
-        ontology_rid,
-        action_type_api_name,
+    api_response = foundry_client.datasets.Branch.create(
+        dataset_rid,
+        create_branch_request,
     )
-    print("The ActionType.get response:\n")
+    print("The Branch.create response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling ActionType.get: %s\n" % e)
+    print("HTTP error when calling Branch.create: %s\n" % e)
 
 ```
 
@@ -288,20 +288,6 @@ production use.
 
 Namespace | Resource | Operation | HTTP request |
 ------------ | ------------- | ------------- | ------------- |
-**Ontologies** | ActionType | [**get**](docs/namespaces/Ontologies/ActionType.md#get) | **GET** /v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName} |
-**Ontologies** | ActionType | [**list**](docs/namespaces/Ontologies/ActionType.md#list) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
-**Ontologies** | ActionType | [**page**](docs/namespaces/Ontologies/ActionType.md#page) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
-**Ontologies** | ObjectType | [**get**](docs/namespaces/Ontologies/ObjectType.md#get) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType} |
-**Ontologies** | ObjectType | [**get_outgoing_link_type**](docs/namespaces/Ontologies/ObjectType.md#get_outgoing_link_type) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
-**Ontologies** | ObjectType | [**list**](docs/namespaces/Ontologies/ObjectType.md#list) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
-**Ontologies** | ObjectType | [**list_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#list_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
-**Ontologies** | ObjectType | [**page**](docs/namespaces/Ontologies/ObjectType.md#page) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
-**Ontologies** | ObjectType | [**page_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#page_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
-**Ontologies** | Ontology | [**get**](docs/namespaces/Ontologies/Ontology.md#get) | **GET** /v1/ontologies/{ontologyRid} |
-**Ontologies** | Ontology | [**list**](docs/namespaces/Ontologies/Ontology.md#list) | **GET** /v1/ontologies |
-**Ontologies** | QueryType | [**get**](docs/namespaces/Ontologies/QueryType.md#get) | **GET** /v1/ontologies/{ontologyRid}/queryTypes/{queryApiName} |
-**Ontologies** | QueryType | [**list**](docs/namespaces/Ontologies/QueryType.md#list) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
-**Ontologies** | QueryType | [**page**](docs/namespaces/Ontologies/QueryType.md#page) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
 **Datasets** | Branch | [**create**](docs/namespaces/Datasets/Branch.md#create) | **POST** /v1/datasets/{datasetRid}/branches |
 **Datasets** | Branch | [**delete**](docs/namespaces/Datasets/Branch.md#delete) | **DELETE** /v1/datasets/{datasetRid}/branches/{branchId} |
 **Datasets** | Branch | [**get**](docs/namespaces/Datasets/Branch.md#get) | **GET** /v1/datasets/{datasetRid}/branches/{branchId} |
@@ -323,6 +309,20 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Transaction | [**commit**](docs/namespaces/Datasets/Transaction.md#commit) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/commit |
 **Datasets** | Transaction | [**create**](docs/namespaces/Datasets/Transaction.md#create) | **POST** /v1/datasets/{datasetRid}/transactions |
 **Datasets** | Transaction | [**get**](docs/namespaces/Datasets/Transaction.md#get) | **GET** /v1/datasets/{datasetRid}/transactions/{transactionRid} |
+**Ontologies** | ActionType | [**get**](docs/namespaces/Ontologies/ActionType.md#get) | **GET** /v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName} |
+**Ontologies** | ActionType | [**list**](docs/namespaces/Ontologies/ActionType.md#list) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
+**Ontologies** | ActionType | [**page**](docs/namespaces/Ontologies/ActionType.md#page) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
+**Ontologies** | ObjectType | [**get**](docs/namespaces/Ontologies/ObjectType.md#get) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType} |
+**Ontologies** | ObjectType | [**get_outgoing_link_type**](docs/namespaces/Ontologies/ObjectType.md#get_outgoing_link_type) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
+**Ontologies** | ObjectType | [**list**](docs/namespaces/Ontologies/ObjectType.md#list) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
+**Ontologies** | ObjectType | [**list_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#list_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
+**Ontologies** | ObjectType | [**page**](docs/namespaces/Ontologies/ObjectType.md#page) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
+**Ontologies** | ObjectType | [**page_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#page_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
+**Ontologies** | Ontology | [**get**](docs/namespaces/Ontologies/Ontology.md#get) | **GET** /v1/ontologies/{ontologyRid} |
+**Ontologies** | Ontology | [**list**](docs/namespaces/Ontologies/Ontology.md#list) | **GET** /v1/ontologies |
+**Ontologies** | QueryType | [**get**](docs/namespaces/Ontologies/QueryType.md#get) | **GET** /v1/ontologies/{ontologyRid}/queryTypes/{queryApiName} |
+**Ontologies** | QueryType | [**list**](docs/namespaces/Ontologies/QueryType.md#list) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
+**Ontologies** | QueryType | [**page**](docs/namespaces/Ontologies/QueryType.md#page) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
 **OntologiesV2** | ActionTypeV2 | [**get**](docs/namespaces/OntologiesV2/ActionTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
 **OntologiesV2** | ActionTypeV2 | [**list**](docs/namespaces/OntologiesV2/ActionTypeV2.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
 **OntologiesV2** | ActionTypeV2 | [**page**](docs/namespaces/OntologiesV2/ActionTypeV2.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |

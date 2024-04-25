@@ -13,20 +13,24 @@
 #  limitations under the License.
 
 
+from typing import Generic
 from typing import List
 from typing import Optional
 from typing import Protocol
 from typing import Tuple
+from typing import TypeVar
+
+T = TypeVar("T")
 
 
-class PageFunction[T](Protocol):
+class PageFunction(Generic[T], Protocol):
     def __call__(
         self, page_size: Optional[int], next_page_token: Optional[str]
     ) -> Tuple[Optional[str], List[T]]:
         ...
 
 
-class PageIterator[T]:
+class PageIterator(Generic[T]):
     """A generic class for iterating over paged responses."""
 
     def __init__(

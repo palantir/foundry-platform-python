@@ -13,13 +13,17 @@
 #  limitations under the License.
 
 
+from typing import Generic
 from typing import Optional
+from typing import TypeVar
 
 from .page_iterator import PageFunction
 from .page_iterator import PageIterator
 
+T = TypeVar("T")
 
-class ResourceIterator[T]:
+
+class ResourceIterator(Generic[T]):
     """A generic class for iterating over paged responses."""
 
     def __init__(self, paged_func: PageFunction[T], page_size: Optional[int] = None) -> None:
