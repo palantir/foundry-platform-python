@@ -24,6 +24,7 @@ from typing import List
 from typing import Optional
 from typing import Tuple
 from typing import Type
+from typing import Union
 
 from pydantic import BaseModel
 from pydantic import TypeAdapter
@@ -36,7 +37,7 @@ from foundry._errors.palantir_rpc_exception import PalantirRPCException
 from foundry._errors.sdk_internal_error import SDKInternalError
 from foundry._versions import __version__
 
-QueryParameters = Dict[str, Any | List[Any]]
+QueryParameters = Dict[str, Union[Any, List[Any]]]
 
 
 @dataclass(frozen=True)
