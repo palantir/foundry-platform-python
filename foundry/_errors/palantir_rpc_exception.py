@@ -12,7 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from typing import Any, Dict
+
+from typing import Any
+from typing import Dict
+
 from foundry._errors.helpers import format_error_message
 
 

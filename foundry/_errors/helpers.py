@@ -12,11 +12,14 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
 import json
-import requests
 from importlib import import_module
 from json import JSONDecodeError
-from typing import Dict, Any
+from typing import Any
+from typing import Dict
+
+import requests
 
 
 def format_error_message(fields: Dict[str, Any]) -> str:

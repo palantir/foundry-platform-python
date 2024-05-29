@@ -12,12 +12,13 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
 from foundry._core.auth_utils import Auth
-from foundry.api.ontologies_v2_api_service_api import OntologiesV2ApiServiceApi
-from foundry.api.datasets_api_service_api import DatasetsApiServiceApi
-from foundry.api.ontologies_api_service_api import OntologiesApiServiceApi
-from foundry.api_client import ApiClient
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured
+from foundry._namespaces.namespaces import Datasets
+from foundry._namespaces.namespaces import Ontologies
+from foundry._namespaces.namespaces import Security
+from foundry.api_client import ApiClient
 
 
 class FoundryClient:
@@ -30,6 +31,6 @@ class FoundryClient:
 
     def __init__(self, auth: Auth, hostname: str):
         api_client = ApiClient(auth=auth, hostname=hostname)
-        self.ontologies_v2 = OntologiesV2ApiServiceApi(api_client=api_client)
-        self.datasets = DatasetsApiServiceApi(api_client=api_client)
-        self.ontologies = OntologiesApiServiceApi(api_client=api_client)
+        self.datasets = Datasets(api_client=api_client)
+        self.ontologies = Ontologies(api_client=api_client)
+        self.security = Security(api_client=api_client)

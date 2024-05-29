@@ -12,10 +12,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import os
 import pytest
 from foundry import UserTokenAuth
-
 
 # @pytest.fixture
 # def temp_os_environ():

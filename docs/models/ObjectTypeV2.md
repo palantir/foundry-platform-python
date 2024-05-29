@@ -1,0 +1,19 @@
+# ObjectTypeV2
+
+Represents an object type in the Ontology.
+
+## Properties
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
+**api_name** | ObjectTypeApiName | Yes |  |
+**display_name** | Optional[DisplayName] | No |  |
+**status** | ReleaseStatus | Yes |  |
+**description** | Optional[StrictStr] | No | The description of the object type. |
+**primary_key** | PropertyApiName | Yes |  |
+**properties** | Dict[PropertyApiName, PropertyV2] | Yes | A map of the properties of the object type. |
+**rid** | ObjectTypeRid | Yes |  |
+**title_property** | PropertyApiName | Yes |  |
+**visibility** | Optional[ObjectTypeVisibility] | No |  |
+
+
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

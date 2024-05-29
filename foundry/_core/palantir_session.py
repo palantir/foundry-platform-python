@@ -12,11 +12,20 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import requests
-from typing import Any, Callable, Mapping, Optional, Dict
 
-import foundry
-from foundry._core.auth_utils import Auth, Token
+from typing import Any
+from typing import Callable
+from typing import Dict
+from typing import List
+from typing import Mapping
+from typing import Optional
+from typing import Tuple
+from typing import Union
+
+import requests
+
+from foundry._core.auth_utils import Auth
+from foundry._core.auth_utils import Token
 
 
 def _run_with_401_status_check(
@@ -30,6 +39,9 @@ def _run_with_401_status_check(
 
     func: Callable[[Token], requests.Response] = lambda token: f(token)
     return func
+
+
+_Params = Union[Mapping[str, Any], List[Tuple[str, Any]]]
 
 
 class PalantirSession:
@@ -54,10 +66,11 @@ class PalantirSession:
         method: str,
         url: str,
         headers: Optional[Mapping[str, Any]] = None,
-        params: Optional[Mapping[str, Any]] = None,
+        params: Optional[_Params] = None,
         data: Optional[bytes] = None,
         json: Optional[Any] = None,
         stream: bool = True,
+        timeout: Optional[int] = None,
     ) -> requests.Response:
         request_fn = _run_with_401_status_check(
             lambda token: self._session.request(
@@ -68,6 +81,7 @@ class PalantirSession:
                 json=json,
                 headers=self._add_user_agent_and_auth_headers(token, headers),
                 stream=stream,
+                timeout=timeout,
             )
         )
         return self._auth.execute_with_token(request_fn)
@@ -76,7 +90,7 @@ class PalantirSession:
         self,
         url: str,
         headers: Optional[Mapping[str, Any]] = None,
-        params: Optional[Mapping[str, Any]] = None,
+        params: Optional[_Params] = None,
         data: Optional[bytes] = None,
         json: Optional[Any] = None,
         stream: bool = True,
@@ -97,7 +111,7 @@ class PalantirSession:
         self,
         url: str,
         headers: Optional[Mapping[str, Any]] = None,
-        params: Optional[Mapping[str, Any]] = None,
+        params: Optional[_Params] = None,
         data: Optional[bytes] = None,
         json: Optional[Any] = None,
         stream: bool = True,
@@ -118,7 +132,7 @@ class PalantirSession:
         self,
         url: str,
         headers: Optional[Mapping[str, Any]] = None,
-        params: Optional[Mapping[str, Any]] = None,
+        params: Optional[_Params] = None,
         data: Optional[bytes] = None,
         json: Optional[Any] = None,
         stream: bool = True,
@@ -139,7 +153,7 @@ class PalantirSession:
         self,
         url: str,
         headers: Optional[Mapping[str, Any]] = None,
-        params: Optional[Mapping[str, Any]] = None,
+        params: Optional[_Params] = None,
         data: Optional[bytes] = None,
         json: Optional[Any] = None,
         stream: bool = True,
@@ -160,7 +174,7 @@ class PalantirSession:
         self,
         url: str,
         headers: Optional[Mapping[str, Any]] = None,
-        params: Optional[Mapping[str, Any]] = None,
+        params: Optional[_Params] = None,
         data: Optional[bytes] = None,
         json: Optional[Any] = None,
         stream: bool = True,

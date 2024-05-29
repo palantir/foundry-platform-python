@@ -1,0 +1,44 @@
+#  Copyright 2024 Palantir Technologies, Inc.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+import pytest
+from foundry.exceptions import SDKInternalError
+from ..utils import mock_responses
+from ..utils import client
+
+
+def test_get_operation(client, monkeypatch):
+    id = "ri.actions.main.action.75dd58b0-e773-4b13-af10-7dde1e095332"
+    mock_responses(
+        monkeypatch,
+        [
+            (
+                {
+                    "method": "GET",
+                    "url": f"https://test.com/api/v2/operations/{id}",
+                },
+                {
+                    "status": 200,
+                    "body": {"type": "applyActionAsync", "id": id},
+                },
+            )
+        ],
+    )
+
+    with pytest.raises(SDKInternalError):
+        r = client.operations.Operation.get(
+            id=id,
+        )
+
+        # assert r.id == id

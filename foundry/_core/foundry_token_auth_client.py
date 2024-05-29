@@ -12,13 +12,16 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import os
-from typing import Tuple, TypeVar, Callable
 
-from foundry._core.auth_utils import Auth, Token
+import os
+from typing import Callable
+from typing import Tuple
+from typing import TypeVar
+
+from foundry._core.auth_utils import Auth
+from foundry._core.auth_utils import Token
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry._errors.not_authenticated import NotAuthenticated
-
 
 T = TypeVar("T")
 

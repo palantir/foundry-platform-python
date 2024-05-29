@@ -12,25 +12,30 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import requests
+
 import threading
 import time
-from typing import Callable, Optional, TypeVar
+import webbrowser
+from typing import Callable
+from typing import List
+from typing import Optional
+from typing import TypeVar
+
+import requests
 
 from foundry._core.auth_utils import Auth
+from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import AuthorizeRequest
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
-from foundry._core.oauth import SignOutResponse
 from foundry._errors.not_authenticated import NotAuthenticated
-import webbrowser
-
+from foundry._errors.sdk_internal_error import SDKInternalError
 
 T = TypeVar("T")
 
 
 class PublicClientAuth(Auth):
-    scopes: list[str] = ["api:read-data", "api:write-data", "offline_access"]
+    scopes: List[str] = ["api:read-data", "api:write-data", "offline_access"]
 
     """
     Client for Public Client OAuth-authenticated Ontology applications.
@@ -77,7 +82,6 @@ class PublicClientAuth(Auth):
 
     def _refresh_token(self):
         if self._token is None:
-            # TODO
             raise Exception("")
 
         self._token = self._server_oauth_flow_provider.refresh_token(
@@ -124,12 +128,9 @@ class PublicClientAuth(Auth):
         refresh_thread.start()
 
     def set_token(self, code: str, state: str) -> None:
-        if self._auth_request is None:
-            raise Exception("")
-            # TODO
+        if self._auth_request is None or state != self._auth_request.state:
+            raise RuntimeError("Unable to verify the state")
 
-        if state != self._auth_request.state:
-            raise RuntimeError("Unable to verify state")
         self._token = self._server_oauth_flow_provider.get_token(
             code=code, code_verifier=self._auth_request.code_verifier
         )

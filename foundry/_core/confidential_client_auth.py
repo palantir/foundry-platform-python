@@ -12,18 +12,22 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
 import asyncio
-from typing import Callable, Optional, List, TypeVar
+from typing import Callable
+from typing import List
+from typing import Optional
+from typing import TypeVar
 
 import requests
+
 from foundry._core.auth_utils import Auth
+from foundry._core.oauth import SignInResponse
+from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthToken
-from foundry._core.oauth import SignOutResponse
-from foundry._core.oauth import SignInResponse
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry._errors.not_authenticated import NotAuthenticated
-
 
 T = TypeVar("T")
 
