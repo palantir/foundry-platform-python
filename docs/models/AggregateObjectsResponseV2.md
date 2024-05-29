@@ -6,7 +6,7 @@ AggregateObjectsResponseV2
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **excluded_items** | Optional[StrictInt] | No |  |
-**accuracy** | Optional[AggregationAccuracy] | No |  |
+**accuracy** | AggregationAccuracy | Yes |  |
 **data** | List[AggregateObjectsResponseItemV2] | Yes |  |
 
 

@@ -28,13 +28,12 @@ from foundry._core import ResourceIterator
 from foundry._errors import handle_unexpected
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
-from foundry.models._list_query_types_response import ListQueryTypesResponse
-from foundry.models._ontology_rid import OntologyRid
+from foundry.models._list_query_types_response_v2 import ListQueryTypesResponseV2
+from foundry.models._ontology_identifier import OntologyIdentifier
 from foundry.models._page_size import PageSize
 from foundry.models._page_token import PageToken
-from foundry.models._preview_mode import PreviewMode
 from foundry.models._query_api_name import QueryApiName
-from foundry.models._query_type import QueryType
+from foundry.models._query_type_v2 import QueryTypeV2
 
 
 class QueryTypeResource:
@@ -45,36 +44,32 @@ class QueryTypeResource:
     @handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
+        ontology: OntologyIdentifier,
         query_api_name: QueryApiName,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> QueryType:
+    ) -> QueryTypeV2:
         """
         Gets a specific query type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
-        :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
         :param query_api_name: queryApiName
         :type query_api_name: QueryApiName
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: QueryType
+        :rtype: QueryTypeV2
         """
 
         _path_params: Dict[str, Any] = {}
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["preview"] = preview
 
-        _path_params["ontologyRid"] = ontology_rid
+        _path_params["ontology"] = ontology
 
         _path_params["queryApiName"] = query_api_name
 
@@ -83,14 +78,13 @@ class QueryTypeResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/queryTypes/{queryApiName}".format(
-                    **_path_params
-                ),
+                resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=QueryType,
+                response_type=QueryTypeV2,
                 request_timeout=request_timeout,
             ),
         )
@@ -99,12 +93,11 @@ class QueryTypeResource:
     @handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
+        ontology: OntologyIdentifier,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ResourceIterator[QueryType]:
+    ) -> ResourceIterator[QueryTypeV2]:
         """
         Lists the query types for the given Ontology.
 
@@ -113,16 +106,14 @@ class QueryTypeResource:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
-        :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[QueryType]
+        :rtype: ResourceIterator[QueryTypeV2]
         """
 
         _path_params: Dict[str, Any] = {}
@@ -131,21 +122,20 @@ class QueryTypeResource:
         _body_params: Any = None
         _query_params["pageSize"] = page_size
 
-        _query_params["preview"] = preview
-
-        _path_params["ontologyRid"] = ontology_rid
+        _path_params["ontology"] = ontology
 
         _header_params["Accept"] = "application/json"
 
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/queryTypes".format(**_path_params),
+                resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ListQueryTypesResponse,
+                response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
             ),
         )
@@ -154,13 +144,12 @@ class QueryTypeResource:
     @handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
+        ontology: OntologyIdentifier,
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ListQueryTypesResponse:
+    ) -> ListQueryTypesResponseV2:
         """
         Lists the query types for the given Ontology.
 
@@ -169,18 +158,16 @@ class QueryTypeResource:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
-        :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListQueryTypesResponse
+        :rtype: ListQueryTypesResponseV2
         """
 
         _path_params: Dict[str, Any] = {}
@@ -191,21 +178,20 @@ class QueryTypeResource:
 
         _query_params["pageToken"] = page_token
 
-        _query_params["preview"] = preview
-
-        _path_params["ontologyRid"] = ontology_rid
+        _path_params["ontology"] = ontology
 
         _header_params["Accept"] = "application/json"
 
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/queryTypes".format(**_path_params),
+                resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ListQueryTypesResponse,
+                response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
             ),
         )

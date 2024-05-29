@@ -1,22 +1,9 @@
-#  Copyright 2024 Palantir Technologies, Inc.
-#
-#  Licensed under the Apache License, Version 2.0 (the "License");
-#  you may not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS,
-#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#  See the License for the specific language governing permissions and
-#  limitations under the License.
-
 from typing import Any
 
 from foundry.foundry_client import FoundryClient
 
-# from foundry.models.search_json_query import EqualsQuery
+# from foundry.models.search_json_query_v2 import EqualsQuery
+# from foundry.models.search_json_query_v2 import SearchJsonQueryV2
 from ..utils import client  # type: ignore
 from ..utils import mock_responses
 
@@ -28,7 +15,7 @@ def mock_list_ontologies(monkeypatch: Any):
             (
                 {
                     "method": "GET",
-                    "url": "https://test.com/api/v1/ontologies/ri.a.b.c.d/objectTypes",
+                    "url": "https://test.com/api/v2/ontologies/MyOntology/objectTypes",
                     "json": None,
                     "params": None,
                 },
@@ -41,7 +28,9 @@ def mock_list_ontologies(monkeypatch: Any):
                                 "rid": "ri.a.b.c.d",
                                 "apiName": "API",
                                 "status": "ACTIVE",
-                                "primaryKey": ["abc"],
+                                "primaryKey": "123",
+                                "primaryKey": "abc",
+                                "titleProperty": "abc",
                                 "properties": {},
                             }
                         ],
@@ -56,8 +45,8 @@ def mock_list_ontologies(monkeypatch: Any):
 def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
     mock_list_ontologies(monkeypatch)
 
-    result = client.ontologies.ObjectType.list(
-        ontology_rid="ri.a.b.c.d",
+    result = client.ontologies.Ontology.ObjectType.list(
+        ontology="MyOntology",
     )
 
     assert len(list(result)) == 1
@@ -70,16 +59,10 @@ def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
 #             (
 #                 {
 #                     "method": "POST",
-#                     "url": "https://test.com/api/v1/ontologies/MyOntology/objects/MyObjectType/search",
-#                     "body": {"query": {"field": "myProp", "type": "eq", "value": 21}},
+#                     "url": "https://test.com/api/v2/ontologies/MyOntology/objects/MyObjectType/search",
+#                     "body": {"where": {"field": "myProp", "type": "eq", "value": 21}},
 #                 },
-#                 {
-#                     "status": 200,
-#                     "body": {
-#                         "nextPageToken": None,
-#                         "data": [{"properties": {}, "rid": ""}],
-#                     },
-#                 },
+#                 {"status": 200, "body": {"nextPageToken": None, "data": [{}]}},
 #             )
 #         ],
 #     )
@@ -89,10 +72,10 @@ def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
 #     mock_search_query(monkeypatch)
 
 #     result = client.ontologies.search_objects(
-#         ontology_rid="MyOntology",
+#         ontology="MyOntology",
 #         object_type="MyObjectType",
-#         search_objects_request=SearchObjectsRequest(
-#             query=EqualsQuery(
+#         search_objects_request_v2=SearchObjectsRequestV2(
+#             where=EqualsQuery(
 #                 type="eq",
 #                 field="myProp",
 #                 value=21,
@@ -107,9 +90,9 @@ def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
 #     mock_search_query(monkeypatch)
 
 #     _ = client.ontologies.search_objects(
-#         ontology_rid="MyOntology",
+#         ontology="MyOntology",
 #         object_type="MyObjectType",
-#         search_objects_request={"query": {"field": "myProp", "type": "eq", "value": 21}},  # type: ignore
+#         search_objects_request_v2={"where": {"field": "myProp", "type": "eq", "value": 21}},  # type: ignore
 #     )
 
 
@@ -117,7 +100,9 @@ def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
 #     mock_search_query(monkeypatch)
 
 #     _ = client.ontologies.search_objects(
-#         ontology_rid="MyOntology",
+#         ontology="MyOntology",
 #         object_type="MyObjectType",
-#         search_objects_request=SearchObjectsRequest(query=SearchQuery.eq(field="myProp", value=21)),
-#     )
+#         search_objects_request_v2=SearchObjectsRequestV2(
+#             where=SearchQuery.eq(field="myProp", value=21)
+#         ),
+# )

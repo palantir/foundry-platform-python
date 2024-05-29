@@ -28,10 +28,10 @@ from foundry._core import ResourceIterator
 from foundry._errors import handle_unexpected
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
-from foundry.models._action_type import ActionType
 from foundry.models._action_type_api_name import ActionTypeApiName
-from foundry.models._list_action_types_response import ListActionTypesResponse
-from foundry.models._ontology_rid import OntologyRid
+from foundry.models._action_type_v2 import ActionTypeV2
+from foundry.models._list_action_types_response_v2 import ListActionTypesResponseV2
+from foundry.models._ontology_identifier import OntologyIdentifier
 from foundry.models._page_size import PageSize
 from foundry.models._page_token import PageToken
 
@@ -44,24 +44,24 @@ class ActionTypeResource:
     @handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
-        action_type_api_name: ActionTypeApiName,
+        ontology: OntologyIdentifier,
+        action_type: ActionTypeApiName,
         *,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ActionType:
+    ) -> ActionTypeV2:
         """
         Gets a specific action type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
-        :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
-        :param action_type_api_name: actionTypeApiName
-        :type action_type_api_name: ActionTypeApiName
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param action_type: actionType
+        :type action_type: ActionTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ActionType
+        :rtype: ActionTypeV2
         """
 
         _path_params: Dict[str, Any] = {}
@@ -69,23 +69,22 @@ class ActionTypeResource:
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
 
-        _path_params["ontologyRid"] = ontology_rid
+        _path_params["ontology"] = ontology
 
-        _path_params["actionTypeApiName"] = action_type_api_name
+        _path_params["actionType"] = action_type
 
         _header_params["Accept"] = "application/json"
 
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName}".format(
-                    **_path_params
-                ),
+                resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ActionType,
+                response_type=ActionTypeV2,
                 request_timeout=request_timeout,
             ),
         )
@@ -94,11 +93,11 @@ class ActionTypeResource:
     @handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
+        ontology: OntologyIdentifier,
         *,
         page_size: Optional[PageSize] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ResourceIterator[ActionType]:
+    ) -> ResourceIterator[ActionTypeV2]:
         """
         Lists the action types for the given Ontology.
 
@@ -107,14 +106,14 @@ class ActionTypeResource:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
-        :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[ActionType]
+        :rtype: ResourceIterator[ActionTypeV2]
         """
 
         _path_params: Dict[str, Any] = {}
@@ -123,19 +122,20 @@ class ActionTypeResource:
         _body_params: Any = None
         _query_params["pageSize"] = page_size
 
-        _path_params["ontologyRid"] = ontology_rid
+        _path_params["ontology"] = ontology
 
         _header_params["Accept"] = "application/json"
 
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/actionTypes".format(**_path_params),
+                resource_path="/v2/ontologies/{ontology}/actionTypes",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ListActionTypesResponse,
+                response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
             ),
         )
@@ -144,12 +144,12 @@ class ActionTypeResource:
     @handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
+        ontology: OntologyIdentifier,
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ListActionTypesResponse:
+    ) -> ListActionTypesResponseV2:
         """
         Lists the action types for the given Ontology.
 
@@ -158,8 +158,8 @@ class ActionTypeResource:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
-        :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
@@ -167,7 +167,7 @@ class ActionTypeResource:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListActionTypesResponse
+        :rtype: ListActionTypesResponseV2
         """
 
         _path_params: Dict[str, Any] = {}
@@ -178,19 +178,20 @@ class ActionTypeResource:
 
         _query_params["pageToken"] = page_token
 
-        _path_params["ontologyRid"] = ontology_rid
+        _path_params["ontology"] = ontology
 
         _header_params["Accept"] = "application/json"
 
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/actionTypes".format(**_path_params),
+                resource_path="/v2/ontologies/{ontology}/actionTypes",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ListActionTypesResponse,
+                response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
             ),
         )

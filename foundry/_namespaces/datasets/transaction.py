@@ -79,10 +79,9 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort".format(
-                    **_path_params
-                ),
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -130,10 +129,9 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit".format(
-                    **_path_params
-                ),
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -184,8 +182,9 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v1/datasets/{datasetRid}/transactions".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/transactions",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=Union[CreateTransactionRequest, CreateTransactionRequestDict],
@@ -232,10 +231,9 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}".format(
-                    **_path_params
-                ),
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,

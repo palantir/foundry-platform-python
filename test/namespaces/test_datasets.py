@@ -49,12 +49,12 @@ def mock_create_branch(monkeypatch: Any, dataset_rid: str, branch_id: str):
 
 def test_create_branch_fails_no_body(client: FoundryClient):
     with pytest.raises(ValueError):
-        client.datasets.Branch.create("test", create_branch_request=None)  # type: ignore
+        client.datasets.Dataset.Branch.create("test", create_branch_request=None)  # type: ignore
 
 
 def test_create_branch_fails_bad_body(client: FoundryClient):
     with pytest.raises(ValidationError):
-        client.datasets.Branch.create(
+        client.datasets.Dataset.Branch.create(
             dataset_rid=TEST_RID,
             create_branch_request={"branchId": "123", "transactionRid": 123},  # type: ignore
         )
@@ -69,13 +69,13 @@ def test_works_with_extra_property(client: FoundryClient, monkeypatch: Any):
     )
 
     # Just making sure this works
-    client.datasets.Branch.create(
+    client.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
         create_branch_request={"branchId": "branch_test"},
     )
 
     # This ensures we don't fail if the user passes in an extra property
-    client.datasets.Branch.create(
+    client.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
         create_branch_request={"branchId": "branch_test", "foo": "bar"},  # type: ignore
     )
@@ -89,7 +89,7 @@ def test_create_branch_with_dict(client: FoundryClient, monkeypatch: Any):
         branch_id="branch_test",
     )
 
-    res = client.datasets.Branch.create(
+    res = client.datasets.Dataset.Branch.create(
         dataset_rid,
         create_branch_request={
             "branchId": "branch_test",
@@ -108,7 +108,7 @@ def test_create_branch_with_model(client: FoundryClient, monkeypatch: Any):
         branch_id="branch_test",
     )
 
-    res = client.datasets.Branch.create(
+    res = client.datasets.Dataset.Branch.create(
         TEST_RID,
         create_branch_request=CreateBranchRequest(
             branchId="branch_test",
@@ -132,7 +132,7 @@ def test_create_branch_doesnt_fail_extra_property(client: FoundryClient, monkeyp
         branch_id="branch_test",
     )
 
-    res = client.datasets.Branch.create(
+    res = client.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
         create_branch_request={"branchId": "branch_test"},
     )

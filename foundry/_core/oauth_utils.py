@@ -65,8 +65,8 @@ class OAuthUtils:
 class OAuthTokenResponse(BaseModel):
     access_token: str
     token_type: str
-    refresh_token: Optional[str]
     expires_in: int
+    refresh_token: Optional[str] = None
 
     def __init__(self, token_response: dict) -> None:
         super().__init__(**token_response)

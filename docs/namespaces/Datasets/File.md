@@ -64,8 +64,8 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.File.delete(dataset_rid,file_path, branch_id=branch_idtransaction_rid=transaction_rid)
-    print("The File.delete response:\n")
+    api_response = foundry_client.datasets.File.delete(dataset_rid,file_path,branch_id=branch_idtransaction_rid=transaction_rid)
+    print("The delete response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling File.delete: %s\n" % e)
@@ -152,8 +152,8 @@ start_transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.File.get(dataset_rid,file_path, branch_id=branch_idend_transaction_rid=end_transaction_ridstart_transaction_rid=start_transaction_rid)
-    print("The File.get response:\n")
+    api_response = foundry_client.datasets.File.get(dataset_rid,file_path,branch_id=branch_idend_transaction_rid=end_transaction_ridstart_transaction_rid=start_transaction_rid)
+    print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling File.get: %s\n" % e)
@@ -242,8 +242,7 @@ start_transaction_rid = None
 
 
 try:
-    for file in foundry_client.datasets.File.list(dataset_rid, branch_id=branch_idend_transaction_rid=end_transaction_ridpage_size=page_sizestart_transaction_rid=start_transaction_rid)
-:
+    for file in foundry_client.datasets.File.list(dataset_rid,branch_id=branch_idend_transaction_rid=end_transaction_ridpage_size=page_sizestart_transaction_rid=start_transaction_rid):
         pprint(file)
 except PalantirRPCException as e:
     print("HTTP error when calling File.list: %s\n" % e)
@@ -257,12 +256,12 @@ import foundry
 
 foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-result = foundry_client.datasets.File.list(dataset_rid="...")
+result = foundry_client.datasets.Dataset.File.list(dataset_rid="...")
 
 if result.data:
     file_path = result.data[0].path
 
-    print(foundry_client.datasets.File.read(
+    print(foundry_client.datasets.Dataset.File.read(
         dataset_rid="...", file_path=file_path
     ))
 ```
@@ -356,8 +355,8 @@ start_transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.File.page(dataset_rid, branch_id=branch_idend_transaction_rid=end_transaction_ridpage_size=page_sizepage_token=page_tokenstart_transaction_rid=start_transaction_rid)
-    print("The File.page response:\n")
+    api_response = foundry_client.datasets.File.page(dataset_rid,branch_id=branch_idend_transaction_rid=end_transaction_ridpage_size=page_sizepage_token=page_tokenstart_transaction_rid=start_transaction_rid)
+    print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling File.page: %s\n" % e)
@@ -445,8 +444,8 @@ start_transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.File.read(dataset_rid,file_path, branch_id=branch_idend_transaction_rid=end_transaction_ridstart_transaction_rid=start_transaction_rid)
-    print("The File.read response:\n")
+    api_response = foundry_client.datasets.File.read(dataset_rid,file_path,branch_id=branch_idend_transaction_rid=end_transaction_ridstart_transaction_rid=start_transaction_rid)
+    print("The read response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling File.read: %s\n" % e)
@@ -533,8 +532,8 @@ transaction_type = None
 
 
 try:
-    api_response = foundry_client.datasets.File.upload(dataset_rid,body, file_path=file_pathbranch_id=branch_idtransaction_rid=transaction_ridtransaction_type=transaction_type)
-    print("The File.upload response:\n")
+    api_response = foundry_client.datasets.File.upload(dataset_rid,body,file_path=file_pathbranch_id=branch_idtransaction_rid=transaction_ridtransaction_type=transaction_type)
+    print("The upload response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling File.upload: %s\n" % e)

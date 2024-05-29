@@ -2,12 +2,12 @@
 
 Method | HTTP request |
 ------------- | ------------- |
-[**get**](#get) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType} |
-[**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
-[**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
-[**list_outgoing_link_types**](#list_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
-[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
-[**page_outgoing_link_types**](#page_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
+[**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
+[**list_outgoing_link_types**](#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/objectTypes |
+[**page_outgoing_link_types**](#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
 
 # **get**
 Gets a specific object type with the given API name.
@@ -19,11 +19,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 
 ### Return type
-**ObjectType**
+**ObjectTypeV2**
 
 ### Example
 
@@ -36,19 +36,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # ObjectTypeApiName | objectType
 object_type = "employee"
 
 
 try:
-    api_response = foundry_client.ontologies.ObjectType.get(
-        ontology_rid,
+    api_response = foundry_client.ontologies.Ontology.ObjectType.get(
+        ontology,
         object_type,
     )
-    print("The ObjectType.get response:\n")
+    print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling ObjectType.get: %s\n" % e)
@@ -64,7 +64,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ObjectType  | Success response. | application/json |
+**200** | ObjectTypeV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -79,12 +79,12 @@ following operation scopes: `api:read-data`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **link_type** | LinkTypeApiName | linkType |  |
 
 ### Return type
-**LinkTypeSide**
+**LinkTypeSideV2**
 
 ### Example
 
@@ -97,8 +97,8 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # ObjectTypeApiName | objectType
 object_type = "Employee"
@@ -108,12 +108,12 @@ link_type = "directReport"
 
 
 try:
-    api_response = foundry_client.ontologies.ObjectType.get_outgoing_link_type(
-        ontology_rid,
+    api_response = foundry_client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
+        ontology,
         object_type,
         link_type,
     )
-    print("The ObjectType.get_outgoing_link_type response:\n")
+    print("The get_outgoing_link_type response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling ObjectType.get_outgoing_link_type: %s\n" % e)
@@ -129,7 +129,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | LinkTypeSide  | Success response. | application/json |
+**200** | LinkTypeSideV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -147,11 +147,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 
 ### Return type
-**ResourceIterator[ObjectType]**
+**ResourceIterator[ObjectTypeV2]**
 
 ### Example
 
@@ -160,19 +160,21 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # Optional[PageSize] | pageSize
 page_size = None
 
 
-
 try:
-    for object_type in foundry_client.ontologies.ObjectType.list(ontology_rid, page_size=page_size)
-:
+    for object_type in foundry_client.ontologies.Ontology.ObjectType.list(
+        ontology, page_size=page_size
+    ):
         pprint(object_type)
 except PalantirRPCException as e:
     print("HTTP error when calling ObjectType.list: %s\n" % e)
@@ -188,7 +190,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListObjectTypesResponse  | Success response. | application/json |
+**200** | ListObjectTypesV2Response  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -203,12 +205,12 @@ following operation scopes: `api:read-data`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 
 ### Return type
-**ResourceIterator[LinkTypeSide]**
+**ResourceIterator[LinkTypeSideV2]**
 
 ### Example
 
@@ -217,10 +219,12 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # ObjectTypeApiName | objectType
 object_type = "Flight"
@@ -229,10 +233,10 @@ object_type = "Flight"
 page_size = None
 
 
-
 try:
-    for object_type in foundry_client.ontologies.ObjectType.list_outgoing_link_types(ontology_rid,object_type, page_size=page_size)
-:
+    for object_type in foundry_client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
+        ontology, object_type, page_size=page_size
+    ):
         pprint(object_type)
 except PalantirRPCException as e:
     print("HTTP error when calling ObjectType.list_outgoing_link_types: %s\n" % e)
@@ -248,7 +252,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListOutgoingLinkTypesResponse  | Success response. | application/json |
+**200** | ListOutgoingLinkTypesResponseV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -266,12 +270,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
-**ListObjectTypesResponse**
+**ListObjectTypesV2Response**
 
 ### Example
 
@@ -282,8 +286,8 @@ from pprint import pprint
 
 foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # Optional[PageSize] | pageSize
 page_size = None
@@ -294,8 +298,8 @@ page_token = None
 
 
 try:
-    api_response = foundry_client.ontologies.ObjectType.page(ontology_rid, page_size=page_sizepage_token=page_token)
-    print("The ObjectType.page response:\n")
+    api_response = foundry_client.ontologies.Ontology.ObjectType.page(ontology,page_size=page_sizepage_token=page_token)
+    print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling ObjectType.page: %s\n" % e)
@@ -311,7 +315,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListObjectTypesResponse  | Success response. | application/json |
+**200** | ListObjectTypesV2Response  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -326,13 +330,13 @@ following operation scopes: `api:read-data`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
-**ListOutgoingLinkTypesResponse**
+**ListOutgoingLinkTypesResponseV2**
 
 ### Example
 
@@ -343,8 +347,8 @@ from pprint import pprint
 
 foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # ObjectTypeApiName | objectType
 object_type = "Flight"
@@ -358,8 +362,8 @@ page_token = None
 
 
 try:
-    api_response = foundry_client.ontologies.ObjectType.page_outgoing_link_types(ontology_rid,object_type, page_size=page_sizepage_token=page_token)
-    print("The ObjectType.page_outgoing_link_types response:\n")
+    api_response = foundry_client.ontologies.Ontology.ObjectType.page_outgoing_link_types(ontology,object_type,page_size=page_sizepage_token=page_token)
+    print("The page_outgoing_link_types response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling ObjectType.page_outgoing_link_types: %s\n" % e)
@@ -375,7 +379,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListOutgoingLinkTypesResponse  | Success response. | application/json |
+**200** | ListOutgoingLinkTypesResponseV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

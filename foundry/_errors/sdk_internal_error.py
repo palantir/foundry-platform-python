@@ -37,7 +37,7 @@ def handle_unexpected(__func: AnyCallableT) -> AnyCallableT:
     def validate(*args, **kwargs):
         try:
             return __func(*args, **kwargs)
-        except (PalantirRPCException, ValidationError, ConnectionError) as e:
+        except (PalantirRPCException, SDKInternalError, ValidationError, ConnectionError) as e:
             # pass through these exceptions
             raise e
         except Exception as e:

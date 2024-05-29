@@ -1,5 +1,0 @@
-# Attachment
-
-Method | HTTP request |
-------------- | ------------- |
-

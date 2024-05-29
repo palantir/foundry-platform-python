@@ -83,10 +83,9 @@ class GroupMemberResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/security/groups/{groupId}/groupMembers/add".format(
-                    **_path_params
-                ),
+                resource_path="/v2/security/groups/{groupId}/groupMembers/add",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=Union[AddGroupMembersRequest, AddGroupMembersRequestDict],
@@ -139,8 +138,9 @@ class GroupMemberResource:
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/groups/{groupId}/groupMembers".format(**_path_params),
+                resource_path="/v2/security/groups/{groupId}/groupMembers",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -198,8 +198,9 @@ class GroupMemberResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/groups/{groupId}/groupMembers".format(**_path_params),
+                resource_path="/v2/security/groups/{groupId}/groupMembers",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -247,10 +248,9 @@ class GroupMemberResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/security/groups/{groupId}/groupMembers/remove".format(
-                    **_path_params
-                ),
+                resource_path="/v2/security/groups/{groupId}/groupMembers/remove",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=Union[RemoveGroupMembersRequest, RemoveGroupMembersRequestDict],

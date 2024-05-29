@@ -1,5 +1,0 @@
-# OntologyObject
-
-Method | HTTP request |
-------------- | ------------- |
-

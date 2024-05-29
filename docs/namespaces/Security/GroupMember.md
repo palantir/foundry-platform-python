@@ -43,10 +43,10 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.GroupMember.add(
+    api_response = foundry_client.security.Group.GroupMember.add(
         group_id, add_group_members_request, preview=preview
     )
-    print("The GroupMember.add response:\n")
+    print("The add response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMember.add: %s\n" % e)
@@ -105,8 +105,7 @@ transitive = None
 
 
 try:
-    for group_member in foundry_client.security.GroupMember.list(group_id, page_size=page_sizepreview=previewtransitive=transitive)
-:
+    for group_member in foundry_client.security.Group.GroupMember.list(group_id,page_size=page_sizepreview=previewtransitive=transitive):
         pprint(group_member)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMember.list: %s\n" % e)
@@ -169,8 +168,8 @@ transitive = None
 
 
 try:
-    api_response = foundry_client.security.GroupMember.page(group_id, page_size=page_sizepage_token=page_tokenpreview=previewtransitive=transitive)
-    print("The GroupMember.page response:\n")
+    api_response = foundry_client.security.Group.GroupMember.page(group_id,page_size=page_sizepage_token=page_tokenpreview=previewtransitive=transitive)
+    print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMember.page: %s\n" % e)
@@ -226,10 +225,10 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.GroupMember.remove(
+    api_response = foundry_client.security.Group.GroupMember.remove(
         group_id, remove_group_members_request, preview=preview
     )
-    print("The GroupMember.remove response:\n")
+    print("The remove response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMember.remove: %s\n" % e)

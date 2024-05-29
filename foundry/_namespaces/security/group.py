@@ -25,19 +25,29 @@ from pydantic import Field
 from pydantic import StrictInt
 from pydantic import validate_call
 
+from foundry._core import ResourceIterator
 from foundry._errors import handle_unexpected
+from foundry._namespaces.security.group_member import GroupMemberResource
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
 from foundry.models._create_group_request import CreateGroupRequest
 from foundry.models._create_group_request_dict import CreateGroupRequestDict
 from foundry.models._group import Group
+from foundry.models._list_groups_response import ListGroupsResponse
+from foundry.models._page_size import PageSize
+from foundry.models._page_token import PageToken
 from foundry.models._preview_mode import PreviewMode
 from foundry.models._principal_id import PrincipalId
+from foundry.models._search_groups_request import SearchGroupsRequest
+from foundry.models._search_groups_request_dict import SearchGroupsRequestDict
+from foundry.models._search_groups_response import SearchGroupsResponse
 
 
 class GroupResource:
     def __init__(self, api_client: ApiClient) -> None:
         self._api_client = api_client
+
+        self.GroupMember = GroupMemberResource(api_client=api_client)
 
     @validate_call
     @handle_unexpected
@@ -75,6 +85,7 @@ class GroupResource:
                 method="POST",
                 resource_path="/v2/security/groups",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=Union[CreateGroupRequest, CreateGroupRequestDict],
@@ -115,8 +126,9 @@ class GroupResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="DELETE",
-                resource_path="/v2/security/groups/{groupId}".format(**_path_params),
+                resource_path="/v2/security/groups/{groupId}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -159,12 +171,153 @@ class GroupResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/groups/{groupId}".format(**_path_params),
+                resource_path="/v2/security/groups/{groupId}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
                 response_type=Group,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def list(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> ResourceIterator[Group]:
+        """
+        Lists all Groups
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ResourceIterator[Group]
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = None
+        _query_params["pageSize"] = page_size
+
+        _query_params["preview"] = preview
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.iterate_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/security/groups",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=ListGroupsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def page(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> ListGroupsResponse:
+        """
+        Lists all Groups
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ListGroupsResponse
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = None
+        _query_params["pageSize"] = page_size
+
+        _query_params["pageToken"] = page_token
+
+        _query_params["preview"] = preview
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/security/groups",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=ListGroupsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def search(
+        self,
+        search_groups_request: Union[SearchGroupsRequest, SearchGroupsRequestDict],
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> SearchGroupsResponse:
+        """
+
+        :param search_groups_request: Body of the request
+        :type search_groups_request: Union[SearchGroupsRequest, SearchGroupsRequestDict]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: SearchGroupsResponse
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = search_groups_request
+        _query_params["preview"] = preview
+
+        _header_params["Content-Type"] = "application/json"
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/security/groups/search",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=Union[SearchGroupsRequest, SearchGroupsRequestDict],
+                response_type=SearchGroupsResponse,
                 request_timeout=request_timeout,
             ),
         )

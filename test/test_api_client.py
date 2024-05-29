@@ -54,6 +54,7 @@ def test_user_agent():
             resource_path="/abc",
             query_params={},
             header_params={},
+            path_params={},
             body={},
             body_type=Any,
             response_type=None,
@@ -67,6 +68,36 @@ def test_user_agent():
         headers={
             "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}"
         },
+        params=ANY,
+        data=ANY,
+        stream=False,
+        timeout=None,
+    )
+
+
+def test_path_encoding():
+    """Test that the user agent is set correctly."""
+    client = ApiClient(auth=UserTokenAuth(hostname="foo", token="bar"), hostname="foo")
+    client.session.request = Mock(return_value=AttrDict(status_code=200, headers={}))
+
+    client.call_api(
+        RequestInfo(
+            method="GET",
+            resource_path="/files/{path}",
+            query_params={},
+            header_params={},
+            path_params={"path": "/my/file.txt"},
+            body={},
+            body_type=Any,
+            response_type=None,
+            request_timeout=None,
+        )
+    )
+
+    client.session.request.assert_called_with(
+        method="GET",
+        url="https://foo/api/files/%2Fmy%2Ffile.txt",
+        headers=ANY,
         params=ANY,
         data=ANY,
         stream=False,
@@ -97,6 +128,7 @@ def call_api_helper(
             resource_path="/abc",
             query_params={},
             header_params={},
+            path_params={},
             body={},
             body_type=Any,
             response_type={},

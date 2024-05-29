@@ -37,7 +37,7 @@ class AggregateObjectsResponseV2(BaseModel):
 
     excluded_items: Optional[StrictInt] = Field(alias="excludedItems", default=None)
 
-    accuracy: Optional[AggregationAccuracy] = None
+    accuracy: AggregationAccuracy
 
     data: List[AggregateObjectsResponseItemV2]
 

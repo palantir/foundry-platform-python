@@ -3,7 +3,7 @@ info:
   title: Palantir OpenAPI
   description: The Palantir REST API. Please see https://www.palantir.com/docs for
     more details.
-  version: 1.818.0
+  version: 1.839.0
 externalDocs:
   description: API Documentation
   url: https://www.palantir.com/docs
@@ -1539,8 +1539,8 @@ paths:
         Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
         call Functions may receive a higher limit.
 
-        Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
-        this endpoint.
+        Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) and
+        [notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:read-data api:write-data`.
@@ -3014,6 +3014,8 @@ paths:
         Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
         call Functions may receive a higher limit.
 
+        Note that [notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:read-data api:write-data`.
       operationId: applyActionBatchV2
@@ -3466,13 +3468,6 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/SdkPackageName'
-      - name: preview
-        in: query
-        description: |
-          A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        required: false
-        schema:
-          $ref: '#/components/schemas/PreviewMode'
       requestBody:
         content:
           application/json:
@@ -3508,6 +3503,45 @@ paths:
                     value: 2
                   - name: avg_tenure
                     value: 3
+      security:
+      - BearerAuth: []
+  /v2/ontologies/{ontology}/objectSets/createTemporary:
+    post:
+      tags:
+      - OntologiesV2ApiService
+      description: "Creates a temporary `ObjectSet` from the given definition.   \
+        \     \n\nThird-party applications using this endpoint via OAuth2 must request\
+        \ the\nfollowing operation scopes: `api:read-data api:write-data`.\n"
+      operationId: createTemporaryObjectSetV2
+      parameters:
+      - name: ontology
+        in: path
+        description: |
+          The API name of the ontology. To find the API name, use the **List ontologies** endpoint or
+          check the **Ontology Manager**.
+        required: true
+        schema:
+          $ref: '#/components/schemas/OntologyIdentifier'
+        example: palantir
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTemporaryObjectSetRequestV2'
+            example:
+              objectSet:
+                objectType: Employee
+                type: base
+        required: true
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTemporaryObjectSetResponseV2'
+              example:
+                objectSetRid: ri.object-set.main.object-set.c32ccba5-1a55-4cfe-ad71-160c4c77a053
       security:
       - BearerAuth: []
   /v2/ontologies/{ontology}/objectSets/loadObjects:
@@ -3610,7 +3644,7 @@ paths:
         required: true
         schema:
           $ref: '#/components/schemas/ObjectSetRid'
-        example: ri.object-set.main.object-set.1
+        example: ri.object-set.main.object-set.c32ccba5-1a55-4cfe-ad71-160c4c77a053
       responses:
         "200":
           description: Success response.
@@ -3776,6 +3810,50 @@ paths:
                       \ if they were re-hired)"
                 rid: ri.ontology.main.object-type.0381eda6-69bb-4cb7-8ba0-c6158e094a04
                 status: ACTIVE
+      security:
+      - BearerAuth: []
+  /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata:
+    get:
+      tags:
+      - OntologiesV2ApiService
+      description: |
+        Gets the full metadata for a specific object type with the given API name.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+      operationId: getObjectTypeFullMetadata
+      parameters:
+      - name: ontology
+        in: path
+        description: |
+          The API name of the ontology. To find the API name, use the **List ontologies** endpoint or
+          check the **Ontology Manager**.
+        required: true
+        schema:
+          $ref: '#/components/schemas/OntologyIdentifier'
+        example: palantir
+      - name: objectType
+        in: path
+        description: |
+          The API name of the object type. To find the API name, use the **List object types** endpoint or
+          check the **Ontology Manager**.
+        required: true
+        schema:
+          $ref: '#/components/schemas/ObjectTypeApiName'
+        example: employee
+      - name: preview
+        in: query
+        description: |
+          A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        required: false
+        schema:
+          $ref: '#/components/schemas/PreviewMode'
+      responses:
+        "200":
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectTypeFullMetadata'
       security:
       - BearerAuth: []
   /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes:
@@ -4039,13 +4117,6 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/SdkPackageName'
-      - name: preview
-        in: query
-        description: |
-          A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        required: false
-        schema:
-          $ref: '#/components/schemas/PreviewMode'
       requestBody:
         content:
           application/json:
@@ -5805,6 +5876,8 @@ components:
           items:
             $ref: '#/components/schemas/AggregationMetricResultV2'
     AggregateObjectsResponseV2:
+      required:
+      - accuracy
       type: object
       properties:
         accuracy:
@@ -7137,6 +7210,20 @@ components:
           $ref: '#/components/schemas/ObjectTypeApiName'
         type:
           type: string
+    CreateTemporaryObjectSetRequestV2:
+      required:
+      - objectSet
+      type: object
+      properties:
+        objectSet:
+          $ref: '#/components/schemas/ObjectSet'
+    CreateTemporaryObjectSetResponseV2:
+      required:
+      - objectSetRid
+      type: object
+      properties:
+        objectSetRid:
+          $ref: '#/components/schemas/ObjectSetRid'
     CreateTransactionPermissionDenied:
       required:
       - errorName
@@ -10936,7 +11023,7 @@ components:
           type: object
           properties:
             objectSetRid:
-              $ref: '#/components/schemas/ObjectSetRid'
+              type: string
       description: |
         The parameter object set RID is not found, or the client token does not have access to it.
     ParameterOption:
@@ -12913,7 +13000,8 @@ components:
             objectType:
               $ref: '#/components/schemas/ObjectTypeApiName'
       description: |
-        The user does not have permission to view objects of this `ObjectType`.
+        The provided token does not have permission to view any data sources backing this object type. Ensure the object
+        type has backing data sources configured and visible.
     WithinBoundingBoxPoint:
       discriminator:
         propertyName: type

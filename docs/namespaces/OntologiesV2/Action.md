@@ -1,5 +1,0 @@
-# Action
-
-Method | HTTP request |
-------------- | ------------- |
-

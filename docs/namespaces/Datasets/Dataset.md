@@ -46,7 +46,7 @@ try:
     api_response = foundry_client.datasets.Dataset.create(
         create_dataset_request,
     )
-    print("The Dataset.create response:\n")
+    print("The create response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Dataset.create: %s\n" % e)
@@ -106,8 +106,8 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.delete_schema(dataset_rid, branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
-    print("The Dataset.delete_schema response:\n")
+    api_response = foundry_client.datasets.Dataset.delete_schema(dataset_rid,branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
+    print("The delete_schema response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Dataset.delete_schema: %s\n" % e)
@@ -161,7 +161,7 @@ try:
     api_response = foundry_client.datasets.Dataset.get(
         dataset_rid,
     )
-    print("The Dataset.get response:\n")
+    print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Dataset.get: %s\n" % e)
@@ -221,8 +221,8 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.get_schema(dataset_rid, branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
-    print("The Dataset.get_schema response:\n")
+    api_response = foundry_client.datasets.Dataset.get_schema(dataset_rid,branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
+    print("The get_schema response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Dataset.get_schema: %s\n" % e)
@@ -298,8 +298,8 @@ start_transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.read(dataset_rid, columns=columnsformat=formatbranch_id=branch_idend_transaction_rid=end_transaction_ridrow_limit=row_limitstart_transaction_rid=start_transaction_rid)
-    print("The Dataset.read response:\n")
+    api_response = foundry_client.datasets.Dataset.read(dataset_rid,columns=columnsformat=formatbranch_id=branch_idend_transaction_rid=end_transaction_ridrow_limit=row_limitstart_transaction_rid=start_transaction_rid)
+    print("The read response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Dataset.read: %s\n" % e)
@@ -416,8 +416,8 @@ preview = true
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.replace_schema(dataset_rid,body, branch_id=branch_idpreview=preview)
-    print("The Dataset.replace_schema response:\n")
+    api_response = foundry_client.datasets.Dataset.replace_schema(dataset_rid,body,branch_id=branch_idpreview=preview)
+    print("The replace_schema response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Dataset.replace_schema: %s\n" % e)

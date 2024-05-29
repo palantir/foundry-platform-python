@@ -2,9 +2,9 @@
 
 Method | HTTP request |
 ------------- | ------------- |
-[**get**](#get) | **GET** /v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName} |
-[**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
-[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
 
 # **get**
 Gets a specific action type with the given API name.
@@ -16,11 +16,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**action_type_api_name** | ActionTypeApiName | actionTypeApiName |  |
+**ontology** | OntologyIdentifier | ontology |  |
+**action_type** | ActionTypeApiName | actionType |  |
 
 ### Return type
-**ActionType**
+**ActionTypeV2**
 
 ### Example
 
@@ -33,19 +33,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
-# ActionTypeApiName | actionTypeApiName
-action_type_api_name = "promote-employee"
+# ActionTypeApiName | actionType
+action_type = "promote-employee"
 
 
 try:
-    api_response = foundry_client.ontologies.ActionType.get(
-        ontology_rid,
-        action_type_api_name,
+    api_response = foundry_client.ontologies.Ontology.ActionType.get(
+        ontology,
+        action_type,
     )
-    print("The ActionType.get response:\n")
+    print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling ActionType.get: %s\n" % e)
@@ -61,7 +61,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ActionType  | Success response. | application/json |
+**200** | ActionTypeV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -78,11 +78,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 
 ### Return type
-**ResourceIterator[ActionType]**
+**ResourceIterator[ActionTypeV2]**
 
 ### Example
 
@@ -91,19 +91,21 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # Optional[PageSize] | pageSize
 page_size = None
 
 
-
 try:
-    for action_type in foundry_client.ontologies.ActionType.list(ontology_rid, page_size=page_size)
-:
+    for action_type in foundry_client.ontologies.Ontology.ActionType.list(
+        ontology, page_size=page_size
+    ):
         pprint(action_type)
 except PalantirRPCException as e:
     print("HTTP error when calling ActionType.list: %s\n" % e)
@@ -119,7 +121,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListActionTypesResponse  | Success response. | application/json |
+**200** | ListActionTypesResponseV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -136,12 +138,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
-**ListActionTypesResponse**
+**ListActionTypesResponseV2**
 
 ### Example
 
@@ -152,8 +154,8 @@ from pprint import pprint
 
 foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # Optional[PageSize] | pageSize
 page_size = None
@@ -164,8 +166,8 @@ page_token = None
 
 
 try:
-    api_response = foundry_client.ontologies.ActionType.page(ontology_rid, page_size=page_sizepage_token=page_token)
-    print("The ActionType.page response:\n")
+    api_response = foundry_client.ontologies.Ontology.ActionType.page(ontology,page_size=page_sizepage_token=page_token)
+    print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling ActionType.page: %s\n" % e)
@@ -181,7 +183,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListActionTypesResponse  | Success response. | application/json |
+**200** | ListActionTypesResponseV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

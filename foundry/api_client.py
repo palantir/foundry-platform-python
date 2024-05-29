@@ -25,6 +25,7 @@ from typing import Optional
 from typing import Tuple
 from typing import Type
 from typing import Union
+from urllib.parse import quote
 
 from pydantic import BaseModel
 from pydantic import TypeAdapter
@@ -46,6 +47,7 @@ class RequestInfo:
     resource_path: str
     response_type: Any
     query_params: QueryParameters
+    path_params: Dict[str, Any]
     header_params: Dict[str, Any]
     body: Any
     body_type: Any
@@ -61,6 +63,7 @@ class RequestInfo:
             resource_path=self.resource_path,
             response_type=self.response_type,
             query_params={**self.query_params, **(query_params or {})},
+            path_params=self.path_params,
             header_params={**self.header_params, **(header_params or {})},
             body=self.body,
             body_type=self.body_type,
@@ -113,8 +116,9 @@ class ApiClient:
         # We need to serialize these to dictionaries to be passed to the
         # the API endpoint
         body = self._serialize(request_info.body, request_info.body_type)
+        path = self._create_path(request_info)
 
-        url = f"https://{self.session.hostname}/api{request_info.resource_path}"
+        url = f"https://{self.session.hostname}/api{path}"
 
         res = self.session.request(
             method=request_info.method,
@@ -147,6 +151,17 @@ class ApiClient:
                 result.append((key, inner_value))
 
         return result
+
+    def _create_path(self, request_info: RequestInfo) -> str:
+        resource_path = request_info.resource_path
+        path_params = request_info.path_params
+
+        for k, v in path_params.items():
+            # the "safe" option defaults to "/"
+            # this does not work with the backend which expects "/" characters to be encoded
+            resource_path = resource_path.replace(f"{{{k}}}", quote(v, safe=""))
+
+        return resource_path
 
     def _serialize(self, value: Any, value_type: Any) -> Optional[bytes]:
         if value_type is bytes:

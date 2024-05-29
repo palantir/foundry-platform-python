@@ -34,6 +34,6 @@ class AggregateObjectsResponseV2Dict(TypedDict):
 
     excludedItems: NotRequired[StrictInt]
 
-    accuracy: NotRequired[AggregationAccuracy]
+    accuracy: AggregationAccuracy
 
     data: List[AggregateObjectsResponseItemV2Dict]

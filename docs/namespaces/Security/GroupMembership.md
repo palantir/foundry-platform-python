@@ -44,8 +44,7 @@ transitive = None
 
 
 try:
-    for group_membership in foundry_client.security.GroupMembership.list(user_id, page_size=page_sizepreview=previewtransitive=transitive)
-:
+    for group_membership in foundry_client.security.User.GroupMembership.list(user_id,page_size=page_sizepreview=previewtransitive=transitive):
         pprint(group_membership)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMembership.list: %s\n" % e)
@@ -108,8 +107,8 @@ transitive = None
 
 
 try:
-    api_response = foundry_client.security.GroupMembership.page(user_id, page_size=page_sizepage_token=page_tokenpreview=previewtransitive=transitive)
-    print("The GroupMembership.page response:\n")
+    api_response = foundry_client.security.User.GroupMembership.page(user_id,page_size=page_sizepage_token=page_tokenpreview=previewtransitive=transitive)
+    print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMembership.page: %s\n" % e)

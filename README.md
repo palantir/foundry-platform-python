@@ -134,11 +134,11 @@ create_branch_request = {"branchId": "my-branch"}
 
 
 try:
-    api_response = foundry_client.datasets.Branch.create(
+    api_response = foundry_client.datasets.Dataset.Branch.create(
         dataset_rid,
         create_branch_request,
     )
-    print("The Branch.create response:\n")
+    print("The create response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Branch.create: %s\n" % e)
@@ -158,7 +158,7 @@ of arguments. In the example below, we are passing in a number to `transactionRi
 which should actually be a string type:
 
 ```python
-foundry_client.datasets.Branch.create(
+foundry_client.datasets.Dataset.Branch.create(
     "ri.foundry.main.dataset.abc",
     create_branch_request={"branchId": "123", "transactionRid": 123},
 )
@@ -213,19 +213,19 @@ of data, while handling the underlying pagination logic.
 To iterate over all items, you can simply create a `Pager` instance and use it in a for loop, like this:
 
 ```python
-for branch in foundry_client.datasets.Branch.list(dataset_rid):
+for branch in foundry_client.datasets.Dataset.Branch.list(dataset_rid):
     print(branch)
 ```
 
 This will automatically fetch and iterate through all the pages of data from the specified API endpoint. For more granular control, you can manually fetch each page using the associated page methods.
 
 ```python
-page = foundry_client.datasets.Branch.page(dataset_rid)
+page = foundry_client.datasets.Dataset.Branch.page(dataset_rid)
 while page.next_page_token:
     for branch in page.data:
         print(branch)
 
-    page = foundry_client.datasets.Branch.page(dataset_rid, page_token=page.next_page_token)
+    page = foundry_client.datasets.Dataset.Branch.page(dataset_rid, page_token=page.next_page_token)
 ```
 
 
@@ -260,7 +260,7 @@ property is actually called `branch_id`), you will get the following errors:
 
 
 ```python
-branch = foundry_client.datasets.Branch.create(
+branch = foundry_client.datasets.Dataset.Branch.create(
     "ri.foundry.main.dataset.abc",
     create_branch_request={
         # ERROR: "Literal[123]" is incompatible with "BranchId"
@@ -309,38 +309,27 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Transaction | [**commit**](docs/namespaces/Datasets/Transaction.md#commit) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/commit |
 **Datasets** | Transaction | [**create**](docs/namespaces/Datasets/Transaction.md#create) | **POST** /v1/datasets/{datasetRid}/transactions |
 **Datasets** | Transaction | [**get**](docs/namespaces/Datasets/Transaction.md#get) | **GET** /v1/datasets/{datasetRid}/transactions/{transactionRid} |
-**Ontologies** | ActionType | [**get**](docs/namespaces/Ontologies/ActionType.md#get) | **GET** /v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName} |
-**Ontologies** | ActionType | [**list**](docs/namespaces/Ontologies/ActionType.md#list) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
-**Ontologies** | ActionType | [**page**](docs/namespaces/Ontologies/ActionType.md#page) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
-**Ontologies** | ObjectType | [**get**](docs/namespaces/Ontologies/ObjectType.md#get) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType} |
-**Ontologies** | ObjectType | [**get_outgoing_link_type**](docs/namespaces/Ontologies/ObjectType.md#get_outgoing_link_type) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
-**Ontologies** | ObjectType | [**list**](docs/namespaces/Ontologies/ObjectType.md#list) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
-**Ontologies** | ObjectType | [**list_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#list_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
-**Ontologies** | ObjectType | [**page**](docs/namespaces/Ontologies/ObjectType.md#page) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
-**Ontologies** | ObjectType | [**page_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#page_outgoing_link_types) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes |
-**Ontologies** | Ontology | [**get**](docs/namespaces/Ontologies/Ontology.md#get) | **GET** /v1/ontologies/{ontologyRid} |
-**Ontologies** | Ontology | [**list**](docs/namespaces/Ontologies/Ontology.md#list) | **GET** /v1/ontologies |
-**Ontologies** | QueryType | [**get**](docs/namespaces/Ontologies/QueryType.md#get) | **GET** /v1/ontologies/{ontologyRid}/queryTypes/{queryApiName} |
-**Ontologies** | QueryType | [**list**](docs/namespaces/Ontologies/QueryType.md#list) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
-**Ontologies** | QueryType | [**page**](docs/namespaces/Ontologies/QueryType.md#page) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
-**OntologiesV2** | ActionTypeV2 | [**get**](docs/namespaces/OntologiesV2/ActionTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
-**OntologiesV2** | ActionTypeV2 | [**list**](docs/namespaces/OntologiesV2/ActionTypeV2.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
-**OntologiesV2** | ActionTypeV2 | [**page**](docs/namespaces/OntologiesV2/ActionTypeV2.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
-**OntologiesV2** | ObjectTypeV2 | [**get**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
-**OntologiesV2** | ObjectTypeV2 | [**get_outgoing_link_type**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
-**OntologiesV2** | ObjectTypeV2 | [**list**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
-**OntologiesV2** | ObjectTypeV2 | [**list_outgoing_link_types**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
-**OntologiesV2** | ObjectTypeV2 | [**page**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#page) | **GET** /v2/ontologies/{ontology}/objectTypes |
-**OntologiesV2** | ObjectTypeV2 | [**page_outgoing_link_types**](docs/namespaces/OntologiesV2/ObjectTypeV2.md#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
-**OntologiesV2** | OntologyV2 | [**get**](docs/namespaces/OntologiesV2/OntologyV2.md#get) | **GET** /v2/ontologies/{ontology} |
-**OntologiesV2** | OntologyV2 | [**get_full_metadata**](docs/namespaces/OntologiesV2/OntologyV2.md#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata |
-**OntologiesV2** | OntologyV2 | [**list**](docs/namespaces/OntologiesV2/OntologyV2.md#list) | **GET** /v2/ontologies |
-**OntologiesV2** | QueryType | [**get**](docs/namespaces/OntologiesV2/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
-**OntologiesV2** | QueryType | [**list**](docs/namespaces/OntologiesV2/QueryType.md#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
-**OntologiesV2** | QueryType | [**page**](docs/namespaces/OntologiesV2/QueryType.md#page) | **GET** /v2/ontologies/{ontology}/queryTypes |
+**Ontologies** | ActionType | [**get**](docs/namespaces/Ontologies/ActionType.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
+**Ontologies** | ActionType | [**list**](docs/namespaces/Ontologies/ActionType.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
+**Ontologies** | ActionType | [**page**](docs/namespaces/Ontologies/ActionType.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
+**Ontologies** | ObjectType | [**get**](docs/namespaces/Ontologies/ObjectType.md#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
+**Ontologies** | ObjectType | [**get_outgoing_link_type**](docs/namespaces/Ontologies/ObjectType.md#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
+**Ontologies** | ObjectType | [**list**](docs/namespaces/Ontologies/ObjectType.md#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
+**Ontologies** | ObjectType | [**list_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+**Ontologies** | ObjectType | [**page**](docs/namespaces/Ontologies/ObjectType.md#page) | **GET** /v2/ontologies/{ontology}/objectTypes |
+**Ontologies** | ObjectType | [**page_outgoing_link_types**](docs/namespaces/Ontologies/ObjectType.md#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+**Ontologies** | Ontology | [**get**](docs/namespaces/Ontologies/Ontology.md#get) | **GET** /v2/ontologies/{ontology} |
+**Ontologies** | Ontology | [**get_full_metadata**](docs/namespaces/Ontologies/Ontology.md#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata |
+**Ontologies** | Ontology | [**list**](docs/namespaces/Ontologies/Ontology.md#list) | **GET** /v2/ontologies |
+**Ontologies** | QueryType | [**get**](docs/namespaces/Ontologies/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
+**Ontologies** | QueryType | [**list**](docs/namespaces/Ontologies/QueryType.md#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
+**Ontologies** | QueryType | [**page**](docs/namespaces/Ontologies/QueryType.md#page) | **GET** /v2/ontologies/{ontology}/queryTypes |
 **Security** | Group | [**create**](docs/namespaces/Security/Group.md#create) | **POST** /v2/security/groups |
 **Security** | Group | [**delete**](docs/namespaces/Security/Group.md#delete) | **DELETE** /v2/security/groups/{groupId} |
 **Security** | Group | [**get**](docs/namespaces/Security/Group.md#get) | **GET** /v2/security/groups/{groupId} |
+**Security** | Group | [**list**](docs/namespaces/Security/Group.md#list) | **GET** /v2/security/groups |
+**Security** | Group | [**page**](docs/namespaces/Security/Group.md#page) | **GET** /v2/security/groups |
+**Security** | Group | [**search**](docs/namespaces/Security/Group.md#search) | **POST** /v2/security/groups/search |
 **Security** | GroupMember | [**add**](docs/namespaces/Security/GroupMember.md#add) | **POST** /v2/security/groups/{groupId}/groupMembers/add |
 **Security** | GroupMember | [**list**](docs/namespaces/Security/GroupMember.md#list) | **GET** /v2/security/groups/{groupId}/groupMembers |
 **Security** | GroupMember | [**page**](docs/namespaces/Security/GroupMember.md#page) | **GET** /v2/security/groups/{groupId}/groupMembers |
@@ -349,8 +338,11 @@ Namespace | Resource | Operation | HTTP request |
 **Security** | GroupMembership | [**page**](docs/namespaces/Security/GroupMembership.md#page) | **GET** /v2/security/users/{userId}/groupMemberships |
 **Security** | User | [**delete**](docs/namespaces/Security/User.md#delete) | **DELETE** /v2/security/users/{userId} |
 **Security** | User | [**get**](docs/namespaces/Security/User.md#get) | **GET** /v2/security/users/{userId} |
-**Security** | User | [**me**](docs/namespaces/Security/User.md#me) | **GET** /v2/security/users/me |
+**Security** | User | [**get_current**](docs/namespaces/Security/User.md#get_current) | **GET** /v2/security/users/getCurrent |
+**Security** | User | [**list**](docs/namespaces/Security/User.md#list) | **GET** /v2/security/users |
+**Security** | User | [**page**](docs/namespaces/Security/User.md#page) | **GET** /v2/security/users |
 **Security** | User | [**profile_picture**](docs/namespaces/Security/User.md#profile_picture) | **GET** /v2/security/users/{userId}/profilePicture |
+**Security** | User | [**search**](docs/namespaces/Security/User.md#search) | **POST** /v2/security/users/search |
 
 
 <a id="models"></a>
@@ -565,6 +557,10 @@ Namespace | Resource | Operation | HTTP request |
 - [CreateLinkRuleDict](docs/models/CreateLinkRuleDict.md)
 - [CreateObjectRule](docs/models/CreateObjectRule.md)
 - [CreateObjectRuleDict](docs/models/CreateObjectRuleDict.md)
+- [CreateTemporaryObjectSetRequestV2](docs/models/CreateTemporaryObjectSetRequestV2.md)
+- [CreateTemporaryObjectSetRequestV2Dict](docs/models/CreateTemporaryObjectSetRequestV2Dict.md)
+- [CreateTemporaryObjectSetResponseV2](docs/models/CreateTemporaryObjectSetResponseV2.md)
+- [CreateTemporaryObjectSetResponseV2Dict](docs/models/CreateTemporaryObjectSetResponseV2Dict.md)
 - [CreateTransactionRequest](docs/models/CreateTransactionRequest.md)
 - [CreateTransactionRequestDict](docs/models/CreateTransactionRequestDict.md)
 - [CustomTypeId](docs/models/CustomTypeId.md)
@@ -581,6 +577,8 @@ Namespace | Resource | Operation | HTTP request |
 - [DeleteLinkRuleDict](docs/models/DeleteLinkRuleDict.md)
 - [DeleteObjectRule](docs/models/DeleteObjectRule.md)
 - [DeleteObjectRuleDict](docs/models/DeleteObjectRuleDict.md)
+- [DeployWebsiteRequest](docs/models/DeployWebsiteRequest.md)
+- [DeployWebsiteRequestDict](docs/models/DeployWebsiteRequestDict.md)
 - [DisplayName](docs/models/DisplayName.md)
 - [Distance](docs/models/Distance.md)
 - [DistanceDict](docs/models/DistanceDict.md)
@@ -644,6 +642,8 @@ Namespace | Resource | Operation | HTTP request |
 - [GroupMembershipDict](docs/models/GroupMembershipDict.md)
 - [GroupMembershipExpiration](docs/models/GroupMembershipExpiration.md)
 - [GroupName](docs/models/GroupName.md)
+- [GroupSearchFilter](docs/models/GroupSearchFilter.md)
+- [GroupSearchFilterDict](docs/models/GroupSearchFilterDict.md)
 - [GteQuery](docs/models/GteQuery.md)
 - [GteQueryDict](docs/models/GteQueryDict.md)
 - [GteQueryV2](docs/models/GteQueryV2.md)
@@ -707,6 +707,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ListGroupMembershipsResponseDict](docs/models/ListGroupMembershipsResponseDict.md)
 - [ListGroupMembersResponse](docs/models/ListGroupMembersResponse.md)
 - [ListGroupMembersResponseDict](docs/models/ListGroupMembersResponseDict.md)
+- [ListGroupsResponse](docs/models/ListGroupsResponse.md)
+- [ListGroupsResponseDict](docs/models/ListGroupsResponseDict.md)
 - [ListInterfaceTypesResponse](docs/models/ListInterfaceTypesResponse.md)
 - [ListInterfaceTypesResponseDict](docs/models/ListInterfaceTypesResponseDict.md)
 - [ListLanguageModelsResponse](docs/models/ListLanguageModelsResponse.md)
@@ -735,8 +737,10 @@ Namespace | Resource | Operation | HTTP request |
 - [ListQueryTypesResponseDict](docs/models/ListQueryTypesResponseDict.md)
 - [ListQueryTypesResponseV2](docs/models/ListQueryTypesResponseV2.md)
 - [ListQueryTypesResponseV2Dict](docs/models/ListQueryTypesResponseV2Dict.md)
-- [ListWebsiteVersionsResponse](docs/models/ListWebsiteVersionsResponse.md)
-- [ListWebsiteVersionsResponseDict](docs/models/ListWebsiteVersionsResponseDict.md)
+- [ListUsersResponse](docs/models/ListUsersResponse.md)
+- [ListUsersResponseDict](docs/models/ListUsersResponseDict.md)
+- [ListVersionsResponse](docs/models/ListVersionsResponse.md)
+- [ListVersionsResponseDict](docs/models/ListVersionsResponseDict.md)
 - [LoadObjectSetRequestV2](docs/models/LoadObjectSetRequestV2.md)
 - [LoadObjectSetRequestV2Dict](docs/models/LoadObjectSetRequestV2Dict.md)
 - [LoadObjectSetResponseV2](docs/models/LoadObjectSetResponseV2.md)
@@ -890,6 +894,7 @@ Namespace | Resource | Operation | HTTP request |
 - [PrefixQueryDict](docs/models/PrefixQueryDict.md)
 - [PreviewMode](docs/models/PreviewMode.md)
 - [PrimaryKeyValue](docs/models/PrimaryKeyValue.md)
+- [PrincipalFilterType](docs/models/PrincipalFilterType.md)
 - [PrincipalId](docs/models/PrincipalId.md)
 - [PrincipalType](docs/models/PrincipalType.md)
 - [Property](docs/models/Property.md)
@@ -950,11 +955,13 @@ Namespace | Resource | Operation | HTTP request |
 - [ReleaseStatus](docs/models/ReleaseStatus.md)
 - [RemoveGroupMembersRequest](docs/models/RemoveGroupMembersRequest.md)
 - [RemoveGroupMembersRequestDict](docs/models/RemoveGroupMembersRequestDict.md)
-- [ReplaceWebsiteDeploymentRequest](docs/models/ReplaceWebsiteDeploymentRequest.md)
-- [ReplaceWebsiteDeploymentRequestDict](docs/models/ReplaceWebsiteDeploymentRequestDict.md)
 - [ResourcePath](docs/models/ResourcePath.md)
 - [ReturnEditsMode](docs/models/ReturnEditsMode.md)
 - [SdkPackageName](docs/models/SdkPackageName.md)
+- [SearchGroupsRequest](docs/models/SearchGroupsRequest.md)
+- [SearchGroupsRequestDict](docs/models/SearchGroupsRequestDict.md)
+- [SearchGroupsResponse](docs/models/SearchGroupsResponse.md)
+- [SearchGroupsResponseDict](docs/models/SearchGroupsResponseDict.md)
 - [SearchJsonQuery](docs/models/SearchJsonQuery.md)
 - [SearchJsonQueryDict](docs/models/SearchJsonQueryDict.md)
 - [SearchJsonQueryV2](docs/models/SearchJsonQueryV2.md)
@@ -977,6 +984,10 @@ Namespace | Resource | Operation | HTTP request |
 - [SearchOrderingDict](docs/models/SearchOrderingDict.md)
 - [SearchOrderingV2](docs/models/SearchOrderingV2.md)
 - [SearchOrderingV2Dict](docs/models/SearchOrderingV2Dict.md)
+- [SearchUsersRequest](docs/models/SearchUsersRequest.md)
+- [SearchUsersRequestDict](docs/models/SearchUsersRequestDict.md)
+- [SearchUsersResponse](docs/models/SearchUsersResponse.md)
+- [SearchUsersResponseDict](docs/models/SearchUsersResponseDict.md)
 - [SelectedPropertyApiName](docs/models/SelectedPropertyApiName.md)
 - [SharedPropertyType](docs/models/SharedPropertyType.md)
 - [SharedPropertyTypeApiName](docs/models/SharedPropertyTypeApiName.md)
@@ -998,6 +1009,7 @@ Namespace | Resource | Operation | HTTP request |
 - [StringType](docs/models/StringType.md)
 - [StringTypeDict](docs/models/StringTypeDict.md)
 - [StructFieldName](docs/models/StructFieldName.md)
+- [Subdomain](docs/models/Subdomain.md)
 - [SubmissionCriteriaEvaluation](docs/models/SubmissionCriteriaEvaluation.md)
 - [SubmissionCriteriaEvaluationDict](docs/models/SubmissionCriteriaEvaluationDict.md)
 - [SumAggregation](docs/models/SumAggregation.md)
@@ -1039,6 +1051,8 @@ Namespace | Resource | Operation | HTTP request |
 - [User](docs/models/User.md)
 - [UserDict](docs/models/UserDict.md)
 - [UserId](docs/models/UserId.md)
+- [UserSearchFilter](docs/models/UserSearchFilter.md)
+- [UserSearchFilterDict](docs/models/UserSearchFilterDict.md)
 - [UserUsername](docs/models/UserUsername.md)
 - [ValidateActionRequest](docs/models/ValidateActionRequest.md)
 - [ValidateActionRequestDict](docs/models/ValidateActionRequestDict.md)
@@ -1048,12 +1062,11 @@ Namespace | Resource | Operation | HTTP request |
 - [ValidateActionResponseV2Dict](docs/models/ValidateActionResponseV2Dict.md)
 - [ValidationResult](docs/models/ValidationResult.md)
 - [ValueType](docs/models/ValueType.md)
-- [WebsiteDeployment](docs/models/WebsiteDeployment.md)
-- [WebsiteDeploymentDict](docs/models/WebsiteDeploymentDict.md)
-- [WebsiteDeploymentSubdomain](docs/models/WebsiteDeploymentSubdomain.md)
-- [WebsiteVersion](docs/models/WebsiteVersion.md)
-- [WebsiteVersionDict](docs/models/WebsiteVersionDict.md)
-- [WebsiteVersionVersion](docs/models/WebsiteVersionVersion.md)
+- [Version](docs/models/Version.md)
+- [VersionDict](docs/models/VersionDict.md)
+- [VersionVersion](docs/models/VersionVersion.md)
+- [Website](docs/models/Website.md)
+- [WebsiteDict](docs/models/WebsiteDict.md)
 - [WithinBoundingBoxPoint](docs/models/WithinBoundingBoxPoint.md)
 - [WithinBoundingBoxPointDict](docs/models/WithinBoundingBoxPointDict.md)
 - [WithinBoundingBoxQuery](docs/models/WithinBoundingBoxQuery.md)

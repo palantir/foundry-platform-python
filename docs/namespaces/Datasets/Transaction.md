@@ -43,11 +43,11 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Transaction.abort(
+    api_response = foundry_client.datasets.Dataset.Transaction.abort(
         dataset_rid,
         transaction_rid,
     )
-    print("The Transaction.abort response:\n")
+    print("The abort response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Transaction.abort: %s\n" % e)
@@ -103,11 +103,11 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Transaction.commit(
+    api_response = foundry_client.datasets.Dataset.Transaction.commit(
         dataset_rid,
         transaction_rid,
     )
-    print("The Transaction.commit response:\n")
+    print("The commit response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Transaction.commit: %s\n" % e)
@@ -166,10 +166,10 @@ branch_id = None
 
 
 try:
-    api_response = foundry_client.datasets.Transaction.create(
+    api_response = foundry_client.datasets.Dataset.Transaction.create(
         dataset_rid, create_transaction_request, branch_id=branch_id
     )
-    print("The Transaction.create response:\n")
+    print("The create response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Transaction.create: %s\n" % e)
@@ -183,20 +183,20 @@ import foundry
 
 foundry_client = foundry.FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-transaction = foundry_client.datasets.Transaction.create(
+transaction = foundry_client.datasets.Dataset.Transaction.create(
     dataset_rid="...",
     create_transaction_request={},
 )
 
 with open("my/path/to/file.txt", 'rb') as f:
-    foundry_client.datasets.File.upload(
+    foundry_client.datasets.Dataset.File.upload(
         body=f.read(),
         dataset_rid="....",
         file_path="...",
         transaction_rid=transaction.rid,
     )
 
-foundry_client.datasets.Transaction.commit(dataset_rid="...", transaction_rid=transaction.rid)
+foundry_client.datasets.Dataset.Transaction.commit(dataset_rid="...", transaction_rid=transaction.rid)
 ```
 
 
@@ -246,11 +246,11 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Transaction.get(
+    api_response = foundry_client.datasets.Dataset.Transaction.get(
         dataset_rid,
         transaction_rid,
     )
-    print("The Transaction.get response:\n")
+    print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling Transaction.get: %s\n" % e)

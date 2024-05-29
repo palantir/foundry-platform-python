@@ -101,8 +101,9 @@ class FileResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="DELETE",
-                resource_path="/v1/datasets/{datasetRid}/files/{filePath}".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -184,8 +185,9 @@ class FileResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/files/{filePath}".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -269,8 +271,9 @@ class FileResource:
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/files".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/files",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -359,8 +362,9 @@ class FileResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/files".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/files",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -443,10 +447,9 @@ class FileResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/files/{filePath}/content".format(
-                    **_path_params
-                ),
+                resource_path="/v1/datasets/{datasetRid}/files/{filePath}/content",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -529,8 +532,9 @@ class FileResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v1/datasets/{datasetRid}/files:upload".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/files:upload",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=bytes,

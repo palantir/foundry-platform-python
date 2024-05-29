@@ -272,6 +272,18 @@ from foundry.models._create_link_rule import CreateLinkRule
 from foundry.models._create_link_rule_dict import CreateLinkRuleDict
 from foundry.models._create_object_rule import CreateObjectRule
 from foundry.models._create_object_rule_dict import CreateObjectRuleDict
+from foundry.models._create_temporary_object_set_request_v2 import (
+    CreateTemporaryObjectSetRequestV2,
+)  # NOQA
+from foundry.models._create_temporary_object_set_request_v2_dict import (
+    CreateTemporaryObjectSetRequestV2Dict,
+)  # NOQA
+from foundry.models._create_temporary_object_set_response_v2 import (
+    CreateTemporaryObjectSetResponseV2,
+)  # NOQA
+from foundry.models._create_temporary_object_set_response_v2_dict import (
+    CreateTemporaryObjectSetResponseV2Dict,
+)  # NOQA
 from foundry.models._create_transaction_request import CreateTransactionRequest
 from foundry.models._create_transaction_request_dict import CreateTransactionRequestDict
 from foundry.models._created_by import CreatedBy
@@ -290,6 +302,8 @@ from foundry.models._delete_link_rule import DeleteLinkRule
 from foundry.models._delete_link_rule_dict import DeleteLinkRuleDict
 from foundry.models._delete_object_rule import DeleteObjectRule
 from foundry.models._delete_object_rule_dict import DeleteObjectRuleDict
+from foundry.models._deploy_website_request import DeployWebsiteRequest
+from foundry.models._deploy_website_request_dict import DeployWebsiteRequestDict
 from foundry.models._display_name import DisplayName
 from foundry.models._distance import Distance
 from foundry.models._distance_dict import DistanceDict
@@ -359,6 +373,8 @@ from foundry.models._group_membership import GroupMembership
 from foundry.models._group_membership_dict import GroupMembershipDict
 from foundry.models._group_membership_expiration import GroupMembershipExpiration
 from foundry.models._group_name import GroupName
+from foundry.models._group_search_filter import GroupSearchFilter
+from foundry.models._group_search_filter_dict import GroupSearchFilterDict
 from foundry.models._gt_query import GtQuery
 from foundry.models._gt_query_dict import GtQueryDict
 from foundry.models._gt_query_v2 import GtQueryV2
@@ -432,6 +448,8 @@ from foundry.models._list_group_memberships_response import ListGroupMemberships
 from foundry.models._list_group_memberships_response_dict import (
     ListGroupMembershipsResponseDict,
 )  # NOQA
+from foundry.models._list_groups_response import ListGroupsResponse
+from foundry.models._list_groups_response_dict import ListGroupsResponseDict
 from foundry.models._list_interface_types_response import ListInterfaceTypesResponse
 from foundry.models._list_interface_types_response_dict import (
     ListInterfaceTypesResponseDict,
@@ -472,10 +490,10 @@ from foundry.models._list_query_types_response import ListQueryTypesResponse
 from foundry.models._list_query_types_response_dict import ListQueryTypesResponseDict
 from foundry.models._list_query_types_response_v2 import ListQueryTypesResponseV2
 from foundry.models._list_query_types_response_v2_dict import ListQueryTypesResponseV2Dict  # NOQA
-from foundry.models._list_website_versions_response import ListWebsiteVersionsResponse
-from foundry.models._list_website_versions_response_dict import (
-    ListWebsiteVersionsResponseDict,
-)  # NOQA
+from foundry.models._list_users_response import ListUsersResponse
+from foundry.models._list_users_response_dict import ListUsersResponseDict
+from foundry.models._list_versions_response import ListVersionsResponse
+from foundry.models._list_versions_response_dict import ListVersionsResponseDict
 from foundry.models._load_object_set_request_v2 import LoadObjectSetRequestV2
 from foundry.models._load_object_set_request_v2_dict import LoadObjectSetRequestV2Dict
 from foundry.models._load_object_set_response_v2 import LoadObjectSetResponseV2
@@ -631,6 +649,7 @@ from foundry.models._prefix_query import PrefixQuery
 from foundry.models._prefix_query_dict import PrefixQueryDict
 from foundry.models._preview_mode import PreviewMode
 from foundry.models._primary_key_value import PrimaryKeyValue
+from foundry.models._principal_filter_type import PrincipalFilterType
 from foundry.models._principal_id import PrincipalId
 from foundry.models._principal_type import PrincipalType
 from foundry.models._property import Property
@@ -699,15 +718,13 @@ from foundry.models._relative_time_series_time_unit import RelativeTimeSeriesTim
 from foundry.models._release_status import ReleaseStatus
 from foundry.models._remove_group_members_request import RemoveGroupMembersRequest
 from foundry.models._remove_group_members_request_dict import RemoveGroupMembersRequestDict  # NOQA
-from foundry.models._replace_website_deployment_request import (
-    ReplaceWebsiteDeploymentRequest,
-)  # NOQA
-from foundry.models._replace_website_deployment_request_dict import (
-    ReplaceWebsiteDeploymentRequestDict,
-)  # NOQA
 from foundry.models._resource_path import ResourcePath
 from foundry.models._return_edits_mode import ReturnEditsMode
 from foundry.models._sdk_package_name import SdkPackageName
+from foundry.models._search_groups_request import SearchGroupsRequest
+from foundry.models._search_groups_request_dict import SearchGroupsRequestDict
+from foundry.models._search_groups_response import SearchGroupsResponse
+from foundry.models._search_groups_response_dict import SearchGroupsResponseDict
 from foundry.models._search_json_query import AndQuery
 from foundry.models._search_json_query import NotQuery
 from foundry.models._search_json_query import OrQuery
@@ -746,6 +763,10 @@ from foundry.models._search_ordering import SearchOrdering
 from foundry.models._search_ordering_dict import SearchOrderingDict
 from foundry.models._search_ordering_v2 import SearchOrderingV2
 from foundry.models._search_ordering_v2_dict import SearchOrderingV2Dict
+from foundry.models._search_users_request import SearchUsersRequest
+from foundry.models._search_users_request_dict import SearchUsersRequestDict
+from foundry.models._search_users_response import SearchUsersResponse
+from foundry.models._search_users_response_dict import SearchUsersResponseDict
 from foundry.models._selected_property_api_name import SelectedPropertyApiName
 from foundry.models._shared_property_type import SharedPropertyType
 from foundry.models._shared_property_type_api_name import SharedPropertyTypeApiName
@@ -775,6 +796,7 @@ from foundry.models._string_regex_match_constraint_dict import (
 from foundry.models._string_type import StringType
 from foundry.models._string_type_dict import StringTypeDict
 from foundry.models._struct_field_name import StructFieldName
+from foundry.models._subdomain import Subdomain
 from foundry.models._submission_criteria_evaluation import SubmissionCriteriaEvaluation
 from foundry.models._submission_criteria_evaluation_dict import (
     SubmissionCriteriaEvaluationDict,
@@ -820,6 +842,8 @@ from foundry.models._updated_time import UpdatedTime
 from foundry.models._user import User
 from foundry.models._user_dict import UserDict
 from foundry.models._user_id import UserId
+from foundry.models._user_search_filter import UserSearchFilter
+from foundry.models._user_search_filter_dict import UserSearchFilterDict
 from foundry.models._user_username import UserUsername
 from foundry.models._validate_action_request import ValidateActionRequest
 from foundry.models._validate_action_request_dict import ValidateActionRequestDict
@@ -829,12 +853,11 @@ from foundry.models._validate_action_response_v2 import ValidateActionResponseV2
 from foundry.models._validate_action_response_v2_dict import ValidateActionResponseV2Dict  # NOQA
 from foundry.models._validation_result import ValidationResult
 from foundry.models._value_type import ValueType
-from foundry.models._website_deployment import WebsiteDeployment
-from foundry.models._website_deployment_dict import WebsiteDeploymentDict
-from foundry.models._website_deployment_subdomain import WebsiteDeploymentSubdomain
-from foundry.models._website_version import WebsiteVersion
-from foundry.models._website_version_dict import WebsiteVersionDict
-from foundry.models._website_version_version import WebsiteVersionVersion
+from foundry.models._version import Version
+from foundry.models._version_dict import VersionDict
+from foundry.models._version_version import VersionVersion
+from foundry.models._website import Website
+from foundry.models._website_dict import WebsiteDict
 from foundry.models._within_bounding_box_point import WithinBoundingBoxPoint
 from foundry.models._within_bounding_box_point_dict import WithinBoundingBoxPointDict
 from foundry.models._within_bounding_box_query import WithinBoundingBoxQuery
@@ -1054,6 +1077,10 @@ __all__ = [
     "CreateLinkRuleDict",
     "CreateObjectRule",
     "CreateObjectRuleDict",
+    "CreateTemporaryObjectSetRequestV2",
+    "CreateTemporaryObjectSetRequestV2Dict",
+    "CreateTemporaryObjectSetResponseV2",
+    "CreateTemporaryObjectSetResponseV2Dict",
     "CreateTransactionRequest",
     "CreateTransactionRequestDict",
     "CustomTypeId",
@@ -1070,6 +1097,8 @@ __all__ = [
     "DeleteLinkRuleDict",
     "DeleteObjectRule",
     "DeleteObjectRuleDict",
+    "DeployWebsiteRequest",
+    "DeployWebsiteRequestDict",
     "DisplayName",
     "Distance",
     "DistanceDict",
@@ -1133,6 +1162,8 @@ __all__ = [
     "GroupMembershipDict",
     "GroupMembershipExpiration",
     "GroupName",
+    "GroupSearchFilter",
+    "GroupSearchFilterDict",
     "GteQuery",
     "GteQueryDict",
     "GteQueryV2",
@@ -1196,6 +1227,8 @@ __all__ = [
     "ListGroupMembershipsResponseDict",
     "ListGroupMembersResponse",
     "ListGroupMembersResponseDict",
+    "ListGroupsResponse",
+    "ListGroupsResponseDict",
     "ListInterfaceTypesResponse",
     "ListInterfaceTypesResponseDict",
     "ListLanguageModelsResponse",
@@ -1224,8 +1257,10 @@ __all__ = [
     "ListQueryTypesResponseDict",
     "ListQueryTypesResponseV2",
     "ListQueryTypesResponseV2Dict",
-    "ListWebsiteVersionsResponse",
-    "ListWebsiteVersionsResponseDict",
+    "ListUsersResponse",
+    "ListUsersResponseDict",
+    "ListVersionsResponse",
+    "ListVersionsResponseDict",
     "LoadObjectSetRequestV2",
     "LoadObjectSetRequestV2Dict",
     "LoadObjectSetResponseV2",
@@ -1379,6 +1414,7 @@ __all__ = [
     "PrefixQueryDict",
     "PreviewMode",
     "PrimaryKeyValue",
+    "PrincipalFilterType",
     "PrincipalId",
     "PrincipalType",
     "Property",
@@ -1439,11 +1475,13 @@ __all__ = [
     "ReleaseStatus",
     "RemoveGroupMembersRequest",
     "RemoveGroupMembersRequestDict",
-    "ReplaceWebsiteDeploymentRequest",
-    "ReplaceWebsiteDeploymentRequestDict",
     "ResourcePath",
     "ReturnEditsMode",
     "SdkPackageName",
+    "SearchGroupsRequest",
+    "SearchGroupsRequestDict",
+    "SearchGroupsResponse",
+    "SearchGroupsResponseDict",
     "SearchJsonQuery",
     "SearchJsonQueryDict",
     "SearchJsonQueryV2",
@@ -1466,6 +1504,10 @@ __all__ = [
     "SearchOrderingDict",
     "SearchOrderingV2",
     "SearchOrderingV2Dict",
+    "SearchUsersRequest",
+    "SearchUsersRequestDict",
+    "SearchUsersResponse",
+    "SearchUsersResponseDict",
     "SelectedPropertyApiName",
     "SharedPropertyType",
     "SharedPropertyTypeApiName",
@@ -1487,6 +1529,7 @@ __all__ = [
     "StringType",
     "StringTypeDict",
     "StructFieldName",
+    "Subdomain",
     "SubmissionCriteriaEvaluation",
     "SubmissionCriteriaEvaluationDict",
     "SumAggregation",
@@ -1528,6 +1571,8 @@ __all__ = [
     "User",
     "UserDict",
     "UserId",
+    "UserSearchFilter",
+    "UserSearchFilterDict",
     "UserUsername",
     "ValidateActionRequest",
     "ValidateActionRequestDict",
@@ -1537,12 +1582,11 @@ __all__ = [
     "ValidateActionResponseV2Dict",
     "ValidationResult",
     "ValueType",
-    "WebsiteDeployment",
-    "WebsiteDeploymentDict",
-    "WebsiteDeploymentSubdomain",
-    "WebsiteVersion",
-    "WebsiteVersionDict",
-    "WebsiteVersionVersion",
+    "Version",
+    "VersionDict",
+    "VersionVersion",
+    "Website",
+    "WebsiteDict",
     "WithinBoundingBoxPoint",
     "WithinBoundingBoxPointDict",
     "WithinBoundingBoxQuery",

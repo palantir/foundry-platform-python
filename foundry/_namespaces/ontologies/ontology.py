@@ -25,36 +25,44 @@ from pydantic import StrictInt
 from pydantic import validate_call
 
 from foundry._errors import handle_unexpected
+from foundry._namespaces.ontologies.action_type import ActionTypeResource
+from foundry._namespaces.ontologies.object_type import ObjectTypeResource
+from foundry._namespaces.ontologies.query_type import QueryTypeResource
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
-from foundry.models._list_ontologies_response import ListOntologiesResponse
-from foundry.models._ontology import Ontology
-from foundry.models._ontology_rid import OntologyRid
+from foundry.models._list_ontologies_v2_response import ListOntologiesV2Response
+from foundry.models._ontology_full_metadata import OntologyFullMetadata
+from foundry.models._ontology_identifier import OntologyIdentifier
+from foundry.models._ontology_v2 import OntologyV2
 
 
 class OntologyResource:
     def __init__(self, api_client: ApiClient) -> None:
         self._api_client = api_client
 
+        self.ActionType = ActionTypeResource(api_client=api_client)
+        self.ObjectType = ObjectTypeResource(api_client=api_client)
+        self.QueryType = QueryTypeResource(api_client=api_client)
+
     @validate_call
     @handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
+        ontology: OntologyIdentifier,
         *,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> Ontology:
+    ) -> OntologyV2:
         """
         Gets a specific ontology with the given Ontology RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
-        :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Ontology
+        :rtype: OntologyV2
         """
 
         _path_params: Dict[str, Any] = {}
@@ -62,19 +70,62 @@ class OntologyResource:
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
 
-        _path_params["ontologyRid"] = ontology_rid
+        _path_params["ontology"] = ontology
 
         _header_params["Accept"] = "application/json"
 
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}".format(**_path_params),
+                resource_path="/v2/ontologies/{ontology}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=Ontology,
+                response_type=OntologyV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def get_full_metadata(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> OntologyFullMetadata:
+        """
+        Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: OntologyFullMetadata
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = None
+
+        _path_params["ontology"] = ontology
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/fullMetadata",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=OntologyFullMetadata,
                 request_timeout=request_timeout,
             ),
         )
@@ -85,7 +136,7 @@ class OntologyResource:
         self,
         *,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ListOntologiesResponse:
+    ) -> ListOntologiesV2Response:
         """
         Lists the Ontologies visible to the current user.
 
@@ -94,7 +145,7 @@ class OntologyResource:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListOntologiesResponse
+        :rtype: ListOntologiesV2Response
         """
 
         _path_params: Dict[str, Any] = {}
@@ -107,12 +158,13 @@ class OntologyResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/ontologies",
+                resource_path="/v2/ontologies",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ListOntologiesResponse,
+                response_type=ListOntologiesV2Response,
                 request_timeout=request_timeout,
             ),
         )

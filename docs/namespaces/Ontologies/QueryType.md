@@ -2,9 +2,9 @@
 
 Method | HTTP request |
 ------------- | ------------- |
-[**get**](#get) | **GET** /v1/ontologies/{ontologyRid}/queryTypes/{queryApiName} |
-[**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
-[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/queryTypes |
 
 # **get**
 Gets a specific query type with the given API name.
@@ -16,12 +16,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **query_api_name** | QueryApiName | queryApiName |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**QueryType**
+**QueryTypeV2**
 
 ### Example
 
@@ -34,21 +33,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # QueryApiName | queryApiName
 query_api_name = "getEmployeesInCity"
 
-# Optional[PreviewMode] | preview
-preview = true
-
 
 try:
-    api_response = foundry_client.ontologies.QueryType.get(
-        ontology_rid, query_api_name, preview=preview
+    api_response = foundry_client.ontologies.Ontology.QueryType.get(
+        ontology,
+        query_api_name,
     )
-    print("The QueryType.get response:\n")
+    print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling QueryType.get: %s\n" % e)
@@ -64,15 +61,15 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | QueryType  | Success response. | application/json |
+**200** | QueryTypeV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **list**
-Lists the query types for the given Ontology.
+Lists the query types for the given Ontology.        
 
 Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-results available, at least one result will be present in the response.
+results available, at least one result will be present in the response.        
 
 Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
@@ -81,12 +78,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[QueryType]**
+**ResourceIterator[QueryTypeV2]**
 
 ### Example
 
@@ -95,22 +91,21 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # Optional[PageSize] | pageSize
 page_size = None
 
-# Optional[PreviewMode] | preview
-preview = true
-
-
 
 try:
-    for query_type in foundry_client.ontologies.QueryType.list(ontology_rid, page_size=page_sizepreview=preview)
-:
+    for query_type in foundry_client.ontologies.Ontology.QueryType.list(
+        ontology, page_size=page_size
+    ):
         pprint(query_type)
 except PalantirRPCException as e:
     print("HTTP error when calling QueryType.list: %s\n" % e)
@@ -126,15 +121,15 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListQueryTypesResponse  | Success response. | application/json |
+**200** | ListQueryTypesResponseV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **page**
-Lists the query types for the given Ontology.
+Lists the query types for the given Ontology.        
 
 Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-results available, at least one result will be present in the response.
+results available, at least one result will be present in the response.        
 
 Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
 
@@ -143,13 +138,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
+**ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**ListQueryTypesResponse**
+**ListQueryTypesResponseV2**
 
 ### Example
 
@@ -160,8 +154,8 @@ from pprint import pprint
 
 foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyRid | ontologyRid
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
+# OntologyIdentifier | ontology
+ontology = "palantir"
 
 # Optional[PageSize] | pageSize
 page_size = None
@@ -169,14 +163,11 @@ page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
 
-# Optional[PreviewMode] | preview
-preview = true
-
 
 
 try:
-    api_response = foundry_client.ontologies.QueryType.page(ontology_rid, page_size=page_sizepage_token=page_tokenpreview=preview)
-    print("The QueryType.page response:\n")
+    api_response = foundry_client.ontologies.Ontology.QueryType.page(ontology,page_size=page_sizepage_token=page_token)
+    print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
     print("HTTP error when calling QueryType.page: %s\n" % e)
@@ -192,7 +183,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListQueryTypesResponse  | Success response. | application/json |
+**200** | ListQueryTypesResponseV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

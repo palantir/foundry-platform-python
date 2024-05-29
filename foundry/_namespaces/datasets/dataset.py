@@ -28,6 +28,8 @@ from pydantic import StrictStr
 from pydantic import validate_call
 
 from foundry._errors import handle_unexpected
+from foundry._namespaces.datasets.branch import BranchResource
+from foundry._namespaces.datasets.transaction import TransactionResource
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
 from foundry.models._branch_id import BranchId
@@ -43,6 +45,9 @@ from foundry.models._transaction_rid import TransactionRid
 class DatasetResource:
     def __init__(self, api_client: ApiClient) -> None:
         self._api_client = api_client
+
+        self.Branch = BranchResource(api_client=api_client)
+        self.Transaction = TransactionResource(api_client=api_client)
 
     @validate_call
     @handle_unexpected
@@ -79,6 +84,7 @@ class DatasetResource:
                 method="POST",
                 resource_path="/v1/datasets",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=Union[CreateDatasetRequest, CreateDatasetRequestDict],
@@ -130,8 +136,9 @@ class DatasetResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="DELETE",
-                resource_path="/v1/datasets/{datasetRid}/schema".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -173,8 +180,9 @@ class DatasetResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -228,8 +236,9 @@ class DatasetResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/schema".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -302,8 +311,9 @@ class DatasetResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/readTable".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/readTable",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
@@ -355,8 +365,9 @@ class DatasetResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="PUT",
-                resource_path="/v1/datasets/{datasetRid}/schema".format(**_path_params),
+                resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params=_query_params,
+                path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=Any,
