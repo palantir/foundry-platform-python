@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: Add set_version.py script
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/7
