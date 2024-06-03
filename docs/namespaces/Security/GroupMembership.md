@@ -27,7 +27,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # PrincipalId | userId
 user_id = None
@@ -42,9 +44,13 @@ preview = None
 transitive = None
 
 
-
 try:
-    for group_membership in foundry_client.security.User.GroupMembership.list(user_id,page_size=page_sizepreview=previewtransitive=transitive):
+    for group_membership in foundry_client.security.User.GroupMembership.list(
+        user_id,
+        page_size=page_size,
+        preview=preview,
+        transitive=transitive,
+    ):
         pprint(group_membership)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMembership.list: %s\n" % e)
@@ -87,7 +93,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # PrincipalId | userId
 user_id = None
@@ -105,9 +113,14 @@ preview = None
 transitive = None
 
 
-
 try:
-    api_response = foundry_client.security.User.GroupMembership.page(user_id,page_size=page_sizepage_token=page_tokenpreview=previewtransitive=transitive)
+    api_response = foundry_client.security.User.GroupMembership.page(
+        user_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        transitive=transitive,
+    )
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:

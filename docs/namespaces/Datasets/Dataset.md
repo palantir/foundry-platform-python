@@ -89,7 +89,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -104,9 +106,13 @@ preview = true
 transaction_rid = None
 
 
-
 try:
-    api_response = foundry_client.datasets.Dataset.delete_schema(dataset_rid,branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
+    api_response = foundry_client.datasets.Dataset.delete_schema(
+        dataset_rid,
+        branch_id=branch_id,
+        preview=preview,
+        transaction_rid=transaction_rid,
+    )
     print("The delete_schema response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -204,7 +210,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -219,9 +227,13 @@ preview = true
 transaction_rid = None
 
 
-
 try:
-    api_response = foundry_client.datasets.Dataset.get_schema(dataset_rid,branch_id=branch_idpreview=previewtransaction_rid=transaction_rid)
+    api_response = foundry_client.datasets.Dataset.get_schema(
+        dataset_rid,
+        branch_id=branch_id,
+        preview=preview,
+        transaction_rid=transaction_rid,
+    )
     print("The get_schema response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -272,7 +284,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -296,9 +310,16 @@ row_limit = None
 start_transaction_rid = None
 
 
-
 try:
-    api_response = foundry_client.datasets.Dataset.read(dataset_rid,columns=columnsformat=formatbranch_id=branch_idend_transaction_rid=end_transaction_ridrow_limit=row_limitstart_transaction_rid=start_transaction_rid)
+    api_response = foundry_client.datasets.Dataset.read(
+        dataset_rid,
+        columns=columns,
+        format=format,
+        branch_id=branch_id,
+        end_transaction_rid=end_transaction_rid,
+        row_limit=row_limit,
+        start_transaction_rid=start_transaction_rid,
+    )
     print("The read response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -399,7 +420,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -414,9 +437,13 @@ branch_id = None
 preview = true
 
 
-
 try:
-    api_response = foundry_client.datasets.Dataset.replace_schema(dataset_rid,body,branch_id=branch_idpreview=preview)
+    api_response = foundry_client.datasets.Dataset.replace_schema(
+        dataset_rid,
+        body,
+        branch_id=branch_id,
+        preview=preview,
+    )
     print("The replace_schema response:\n")
     pprint(api_response)
 except PalantirRPCException as e:

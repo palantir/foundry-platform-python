@@ -104,7 +104,8 @@ page_size = None
 
 try:
     for action_type in foundry_client.ontologies.Ontology.ActionType.list(
-        ontology, page_size=page_size
+        ontology,
+        page_size=page_size,
     ):
         pprint(action_type)
 except PalantirRPCException as e:
@@ -152,7 +153,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
@@ -164,9 +167,12 @@ page_size = None
 page_token = None
 
 
-
 try:
-    api_response = foundry_client.ontologies.Ontology.ActionType.page(ontology,page_size=page_sizepage_token=page_token)
+    api_response = foundry_client.ontologies.Ontology.ActionType.page(
+        ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:

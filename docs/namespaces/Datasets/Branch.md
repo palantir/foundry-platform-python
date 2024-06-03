@@ -220,7 +220,10 @@ page_size = None
 
 
 try:
-    for branch in foundry_client.datasets.Dataset.Branch.list(dataset_rid, page_size=page_size):
+    for branch in foundry_client.datasets.Dataset.Branch.list(
+        dataset_rid,
+        page_size=page_size,
+    ):
         pprint(branch)
 except PalantirRPCException as e:
     print("HTTP error when calling Branch.list: %s\n" % e)
@@ -264,7 +267,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -276,9 +281,12 @@ page_size = None
 page_token = None
 
 
-
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.page(dataset_rid,page_size=page_sizepage_token=page_token)
+    api_response = foundry_client.datasets.Dataset.Branch.page(
+        dataset_rid,
+        page_size=page_size,
+        page_token=page_token,
+    )
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:

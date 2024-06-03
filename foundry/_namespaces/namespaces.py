@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 from foundry._namespaces.datasets.dataset import DatasetResource
-from foundry._namespaces.datasets.file import FileResource
 from foundry._namespaces.ontologies.ontology import OntologyResource
 from foundry._namespaces.security.group import GroupResource
 from foundry._namespaces.security.user import UserResource
@@ -26,7 +25,6 @@ from foundry.api_client import ApiClient
 class Datasets:
     def __init__(self, api_client: ApiClient):
         self.Dataset = DatasetResource(api_client=api_client)
-        self.File = FileResource(api_client=api_client)
 
 
 class Ontologies:

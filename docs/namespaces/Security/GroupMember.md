@@ -44,7 +44,9 @@ preview = None
 
 try:
     api_response = foundry_client.security.Group.GroupMember.add(
-        group_id, add_group_members_request, preview=preview
+        group_id,
+        add_group_members_request,
+        preview=preview,
     )
     print("The add response:\n")
     pprint(api_response)
@@ -88,7 +90,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # PrincipalId | groupId
 group_id = None
@@ -103,9 +107,13 @@ preview = None
 transitive = None
 
 
-
 try:
-    for group_member in foundry_client.security.Group.GroupMember.list(group_id,page_size=page_sizepreview=previewtransitive=transitive):
+    for group_member in foundry_client.security.Group.GroupMember.list(
+        group_id,
+        page_size=page_size,
+        preview=preview,
+        transitive=transitive,
+    ):
         pprint(group_member)
 except PalantirRPCException as e:
     print("HTTP error when calling GroupMember.list: %s\n" % e)
@@ -148,7 +156,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # PrincipalId | groupId
 group_id = None
@@ -166,9 +176,14 @@ preview = None
 transitive = None
 
 
-
 try:
-    api_response = foundry_client.security.Group.GroupMember.page(group_id,page_size=page_sizepage_token=page_tokenpreview=previewtransitive=transitive)
+    api_response = foundry_client.security.Group.GroupMember.page(
+        group_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        transitive=transitive,
+    )
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -226,7 +241,9 @@ preview = None
 
 try:
     api_response = foundry_client.security.Group.GroupMember.remove(
-        group_id, remove_group_members_request, preview=preview
+        group_id,
+        remove_group_members_request,
+        preview=preview,
     )
     print("The remove response:\n")
     pprint(api_response)
