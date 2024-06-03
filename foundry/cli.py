@@ -197,7 +197,7 @@ def datasets_dataset_read(
         row_limit=row_limit,
         start_transaction_rid=start_transaction_rid,
     )
-    click.echo(repr(result))
+    click.echo(result)
 
 
 @datasets_dataset.command("replace_schema")
@@ -592,7 +592,7 @@ def datasets_dataset_file_read(
         end_transaction_rid=end_transaction_rid,
         start_transaction_rid=start_transaction_rid,
     )
-    click.echo(repr(result))
+    click.echo(result)
 
 
 @datasets_dataset_file.command("upload")
@@ -1277,7 +1277,7 @@ def security_user_profile_picture(
         user_id=user_id,
         preview=preview,
     )
-    click.echo(repr(result))
+    click.echo(result)
 
 
 @security_user.command("search")
