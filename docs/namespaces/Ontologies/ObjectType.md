@@ -173,7 +173,8 @@ page_size = None
 
 try:
     for object_type in foundry_client.ontologies.Ontology.ObjectType.list(
-        ontology, page_size=page_size
+        ontology,
+        page_size=page_size,
     ):
         pprint(object_type)
 except PalantirRPCException as e:
@@ -235,7 +236,9 @@ page_size = None
 
 try:
     for object_type in foundry_client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
-        ontology, object_type, page_size=page_size
+        ontology,
+        object_type,
+        page_size=page_size,
     ):
         pprint(object_type)
 except PalantirRPCException as e:
@@ -284,7 +287,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
@@ -296,9 +301,12 @@ page_size = None
 page_token = None
 
 
-
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.page(ontology,page_size=page_sizepage_token=page_token)
+    api_response = foundry_client.ontologies.Ontology.ObjectType.page(
+        ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -345,7 +353,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
@@ -360,9 +370,13 @@ page_size = None
 page_token = None
 
 
-
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.page_outgoing_link_types(ontology,object_type,page_size=page_sizepage_token=page_token)
+    api_response = foundry_client.ontologies.Ontology.ObjectType.page_outgoing_link_types(
+        ontology,
+        object_type,
+        page_size=page_size,
+        page_token=page_token,
+    )
     print("The page_outgoing_link_types response:\n")
     pprint(api_response)
 except PalantirRPCException as e:

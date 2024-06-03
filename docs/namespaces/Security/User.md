@@ -42,7 +42,10 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.User.delete(user_id, preview=preview)
+    api_response = foundry_client.security.User.delete(
+        user_id,
+        preview=preview,
+    )
     print("The delete response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -95,7 +98,10 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.User.get(user_id, preview=preview)
+    api_response = foundry_client.security.User.get(
+        user_id,
+        preview=preview,
+    )
     print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -144,7 +150,9 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.User.get_current(preview=preview)
+    api_response = foundry_client.security.User.get_current(
+        preview=preview,
+    )
     print("The get_current response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -185,7 +193,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # Optional[PageSize] | pageSize
 page_size = None
@@ -194,9 +204,11 @@ page_size = None
 preview = None
 
 
-
 try:
-    for user in foundry_client.security.User.list(page_size=page_sizepreview=preview):
+    for user in foundry_client.security.User.list(
+        page_size=page_size,
+        preview=preview,
+    ):
         pprint(user)
 except PalantirRPCException as e:
     print("HTTP error when calling User.list: %s\n" % e)
@@ -237,7 +249,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # Optional[PageSize] | pageSize
 page_size = None
@@ -249,9 +263,12 @@ page_token = None
 preview = None
 
 
-
 try:
-    api_response = foundry_client.security.User.page(page_size=page_sizepage_token=page_tokenpreview=preview)
+    api_response = foundry_client.security.User.page(
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -304,7 +321,10 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.User.profile_picture(user_id, preview=preview)
+    api_response = foundry_client.security.User.profile_picture(
+        user_id,
+        preview=preview,
+    )
     print("The profile_picture response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -357,7 +377,10 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.User.search(search_users_request, preview=preview)
+    api_response = foundry_client.security.User.search(
+        search_users_request,
+        preview=preview,
+    )
     print("The search response:\n")
     pprint(api_response)
 except PalantirRPCException as e:

@@ -167,7 +167,9 @@ branch_id = None
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.create(
-        dataset_rid, create_transaction_request, branch_id=branch_id
+        dataset_rid,
+        create_transaction_request,
+        branch_id=branch_id,
     )
     print("The create response:\n")
     pprint(api_response)

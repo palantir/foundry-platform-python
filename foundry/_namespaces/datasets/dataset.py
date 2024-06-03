@@ -29,6 +29,7 @@ from pydantic import validate_call
 
 from foundry._errors import handle_unexpected
 from foundry._namespaces.datasets.branch import BranchResource
+from foundry._namespaces.datasets.file import FileResource
 from foundry._namespaces.datasets.transaction import TransactionResource
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
@@ -47,6 +48,7 @@ class DatasetResource:
         self._api_client = api_client
 
         self.Branch = BranchResource(api_client=api_client)
+        self.File = FileResource(api_client=api_client)
         self.Transaction = TransactionResource(api_client=api_client)
 
     @validate_call

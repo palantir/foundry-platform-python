@@ -47,7 +47,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -62,9 +64,13 @@ branch_id = None
 transaction_rid = None
 
 
-
 try:
-    api_response = foundry_client.datasets.File.delete(dataset_rid,file_path,branch_id=branch_idtransaction_rid=transaction_rid)
+    api_response = foundry_client.datasets.Dataset.File.delete(
+        dataset_rid,
+        file_path,
+        branch_id=branch_id,
+        transaction_rid=transaction_rid,
+    )
     print("The delete response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -132,7 +138,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -150,9 +158,14 @@ end_transaction_rid = None
 start_transaction_rid = None
 
 
-
 try:
-    api_response = foundry_client.datasets.File.get(dataset_rid,file_path,branch_id=branch_idend_transaction_rid=end_transaction_ridstart_transaction_rid=start_transaction_rid)
+    api_response = foundry_client.datasets.Dataset.File.get(
+        dataset_rid,
+        file_path,
+        branch_id=branch_id,
+        end_transaction_rid=end_transaction_rid,
+        start_transaction_rid=start_transaction_rid,
+    )
     print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -222,7 +235,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -240,9 +255,14 @@ page_size = None
 start_transaction_rid = None
 
 
-
 try:
-    for file in foundry_client.datasets.File.list(dataset_rid,branch_id=branch_idend_transaction_rid=end_transaction_ridpage_size=page_sizestart_transaction_rid=start_transaction_rid):
+    for file in foundry_client.datasets.Dataset.File.list(
+        dataset_rid,
+        branch_id=branch_id,
+        end_transaction_rid=end_transaction_rid,
+        page_size=page_size,
+        start_transaction_rid=start_transaction_rid,
+    ):
         pprint(file)
 except PalantirRPCException as e:
     print("HTTP error when calling File.list: %s\n" % e)
@@ -332,7 +352,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -353,9 +375,15 @@ page_token = None
 start_transaction_rid = None
 
 
-
 try:
-    api_response = foundry_client.datasets.File.page(dataset_rid,branch_id=branch_idend_transaction_rid=end_transaction_ridpage_size=page_sizepage_token=page_tokenstart_transaction_rid=start_transaction_rid)
+    api_response = foundry_client.datasets.Dataset.File.page(
+        dataset_rid,
+        branch_id=branch_id,
+        end_transaction_rid=end_transaction_rid,
+        page_size=page_size,
+        page_token=page_token,
+        start_transaction_rid=start_transaction_rid,
+    )
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -424,7 +452,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -442,9 +472,14 @@ end_transaction_rid = None
 start_transaction_rid = None
 
 
-
 try:
-    api_response = foundry_client.datasets.File.read(dataset_rid,file_path,branch_id=branch_idend_transaction_rid=end_transaction_ridstart_transaction_rid=start_transaction_rid)
+    api_response = foundry_client.datasets.Dataset.File.read(
+        dataset_rid,
+        file_path,
+        branch_id=branch_id,
+        end_transaction_rid=end_transaction_rid,
+        start_transaction_rid=start_transaction_rid,
+    )
     print("The read response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
@@ -509,7 +544,9 @@ from foundry import FoundryClient
 from foundry import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
 
 # DatasetRid | datasetRid
 dataset_rid = None
@@ -530,9 +567,15 @@ transaction_rid = None
 transaction_type = None
 
 
-
 try:
-    api_response = foundry_client.datasets.File.upload(dataset_rid,body,file_path=file_pathbranch_id=branch_idtransaction_rid=transaction_ridtransaction_type=transaction_type)
+    api_response = foundry_client.datasets.Dataset.File.upload(
+        dataset_rid,
+        body,
+        file_path=file_path,
+        branch_id=branch_id,
+        transaction_rid=transaction_rid,
+        transaction_type=transaction_type,
+    )
     print("The upload response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
