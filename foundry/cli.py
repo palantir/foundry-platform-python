@@ -44,7 +44,7 @@ def get_from_environ(key: str) -> str:
 @click.group()
 @click.pass_context  # type: ignore
 def cli(ctx: _Context):
-    "The official CLI for the Foundry API"
+    "An experimental CLI for the Foundry API"
     ctx.obj = foundry.FoundryClient(
         auth=foundry.UserTokenAuth(
             hostname=get_from_environ("FOUNDRY_HOSTNAME"),
