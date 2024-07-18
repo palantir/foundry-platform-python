@@ -5,8 +5,8 @@ MultiLineString
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**coordinates** | List[LineStringCoordinates] | Yes |  |
 **bbox** | NotRequired[BBox] | No |  |
+**coordinates** | List[LineStringCoordinates] | Yes |  |
 **type** | Literal["MultiLineString"] | Yes | None |
 
 

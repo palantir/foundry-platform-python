@@ -32,9 +32,9 @@ class Ontology(BaseModel):
 
     api_name: OntologyApiName = Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
-
     description: StrictStr
+
+    display_name: DisplayName = Field(alias="displayName")
 
     rid: OntologyRid
 

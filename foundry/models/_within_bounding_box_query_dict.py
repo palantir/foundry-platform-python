@@ -30,6 +30,6 @@ class WithinBoundingBoxQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    value: BoundingBoxValueDict
-
     type: Literal["withinBoundingBox"]
+
+    value: BoundingBoxValueDict

@@ -35,18 +35,18 @@ from foundry.models._realm import Realm
 class Group(BaseModel):
     """Group"""
 
+    attributes: Dict[AttributeName, AttributeValues]
+    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
+
+    description: Optional[StrictStr] = None
+
     id: PrincipalId
 
     name: GroupName
 
-    description: Optional[StrictStr] = None
-
-    realm: Realm
-
     organizations: List[OrganizationRid]
 
-    attributes: Dict[AttributeName, AttributeValues]
-    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
+    realm: Realm
 
     model_config = {"extra": "allow"}
 

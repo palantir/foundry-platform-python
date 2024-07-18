@@ -31,6 +31,6 @@ class ObjectSetUpdatesDict(TypedDict):
 
     id: SubscriptionId
 
-    updates: List[ObjectSetUpdateDict]
-
     type: Literal["objectSetChanged"]
+
+    updates: List[ObjectSetUpdateDict]

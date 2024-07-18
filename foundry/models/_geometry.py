@@ -45,9 +45,9 @@ class GeometryCollection(BaseModel):
     be used instead.
     """
 
-    geometries: List[Geometry]
-
     bbox: Optional[BBox] = None
+
+    geometries: List[Geometry]
 
     type: Literal["GeometryCollection"]
 

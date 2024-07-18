@@ -5,12 +5,12 @@ Group
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**attributes** | Dict[AttributeName, AttributeValues] | Yes | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |
+**description** | NotRequired[StrictStr] | No |  |
 **id** | PrincipalId | Yes |  |
 **name** | GroupName | Yes |  |
-**description** | NotRequired[StrictStr] | No |  |
-**realm** | Realm | Yes |  |
 **organizations** | List[OrganizationRid] | Yes |  |
-**attributes** | Dict[AttributeName, AttributeValues] | Yes | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |
+**realm** | Realm | Yes |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

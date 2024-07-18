@@ -8,10 +8,10 @@ Represents an action type in the Ontology.
 **apiName** | ActionTypeApiName | Yes |  |
 **description** | NotRequired[StrictStr] | No |  |
 **displayName** | NotRequired[DisplayName] | No |  |
-**status** | ReleaseStatus | Yes |  |
+**operations** | List[LogicRuleDict] | Yes |  |
 **parameters** | Dict[ParameterId, ParameterDict] | Yes |  |
 **rid** | ActionTypeRid | Yes |  |
-**operations** | List[LogicRuleDict] | Yes |  |
+**status** | ReleaseStatus | Yes |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

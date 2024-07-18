@@ -28,17 +28,17 @@ from foundry.models._array_size_constraint_dict import ArraySizeConstraintDict
 class ArraySizeConstraint(BaseModel):
     """The parameter expects an array of values and the size of the array must fall within the defined range."""
 
-    lt: Optional[Any] = None
-    """Less than"""
-
-    lte: Optional[Any] = None
-    """Less than or equal"""
-
     gt: Optional[Any] = None
     """Greater than"""
 
     gte: Optional[Any] = None
     """Greater than or equal"""
+
+    lt: Optional[Any] = None
+    """Less than"""
+
+    lte: Optional[Any] = None
+    """Less than or equal"""
 
     type: Literal["arraySize"]
 

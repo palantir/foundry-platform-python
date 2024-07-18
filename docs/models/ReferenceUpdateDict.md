@@ -11,8 +11,8 @@ field returns a dereferenced value rather than the reference itself.
 **apiName** | ObjectTypeApiName | Yes |  |
 **primaryKey** | ObjectPrimaryKey | Yes |  |
 **propertyApiName** | PropertyApiName | Yes |  |
-**value** | ReferenceValueDict | Yes |  |
 **type** | Literal["reference"] | Yes | None |
+**value** | ReferenceValueDict | Yes |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

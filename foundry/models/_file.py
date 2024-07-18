@@ -33,9 +33,9 @@ class File(BaseModel):
 
     path: FilePath
 
-    transaction_rid: TransactionRid = Field(alias="transactionRid")
-
     size_bytes: Optional[StrictStr] = Field(alias="sizeBytes", default=None)
+
+    transaction_rid: TransactionRid = Field(alias="transactionRid")
 
     updated_time: FileUpdatedTime = Field(alias="updatedTime")
 

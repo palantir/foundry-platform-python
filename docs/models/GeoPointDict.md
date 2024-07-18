@@ -5,8 +5,8 @@ GeoPoint
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**coordinates** | Position | Yes |  |
 **bbox** | NotRequired[BBox] | No |  |
+**coordinates** | Position | Yes |  |
 **type** | Literal["Point"] | Yes | None |
 
 

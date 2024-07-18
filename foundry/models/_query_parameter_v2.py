@@ -29,9 +29,9 @@ from foundry.models._query_parameter_v2_dict import QueryParameterV2Dict
 class QueryParameterV2(BaseModel):
     """Details about a parameter of a query."""
 
-    description: Optional[StrictStr] = None
-
     data_type: QueryDataType = Field(alias="dataType")
+
+    description: Optional[StrictStr] = None
 
     model_config = {"extra": "allow"}
 

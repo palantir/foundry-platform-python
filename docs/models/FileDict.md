@@ -6,8 +6,8 @@ File
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **path** | FilePath | Yes |  |
-**transactionRid** | TransactionRid | Yes |  |
 **sizeBytes** | NotRequired[StrictStr] | No |  |
+**transactionRid** | TransactionRid | Yes |  |
 **updatedTime** | FileUpdatedTime | Yes |  |
 
 

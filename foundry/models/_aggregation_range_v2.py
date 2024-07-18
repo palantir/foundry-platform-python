@@ -27,11 +27,11 @@ from foundry.models._aggregation_range_v2_dict import AggregationRangeV2Dict
 class AggregationRangeV2(BaseModel):
     """Specifies a range from an inclusive start value to an exclusive end value."""
 
-    start_value: Any = Field(alias="startValue")
-    """Inclusive start."""
-
     end_value: Any = Field(alias="endValue")
     """Exclusive end."""
+
+    start_value: Any = Field(alias="startValue")
+    """Inclusive start."""
 
     model_config = {"extra": "allow"}
 

@@ -29,13 +29,13 @@ from foundry.models._link_type_api_name import LinkTypeApiName
 class AddLink(BaseModel):
     """AddLink"""
 
-    link_type_api_name_ato_b: LinkTypeApiName = Field(alias="linkTypeApiNameAtoB")
-
-    link_type_api_name_bto_a: LinkTypeApiName = Field(alias="linkTypeApiNameBtoA")
-
     a_side_object: LinkSideObject = Field(alias="aSideObject")
 
     b_side_object: LinkSideObject = Field(alias="bSideObject")
+
+    link_type_api_name_ato_b: LinkTypeApiName = Field(alias="linkTypeApiNameAtoB")
+
+    link_type_api_name_bto_a: LinkTypeApiName = Field(alias="linkTypeApiNameBtoA")
 
     type: Literal["addLink"]
 

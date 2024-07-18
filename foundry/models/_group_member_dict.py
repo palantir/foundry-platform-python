@@ -26,6 +26,6 @@ class GroupMemberDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    principalType: PrincipalType
-
     principalId: PrincipalId
+
+    principalType: PrincipalType

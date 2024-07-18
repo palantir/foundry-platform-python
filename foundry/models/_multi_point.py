@@ -30,9 +30,9 @@ from foundry.models._position import Position
 class MultiPoint(BaseModel):
     """MultiPoint"""
 
-    coordinates: List[Position]
-
     bbox: Optional[BBox] = None
+
+    coordinates: List[Position]
 
     type: Literal["MultiPoint"]
 

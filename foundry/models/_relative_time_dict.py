@@ -27,8 +27,8 @@ class RelativeTimeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    when: RelativeTimeRelation
+    unit: RelativeTimeSeriesTimeUnit
 
     value: StrictInt
 
-    unit: RelativeTimeSeriesTimeUnit
+    when: RelativeTimeRelation

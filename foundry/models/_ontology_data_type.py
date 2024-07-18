@@ -97,9 +97,9 @@ class OntologySetType(BaseModel):
 class OntologyStructField(BaseModel):
     """OntologyStructField"""
 
-    name: StructFieldName
-
     field_type: OntologyDataType = Field(alias="fieldType")
+
+    name: StructFieldName
 
     required: StrictBool
 

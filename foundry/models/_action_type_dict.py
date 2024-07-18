@@ -42,10 +42,10 @@ class ActionTypeDict(TypedDict):
 
     displayName: NotRequired[DisplayName]
 
-    status: ReleaseStatus
+    operations: List[LogicRuleDict]
 
     parameters: Dict[ParameterId, ParameterDict]
 
     rid: ActionTypeRid
 
-    operations: List[LogicRuleDict]
+    status: ReleaseStatus

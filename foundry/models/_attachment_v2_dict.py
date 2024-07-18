@@ -30,12 +30,12 @@ class AttachmentV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: AttachmentRid
-
     filename: Filename
 
-    sizeBytes: SizeBytes
-
     mediaType: MediaType
+
+    rid: AttachmentRid
+
+    sizeBytes: SizeBytes
 
     type: Literal["single"]

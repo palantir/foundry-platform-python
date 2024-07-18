@@ -30,11 +30,11 @@ from foundry.models._user_search_filter import UserSearchFilter
 class SearchUsersRequest(BaseModel):
     """SearchUsersRequest"""
 
-    where: UserSearchFilter
-
     page_size: Optional[PageSize] = Field(alias="pageSize", default=None)
 
     page_token: Optional[PageToken] = Field(alias="pageToken", default=None)
+
+    where: UserSearchFilter
 
     model_config = {"extra": "allow"}
 

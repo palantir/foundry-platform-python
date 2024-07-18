@@ -6,8 +6,8 @@ A relative time range for a time series query.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**startTime** | NotRequired[RelativeTimeDict] | No |  |
 **endTime** | NotRequired[RelativeTimeDict] | No |  |
+**startTime** | NotRequired[RelativeTimeDict] | No |  |
 **type** | Literal["relative"] | Yes | None |
 
 

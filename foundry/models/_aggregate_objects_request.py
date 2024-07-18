@@ -33,9 +33,9 @@ class AggregateObjectsRequest(BaseModel):
 
     aggregation: List[Aggregation]
 
-    query: Optional[SearchJsonQuery] = None
-
     group_by: List[AggregationGroupBy] = Field(alias="groupBy")
+
+    query: Optional[SearchJsonQuery] = None
 
     model_config = {"extra": "allow"}
 

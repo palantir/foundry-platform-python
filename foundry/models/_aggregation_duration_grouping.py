@@ -33,9 +33,9 @@ class AggregationDurationGrouping(BaseModel):
     The interval uses the ISO 8601 notation. For example, "PT1H2M34S" represents a duration of 3754 seconds.
     """
 
-    field: FieldNameV1
-
     duration: Duration
+
+    field: FieldNameV1
 
     type: Literal["duration"]
 

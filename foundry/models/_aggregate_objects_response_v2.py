@@ -35,11 +35,11 @@ from foundry.models._aggregation_accuracy import AggregationAccuracy
 class AggregateObjectsResponseV2(BaseModel):
     """AggregateObjectsResponseV2"""
 
-    excluded_items: Optional[StrictInt] = Field(alias="excludedItems", default=None)
-
     accuracy: AggregationAccuracy
 
     data: List[AggregateObjectsResponseItemV2]
+
+    excluded_items: Optional[StrictInt] = Field(alias="excludedItems", default=None)
 
     model_config = {"extra": "allow"}
 

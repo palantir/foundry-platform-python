@@ -5,10 +5,10 @@ AddLink
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**linkTypeApiNameAtoB** | LinkTypeApiName | Yes |  |
-**linkTypeApiNameBtoA** | LinkTypeApiName | Yes |  |
 **aSideObject** | LinkSideObjectDict | Yes |  |
 **bSideObject** | LinkSideObjectDict | Yes |  |
+**linkTypeApiNameAtoB** | LinkTypeApiName | Yes |  |
+**linkTypeApiNameBtoA** | LinkTypeApiName | Yes |  |
 **type** | Literal["addLink"] | Yes | None |
 
 

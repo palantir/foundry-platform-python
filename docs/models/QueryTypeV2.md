@@ -8,8 +8,8 @@ Represents a query type in the Ontology.
 **api_name** | QueryApiName | Yes |  |
 **description** | Optional[StrictStr] | No |  |
 **display_name** | Optional[DisplayName] | No |  |
-**parameters** | Dict[ParameterId, QueryParameterV2] | Yes |  |
 **output** | QueryDataType | Yes |  |
+**parameters** | Dict[ParameterId, QueryParameterV2] | Yes |  |
 **rid** | FunctionRid | Yes |  |
 **version** | FunctionVersion | Yes |  |
 

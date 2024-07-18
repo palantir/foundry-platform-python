@@ -8,9 +8,9 @@ order in the provided value. This query supports fuzzy matching.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | StrictStr | Yes |  |
 **fuzzy** | NotRequired[Fuzzy] | No |  |
 **type** | Literal["allTerms"] | Yes | None |
+**value** | StrictStr | Yes |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

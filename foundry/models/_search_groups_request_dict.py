@@ -28,8 +28,8 @@ class SearchGroupsRequestDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    where: GroupSearchFilterDict
-
     pageSize: NotRequired[PageSize]
 
     pageToken: NotRequired[PageToken]
+
+    where: GroupSearchFilterDict

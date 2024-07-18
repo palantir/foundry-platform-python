@@ -34,13 +34,13 @@ from foundry.models._object_set import ObjectSet
 class AggregateObjectSetRequestV2(BaseModel):
     """AggregateObjectSetRequestV2"""
 
-    aggregation: List[AggregationV2]
+    accuracy: Optional[AggregationAccuracyRequest] = None
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    aggregation: List[AggregationV2]
 
     group_by: List[AggregationGroupByV2] = Field(alias="groupBy")
 
-    accuracy: Optional[AggregationAccuracyRequest] = None
+    object_set: ObjectSet = Field(alias="objectSet")
 
     model_config = {"extra": "allow"}
 

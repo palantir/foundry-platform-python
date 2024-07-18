@@ -29,7 +29,7 @@ class ListOutgoingLinkTypesResponseV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nextPageToken: NotRequired[PageToken]
-
     data: List[LinkTypeSideV2Dict]
     """The list of link type sides in the current page."""
+
+    nextPageToken: NotRequired[PageToken]

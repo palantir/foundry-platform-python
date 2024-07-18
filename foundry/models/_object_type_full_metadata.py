@@ -36,10 +36,6 @@ from foundry.models._shared_property_type_api_name import SharedPropertyTypeApiN
 class ObjectTypeFullMetadata(BaseModel):
     """ObjectTypeFullMetadata"""
 
-    object_type: ObjectTypeV2 = Field(alias="objectType")
-
-    link_types: List[LinkTypeSideV2] = Field(alias="linkTypes")
-
     implements_interfaces: List[InterfaceTypeApiName] = Field(alias="implementsInterfaces")
     """A list of interfaces that this object type implements."""
 
@@ -47,6 +43,10 @@ class ObjectTypeFullMetadata(BaseModel):
         alias="implementsInterfaces2"
     )
     """A list of interfaces that this object type implements and how it implements them."""
+
+    link_types: List[LinkTypeSideV2] = Field(alias="linkTypes")
+
+    object_type: ObjectTypeV2 = Field(alias="objectType")
 
     shared_property_type_mapping: Dict[SharedPropertyTypeApiName, PropertyApiName] = Field(
         alias="sharedPropertyTypeMapping"

@@ -30,9 +30,9 @@ from foundry.models._page_token import PageToken
 class ListLinkedObjectsResponse(BaseModel):
     """ListLinkedObjectsResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
-
     data: List[OntologyObject]
+
+    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

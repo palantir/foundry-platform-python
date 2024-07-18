@@ -30,8 +30,8 @@ class MultiLineStringDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    coordinates: List[LineStringCoordinates]
-
     bbox: NotRequired[BBox]
+
+    coordinates: List[LineStringCoordinates]
 
     type: Literal["MultiLineString"]

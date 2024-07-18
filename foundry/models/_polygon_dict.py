@@ -30,8 +30,8 @@ class PolygonDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    coordinates: List[LinearRing]
-
     bbox: NotRequired[BBox]
+
+    coordinates: List[LinearRing]
 
     type: Literal["Polygon"]

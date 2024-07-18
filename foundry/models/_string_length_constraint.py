@@ -31,17 +31,17 @@ class StringLengthConstraint(BaseModel):
     *This range is always inclusive.*
     """
 
-    lt: Optional[Any] = None
-    """Less than"""
-
-    lte: Optional[Any] = None
-    """Less than or equal"""
-
     gt: Optional[Any] = None
     """Greater than"""
 
     gte: Optional[Any] = None
     """Greater than or equal"""
+
+    lt: Optional[Any] = None
+    """Less than"""
+
+    lte: Optional[Any] = None
+    """Less than or equal"""
 
     type: Literal["stringLength"]
 

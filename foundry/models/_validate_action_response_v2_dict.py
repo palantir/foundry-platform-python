@@ -33,8 +33,8 @@ class ValidateActionResponseV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    parameters: Dict[ParameterId, ParameterEvaluationResultDict]
+
     result: ValidationResult
 
     submissionCriteria: List[SubmissionCriteriaEvaluationDict]
-
-    parameters: Dict[ParameterId, ParameterEvaluationResultDict]

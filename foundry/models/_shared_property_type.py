@@ -32,16 +32,16 @@ from foundry.models._shared_property_type_rid import SharedPropertyTypeRid
 class SharedPropertyType(BaseModel):
     """A property type that can be shared across object types."""
 
-    rid: SharedPropertyTypeRid
-
     api_name: SharedPropertyTypeApiName = Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    data_type: ObjectPropertyType = Field(alias="dataType")
 
     description: Optional[StrictStr] = None
     """A short text that describes the SharedPropertyType."""
 
-    data_type: ObjectPropertyType = Field(alias="dataType")
+    display_name: DisplayName = Field(alias="displayName")
+
+    rid: SharedPropertyTypeRid
 
     model_config = {"extra": "allow"}
 

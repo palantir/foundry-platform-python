@@ -30,14 +30,14 @@ class TransactionDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: TransactionRid
-
-    transactionType: TransactionType
-
-    status: TransactionStatus
+    closedTime: NotRequired[DateTime]
+    """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
     createdTime: TransactionCreatedTime
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    closedTime: NotRequired[DateTime]
-    """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
+    rid: TransactionRid
+
+    status: TransactionStatus
+
+    transactionType: TransactionType

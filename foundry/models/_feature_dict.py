@@ -32,14 +32,9 @@ class FeatureDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    geometry: NotRequired[GeometryDict]
+    bbox: NotRequired[BBox]
 
-    properties: Dict[FeaturePropertyKey, Any]
-    """
-    A `Feature` object has a member with the name "properties".  The
-    value of the properties member is an object (any JSON object or a
-    JSON null value).
-    """
+    geometry: NotRequired[GeometryDict]
 
     id: NotRequired[Any]
     """
@@ -49,6 +44,11 @@ class FeatureDict(TypedDict):
     number.
     """
 
-    bbox: NotRequired[BBox]
+    properties: Dict[FeaturePropertyKey, Any]
+    """
+    A `Feature` object has a member with the name "properties".  The
+    value of the properties member is an object (any JSON object or a
+    JSON null value).
+    """
 
     type: Literal["Feature"]

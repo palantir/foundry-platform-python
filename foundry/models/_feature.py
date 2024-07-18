@@ -32,14 +32,9 @@ from foundry.models._geometry import Geometry
 class Feature(BaseModel):
     """GeoJSon 'Feature' object"""
 
-    geometry: Optional[Geometry] = None
+    bbox: Optional[BBox] = None
 
-    properties: Dict[FeaturePropertyKey, Any]
-    """
-    A `Feature` object has a member with the name "properties".  The
-    value of the properties member is an object (any JSON object or a
-    JSON null value).
-    """
+    geometry: Optional[Geometry] = None
 
     id: Optional[Any] = None
     """
@@ -49,7 +44,12 @@ class Feature(BaseModel):
     number.
     """
 
-    bbox: Optional[BBox] = None
+    properties: Dict[FeaturePropertyKey, Any]
+    """
+    A `Feature` object has a member with the name "properties".  The
+    value of the properties member is an object (any JSON object or a
+    JSON null value).
+    """
 
     type: Literal["Feature"]
 

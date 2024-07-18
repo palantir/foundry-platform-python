@@ -5,10 +5,10 @@ Computes the approximate percentile value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
-**name** | Optional[AggregationMetricName] | No |  |
 **approximate_percentile** | StrictFloat | Yes |  |
 **direction** | Optional[OrderByDirection] | No |  |
+**field** | PropertyApiName | Yes |  |
+**name** | Optional[AggregationMetricName] | No |  |
 **type** | Literal["approximatePercentile"] | Yes | None |
 
 

@@ -27,9 +27,9 @@ from foundry.models._distance_unit import DistanceUnit
 class Distance(BaseModel):
     """A measurement of distance."""
 
-    value: StrictFloat
-
     unit: DistanceUnit
+
+    value: StrictFloat
 
     model_config = {"extra": "allow"}
 

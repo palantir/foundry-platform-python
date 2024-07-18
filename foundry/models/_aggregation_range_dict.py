@@ -26,14 +26,14 @@ class AggregationRangeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    lt: NotRequired[Any]
-    """Exclusive end date."""
-
-    lte: NotRequired[Any]
-    """Inclusive end date."""
-
     gt: NotRequired[Any]
     """Exclusive start date."""
 
     gte: NotRequired[Any]
     """Inclusive start date."""
+
+    lt: NotRequired[Any]
+    """Exclusive end date."""
+
+    lte: NotRequired[Any]
+    """Inclusive end date."""

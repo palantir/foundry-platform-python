@@ -27,9 +27,9 @@ from foundry.models._within_bounding_box_point import WithinBoundingBoxPoint
 class BoundingBoxValue(BaseModel):
     """The top left and bottom right coordinate points that make up the bounding box."""
 
-    top_left: WithinBoundingBoxPoint = Field(alias="topLeft")
-
     bottom_right: WithinBoundingBoxPoint = Field(alias="bottomRight")
+
+    top_left: WithinBoundingBoxPoint = Field(alias="topLeft")
 
     model_config = {"extra": "allow"}
 

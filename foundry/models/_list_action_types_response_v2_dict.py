@@ -29,6 +29,6 @@ class ListActionTypesResponseV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nextPageToken: NotRequired[PageToken]
-
     data: List[ActionTypeV2Dict]
+
+    nextPageToken: NotRequired[PageToken]

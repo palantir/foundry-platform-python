@@ -35,9 +35,9 @@ class AllTermsQuery(BaseModel):
 
     field: FieldNameV1
 
-    value: StrictStr
-
     fuzzy: Optional[Fuzzy] = None
+
+    value: StrictStr
 
     type: Literal["allTerms"]
 

@@ -36,19 +36,19 @@ class LinkTypeSideV2(BaseModel):
 
     api_name: LinkTypeApiName = Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
-
-    status: ReleaseStatus
-
-    object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
-
     cardinality: LinkTypeSideCardinality
+
+    display_name: DisplayName = Field(alias="displayName")
 
     foreign_key_property_api_name: Optional[PropertyApiName] = Field(
         alias="foreignKeyPropertyApiName", default=None
     )
 
     link_type_rid: LinkTypeRid = Field(alias="linkTypeRid")
+
+    object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
+
+    status: ReleaseStatus
 
     model_config = {"extra": "allow"}
 

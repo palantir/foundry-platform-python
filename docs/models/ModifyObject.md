@@ -5,8 +5,8 @@ ModifyObject
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**primary_key** | PropertyValue | Yes |  |
 **object_type** | ObjectTypeApiName | Yes |  |
+**primary_key** | PropertyValue | Yes |  |
 **type** | Literal["modifyObject"] | Yes | None |
 
 

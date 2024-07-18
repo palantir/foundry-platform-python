@@ -28,9 +28,9 @@ from foundry.models._principal_type import PrincipalType
 class GroupMember(BaseModel):
     """GroupMember"""
 
-    principal_type: PrincipalType = Field(alias="principalType")
-
     principal_id: PrincipalId = Field(alias="principalId")
+
+    principal_type: PrincipalType = Field(alias="principalType")
 
     model_config = {"extra": "allow"}
 

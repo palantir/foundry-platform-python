@@ -31,8 +31,8 @@ class FileDict(TypedDict):
 
     path: FilePath
 
-    transactionRid: TransactionRid
-
     sizeBytes: NotRequired[StrictStr]
+
+    transactionRid: TransactionRid
 
     updatedTime: FileUpdatedTime

@@ -28,9 +28,9 @@ from foundry.models._chat_message_role import ChatMessageRole
 class ChatMessage(BaseModel):
     """ChatMessage"""
 
-    role: ChatMessageRole
-
     content: Optional[StrictStr] = None
+
+    role: ChatMessageRole
 
     model_config = {"extra": "allow"}
 

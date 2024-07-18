@@ -6,8 +6,8 @@ Returns a response for every request in the same order. Duplicate requests will 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**responses** | List[ObjectSetSubscribeResponse] | Yes |  |
 **id** | RequestId | Yes |  |
+**responses** | List[ObjectSetSubscribeResponse] | Yes |  |
 **type** | Literal["subscribeResponses"] | Yes | None |
 
 

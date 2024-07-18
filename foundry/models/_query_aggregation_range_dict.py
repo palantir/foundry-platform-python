@@ -26,8 +26,8 @@ class QueryAggregationRangeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    startValue: NotRequired[Any]
-    """Inclusive start."""
-
     endValue: NotRequired[Any]
     """Exclusive end."""
+
+    startValue: NotRequired[Any]
+    """Inclusive start."""

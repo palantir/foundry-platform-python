@@ -28,8 +28,8 @@ class AbsoluteTimeRangeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    startTime: NotRequired[DateTime]
-
     endTime: NotRequired[DateTime]
+
+    startTime: NotRequired[DateTime]
 
     type: Literal["absolute"]

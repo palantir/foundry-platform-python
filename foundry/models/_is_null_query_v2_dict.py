@@ -30,6 +30,6 @@ class IsNullQueryV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    value: StrictBool
-
     type: Literal["isNull"]
+
+    value: StrictBool

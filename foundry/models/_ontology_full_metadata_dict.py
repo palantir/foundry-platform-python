@@ -37,14 +37,14 @@ class OntologyFullMetadataDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    ontology: OntologyV2Dict
+    actionTypes: Dict[ActionTypeApiName, ActionTypeV2Dict]
+
+    interfaceTypes: Dict[InterfaceTypeApiName, InterfaceTypeDict]
 
     objectTypes: Dict[ObjectTypeApiName, ObjectTypeFullMetadataDict]
 
-    actionTypes: Dict[ActionTypeApiName, ActionTypeV2Dict]
+    ontology: OntologyV2Dict
 
     queryTypes: Dict[QueryApiName, QueryTypeV2Dict]
-
-    interfaceTypes: Dict[InterfaceTypeApiName, InterfaceTypeDict]
 
     sharedPropertyTypes: Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]

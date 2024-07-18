@@ -45,9 +45,9 @@ class GeometryCollectionDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    geometries: List[GeometryDict]
-
     bbox: NotRequired[BBox]
+
+    geometries: List[GeometryDict]
 
     type: Literal["GeometryCollection"]
 

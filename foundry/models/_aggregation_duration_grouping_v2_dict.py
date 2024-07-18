@@ -34,8 +34,8 @@ class AggregationDurationGroupingV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    value: StrictInt
+    type: Literal["duration"]
 
     unit: TimeUnit
 
-    type: Literal["duration"]
+    value: StrictInt

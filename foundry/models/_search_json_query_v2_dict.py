@@ -59,9 +59,9 @@ class AndQueryV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: List[SearchJsonQueryV2Dict]
-
     type: Literal["and"]
+
+    value: List[SearchJsonQueryV2Dict]
 
 
 class OrQueryV2Dict(TypedDict):
@@ -69,9 +69,9 @@ class OrQueryV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: List[SearchJsonQueryV2Dict]
-
     type: Literal["or"]
+
+    value: List[SearchJsonQueryV2Dict]
 
 
 class NotQueryV2Dict(TypedDict):
@@ -79,9 +79,9 @@ class NotQueryV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: SearchJsonQueryV2Dict
-
     type: Literal["not"]
+
+    value: SearchJsonQueryV2Dict
 
 
 SearchJsonQueryV2Dict = Annotated[

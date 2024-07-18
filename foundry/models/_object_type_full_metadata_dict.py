@@ -35,15 +35,15 @@ class ObjectTypeFullMetadataDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeV2Dict
-
-    linkTypes: List[LinkTypeSideV2Dict]
-
     implementsInterfaces: List[InterfaceTypeApiName]
     """A list of interfaces that this object type implements."""
 
     implementsInterfaces2: Dict[InterfaceTypeApiName, ObjectTypeInterfaceImplementationDict]
     """A list of interfaces that this object type implements and how it implements them."""
+
+    linkTypes: List[LinkTypeSideV2Dict]
+
+    objectType: ObjectTypeV2Dict
 
     sharedPropertyTypeMapping: Dict[SharedPropertyTypeApiName, PropertyApiName]
     """

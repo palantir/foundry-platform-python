@@ -37,18 +37,18 @@ class InterfaceLinkTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: InterfaceLinkTypeRid
-
     apiName: InterfaceLinkTypeApiName
 
-    displayName: DisplayName
+    cardinality: InterfaceLinkTypeCardinality
 
     description: NotRequired[StrictStr]
     """The description of the interface link type."""
 
-    linkedEntityApiName: InterfaceLinkTypeLinkedEntityApiNameDict
+    displayName: DisplayName
 
-    cardinality: InterfaceLinkTypeCardinality
+    linkedEntityApiName: InterfaceLinkTypeLinkedEntityApiNameDict
 
     required: StrictBool
     """Whether each implementing object type must declare at least one implementation of this link."""
+
+    rid: InterfaceLinkTypeRid

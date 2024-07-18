@@ -28,8 +28,8 @@ class SearchUsersRequestDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    where: UserSearchFilterDict
-
     pageSize: NotRequired[PageSize]
 
     pageToken: NotRequired[PageToken]
+
+    where: UserSearchFilterDict

@@ -30,11 +30,11 @@ from foundry.models._property_v2_dict import PropertyV2Dict
 class PropertyV2(BaseModel):
     """Details about some property of an object."""
 
+    data_type: ObjectPropertyType = Field(alias="dataType")
+
     description: Optional[StrictStr] = None
 
     display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
-
-    data_type: ObjectPropertyType = Field(alias="dataType")
 
     model_config = {"extra": "allow"}
 

@@ -29,9 +29,9 @@ from foundry.models._property_value import PropertyValue
 class AddObject(BaseModel):
     """AddObject"""
 
-    primary_key: PropertyValue = Field(alias="primaryKey")
-
     object_type: ObjectTypeApiName = Field(alias="objectType")
+
+    primary_key: PropertyValue = Field(alias="primaryKey")
 
     type: Literal["addObject"]
 

@@ -31,9 +31,9 @@ from foundry.models._request_id import RequestId
 class ObjectSetSubscribeResponses(BaseModel):
     """Returns a response for every request in the same order. Duplicate requests will be assigned the same SubscriberId."""
 
-    responses: List[ObjectSetSubscribeResponse]
-
     id: RequestId
+
+    responses: List[ObjectSetSubscribeResponse]
 
     type: Literal["subscribeResponses"]
 

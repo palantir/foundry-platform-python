@@ -30,9 +30,9 @@ from foundry.models._polygon_dict import PolygonDict
 class Polygon(BaseModel):
     """Polygon"""
 
-    coordinates: List[LinearRing]
-
     bbox: Optional[BBox] = None
+
+    coordinates: List[LinearRing]
 
     type: Literal["Polygon"]
 

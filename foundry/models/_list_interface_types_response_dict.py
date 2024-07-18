@@ -29,6 +29,6 @@ class ListInterfaceTypesResponseDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nextPageToken: NotRequired[PageToken]
-
     data: List[InterfaceTypeDict]
+
+    nextPageToken: NotRequired[PageToken]

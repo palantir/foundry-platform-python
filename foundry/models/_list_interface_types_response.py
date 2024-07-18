@@ -32,9 +32,9 @@ from foundry.models._page_token import PageToken
 class ListInterfaceTypesResponse(BaseModel):
     """ListInterfaceTypesResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
-
     data: List[InterfaceType]
+
+    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

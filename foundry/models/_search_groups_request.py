@@ -30,11 +30,11 @@ from foundry.models._search_groups_request_dict import SearchGroupsRequestDict
 class SearchGroupsRequest(BaseModel):
     """SearchGroupsRequest"""
 
-    where: GroupSearchFilter
-
     page_size: Optional[PageSize] = Field(alias="pageSize", default=None)
 
     page_token: Optional[PageToken] = Field(alias="pageToken", default=None)
+
+    where: GroupSearchFilter
 
     model_config = {"extra": "allow"}
 

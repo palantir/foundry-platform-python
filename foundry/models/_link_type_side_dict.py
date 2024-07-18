@@ -33,12 +33,12 @@ class LinkTypeSideDict(TypedDict):
 
     apiName: LinkTypeApiName
 
+    cardinality: LinkTypeSideCardinality
+
     displayName: DisplayName
 
-    status: ReleaseStatus
+    foreignKeyPropertyApiName: NotRequired[PropertyApiName]
 
     objectTypeApiName: ObjectTypeApiName
 
-    cardinality: LinkTypeSideCardinality
-
-    foreignKeyPropertyApiName: NotRequired[PropertyApiName]
+    status: ReleaseStatus

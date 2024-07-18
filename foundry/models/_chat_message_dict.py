@@ -27,6 +27,6 @@ class ChatMessageDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    role: ChatMessageRole
-
     content: NotRequired[StrictStr]
+
+    role: ChatMessageRole

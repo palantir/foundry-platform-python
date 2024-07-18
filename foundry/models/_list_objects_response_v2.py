@@ -31,10 +31,10 @@ from foundry.models._total_count import TotalCount
 class ListObjectsResponseV2(BaseModel):
     """ListObjectsResponseV2"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
-
     data: List[OntologyObjectV2]
     """The list of objects in the current page."""
+
+    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
     total_count: TotalCount = Field(alias="totalCount")
 

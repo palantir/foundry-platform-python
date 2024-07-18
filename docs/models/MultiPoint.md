@@ -5,8 +5,8 @@ MultiPoint
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**coordinates** | List[Position] | Yes |  |
 **bbox** | Optional[BBox] | No |  |
+**coordinates** | List[Position] | Yes |  |
 **type** | Literal["MultiPoint"] | Yes | None |
 
 

@@ -28,8 +28,8 @@ class SubscriptionClosedDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    id: SubscriptionId
-
     error: ErrorDict
+
+    id: SubscriptionId
 
     type: Literal["subscriptionClosed"]

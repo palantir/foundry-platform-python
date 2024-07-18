@@ -28,9 +28,9 @@ from foundry.models._folder_rid import FolderRid
 class CreateDatasetRequest(BaseModel):
     """CreateDatasetRequest"""
 
-    parent_folder_rid: FolderRid = Field(alias="parentFolderRid")
-
     name: DatasetName
+
+    parent_folder_rid: FolderRid = Field(alias="parentFolderRid")
 
     model_config = {"extra": "allow"}
 

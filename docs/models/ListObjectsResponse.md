@@ -5,8 +5,8 @@ ListObjectsResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**next_page_token** | Optional[PageToken] | No |  |
 **data** | List[OntologyObject] | Yes | The list of objects in the current page. |
+**next_page_token** | Optional[PageToken] | No |  |
 **total_count** | TotalCount | Yes |  |
 
 

@@ -6,12 +6,12 @@ Represents an object type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | ObjectTypeApiName | Yes |  |
-**display_name** | Optional[DisplayName] | No |  |
-**status** | ReleaseStatus | Yes |  |
 **description** | Optional[StrictStr] | No | The description of the object type. |
+**display_name** | Optional[DisplayName] | No |  |
 **primary_key** | PropertyApiName | Yes |  |
 **properties** | Dict[PropertyApiName, PropertyV2] | Yes | A map of the properties of the object type. |
 **rid** | ObjectTypeRid | Yes |  |
+**status** | ReleaseStatus | Yes |  |
 **title_property** | PropertyApiName | Yes |  |
 **visibility** | Optional[ObjectTypeVisibility] | No |  |
 

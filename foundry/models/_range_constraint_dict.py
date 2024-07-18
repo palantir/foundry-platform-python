@@ -27,16 +27,16 @@ class RangeConstraintDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    lt: NotRequired[Any]
-    """Less than"""
-
-    lte: NotRequired[Any]
-    """Less than or equal"""
-
     gt: NotRequired[Any]
     """Greater than"""
 
     gte: NotRequired[Any]
     """Greater than or equal"""
+
+    lt: NotRequired[Any]
+    """Less than"""
+
+    lte: NotRequired[Any]
+    """Less than or equal"""
 
     type: Literal["range"]

@@ -31,9 +31,9 @@ class ParameterEvaluationResultDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    result: ValidationResult
-
     evaluatedConstraints: List[ParameterEvaluatedConstraintDict]
 
     required: StrictBool
     """Represents whether the parameter is a required input to the action."""
+
+    result: ValidationResult

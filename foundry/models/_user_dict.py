@@ -34,24 +34,24 @@ class UserDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    id: PrincipalId
-
-    username: UserUsername
-
-    givenName: NotRequired[StrictStr]
-
-    familyName: NotRequired[StrictStr]
-
-    email: NotRequired[StrictStr]
-    """The email at which to contact a User. Multiple users may have the same email address."""
-
-    realm: Realm
-
-    organization: NotRequired[OrganizationRid]
-
     attributes: Dict[AttributeName, AttributeValues]
     """
     A map of the User's attributes. Attributes prefixed with "multipass:" are reserved for internal use by
     Foundry and are subject to change. Additional attributes may be configured by Foundry administrators in 
     Control Panel and populated by the User's SSO provider upon login.
     """
+
+    email: NotRequired[StrictStr]
+    """The email at which to contact a User. Multiple users may have the same email address."""
+
+    familyName: NotRequired[StrictStr]
+
+    givenName: NotRequired[StrictStr]
+
+    id: PrincipalId
+
+    organization: NotRequired[OrganizationRid]
+
+    realm: Realm
+
+    username: UserUsername

@@ -5,9 +5,9 @@ Computes the maximum value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**direction** | NotRequired[OrderByDirection] | No |  |
 **field** | PropertyApiName | Yes |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
-**direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["max"] | Yes | None |
 
 

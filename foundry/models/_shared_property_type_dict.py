@@ -30,13 +30,13 @@ class SharedPropertyTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: SharedPropertyTypeRid
-
     apiName: SharedPropertyTypeApiName
 
-    displayName: DisplayName
+    dataType: ObjectPropertyTypeDict
 
     description: NotRequired[StrictStr]
     """A short text that describes the SharedPropertyType."""
 
-    dataType: ObjectPropertyTypeDict
+    displayName: DisplayName
+
+    rid: SharedPropertyTypeRid

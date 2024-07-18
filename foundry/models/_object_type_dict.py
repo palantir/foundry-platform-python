@@ -38,14 +38,10 @@ class ObjectTypeDict(TypedDict):
 
     apiName: ObjectTypeApiName
 
-    displayName: NotRequired[DisplayName]
-
-    status: ReleaseStatus
-
     description: NotRequired[StrictStr]
     """The description of the object type."""
 
-    visibility: NotRequired[ObjectTypeVisibility]
+    displayName: NotRequired[DisplayName]
 
     primaryKey: List[PropertyApiName]
     """The primary key of the object. This is a list of properties that can be used to uniquely identify the object."""
@@ -54,3 +50,7 @@ class ObjectTypeDict(TypedDict):
     """A map of the properties of the object type."""
 
     rid: ObjectTypeRid
+
+    status: ReleaseStatus
+
+    visibility: NotRequired[ObjectTypeVisibility]

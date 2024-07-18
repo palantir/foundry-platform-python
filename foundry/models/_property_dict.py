@@ -28,8 +28,8 @@ class PropertyDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    baseType: ValueType
+
     description: NotRequired[StrictStr]
 
     displayName: NotRequired[DisplayName]
-
-    baseType: ValueType

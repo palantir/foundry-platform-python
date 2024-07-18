@@ -39,23 +39,23 @@ class InterfaceLinkType(BaseModel):
     by the implementing object types.
     """
 
-    rid: InterfaceLinkTypeRid
-
     api_name: InterfaceLinkTypeApiName = Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    cardinality: InterfaceLinkTypeCardinality
 
     description: Optional[StrictStr] = None
     """The description of the interface link type."""
+
+    display_name: DisplayName = Field(alias="displayName")
 
     linked_entity_api_name: InterfaceLinkTypeLinkedEntityApiName = Field(
         alias="linkedEntityApiName"
     )
 
-    cardinality: InterfaceLinkTypeCardinality
-
     required: StrictBool
     """Whether each implementing object type must declare at least one implementation of this link."""
+
+    rid: InterfaceLinkTypeRid
 
     model_config = {"extra": "allow"}
 

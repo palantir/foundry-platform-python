@@ -30,6 +30,6 @@ class EqualsQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    value: PropertyValue
-
     type: Literal["eq"]
+
+    value: PropertyValue

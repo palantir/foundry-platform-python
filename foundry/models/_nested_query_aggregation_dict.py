@@ -28,6 +28,6 @@ class NestedQueryAggregationDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    key: Any
-
     groups: List[QueryAggregationDict]
+
+    key: Any

@@ -30,6 +30,6 @@ class ThreeDimensionalAggregationDict(TypedDict):
 
     keyType: QueryAggregationKeyTypeDict
 
-    valueType: TwoDimensionalAggregationDict
-
     type: Literal["threeDimensionalAggregation"]
+
+    valueType: TwoDimensionalAggregationDict

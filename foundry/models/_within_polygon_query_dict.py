@@ -30,6 +30,6 @@ class WithinPolygonQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    value: PolygonValueDict
-
     type: Literal["withinPolygon"]
+
+    value: PolygonValueDict

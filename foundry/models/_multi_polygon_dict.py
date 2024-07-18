@@ -30,8 +30,8 @@ class MultiPolygonDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    coordinates: List[List[LinearRing]]
-
     bbox: NotRequired[BBox]
+
+    coordinates: List[List[LinearRing]]
 
     type: Literal["MultiPolygon"]

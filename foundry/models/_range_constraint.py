@@ -28,17 +28,17 @@ from foundry.models._range_constraint_dict import RangeConstraintDict
 class RangeConstraint(BaseModel):
     """The parameter value must be within the defined range."""
 
-    lt: Optional[Any] = None
-    """Less than"""
-
-    lte: Optional[Any] = None
-    """Less than or equal"""
-
     gt: Optional[Any] = None
     """Greater than"""
 
     gte: Optional[Any] = None
     """Greater than or equal"""
+
+    lt: Optional[Any] = None
+    """Less than"""
+
+    lte: Optional[Any] = None
+    """Less than or equal"""
 
     type: Literal["range"]
 

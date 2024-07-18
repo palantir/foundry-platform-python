@@ -28,6 +28,6 @@ class ErrorDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    error: ErrorName
-
     args: List[ArgDict]
+
+    error: ErrorName

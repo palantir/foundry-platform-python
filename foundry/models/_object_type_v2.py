@@ -38,12 +38,10 @@ class ObjectTypeV2(BaseModel):
 
     api_name: ObjectTypeApiName = Field(alias="apiName")
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
-
-    status: ReleaseStatus
-
     description: Optional[StrictStr] = None
     """The description of the object type."""
+
+    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
 
     primary_key: PropertyApiName = Field(alias="primaryKey")
 
@@ -51,6 +49,8 @@ class ObjectTypeV2(BaseModel):
     """A map of the properties of the object type."""
 
     rid: ObjectTypeRid
+
+    status: ReleaseStatus
 
     title_property: PropertyApiName = Field(alias="titleProperty")
 

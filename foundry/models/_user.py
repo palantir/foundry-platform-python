@@ -35,27 +35,27 @@ from foundry.models._user_username import UserUsername
 class User(BaseModel):
     """User"""
 
-    id: PrincipalId
-
-    username: UserUsername
-
-    given_name: Optional[StrictStr] = Field(alias="givenName", default=None)
-
-    family_name: Optional[StrictStr] = Field(alias="familyName", default=None)
-
-    email: Optional[StrictStr] = None
-    """The email at which to contact a User. Multiple users may have the same email address."""
-
-    realm: Realm
-
-    organization: Optional[OrganizationRid] = None
-
     attributes: Dict[AttributeName, AttributeValues]
     """
     A map of the User's attributes. Attributes prefixed with "multipass:" are reserved for internal use by
     Foundry and are subject to change. Additional attributes may be configured by Foundry administrators in 
     Control Panel and populated by the User's SSO provider upon login.
     """
+
+    email: Optional[StrictStr] = None
+    """The email at which to contact a User. Multiple users may have the same email address."""
+
+    family_name: Optional[StrictStr] = Field(alias="familyName", default=None)
+
+    given_name: Optional[StrictStr] = Field(alias="givenName", default=None)
+
+    id: PrincipalId
+
+    organization: Optional[OrganizationRid] = None
+
+    realm: Realm
+
+    username: UserUsername
 
     model_config = {"extra": "allow"}
 

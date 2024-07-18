@@ -7,8 +7,8 @@ Returns objects where the specified field contains a point within the polygon pr
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**value** | PolygonValueDict | Yes |  |
 **type** | Literal["withinPolygon"] | Yes | None |
+**value** | PolygonValueDict | Yes |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

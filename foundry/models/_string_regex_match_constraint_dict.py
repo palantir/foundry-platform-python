@@ -27,13 +27,13 @@ class StringRegexMatchConstraintDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    regex: StrictStr
-    """The regular expression configured in the **Ontology Manager**."""
-
     configuredFailureMessage: NotRequired[StrictStr]
     """
     The message indicating that the regular expression was not matched.
     This is configured per parameter in the **Ontology Manager**.
     """
+
+    regex: StrictStr
+    """The regular expression configured in the **Ontology Manager**."""
 
     type: Literal["stringRegexMatch"]

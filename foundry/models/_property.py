@@ -30,11 +30,11 @@ from foundry.models._value_type import ValueType
 class Property(BaseModel):
     """Details about some property of an object."""
 
+    base_type: ValueType = Field(alias="baseType")
+
     description: Optional[StrictStr] = None
 
     display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
-
-    base_type: ValueType = Field(alias="baseType")
 
     model_config = {"extra": "allow"}
 

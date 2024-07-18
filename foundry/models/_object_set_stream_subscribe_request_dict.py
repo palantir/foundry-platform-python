@@ -30,9 +30,9 @@ class ObjectSetStreamSubscribeRequestDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    ontology: NotRequired[OntologyIdentifier]
-
     objectSet: ObjectSetDict
+
+    ontology: NotRequired[OntologyIdentifier]
 
     propertySet: List[SelectedPropertyApiName]
 

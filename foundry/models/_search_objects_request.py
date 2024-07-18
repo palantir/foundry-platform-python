@@ -33,7 +33,8 @@ from foundry.models._search_order_by import SearchOrderBy
 class SearchObjectsRequest(BaseModel):
     """SearchObjectsRequest"""
 
-    query: SearchJsonQuery
+    fields: List[PropertyApiName]
+    """The API names of the object type properties to include in the response."""
 
     order_by: Optional[SearchOrderBy] = Field(alias="orderBy", default=None)
 
@@ -41,8 +42,7 @@ class SearchObjectsRequest(BaseModel):
 
     page_token: Optional[PageToken] = Field(alias="pageToken", default=None)
 
-    fields: List[PropertyApiName]
-    """The API names of the object type properties to include in the response."""
+    query: SearchJsonQuery
 
     model_config = {"extra": "allow"}
 

@@ -30,10 +30,10 @@ from foundry.models._page_token import PageToken
 class ListObjectTypesResponse(BaseModel):
     """ListObjectTypesResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
-
     data: List[ObjectType]
     """The list of object types in the current page."""
+
+    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

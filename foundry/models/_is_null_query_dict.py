@@ -30,6 +30,6 @@ class IsNullQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    value: StrictBool
-
     type: Literal["isNull"]
+
+    value: StrictBool

@@ -8,8 +8,8 @@ order in the provided value. This query supports fuzzy matching.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | StrictStr | Yes |  |
 **fuzzy** | Optional[Fuzzy] | No |  |
+**value** | StrictStr | Yes |  |
 **type** | Literal["allTerms"] | Yes | None |
 
 

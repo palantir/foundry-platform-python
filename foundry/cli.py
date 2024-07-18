@@ -175,25 +175,25 @@ def admin_user_profile_picture(
 
 
 @admin_user.command("search")
-@click.option("--where", type=str, required=True, help="Body of the request")
 @click.option("--page_size", type=int, required=False, help="Body of the request")
 @click.option("--page_token", type=str, required=False, help="Body of the request")
+@click.option("--where", type=str, required=True, help="Body of the request")
 @click.option("--preview", type=bool, required=False, help="preview")
 @click.pass_obj
 def admin_user_search(
     client: foundry.FoundryClient,
-    where: str,
     page_size: Optional[int],
     page_token: Optional[str],
+    where: str,
     preview: Optional[bool],
 ):
     """ """
     result = client.admin.User.search(
         search_users_request=foundry.models.SearchUsersRequest.model_validate(
             {
-                "where": where,
                 "pageSize": page_size,
                 "pageToken": page_token,
+                "where": where,
             }
         ),
         preview=preview,
@@ -265,18 +265,18 @@ def admin_group():
 
 
 @admin_group.command("create")
+@click.option("--attributes", type=str, required=True, help="Body of the request")
+@click.option("--description", type=str, required=False, help="Body of the request")
 @click.option("--name", type=str, required=True, help="Body of the request")
 @click.option("--organizations", type=str, required=True, help="Body of the request")
-@click.option("--description", type=str, required=False, help="Body of the request")
-@click.option("--attributes", type=str, required=True, help="Body of the request")
 @click.option("--preview", type=bool, required=False, help="preview")
 @click.pass_obj
 def admin_group_create(
     client: foundry.FoundryClient,
+    attributes: str,
+    description: Optional[str],
     name: str,
     organizations: str,
-    description: Optional[str],
-    attributes: str,
     preview: Optional[bool],
 ):
     """
@@ -285,10 +285,10 @@ def admin_group_create(
     result = client.admin.Group.create(
         create_group_request=foundry.models.CreateGroupRequest.model_validate(
             {
+                "attributes": attributes,
+                "description": description,
                 "name": name,
                 "organizations": organizations,
-                "description": description,
-                "attributes": attributes,
             }
         ),
         preview=preview,
@@ -376,25 +376,25 @@ def admin_group_page(
 
 
 @admin_group.command("search")
-@click.option("--where", type=str, required=True, help="Body of the request")
 @click.option("--page_size", type=int, required=False, help="Body of the request")
 @click.option("--page_token", type=str, required=False, help="Body of the request")
+@click.option("--where", type=str, required=True, help="Body of the request")
 @click.option("--preview", type=bool, required=False, help="preview")
 @click.pass_obj
 def admin_group_search(
     client: foundry.FoundryClient,
-    where: str,
     page_size: Optional[int],
     page_token: Optional[str],
+    where: str,
     preview: Optional[bool],
 ):
     """ """
     result = client.admin.Group.search(
         search_groups_request=foundry.models.SearchGroupsRequest.model_validate(
             {
-                "where": where,
                 "pageSize": page_size,
                 "pageToken": page_token,
+                "where": where,
             }
         ),
         preview=preview,
@@ -409,15 +409,15 @@ def admin_group_group_member():
 
 @admin_group_group_member.command("add")
 @click.argument("group_id", type=str, required=True)
-@click.option("--principal_ids", type=str, required=True, help="Body of the request")
 @click.option("--expiration", type=str, required=False, help="Body of the request")
+@click.option("--principal_ids", type=str, required=True, help="Body of the request")
 @click.option("--preview", type=bool, required=False, help="preview")
 @click.pass_obj
 def admin_group_group_member_add(
     client: foundry.FoundryClient,
     group_id: str,
-    principal_ids: str,
     expiration: Optional[str],
+    principal_ids: str,
     preview: Optional[bool],
 ):
     """ """
@@ -425,8 +425,8 @@ def admin_group_group_member_add(
         group_id=group_id,
         add_group_members_request=foundry.models.AddGroupMembersRequest.model_validate(
             {
-                "principalIds": principal_ids,
                 "expiration": expiration,
+                "principalIds": principal_ids,
             }
         ),
         preview=preview,
@@ -522,14 +522,14 @@ def datasets_dataset():
 
 
 @datasets_dataset.command("create")
-@click.option("--parent_folder_rid", type=str, required=True, help="Body of the request")
 @click.option("--name", type=str, required=True, help="Body of the request")
+@click.option("--parent_folder_rid", type=str, required=True, help="Body of the request")
 @click.option("--preview", type=bool, required=False, help="preview")
 @click.pass_obj
 def datasets_dataset_create(
     client: foundry.FoundryClient,
-    parent_folder_rid: str,
     name: str,
+    parent_folder_rid: str,
     preview: Optional[bool],
 ):
     """
@@ -539,8 +539,8 @@ def datasets_dataset_create(
     result = client.datasets.Dataset.create(
         create_dataset_request=foundry.models.CreateDatasetRequest.model_validate(
             {
-                "parentFolderRid": parent_folder_rid,
                 "name": name,
+                "parentFolderRid": parent_folder_rid,
             }
         ),
         preview=preview,

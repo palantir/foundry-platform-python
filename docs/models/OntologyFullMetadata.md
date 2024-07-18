@@ -5,11 +5,11 @@ OntologyFullMetadata
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**ontology** | OntologyV2 | Yes |  |
-**object_types** | Dict[ObjectTypeApiName, ObjectTypeFullMetadata] | Yes |  |
 **action_types** | Dict[ActionTypeApiName, ActionTypeV2] | Yes |  |
-**query_types** | Dict[QueryApiName, QueryTypeV2] | Yes |  |
 **interface_types** | Dict[InterfaceTypeApiName, InterfaceType] | Yes |  |
+**object_types** | Dict[ObjectTypeApiName, ObjectTypeFullMetadata] | Yes |  |
+**ontology** | OntologyV2 | Yes |  |
+**query_types** | Dict[QueryApiName, QueryTypeV2] | Yes |  |
 **shared_property_types** | Dict[SharedPropertyTypeApiName, SharedPropertyType] | Yes |  |
 
 

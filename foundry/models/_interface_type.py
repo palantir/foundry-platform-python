@@ -37,20 +37,12 @@ from foundry.models._shared_property_type_api_name import SharedPropertyTypeApiN
 class InterfaceType(BaseModel):
     """Represents an interface type in the Ontology."""
 
-    rid: InterfaceTypeRid
-
     api_name: InterfaceTypeApiName = Field(alias="apiName")
-
-    display_name: DisplayName = Field(alias="displayName")
 
     description: Optional[StrictStr] = None
     """The description of the interface."""
 
-    properties: Dict[SharedPropertyTypeApiName, SharedPropertyType]
-    """
-    A map from a shared property type API name to the corresponding shared property type. The map describes the 
-    set of properties the interface has. A shared property type must be unique across all of the properties.
-    """
+    display_name: DisplayName = Field(alias="displayName")
 
     extends_interfaces: List[InterfaceTypeApiName] = Field(alias="extendsInterfaces")
     """
@@ -63,6 +55,14 @@ class InterfaceType(BaseModel):
     A map from an interface link type API name to the corresponding interface link type. The map describes the
     set of link types the interface has.
     """
+
+    properties: Dict[SharedPropertyTypeApiName, SharedPropertyType]
+    """
+    A map from a shared property type API name to the corresponding shared property type. The map describes the 
+    set of properties the interface has. A shared property type must be unique across all of the properties.
+    """
+
+    rid: InterfaceTypeRid
 
     model_config = {"extra": "allow"}
 

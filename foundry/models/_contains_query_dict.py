@@ -30,6 +30,6 @@ class ContainsQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    value: PropertyValue
-
     type: Literal["contains"]
+
+    value: PropertyValue

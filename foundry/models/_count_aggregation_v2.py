@@ -29,9 +29,9 @@ from foundry.models._order_by_direction import OrderByDirection
 class CountAggregationV2(BaseModel):
     """Computes the total count of objects."""
 
-    name: Optional[AggregationMetricName] = None
-
     direction: Optional[OrderByDirection] = None
+
+    name: Optional[AggregationMetricName] = None
 
     type: Literal["count"]
 

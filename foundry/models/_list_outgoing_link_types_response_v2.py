@@ -32,10 +32,10 @@ from foundry.models._page_token import PageToken
 class ListOutgoingLinkTypesResponseV2(BaseModel):
     """ListOutgoingLinkTypesResponseV2"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
-
     data: List[LinkTypeSideV2]
     """The list of link type sides in the current page."""
+
+    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

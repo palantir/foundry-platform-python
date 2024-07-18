@@ -32,6 +32,6 @@ class AggregateObjectsRequestDict(TypedDict):
 
     aggregation: List[AggregationDict]
 
-    query: NotRequired[SearchJsonQueryDict]
-
     groupBy: List[AggregationGroupByDict]
+
+    query: NotRequired[SearchJsonQueryDict]

@@ -28,9 +28,9 @@ from foundry.models._property_value import PropertyValue
 class LinkSideObject(BaseModel):
     """LinkSideObject"""
 
-    primary_key: PropertyValue = Field(alias="primaryKey")
-
     object_type: ObjectTypeApiName = Field(alias="objectType")
+
+    primary_key: PropertyValue = Field(alias="primaryKey")
 
     model_config = {"extra": "allow"}
 

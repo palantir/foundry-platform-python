@@ -6,8 +6,8 @@ Metadata about an Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | OntologyApiName | Yes |  |
-**display_name** | DisplayName | Yes |  |
 **description** | StrictStr | Yes |  |
+**display_name** | DisplayName | Yes |  |
 **rid** | OntologyRid | Yes |  |
 
 

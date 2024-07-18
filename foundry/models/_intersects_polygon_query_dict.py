@@ -30,6 +30,6 @@ class IntersectsPolygonQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    value: PolygonValueDict
-
     type: Literal["intersectsPolygon"]
+
+    value: PolygonValueDict

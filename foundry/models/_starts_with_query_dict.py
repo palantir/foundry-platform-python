@@ -30,6 +30,6 @@ class StartsWithQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    value: StrictStr
-
     type: Literal["startsWith"]
+
+    value: StrictStr
