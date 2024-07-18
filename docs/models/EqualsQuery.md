@@ -6,7 +6,7 @@ Returns objects where the specified field is equal to a value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | Any | Yes | Equals to value |
+**value** | PropertyValue | Yes |  |
 **type** | Literal["eq"] | Yes | None |
 
 

@@ -15,11 +15,17 @@
 
 from __future__ import annotations
 
+from foundry._namespaces.admin.group import GroupResource
+from foundry._namespaces.admin.user import UserResource
 from foundry._namespaces.datasets.dataset import DatasetResource
 from foundry._namespaces.ontologies.ontology import OntologyResource
-from foundry._namespaces.security.group import GroupResource
-from foundry._namespaces.security.user import UserResource
 from foundry.api_client import ApiClient
+
+
+class Admin:
+    def __init__(self, api_client: ApiClient):
+        self.Group = GroupResource(api_client=api_client)
+        self.User = UserResource(api_client=api_client)
 
 
 class Datasets:
@@ -30,9 +36,3 @@ class Datasets:
 class Ontologies:
     def __init__(self, api_client: ApiClient):
         self.Ontology = OntologyResource(api_client=api_client)
-
-
-class Security:
-    def __init__(self, api_client: ApiClient):
-        self.Group = GroupResource(api_client=api_client)
-        self.User = UserResource(api_client=api_client)

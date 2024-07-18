@@ -1,6 +1,6 @@
 # BranchId
 
-The identifier (name) of a Branch. Example: `master`.
+The identifier (name) of a Branch.
 
 
 ## Type

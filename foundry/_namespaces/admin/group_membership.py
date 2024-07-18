@@ -85,7 +85,7 @@ class GroupMembershipResource:
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/users/{userId}/groupMemberships",
+                resource_path="/v2/admin/users/{userId}/groupMemberships",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -145,7 +145,7 @@ class GroupMembershipResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/users/{userId}/groupMemberships",
+                resource_path="/v2/admin/users/{userId}/groupMemberships",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,

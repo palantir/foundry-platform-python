@@ -2,16 +2,14 @@
 
 Method | HTTP request |
 ------------- | ------------- |
-[**create**](#create) | **POST** /v1/datasets/{datasetRid}/branches |
-[**delete**](#delete) | **DELETE** /v1/datasets/{datasetRid}/branches/{branchId} |
-[**get**](#get) | **GET** /v1/datasets/{datasetRid}/branches/{branchId} |
-[**list**](#list) | **GET** /v1/datasets/{datasetRid}/branches |
-[**page**](#page) | **GET** /v1/datasets/{datasetRid}/branches |
+[**create**](#create) | **POST** /v2/datasets/{datasetRid}/branches |
+[**delete**](#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchId} |
+[**get**](#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchId} |
+[**list**](#list) | **GET** /v2/datasets/{datasetRid}/branches |
+[**page**](#page) | **GET** /v2/datasets/{datasetRid}/branches |
 
 # **create**
 Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
 
 ### Parameters
@@ -20,6 +18,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **create_branch_request** | Union[CreateBranchRequest, CreateBranchRequestDict] | Body of the request |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Branch**
@@ -36,16 +35,20 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+dataset_rid = None
 
 # Union[CreateBranchRequest, CreateBranchRequestDict] | Body of the request
-create_branch_request = {"branchId": "my-branch"}
+create_branch_request = None
+
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.create(
         dataset_rid,
         create_branch_request,
+        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -63,14 +66,12 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Branch  |  | application/json |
+**200** | Branch  | The created Branch | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **delete**
 Deletes the Branch with the given BranchId.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
 
 ### Parameters
@@ -79,6 +80,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **branch_id** | BranchId | branchId |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -95,16 +97,20 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+dataset_rid = None
 
 # BranchId | branchId
-branch_id = "my-branch"
+branch_id = None
+
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.delete(
         dataset_rid,
         branch_id,
+        preview=preview,
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -122,14 +128,12 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**204** | None  | Branch deleted. | None |
+**204** | None  |  | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get**
 Get a Branch of a Dataset.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
 
 ### Parameters
@@ -138,6 +142,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **branch_id** | BranchId | branchId |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Branch**
@@ -154,16 +159,20 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+dataset_rid = None
 
 # BranchId | branchId
-branch_id = "master"
+branch_id = None
+
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.get(
         dataset_rid,
         branch_id,
+        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
@@ -188,8 +197,6 @@ See [README](../README.md#authorization)
 # **list**
 Lists the Branches of a Dataset.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
 
 ### Parameters
 
@@ -197,6 +204,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ResourceIterator[Branch]**
@@ -213,16 +221,20 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+dataset_rid = None
 
 # Optional[PageSize] | pageSize
 page_size = None
+
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     for branch in foundry_client.datasets.Dataset.Branch.list(
         dataset_rid,
         page_size=page_size,
+        preview=preview,
     ):
         pprint(branch)
 except PalantirRPCException as e:
@@ -246,8 +258,6 @@ See [README](../README.md#authorization)
 # **page**
 Lists the Branches of a Dataset.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
 
 ### Parameters
 
@@ -256,6 +266,7 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListBranchesResponse**
@@ -272,7 +283,7 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+dataset_rid = None
 
 # Optional[PageSize] | pageSize
 page_size = None
@@ -280,12 +291,16 @@ page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
 
+# Optional[PreviewMode] | preview
+preview = None
+
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.page(
         dataset_rid,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
     )
     print("The page response:\n")
     pprint(api_response)

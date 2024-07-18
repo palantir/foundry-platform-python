@@ -1,23 +1,78 @@
-# User
+# Group
 
 Method | HTTP request |
 ------------- | ------------- |
-[**delete**](#delete) | **DELETE** /v2/security/users/{userId} |
-[**get**](#get) | **GET** /v2/security/users/{userId} |
-[**get_current**](#get_current) | **GET** /v2/security/users/getCurrent |
-[**list**](#list) | **GET** /v2/security/users |
-[**page**](#page) | **GET** /v2/security/users |
-[**profile_picture**](#profile_picture) | **GET** /v2/security/users/{userId}/profilePicture |
-[**search**](#search) | **POST** /v2/security/users/search |
+[**create**](#create) | **POST** /v2/admin/groups |
+[**delete**](#delete) | **DELETE** /v2/admin/groups/{groupId} |
+[**get**](#get) | **GET** /v2/admin/groups/{groupId} |
+[**list**](#list) | **GET** /v2/admin/groups |
+[**page**](#page) | **GET** /v2/admin/groups |
+[**search**](#search) | **POST** /v2/admin/groups/search |
 
-# **delete**
-Deletes the given User
+# **create**
+Creates a new Group
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
+**create_group_request** | Union[CreateGroupRequest, CreateGroupRequestDict] | Body of the request |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**Group**
+
+### Example
+
+```python
+from foundry import FoundryClient
+from foundry import PalantirRPCException
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# Union[CreateGroupRequest, CreateGroupRequestDict] | Body of the request
+create_group_request = None
+
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Group.create(
+        create_group_request,
+        preview=preview,
+    )
+    print("The create response:\n")
+    pprint(api_response)
+except PalantirRPCException as e:
+    print("HTTP error when calling Group.create: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Group  | The created Group | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
+
+# **delete**
+Deletes the given Group
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**group_id** | PrincipalId | groupId |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -34,22 +89,22 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
-user_id = None
+# PrincipalId | groupId
+group_id = None
 
 # Optional[PreviewMode] | preview
 preview = None
 
 
 try:
-    api_response = foundry_client.security.User.delete(
-        user_id,
+    api_response = foundry_client.admin.Group.delete(
+        group_id,
         preview=preview,
     )
     print("The delete response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling User.delete: %s\n" % e)
+    print("HTTP error when calling Group.delete: %s\n" % e)
 
 ```
 
@@ -67,17 +122,17 @@ See [README](../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get**
-Get the User
+Get the Group
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
+**group_id** | PrincipalId | groupId |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**User**
+**Group**
 
 ### Example
 
@@ -90,22 +145,22 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
-user_id = None
+# PrincipalId | groupId
+group_id = None
 
 # Optional[PreviewMode] | preview
 preview = None
 
 
 try:
-    api_response = foundry_client.security.User.get(
-        user_id,
+    api_response = foundry_client.admin.Group.get(
+        group_id,
         preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling User.get: %s\n" % e)
+    print("HTTP error when calling Group.get: %s\n" % e)
 
 ```
 
@@ -118,63 +173,12 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | User  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
-
-# **get_current**
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-
-### Return type
-**User**
-
-### Example
-
-```python
-from foundry import FoundryClient
-from foundry import PalantirRPCException
-from pprint import pprint
-
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
-
-# Optional[PreviewMode] | preview
-preview = None
-
-
-try:
-    api_response = foundry_client.security.User.get_current(
-        preview=preview,
-    )
-    print("The get_current response:\n")
-    pprint(api_response)
-except PalantirRPCException as e:
-    print("HTTP error when calling User.get_current: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | User  |  | application/json |
+**200** | Group  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **list**
-Lists all Users
+Lists all Groups
 
 ### Parameters
 
@@ -184,7 +188,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[User]**
+**ResourceIterator[Group]**
 
 ### Example
 
@@ -205,13 +209,13 @@ preview = None
 
 
 try:
-    for user in foundry_client.security.User.list(
+    for group in foundry_client.admin.Group.list(
         page_size=page_size,
         preview=preview,
     ):
-        pprint(user)
+        pprint(group)
 except PalantirRPCException as e:
-    print("HTTP error when calling User.list: %s\n" % e)
+    print("HTTP error when calling Group.list: %s\n" % e)
 
 ```
 
@@ -224,12 +228,12 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListUsersResponse  |  | application/json |
+**200** | ListGroupsResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **page**
-Lists all Users
+Lists all Groups
 
 ### Parameters
 
@@ -240,7 +244,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**ListUsersResponse**
+**ListGroupsResponse**
 
 ### Example
 
@@ -264,7 +268,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.User.page(
+    api_response = foundry_client.admin.Group.page(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
@@ -272,7 +276,7 @@ try:
     print("The page response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling User.page: %s\n" % e)
+    print("HTTP error when calling Group.page: %s\n" % e)
 
 ```
 
@@ -285,63 +289,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ListUsersResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
-
-# **profile_picture**
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-
-### Return type
-**bytes**
-
-### Example
-
-```python
-from foundry import FoundryClient
-from foundry import PalantirRPCException
-from pprint import pprint
-
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
-
-# PrincipalId | userId
-user_id = None
-
-# Optional[PreviewMode] | preview
-preview = None
-
-
-try:
-    api_response = foundry_client.security.User.profile_picture(
-        user_id,
-        preview=preview,
-    )
-    print("The profile_picture response:\n")
-    pprint(api_response)
-except PalantirRPCException as e:
-    print("HTTP error when calling User.profile_picture: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | bytes  |  | application/octet-stream |
+**200** | ListGroupsResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -352,11 +300,11 @@ See [README](../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**search_users_request** | Union[SearchUsersRequest, SearchUsersRequestDict] | Body of the request |  |
+**search_groups_request** | Union[SearchGroupsRequest, SearchGroupsRequestDict] | Body of the request |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**SearchUsersResponse**
+**SearchGroupsResponse**
 
 ### Example
 
@@ -369,22 +317,22 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Union[SearchUsersRequest, SearchUsersRequestDict] | Body of the request
-search_users_request = None
+# Union[SearchGroupsRequest, SearchGroupsRequestDict] | Body of the request
+search_groups_request = None
 
 # Optional[PreviewMode] | preview
 preview = None
 
 
 try:
-    api_response = foundry_client.security.User.search(
-        search_users_request,
+    api_response = foundry_client.admin.Group.search(
+        search_groups_request,
         preview=preview,
     )
     print("The search response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling User.search: %s\n" % e)
+    print("HTTP error when calling Group.search: %s\n" % e)
 
 ```
 
@@ -397,7 +345,7 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | SearchUsersResponse  |  | application/json |
+**200** | SearchGroupsResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

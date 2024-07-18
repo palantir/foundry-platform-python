@@ -25,10 +25,10 @@ from foundry.models._page_token import PageToken
 
 
 class ListFilesResponseDict(TypedDict):
-    """A page of Files and an optional page token that can be used to retrieve the next page."""
+    """ListFilesResponse"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nextPageToken: NotRequired[PageToken]
-
     data: List[FileDict]
+
+    nextPageToken: NotRequired[PageToken]

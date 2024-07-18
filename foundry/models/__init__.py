@@ -152,6 +152,8 @@ from foundry.models._approximate_percentile_aggregation_v2_dict import (
     ApproximatePercentileAggregationV2Dict,
 )  # NOQA
 from foundry.models._archive_file_format import ArchiveFileFormat
+from foundry.models._arg import Arg
+from foundry.models._arg_dict import ArgDict
 from foundry.models._array_size_constraint import ArraySizeConstraint
 from foundry.models._array_size_constraint_dict import ArraySizeConstraintDict
 from foundry.models._artifact_repository_rid import ArtifactRepositoryRid
@@ -325,6 +327,9 @@ from foundry.models._equals_query import EqualsQuery
 from foundry.models._equals_query_dict import EqualsQueryDict
 from foundry.models._equals_query_v2 import EqualsQueryV2
 from foundry.models._equals_query_v2_dict import EqualsQueryV2Dict
+from foundry.models._error import Error
+from foundry.models._error_dict import ErrorDict
+from foundry.models._error_name import ErrorName
 from foundry.models._execute_query_request import ExecuteQueryRequest
 from foundry.models._execute_query_request_dict import ExecuteQueryRequestDict
 from foundry.models._execute_query_response import ExecuteQueryResponse
@@ -340,6 +345,7 @@ from foundry.models._field_name_v1 import FieldNameV1
 from foundry.models._file import File
 from foundry.models._file_dict import FileDict
 from foundry.models._file_path import FilePath
+from foundry.models._file_updated_time import FileUpdatedTime
 from foundry.models._filename import Filename
 from foundry.models._filesystem_resource import FilesystemResource
 from foundry.models._filesystem_resource_dict import FilesystemResourceDict
@@ -363,6 +369,8 @@ from foundry.models._geometry import Geometry
 from foundry.models._geometry import GeometryCollection
 from foundry.models._geometry_dict import GeometryCollectionDict
 from foundry.models._geometry_dict import GeometryDict
+from foundry.models._geotime_series_value import GeotimeSeriesValue
+from foundry.models._geotime_series_value_dict import GeotimeSeriesValueDict
 from foundry.models._group import Group
 from foundry.models._group_dict import GroupDict
 from foundry.models._group_member import GroupMember
@@ -421,6 +429,7 @@ from foundry.models._linear_ring import LinearRing
 from foundry.models._link_side_object import LinkSideObject
 from foundry.models._link_side_object_dict import LinkSideObjectDict
 from foundry.models._link_type_api_name import LinkTypeApiName
+from foundry.models._link_type_rid import LinkTypeRid
 from foundry.models._link_type_side import LinkTypeSide
 from foundry.models._link_type_side_cardinality import LinkTypeSideCardinality
 from foundry.models._link_type_side_dict import LinkTypeSideDict
@@ -541,6 +550,7 @@ from foundry.models._object_edit import ObjectEdit
 from foundry.models._object_edit_dict import ObjectEditDict
 from foundry.models._object_edits import ObjectEdits
 from foundry.models._object_edits_dict import ObjectEditsDict
+from foundry.models._object_primary_key import ObjectPrimaryKey
 from foundry.models._object_property_type import ObjectPropertyType
 from foundry.models._object_property_type import OntologyObjectArrayType
 from foundry.models._object_property_type_dict import ObjectPropertyTypeDict
@@ -573,6 +583,31 @@ from foundry.models._object_set_reference_type_dict import ObjectSetReferenceTyp
 from foundry.models._object_set_rid import ObjectSetRid
 from foundry.models._object_set_static_type import ObjectSetStaticType
 from foundry.models._object_set_static_type_dict import ObjectSetStaticTypeDict
+from foundry.models._object_set_stream_subscribe_request import (
+    ObjectSetStreamSubscribeRequest,
+)  # NOQA
+from foundry.models._object_set_stream_subscribe_request_dict import (
+    ObjectSetStreamSubscribeRequestDict,
+)  # NOQA
+from foundry.models._object_set_stream_subscribe_requests import (
+    ObjectSetStreamSubscribeRequests,
+)  # NOQA
+from foundry.models._object_set_stream_subscribe_requests_dict import (
+    ObjectSetStreamSubscribeRequestsDict,
+)  # NOQA
+from foundry.models._object_set_subscribe_response import ObjectSetSubscribeResponse
+from foundry.models._object_set_subscribe_response_dict import (
+    ObjectSetSubscribeResponseDict,
+)  # NOQA
+from foundry.models._object_set_subscribe_responses import ObjectSetSubscribeResponses
+from foundry.models._object_set_subscribe_responses_dict import (
+    ObjectSetSubscribeResponsesDict,
+)  # NOQA
+from foundry.models._object_set_update import ObjectSetUpdate
+from foundry.models._object_set_update_dict import ObjectSetUpdateDict
+from foundry.models._object_set_updates import ObjectSetUpdates
+from foundry.models._object_set_updates_dict import ObjectSetUpdatesDict
+from foundry.models._object_state import ObjectState
 from foundry.models._object_type import ObjectType
 from foundry.models._object_type_api_name import ObjectTypeApiName
 from foundry.models._object_type_dict import ObjectTypeDict
@@ -590,6 +625,8 @@ from foundry.models._object_type_rid import ObjectTypeRid
 from foundry.models._object_type_v2 import ObjectTypeV2
 from foundry.models._object_type_v2_dict import ObjectTypeV2Dict
 from foundry.models._object_type_visibility import ObjectTypeVisibility
+from foundry.models._object_update import ObjectUpdate
+from foundry.models._object_update_dict import ObjectUpdateDict
 from foundry.models._one_of_constraint import OneOfConstraint
 from foundry.models._one_of_constraint_dict import OneOfConstraintDict
 from foundry.models._ontology import Ontology
@@ -661,6 +698,8 @@ from foundry.models._property_v2 import PropertyV2
 from foundry.models._property_v2_dict import PropertyV2Dict
 from foundry.models._property_value import PropertyValue
 from foundry.models._property_value_escaped_string import PropertyValueEscapedString
+from foundry.models._qos_error import QosError
+from foundry.models._qos_error_dict import QosErrorDict
 from foundry.models._query_aggregation import QueryAggregation
 from foundry.models._query_aggregation_dict import QueryAggregationDict
 from foundry.models._query_aggregation_key_type import QueryAggregationKeyType
@@ -709,6 +748,12 @@ from foundry.models._query_type_v2_dict import QueryTypeV2Dict
 from foundry.models._range_constraint import RangeConstraint
 from foundry.models._range_constraint_dict import RangeConstraintDict
 from foundry.models._realm import Realm
+from foundry.models._reference_update import ReferenceUpdate
+from foundry.models._reference_update_dict import ReferenceUpdateDict
+from foundry.models._reference_value import ReferenceValue
+from foundry.models._reference_value_dict import ReferenceValueDict
+from foundry.models._refresh_object_set import RefreshObjectSet
+from foundry.models._refresh_object_set_dict import RefreshObjectSetDict
 from foundry.models._relative_time import RelativeTime
 from foundry.models._relative_time_dict import RelativeTimeDict
 from foundry.models._relative_time_range import RelativeTimeRange
@@ -718,6 +763,7 @@ from foundry.models._relative_time_series_time_unit import RelativeTimeSeriesTim
 from foundry.models._release_status import ReleaseStatus
 from foundry.models._remove_group_members_request import RemoveGroupMembersRequest
 from foundry.models._remove_group_members_request_dict import RemoveGroupMembersRequestDict  # NOQA
+from foundry.models._request_id import RequestId
 from foundry.models._resource_path import ResourcePath
 from foundry.models._return_edits_mode import ReturnEditsMode
 from foundry.models._sdk_package_name import SdkPackageName
@@ -777,6 +823,8 @@ from foundry.models._short_type_dict import ShortTypeDict
 from foundry.models._size_bytes import SizeBytes
 from foundry.models._starts_with_query import StartsWithQuery
 from foundry.models._starts_with_query_dict import StartsWithQueryDict
+from foundry.models._stream_message import StreamMessage
+from foundry.models._stream_message_dict import StreamMessageDict
 from foundry.models._stream_time_series_points_request import StreamTimeSeriesPointsRequest  # NOQA
 from foundry.models._stream_time_series_points_request_dict import (
     StreamTimeSeriesPointsRequestDict,
@@ -801,6 +849,13 @@ from foundry.models._submission_criteria_evaluation import SubmissionCriteriaEva
 from foundry.models._submission_criteria_evaluation_dict import (
     SubmissionCriteriaEvaluationDict,
 )  # NOQA
+from foundry.models._subscription_closed import SubscriptionClosed
+from foundry.models._subscription_closed_dict import SubscriptionClosedDict
+from foundry.models._subscription_error import SubscriptionError
+from foundry.models._subscription_error_dict import SubscriptionErrorDict
+from foundry.models._subscription_id import SubscriptionId
+from foundry.models._subscription_success import SubscriptionSuccess
+from foundry.models._subscription_success_dict import SubscriptionSuccessDict
 from foundry.models._sum_aggregation import SumAggregation
 from foundry.models._sum_aggregation_dict import SumAggregationDict
 from foundry.models._sum_aggregation_v2 import SumAggregationV2
@@ -826,7 +881,9 @@ from foundry.models._timeseries_type import TimeseriesType
 from foundry.models._timeseries_type_dict import TimeseriesTypeDict
 from foundry.models._timestamp_type import TimestampType
 from foundry.models._timestamp_type_dict import TimestampTypeDict
+from foundry.models._total_count import TotalCount
 from foundry.models._transaction import Transaction
+from foundry.models._transaction_created_time import TransactionCreatedTime
 from foundry.models._transaction_dict import TransactionDict
 from foundry.models._transaction_rid import TransactionRid
 from foundry.models._transaction_status import TransactionStatus
@@ -975,6 +1032,8 @@ __all__ = [
     "ApproximatePercentileAggregationV2",
     "ApproximatePercentileAggregationV2Dict",
     "ArchiveFileFormat",
+    "Arg",
+    "ArgDict",
     "ArraySizeConstraint",
     "ArraySizeConstraintDict",
     "ArtifactRepositoryRid",
@@ -1114,6 +1173,9 @@ __all__ = [
     "EqualsQueryDict",
     "EqualsQueryV2",
     "EqualsQueryV2Dict",
+    "Error",
+    "ErrorDict",
+    "ErrorName",
     "ExecuteQueryRequest",
     "ExecuteQueryRequestDict",
     "ExecuteQueryResponse",
@@ -1132,6 +1194,7 @@ __all__ = [
     "FilePath",
     "FilesystemResource",
     "FilesystemResourceDict",
+    "FileUpdatedTime",
     "FilterValue",
     "FloatType",
     "FloatTypeDict",
@@ -1152,6 +1215,8 @@ __all__ = [
     "GeoPointTypeDict",
     "GeoShapeType",
     "GeoShapeTypeDict",
+    "GeotimeSeriesValue",
+    "GeotimeSeriesValueDict",
     "Group",
     "GroupDict",
     "GroupMember",
@@ -1208,6 +1273,7 @@ __all__ = [
     "LinkSideObject",
     "LinkSideObjectDict",
     "LinkTypeApiName",
+    "LinkTypeRid",
     "LinkTypeSide",
     "LinkTypeSideCardinality",
     "LinkTypeSideDict",
@@ -1312,6 +1378,7 @@ __all__ = [
     "ObjectEditDict",
     "ObjectEdits",
     "ObjectEditsDict",
+    "ObjectPrimaryKey",
     "ObjectPropertyType",
     "ObjectPropertyTypeDict",
     "ObjectPropertyValueConstraint",
@@ -1334,10 +1401,23 @@ __all__ = [
     "ObjectSetSearchAroundTypeDict",
     "ObjectSetStaticType",
     "ObjectSetStaticTypeDict",
+    "ObjectSetStreamSubscribeRequest",
+    "ObjectSetStreamSubscribeRequestDict",
+    "ObjectSetStreamSubscribeRequests",
+    "ObjectSetStreamSubscribeRequestsDict",
+    "ObjectSetSubscribeResponse",
+    "ObjectSetSubscribeResponseDict",
+    "ObjectSetSubscribeResponses",
+    "ObjectSetSubscribeResponsesDict",
     "ObjectSetSubtractType",
     "ObjectSetSubtractTypeDict",
     "ObjectSetUnionType",
     "ObjectSetUnionTypeDict",
+    "ObjectSetUpdate",
+    "ObjectSetUpdateDict",
+    "ObjectSetUpdates",
+    "ObjectSetUpdatesDict",
+    "ObjectState",
     "ObjectType",
     "ObjectTypeApiName",
     "ObjectTypeDict",
@@ -1351,6 +1431,8 @@ __all__ = [
     "ObjectTypeV2",
     "ObjectTypeV2Dict",
     "ObjectTypeVisibility",
+    "ObjectUpdate",
+    "ObjectUpdateDict",
     "OneOfConstraint",
     "OneOfConstraintDict",
     "Ontology",
@@ -1426,6 +1508,8 @@ __all__ = [
     "PropertyV2Dict",
     "PropertyValue",
     "PropertyValueEscapedString",
+    "QosError",
+    "QosErrorDict",
     "QueryAggregation",
     "QueryAggregationDict",
     "QueryAggregationKeyType",
@@ -1466,6 +1550,12 @@ __all__ = [
     "RangeConstraint",
     "RangeConstraintDict",
     "Realm",
+    "ReferenceUpdate",
+    "ReferenceUpdateDict",
+    "ReferenceValue",
+    "ReferenceValueDict",
+    "RefreshObjectSet",
+    "RefreshObjectSetDict",
     "RelativeTime",
     "RelativeTimeDict",
     "RelativeTimeRange",
@@ -1475,6 +1565,7 @@ __all__ = [
     "ReleaseStatus",
     "RemoveGroupMembersRequest",
     "RemoveGroupMembersRequestDict",
+    "RequestId",
     "ResourcePath",
     "ReturnEditsMode",
     "SdkPackageName",
@@ -1518,6 +1609,8 @@ __all__ = [
     "SizeBytes",
     "StartsWithQuery",
     "StartsWithQueryDict",
+    "StreamMessage",
+    "StreamMessageDict",
     "StreamTimeSeriesPointsRequest",
     "StreamTimeSeriesPointsRequestDict",
     "StreamTimeSeriesPointsResponse",
@@ -1532,6 +1625,13 @@ __all__ = [
     "Subdomain",
     "SubmissionCriteriaEvaluation",
     "SubmissionCriteriaEvaluationDict",
+    "SubscriptionClosed",
+    "SubscriptionClosedDict",
+    "SubscriptionError",
+    "SubscriptionErrorDict",
+    "SubscriptionId",
+    "SubscriptionSuccess",
+    "SubscriptionSuccessDict",
     "SumAggregation",
     "SumAggregationDict",
     "SumAggregationV2",
@@ -1555,7 +1655,9 @@ __all__ = [
     "TimestampType",
     "TimestampTypeDict",
     "TimeUnit",
+    "TotalCount",
     "Transaction",
+    "TransactionCreatedTime",
     "TransactionDict",
     "TransactionRid",
     "TransactionStatus",

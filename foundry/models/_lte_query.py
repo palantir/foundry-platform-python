@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-from typing import Any
 from typing import Literal
 from typing import cast
 
@@ -23,6 +22,7 @@ from pydantic import BaseModel
 
 from foundry.models._field_name_v1 import FieldNameV1
 from foundry.models._lte_query_dict import LteQueryDict
+from foundry.models._property_value import PropertyValue
 
 
 class LteQuery(BaseModel):
@@ -30,8 +30,7 @@ class LteQuery(BaseModel):
 
     field: FieldNameV1
 
-    value: Any
-    """Less than or equal to value"""
+    value: PropertyValue
 
     type: Literal["lte"]
 

@@ -38,4 +38,6 @@ Represents the value of a property in the following format.
 | Short      | number                                                | `8739`                                                                                             |
 | String     | string                                                | `"Call me Ishmael"`                                                                                |
 | Timestamp  | ISO 8601 extended offset date-time string in UTC zone | `"2021-01-04T05:00:00Z"`                                                                           |
+
+Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer, and Short types can also be encoded as JSON strings.
 """

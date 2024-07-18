@@ -30,10 +30,9 @@ from foundry.models._page_token import PageToken
 class ListBranchesResponse(BaseModel):
     """ListBranchesResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
-
     data: List[Branch]
-    """The list of branches in the current page."""
+
+    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

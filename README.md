@@ -126,22 +126,22 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+# Union[CreateGroupRequest, CreateGroupRequestDict] | Body of the request
+create_group_request = None
 
-# Union[CreateBranchRequest, CreateBranchRequestDict] | Body of the request
-create_branch_request = {"branchId": "my-branch"}
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.create(
-        dataset_rid,
-        create_branch_request,
+    api_response = foundry_client.admin.Group.create(
+        create_group_request,
+        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling Branch.create: %s\n" % e)
+    print("HTTP error when calling Group.create: %s\n" % e)
 
 ```
 
@@ -288,27 +288,43 @@ production use.
 
 Namespace | Resource | Operation | HTTP request |
 ------------ | ------------- | ------------- | ------------- |
-**Datasets** | Branch | [**create**](docs/namespaces/Datasets/Branch.md#create) | **POST** /v1/datasets/{datasetRid}/branches |
-**Datasets** | Branch | [**delete**](docs/namespaces/Datasets/Branch.md#delete) | **DELETE** /v1/datasets/{datasetRid}/branches/{branchId} |
-**Datasets** | Branch | [**get**](docs/namespaces/Datasets/Branch.md#get) | **GET** /v1/datasets/{datasetRid}/branches/{branchId} |
-**Datasets** | Branch | [**list**](docs/namespaces/Datasets/Branch.md#list) | **GET** /v1/datasets/{datasetRid}/branches |
-**Datasets** | Branch | [**page**](docs/namespaces/Datasets/Branch.md#page) | **GET** /v1/datasets/{datasetRid}/branches |
-**Datasets** | Dataset | [**create**](docs/namespaces/Datasets/Dataset.md#create) | **POST** /v1/datasets |
-**Datasets** | Dataset | [**delete_schema**](docs/namespaces/Datasets/Dataset.md#delete_schema) | **DELETE** /v1/datasets/{datasetRid}/schema |
-**Datasets** | Dataset | [**get**](docs/namespaces/Datasets/Dataset.md#get) | **GET** /v1/datasets/{datasetRid} |
-**Datasets** | Dataset | [**get_schema**](docs/namespaces/Datasets/Dataset.md#get_schema) | **GET** /v1/datasets/{datasetRid}/schema |
-**Datasets** | Dataset | [**read**](docs/namespaces/Datasets/Dataset.md#read) | **GET** /v1/datasets/{datasetRid}/readTable |
-**Datasets** | Dataset | [**replace_schema**](docs/namespaces/Datasets/Dataset.md#replace_schema) | **PUT** /v1/datasets/{datasetRid}/schema |
-**Datasets** | File | [**delete**](docs/namespaces/Datasets/File.md#delete) | **DELETE** /v1/datasets/{datasetRid}/files/{filePath} |
-**Datasets** | File | [**get**](docs/namespaces/Datasets/File.md#get) | **GET** /v1/datasets/{datasetRid}/files/{filePath} |
-**Datasets** | File | [**list**](docs/namespaces/Datasets/File.md#list) | **GET** /v1/datasets/{datasetRid}/files |
-**Datasets** | File | [**page**](docs/namespaces/Datasets/File.md#page) | **GET** /v1/datasets/{datasetRid}/files |
-**Datasets** | File | [**read**](docs/namespaces/Datasets/File.md#read) | **GET** /v1/datasets/{datasetRid}/files/{filePath}/content |
-**Datasets** | File | [**upload**](docs/namespaces/Datasets/File.md#upload) | **POST** /v1/datasets/{datasetRid}/files:upload |
-**Datasets** | Transaction | [**abort**](docs/namespaces/Datasets/Transaction.md#abort) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/abort |
-**Datasets** | Transaction | [**commit**](docs/namespaces/Datasets/Transaction.md#commit) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/commit |
-**Datasets** | Transaction | [**create**](docs/namespaces/Datasets/Transaction.md#create) | **POST** /v1/datasets/{datasetRid}/transactions |
-**Datasets** | Transaction | [**get**](docs/namespaces/Datasets/Transaction.md#get) | **GET** /v1/datasets/{datasetRid}/transactions/{transactionRid} |
+**Admin** | Group | [**create**](docs/namespaces/Admin/Group.md#create) | **POST** /v2/admin/groups |
+**Admin** | Group | [**delete**](docs/namespaces/Admin/Group.md#delete) | **DELETE** /v2/admin/groups/{groupId} |
+**Admin** | Group | [**get**](docs/namespaces/Admin/Group.md#get) | **GET** /v2/admin/groups/{groupId} |
+**Admin** | Group | [**list**](docs/namespaces/Admin/Group.md#list) | **GET** /v2/admin/groups |
+**Admin** | Group | [**page**](docs/namespaces/Admin/Group.md#page) | **GET** /v2/admin/groups |
+**Admin** | Group | [**search**](docs/namespaces/Admin/Group.md#search) | **POST** /v2/admin/groups/search |
+**Admin** | GroupMember | [**add**](docs/namespaces/Admin/GroupMember.md#add) | **POST** /v2/admin/groups/{groupId}/groupMembers/add |
+**Admin** | GroupMember | [**list**](docs/namespaces/Admin/GroupMember.md#list) | **GET** /v2/admin/groups/{groupId}/groupMembers |
+**Admin** | GroupMember | [**page**](docs/namespaces/Admin/GroupMember.md#page) | **GET** /v2/admin/groups/{groupId}/groupMembers |
+**Admin** | GroupMember | [**remove**](docs/namespaces/Admin/GroupMember.md#remove) | **POST** /v2/admin/groups/{groupId}/groupMembers/remove |
+**Admin** | GroupMembership | [**list**](docs/namespaces/Admin/GroupMembership.md#list) | **GET** /v2/admin/users/{userId}/groupMemberships |
+**Admin** | GroupMembership | [**page**](docs/namespaces/Admin/GroupMembership.md#page) | **GET** /v2/admin/users/{userId}/groupMemberships |
+**Admin** | User | [**delete**](docs/namespaces/Admin/User.md#delete) | **DELETE** /v2/admin/users/{userId} |
+**Admin** | User | [**get**](docs/namespaces/Admin/User.md#get) | **GET** /v2/admin/users/{userId} |
+**Admin** | User | [**get_current**](docs/namespaces/Admin/User.md#get_current) | **GET** /v2/admin/users/getCurrent |
+**Admin** | User | [**list**](docs/namespaces/Admin/User.md#list) | **GET** /v2/admin/users |
+**Admin** | User | [**page**](docs/namespaces/Admin/User.md#page) | **GET** /v2/admin/users |
+**Admin** | User | [**profile_picture**](docs/namespaces/Admin/User.md#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture |
+**Admin** | User | [**search**](docs/namespaces/Admin/User.md#search) | **POST** /v2/admin/users/search |
+**Datasets** | Branch | [**create**](docs/namespaces/Datasets/Branch.md#create) | **POST** /v2/datasets/{datasetRid}/branches |
+**Datasets** | Branch | [**delete**](docs/namespaces/Datasets/Branch.md#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchId} |
+**Datasets** | Branch | [**get**](docs/namespaces/Datasets/Branch.md#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchId} |
+**Datasets** | Branch | [**list**](docs/namespaces/Datasets/Branch.md#list) | **GET** /v2/datasets/{datasetRid}/branches |
+**Datasets** | Branch | [**page**](docs/namespaces/Datasets/Branch.md#page) | **GET** /v2/datasets/{datasetRid}/branches |
+**Datasets** | Dataset | [**create**](docs/namespaces/Datasets/Dataset.md#create) | **POST** /v2/datasets |
+**Datasets** | Dataset | [**get**](docs/namespaces/Datasets/Dataset.md#get) | **GET** /v2/datasets/{datasetRid} |
+**Datasets** | Dataset | [**read_table**](docs/namespaces/Datasets/Dataset.md#read_table) | **GET** /v2/datasets/{datasetRid}/readTable |
+**Datasets** | File | [**content**](docs/namespaces/Datasets/File.md#content) | **GET** /v2/datasets/{datasetRid}/files/{filePath}/content |
+**Datasets** | File | [**delete**](docs/namespaces/Datasets/File.md#delete) | **DELETE** /v2/datasets/{datasetRid}/files/{filePath} |
+**Datasets** | File | [**get**](docs/namespaces/Datasets/File.md#get) | **GET** /v2/datasets/{datasetRid}/files/{filePath} |
+**Datasets** | File | [**list**](docs/namespaces/Datasets/File.md#list) | **GET** /v2/datasets/{datasetRid}/files |
+**Datasets** | File | [**page**](docs/namespaces/Datasets/File.md#page) | **GET** /v2/datasets/{datasetRid}/files |
+**Datasets** | File | [**upload**](docs/namespaces/Datasets/File.md#upload) | **POST** /v2/datasets/{datasetRid}/files/{filePath}/upload |
+**Datasets** | Transaction | [**abort**](docs/namespaces/Datasets/Transaction.md#abort) | **POST** /v2/datasets/{datasetRid}/transactions/{transactionRid}/abort |
+**Datasets** | Transaction | [**commit**](docs/namespaces/Datasets/Transaction.md#commit) | **POST** /v2/datasets/{datasetRid}/transactions/{transactionRid}/commit |
+**Datasets** | Transaction | [**create**](docs/namespaces/Datasets/Transaction.md#create) | **POST** /v2/datasets/{datasetRid}/transactions |
+**Datasets** | Transaction | [**get**](docs/namespaces/Datasets/Transaction.md#get) | **GET** /v2/datasets/{datasetRid}/transactions/{transactionRid} |
 **Ontologies** | ActionType | [**get**](docs/namespaces/Ontologies/ActionType.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
 **Ontologies** | ActionType | [**list**](docs/namespaces/Ontologies/ActionType.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
 **Ontologies** | ActionType | [**page**](docs/namespaces/Ontologies/ActionType.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
@@ -324,25 +340,6 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | QueryType | [**get**](docs/namespaces/Ontologies/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
 **Ontologies** | QueryType | [**list**](docs/namespaces/Ontologies/QueryType.md#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
 **Ontologies** | QueryType | [**page**](docs/namespaces/Ontologies/QueryType.md#page) | **GET** /v2/ontologies/{ontology}/queryTypes |
-**Security** | Group | [**create**](docs/namespaces/Security/Group.md#create) | **POST** /v2/security/groups |
-**Security** | Group | [**delete**](docs/namespaces/Security/Group.md#delete) | **DELETE** /v2/security/groups/{groupId} |
-**Security** | Group | [**get**](docs/namespaces/Security/Group.md#get) | **GET** /v2/security/groups/{groupId} |
-**Security** | Group | [**list**](docs/namespaces/Security/Group.md#list) | **GET** /v2/security/groups |
-**Security** | Group | [**page**](docs/namespaces/Security/Group.md#page) | **GET** /v2/security/groups |
-**Security** | Group | [**search**](docs/namespaces/Security/Group.md#search) | **POST** /v2/security/groups/search |
-**Security** | GroupMember | [**add**](docs/namespaces/Security/GroupMember.md#add) | **POST** /v2/security/groups/{groupId}/groupMembers/add |
-**Security** | GroupMember | [**list**](docs/namespaces/Security/GroupMember.md#list) | **GET** /v2/security/groups/{groupId}/groupMembers |
-**Security** | GroupMember | [**page**](docs/namespaces/Security/GroupMember.md#page) | **GET** /v2/security/groups/{groupId}/groupMembers |
-**Security** | GroupMember | [**remove**](docs/namespaces/Security/GroupMember.md#remove) | **POST** /v2/security/groups/{groupId}/groupMembers/remove |
-**Security** | GroupMembership | [**list**](docs/namespaces/Security/GroupMembership.md#list) | **GET** /v2/security/users/{userId}/groupMemberships |
-**Security** | GroupMembership | [**page**](docs/namespaces/Security/GroupMembership.md#page) | **GET** /v2/security/users/{userId}/groupMemberships |
-**Security** | User | [**delete**](docs/namespaces/Security/User.md#delete) | **DELETE** /v2/security/users/{userId} |
-**Security** | User | [**get**](docs/namespaces/Security/User.md#get) | **GET** /v2/security/users/{userId} |
-**Security** | User | [**get_current**](docs/namespaces/Security/User.md#get_current) | **GET** /v2/security/users/getCurrent |
-**Security** | User | [**list**](docs/namespaces/Security/User.md#list) | **GET** /v2/security/users |
-**Security** | User | [**page**](docs/namespaces/Security/User.md#page) | **GET** /v2/security/users |
-**Security** | User | [**profile_picture**](docs/namespaces/Security/User.md#profile_picture) | **GET** /v2/security/users/{userId}/profilePicture |
-**Security** | User | [**search**](docs/namespaces/Security/User.md#search) | **POST** /v2/security/users/search |
 
 
 <a id="models"></a>
@@ -455,6 +452,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ApproximatePercentileAggregationV2](docs/models/ApproximatePercentileAggregationV2.md)
 - [ApproximatePercentileAggregationV2Dict](docs/models/ApproximatePercentileAggregationV2Dict.md)
 - [ArchiveFileFormat](docs/models/ArchiveFileFormat.md)
+- [Arg](docs/models/Arg.md)
+- [ArgDict](docs/models/ArgDict.md)
 - [ArraySizeConstraint](docs/models/ArraySizeConstraint.md)
 - [ArraySizeConstraintDict](docs/models/ArraySizeConstraintDict.md)
 - [ArtifactRepositoryRid](docs/models/ArtifactRepositoryRid.md)
@@ -594,6 +593,9 @@ Namespace | Resource | Operation | HTTP request |
 - [EqualsQueryDict](docs/models/EqualsQueryDict.md)
 - [EqualsQueryV2](docs/models/EqualsQueryV2.md)
 - [EqualsQueryV2Dict](docs/models/EqualsQueryV2Dict.md)
+- [Error](docs/models/Error.md)
+- [ErrorDict](docs/models/ErrorDict.md)
+- [ErrorName](docs/models/ErrorName.md)
 - [ExecuteQueryRequest](docs/models/ExecuteQueryRequest.md)
 - [ExecuteQueryRequestDict](docs/models/ExecuteQueryRequestDict.md)
 - [ExecuteQueryResponse](docs/models/ExecuteQueryResponse.md)
@@ -612,6 +614,7 @@ Namespace | Resource | Operation | HTTP request |
 - [FilePath](docs/models/FilePath.md)
 - [FilesystemResource](docs/models/FilesystemResource.md)
 - [FilesystemResourceDict](docs/models/FilesystemResourceDict.md)
+- [FileUpdatedTime](docs/models/FileUpdatedTime.md)
 - [FilterValue](docs/models/FilterValue.md)
 - [FloatType](docs/models/FloatType.md)
 - [FloatTypeDict](docs/models/FloatTypeDict.md)
@@ -632,6 +635,8 @@ Namespace | Resource | Operation | HTTP request |
 - [GeoPointTypeDict](docs/models/GeoPointTypeDict.md)
 - [GeoShapeType](docs/models/GeoShapeType.md)
 - [GeoShapeTypeDict](docs/models/GeoShapeTypeDict.md)
+- [GeotimeSeriesValue](docs/models/GeotimeSeriesValue.md)
+- [GeotimeSeriesValueDict](docs/models/GeotimeSeriesValueDict.md)
 - [Group](docs/models/Group.md)
 - [GroupDict](docs/models/GroupDict.md)
 - [GroupMember](docs/models/GroupMember.md)
@@ -688,6 +693,7 @@ Namespace | Resource | Operation | HTTP request |
 - [LinkSideObject](docs/models/LinkSideObject.md)
 - [LinkSideObjectDict](docs/models/LinkSideObjectDict.md)
 - [LinkTypeApiName](docs/models/LinkTypeApiName.md)
+- [LinkTypeRid](docs/models/LinkTypeRid.md)
 - [LinkTypeSide](docs/models/LinkTypeSide.md)
 - [LinkTypeSideCardinality](docs/models/LinkTypeSideCardinality.md)
 - [LinkTypeSideDict](docs/models/LinkTypeSideDict.md)
@@ -792,6 +798,7 @@ Namespace | Resource | Operation | HTTP request |
 - [ObjectEditDict](docs/models/ObjectEditDict.md)
 - [ObjectEdits](docs/models/ObjectEdits.md)
 - [ObjectEditsDict](docs/models/ObjectEditsDict.md)
+- [ObjectPrimaryKey](docs/models/ObjectPrimaryKey.md)
 - [ObjectPropertyType](docs/models/ObjectPropertyType.md)
 - [ObjectPropertyTypeDict](docs/models/ObjectPropertyTypeDict.md)
 - [ObjectPropertyValueConstraint](docs/models/ObjectPropertyValueConstraint.md)
@@ -814,10 +821,23 @@ Namespace | Resource | Operation | HTTP request |
 - [ObjectSetSearchAroundTypeDict](docs/models/ObjectSetSearchAroundTypeDict.md)
 - [ObjectSetStaticType](docs/models/ObjectSetStaticType.md)
 - [ObjectSetStaticTypeDict](docs/models/ObjectSetStaticTypeDict.md)
+- [ObjectSetStreamSubscribeRequest](docs/models/ObjectSetStreamSubscribeRequest.md)
+- [ObjectSetStreamSubscribeRequestDict](docs/models/ObjectSetStreamSubscribeRequestDict.md)
+- [ObjectSetStreamSubscribeRequests](docs/models/ObjectSetStreamSubscribeRequests.md)
+- [ObjectSetStreamSubscribeRequestsDict](docs/models/ObjectSetStreamSubscribeRequestsDict.md)
+- [ObjectSetSubscribeResponse](docs/models/ObjectSetSubscribeResponse.md)
+- [ObjectSetSubscribeResponseDict](docs/models/ObjectSetSubscribeResponseDict.md)
+- [ObjectSetSubscribeResponses](docs/models/ObjectSetSubscribeResponses.md)
+- [ObjectSetSubscribeResponsesDict](docs/models/ObjectSetSubscribeResponsesDict.md)
 - [ObjectSetSubtractType](docs/models/ObjectSetSubtractType.md)
 - [ObjectSetSubtractTypeDict](docs/models/ObjectSetSubtractTypeDict.md)
 - [ObjectSetUnionType](docs/models/ObjectSetUnionType.md)
 - [ObjectSetUnionTypeDict](docs/models/ObjectSetUnionTypeDict.md)
+- [ObjectSetUpdate](docs/models/ObjectSetUpdate.md)
+- [ObjectSetUpdateDict](docs/models/ObjectSetUpdateDict.md)
+- [ObjectSetUpdates](docs/models/ObjectSetUpdates.md)
+- [ObjectSetUpdatesDict](docs/models/ObjectSetUpdatesDict.md)
+- [ObjectState](docs/models/ObjectState.md)
 - [ObjectType](docs/models/ObjectType.md)
 - [ObjectTypeApiName](docs/models/ObjectTypeApiName.md)
 - [ObjectTypeDict](docs/models/ObjectTypeDict.md)
@@ -831,6 +851,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ObjectTypeV2](docs/models/ObjectTypeV2.md)
 - [ObjectTypeV2Dict](docs/models/ObjectTypeV2Dict.md)
 - [ObjectTypeVisibility](docs/models/ObjectTypeVisibility.md)
+- [ObjectUpdate](docs/models/ObjectUpdate.md)
+- [ObjectUpdateDict](docs/models/ObjectUpdateDict.md)
 - [OneOfConstraint](docs/models/OneOfConstraint.md)
 - [OneOfConstraintDict](docs/models/OneOfConstraintDict.md)
 - [Ontology](docs/models/Ontology.md)
@@ -906,6 +928,8 @@ Namespace | Resource | Operation | HTTP request |
 - [PropertyV2Dict](docs/models/PropertyV2Dict.md)
 - [PropertyValue](docs/models/PropertyValue.md)
 - [PropertyValueEscapedString](docs/models/PropertyValueEscapedString.md)
+- [QosError](docs/models/QosError.md)
+- [QosErrorDict](docs/models/QosErrorDict.md)
 - [QueryAggregation](docs/models/QueryAggregation.md)
 - [QueryAggregationDict](docs/models/QueryAggregationDict.md)
 - [QueryAggregationKeyType](docs/models/QueryAggregationKeyType.md)
@@ -946,6 +970,12 @@ Namespace | Resource | Operation | HTTP request |
 - [RangeConstraint](docs/models/RangeConstraint.md)
 - [RangeConstraintDict](docs/models/RangeConstraintDict.md)
 - [Realm](docs/models/Realm.md)
+- [ReferenceUpdate](docs/models/ReferenceUpdate.md)
+- [ReferenceUpdateDict](docs/models/ReferenceUpdateDict.md)
+- [ReferenceValue](docs/models/ReferenceValue.md)
+- [ReferenceValueDict](docs/models/ReferenceValueDict.md)
+- [RefreshObjectSet](docs/models/RefreshObjectSet.md)
+- [RefreshObjectSetDict](docs/models/RefreshObjectSetDict.md)
 - [RelativeTime](docs/models/RelativeTime.md)
 - [RelativeTimeDict](docs/models/RelativeTimeDict.md)
 - [RelativeTimeRange](docs/models/RelativeTimeRange.md)
@@ -955,6 +985,7 @@ Namespace | Resource | Operation | HTTP request |
 - [ReleaseStatus](docs/models/ReleaseStatus.md)
 - [RemoveGroupMembersRequest](docs/models/RemoveGroupMembersRequest.md)
 - [RemoveGroupMembersRequestDict](docs/models/RemoveGroupMembersRequestDict.md)
+- [RequestId](docs/models/RequestId.md)
 - [ResourcePath](docs/models/ResourcePath.md)
 - [ReturnEditsMode](docs/models/ReturnEditsMode.md)
 - [SdkPackageName](docs/models/SdkPackageName.md)
@@ -998,6 +1029,8 @@ Namespace | Resource | Operation | HTTP request |
 - [SizeBytes](docs/models/SizeBytes.md)
 - [StartsWithQuery](docs/models/StartsWithQuery.md)
 - [StartsWithQueryDict](docs/models/StartsWithQueryDict.md)
+- [StreamMessage](docs/models/StreamMessage.md)
+- [StreamMessageDict](docs/models/StreamMessageDict.md)
 - [StreamTimeSeriesPointsRequest](docs/models/StreamTimeSeriesPointsRequest.md)
 - [StreamTimeSeriesPointsRequestDict](docs/models/StreamTimeSeriesPointsRequestDict.md)
 - [StreamTimeSeriesPointsResponse](docs/models/StreamTimeSeriesPointsResponse.md)
@@ -1012,6 +1045,13 @@ Namespace | Resource | Operation | HTTP request |
 - [Subdomain](docs/models/Subdomain.md)
 - [SubmissionCriteriaEvaluation](docs/models/SubmissionCriteriaEvaluation.md)
 - [SubmissionCriteriaEvaluationDict](docs/models/SubmissionCriteriaEvaluationDict.md)
+- [SubscriptionClosed](docs/models/SubscriptionClosed.md)
+- [SubscriptionClosedDict](docs/models/SubscriptionClosedDict.md)
+- [SubscriptionError](docs/models/SubscriptionError.md)
+- [SubscriptionErrorDict](docs/models/SubscriptionErrorDict.md)
+- [SubscriptionId](docs/models/SubscriptionId.md)
+- [SubscriptionSuccess](docs/models/SubscriptionSuccess.md)
+- [SubscriptionSuccessDict](docs/models/SubscriptionSuccessDict.md)
 - [SumAggregation](docs/models/SumAggregation.md)
 - [SumAggregationDict](docs/models/SumAggregationDict.md)
 - [SumAggregationV2](docs/models/SumAggregationV2.md)
@@ -1035,7 +1075,9 @@ Namespace | Resource | Operation | HTTP request |
 - [TimestampType](docs/models/TimestampType.md)
 - [TimestampTypeDict](docs/models/TimestampTypeDict.md)
 - [TimeUnit](docs/models/TimeUnit.md)
+- [TotalCount](docs/models/TotalCount.md)
 - [Transaction](docs/models/Transaction.md)
+- [TransactionCreatedTime](docs/models/TransactionCreatedTime.md)
 - [TransactionDict](docs/models/TransactionDict.md)
 - [TransactionRid](docs/models/TransactionRid.md)
 - [TransactionStatus](docs/models/TransactionStatus.md)

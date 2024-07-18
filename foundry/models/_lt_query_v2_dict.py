@@ -15,12 +15,12 @@
 
 from __future__ import annotations
 
-from typing import Any
 from typing import Literal
 
 from typing_extensions import TypedDict
 
 from foundry.models._property_api_name import PropertyApiName
+from foundry.models._property_value import PropertyValue
 
 
 class LtQueryV2Dict(TypedDict):
@@ -30,7 +30,6 @@ class LtQueryV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    value: Any
-    """Less than value"""
+    value: PropertyValue
 
     type: Literal["lt"]

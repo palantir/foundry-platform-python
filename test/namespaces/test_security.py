@@ -30,7 +30,7 @@ def test_can_get_user(client: FoundryClient, monkeypatch: Any):
             (
                 {
                     "method": "GET",
-                    "url": f"https://test.com/api/v2/security/users/{user_id}",
+                    "url": f"https://test.com/api/v2/admin/users/{user_id}",
                     "json": None,
                     "params": {},
                 },
@@ -52,7 +52,7 @@ def test_can_get_user(client: FoundryClient, monkeypatch: Any):
         ],
     )
 
-    user = client.security.User.get(user_id)
+    user = client.admin.User.get(user_id)
     assert user.id == user_id
     assert user.username == "test-username"
 
@@ -67,7 +67,7 @@ def test_can_get_user_groups(client: FoundryClient, monkeypatch: Any):
             (
                 {
                     "method": "GET",
-                    "url": f"https://test.com/api/v2/security/users/{user_id}/groupMemberships",
+                    "url": f"https://test.com/api/v2/admin/users/{user_id}/groupMemberships",
                     "json": None,
                     "params": {},
                 },
@@ -83,7 +83,7 @@ def test_can_get_user_groups(client: FoundryClient, monkeypatch: Any):
         ],
     )
 
-    result = client.security.User.GroupMembership.page(user_id)
+    result = client.admin.User.GroupMembership.page(user_id)
     assert result.next_page_token == "123"
     assert len(result.data) == 1
     assert result.data[0].group_id == group_id

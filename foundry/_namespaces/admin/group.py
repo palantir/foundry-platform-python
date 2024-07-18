@@ -27,39 +27,86 @@ from pydantic import validate_call
 
 from foundry._core import ResourceIterator
 from foundry._errors import handle_unexpected
-from foundry._namespaces.security.group_membership import GroupMembershipResource
+from foundry._namespaces.admin.group_member import GroupMemberResource
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
-from foundry.models._list_users_response import ListUsersResponse
+from foundry.models._create_group_request import CreateGroupRequest
+from foundry.models._create_group_request_dict import CreateGroupRequestDict
+from foundry.models._group import Group
+from foundry.models._list_groups_response import ListGroupsResponse
 from foundry.models._page_size import PageSize
 from foundry.models._page_token import PageToken
 from foundry.models._preview_mode import PreviewMode
 from foundry.models._principal_id import PrincipalId
-from foundry.models._search_users_request import SearchUsersRequest
-from foundry.models._search_users_request_dict import SearchUsersRequestDict
-from foundry.models._search_users_response import SearchUsersResponse
-from foundry.models._user import User
+from foundry.models._search_groups_request import SearchGroupsRequest
+from foundry.models._search_groups_request_dict import SearchGroupsRequestDict
+from foundry.models._search_groups_response import SearchGroupsResponse
 
 
-class UserResource:
+class GroupResource:
     def __init__(self, api_client: ApiClient) -> None:
         self._api_client = api_client
 
-        self.GroupMembership = GroupMembershipResource(api_client=api_client)
+        self.GroupMember = GroupMemberResource(api_client=api_client)
+
+    @validate_call
+    @handle_unexpected
+    def create(
+        self,
+        create_group_request: Union[CreateGroupRequest, CreateGroupRequestDict],
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> Group:
+        """
+        Creates a new Group
+        :param create_group_request: Body of the request
+        :type create_group_request: Union[CreateGroupRequest, CreateGroupRequestDict]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Group
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = create_group_request
+        _query_params["preview"] = preview
+
+        _header_params["Content-Type"] = "application/json"
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/groups",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=Union[CreateGroupRequest, CreateGroupRequestDict],
+                response_type=Group,
+                request_timeout=request_timeout,
+            ),
+        )
 
     @validate_call
     @handle_unexpected
     def delete(
         self,
-        user_id: PrincipalId,
+        group_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> None:
         """
-        Deletes the given User
-        :param user_id: userId
-        :type user_id: PrincipalId
+        Deletes the given Group
+        :param group_id: groupId
+        :type group_id: PrincipalId
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -74,12 +121,12 @@ class UserResource:
         _body_params: Any = None
         _query_params["preview"] = preview
 
-        _path_params["userId"] = user_id
+        _path_params["groupId"] = group_id
 
         return self._api_client.call_api(
             RequestInfo(
                 method="DELETE",
-                resource_path="/v2/security/users/{userId}",
+                resource_path="/v2/admin/groups/{groupId}",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -94,21 +141,21 @@ class UserResource:
     @handle_unexpected
     def get(
         self,
-        user_id: PrincipalId,
+        group_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> User:
+    ) -> Group:
         """
-        Get the User
-        :param user_id: userId
-        :type user_id: PrincipalId
+        Get the Group
+        :param group_id: groupId
+        :type group_id: PrincipalId
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: User
+        :rtype: Group
         """
 
         _path_params: Dict[str, Any] = {}
@@ -117,60 +164,20 @@ class UserResource:
         _body_params: Any = None
         _query_params["preview"] = preview
 
-        _path_params["userId"] = user_id
+        _path_params["groupId"] = group_id
 
         _header_params["Accept"] = "application/json"
 
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/users/{userId}",
+                resource_path="/v2/admin/groups/{groupId}",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=User,
-                request_timeout=request_timeout,
-            ),
-        )
-
-    @validate_call
-    @handle_unexpected
-    def get_current(
-        self,
-        *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> User:
-        """
-
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: User
-        """
-
-        _path_params: Dict[str, Any] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, Any] = {}
-        _body_params: Any = None
-        _query_params["preview"] = preview
-
-        _header_params["Accept"] = "application/json"
-
-        return self._api_client.call_api(
-            RequestInfo(
-                method="GET",
-                resource_path="/v2/security/users/getCurrent",
-                query_params=_query_params,
-                path_params=_path_params,
-                header_params=_header_params,
-                body=_body_params,
-                body_type=None,
-                response_type=User,
+                response_type=Group,
                 request_timeout=request_timeout,
             ),
         )
@@ -183,9 +190,9 @@ class UserResource:
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ResourceIterator[User]:
+    ) -> ResourceIterator[Group]:
         """
-        Lists all Users
+        Lists all Groups
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
         :param preview: preview
@@ -193,7 +200,7 @@ class UserResource:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[User]
+        :rtype: ResourceIterator[Group]
         """
 
         _path_params: Dict[str, Any] = {}
@@ -209,13 +216,13 @@ class UserResource:
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/users",
+                resource_path="/v2/admin/groups",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ListUsersResponse,
+                response_type=ListGroupsResponse,
                 request_timeout=request_timeout,
             ),
         )
@@ -229,9 +236,9 @@ class UserResource:
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ListUsersResponse:
+    ) -> ListGroupsResponse:
         """
-        Lists all Users
+        Lists all Groups
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
@@ -241,7 +248,7 @@ class UserResource:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListUsersResponse
+        :rtype: ListGroupsResponse
         """
 
         _path_params: Dict[str, Any] = {}
@@ -259,58 +266,13 @@ class UserResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/users",
+                resource_path="/v2/admin/groups",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
-                response_type=ListUsersResponse,
-                request_timeout=request_timeout,
-            ),
-        )
-
-    @validate_call
-    @handle_unexpected
-    def profile_picture(
-        self,
-        user_id: PrincipalId,
-        *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> bytes:
-        """
-
-        :param user_id: userId
-        :type user_id: PrincipalId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: bytes
-        """
-
-        _path_params: Dict[str, Any] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, Any] = {}
-        _body_params: Any = None
-        _query_params["preview"] = preview
-
-        _path_params["userId"] = user_id
-
-        _header_params["Accept"] = "application/octet-stream"
-
-        return self._api_client.call_api(
-            RequestInfo(
-                method="GET",
-                resource_path="/v2/security/users/{userId}/profilePicture",
-                query_params=_query_params,
-                path_params=_path_params,
-                header_params=_header_params,
-                body=_body_params,
-                body_type=None,
-                response_type=bytes,
+                response_type=ListGroupsResponse,
                 request_timeout=request_timeout,
             ),
         )
@@ -319,27 +281,27 @@ class UserResource:
     @handle_unexpected
     def search(
         self,
-        search_users_request: Union[SearchUsersRequest, SearchUsersRequestDict],
+        search_groups_request: Union[SearchGroupsRequest, SearchGroupsRequestDict],
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> SearchUsersResponse:
+    ) -> SearchGroupsResponse:
         """
 
-        :param search_users_request: Body of the request
-        :type search_users_request: Union[SearchUsersRequest, SearchUsersRequestDict]
+        :param search_groups_request: Body of the request
+        :type search_groups_request: Union[SearchGroupsRequest, SearchGroupsRequestDict]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: SearchUsersResponse
+        :rtype: SearchGroupsResponse
         """
 
         _path_params: Dict[str, Any] = {}
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
-        _body_params: Any = search_users_request
+        _body_params: Any = search_groups_request
         _query_params["preview"] = preview
 
         _header_params["Content-Type"] = "application/json"
@@ -349,13 +311,13 @@ class UserResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/security/users/search",
+                resource_path="/v2/admin/groups/search",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
-                body_type=Union[SearchUsersRequest, SearchUsersRequestDict],
-                response_type=SearchUsersResponse,
+                body_type=Union[SearchGroupsRequest, SearchGroupsRequestDict],
+                response_type=SearchGroupsResponse,
                 request_timeout=request_timeout,
             ),
         )

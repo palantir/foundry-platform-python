@@ -20,6 +20,7 @@ from typing_extensions import TypedDict
 
 from foundry.models._display_name import DisplayName
 from foundry.models._link_type_api_name import LinkTypeApiName
+from foundry.models._link_type_rid import LinkTypeRid
 from foundry.models._link_type_side_cardinality import LinkTypeSideCardinality
 from foundry.models._object_type_api_name import ObjectTypeApiName
 from foundry.models._property_api_name import PropertyApiName
@@ -42,3 +43,5 @@ class LinkTypeSideV2Dict(TypedDict):
     cardinality: LinkTypeSideCardinality
 
     foreignKeyPropertyApiName: NotRequired[PropertyApiName]
+
+    linkTypeRid: LinkTypeRid

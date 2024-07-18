@@ -28,11 +28,11 @@ from foundry.models._page_token import PageToken
 
 
 class ListFilesResponse(BaseModel):
-    """A page of Files and an optional page token that can be used to retrieve the next page."""
-
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    """ListFilesResponse"""
 
     data: List[File]
+
+    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

@@ -2,8 +2,8 @@
 
 Method | HTTP request |
 ------------- | ------------- |
-[**list**](#list) | **GET** /v2/security/users/{userId}/groupMemberships |
-[**page**](#page) | **GET** /v2/security/users/{userId}/groupMemberships |
+[**list**](#list) | **GET** /v2/admin/users/{userId}/groupMemberships |
+[**page**](#page) | **GET** /v2/admin/users/{userId}/groupMemberships |
 
 # **list**
 Lists all GroupMemberships
@@ -45,7 +45,7 @@ transitive = None
 
 
 try:
-    for group_membership in foundry_client.security.User.GroupMembership.list(
+    for group_membership in foundry_client.admin.User.GroupMembership.list(
         user_id,
         page_size=page_size,
         preview=preview,
@@ -114,7 +114,7 @@ transitive = None
 
 
 try:
-    api_response = foundry_client.security.User.GroupMembership.page(
+    api_response = foundry_client.admin.User.GroupMembership.page(
         user_id,
         page_size=page_size,
         page_token=page_token,

@@ -48,8 +48,8 @@ class DatasetResource:
         self._api_client = api_client
 
         self.Branch = BranchResource(api_client=api_client)
-        self.File = FileResource(api_client=api_client)
         self.Transaction = TransactionResource(api_client=api_client)
+        self.File = FileResource(api_client=api_client)
 
     @validate_call
     @handle_unexpected
@@ -57,15 +57,16 @@ class DatasetResource:
         self,
         create_dataset_request: Union[CreateDatasetRequest, CreateDatasetRequestDict],
         *,
+        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Dataset:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param create_dataset_request: Body of the request
         :type create_dataset_request: Union[CreateDatasetRequest, CreateDatasetRequestDict]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -76,6 +77,7 @@ class DatasetResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = create_dataset_request
+        _query_params["preview"] = preview
 
         _header_params["Content-Type"] = "application/json"
 
@@ -84,7 +86,7 @@ class DatasetResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v1/datasets",
+                resource_path="/v2/datasets",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -97,73 +99,19 @@ class DatasetResource:
 
     @validate_call
     @handle_unexpected
-    def delete_schema(
-        self,
-        dataset_rid: DatasetRid,
-        *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> None:
-        """
-        Deletes the Schema from a Dataset and Branch.
-
-        :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
-        :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: None
-        """
-
-        _path_params: Dict[str, Any] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, Any] = {}
-        _body_params: Any = None
-        _query_params["branchId"] = branch_id
-
-        _query_params["preview"] = preview
-
-        _query_params["transactionRid"] = transaction_rid
-
-        _path_params["datasetRid"] = dataset_rid
-
-        return self._api_client.call_api(
-            RequestInfo(
-                method="DELETE",
-                resource_path="/v1/datasets/{datasetRid}/schema",
-                query_params=_query_params,
-                path_params=_path_params,
-                header_params=_header_params,
-                body=_body_params,
-                body_type=None,
-                response_type=None,
-                request_timeout=request_timeout,
-            ),
-        )
-
-    @validate_call
-    @handle_unexpected
     def get(
         self,
         dataset_rid: DatasetRid,
         *,
+        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Dataset:
         """
-        Gets the Dataset with the given DatasetRid.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
+        Get the Dataset
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -174,6 +122,7 @@ class DatasetResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
+        _query_params["preview"] = preview
 
         _path_params["datasetRid"] = dataset_rid
 
@@ -182,7 +131,7 @@ class DatasetResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}",
+                resource_path="/v2/datasets/{datasetRid}",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -195,63 +144,7 @@ class DatasetResource:
 
     @validate_call
     @handle_unexpected
-    def get_schema(
-        self,
-        dataset_rid: DatasetRid,
-        *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> Any:
-        """
-        Retrieves the Schema for a Dataset and Branch, if it exists.
-
-        :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
-        :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: Any
-        """
-
-        _path_params: Dict[str, Any] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, Any] = {}
-        _body_params: Any = None
-        _query_params["branchId"] = branch_id
-
-        _query_params["preview"] = preview
-
-        _query_params["transactionRid"] = transaction_rid
-
-        _path_params["datasetRid"] = dataset_rid
-
-        _header_params["Accept"] = "application/json"
-
-        return self._api_client.call_api(
-            RequestInfo(
-                method="GET",
-                resource_path="/v1/datasets/{datasetRid}/schema",
-                query_params=_query_params,
-                path_params=_path_params,
-                header_params=_header_params,
-                body=_body_params,
-                body_type=None,
-                response_type=Any,
-                request_timeout=request_timeout,
-            ),
-        )
-
-    @validate_call
-    @handle_unexpected
-    def read(
+    def read_table(
         self,
         dataset_rid: DatasetRid,
         *,
@@ -259,6 +152,7 @@ class DatasetResource:
         format: TableExportFormat,
         branch_id: Optional[BranchId] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
+        preview: Optional[PreviewMode] = None,
         row_limit: Optional[StrictInt] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
@@ -267,8 +161,6 @@ class DatasetResource:
         Gets the content of a dataset as a table in the specified format.
 
         This endpoint currently does not support views (Virtual datasets composed of other datasets).
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
@@ -280,6 +172,8 @@ class DatasetResource:
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param row_limit: rowLimit
         :type row_limit: Optional[StrictInt]
         :param start_transaction_rid: startTransactionRid
@@ -302,78 +196,26 @@ class DatasetResource:
 
         _query_params["endTransactionRid"] = end_transaction_rid
 
+        _query_params["preview"] = preview
+
         _query_params["rowLimit"] = row_limit
 
         _query_params["startTransactionRid"] = start_transaction_rid
 
         _path_params["datasetRid"] = dataset_rid
 
-        _header_params["Accept"] = "*/*"
+        _header_params["Accept"] = "application/octet-stream"
 
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v1/datasets/{datasetRid}/readTable",
+                resource_path="/v2/datasets/{datasetRid}/readTable",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
                 body=_body_params,
                 body_type=None,
                 response_type=bytes,
-                request_timeout=request_timeout,
-            ),
-        )
-
-    @validate_call
-    @handle_unexpected
-    def replace_schema(
-        self,
-        dataset_rid: DatasetRid,
-        body: Any,
-        *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> None:
-        """
-        Puts a Schema on an existing Dataset and Branch.
-
-        :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
-        :param body: Body of the request
-        :type body: Any
-        :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: None
-        """
-
-        _path_params: Dict[str, Any] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, Any] = {}
-        _body_params: Any = body
-        _query_params["branchId"] = branch_id
-
-        _query_params["preview"] = preview
-
-        _path_params["datasetRid"] = dataset_rid
-
-        _header_params["Content-Type"] = "application/json"
-
-        return self._api_client.call_api(
-            RequestInfo(
-                method="PUT",
-                resource_path="/v1/datasets/{datasetRid}/schema",
-                query_params=_query_params,
-                path_params=_path_params,
-                header_params=_header_params,
-                body=_body_params,
-                body_type=Any,
-                response_type=None,
                 request_timeout=request_timeout,
             ),
         )

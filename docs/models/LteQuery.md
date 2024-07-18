@@ -6,7 +6,7 @@ Returns objects where the specified field is less than or equal to a value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | Any | Yes | Less than or equal to value |
+**value** | PropertyValue | Yes |  |
 **type** | Literal["lte"] | Yes | None |
 
 

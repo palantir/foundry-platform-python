@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+from foundry._core.utils import DateTime
 
-CreatedTime = StrictStr
+CreatedTime = DateTime
 """The time at which the resource was created."""

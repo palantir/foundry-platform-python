@@ -83,7 +83,7 @@ class GroupMemberResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/security/groups/{groupId}/groupMembers/add",
+                resource_path="/v2/admin/groups/{groupId}/groupMembers/add",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -138,7 +138,7 @@ class GroupMemberResource:
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/groups/{groupId}/groupMembers",
+                resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -198,7 +198,7 @@ class GroupMemberResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/security/groups/{groupId}/groupMembers",
+                resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -248,7 +248,7 @@ class GroupMemberResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/security/groups/{groupId}/groupMembers/remove",
+                resource_path="/v2/admin/groups/{groupId}/groupMembers/remove",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,

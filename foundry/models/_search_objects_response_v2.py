@@ -25,6 +25,7 @@ from pydantic import Field
 from foundry.models._ontology_object_v2 import OntologyObjectV2
 from foundry.models._page_token import PageToken
 from foundry.models._search_objects_response_v2_dict import SearchObjectsResponseV2Dict
+from foundry.models._total_count import TotalCount
 
 
 class SearchObjectsResponseV2(BaseModel):
@@ -33,6 +34,8 @@ class SearchObjectsResponseV2(BaseModel):
     data: List[OntologyObjectV2]
 
     next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+
+    total_count: TotalCount = Field(alias="totalCount")
 
     model_config = {"extra": "allow"}
 

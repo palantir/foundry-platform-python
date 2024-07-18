@@ -25,6 +25,7 @@ from pydantic import Field
 from foundry.models._list_objects_response_dict import ListObjectsResponseDict
 from foundry.models._ontology_object import OntologyObject
 from foundry.models._page_token import PageToken
+from foundry.models._total_count import TotalCount
 
 
 class ListObjectsResponse(BaseModel):
@@ -34,6 +35,8 @@ class ListObjectsResponse(BaseModel):
 
     data: List[OntologyObject]
     """The list of objects in the current page."""
+
+    total_count: TotalCount = Field(alias="totalCount")
 
     model_config = {"extra": "allow"}
 

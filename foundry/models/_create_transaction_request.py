@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing import cast
 
 from pydantic import BaseModel
@@ -28,7 +27,7 @@ from foundry.models._transaction_type import TransactionType
 class CreateTransactionRequest(BaseModel):
     """CreateTransactionRequest"""
 
-    transaction_type: Optional[TransactionType] = Field(alias="transactionType", default=None)
+    transaction_type: TransactionType = Field(alias="transactionType")
 
     model_config = {"extra": "allow"}
 

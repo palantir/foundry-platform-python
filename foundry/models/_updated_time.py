@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+from foundry._core.utils import DateTime
 
-UpdatedTime = StrictStr
+UpdatedTime = DateTime
 """The time at which the resource was most recently updated."""

@@ -2,10 +2,10 @@
 
 Method | HTTP request |
 ------------- | ------------- |
-[**add**](#add) | **POST** /v2/security/groups/{groupId}/groupMembers/add |
-[**list**](#list) | **GET** /v2/security/groups/{groupId}/groupMembers |
-[**page**](#page) | **GET** /v2/security/groups/{groupId}/groupMembers |
-[**remove**](#remove) | **POST** /v2/security/groups/{groupId}/groupMembers/remove |
+[**add**](#add) | **POST** /v2/admin/groups/{groupId}/groupMembers/add |
+[**list**](#list) | **GET** /v2/admin/groups/{groupId}/groupMembers |
+[**page**](#page) | **GET** /v2/admin/groups/{groupId}/groupMembers |
+[**remove**](#remove) | **POST** /v2/admin/groups/{groupId}/groupMembers/remove |
 
 # **add**
 
@@ -43,7 +43,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.Group.GroupMember.add(
+    api_response = foundry_client.admin.Group.GroupMember.add(
         group_id,
         add_group_members_request,
         preview=preview,
@@ -108,7 +108,7 @@ transitive = None
 
 
 try:
-    for group_member in foundry_client.security.Group.GroupMember.list(
+    for group_member in foundry_client.admin.Group.GroupMember.list(
         group_id,
         page_size=page_size,
         preview=preview,
@@ -177,7 +177,7 @@ transitive = None
 
 
 try:
-    api_response = foundry_client.security.Group.GroupMember.page(
+    api_response = foundry_client.admin.Group.GroupMember.page(
         group_id,
         page_size=page_size,
         page_token=page_token,
@@ -240,7 +240,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.security.Group.GroupMember.remove(
+    api_response = foundry_client.admin.Group.GroupMember.remove(
         group_id,
         remove_group_members_request,
         preview=preview,

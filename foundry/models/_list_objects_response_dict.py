@@ -22,6 +22,7 @@ from typing_extensions import TypedDict
 
 from foundry.models._ontology_object_dict import OntologyObjectDict
 from foundry.models._page_token import PageToken
+from foundry.models._total_count import TotalCount
 
 
 class ListObjectsResponseDict(TypedDict):
@@ -33,3 +34,5 @@ class ListObjectsResponseDict(TypedDict):
 
     data: List[OntologyObjectDict]
     """The list of objects in the current page."""
+
+    totalCount: TotalCount
