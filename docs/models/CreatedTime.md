@@ -5,7 +5,7 @@ The time at which the resource was created.
 
 ## Type
 ```python
-DateTime
+StrictStr
 ```
 
 

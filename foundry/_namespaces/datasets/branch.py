@@ -37,7 +37,6 @@ from foundry.models._dataset_rid import DatasetRid
 from foundry.models._list_branches_response import ListBranchesResponse
 from foundry.models._page_size import PageSize
 from foundry.models._page_token import PageToken
-from foundry.models._preview_mode import PreviewMode
 
 
 class BranchResource:
@@ -51,18 +50,17 @@ class BranchResource:
         dataset_rid: DatasetRid,
         create_branch_request: Union[CreateBranchRequest, CreateBranchRequestDict],
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Branch:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param create_branch_request: Body of the request
         :type create_branch_request: Union[CreateBranchRequest, CreateBranchRequestDict]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -73,7 +71,6 @@ class BranchResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = create_branch_request
-        _query_params["preview"] = preview
 
         _path_params["datasetRid"] = dataset_rid
 
@@ -84,7 +81,7 @@ class BranchResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/datasets/{datasetRid}/branches",
+                resource_path="/v1/datasets/{datasetRid}/branches",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -102,18 +99,17 @@ class BranchResource:
         dataset_rid: DatasetRid,
         branch_id: BranchId,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> None:
         """
         Deletes the Branch with the given BranchId.
 
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param branch_id: branchId
         :type branch_id: BranchId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -124,7 +120,6 @@ class BranchResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["preview"] = preview
 
         _path_params["datasetRid"] = dataset_rid
 
@@ -133,7 +128,7 @@ class BranchResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="DELETE",
-                resource_path="/v2/datasets/{datasetRid}/branches/{branchId}",
+                resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -151,18 +146,17 @@ class BranchResource:
         dataset_rid: DatasetRid,
         branch_id: BranchId,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Branch:
         """
         Get a Branch of a Dataset.
 
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param branch_id: branchId
         :type branch_id: BranchId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -173,7 +167,6 @@ class BranchResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["preview"] = preview
 
         _path_params["datasetRid"] = dataset_rid
 
@@ -184,7 +177,7 @@ class BranchResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/datasets/{datasetRid}/branches/{branchId}",
+                resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -202,18 +195,17 @@ class BranchResource:
         dataset_rid: DatasetRid,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> ResourceIterator[Branch]:
         """
         Lists the Branches of a Dataset.
 
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -226,8 +218,6 @@ class BranchResource:
         _body_params: Any = None
         _query_params["pageSize"] = page_size
 
-        _query_params["preview"] = preview
-
         _path_params["datasetRid"] = dataset_rid
 
         _header_params["Accept"] = "application/json"
@@ -235,7 +225,7 @@ class BranchResource:
         return self._api_client.iterate_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/datasets/{datasetRid}/branches",
+                resource_path="/v1/datasets/{datasetRid}/branches",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -254,11 +244,12 @@ class BranchResource:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> ListBranchesResponse:
         """
         Lists the Branches of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
@@ -266,8 +257,6 @@ class BranchResource:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -282,8 +271,6 @@ class BranchResource:
 
         _query_params["pageToken"] = page_token
 
-        _query_params["preview"] = preview
-
         _path_params["datasetRid"] = dataset_rid
 
         _header_params["Accept"] = "application/json"
@@ -291,7 +278,7 @@ class BranchResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/datasets/{datasetRid}/branches",
+                resource_path="/v1/datasets/{datasetRid}/branches",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,

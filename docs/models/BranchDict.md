@@ -1,6 +1,7 @@
 # BranchDict
 
-Branch
+A Branch of a Dataset.
+
 
 ## Properties
 | Name | Type | Required | Description |

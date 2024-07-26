@@ -2,14 +2,16 @@
 
 Method | HTTP request |
 ------------- | ------------- |
-[**abort**](#abort) | **POST** /v2/datasets/{datasetRid}/transactions/{transactionRid}/abort |
-[**commit**](#commit) | **POST** /v2/datasets/{datasetRid}/transactions/{transactionRid}/commit |
-[**create**](#create) | **POST** /v2/datasets/{datasetRid}/transactions |
-[**get**](#get) | **GET** /v2/datasets/{datasetRid}/transactions/{transactionRid} |
+[**abort**](#abort) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/abort |
+[**commit**](#commit) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/commit |
+[**create**](#create) | **POST** /v1/datasets/{datasetRid}/transactions |
+[**get**](#get) | **GET** /v1/datasets/{datasetRid}/transactions/{transactionRid} |
 
 # **abort**
 Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
 not updated.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
 
 ### Parameters
@@ -18,7 +20,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -35,20 +36,16 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = None
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 # TransactionRid | transactionRid
-transaction_rid = None
-
-# Optional[PreviewMode] | preview
-preview = None
+transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496"
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.abort(
         dataset_rid,
         transaction_rid,
-        preview=preview,
     )
     print("The abort response:\n")
     pprint(api_response)
@@ -74,6 +71,8 @@ See [README](../README.md#authorization)
 Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
 updated to point to the Transaction.
 
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
 
 ### Parameters
 
@@ -81,7 +80,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -98,20 +96,16 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = None
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 # TransactionRid | transactionRid
-transaction_rid = None
-
-# Optional[PreviewMode] | preview
-preview = None
+transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496"
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.commit(
         dataset_rid,
         transaction_rid,
-        preview=preview,
     )
     print("The commit response:\n")
     pprint(api_response)
@@ -136,6 +130,8 @@ See [README](../README.md#authorization)
 # **create**
 Creates a Transaction on a Branch of a Dataset.
 
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
 
 ### Parameters
 
@@ -144,7 +140,6 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **create_transaction_request** | Union[CreateTransactionRequest, CreateTransactionRequestDict] | Body of the request |  |
 **branch_id** | Optional[BranchId] | branchId | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -161,16 +156,13 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = None
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 # Union[CreateTransactionRequest, CreateTransactionRequestDict] | Body of the request
-create_transaction_request = None
+create_transaction_request = {"transactionType": "SNAPSHOT"}
 
 # Optional[BranchId] | branchId
 branch_id = None
-
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -178,7 +170,6 @@ try:
         dataset_rid,
         create_transaction_request,
         branch_id=branch_id,
-        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -218,12 +209,14 @@ See [README](../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Transaction  | The created Transaction | application/json |
+**200** | Transaction  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
 # **get**
 Gets a Transaction of a Dataset.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
 
 ### Parameters
@@ -232,7 +225,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -249,20 +241,16 @@ foundry_client = FoundryClient(
 )
 
 # DatasetRid | datasetRid
-dataset_rid = None
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 # TransactionRid | transactionRid
-transaction_rid = None
-
-# Optional[PreviewMode] | preview
-preview = None
+transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496"
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.get(
         dataset_rid,
         transaction_rid,
-        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)

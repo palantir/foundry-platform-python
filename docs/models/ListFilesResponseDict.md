@@ -1,6 +1,6 @@
 # ListFilesResponseDict
 
-ListFilesResponse
+A page of Files and an optional page token that can be used to retrieve the next page.
 
 ## Properties
 | Name | Type | Required | Description |

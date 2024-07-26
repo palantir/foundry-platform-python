@@ -28,7 +28,7 @@ from foundry.models._page_token import PageToken
 
 
 class ListFilesResponse(BaseModel):
-    """ListFilesResponse"""
+    """A page of Files and an optional page token that can be used to retrieve the next page."""
 
     data: List[File]
 

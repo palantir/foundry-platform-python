@@ -33,7 +33,7 @@ def mock_create_branch(monkeypatch: Any, dataset_rid: str, branch_id: str):
             (
                 {
                     "method": "POST",
-                    "url": f"https://test.com/api/v2/datasets/{dataset_rid}/branches",
+                    "url": f"https://test.com/api/v1/datasets/{dataset_rid}/branches",
                     "json": {"branchId": branch_id},
                     "params": {},
                 },
@@ -147,7 +147,7 @@ def mock_data_read(monkeypatch: Any, data: bytes):
             (
                 {
                     "method": "GET",
-                    "url": f"https://test.com/api/v2/datasets/{TEST_RID}/readTable",
+                    "url": f"https://test.com/api/v1/datasets/{TEST_RID}/readTable",
                     "params": {"format": "CSV", "columns": []},
                     "json": None,
                 },
@@ -163,5 +163,5 @@ def mock_data_read(monkeypatch: Any, data: bytes):
 
 def test_read_table_can_pass_in_str(client: FoundryClient, monkeypatch: Any):
     mock_data_read(monkeypatch, data=b"hello")
-    res = client.datasets.Dataset.read_table(format="CSV", dataset_rid=TEST_RID, columns=[])
+    res = client.datasets.Dataset.read(format="CSV", dataset_rid=TEST_RID, columns=[])
     assert res == b"hello"

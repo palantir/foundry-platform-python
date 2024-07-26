@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 TransactionRid = RID
-"""The Resource Identifier (RID) of a Transaction."""
+"""The Resource Identifier (RID) of a Transaction. Example: `ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4`."""

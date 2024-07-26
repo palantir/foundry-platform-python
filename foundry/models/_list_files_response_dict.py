@@ -25,7 +25,7 @@ from foundry.models._page_token import PageToken
 
 
 class ListFilesResponseDict(TypedDict):
-    """ListFilesResponse"""
+    """A page of Files and an optional page token that can be used to retrieve the next page."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

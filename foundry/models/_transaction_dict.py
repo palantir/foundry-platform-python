@@ -19,21 +19,20 @@ from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry._core.utils import DateTime
-from foundry.models._transaction_created_time import TransactionCreatedTime
 from foundry.models._transaction_rid import TransactionRid
 from foundry.models._transaction_status import TransactionStatus
 from foundry.models._transaction_type import TransactionType
 
 
 class TransactionDict(TypedDict):
-    """Transaction"""
+    """An operation that modifies the files within a dataset."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     closedTime: NotRequired[DateTime]
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
-    createdTime: TransactionCreatedTime
+    createdTime: DateTime
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
     rid: TransactionRid

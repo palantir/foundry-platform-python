@@ -30,5 +30,6 @@ class ListBranchesResponseDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: List[BranchDict]
+    """The list of branches in the current page."""
 
     nextPageToken: NotRequired[PageToken]

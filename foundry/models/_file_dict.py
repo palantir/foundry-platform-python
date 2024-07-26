@@ -19,8 +19,8 @@ from pydantic import StrictStr
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
+from foundry._core.utils import DateTime
 from foundry.models._file_path import FilePath
-from foundry.models._file_updated_time import FileUpdatedTime
 from foundry.models._transaction_rid import TransactionRid
 
 
@@ -35,4 +35,4 @@ class FileDict(TypedDict):
 
     transactionRid: TransactionRid
 
-    updatedTime: FileUpdatedTime
+    updatedTime: DateTime

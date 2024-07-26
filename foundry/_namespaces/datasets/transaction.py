@@ -32,7 +32,6 @@ from foundry.models._branch_id import BranchId
 from foundry.models._create_transaction_request import CreateTransactionRequest
 from foundry.models._create_transaction_request_dict import CreateTransactionRequestDict
 from foundry.models._dataset_rid import DatasetRid
-from foundry.models._preview_mode import PreviewMode
 from foundry.models._transaction import Transaction
 from foundry.models._transaction_rid import TransactionRid
 
@@ -48,19 +47,18 @@ class TransactionResource:
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
 
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -71,7 +69,6 @@ class TransactionResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["preview"] = preview
 
         _path_params["datasetRid"] = dataset_rid
 
@@ -82,7 +79,7 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/abort",
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -100,19 +97,18 @@ class TransactionResource:
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
 
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -123,7 +119,6 @@ class TransactionResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["preview"] = preview
 
         _path_params["datasetRid"] = dataset_rid
 
@@ -134,7 +129,7 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/commit",
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -153,11 +148,12 @@ class TransactionResource:
         create_transaction_request: Union[CreateTransactionRequest, CreateTransactionRequestDict],
         *,
         branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Creates a Transaction on a Branch of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
@@ -165,8 +161,6 @@ class TransactionResource:
         :type create_transaction_request: Union[CreateTransactionRequest, CreateTransactionRequestDict]
         :param branch_id: branchId
         :type branch_id: Optional[BranchId]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -179,8 +173,6 @@ class TransactionResource:
         _body_params: Any = create_transaction_request
         _query_params["branchId"] = branch_id
 
-        _query_params["preview"] = preview
-
         _path_params["datasetRid"] = dataset_rid
 
         _header_params["Content-Type"] = "application/json"
@@ -190,7 +182,7 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/datasets/{datasetRid}/transactions",
+                resource_path="/v1/datasets/{datasetRid}/transactions",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,
@@ -208,18 +200,17 @@ class TransactionResource:
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Gets a Transaction of a Dataset.
 
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -230,7 +221,6 @@ class TransactionResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["preview"] = preview
 
         _path_params["datasetRid"] = dataset_rid
 
@@ -241,7 +231,7 @@ class TransactionResource:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",
+                resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params=_query_params,
                 path_params=_path_params,
                 header_params=_header_params,

@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.models._transaction_type import TransactionType
@@ -25,4 +26,4 @@ class CreateTransactionRequestDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    transactionType: TransactionType
+    transactionType: NotRequired[TransactionType]

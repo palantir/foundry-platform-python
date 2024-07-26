@@ -27,7 +27,7 @@ from foundry.models._transaction_rid import TransactionRid
 
 
 class Branch(BaseModel):
-    """Branch"""
+    """A Branch of a Dataset."""
 
     branch_id: BranchId = Field(alias="branchId")
 

@@ -5,7 +5,7 @@ The time at which the resource was most recently updated.
 
 ## Type
 ```python
-DateTime
+StrictStr
 ```
 
 

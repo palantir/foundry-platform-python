@@ -22,7 +22,6 @@ from pydantic import BaseModel
 from pydantic import Field
 
 from foundry._core.utils import DateTime
-from foundry.models._transaction_created_time import TransactionCreatedTime
 from foundry.models._transaction_dict import TransactionDict
 from foundry.models._transaction_rid import TransactionRid
 from foundry.models._transaction_status import TransactionStatus
@@ -30,12 +29,12 @@ from foundry.models._transaction_type import TransactionType
 
 
 class Transaction(BaseModel):
-    """Transaction"""
+    """An operation that modifies the files within a dataset."""
 
     closed_time: Optional[DateTime] = Field(alias="closedTime", default=None)
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
-    created_time: TransactionCreatedTime = Field(alias="createdTime")
+    created_time: DateTime = Field(alias="createdTime")
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
     rid: TransactionRid

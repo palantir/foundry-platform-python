@@ -23,7 +23,7 @@ from foundry.models._transaction_rid import TransactionRid
 
 
 class BranchDict(TypedDict):
-    """Branch"""
+    """A Branch of a Dataset."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

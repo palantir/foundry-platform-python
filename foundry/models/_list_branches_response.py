@@ -31,6 +31,7 @@ class ListBranchesResponse(BaseModel):
     """ListBranchesResponse"""
 
     data: List[Branch]
+    """The list of branches in the current page."""
 
     next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
 
