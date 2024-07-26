@@ -126,22 +126,22 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Union[CreateGroupRequest, CreateGroupRequestDict] | Body of the request
-create_group_request = None
+# DatasetRid | datasetRid
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
-# Optional[PreviewMode] | preview
-preview = None
+# Union[CreateBranchRequest, CreateBranchRequestDict] | Body of the request
+create_branch_request = {"branchId": "my-branch"}
 
 
 try:
-    api_response = foundry_client.admin.Group.create(
-        create_group_request,
-        preview=preview,
+    api_response = foundry_client.datasets.Dataset.Branch.create(
+        dataset_rid,
+        create_branch_request,
     )
     print("The create response:\n")
     pprint(api_response)
 except PalantirRPCException as e:
-    print("HTTP error when calling Group.create: %s\n" % e)
+    print("HTTP error when calling Branch.create: %s\n" % e)
 
 ```
 
