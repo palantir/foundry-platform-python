@@ -40,6 +40,6 @@ class ReferenceUpdateDict(TypedDict):
 
     propertyApiName: PropertyApiName
 
-    type: Literal["reference"]
-
     value: ReferenceValueDict
+
+    type: Literal["reference"]

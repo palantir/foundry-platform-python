@@ -6,11 +6,11 @@ LinkTypeSide
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | LinkTypeApiName | Yes |  |
-**cardinality** | LinkTypeSideCardinality | Yes |  |
 **displayName** | DisplayName | Yes |  |
-**foreignKeyPropertyApiName** | NotRequired[PropertyApiName] | No |  |
-**objectTypeApiName** | ObjectTypeApiName | Yes |  |
 **status** | ReleaseStatus | Yes |  |
+**objectTypeApiName** | ObjectTypeApiName | Yes |  |
+**cardinality** | LinkTypeSideCardinality | Yes |  |
+**foreignKeyPropertyApiName** | NotRequired[PropertyApiName] | No |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

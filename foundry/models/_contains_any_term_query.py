@@ -35,9 +35,9 @@ class ContainsAnyTermQuery(BaseModel):
 
     field: PropertyApiName
 
-    fuzzy: Optional[FuzzyV2] = None
-
     value: StrictStr
+
+    fuzzy: Optional[FuzzyV2] = None
 
     type: Literal["containsAnyTerm"]
 

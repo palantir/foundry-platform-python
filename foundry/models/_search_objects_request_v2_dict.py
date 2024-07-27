@@ -33,11 +33,7 @@ class SearchObjectsRequestV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    excludeRid: NotRequired[StrictBool]
-    """
-    A flag to exclude the retrieval of the `__rid` property.
-    Setting this to true may improve performance of this endpoint for object types in OSV2.
-    """
+    where: NotRequired[SearchJsonQueryV2Dict]
 
     orderBy: NotRequired[SearchOrderByV2Dict]
 
@@ -48,4 +44,8 @@ class SearchObjectsRequestV2Dict(TypedDict):
     select: List[PropertyApiName]
     """The API names of the object type properties to include in the response."""
 
-    where: NotRequired[SearchJsonQueryV2Dict]
+    excludeRid: NotRequired[StrictBool]
+    """
+    A flag to exclude the retrieval of the `__rid` property.
+    Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """

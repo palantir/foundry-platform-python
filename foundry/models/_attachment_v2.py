@@ -31,13 +31,13 @@ from foundry.models._size_bytes import SizeBytes
 class AttachmentV2(BaseModel):
     """The representation of an attachment."""
 
-    filename: Filename
-
-    media_type: MediaType = Field(alias="mediaType")
-
     rid: AttachmentRid
 
+    filename: Filename
+
     size_bytes: SizeBytes = Field(alias="sizeBytes")
+
+    media_type: MediaType = Field(alias="mediaType")
 
     type: Literal["single"]
 

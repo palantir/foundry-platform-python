@@ -8,9 +8,9 @@ When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be 
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**type** | Literal["duration"] | Yes | None |
-**unit** | TimeUnit | Yes |  |
 **value** | StrictInt | Yes |  |
+**unit** | TimeUnit | Yes |  |
+**type** | Literal["duration"] | Yes | None |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

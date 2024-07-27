@@ -32,13 +32,13 @@ from foundry.models._search_json_query_v2 import SearchJsonQueryV2
 class AggregateObjectsRequestV2(BaseModel):
     """AggregateObjectsRequestV2"""
 
-    accuracy: Optional[AggregationAccuracyRequest] = None
-
     aggregation: List[AggregationV2]
+
+    where: Optional[SearchJsonQueryV2] = None
 
     group_by: List[AggregationGroupByV2] = Field(alias="groupBy")
 
-    where: Optional[SearchJsonQueryV2] = None
+    accuracy: Optional[AggregationAccuracyRequest] = None
 
     model_config = {"extra": "allow"}
 

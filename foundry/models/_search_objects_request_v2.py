@@ -34,11 +34,7 @@ from foundry.models._search_order_by_v2 import SearchOrderByV2
 class SearchObjectsRequestV2(BaseModel):
     """SearchObjectsRequestV2"""
 
-    exclude_rid: Optional[StrictBool] = Field(alias="excludeRid", default=None)
-    """
-    A flag to exclude the retrieval of the `__rid` property.
-    Setting this to true may improve performance of this endpoint for object types in OSV2.
-    """
+    where: Optional[SearchJsonQueryV2] = None
 
     order_by: Optional[SearchOrderByV2] = Field(alias="orderBy", default=None)
 
@@ -49,7 +45,11 @@ class SearchObjectsRequestV2(BaseModel):
     select: List[PropertyApiName]
     """The API names of the object type properties to include in the response."""
 
-    where: Optional[SearchJsonQueryV2] = None
+    exclude_rid: Optional[StrictBool] = Field(alias="excludeRid", default=None)
+    """
+    A flag to exclude the retrieval of the `__rid` property.
+    Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """
 
     model_config = {"extra": "allow"}
 

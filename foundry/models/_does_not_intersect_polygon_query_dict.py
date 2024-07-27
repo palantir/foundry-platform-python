@@ -30,6 +30,6 @@ class DoesNotIntersectPolygonQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["doesNotIntersectPolygon"]
-
     value: PolygonValueDict
+
+    type: Literal["doesNotIntersectPolygon"]

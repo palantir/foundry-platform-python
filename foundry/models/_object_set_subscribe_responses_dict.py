@@ -31,8 +31,8 @@ class ObjectSetSubscribeResponsesDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    id: RequestId
-
     responses: List[ObjectSetSubscribeResponseDict]
+
+    id: RequestId
 
     type: Literal["subscribeResponses"]

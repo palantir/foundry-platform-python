@@ -29,8 +29,8 @@ class LineStringDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    bbox: NotRequired[BBox]
-
     coordinates: NotRequired[LineStringCoordinates]
+
+    bbox: NotRequired[BBox]
 
     type: Literal["LineString"]

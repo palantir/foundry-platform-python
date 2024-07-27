@@ -27,8 +27,8 @@ class DatasetDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    rid: DatasetRid
+
     name: DatasetName
 
     parentFolderRid: FolderRid
-
-    rid: DatasetRid

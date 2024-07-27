@@ -28,9 +28,9 @@ from foundry.models._error_name import ErrorName
 class Error(BaseModel):
     """Error"""
 
-    args: List[Arg]
-
     error: ErrorName
+
+    args: List[Arg]
 
     model_config = {"extra": "allow"}
 

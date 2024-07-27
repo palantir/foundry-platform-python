@@ -68,9 +68,9 @@ class QueryStructFieldDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fieldType: QueryDataTypeDict
-
     name: StructFieldName
+
+    fieldType: QueryDataTypeDict
 
 
 class QueryStructTypeDict(TypedDict):
@@ -88,9 +88,9 @@ class QueryUnionTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    type: Literal["union"]
-
     unionTypes: List[QueryDataTypeDict]
+
+    type: Literal["union"]
 
 
 QueryDataTypeDict = Annotated[

@@ -27,6 +27,6 @@ class SyncApplyActionResponseV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    edits: NotRequired[ActionResultsDict]
-
     validation: NotRequired[ValidateActionResponseV2Dict]
+
+    edits: NotRequired[ActionResultsDict]

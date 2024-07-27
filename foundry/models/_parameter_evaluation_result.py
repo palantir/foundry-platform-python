@@ -30,12 +30,12 @@ from foundry.models._validation_result import ValidationResult
 class ParameterEvaluationResult(BaseModel):
     """Represents the validity of a parameter against the configured constraints."""
 
+    result: ValidationResult
+
     evaluated_constraints: List[ParameterEvaluatedConstraint] = Field(alias="evaluatedConstraints")
 
     required: StrictBool
     """Represents whether the parameter is a required input to the action."""
-
-    result: ValidationResult
 
     model_config = {"extra": "allow"}
 

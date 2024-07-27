@@ -28,9 +28,9 @@ from foundry.models._validate_action_response_v2 import ValidateActionResponseV2
 class SyncApplyActionResponseV2(BaseModel):
     """SyncApplyActionResponseV2"""
 
-    edits: Optional[ActionResults] = None
-
     validation: Optional[ValidateActionResponseV2] = None
+
+    edits: Optional[ActionResults] = None
 
     model_config = {"extra": "allow"}
 

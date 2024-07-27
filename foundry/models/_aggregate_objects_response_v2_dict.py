@@ -32,8 +32,8 @@ class AggregateObjectsResponseV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    excludedItems: NotRequired[StrictInt]
+
     accuracy: AggregationAccuracy
 
     data: List[AggregateObjectsResponseItemV2Dict]
-
-    excludedItems: NotRequired[StrictInt]

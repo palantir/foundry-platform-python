@@ -29,9 +29,9 @@ from foundry.models._relative_time_range_dict import RelativeTimeRangeDict
 class RelativeTimeRange(BaseModel):
     """A relative time range for a time series query."""
 
-    end_time: Optional[RelativeTime] = Field(alias="endTime", default=None)
-
     start_time: Optional[RelativeTime] = Field(alias="startTime", default=None)
+
+    end_time: Optional[RelativeTime] = Field(alias="endTime", default=None)
 
     type: Literal["relative"]
 

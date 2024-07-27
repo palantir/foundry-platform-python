@@ -39,10 +39,14 @@ class ObjectType(BaseModel):
 
     api_name: ObjectTypeApiName = Field(alias="apiName")
 
+    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+
+    status: ReleaseStatus
+
     description: Optional[StrictStr] = None
     """The description of the object type."""
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+    visibility: Optional[ObjectTypeVisibility] = None
 
     primary_key: List[PropertyApiName] = Field(alias="primaryKey")
     """The primary key of the object. This is a list of properties that can be used to uniquely identify the object."""
@@ -51,10 +55,6 @@ class ObjectType(BaseModel):
     """A map of the properties of the object type."""
 
     rid: ObjectTypeRid
-
-    status: ReleaseStatus
-
-    visibility: Optional[ObjectTypeVisibility] = None
 
     model_config = {"extra": "allow"}
 

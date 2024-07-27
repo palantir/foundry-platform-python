@@ -41,9 +41,9 @@ class QueryTypeV2Dict(TypedDict):
 
     displayName: NotRequired[DisplayName]
 
-    output: QueryDataTypeDict
-
     parameters: Dict[ParameterId, QueryParameterV2Dict]
+
+    output: QueryDataTypeDict
 
     rid: FunctionRid
 

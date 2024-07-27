@@ -36,6 +36,10 @@ class SearchObjectsForInterfaceRequestDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    where: NotRequired[SearchJsonQueryV2Dict]
+
+    orderBy: NotRequired[SearchOrderByV2Dict]
+
     augmentedProperties: Dict[ObjectTypeApiName, List[PropertyApiName]]
     """
     A map from object type API name to a list of property type API names. For each returned object, if the 
@@ -50,7 +54,18 @@ class SearchObjectsForInterfaceRequestDict(TypedDict):
     type with the list of properties specified in the value.
     """
 
-    orderBy: NotRequired[SearchOrderByV2Dict]
+    selectedSharedPropertyTypes: List[SharedPropertyTypeApiName]
+    """
+    A list of shared property type API names of the interface type that should be included in the response. 
+    Omit this parameter to include all properties of the interface type in the response.
+    """
+
+    selectedObjectTypes: List[ObjectTypeApiName]
+    """
+    A list of object type API names that should be included in the response. If non-empty, object types that are
+    not mentioned will not be included in the response even if they implement the specified interface. Omit the 
+    parameter to include all object types.
+    """
 
     otherInterfaceTypes: List[InterfaceTypeApiName]
     """
@@ -61,18 +76,3 @@ class SearchObjectsForInterfaceRequestDict(TypedDict):
     pageSize: NotRequired[PageSize]
 
     pageToken: NotRequired[PageToken]
-
-    selectedObjectTypes: List[ObjectTypeApiName]
-    """
-    A list of object type API names that should be included in the response. If non-empty, object types that are
-    not mentioned will not be included in the response even if they implement the specified interface. Omit the 
-    parameter to include all object types.
-    """
-
-    selectedSharedPropertyTypes: List[SharedPropertyTypeApiName]
-    """
-    A list of shared property type API names of the interface type that should be included in the response. 
-    Omit this parameter to include all properties of the interface type in the response.
-    """
-
-    where: NotRequired[SearchJsonQueryV2Dict]

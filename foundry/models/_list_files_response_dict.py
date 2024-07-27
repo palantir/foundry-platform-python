@@ -29,6 +29,6 @@ class ListFilesResponseDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    data: List[FileDict]
-
     nextPageToken: NotRequired[PageToken]
+
+    data: List[FileDict]

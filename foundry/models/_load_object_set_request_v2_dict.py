@@ -33,18 +33,18 @@ class LoadObjectSetRequestV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    objectSet: ObjectSetDict
+
+    orderBy: NotRequired[SearchOrderByV2Dict]
+
+    select: List[SelectedPropertyApiName]
+
+    pageToken: NotRequired[PageToken]
+
+    pageSize: NotRequired[PageSize]
+
     excludeRid: NotRequired[StrictBool]
     """
     A flag to exclude the retrieval of the `__rid` property.
     Setting this to true may improve performance of this endpoint for object types in OSV2.
     """
-
-    objectSet: ObjectSetDict
-
-    orderBy: NotRequired[SearchOrderByV2Dict]
-
-    pageSize: NotRequired[PageSize]
-
-    pageToken: NotRequired[PageToken]
-
-    select: List[SelectedPropertyApiName]

@@ -6,8 +6,8 @@ Returns objects where the specified field is greater than a value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**type** | Literal["gt"] | Yes | None |
 **value** | PropertyValue | Yes |  |
+**type** | Literal["gt"] | Yes | None |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

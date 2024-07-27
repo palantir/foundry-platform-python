@@ -5,10 +5,10 @@ The representation of an attachment.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**filename** | Filename | Yes |  |
-**mediaType** | MediaType | Yes |  |
 **rid** | AttachmentRid | Yes |  |
+**filename** | Filename | Yes |  |
 **sizeBytes** | SizeBytes | Yes |  |
+**mediaType** | MediaType | Yes |  |
 **type** | Literal["single"] | Yes | None |
 
 

@@ -30,6 +30,6 @@ class GtQueryV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["gt"]
-
     value: PropertyValue
+
+    type: Literal["gt"]

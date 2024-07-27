@@ -32,8 +32,7 @@ class SearchObjectsRequestDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fields: List[PropertyApiName]
-    """The API names of the object type properties to include in the response."""
+    query: SearchJsonQueryDict
 
     orderBy: NotRequired[SearchOrderByDict]
 
@@ -41,4 +40,5 @@ class SearchObjectsRequestDict(TypedDict):
 
     pageToken: NotRequired[PageToken]
 
-    query: SearchJsonQueryDict
+    fields: List[PropertyApiName]
+    """The API names of the object type properties to include in the response."""

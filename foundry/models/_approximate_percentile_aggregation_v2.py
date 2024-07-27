@@ -34,13 +34,13 @@ from foundry.models._property_api_name import PropertyApiName
 class ApproximatePercentileAggregationV2(BaseModel):
     """Computes the approximate percentile value for the provided field."""
 
-    approximate_percentile: StrictFloat = Field(alias="approximatePercentile")
-
-    direction: Optional[OrderByDirection] = None
-
     field: PropertyApiName
 
     name: Optional[AggregationMetricName] = None
+
+    approximate_percentile: StrictFloat = Field(alias="approximatePercentile")
+
+    direction: Optional[OrderByDirection] = None
 
     type: Literal["approximatePercentile"]
 

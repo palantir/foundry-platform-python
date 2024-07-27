@@ -43,13 +43,13 @@ class ActionTypeV2(BaseModel):
 
     display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
 
-    operations: List[LogicRule]
+    status: ReleaseStatus
 
     parameters: Dict[ParameterId, ActionParameterV2]
 
     rid: ActionTypeRid
 
-    status: ReleaseStatus
+    operations: List[LogicRule]
 
     model_config = {"extra": "allow"}
 

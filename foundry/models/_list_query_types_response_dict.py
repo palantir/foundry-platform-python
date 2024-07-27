@@ -29,6 +29,6 @@ class ListQueryTypesResponseDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    data: List[QueryTypeDict]
-
     nextPageToken: NotRequired[PageToken]
+
+    data: List[QueryTypeDict]

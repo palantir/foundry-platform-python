@@ -34,14 +34,14 @@ class LinkTypeSideV2Dict(TypedDict):
 
     apiName: LinkTypeApiName
 
-    cardinality: LinkTypeSideCardinality
-
     displayName: DisplayName
+
+    status: ReleaseStatus
+
+    objectTypeApiName: ObjectTypeApiName
+
+    cardinality: LinkTypeSideCardinality
 
     foreignKeyPropertyApiName: NotRequired[PropertyApiName]
 
     linkTypeRid: LinkTypeRid
-
-    objectTypeApiName: ObjectTypeApiName
-
-    status: ReleaseStatus

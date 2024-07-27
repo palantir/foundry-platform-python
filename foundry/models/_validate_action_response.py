@@ -32,11 +32,11 @@ from foundry.models._validation_result import ValidationResult
 class ValidateActionResponse(BaseModel):
     """ValidateActionResponse"""
 
-    parameters: Dict[ParameterId, ParameterEvaluationResult]
-
     result: ValidationResult
 
     submission_criteria: List[SubmissionCriteriaEvaluation] = Field(alias="submissionCriteria")
+
+    parameters: Dict[ParameterId, ParameterEvaluationResult]
 
     model_config = {"extra": "allow"}
 

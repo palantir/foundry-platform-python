@@ -42,9 +42,9 @@ class QueryTypeV2(BaseModel):
 
     display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
 
-    output: QueryDataType
-
     parameters: Dict[ParameterId, QueryParameterV2]
+
+    output: QueryDataType
 
     rid: FunctionRid
 

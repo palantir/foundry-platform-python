@@ -26,6 +26,6 @@ class DistanceDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    unit: DistanceUnit
-
     value: StrictFloat
+
+    unit: DistanceUnit

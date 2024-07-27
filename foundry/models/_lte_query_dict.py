@@ -30,6 +30,6 @@ class LteQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    type: Literal["lte"]
-
     value: PropertyValue
+
+    type: Literal["lte"]

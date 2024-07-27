@@ -42,9 +42,9 @@ class QueryType(BaseModel):
 
     display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
 
-    output: Optional[OntologyDataType] = None
-
     parameters: Dict[ParameterId, Parameter]
+
+    output: Optional[OntologyDataType] = None
 
     rid: FunctionRid
 

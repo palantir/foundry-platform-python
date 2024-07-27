@@ -28,9 +28,9 @@ from foundry.models._subscription_id import SubscriptionId
 class SubscriptionClosed(BaseModel):
     """The subscription has been closed due to an irrecoverable error during its lifecycle."""
 
-    error: Error
-
     id: SubscriptionId
+
+    error: Error
 
     type: Literal["subscriptionClosed"]
 

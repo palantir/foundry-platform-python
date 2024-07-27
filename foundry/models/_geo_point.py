@@ -29,9 +29,9 @@ from foundry.models._position import Position
 class GeoPoint(BaseModel):
     """GeoPoint"""
 
-    bbox: Optional[BBox] = None
-
     coordinates: Position
+
+    bbox: Optional[BBox] = None
 
     type: Literal["Point"]
 

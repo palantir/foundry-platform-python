@@ -6,8 +6,8 @@ The parameter value must match a predefined regular expression.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**configured_failure_message** | Optional[StrictStr] | No | The message indicating that the regular expression was not matched. This is configured per parameter in the **Ontology Manager**.  |
 **regex** | StrictStr | Yes | The regular expression configured in the **Ontology Manager**. |
+**configured_failure_message** | Optional[StrictStr] | No | The message indicating that the regular expression was not matched. This is configured per parameter in the **Ontology Manager**.  |
 **type** | Literal["stringRegexMatch"] | Yes | None |
 
 

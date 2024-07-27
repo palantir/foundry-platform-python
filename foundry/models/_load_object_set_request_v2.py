@@ -34,21 +34,21 @@ from foundry.models._selected_property_api_name import SelectedPropertyApiName
 class LoadObjectSetRequestV2(BaseModel):
     """Represents the API POST body when loading an `ObjectSet`."""
 
+    object_set: ObjectSet = Field(alias="objectSet")
+
+    order_by: Optional[SearchOrderByV2] = Field(alias="orderBy", default=None)
+
+    select: List[SelectedPropertyApiName]
+
+    page_token: Optional[PageToken] = Field(alias="pageToken", default=None)
+
+    page_size: Optional[PageSize] = Field(alias="pageSize", default=None)
+
     exclude_rid: Optional[StrictBool] = Field(alias="excludeRid", default=None)
     """
     A flag to exclude the retrieval of the `__rid` property.
     Setting this to true may improve performance of this endpoint for object types in OSV2.
     """
-
-    object_set: ObjectSet = Field(alias="objectSet")
-
-    order_by: Optional[SearchOrderByV2] = Field(alias="orderBy", default=None)
-
-    page_size: Optional[PageSize] = Field(alias="pageSize", default=None)
-
-    page_token: Optional[PageToken] = Field(alias="pageToken", default=None)
-
-    select: List[SelectedPropertyApiName]
 
     model_config = {"extra": "allow"}
 

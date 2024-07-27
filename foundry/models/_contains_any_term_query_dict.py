@@ -35,8 +35,8 @@ class ContainsAnyTermQueryDict(TypedDict):
 
     field: PropertyApiName
 
+    value: StrictStr
+
     fuzzy: NotRequired[FuzzyV2]
 
     type: Literal["containsAnyTerm"]
-
-    value: StrictStr

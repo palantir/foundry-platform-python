@@ -33,14 +33,14 @@ from foundry.models._organization_rid import OrganizationRid
 class CreateGroupRequest(BaseModel):
     """CreateGroupRequest"""
 
-    attributes: Dict[AttributeName, AttributeValues]
-    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
-
-    description: Optional[StrictStr] = None
-
     name: GroupName
 
     organizations: List[OrganizationRid]
+
+    description: Optional[StrictStr] = None
+
+    attributes: Dict[AttributeName, AttributeValues]
+    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
 
     model_config = {"extra": "allow"}
 

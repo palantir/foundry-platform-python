@@ -29,8 +29,8 @@ class GeoPointDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    bbox: NotRequired[BBox]
-
     coordinates: Position
+
+    bbox: NotRequired[BBox]
 
     type: Literal["Point"]

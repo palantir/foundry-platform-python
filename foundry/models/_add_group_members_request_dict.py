@@ -29,6 +29,6 @@ class AddGroupMembersRequestDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    expiration: NotRequired[GroupMembershipExpiration]
-
     principalIds: List[PrincipalId]
+
+    expiration: NotRequired[GroupMembershipExpiration]

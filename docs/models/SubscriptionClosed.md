@@ -6,8 +6,8 @@ The subscription has been closed due to an irrecoverable error during its lifecy
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**error** | Error | Yes |  |
 **id** | SubscriptionId | Yes |  |
+**error** | Error | Yes |  |
 **type** | Literal["subscriptionClosed"] | Yes | None |
 
 

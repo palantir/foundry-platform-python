@@ -33,9 +33,9 @@ from foundry.models._selected_property_api_name import SelectedPropertyApiName
 class ObjectSetStreamSubscribeRequest(BaseModel):
     """ObjectSetStreamSubscribeRequest"""
 
-    object_set: ObjectSet = Field(alias="objectSet")
-
     ontology: Optional[OntologyIdentifier] = None
+
+    object_set: ObjectSet = Field(alias="objectSet")
 
     property_set: List[SelectedPropertyApiName] = Field(alias="propertySet")
 

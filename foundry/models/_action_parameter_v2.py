@@ -30,9 +30,9 @@ from foundry.models._action_parameter_v2_dict import ActionParameterV2Dict
 class ActionParameterV2(BaseModel):
     """Details about a parameter of an action."""
 
-    data_type: ActionParameterType = Field(alias="dataType")
-
     description: Optional[StrictStr] = None
+
+    data_type: ActionParameterType = Field(alias="dataType")
 
     required: StrictBool
 

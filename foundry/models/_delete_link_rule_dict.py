@@ -28,12 +28,12 @@ class DeleteLinkRuleDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    aSideObjectTypeApiName: ObjectTypeApiName
-
-    bSideObjectTypeApiName: ObjectTypeApiName
-
     linkTypeApiNameAtoB: LinkTypeApiName
 
     linkTypeApiNameBtoA: LinkTypeApiName
+
+    aSideObjectTypeApiName: ObjectTypeApiName
+
+    bSideObjectTypeApiName: ObjectTypeApiName
 
     type: Literal["deleteLink"]

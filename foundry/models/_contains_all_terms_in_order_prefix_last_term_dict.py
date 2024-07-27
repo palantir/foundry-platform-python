@@ -34,6 +34,6 @@ class ContainsAllTermsInOrderPrefixLastTermDict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["containsAllTermsInOrderPrefixLastTerm"]
-
     value: StrictStr
+
+    type: Literal["containsAllTermsInOrderPrefixLastTerm"]

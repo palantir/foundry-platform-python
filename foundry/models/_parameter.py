@@ -31,11 +31,11 @@ from foundry.models._value_type import ValueType
 class Parameter(BaseModel):
     """Details about a parameter of an action or query."""
 
+    description: Optional[StrictStr] = None
+
     base_type: ValueType = Field(alias="baseType")
 
     data_type: Optional[OntologyDataType] = Field(alias="dataType", default=None)
-
-    description: Optional[StrictStr] = None
 
     required: StrictBool
 

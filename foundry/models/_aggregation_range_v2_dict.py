@@ -25,8 +25,8 @@ class AggregationRangeV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    endValue: Any
-    """Exclusive end."""
-
     startValue: Any
     """Inclusive start."""
+
+    endValue: Any
+    """Exclusive end."""

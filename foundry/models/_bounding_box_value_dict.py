@@ -25,6 +25,6 @@ class BoundingBoxValueDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    bottomRight: WithinBoundingBoxPointDict
-
     topLeft: WithinBoundingBoxPointDict
+
+    bottomRight: WithinBoundingBoxPointDict

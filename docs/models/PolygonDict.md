@@ -5,8 +5,8 @@ Polygon
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**bbox** | NotRequired[BBox] | No |  |
 **coordinates** | List[LinearRing] | Yes |  |
+**bbox** | NotRequired[BBox] | No |  |
 **type** | Literal["Polygon"] | Yes | None |
 
 

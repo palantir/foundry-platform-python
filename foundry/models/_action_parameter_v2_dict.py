@@ -28,8 +28,8 @@ class ActionParameterV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    dataType: ActionParameterTypeDict
-
     description: NotRequired[StrictStr]
+
+    dataType: ActionParameterTypeDict
 
     required: StrictBool

@@ -37,9 +37,9 @@ class ObjectSetFilterTypeDict(TypedDict):
 
     objectSet: ObjectSetDict
 
-    type: Literal["filter"]
-
     where: SearchJsonQueryV2Dict
+
+    type: Literal["filter"]
 
 
 class ObjectSetUnionTypeDict(TypedDict):
@@ -77,9 +77,9 @@ class ObjectSetSearchAroundTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    link: LinkTypeApiName
-
     objectSet: ObjectSetDict
+
+    link: LinkTypeApiName
 
     type: Literal["searchAround"]
 

@@ -5,12 +5,12 @@ ObjectEdits
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**addedLinksCount** | StrictInt | Yes |  |
-**addedObjectCount** | StrictInt | Yes |  |
-**deletedLinksCount** | StrictInt | Yes |  |
-**deletedObjectsCount** | StrictInt | Yes |  |
 **edits** | List[ObjectEditDict] | Yes |  |
+**addedObjectCount** | StrictInt | Yes |  |
 **modifiedObjectsCount** | StrictInt | Yes |  |
+**deletedObjectsCount** | StrictInt | Yes |  |
+**addedLinksCount** | StrictInt | Yes |  |
+**deletedLinksCount** | StrictInt | Yes |  |
 **type** | Literal["edits"] | Yes | None |
 
 

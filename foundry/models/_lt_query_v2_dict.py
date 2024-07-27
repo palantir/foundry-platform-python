@@ -30,6 +30,6 @@ class LtQueryV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["lt"]
-
     value: PropertyValue
+
+    type: Literal["lt"]

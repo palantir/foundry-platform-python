@@ -7,10 +7,10 @@ The parameter value must have a length within the defined range.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**gt** | Optional[Any] | No | Greater than |
-**gte** | Optional[Any] | No | Greater than or equal |
 **lt** | Optional[Any] | No | Less than |
 **lte** | Optional[Any] | No | Less than or equal |
+**gt** | Optional[Any] | No | Greater than |
+**gte** | Optional[Any] | No | Greater than or equal |
 **type** | Literal["stringLength"] | Yes | None |
 
 

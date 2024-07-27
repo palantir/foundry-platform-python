@@ -30,9 +30,9 @@ class ListObjectsResponseDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    nextPageToken: NotRequired[PageToken]
+
     data: List[OntologyObjectDict]
     """The list of objects in the current page."""
-
-    nextPageToken: NotRequired[PageToken]
 
     totalCount: TotalCount

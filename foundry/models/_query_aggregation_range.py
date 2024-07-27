@@ -28,11 +28,11 @@ from foundry.models._query_aggregation_range_dict import QueryAggregationRangeDi
 class QueryAggregationRange(BaseModel):
     """Specifies a range from an inclusive start value to an exclusive end value."""
 
-    end_value: Optional[Any] = Field(alias="endValue", default=None)
-    """Exclusive end."""
-
     start_value: Optional[Any] = Field(alias="startValue", default=None)
     """Inclusive start."""
+
+    end_value: Optional[Any] = Field(alias="endValue", default=None)
+    """Exclusive end."""
 
     model_config = {"extra": "allow"}
 

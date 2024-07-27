@@ -28,8 +28,8 @@ class RelativeTimeRangeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    endTime: NotRequired[RelativeTimeDict]
-
     startTime: NotRequired[RelativeTimeDict]
+
+    endTime: NotRequired[RelativeTimeDict]
 
     type: Literal["relative"]

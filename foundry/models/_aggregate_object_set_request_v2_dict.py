@@ -31,10 +31,10 @@ class AggregateObjectSetRequestV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    accuracy: NotRequired[AggregationAccuracyRequest]
-
     aggregation: List[AggregationV2Dict]
+
+    objectSet: ObjectSetDict
 
     groupBy: List[AggregationGroupByV2Dict]
 
-    objectSet: ObjectSetDict
+    accuracy: NotRequired[AggregationAccuracyRequest]

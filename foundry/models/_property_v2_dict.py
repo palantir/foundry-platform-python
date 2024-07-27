@@ -28,8 +28,8 @@ class PropertyV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    dataType: ObjectPropertyTypeDict
-
     description: NotRequired[StrictStr]
 
     displayName: NotRequired[DisplayName]
+
+    dataType: ObjectPropertyTypeDict

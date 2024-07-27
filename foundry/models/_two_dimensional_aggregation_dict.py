@@ -30,6 +30,6 @@ class TwoDimensionalAggregationDict(TypedDict):
 
     keyType: QueryAggregationKeyTypeDict
 
-    type: Literal["twoDimensionalAggregation"]
-
     valueType: QueryAggregationValueTypeDict
+
+    type: Literal["twoDimensionalAggregation"]

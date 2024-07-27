@@ -30,9 +30,9 @@ from foundry.models._principal_id import PrincipalId
 class AddGroupMembersRequest(BaseModel):
     """AddGroupMembersRequest"""
 
-    expiration: Optional[GroupMembershipExpiration] = None
-
     principal_ids: List[PrincipalId] = Field(alias="principalIds")
+
+    expiration: Optional[GroupMembershipExpiration] = None
 
     model_config = {"extra": "allow"}
 

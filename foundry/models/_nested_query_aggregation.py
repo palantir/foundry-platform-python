@@ -28,9 +28,9 @@ from foundry.models._query_aggregation import QueryAggregation
 class NestedQueryAggregation(BaseModel):
     """NestedQueryAggregation"""
 
-    groups: List[QueryAggregation]
-
     key: Any
+
+    groups: List[QueryAggregation]
 
     model_config = {"extra": "allow"}
 

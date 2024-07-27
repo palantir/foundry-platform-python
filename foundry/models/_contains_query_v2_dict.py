@@ -30,6 +30,6 @@ class ContainsQueryV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["contains"]
-
     value: PropertyValue
+
+    type: Literal["contains"]

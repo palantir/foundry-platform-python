@@ -26,6 +26,6 @@ class UnsupportedTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    type: Literal["unsupported"]
-
     unsupportedType: StrictStr
+
+    type: Literal["unsupported"]

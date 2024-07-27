@@ -78,9 +78,9 @@ class QuerySetType(BaseModel):
 class QueryStructField(BaseModel):
     """QueryStructField"""
 
-    field_type: QueryDataType = Field(alias="fieldType")
-
     name: StructFieldName
+
+    field_type: QueryDataType = Field(alias="fieldType")
 
     model_config = {"extra": "allow"}
 

@@ -29,11 +29,11 @@ from foundry.models._folder_rid import FolderRid
 class Dataset(BaseModel):
     """Dataset"""
 
+    rid: DatasetRid
+
     name: DatasetName
 
     parent_folder_rid: FolderRid = Field(alias="parentFolderRid")
-
-    rid: DatasetRid
 
     model_config = {"extra": "allow"}
 

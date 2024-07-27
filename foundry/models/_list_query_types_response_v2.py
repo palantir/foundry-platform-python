@@ -30,9 +30,9 @@ from foundry.models._query_type_v2 import QueryTypeV2
 class ListQueryTypesResponseV2(BaseModel):
     """ListQueryTypesResponseV2"""
 
-    data: List[QueryTypeV2]
-
     next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+
+    data: List[QueryTypeV2]
 
     model_config = {"extra": "allow"}
 

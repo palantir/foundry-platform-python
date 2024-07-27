@@ -39,6 +39,10 @@ from foundry.models._shared_property_type_api_name import SharedPropertyTypeApiN
 class SearchObjectsForInterfaceRequest(BaseModel):
     """SearchObjectsForInterfaceRequest"""
 
+    where: Optional[SearchJsonQueryV2] = None
+
+    order_by: Optional[SearchOrderByV2] = Field(alias="orderBy", default=None)
+
     augmented_properties: Dict[ObjectTypeApiName, List[PropertyApiName]] = Field(
         alias="augmentedProperties"
     )
@@ -57,7 +61,20 @@ class SearchObjectsForInterfaceRequest(BaseModel):
     type with the list of properties specified in the value.
     """
 
-    order_by: Optional[SearchOrderByV2] = Field(alias="orderBy", default=None)
+    selected_shared_property_types: List[SharedPropertyTypeApiName] = Field(
+        alias="selectedSharedPropertyTypes"
+    )
+    """
+    A list of shared property type API names of the interface type that should be included in the response. 
+    Omit this parameter to include all properties of the interface type in the response.
+    """
+
+    selected_object_types: List[ObjectTypeApiName] = Field(alias="selectedObjectTypes")
+    """
+    A list of object type API names that should be included in the response. If non-empty, object types that are
+    not mentioned will not be included in the response even if they implement the specified interface. Omit the 
+    parameter to include all object types.
+    """
 
     other_interface_types: List[InterfaceTypeApiName] = Field(alias="otherInterfaceTypes")
     """
@@ -68,23 +85,6 @@ class SearchObjectsForInterfaceRequest(BaseModel):
     page_size: Optional[PageSize] = Field(alias="pageSize", default=None)
 
     page_token: Optional[PageToken] = Field(alias="pageToken", default=None)
-
-    selected_object_types: List[ObjectTypeApiName] = Field(alias="selectedObjectTypes")
-    """
-    A list of object type API names that should be included in the response. If non-empty, object types that are
-    not mentioned will not be included in the response even if they implement the specified interface. Omit the 
-    parameter to include all object types.
-    """
-
-    selected_shared_property_types: List[SharedPropertyTypeApiName] = Field(
-        alias="selectedSharedPropertyTypes"
-    )
-    """
-    A list of shared property type API names of the interface type that should be included in the response. 
-    Omit this parameter to include all properties of the interface type in the response.
-    """
-
-    where: Optional[SearchJsonQueryV2] = None
 
     model_config = {"extra": "allow"}
 

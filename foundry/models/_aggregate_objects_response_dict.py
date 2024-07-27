@@ -32,8 +32,8 @@ class AggregateObjectsResponseDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    data: List[AggregateObjectsResponseItemDict]
-
     excludedItems: NotRequired[StrictInt]
 
     nextPageToken: NotRequired[PageToken]
+
+    data: List[AggregateObjectsResponseItemDict]

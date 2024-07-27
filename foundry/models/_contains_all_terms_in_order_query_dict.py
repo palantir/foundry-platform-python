@@ -33,6 +33,6 @@ class ContainsAllTermsInOrderQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["containsAllTermsInOrder"]
-
     value: StrictStr
+
+    type: Literal["containsAllTermsInOrder"]

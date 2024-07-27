@@ -7,8 +7,8 @@ Returns objects where the specified field does not intersect the polygon provide
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**type** | Literal["doesNotIntersectPolygon"] | Yes | None |
 **value** | PolygonValueDict | Yes |  |
+**type** | Literal["doesNotIntersectPolygon"] | Yes | None |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

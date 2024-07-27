@@ -36,9 +36,9 @@ class AggregationDurationGroupingV2(BaseModel):
 
     field: PropertyApiName
 
-    unit: TimeUnit
-
     value: StrictInt
+
+    unit: TimeUnit
 
     type: Literal["duration"]
 

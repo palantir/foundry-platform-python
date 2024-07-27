@@ -30,6 +30,6 @@ class IntersectsBoundingBoxQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["intersectsBoundingBox"]
-
     value: BoundingBoxValueDict
+
+    type: Literal["intersectsBoundingBox"]

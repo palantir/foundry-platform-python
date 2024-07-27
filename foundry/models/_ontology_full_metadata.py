@@ -38,15 +38,15 @@ from foundry.models._shared_property_type_api_name import SharedPropertyTypeApiN
 class OntologyFullMetadata(BaseModel):
     """OntologyFullMetadata"""
 
-    action_types: Dict[ActionTypeApiName, ActionTypeV2] = Field(alias="actionTypes")
-
-    interface_types: Dict[InterfaceTypeApiName, InterfaceType] = Field(alias="interfaceTypes")
+    ontology: OntologyV2
 
     object_types: Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = Field(alias="objectTypes")
 
-    ontology: OntologyV2
+    action_types: Dict[ActionTypeApiName, ActionTypeV2] = Field(alias="actionTypes")
 
     query_types: Dict[QueryApiName, QueryTypeV2] = Field(alias="queryTypes")
+
+    interface_types: Dict[InterfaceTypeApiName, InterfaceType] = Field(alias="interfaceTypes")
 
     shared_property_types: Dict[SharedPropertyTypeApiName, SharedPropertyType] = Field(
         alias="sharedPropertyTypes"

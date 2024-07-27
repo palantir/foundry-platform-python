@@ -7,13 +7,13 @@ by the implementing object types.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**apiName** | InterfaceLinkTypeApiName | Yes |  |
-**cardinality** | InterfaceLinkTypeCardinality | Yes |  |
-**description** | NotRequired[StrictStr] | No | The description of the interface link type. |
-**displayName** | DisplayName | Yes |  |
-**linkedEntityApiName** | InterfaceLinkTypeLinkedEntityApiNameDict | Yes |  |
-**required** | StrictBool | Yes | Whether each implementing object type must declare at least one implementation of this link.  |
 **rid** | InterfaceLinkTypeRid | Yes |  |
+**apiName** | InterfaceLinkTypeApiName | Yes |  |
+**displayName** | DisplayName | Yes |  |
+**description** | NotRequired[StrictStr] | No | The description of the interface link type. |
+**linkedEntityApiName** | InterfaceLinkTypeLinkedEntityApiNameDict | Yes |  |
+**cardinality** | InterfaceLinkTypeCardinality | Yes |  |
+**required** | StrictBool | Yes | Whether each implementing object type must declare at least one implementation of this link.  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

@@ -8,8 +8,8 @@ but they do have to be adjacent to each other.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**type** | Literal["containsAllTermsInOrder"] | Yes | None |
 **value** | StrictStr | Yes |  |
+**type** | Literal["containsAllTermsInOrder"] | Yes | None |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

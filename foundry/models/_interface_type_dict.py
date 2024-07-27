@@ -36,12 +36,20 @@ class InterfaceTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    rid: InterfaceTypeRid
+
     apiName: InterfaceTypeApiName
+
+    displayName: DisplayName
 
     description: NotRequired[StrictStr]
     """The description of the interface."""
 
-    displayName: DisplayName
+    properties: Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]
+    """
+    A map from a shared property type API name to the corresponding shared property type. The map describes the 
+    set of properties the interface has. A shared property type must be unique across all of the properties.
+    """
 
     extendsInterfaces: List[InterfaceTypeApiName]
     """
@@ -54,11 +62,3 @@ class InterfaceTypeDict(TypedDict):
     A map from an interface link type API name to the corresponding interface link type. The map describes the
     set of link types the interface has.
     """
-
-    properties: Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]
-    """
-    A map from a shared property type API name to the corresponding shared property type. The map describes the 
-    set of properties the interface has. A shared property type must be unique across all of the properties.
-    """
-
-    rid: InterfaceTypeRid

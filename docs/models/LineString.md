@@ -5,8 +5,8 @@ LineString
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**bbox** | Optional[BBox] | No |  |
 **coordinates** | Optional[LineStringCoordinates] | No |  |
+**bbox** | Optional[BBox] | No |  |
 **type** | Literal["LineString"] | Yes | None |
 
 

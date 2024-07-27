@@ -5,8 +5,8 @@ Computes the total count of objects.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**direction** | NotRequired[OrderByDirection] | No |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
+**direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["count"] | Yes | None |
 
 

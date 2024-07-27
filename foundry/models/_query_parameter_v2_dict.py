@@ -27,6 +27,6 @@ class QueryParameterV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    dataType: QueryDataTypeDict
-
     description: NotRequired[StrictStr]
+
+    dataType: QueryDataTypeDict

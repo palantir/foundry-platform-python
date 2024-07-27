@@ -5,8 +5,8 @@ MultiPolygon
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**bbox** | NotRequired[BBox] | No |  |
 **coordinates** | List[List[LinearRing]] | Yes |  |
+**bbox** | NotRequired[BBox] | No |  |
 **type** | Literal["MultiPolygon"] | Yes | None |
 
 

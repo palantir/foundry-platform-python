@@ -29,10 +29,10 @@ class ParameterDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    description: NotRequired[StrictStr]
+
     baseType: ValueType
 
     dataType: NotRequired[OntologyDataTypeDict]
-
-    description: NotRequired[StrictStr]
 
     required: StrictBool

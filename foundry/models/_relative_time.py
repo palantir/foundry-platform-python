@@ -28,11 +28,11 @@ from foundry.models._relative_time_series_time_unit import RelativeTimeSeriesTim
 class RelativeTime(BaseModel):
     """A relative time, such as "3 days before" or "2 hours after" the current moment."""
 
-    unit: RelativeTimeSeriesTimeUnit
+    when: RelativeTimeRelation
 
     value: StrictInt
 
-    when: RelativeTimeRelation
+    unit: RelativeTimeSeriesTimeUnit
 
     model_config = {"extra": "allow"}
 

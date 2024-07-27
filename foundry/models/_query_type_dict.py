@@ -41,9 +41,9 @@ class QueryTypeDict(TypedDict):
 
     displayName: NotRequired[DisplayName]
 
-    output: NotRequired[OntologyDataTypeDict]
-
     parameters: Dict[ParameterId, ParameterDict]
+
+    output: NotRequired[OntologyDataTypeDict]
 
     rid: FunctionRid
 

@@ -29,9 +29,9 @@ from foundry.models._line_string_dict import LineStringDict
 class LineString(BaseModel):
     """LineString"""
 
-    bbox: Optional[BBox] = None
-
     coordinates: Optional[LineStringCoordinates] = None
+
+    bbox: Optional[BBox] = None
 
     type: Literal["LineString"]
 

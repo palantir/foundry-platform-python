@@ -28,10 +28,10 @@ from foundry.models._search_ordering_v2_dict import SearchOrderingV2Dict
 class SearchOrderingV2(BaseModel):
     """SearchOrderingV2"""
 
+    field: PropertyApiName
+
     direction: Optional[StrictStr] = None
     """Specifies the ordering direction (can be either `asc` or `desc`)"""
-
-    field: PropertyApiName
 
     model_config = {"extra": "allow"}
 

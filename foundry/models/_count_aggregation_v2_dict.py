@@ -29,8 +29,8 @@ class CountAggregationV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    direction: NotRequired[OrderByDirection]
-
     name: NotRequired[AggregationMetricName]
+
+    direction: NotRequired[OrderByDirection]
 
     type: Literal["count"]

@@ -6,10 +6,10 @@ The parameter expects an array of values and the size of the array must fall wit
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**gt** | NotRequired[Any] | No | Greater than |
-**gte** | NotRequired[Any] | No | Greater than or equal |
 **lt** | NotRequired[Any] | No | Less than |
 **lte** | NotRequired[Any] | No | Less than or equal |
+**gt** | NotRequired[Any] | No | Greater than |
+**gte** | NotRequired[Any] | No | Greater than or equal |
 **type** | Literal["arraySize"] | Yes | None |
 
 

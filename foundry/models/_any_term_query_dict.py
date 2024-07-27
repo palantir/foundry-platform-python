@@ -35,8 +35,8 @@ class AnyTermQueryDict(TypedDict):
 
     field: FieldNameV1
 
+    value: StrictStr
+
     fuzzy: NotRequired[Fuzzy]
 
     type: Literal["anyTerm"]
-
-    value: StrictStr

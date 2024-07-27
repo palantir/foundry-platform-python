@@ -30,6 +30,6 @@ class WithinDistanceOfQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    type: Literal["withinDistanceOf"]
-
     value: CenterPointDict
+
+    type: Literal["withinDistanceOf"]

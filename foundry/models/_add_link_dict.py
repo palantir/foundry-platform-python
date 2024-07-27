@@ -28,12 +28,12 @@ class AddLinkDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    aSideObject: LinkSideObjectDict
-
-    bSideObject: LinkSideObjectDict
-
     linkTypeApiNameAtoB: LinkTypeApiName
 
     linkTypeApiNameBtoA: LinkTypeApiName
+
+    aSideObject: LinkSideObjectDict
+
+    bSideObject: LinkSideObjectDict
 
     type: Literal["addLink"]

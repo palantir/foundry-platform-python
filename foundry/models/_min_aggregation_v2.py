@@ -30,11 +30,11 @@ from foundry.models._property_api_name import PropertyApiName
 class MinAggregationV2(BaseModel):
     """Computes the minimum value for the provided field."""
 
-    direction: Optional[OrderByDirection] = None
-
     field: PropertyApiName
 
     name: Optional[AggregationMetricName] = None
+
+    direction: Optional[OrderByDirection] = None
 
     type: Literal["min"]
 

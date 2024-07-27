@@ -9,8 +9,8 @@ The last term can be a partial prefix match.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**type** | Literal["containsAllTermsInOrderPrefixLastTerm"] | Yes | None |
 **value** | StrictStr | Yes |  |
+**type** | Literal["containsAllTermsInOrderPrefixLastTerm"] | Yes | None |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

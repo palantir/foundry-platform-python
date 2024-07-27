@@ -30,9 +30,9 @@ from foundry.models._feature_collection_types import FeatureCollectionTypes
 class FeatureCollection(BaseModel):
     """GeoJSon 'FeatureCollection' object"""
 
-    bbox: Optional[BBox] = None
-
     features: List[FeatureCollectionTypes]
+
+    bbox: Optional[BBox] = None
 
     type: Literal["FeatureCollection"]
 

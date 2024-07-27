@@ -11,8 +11,8 @@ be used instead.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**bbox** | NotRequired[BBox] | No |  |
 **geometries** | List[GeometryDict] | Yes |  |
+**bbox** | NotRequired[BBox] | No |  |
 **type** | Literal["GeometryCollection"] | Yes | None |
 
 

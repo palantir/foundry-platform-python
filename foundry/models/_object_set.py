@@ -99,9 +99,9 @@ class ObjectSetSubtractType(BaseModel):
 class ObjectSetSearchAroundType(BaseModel):
     """ObjectSetSearchAroundType"""
 
-    link: LinkTypeApiName
-
     object_set: ObjectSet = Field(alias="objectSet")
+
+    link: LinkTypeApiName
 
     type: Literal["searchAround"]
 

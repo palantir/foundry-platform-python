@@ -30,8 +30,8 @@ class FeatureCollectionDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    bbox: NotRequired[BBox]
-
     features: List[FeatureCollectionTypesDict]
+
+    bbox: NotRequired[BBox]
 
     type: Literal["FeatureCollection"]

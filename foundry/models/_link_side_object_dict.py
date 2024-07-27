@@ -26,6 +26,6 @@ class LinkSideObjectDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
-
     primaryKey: PropertyValue
+
+    objectType: ObjectTypeApiName

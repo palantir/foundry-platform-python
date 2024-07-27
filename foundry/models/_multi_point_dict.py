@@ -30,8 +30,8 @@ class MultiPointDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    bbox: NotRequired[BBox]
-
     coordinates: List[Position]
+
+    bbox: NotRequired[BBox]
 
     type: Literal["MultiPoint"]

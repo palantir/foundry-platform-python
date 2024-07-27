@@ -7,8 +7,8 @@ Returns objects where the specified field contains a point within the distance p
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**type** | Literal["withinDistanceOf"] | Yes | None |
 **value** | CenterPointDict | Yes |  |
+**type** | Literal["withinDistanceOf"] | Yes | None |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

@@ -5,8 +5,8 @@ Details about a parameter of an action.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**dataType** | ActionParameterTypeDict | Yes |  |
 **description** | NotRequired[StrictStr] | No |  |
+**dataType** | ActionParameterTypeDict | Yes |  |
 **required** | StrictBool | Yes |  |
 
 

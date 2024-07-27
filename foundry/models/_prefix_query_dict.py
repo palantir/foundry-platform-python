@@ -30,6 +30,6 @@ class PrefixQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    type: Literal["prefix"]
-
     value: StrictStr
+
+    type: Literal["prefix"]

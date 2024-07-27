@@ -29,9 +29,9 @@ from foundry.models._absolute_time_range_dict import AbsoluteTimeRangeDict
 class AbsoluteTimeRange(BaseModel):
     """ISO 8601 timestamps forming a range for a time series query. Start is inclusive and end is exclusive."""
 
-    end_time: Optional[DateTime] = Field(alias="endTime", default=None)
-
     start_time: Optional[DateTime] = Field(alias="startTime", default=None)
+
+    end_time: Optional[DateTime] = Field(alias="endTime", default=None)
 
     type: Literal["absolute"]
 

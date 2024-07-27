@@ -31,17 +31,17 @@ from foundry.models._transaction_type import TransactionType
 class Transaction(BaseModel):
     """An operation that modifies the files within a dataset."""
 
-    closed_time: Optional[DateTime] = Field(alias="closedTime", default=None)
-    """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
+    rid: TransactionRid
+
+    transaction_type: TransactionType = Field(alias="transactionType")
+
+    status: TransactionStatus
 
     created_time: DateTime = Field(alias="createdTime")
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    rid: TransactionRid
-
-    status: TransactionStatus
-
-    transaction_type: TransactionType = Field(alias="transactionType")
+    closed_time: Optional[DateTime] = Field(alias="closedTime", default=None)
+    """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
     model_config = {"extra": "allow"}
 

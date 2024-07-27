@@ -28,8 +28,8 @@ class AddObjectDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
-
     primaryKey: PropertyValue
+
+    objectType: ObjectTypeApiName
 
     type: Literal["addObject"]

@@ -61,9 +61,9 @@ class OntologyMapTypeDict(TypedDict):
 
     keyType: OntologyDataTypeDict
 
-    type: Literal["map"]
-
     valueType: OntologyDataTypeDict
+
+    type: Literal["map"]
 
 
 class OntologySetTypeDict(TypedDict):
@@ -81,9 +81,9 @@ class OntologyStructFieldDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fieldType: OntologyDataTypeDict
-
     name: StructFieldName
+
+    fieldType: OntologyDataTypeDict
 
     required: StrictBool
 

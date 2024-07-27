@@ -29,13 +29,13 @@ from foundry.models._object_type_api_name import ObjectTypeApiName
 class DeleteLinkRule(BaseModel):
     """DeleteLinkRule"""
 
-    a_side_object_type_api_name: ObjectTypeApiName = Field(alias="aSideObjectTypeApiName")
-
-    b_side_object_type_api_name: ObjectTypeApiName = Field(alias="bSideObjectTypeApiName")
-
     link_type_api_name_ato_b: LinkTypeApiName = Field(alias="linkTypeApiNameAtoB")
 
     link_type_api_name_bto_a: LinkTypeApiName = Field(alias="linkTypeApiNameBtoA")
+
+    a_side_object_type_api_name: ObjectTypeApiName = Field(alias="aSideObjectTypeApiName")
+
+    b_side_object_type_api_name: ObjectTypeApiName = Field(alias="bSideObjectTypeApiName")
 
     type: Literal["deleteLink"]
 

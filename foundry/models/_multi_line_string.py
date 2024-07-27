@@ -30,9 +30,9 @@ from foundry.models._multi_line_string_dict import MultiLineStringDict
 class MultiLineString(BaseModel):
     """MultiLineString"""
 
-    bbox: Optional[BBox] = None
-
     coordinates: List[LineStringCoordinates]
+
+    bbox: Optional[BBox] = None
 
     type: Literal["MultiLineString"]
 

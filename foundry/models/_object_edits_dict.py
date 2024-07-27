@@ -29,16 +29,16 @@ class ObjectEditsDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    addedLinksCount: StrictInt
+    edits: List[ObjectEditDict]
 
     addedObjectCount: StrictInt
 
-    deletedLinksCount: StrictInt
+    modifiedObjectsCount: StrictInt
 
     deletedObjectsCount: StrictInt
 
-    edits: List[ObjectEditDict]
+    addedLinksCount: StrictInt
 
-    modifiedObjectsCount: StrictInt
+    deletedLinksCount: StrictInt
 
     type: Literal["edits"]

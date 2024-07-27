@@ -30,11 +30,11 @@ from foundry.models._sum_aggregation_v2_dict import SumAggregationV2Dict
 class SumAggregationV2(BaseModel):
     """Computes the sum of values for the provided field."""
 
-    direction: Optional[OrderByDirection] = None
-
     field: PropertyApiName
 
     name: Optional[AggregationMetricName] = None
+
+    direction: Optional[OrderByDirection] = None
 
     type: Literal["sum"]
 

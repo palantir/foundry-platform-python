@@ -30,17 +30,17 @@ from foundry.models._object_edits_dict import ObjectEditsDict
 class ObjectEdits(BaseModel):
     """ObjectEdits"""
 
-    added_links_count: StrictInt = Field(alias="addedLinksCount")
+    edits: List[ObjectEdit]
 
     added_object_count: StrictInt = Field(alias="addedObjectCount")
 
-    deleted_links_count: StrictInt = Field(alias="deletedLinksCount")
+    modified_objects_count: StrictInt = Field(alias="modifiedObjectsCount")
 
     deleted_objects_count: StrictInt = Field(alias="deletedObjectsCount")
 
-    edits: List[ObjectEdit]
+    added_links_count: StrictInt = Field(alias="addedLinksCount")
 
-    modified_objects_count: StrictInt = Field(alias="modifiedObjectsCount")
+    deleted_links_count: StrictInt = Field(alias="deletedLinksCount")
 
     type: Literal["edits"]
 

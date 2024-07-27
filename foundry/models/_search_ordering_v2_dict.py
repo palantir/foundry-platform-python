@@ -27,7 +27,7 @@ class SearchOrderingV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    field: PropertyApiName
+
     direction: NotRequired[StrictStr]
     """Specifies the ordering direction (can be either `asc` or `desc`)"""
-
-    field: PropertyApiName

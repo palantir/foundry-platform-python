@@ -30,6 +30,6 @@ class PhraseQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    type: Literal["phrase"]
-
     value: StrictStr
+
+    type: Literal["phrase"]

@@ -31,8 +31,8 @@ class AggregationDurationGroupingDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    duration: Duration
-
     field: FieldNameV1
+
+    duration: Duration
 
     type: Literal["duration"]

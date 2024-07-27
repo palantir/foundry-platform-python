@@ -5,9 +5,9 @@ Computes the sum of values for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**direction** | Optional[OrderByDirection] | No |  |
 **field** | PropertyApiName | Yes |  |
 **name** | Optional[AggregationMetricName] | No |  |
+**direction** | Optional[OrderByDirection] | No |  |
 **type** | Literal["sum"] | Yes | None |
 
 

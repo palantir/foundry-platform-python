@@ -5,8 +5,8 @@ GeoJSon 'FeatureCollection' object
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**bbox** | Optional[BBox] | No |  |
 **features** | List[FeatureCollectionTypes] | Yes |  |
+**bbox** | Optional[BBox] | No |  |
 **type** | Literal["FeatureCollection"] | Yes | None |
 
 

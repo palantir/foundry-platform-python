@@ -29,7 +29,7 @@ class ListObjectTypesResponseDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    nextPageToken: NotRequired[PageToken]
+
     data: List[ObjectTypeDict]
     """The list of object types in the current page."""
-
-    nextPageToken: NotRequired[PageToken]

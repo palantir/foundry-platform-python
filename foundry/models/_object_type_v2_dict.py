@@ -37,10 +37,12 @@ class ObjectTypeV2Dict(TypedDict):
 
     apiName: ObjectTypeApiName
 
+    displayName: NotRequired[DisplayName]
+
+    status: ReleaseStatus
+
     description: NotRequired[StrictStr]
     """The description of the object type."""
-
-    displayName: NotRequired[DisplayName]
 
     primaryKey: PropertyApiName
 
@@ -48,8 +50,6 @@ class ObjectTypeV2Dict(TypedDict):
     """A map of the properties of the object type."""
 
     rid: ObjectTypeRid
-
-    status: ReleaseStatus
 
     titleProperty: PropertyApiName
 

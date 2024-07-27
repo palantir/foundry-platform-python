@@ -5,10 +5,10 @@ CreateLinkRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**aSideObjectTypeApiName** | ObjectTypeApiName | Yes |  |
-**bSideObjectTypeApiName** | ObjectTypeApiName | Yes |  |
 **linkTypeApiNameAtoB** | LinkTypeApiName | Yes |  |
 **linkTypeApiNameBtoA** | LinkTypeApiName | Yes |  |
+**aSideObjectTypeApiName** | ObjectTypeApiName | Yes |  |
+**bSideObjectTypeApiName** | ObjectTypeApiName | Yes |  |
 **type** | Literal["createLink"] | Yes | None |
 
 

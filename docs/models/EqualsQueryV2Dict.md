@@ -6,8 +6,8 @@ Returns objects where the specified field is equal to a value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**type** | Literal["eq"] | Yes | None |
 **value** | PropertyValue | Yes |  |
+**type** | Literal["eq"] | Yes | None |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

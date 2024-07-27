@@ -29,6 +29,6 @@ class ListLinkedObjectsResponseDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    data: List[OntologyObjectDict]
-
     nextPageToken: NotRequired[PageToken]
+
+    data: List[OntologyObjectDict]

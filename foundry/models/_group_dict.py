@@ -35,15 +35,15 @@ class GroupDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    attributes: Dict[AttributeName, AttributeValues]
-    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
-
-    description: NotRequired[StrictStr]
-
     id: PrincipalId
 
     name: GroupName
 
-    organizations: List[OrganizationRid]
+    description: NotRequired[StrictStr]
 
     realm: Realm
+
+    organizations: List[OrganizationRid]
+
+    attributes: Dict[AttributeName, AttributeValues]
+    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""

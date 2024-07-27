@@ -30,9 +30,9 @@ from foundry.models._page_token import PageToken
 class ListActionTypesResponse(BaseModel):
     """ListActionTypesResponse"""
 
-    data: List[ActionType]
-
     next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+
+    data: List[ActionType]
 
     model_config = {"extra": "allow"}
 

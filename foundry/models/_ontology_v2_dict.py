@@ -30,8 +30,8 @@ class OntologyV2Dict(TypedDict):
 
     apiName: OntologyApiName
 
-    description: StrictStr
-
     displayName: DisplayName
+
+    description: StrictStr
 
     rid: OntologyRid

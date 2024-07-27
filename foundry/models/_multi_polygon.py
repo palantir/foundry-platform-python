@@ -30,9 +30,9 @@ from foundry.models._multi_polygon_dict import MultiPolygonDict
 class MultiPolygon(BaseModel):
     """MultiPolygon"""
 
-    bbox: Optional[BBox] = None
-
     coordinates: List[List[LinearRing]]
+
+    bbox: Optional[BBox] = None
 
     type: Literal["MultiPolygon"]
 

@@ -30,11 +30,11 @@ from foundry.models._property_api_name import PropertyApiName
 class MaxAggregationV2(BaseModel):
     """Computes the maximum value for the provided field."""
 
-    direction: Optional[OrderByDirection] = None
-
     field: PropertyApiName
 
     name: Optional[AggregationMetricName] = None
+
+    direction: Optional[OrderByDirection] = None
 
     type: Literal["max"]
 

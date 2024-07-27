@@ -31,6 +31,9 @@ from foundry.models._string_regex_match_constraint_dict import (
 class StringRegexMatchConstraint(BaseModel):
     """The parameter value must match a predefined regular expression."""
 
+    regex: StrictStr
+    """The regular expression configured in the **Ontology Manager**."""
+
     configured_failure_message: Optional[StrictStr] = Field(
         alias="configuredFailureMessage", default=None
     )
@@ -38,9 +41,6 @@ class StringRegexMatchConstraint(BaseModel):
     The message indicating that the regular expression was not matched.
     This is configured per parameter in the **Ontology Manager**.
     """
-
-    regex: StrictStr
-    """The regular expression configured in the **Ontology Manager**."""
 
     type: Literal["stringRegexMatch"]
 

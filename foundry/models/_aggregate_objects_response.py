@@ -31,11 +31,11 @@ from foundry.models._page_token import PageToken
 class AggregateObjectsResponse(BaseModel):
     """AggregateObjectsResponse"""
 
-    data: List[AggregateObjectsResponseItem]
-
     excluded_items: Optional[StrictInt] = Field(alias="excludedItems", default=None)
 
     next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+
+    data: List[AggregateObjectsResponseItem]
 
     model_config = {"extra": "allow"}
 

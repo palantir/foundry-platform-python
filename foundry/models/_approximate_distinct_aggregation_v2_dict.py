@@ -30,10 +30,10 @@ class ApproximateDistinctAggregationV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    direction: NotRequired[OrderByDirection]
-
     field: PropertyApiName
 
     name: NotRequired[AggregationMetricName]
+
+    direction: NotRequired[OrderByDirection]
 
     type: Literal["approximateDistinct"]

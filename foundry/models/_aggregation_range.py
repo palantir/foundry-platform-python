@@ -27,17 +27,17 @@ from foundry.models._aggregation_range_dict import AggregationRangeDict
 class AggregationRange(BaseModel):
     """Specifies a date range from an inclusive start date to an exclusive end date."""
 
-    gt: Optional[Any] = None
-    """Exclusive start date."""
-
-    gte: Optional[Any] = None
-    """Inclusive start date."""
-
     lt: Optional[Any] = None
     """Exclusive end date."""
 
     lte: Optional[Any] = None
     """Inclusive end date."""
+
+    gt: Optional[Any] = None
+    """Exclusive start date."""
+
+    gte: Optional[Any] = None
+    """Inclusive start date."""
 
     model_config = {"extra": "allow"}
 
