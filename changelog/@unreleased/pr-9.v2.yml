@@ -1,5 +1,5 @@
 type: improvement
 improvement:
-  description: Datasets V2 and Security Namespace Rename
+  description: Security Namespace Rename
   links:
   - https://github.com/palantir/foundry-platform-python/pull/9
