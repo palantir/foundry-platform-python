@@ -47,7 +47,7 @@ class UserDict(TypedDict):
 
     realm: Realm
 
-    organization: OrganizationRid
+    organization: NotRequired[OrganizationRid]
 
     attributes: Dict[AttributeName, AttributeValues]
     """

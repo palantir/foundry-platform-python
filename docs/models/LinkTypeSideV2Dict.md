@@ -11,6 +11,7 @@ LinkTypeSideV2
 **objectTypeApiName** | ObjectTypeApiName | Yes |  |
 **cardinality** | LinkTypeSideCardinality | Yes |  |
 **foreignKeyPropertyApiName** | NotRequired[PropertyApiName] | No |  |
+**linkTypeRid** | LinkTypeRid | Yes |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

@@ -15,12 +15,12 @@
 
 from __future__ import annotations
 
-from typing import Any
 from typing import Literal
 
 from typing_extensions import TypedDict
 
 from foundry.models._field_name_v1 import FieldNameV1
+from foundry.models._property_value import PropertyValue
 
 
 class EqualsQueryDict(TypedDict):
@@ -30,7 +30,6 @@ class EqualsQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    value: Any
-    """Equals to value"""
+    value: PropertyValue
 
     type: Literal["eq"]

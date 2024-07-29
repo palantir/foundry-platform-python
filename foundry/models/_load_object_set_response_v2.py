@@ -25,6 +25,7 @@ from pydantic import Field
 from foundry.models._load_object_set_response_v2_dict import LoadObjectSetResponseV2Dict
 from foundry.models._ontology_object_v2 import OntologyObjectV2
 from foundry.models._page_token import PageToken
+from foundry.models._total_count import TotalCount
 
 
 class LoadObjectSetResponseV2(BaseModel):
@@ -34,6 +35,8 @@ class LoadObjectSetResponseV2(BaseModel):
     """The list of objects in the current Page."""
 
     next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+
+    total_count: TotalCount = Field(alias="totalCount")
 
     model_config = {"extra": "allow"}
 

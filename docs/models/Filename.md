@@ -1,6 +1,7 @@
 # Filename
 
-The name of a file or attachment.
+The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`.
+
 
 ## Type
 ```python

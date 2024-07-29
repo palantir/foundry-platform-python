@@ -23,6 +23,7 @@ from pydantic import Field
 
 from foundry.models._display_name import DisplayName
 from foundry.models._link_type_api_name import LinkTypeApiName
+from foundry.models._link_type_rid import LinkTypeRid
 from foundry.models._link_type_side_cardinality import LinkTypeSideCardinality
 from foundry.models._link_type_side_v2_dict import LinkTypeSideV2Dict
 from foundry.models._object_type_api_name import ObjectTypeApiName
@@ -46,6 +47,8 @@ class LinkTypeSideV2(BaseModel):
     foreign_key_property_api_name: Optional[PropertyApiName] = Field(
         alias="foreignKeyPropertyApiName", default=None
     )
+
+    link_type_rid: LinkTypeRid = Field(alias="linkTypeRid")
 
     model_config = {"extra": "allow"}
 

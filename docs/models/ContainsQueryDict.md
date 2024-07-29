@@ -6,7 +6,7 @@ Returns objects where the specified array contains a value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | Any | Yes | Contains value |
+**value** | PropertyValue | Yes |  |
 **type** | Literal["contains"] | Yes | None |
 
 

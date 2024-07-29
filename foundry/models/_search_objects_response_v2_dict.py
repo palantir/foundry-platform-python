@@ -22,6 +22,7 @@ from typing_extensions import TypedDict
 
 from foundry.models._ontology_object_v2 import OntologyObjectV2
 from foundry.models._page_token import PageToken
+from foundry.models._total_count import TotalCount
 
 
 class SearchObjectsResponseV2Dict(TypedDict):
@@ -32,3 +33,5 @@ class SearchObjectsResponseV2Dict(TypedDict):
     data: List[OntologyObjectV2]
 
     nextPageToken: NotRequired[PageToken]
+
+    totalCount: TotalCount

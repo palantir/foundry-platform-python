@@ -6,7 +6,7 @@ Returns objects where the specified field is greater than or equal to a value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**value** | Any | Yes | Greater than or equal to value |
+**value** | PropertyValue | Yes |  |
 **type** | Literal["gte"] | Yes | None |
 
 

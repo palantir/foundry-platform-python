@@ -7,6 +7,7 @@ ListObjectsResponse
 | ------------ | ------------- | ------------- | ------------- |
 **nextPageToken** | NotRequired[PageToken] | No |  |
 **data** | List[OntologyObjectDict] | Yes | The list of objects in the current page. |
+**totalCount** | TotalCount | Yes |  |
 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

@@ -48,7 +48,7 @@ class User(BaseModel):
 
     realm: Realm
 
-    organization: OrganizationRid
+    organization: Optional[OrganizationRid] = None
 
     attributes: Dict[AttributeName, AttributeValues]
     """

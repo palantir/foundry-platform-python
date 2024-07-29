@@ -18,4 +18,4 @@ from __future__ import annotations
 from pydantic import StrictStr
 
 Filename = StrictStr
-"""The name of a file or attachment."""
+"""The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""

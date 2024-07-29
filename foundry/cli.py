@@ -54,6 +54,463 @@ def cli(ctx: _Context):
     )
 
 
+@cli.group("admin")
+def admin():
+    pass
+
+
+@admin.group("user")
+def admin_user():
+    pass
+
+
+@admin_user.command("delete")
+@click.argument("user_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_user_delete(
+    client: foundry.FoundryClient,
+    user_id: str,
+    preview: Optional[bool],
+):
+    """
+    Deletes the given User
+    """
+    result = client.admin.User.delete(
+        user_id=user_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_user.command("get")
+@click.argument("user_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_user_get(
+    client: foundry.FoundryClient,
+    user_id: str,
+    preview: Optional[bool],
+):
+    """
+    Get the User
+    """
+    result = client.admin.User.get(
+        user_id=user_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_user.command("get_current")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_user_get_current(
+    client: foundry.FoundryClient,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.User.get_current(
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_user.command("list")
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_user_list(
+    client: foundry.FoundryClient,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    Lists all Users
+    """
+    result = client.admin.User.list(
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_user.command("page")
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_user_page(
+    client: foundry.FoundryClient,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Lists all Users
+    """
+    result = client.admin.User.page(
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_user.command("profile_picture")
+@click.argument("user_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_user_profile_picture(
+    client: foundry.FoundryClient,
+    user_id: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.User.profile_picture(
+        user_id=user_id,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@admin_user.command("search")
+@click.option("--where", type=str, required=True, help="Body of the request")
+@click.option("--page_size", type=int, required=False, help="Body of the request")
+@click.option("--page_token", type=str, required=False, help="Body of the request")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_user_search(
+    client: foundry.FoundryClient,
+    where: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.User.search(
+        search_users_request=foundry.models.SearchUsersRequest.model_validate(
+            {
+                "where": where,
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_user.group("group_membership")
+def admin_user_group_membership():
+    pass
+
+
+@admin_user_group_membership.command("list")
+@click.argument("user_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.pass_obj
+def admin_user_group_membership_list(
+    client: foundry.FoundryClient,
+    user_id: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+    transitive: Optional[bool],
+):
+    """
+    Lists all GroupMemberships
+    """
+    result = client.admin.User.GroupMembership.list(
+        user_id=user_id,
+        page_size=page_size,
+        preview=preview,
+        transitive=transitive,
+    )
+    click.echo(repr(result))
+
+
+@admin_user_group_membership.command("page")
+@click.argument("user_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.pass_obj
+def admin_user_group_membership_page(
+    client: foundry.FoundryClient,
+    user_id: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+    transitive: Optional[bool],
+):
+    """
+    Lists all GroupMemberships
+    """
+    result = client.admin.User.GroupMembership.page(
+        user_id=user_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        transitive=transitive,
+    )
+    click.echo(repr(result))
+
+
+@admin.group("group")
+def admin_group():
+    pass
+
+
+@admin_group.command("create")
+@click.option("--name", type=str, required=True, help="Body of the request")
+@click.option("--organizations", type=str, required=True, help="Body of the request")
+@click.option("--description", type=str, required=False, help="Body of the request")
+@click.option("--attributes", type=str, required=True, help="Body of the request")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_create(
+    client: foundry.FoundryClient,
+    name: str,
+    organizations: str,
+    description: Optional[str],
+    attributes: str,
+    preview: Optional[bool],
+):
+    """
+    Creates a new Group
+    """
+    result = client.admin.Group.create(
+        create_group_request=foundry.models.CreateGroupRequest.model_validate(
+            {
+                "name": name,
+                "organizations": organizations,
+                "description": description,
+                "attributes": attributes,
+            }
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.command("delete")
+@click.argument("group_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_delete(
+    client: foundry.FoundryClient,
+    group_id: str,
+    preview: Optional[bool],
+):
+    """
+    Deletes the given Group
+    """
+    result = client.admin.Group.delete(
+        group_id=group_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.command("get")
+@click.argument("group_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_get(
+    client: foundry.FoundryClient,
+    group_id: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Group
+    """
+    result = client.admin.Group.get(
+        group_id=group_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.command("list")
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_list(
+    client: foundry.FoundryClient,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    Lists all Groups
+    """
+    result = client.admin.Group.list(
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.command("page")
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_page(
+    client: foundry.FoundryClient,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Lists all Groups
+    """
+    result = client.admin.Group.page(
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.command("search")
+@click.option("--where", type=str, required=True, help="Body of the request")
+@click.option("--page_size", type=int, required=False, help="Body of the request")
+@click.option("--page_token", type=str, required=False, help="Body of the request")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_search(
+    client: foundry.FoundryClient,
+    where: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.Group.search(
+        search_groups_request=foundry.models.SearchGroupsRequest.model_validate(
+            {
+                "where": where,
+                "pageSize": page_size,
+                "pageToken": page_token,
+            }
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.group("group_member")
+def admin_group_group_member():
+    pass
+
+
+@admin_group_group_member.command("add")
+@click.argument("group_id", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="Body of the request")
+@click.option("--expiration", type=str, required=False, help="Body of the request")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_group_member_add(
+    client: foundry.FoundryClient,
+    group_id: str,
+    principal_ids: str,
+    expiration: Optional[str],
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.Group.GroupMember.add(
+        group_id=group_id,
+        add_group_members_request=foundry.models.AddGroupMembersRequest.model_validate(
+            {
+                "principalIds": principal_ids,
+                "expiration": expiration,
+            }
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group_group_member.command("list")
+@click.argument("group_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.pass_obj
+def admin_group_group_member_list(
+    client: foundry.FoundryClient,
+    group_id: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+    transitive: Optional[bool],
+):
+    """
+    Lists all GroupMembers
+    """
+    result = client.admin.Group.GroupMember.list(
+        group_id=group_id,
+        page_size=page_size,
+        preview=preview,
+        transitive=transitive,
+    )
+    click.echo(repr(result))
+
+
+@admin_group_group_member.command("page")
+@click.argument("group_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.pass_obj
+def admin_group_group_member_page(
+    client: foundry.FoundryClient,
+    group_id: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+    transitive: Optional[bool],
+):
+    """
+    Lists all GroupMembers
+    """
+    result = client.admin.Group.GroupMember.page(
+        group_id=group_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        transitive=transitive,
+    )
+    click.echo(repr(result))
+
+
+@admin_group_group_member.command("remove")
+@click.argument("group_id", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="Body of the request")
+@click.option("--preview", type=bool, required=False, help="preview")
+@click.pass_obj
+def admin_group_group_member_remove(
+    client: foundry.FoundryClient,
+    group_id: str,
+    principal_ids: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.Group.GroupMember.remove(
+        group_id=group_id,
+        remove_group_members_request=foundry.models.RemoveGroupMembersRequest.model_validate(
+            {
+                "principalIds": principal_ids,
+            }
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("datasets")
 def datasets():
     pass
@@ -1156,463 +1613,6 @@ def ontologies_ontology_action_type_page(
         ontology=ontology,
         page_size=page_size,
         page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@cli.group("security")
-def security():
-    pass
-
-
-@security.group("user")
-def security_user():
-    pass
-
-
-@security_user.command("delete")
-@click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_user_delete(
-    client: foundry.FoundryClient,
-    user_id: str,
-    preview: Optional[bool],
-):
-    """
-    Deletes the given User
-    """
-    result = client.security.User.delete(
-        user_id=user_id,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_user.command("get")
-@click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_user_get(
-    client: foundry.FoundryClient,
-    user_id: str,
-    preview: Optional[bool],
-):
-    """
-    Get the User
-    """
-    result = client.security.User.get(
-        user_id=user_id,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_user.command("get_current")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_user_get_current(
-    client: foundry.FoundryClient,
-    preview: Optional[bool],
-):
-    """ """
-    result = client.security.User.get_current(
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_user.command("list")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_user_list(
-    client: foundry.FoundryClient,
-    page_size: Optional[int],
-    preview: Optional[bool],
-):
-    """
-    Lists all Users
-    """
-    result = client.security.User.list(
-        page_size=page_size,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_user.command("page")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_user_page(
-    client: foundry.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-):
-    """
-    Lists all Users
-    """
-    result = client.security.User.page(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_user.command("profile_picture")
-@click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_user_profile_picture(
-    client: foundry.FoundryClient,
-    user_id: str,
-    preview: Optional[bool],
-):
-    """ """
-    result = client.security.User.profile_picture(
-        user_id=user_id,
-        preview=preview,
-    )
-    click.echo(result)
-
-
-@security_user.command("search")
-@click.option("--where", type=str, required=True, help="Body of the request")
-@click.option("--page_size", type=int, required=False, help="Body of the request")
-@click.option("--page_token", type=str, required=False, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_user_search(
-    client: foundry.FoundryClient,
-    where: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-):
-    """ """
-    result = client.security.User.search(
-        search_users_request=foundry.models.SearchUsersRequest.model_validate(
-            {
-                "where": where,
-                "pageSize": page_size,
-                "pageToken": page_token,
-            }
-        ),
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_user.group("group_membership")
-def security_user_group_membership():
-    pass
-
-
-@security_user_group_membership.command("list")
-@click.argument("user_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
-@click.pass_obj
-def security_user_group_membership_list(
-    client: foundry.FoundryClient,
-    user_id: str,
-    page_size: Optional[int],
-    preview: Optional[bool],
-    transitive: Optional[bool],
-):
-    """
-    Lists all GroupMemberships
-    """
-    result = client.security.User.GroupMembership.list(
-        user_id=user_id,
-        page_size=page_size,
-        preview=preview,
-        transitive=transitive,
-    )
-    click.echo(repr(result))
-
-
-@security_user_group_membership.command("page")
-@click.argument("user_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
-@click.pass_obj
-def security_user_group_membership_page(
-    client: foundry.FoundryClient,
-    user_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-    transitive: Optional[bool],
-):
-    """
-    Lists all GroupMemberships
-    """
-    result = client.security.User.GroupMembership.page(
-        user_id=user_id,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-        transitive=transitive,
-    )
-    click.echo(repr(result))
-
-
-@security.group("group")
-def security_group():
-    pass
-
-
-@security_group.command("create")
-@click.option("--name", type=str, required=True, help="Body of the request")
-@click.option("--organizations", type=str, required=True, help="Body of the request")
-@click.option("--description", type=str, required=False, help="Body of the request")
-@click.option("--attributes", type=str, required=True, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_create(
-    client: foundry.FoundryClient,
-    name: str,
-    organizations: str,
-    description: Optional[str],
-    attributes: str,
-    preview: Optional[bool],
-):
-    """
-    Creates a new Group
-    """
-    result = client.security.Group.create(
-        create_group_request=foundry.models.CreateGroupRequest.model_validate(
-            {
-                "name": name,
-                "organizations": organizations,
-                "description": description,
-                "attributes": attributes,
-            }
-        ),
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_group.command("delete")
-@click.argument("group_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_delete(
-    client: foundry.FoundryClient,
-    group_id: str,
-    preview: Optional[bool],
-):
-    """
-    Deletes the given Group
-    """
-    result = client.security.Group.delete(
-        group_id=group_id,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_group.command("get")
-@click.argument("group_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_get(
-    client: foundry.FoundryClient,
-    group_id: str,
-    preview: Optional[bool],
-):
-    """
-    Get the Group
-    """
-    result = client.security.Group.get(
-        group_id=group_id,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_group.command("list")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_list(
-    client: foundry.FoundryClient,
-    page_size: Optional[int],
-    preview: Optional[bool],
-):
-    """
-    Lists all Groups
-    """
-    result = client.security.Group.list(
-        page_size=page_size,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_group.command("page")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_page(
-    client: foundry.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-):
-    """
-    Lists all Groups
-    """
-    result = client.security.Group.page(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_group.command("search")
-@click.option("--where", type=str, required=True, help="Body of the request")
-@click.option("--page_size", type=int, required=False, help="Body of the request")
-@click.option("--page_token", type=str, required=False, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_search(
-    client: foundry.FoundryClient,
-    where: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-):
-    """ """
-    result = client.security.Group.search(
-        search_groups_request=foundry.models.SearchGroupsRequest.model_validate(
-            {
-                "where": where,
-                "pageSize": page_size,
-                "pageToken": page_token,
-            }
-        ),
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_group.group("group_member")
-def security_group_group_member():
-    pass
-
-
-@security_group_group_member.command("add")
-@click.argument("group_id", type=str, required=True)
-@click.option("--principal_ids", type=str, required=True, help="Body of the request")
-@click.option("--expiration", type=str, required=False, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_group_member_add(
-    client: foundry.FoundryClient,
-    group_id: str,
-    principal_ids: str,
-    expiration: Optional[str],
-    preview: Optional[bool],
-):
-    """ """
-    result = client.security.Group.GroupMember.add(
-        group_id=group_id,
-        add_group_members_request=foundry.models.AddGroupMembersRequest.model_validate(
-            {
-                "principalIds": principal_ids,
-                "expiration": expiration,
-            }
-        ),
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@security_group_group_member.command("list")
-@click.argument("group_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
-@click.pass_obj
-def security_group_group_member_list(
-    client: foundry.FoundryClient,
-    group_id: str,
-    page_size: Optional[int],
-    preview: Optional[bool],
-    transitive: Optional[bool],
-):
-    """
-    Lists all GroupMembers
-    """
-    result = client.security.Group.GroupMember.list(
-        group_id=group_id,
-        page_size=page_size,
-        preview=preview,
-        transitive=transitive,
-    )
-    click.echo(repr(result))
-
-
-@security_group_group_member.command("page")
-@click.argument("group_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
-@click.pass_obj
-def security_group_group_member_page(
-    client: foundry.FoundryClient,
-    group_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-    transitive: Optional[bool],
-):
-    """
-    Lists all GroupMembers
-    """
-    result = client.security.Group.GroupMember.page(
-        group_id=group_id,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-        transitive=transitive,
-    )
-    click.echo(repr(result))
-
-
-@security_group_group_member.command("remove")
-@click.argument("group_id", type=str, required=True)
-@click.option("--principal_ids", type=str, required=True, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.pass_obj
-def security_group_group_member_remove(
-    client: foundry.FoundryClient,
-    group_id: str,
-    principal_ids: str,
-    preview: Optional[bool],
-):
-    """ """
-    result = client.security.Group.GroupMember.remove(
-        group_id=group_id,
-        remove_group_members_request=foundry.models.RemoveGroupMembersRequest.model_validate(
-            {
-                "principalIds": principal_ids,
-            }
-        ),
-        preview=preview,
     )
     click.echo(repr(result))
 
