@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: DateTime parsing fix
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/10
