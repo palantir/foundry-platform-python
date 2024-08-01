@@ -44,10 +44,13 @@ UUID = Annotated[
 def validate_datetime(value: Union[str, datetime]):
     if isinstance(value, str):
         try:
-            return datetime.fromisoformat(value)
+            # In Python 3.11, fromisoformat handles the Z shorthand
+            # In 3.10 and below, this shorthand throws an error
+            # The easiest solution is to just replace "Z" with a +00:00
+            return datetime.fromisoformat(value.replace("Z", "+00:00"))
         except ValueError as e:
             raise PydanticCustomError(
-                "iso_8601", "Invalid RFC 3339 datetime value", {"value": value}
+                "iso_8601", "Invalid ISO 8601 datetime value", {"value": value}
             ) from e
 
     return value
