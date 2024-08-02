@@ -267,9 +267,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**columns** | List[StrictStr] | columns |  |
 **format** | TableExportFormat | format |  |
 **branch_id** | Optional[BranchId] | branchId | [optional] |
+**columns** | Optional[List[StrictStr]] | columns | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
 **row_limit** | Optional[StrictInt] | rowLimit | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
@@ -291,14 +291,14 @@ foundry_client = FoundryClient(
 # DatasetRid | datasetRid
 dataset_rid = None
 
-# List[StrictStr] | columns
-columns = None
-
 # TableExportFormat | format
 format = "CSV"
 
 # Optional[BranchId] | branchId
 branch_id = None
+
+# Optional[List[StrictStr]] | columns
+columns = None
 
 # Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
@@ -313,9 +313,9 @@ start_transaction_rid = None
 try:
     api_response = foundry_client.datasets.Dataset.read(
         dataset_rid,
-        columns=columns,
         format=format,
         branch_id=branch_id,
+        columns=columns,
         end_transaction_rid=end_transaction_rid,
         row_limit=row_limit,
         start_transaction_rid=start_transaction_rid,

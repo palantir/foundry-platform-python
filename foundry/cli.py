@@ -620,9 +620,9 @@ def datasets_dataset_get_schema(
 
 @datasets_dataset.command("read")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--columns", type=str, required=True, help="columns")
 @click.option("--format", type=click.Choice(["ARROW", "CSV"]), required=True, help="format")
 @click.option("--branch_id", type=str, required=False, help="branchId")
+@click.option("--columns", type=str, required=False, help="columns")
 @click.option("--end_transaction_rid", type=str, required=False, help="endTransactionRid")
 @click.option("--row_limit", type=int, required=False, help="rowLimit")
 @click.option("--start_transaction_rid", type=str, required=False, help="startTransactionRid")
@@ -630,9 +630,9 @@ def datasets_dataset_get_schema(
 def datasets_dataset_read(
     client: foundry.FoundryClient,
     dataset_rid: str,
-    columns: str,
     format: Literal["ARROW", "CSV"],
     branch_id: Optional[str],
+    columns: Optional[str],
     end_transaction_rid: Optional[str],
     row_limit: Optional[int],
     start_transaction_rid: Optional[str],
@@ -647,9 +647,9 @@ def datasets_dataset_read(
     """
     result = client.datasets.Dataset.read(
         dataset_rid=dataset_rid,
-        columns=json.loads(columns),
         format=format,
         branch_id=branch_id,
+        columns=None if columns is None else json.loads(columns),
         end_transaction_rid=end_transaction_rid,
         row_limit=row_limit,
         start_transaction_rid=start_transaction_rid,
