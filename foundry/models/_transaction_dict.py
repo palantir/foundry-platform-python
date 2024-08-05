@@ -15,10 +15,11 @@
 
 from __future__ import annotations
 
+from datetime import datetime
+
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._core.utils import DateTime
 from foundry.models._transaction_rid import TransactionRid
 from foundry.models._transaction_status import TransactionStatus
 from foundry.models._transaction_type import TransactionType
@@ -35,8 +36,8 @@ class TransactionDict(TypedDict):
 
     status: TransactionStatus
 
-    createdTime: DateTime
+    createdTime: datetime
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    closedTime: NotRequired[DateTime]
+    closedTime: NotRequired[datetime]
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""

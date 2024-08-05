@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Literal
 from typing import Optional
 from typing import cast
@@ -22,16 +23,15 @@ from typing import cast
 from pydantic import BaseModel
 from pydantic import Field
 
-from foundry._core.utils import DateTime
 from foundry.models._absolute_time_range_dict import AbsoluteTimeRangeDict
 
 
 class AbsoluteTimeRange(BaseModel):
     """ISO 8601 timestamps forming a range for a time series query. Start is inclusive and end is exclusive."""
 
-    start_time: Optional[DateTime] = Field(alias="startTime", default=None)
+    start_time: Optional[datetime] = Field(alias="startTime", default=None)
 
-    end_time: Optional[DateTime] = Field(alias="endTime", default=None)
+    end_time: Optional[datetime] = Field(alias="endTime", default=None)
 
     type: Literal["absolute"]
 

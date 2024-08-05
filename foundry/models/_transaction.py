@@ -15,13 +15,13 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Optional
 from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
 
-from foundry._core.utils import DateTime
 from foundry.models._transaction_dict import TransactionDict
 from foundry.models._transaction_rid import TransactionRid
 from foundry.models._transaction_status import TransactionStatus
@@ -37,10 +37,10 @@ class Transaction(BaseModel):
 
     status: TransactionStatus
 
-    created_time: DateTime = Field(alias="createdTime")
+    created_time: datetime = Field(alias="createdTime")
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    closed_time: Optional[DateTime] = Field(alias="closedTime", default=None)
+    closed_time: Optional[datetime] = Field(alias="closedTime", default=None)
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
     model_config = {"extra": "allow"}

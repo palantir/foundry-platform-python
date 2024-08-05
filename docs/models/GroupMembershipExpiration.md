@@ -4,7 +4,7 @@ GroupMembershipExpiration
 
 ## Type
 ```python
-DateTime
+datetime
 ```
 
 

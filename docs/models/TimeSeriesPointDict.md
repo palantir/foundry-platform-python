@@ -6,7 +6,7 @@ A time and value pair.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**time** | DateTime | Yes | An ISO 8601 timestamp |
+**time** | datetime | Yes | An ISO 8601 timestamp |
 **value** | Any | Yes | An object which is either an enum String or a double number. |
 
 

@@ -6,7 +6,7 @@ The underlying data values pointed to by a GeotimeSeriesReference.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **position** | Position | Yes |  |
-**timestamp** | DateTime | Yes |  |
+**timestamp** | datetime | Yes |  |
 **type** | Literal["geotimeSeriesValue"] | Yes | None |
 
 

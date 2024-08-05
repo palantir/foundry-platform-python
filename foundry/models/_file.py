@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Optional
 from typing import cast
 
@@ -22,7 +23,6 @@ from pydantic import BaseModel
 from pydantic import Field
 from pydantic import StrictStr
 
-from foundry._core.utils import DateTime
 from foundry.models._file_dict import FileDict
 from foundry.models._file_path import FilePath
 from foundry.models._transaction_rid import TransactionRid
@@ -37,7 +37,7 @@ class File(BaseModel):
 
     size_bytes: Optional[StrictStr] = Field(alias="sizeBytes", default=None)
 
-    updated_time: DateTime = Field(alias="updatedTime")
+    updated_time: datetime = Field(alias="updatedTime")
 
     model_config = {"extra": "allow"}
 

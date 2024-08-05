@@ -15,12 +15,12 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Literal
 from typing import cast
 
 from pydantic import BaseModel
 
-from foundry._core.utils import DateTime
 from foundry.models._geotime_series_value_dict import GeotimeSeriesValueDict
 from foundry.models._position import Position
 
@@ -30,7 +30,7 @@ class GeotimeSeriesValue(BaseModel):
 
     position: Position
 
-    timestamp: DateTime
+    timestamp: datetime
 
     type: Literal["geotimeSeriesValue"]
 
