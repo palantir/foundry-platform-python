@@ -15,11 +15,10 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any
 
 from typing_extensions import TypedDict
-
-from foundry._core.utils import DateTime
 
 
 class TimeSeriesPointDict(TypedDict):
@@ -27,7 +26,7 @@ class TimeSeriesPointDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    time: DateTime
+    time: datetime
     """An ISO 8601 timestamp"""
 
     value: Any

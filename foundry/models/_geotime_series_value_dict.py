@@ -15,11 +15,11 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry._core.utils import DateTime
 from foundry.models._position import Position
 
 
@@ -30,6 +30,6 @@ class GeotimeSeriesValueDict(TypedDict):
 
     position: Position
 
-    timestamp: DateTime
+    timestamp: datetime
 
     type: Literal["geotimeSeriesValue"]

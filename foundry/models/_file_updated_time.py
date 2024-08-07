@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from foundry._core.utils import DateTime
+from datetime import datetime
 
-FileUpdatedTime = DateTime
+FileUpdatedTime = datetime
 """FileUpdatedTime"""

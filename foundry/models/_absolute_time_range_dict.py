@@ -15,12 +15,11 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Literal
 
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
-
-from foundry._core.utils import DateTime
 
 
 class AbsoluteTimeRangeDict(TypedDict):
@@ -28,8 +27,8 @@ class AbsoluteTimeRangeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    startTime: NotRequired[DateTime]
+    startTime: NotRequired[datetime]
 
-    endTime: NotRequired[DateTime]
+    endTime: NotRequired[datetime]
 
     type: Literal["absolute"]

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from foundry._core.utils import DateTime
+from datetime import datetime
 
-TransactionCreatedTime = DateTime
+TransactionCreatedTime = datetime
 """The timestamp when the transaction was created, in ISO 8601 timestamp format."""

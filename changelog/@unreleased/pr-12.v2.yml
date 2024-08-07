@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: No longer using custom DateTime & Date Pydantic types
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/12

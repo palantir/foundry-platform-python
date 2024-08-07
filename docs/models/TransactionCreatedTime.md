@@ -5,7 +5,7 @@ The timestamp when the transaction was created, in ISO 8601 timestamp format.
 
 ## Type
 ```python
-DateTime
+datetime
 ```
 
 

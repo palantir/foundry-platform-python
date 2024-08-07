@@ -4,7 +4,7 @@ FileUpdatedTime
 
 ## Type
 ```python
-DateTime
+datetime
 ```
 
 

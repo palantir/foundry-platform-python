@@ -15,19 +15,19 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any
 from typing import cast
 
 from pydantic import BaseModel
 
-from foundry._core.utils import DateTime
 from foundry.models._time_series_point_dict import TimeSeriesPointDict
 
 
 class TimeSeriesPoint(BaseModel):
     """A time and value pair."""
 
-    time: DateTime
+    time: datetime
     """An ISO 8601 timestamp"""
 
     value: Any
