@@ -255,9 +255,9 @@ class DatasetResource:
         self,
         dataset_rid: DatasetRid,
         *,
-        columns: List[StrictStr],
         format: TableExportFormat,
         branch_id: Optional[BranchId] = None,
+        columns: Optional[List[StrictStr]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
         row_limit: Optional[StrictInt] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
@@ -272,12 +272,12 @@ class DatasetResource:
 
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
-        :param columns: columns
-        :type columns: List[StrictStr]
         :param format: format
         :type format: TableExportFormat
         :param branch_id: branchId
         :type branch_id: Optional[BranchId]
+        :param columns: columns
+        :type columns: Optional[List[StrictStr]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
@@ -294,11 +294,11 @@ class DatasetResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["columns"] = columns
-
         _query_params["format"] = format
 
         _query_params["branchId"] = branch_id
+
+        _query_params["columns"] = columns
 
         _query_params["endTransactionRid"] = end_transaction_rid
 
