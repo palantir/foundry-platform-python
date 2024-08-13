@@ -5,6 +5,7 @@ Method | HTTP request |
 [**create**](#create) | **POST** /v2/admin/groups |
 [**delete**](#delete) | **DELETE** /v2/admin/groups/{groupId} |
 [**get**](#get) | **GET** /v2/admin/groups/{groupId} |
+[**get_batch**](#get_batch) | **POST** /v2/admin/groups/getBatch |
 [**list**](#list) | **GET** /v2/admin/groups |
 [**page**](#page) | **GET** /v2/admin/groups |
 [**search**](#search) | **POST** /v2/admin/groups/search |
@@ -34,7 +35,11 @@ foundry_client = FoundryClient(
 )
 
 # Union[CreateGroupRequest, CreateGroupRequestDict] | Body of the request
-create_group_request = None
+create_group_request = {
+    "name": "Data Source Admins",
+    "organizations": ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"],
+    "description": "Create and modify data sources in the platform",
+}
 
 # Optional[PreviewMode] | preview
 preview = None
@@ -174,6 +179,64 @@ See [README](../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Group  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
+
+# **get_batch**
+Execute multiple get requests on Group.
+
+The maximum batch size for this endpoint is 500.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | Union[List[GetGroupsBatchRequestElement], List[GetGroupsBatchRequestElementDict]] | Body of the request |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**GetGroupsBatchResponse**
+
+### Example
+
+```python
+from foundry import FoundryClient
+from foundry import PalantirRPCException
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# Union[List[GetGroupsBatchRequestElement], List[GetGroupsBatchRequestElementDict]] | Body of the request
+body = {"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
+
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Group.get_batch(
+        body,
+        preview=preview,
+    )
+    print("The get_batch response:\n")
+    pprint(api_response)
+except PalantirRPCException as e:
+    print("HTTP error when calling Group.get_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetGroupsBatchResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -318,7 +381,11 @@ foundry_client = FoundryClient(
 )
 
 # Union[SearchGroupsRequest, SearchGroupsRequestDict] | Body of the request
-search_groups_request = None
+search_groups_request = {
+    "pageSize": 100,
+    "where": {"type": "queryString"},
+    "pageToken": "v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv",
+}
 
 # Optional[PreviewMode] | preview
 preview = None

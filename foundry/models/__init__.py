@@ -13,8 +13,11 @@
 #  limitations under the License.
 
 
+from foundry.models._abort_on_failure import AbortOnFailure
 from foundry.models._absolute_time_range import AbsoluteTimeRange
 from foundry.models._absolute_time_range_dict import AbsoluteTimeRangeDict
+from foundry.models._action import Action
+from foundry.models._action_dict import ActionDict
 from foundry.models._action_mode import ActionMode
 from foundry.models._action_parameter_type import ActionParameterArrayType
 from foundry.models._action_parameter_type import ActionParameterType
@@ -215,6 +218,8 @@ from foundry.models._batch_apply_action_response_v2_dict import (
 )  # NOQA
 from foundry.models._binary_type import BinaryType
 from foundry.models._binary_type_dict import BinaryTypeDict
+from foundry.models._blueprint_icon import BlueprintIcon
+from foundry.models._blueprint_icon_dict import BlueprintIconDict
 from foundry.models._boolean_type import BooleanType
 from foundry.models._boolean_type_dict import BooleanTypeDict
 from foundry.models._bounding_box_value import BoundingBoxValue
@@ -222,6 +227,10 @@ from foundry.models._bounding_box_value_dict import BoundingBoxValueDict
 from foundry.models._branch import Branch
 from foundry.models._branch_dict import BranchDict
 from foundry.models._branch_id import BranchId
+from foundry.models._branch_name import BranchName
+from foundry.models._build_status import BuildStatus
+from foundry.models._build_target import BuildTarget
+from foundry.models._build_target_dict import BuildTargetDict
 from foundry.models._byte_type import ByteType
 from foundry.models._byte_type_dict import ByteTypeDict
 from foundry.models._center_point import CenterPoint
@@ -237,6 +246,8 @@ from foundry.models._chat_completion_response_dict import ChatCompletionResponse
 from foundry.models._chat_message import ChatMessage
 from foundry.models._chat_message_dict import ChatMessageDict
 from foundry.models._chat_message_role import ChatMessageRole
+from foundry.models._connecting_target import ConnectingTarget
+from foundry.models._connecting_target_dict import ConnectingTargetDict
 from foundry.models._contains_all_terms_in_order_prefix_last_term import (
     ContainsAllTermsInOrderPrefixLastTerm,
 )  # NOQA
@@ -290,12 +301,15 @@ from foundry.models._create_transaction_request import CreateTransactionRequest
 from foundry.models._create_transaction_request_dict import CreateTransactionRequestDict
 from foundry.models._created_by import CreatedBy
 from foundry.models._created_time import CreatedTime
+from foundry.models._cron_expression import CronExpression
 from foundry.models._custom_type_id import CustomTypeId
 from foundry.models._data_value import DataValue
 from foundry.models._dataset import Dataset
 from foundry.models._dataset_dict import DatasetDict
 from foundry.models._dataset_name import DatasetName
 from foundry.models._dataset_rid import DatasetRid
+from foundry.models._dataset_updated_trigger import DatasetUpdatedTrigger
+from foundry.models._dataset_updated_trigger_dict import DatasetUpdatedTriggerDict
 from foundry.models._date_type import DateType
 from foundry.models._date_type_dict import DateTypeDict
 from foundry.models._decimal_type import DecimalType
@@ -334,6 +348,7 @@ from foundry.models._execute_query_request import ExecuteQueryRequest
 from foundry.models._execute_query_request_dict import ExecuteQueryRequestDict
 from foundry.models._execute_query_response import ExecuteQueryResponse
 from foundry.models._execute_query_response_dict import ExecuteQueryResponseDict
+from foundry.models._fallback_branches import FallbackBranches
 from foundry.models._feature import Feature
 from foundry.models._feature_collection import FeatureCollection
 from foundry.models._feature_collection_dict import FeatureCollectionDict
@@ -353,6 +368,7 @@ from foundry.models._filter_value import FilterValue
 from foundry.models._float_type import FloatType
 from foundry.models._float_type_dict import FloatTypeDict
 from foundry.models._folder_rid import FolderRid
+from foundry.models._force_build import ForceBuild
 from foundry.models._function_rid import FunctionRid
 from foundry.models._function_version import FunctionVersion
 from foundry.models._fuzzy import Fuzzy
@@ -371,6 +387,18 @@ from foundry.models._geometry_dict import GeometryCollectionDict
 from foundry.models._geometry_dict import GeometryDict
 from foundry.models._geotime_series_value import GeotimeSeriesValue
 from foundry.models._geotime_series_value_dict import GeotimeSeriesValueDict
+from foundry.models._get_groups_batch_request_element import GetGroupsBatchRequestElement  # NOQA
+from foundry.models._get_groups_batch_request_element_dict import (
+    GetGroupsBatchRequestElementDict,
+)  # NOQA
+from foundry.models._get_groups_batch_response import GetGroupsBatchResponse
+from foundry.models._get_groups_batch_response_dict import GetGroupsBatchResponseDict
+from foundry.models._get_users_batch_request_element import GetUsersBatchRequestElement
+from foundry.models._get_users_batch_request_element_dict import (
+    GetUsersBatchRequestElementDict,
+)  # NOQA
+from foundry.models._get_users_batch_response import GetUsersBatchResponse
+from foundry.models._get_users_batch_response_dict import GetUsersBatchResponseDict
 from foundry.models._group import Group
 from foundry.models._group_dict import GroupDict
 from foundry.models._group_member import GroupMember
@@ -391,6 +419,8 @@ from foundry.models._gte_query import GteQuery
 from foundry.models._gte_query_dict import GteQueryDict
 from foundry.models._gte_query_v2 import GteQueryV2
 from foundry.models._gte_query_v2_dict import GteQueryV2Dict
+from foundry.models._icon import Icon
+from foundry.models._icon_dict import IconDict
 from foundry.models._integer_type import IntegerType
 from foundry.models._integer_type_dict import IntegerTypeDict
 from foundry.models._interface_link_type import InterfaceLinkType
@@ -418,6 +448,8 @@ from foundry.models._is_null_query import IsNullQuery
 from foundry.models._is_null_query_dict import IsNullQueryDict
 from foundry.models._is_null_query_v2 import IsNullQueryV2
 from foundry.models._is_null_query_v2_dict import IsNullQueryV2Dict
+from foundry.models._job_succeeded_trigger import JobSucceededTrigger
+from foundry.models._job_succeeded_trigger_dict import JobSucceededTriggerDict
 from foundry.models._language_model import LanguageModel
 from foundry.models._language_model_api_name import LanguageModelApiName
 from foundry.models._language_model_dict import LanguageModelDict
@@ -521,12 +553,17 @@ from foundry.models._lte_query import LteQuery
 from foundry.models._lte_query_dict import LteQueryDict
 from foundry.models._lte_query_v2 import LteQueryV2
 from foundry.models._lte_query_v2_dict import LteQueryV2Dict
+from foundry.models._manual_target import ManualTarget
+from foundry.models._manual_target_dict import ManualTargetDict
 from foundry.models._marking_type import MarkingType
 from foundry.models._marking_type_dict import MarkingTypeDict
 from foundry.models._max_aggregation import MaxAggregation
 from foundry.models._max_aggregation_dict import MaxAggregationDict
 from foundry.models._max_aggregation_v2 import MaxAggregationV2
 from foundry.models._max_aggregation_v2_dict import MaxAggregationV2Dict
+from foundry.models._media_set_rid import MediaSetRid
+from foundry.models._media_set_updated_trigger import MediaSetUpdatedTrigger
+from foundry.models._media_set_updated_trigger_dict import MediaSetUpdatedTriggerDict
 from foundry.models._media_type import MediaType
 from foundry.models._min_aggregation import MinAggregation
 from foundry.models._min_aggregation_dict import MinAggregationDict
@@ -544,6 +581,9 @@ from foundry.models._multi_polygon import MultiPolygon
 from foundry.models._multi_polygon_dict import MultiPolygonDict
 from foundry.models._nested_query_aggregation import NestedQueryAggregation
 from foundry.models._nested_query_aggregation_dict import NestedQueryAggregationDict
+from foundry.models._new_logic_trigger import NewLogicTrigger
+from foundry.models._new_logic_trigger_dict import NewLogicTriggerDict
+from foundry.models._notifications_enabled import NotificationsEnabled
 from foundry.models._null_type import NullType
 from foundry.models._null_type_dict import NullTypeDict
 from foundry.models._object_edit import ObjectEdit
@@ -689,6 +729,9 @@ from foundry.models._primary_key_value import PrimaryKeyValue
 from foundry.models._principal_filter_type import PrincipalFilterType
 from foundry.models._principal_id import PrincipalId
 from foundry.models._principal_type import PrincipalType
+from foundry.models._project_rid import ProjectRid
+from foundry.models._project_scope import ProjectScope
+from foundry.models._project_scope_dict import ProjectScopeDict
 from foundry.models._property import Property
 from foundry.models._property_api_name import PropertyApiName
 from foundry.models._property_dict import PropertyDict
@@ -765,7 +808,21 @@ from foundry.models._remove_group_members_request import RemoveGroupMembersReque
 from foundry.models._remove_group_members_request_dict import RemoveGroupMembersRequestDict  # NOQA
 from foundry.models._request_id import RequestId
 from foundry.models._resource_path import ResourcePath
+from foundry.models._retry_backoff_duration import RetryBackoffDuration
+from foundry.models._retry_backoff_duration_dict import RetryBackoffDurationDict
+from foundry.models._retry_count import RetryCount
 from foundry.models._return_edits_mode import ReturnEditsMode
+from foundry.models._schedule import Schedule
+from foundry.models._schedule_dict import ScheduleDict
+from foundry.models._schedule_paused import SchedulePaused
+from foundry.models._schedule_rid import ScheduleRid
+from foundry.models._schedule_succeeded_trigger import ScheduleSucceededTrigger
+from foundry.models._schedule_succeeded_trigger_dict import ScheduleSucceededTriggerDict
+from foundry.models._schedule_version import ScheduleVersion
+from foundry.models._schedule_version_dict import ScheduleVersionDict
+from foundry.models._schedule_version_rid import ScheduleVersionRid
+from foundry.models._scope_mode import ScopeMode
+from foundry.models._scope_mode_dict import ScopeModeDict
 from foundry.models._sdk_package_name import SdkPackageName
 from foundry.models._search_groups_request import SearchGroupsRequest
 from foundry.models._search_groups_request_dict import SearchGroupsRequestDict
@@ -876,6 +933,8 @@ from foundry.models._time_series_item_type import TimeSeriesItemType
 from foundry.models._time_series_item_type_dict import TimeSeriesItemTypeDict
 from foundry.models._time_series_point import TimeSeriesPoint
 from foundry.models._time_series_point_dict import TimeSeriesPointDict
+from foundry.models._time_trigger import TimeTrigger
+from foundry.models._time_trigger_dict import TimeTriggerDict
 from foundry.models._time_unit import TimeUnit
 from foundry.models._timeseries_type import TimeseriesType
 from foundry.models._timeseries_type_dict import TimeseriesTypeDict
@@ -888,6 +947,12 @@ from foundry.models._transaction_dict import TransactionDict
 from foundry.models._transaction_rid import TransactionRid
 from foundry.models._transaction_status import TransactionStatus
 from foundry.models._transaction_type import TransactionType
+from foundry.models._trigger import AndTrigger
+from foundry.models._trigger import OrTrigger
+from foundry.models._trigger import Trigger
+from foundry.models._trigger_dict import AndTriggerDict
+from foundry.models._trigger_dict import OrTriggerDict
+from foundry.models._trigger_dict import TriggerDict
 from foundry.models._two_dimensional_aggregation import TwoDimensionalAggregation
 from foundry.models._two_dimensional_aggregation_dict import TwoDimensionalAggregationDict  # NOQA
 from foundry.models._unevaluable_constraint import UnevaluableConstraint
@@ -896,9 +961,13 @@ from foundry.models._unsupported_type import UnsupportedType
 from foundry.models._unsupported_type_dict import UnsupportedTypeDict
 from foundry.models._updated_by import UpdatedBy
 from foundry.models._updated_time import UpdatedTime
+from foundry.models._upstream_target import UpstreamTarget
+from foundry.models._upstream_target_dict import UpstreamTargetDict
 from foundry.models._user import User
 from foundry.models._user_dict import UserDict
 from foundry.models._user_id import UserId
+from foundry.models._user_scope import UserScope
+from foundry.models._user_scope_dict import UserScopeDict
 from foundry.models._user_search_filter import UserSearchFilter
 from foundry.models._user_search_filter_dict import UserSearchFilterDict
 from foundry.models._user_username import UserUsername
@@ -923,10 +992,14 @@ from foundry.models._within_distance_of_query import WithinDistanceOfQuery
 from foundry.models._within_distance_of_query_dict import WithinDistanceOfQueryDict
 from foundry.models._within_polygon_query import WithinPolygonQuery
 from foundry.models._within_polygon_query_dict import WithinPolygonQueryDict
+from foundry.models._zone_id import ZoneId
 
 __all__ = [
+    "AbortOnFailure",
     "AbsoluteTimeRange",
     "AbsoluteTimeRangeDict",
+    "Action",
+    "ActionDict",
     "ActionMode",
     "ActionParameterArrayType",
     "ActionParameterArrayTypeDict",
@@ -1012,6 +1085,8 @@ __all__ = [
     "AndQueryDict",
     "AndQueryV2",
     "AndQueryV2Dict",
+    "AndTrigger",
+    "AndTriggerDict",
     "AnyTermQuery",
     "AnyTermQueryDict",
     "AnyType",
@@ -1081,6 +1156,8 @@ __all__ = [
     "BBox",
     "BinaryType",
     "BinaryTypeDict",
+    "BlueprintIcon",
+    "BlueprintIconDict",
     "BooleanType",
     "BooleanTypeDict",
     "BoundingBoxValue",
@@ -1088,6 +1165,10 @@ __all__ = [
     "Branch",
     "BranchDict",
     "BranchId",
+    "BranchName",
+    "BuildStatus",
+    "BuildTarget",
+    "BuildTargetDict",
     "ByteType",
     "ByteTypeDict",
     "CenterPoint",
@@ -1103,6 +1184,8 @@ __all__ = [
     "ChatMessage",
     "ChatMessageDict",
     "ChatMessageRole",
+    "ConnectingTarget",
+    "ConnectingTargetDict",
     "ContainsAllTermsInOrderPrefixLastTerm",
     "ContainsAllTermsInOrderPrefixLastTermDict",
     "ContainsAllTermsInOrderQuery",
@@ -1142,11 +1225,14 @@ __all__ = [
     "CreateTemporaryObjectSetResponseV2Dict",
     "CreateTransactionRequest",
     "CreateTransactionRequestDict",
+    "CronExpression",
     "CustomTypeId",
     "Dataset",
     "DatasetDict",
     "DatasetName",
     "DatasetRid",
+    "DatasetUpdatedTrigger",
+    "DatasetUpdatedTriggerDict",
     "DataValue",
     "DateType",
     "DateTypeDict",
@@ -1180,6 +1266,7 @@ __all__ = [
     "ExecuteQueryRequestDict",
     "ExecuteQueryResponse",
     "ExecuteQueryResponseDict",
+    "FallbackBranches",
     "Feature",
     "FeatureCollection",
     "FeatureCollectionDict",
@@ -1199,6 +1286,7 @@ __all__ = [
     "FloatType",
     "FloatTypeDict",
     "FolderRid",
+    "ForceBuild",
     "FunctionRid",
     "FunctionVersion",
     "Fuzzy",
@@ -1217,6 +1305,14 @@ __all__ = [
     "GeoShapeTypeDict",
     "GeotimeSeriesValue",
     "GeotimeSeriesValueDict",
+    "GetGroupsBatchRequestElement",
+    "GetGroupsBatchRequestElementDict",
+    "GetGroupsBatchResponse",
+    "GetGroupsBatchResponseDict",
+    "GetUsersBatchRequestElement",
+    "GetUsersBatchRequestElementDict",
+    "GetUsersBatchResponse",
+    "GetUsersBatchResponseDict",
     "Group",
     "GroupDict",
     "GroupMember",
@@ -1237,6 +1333,8 @@ __all__ = [
     "GtQueryDict",
     "GtQueryV2",
     "GtQueryV2Dict",
+    "Icon",
+    "IconDict",
     "IntegerType",
     "IntegerTypeDict",
     "InterfaceLinkType",
@@ -1258,6 +1356,8 @@ __all__ = [
     "IsNullQueryDict",
     "IsNullQueryV2",
     "IsNullQueryV2Dict",
+    "JobSucceededTrigger",
+    "JobSucceededTriggerDict",
     "LanguageModel",
     "LanguageModelApiName",
     "LanguageModelDict",
@@ -1345,12 +1445,17 @@ __all__ = [
     "LtQueryDict",
     "LtQueryV2",
     "LtQueryV2Dict",
+    "ManualTarget",
+    "ManualTargetDict",
     "MarkingType",
     "MarkingTypeDict",
     "MaxAggregation",
     "MaxAggregationDict",
     "MaxAggregationV2",
     "MaxAggregationV2Dict",
+    "MediaSetRid",
+    "MediaSetUpdatedTrigger",
+    "MediaSetUpdatedTriggerDict",
     "MediaType",
     "MinAggregation",
     "MinAggregationDict",
@@ -1368,6 +1473,9 @@ __all__ = [
     "MultiPolygonDict",
     "NestedQueryAggregation",
     "NestedQueryAggregationDict",
+    "NewLogicTrigger",
+    "NewLogicTriggerDict",
+    "NotificationsEnabled",
     "NotQuery",
     "NotQueryDict",
     "NotQueryV2",
@@ -1472,6 +1580,8 @@ __all__ = [
     "OrQueryDict",
     "OrQueryV2",
     "OrQueryV2Dict",
+    "OrTrigger",
+    "OrTriggerDict",
     "PageSize",
     "PageToken",
     "Parameter",
@@ -1499,6 +1609,9 @@ __all__ = [
     "PrincipalFilterType",
     "PrincipalId",
     "PrincipalType",
+    "ProjectRid",
+    "ProjectScope",
+    "ProjectScopeDict",
     "Property",
     "PropertyApiName",
     "PropertyDict",
@@ -1567,7 +1680,21 @@ __all__ = [
     "RemoveGroupMembersRequestDict",
     "RequestId",
     "ResourcePath",
+    "RetryBackoffDuration",
+    "RetryBackoffDurationDict",
+    "RetryCount",
     "ReturnEditsMode",
+    "Schedule",
+    "ScheduleDict",
+    "SchedulePaused",
+    "ScheduleRid",
+    "ScheduleSucceededTrigger",
+    "ScheduleSucceededTriggerDict",
+    "ScheduleVersion",
+    "ScheduleVersionDict",
+    "ScheduleVersionRid",
+    "ScopeMode",
+    "ScopeModeDict",
     "SdkPackageName",
     "SearchGroupsRequest",
     "SearchGroupsRequestDict",
@@ -1654,6 +1781,8 @@ __all__ = [
     "TimeseriesTypeDict",
     "TimestampType",
     "TimestampTypeDict",
+    "TimeTrigger",
+    "TimeTriggerDict",
     "TimeUnit",
     "TotalCount",
     "Transaction",
@@ -1662,6 +1791,8 @@ __all__ = [
     "TransactionRid",
     "TransactionStatus",
     "TransactionType",
+    "Trigger",
+    "TriggerDict",
     "TwoDimensionalAggregation",
     "TwoDimensionalAggregationDict",
     "UnevaluableConstraint",
@@ -1670,9 +1801,13 @@ __all__ = [
     "UnsupportedTypeDict",
     "UpdatedBy",
     "UpdatedTime",
+    "UpstreamTarget",
+    "UpstreamTargetDict",
     "User",
     "UserDict",
     "UserId",
+    "UserScope",
+    "UserScopeDict",
     "UserSearchFilter",
     "UserSearchFilterDict",
     "UserUsername",
@@ -1697,4 +1832,5 @@ __all__ = [
     "WithinDistanceOfQueryDict",
     "WithinPolygonQuery",
     "WithinPolygonQueryDict",
+    "ZoneId",
 ]

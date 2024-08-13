@@ -36,7 +36,7 @@ foundry_client = FoundryClient(
 group_id = None
 
 # Union[AddGroupMembersRequest, AddGroupMembersRequestDict] | Body of the request
-add_group_members_request = None
+add_group_members_request = {"principalIds": ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]}
 
 # Optional[PreviewMode] | preview
 preview = None
@@ -233,7 +233,7 @@ foundry_client = FoundryClient(
 group_id = None
 
 # Union[RemoveGroupMembersRequest, RemoveGroupMembersRequestDict] | Body of the request
-remove_group_members_request = None
+remove_group_members_request = {"principalIds": ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]}
 
 # Optional[PreviewMode] | preview
 preview = None
