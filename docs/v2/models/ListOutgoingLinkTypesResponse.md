@@ -9,4 +9,4 @@ ListOutgoingLinkTypesResponse
 **data** | List[LinkTypeSide] | Yes | The list of link type sides in the current page. |
 
 
-[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+[[Back to Model list]](../../README.md#models-v2-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

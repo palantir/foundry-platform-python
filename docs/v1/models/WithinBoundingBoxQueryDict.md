@@ -11,4 +11,4 @@ Returns objects where the specified field contains a point within the bounding b
 **type** | Literal["withinBoundingBox"] | Yes | None |
 
 
-[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+[[Back to Model list]](../../README.md#models-v1-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
