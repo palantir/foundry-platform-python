@@ -61,21 +61,6 @@
         "v2": {
             "additionalRelationships": [
                 [
-                    "Datasets",
-                    "Dataset",
-                    "Branch"
-                ],
-                [
-                    "Datasets",
-                    "Dataset",
-                    "File"
-                ],
-                [
-                    "Datasets",
-                    "Dataset",
-                    "Transaction"
-                ],
-                [
                     "Ontologies",
                     "Ontology",
                     "ActionType"

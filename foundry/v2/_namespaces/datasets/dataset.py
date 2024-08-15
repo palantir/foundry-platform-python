@@ -50,9 +50,6 @@ class DatasetResource:
         self.Branch = BranchResource(api_client=api_client)
         self.Transaction = TransactionResource(api_client=api_client)
         self.File = FileResource(api_client=api_client)
-        self.Branch = BranchResource(api_client=api_client)
-        self.File = FileResource(api_client=api_client)
-        self.Transaction = TransactionResource(api_client=api_client)
 
     @validate_call
     @handle_unexpected
