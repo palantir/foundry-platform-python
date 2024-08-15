@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 import pytest
+
 from foundry import UserTokenAuth
 
 # @pytest.fixture

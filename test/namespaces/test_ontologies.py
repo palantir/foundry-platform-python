@@ -14,11 +14,11 @@
 
 from typing import Any
 
-from foundry.foundry_client import FoundryClient
+from foundry.v2 import FoundryV2Client
 
 # from foundry.models.search_json_query_v2 import EqualsQuery
 # from foundry.models.search_json_query_v2 import SearchJsonQueryV2
-from ..utils import client  # type: ignore
+from ..utils import client_v2  # type: ignore
 from ..utils import mock_responses
 
 
@@ -40,12 +40,15 @@ def mock_list_ontologies(monkeypatch: Any):
                         "data": [
                             {
                                 "rid": "ri.a.b.c.d",
+                                "displayName": "TEST",
+                                "pluralDisplayName": "TEST",
                                 "apiName": "API",
                                 "status": "ACTIVE",
                                 "primaryKey": "123",
                                 "primaryKey": "abc",
                                 "titleProperty": "abc",
                                 "properties": {},
+                                "icon": {"type": "blueprint", "name": "test", "color": "test"},
                             }
                         ],
                     },
@@ -56,10 +59,10 @@ def mock_list_ontologies(monkeypatch: Any):
     )
 
 
-def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
+def test_can_list_object_types(client_v2: FoundryV2Client, monkeypatch: Any):
     mock_list_ontologies(monkeypatch)
 
-    result = client.ontologies.Ontology.ObjectType.list(
+    result = client_v2.ontologies.Ontology.ObjectType.list(
         ontology="MyOntology",
     )
 
@@ -82,10 +85,10 @@ def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
 #     )
 
 
-# def test_can_search_using_classes(client: FoundryClient, monkeypatch):
+# def test_can_search_using_classes(client_v2: FoundryV2Client, monkeypatch):
 #     mock_search_query(monkeypatch)
 
-#     result = client.ontologies.search_objects(
+#     result = client_v2.ontologies.search_objects(
 #         ontology="MyOntology",
 #         object_type="MyObjectType",
 #         search_objects_request_v2=SearchObjectsRequestV2(
@@ -100,20 +103,20 @@ def test_can_list_object_types(client: FoundryClient, monkeypatch: Any):
 #     assert result.data is not None and len(result.data) == 1
 
 
-# def test_can_search_with_dict(client: FoundryClient, monkeypatch):
+# def test_can_search_with_dict(client_v2: FoundryV2Client, monkeypatch):
 #     mock_search_query(monkeypatch)
 
-#     _ = client.ontologies.search_objects(
+#     _ = client_v2.ontologies.search_objects(
 #         ontology="MyOntology",
 #         object_type="MyObjectType",
 #         search_objects_request_v2={"where": {"field": "myProp", "type": "eq", "value": 21}},  # type: ignore
 #     )
 
 
-# def test_can_search_with_query_builder(client: FoundryClient, monkeypatch):
+# def test_can_search_with_query_builder(client_v2: FoundryV2Client, monkeypatch):
 #     mock_search_query(monkeypatch)
 
-#     _ = client.ontologies.search_objects(
+#     _ = client_v2.ontologies.search_objects(
 #         ontology="MyOntology",
 #         object_type="MyObjectType",
 #         search_objects_request_v2=SearchObjectsRequestV2(

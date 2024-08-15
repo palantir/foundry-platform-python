@@ -17,7 +17,7 @@ from datetime import datetime
 from datetime import timezone
 from typing import Union
 
-from foundry.models import Transaction
+from foundry.v2.models import Transaction
 
 
 def validate(created_time: Union[str, datetime]):

@@ -22,14 +22,25 @@ from typing import TypedDict
 from unittest.mock import Mock
 
 import pytest
-from foundry import FoundryClient
-from foundry import UserTokenAuth
 from requests import Session
+
+from foundry import UserTokenAuth
+from foundry.v1 import FoundryV1Client
+from foundry.v2 import FoundryV2Client
 
 
 @pytest.fixture()
-def client():
-    yield FoundryClient(auth=UserTokenAuth(hostname="test.com", token="test"), hostname="test.com")
+def client_v1():
+    yield FoundryV1Client(
+        auth=UserTokenAuth(hostname="test.com", token="test"), hostname="test.com"
+    )
+
+
+@pytest.fixture()
+def client_v2():
+    yield FoundryV2Client(
+        auth=UserTokenAuth(hostname="test.com", token="test"), hostname="test.com"
+    )
 
 
 class MockRequest(TypedDict):

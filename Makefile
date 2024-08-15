@@ -1,4 +1,4 @@
-.PHONY: reset
+.PHONY: reset test
 
 spec:
 	@echo === Generating the spec ===
@@ -10,7 +10,13 @@ sdk:
 
 test:
 	@echo === Testing the SDK ===
-	@PYTHONPATH=python -m pytest test
+	@python -m pytest test
+
+format:
+	@echo
+	@echo === Formatting the Generator ===
+	@isort foundry test --profile black --multi-line NOQA -sl --project foundry
+	@python -m black foundry test
 
 lint:
 	@echo === Linting the SDK ===

@@ -13,11 +13,12 @@
 #  limitations under the License.
 
 import pytest
-from foundry.models import CreateDatasetRequest
-from foundry.models import CreateDatasetRequestDict
 from pydantic import TypeAdapter
 from pydantic import ValidationError
 from typing_extensions import assert_type
+
+from foundry.v1.models import CreateDatasetRequest
+from foundry.v1.models import CreateDatasetRequestDict
 
 validator = TypeAdapter(CreateDatasetRequestDict)
 
