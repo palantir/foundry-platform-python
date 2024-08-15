@@ -8,4 +8,4 @@ Specifies the ordering of search results by a field and an ordering direction.
 **fields** | List[SearchOrderingDict] | Yes |  |
 
 
-[[Back to Model list]](../../README.md#models-v1-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+[[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

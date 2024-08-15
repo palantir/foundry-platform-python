@@ -16,4 +16,4 @@ by the implementing object types.
 **required** | StrictBool | Yes | Whether each implementing object type must declare at least one implementation of this link.  |
 
 
-[[Back to Model list]](../../README.md#models-v1-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+[[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

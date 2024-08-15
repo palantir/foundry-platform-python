@@ -27,4 +27,5 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.poetry.scripts]
-foundry = "foundry.cli:cli"
+foundry_v1 = "foundry.v1.cli:cli"
+foundry_v2 = "foundry.v2.cli:cli"
