@@ -82,14 +82,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **204** | None  | File deleted. | None |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **get**
 Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
@@ -177,14 +177,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | File  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **list**
 Lists Files contained in a Dataset. By default files are listed on the latest view of the default 
@@ -293,14 +293,14 @@ b'Hello!'
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListFilesResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **page**
 Lists Files contained in a Dataset. By default files are listed on the latest view of the default 
@@ -395,14 +395,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListFilesResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **read**
 Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
@@ -491,14 +491,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | bytes  |  | */* |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **upload**
 Uploads a File to an existing Dataset.
@@ -587,12 +587,12 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | File  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 

@@ -50,14 +50,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Ontology  | Success response. | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **list**
 Lists the Ontologies visible to the current user.
@@ -98,12 +98,12 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListOntologiesResponse  | Success response. | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 

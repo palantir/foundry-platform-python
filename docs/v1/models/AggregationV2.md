@@ -18,4 +18,4 @@ This discriminator class uses the `type` field to differentiate between classes.
 [ApproximatePercentileAggregationV2](ApproximatePercentileAggregationV2.md) | approximatePercentile
 
 
-[[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+[[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to README]](../../../README.md)

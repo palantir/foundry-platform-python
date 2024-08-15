@@ -61,14 +61,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Group  | The created Group | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **delete**
 Deletes the given Group
@@ -117,14 +117,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **204** | None  |  | None |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **get**
 Get the Group
@@ -173,14 +173,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Group  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **get_batch**
 Execute multiple get requests on Group.
@@ -231,14 +231,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | GetGroupsBatchResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **list**
 Lists all Groups
@@ -286,14 +286,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListGroupsResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **page**
 Lists all Groups
@@ -347,14 +347,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListGroupsResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **search**
 
@@ -407,12 +407,12 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | SearchGroupsResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 

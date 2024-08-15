@@ -58,14 +58,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Branch  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **delete**
 Deletes the Branch with the given BranchId.
@@ -117,14 +117,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **204** | None  | Branch deleted. | None |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **get**
 Get a Branch of a Dataset.
@@ -176,14 +176,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Branch  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **list**
 Lists the Branches of a Dataset.
@@ -234,14 +234,14 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListBranchesResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 
 # **page**
 Lists the Branches of a Dataset.
@@ -298,12 +298,12 @@ except PalantirRPCException as e:
 
 ### Authorization
 
-See [README](../README.md#authorization)
+See [README](../../../../README.md#authorization)
 
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListBranchesResponse  |  | application/json |
 
-[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+[[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to README]](../../../../README.md)
 

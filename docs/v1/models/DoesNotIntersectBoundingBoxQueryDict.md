@@ -11,4 +11,4 @@ Returns objects where the specified field does not intersect the bounding box pr
 **type** | Literal["doesNotIntersectBoundingBox"] | Yes | None |
 
 
-[[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+[[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to README]](../../../README.md)

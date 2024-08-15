@@ -14,4 +14,4 @@ Represents an interface type in the Ontology.
 **links** | Dict[InterfaceLinkTypeApiName, InterfaceLinkType] | Yes | A map from an interface link type API name to the corresponding interface link type. The map describes the set of link types the interface has.  |
 
 
-[[Back to Model list]](../../../README.md#models-v2-link) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+[[Back to Model list]](../../../README.md#models-v2-link) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to README]](../../../README.md)
