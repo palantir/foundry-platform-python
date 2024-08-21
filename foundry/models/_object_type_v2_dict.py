@@ -22,6 +22,7 @@ from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.models._display_name import DisplayName
+from foundry.models._icon_dict import IconDict
 from foundry.models._object_type_api_name import ObjectTypeApiName
 from foundry.models._object_type_rid import ObjectTypeRid
 from foundry.models._object_type_visibility import ObjectTypeVisibility
@@ -37,12 +38,17 @@ class ObjectTypeV2Dict(TypedDict):
 
     apiName: ObjectTypeApiName
 
-    displayName: NotRequired[DisplayName]
+    displayName: DisplayName
 
     status: ReleaseStatus
 
     description: NotRequired[StrictStr]
     """The description of the object type."""
+
+    pluralDisplayName: StrictStr
+    """The plural display name of the object type."""
+
+    icon: IconDict
 
     primaryKey: PropertyApiName
 

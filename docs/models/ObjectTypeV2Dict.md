@@ -6,9 +6,11 @@ Represents an object type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | ObjectTypeApiName | Yes |  |
-**displayName** | NotRequired[DisplayName] | No |  |
+**displayName** | DisplayName | Yes |  |
 **status** | ReleaseStatus | Yes |  |
 **description** | NotRequired[StrictStr] | No | The description of the object type. |
+**pluralDisplayName** | StrictStr | Yes | The plural display name of the object type. |
+**icon** | IconDict | Yes |  |
 **primaryKey** | PropertyApiName | Yes |  |
 **properties** | Dict[PropertyApiName, PropertyV2Dict] | Yes | A map of the properties of the object type. |
 **rid** | ObjectTypeRid | Yes |  |

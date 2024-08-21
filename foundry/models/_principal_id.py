@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from foundry._core.utils import UUID
+from pydantic import StrictStr
 
-PrincipalId = UUID
+PrincipalId = StrictStr
 """The ID of a Foundry Group or User."""
