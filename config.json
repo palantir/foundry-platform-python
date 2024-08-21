@@ -1,109 +1,109 @@
 {
-    "packageName": "foundry",
-    "packageUrl": "https://github.com/palantir/foundry-platform-python",
-    "projectName": "foundry-platform-sdk",
-    "userHeader": "python-foundry-platform-sdk",
-    "description": "The official Python library for the Foundry API",
-    "extraDocsDir": "assets/docs_examples",
-    "openApiSpecPath": "tmp/api-definition.yml",
-    "exampleOperationName": "createBranch",
-    "majorVersionConfigs": {
-        "v1": {
-            "additionalRelationships": [
-                [
-                    "Datasets",
-                    "Dataset",
-                    "Branch"
-                ],
-                [
-                    "Datasets",
-                    "Dataset",
-                    "File"
-                ],
-                [
-                    "Datasets",
-                    "Dataset",
-                    "Transaction"
-                ],
-                [
-                    "Ontologies",
-                    "Ontology",
-                    "ActionType"
-                ],
-                [
-                    "Ontologies",
-                    "Ontology",
-                    "ObjectType"
-                ],
-                [
-                    "Ontologies",
-                    "Ontology",
-                    "QueryType"
-                ]
-            ],
-            "namespaces": {
-                "Datasets": true,
-                "Ontologies": [
-                    "listOntologies",
-                    "getOntology",
-                    "listActionTypes",
-                    "getActionType",
-                    "getOntologyFullMetadata",
-                    "listObjectTypes",
-                    "getObjectType",
-                    "listOutgoingLinkTypes",
-                    "getOutgoingLinkType",
-                    "listQueryTypes",
-                    "getQueryType"
-                ]
-            }
-        },
-        "v2": {
-            "additionalRelationships": [
-                [
-                    "Ontologies",
-                    "Ontology",
-                    "ActionType"
-                ],
-                [
-                    "Ontologies",
-                    "Ontology",
-                    "ObjectType"
-                ],
-                [
-                    "Ontologies",
-                    "Ontology",
-                    "QueryType"
-                ]
-            ],
-            "namespaces": {
-                "Datasets": true,
-                "Admin": true,
-                "OntologiesV2": [
-                    "listOntologiesV2",
-                    "getOntologyV2",
-                    "listActionTypesV2",
-                    "getActionTypeV2",
-                    "getOntologyFullMetadata",
-                    "listDeployments",
-                    "getDeployment",
-                    "listObjectTypesV2",
-                    "getObjectTypeV2",
-                    "listOutgoingLinkTypesV2",
-                    "getOutgoingLinkTypeV2",
-                    "listQueryTypesV2",
-                    "getQueryTypeV2"
-                ],
-                "Orchestration": true
-            },
-            "namespaceRenames": {
-                "OntologiesV2": "Ontologies"
-            },
-            "resourceRenames": {
-                "OntologyV2": "Ontology",
-                "ActionTypeV2": "ActionType",
-                "ObjectTypeV2": "ObjectType"
-            }
-        }
+  "packageName": "foundry",
+  "packageUrl": "https://github.com/palantir/foundry-platform-python",
+  "projectName": "foundry-platform-sdk",
+  "userHeader": "python-foundry-platform-sdk",
+  "description": "The official Python library for the Foundry API",
+  "extraDocsDir": "assets/docs_examples",
+  "openApiSpecPath": "tmp/api-definition.yml",
+  "exampleOperationName": "createBranch",
+  "majorVersionConfigs": {
+    "v1": {
+      "additionalRelationships": [
+        [
+          "Datasets",
+          "Dataset",
+          "Branch"
+        ],
+        [
+          "Datasets",
+          "Dataset",
+          "File"
+        ],
+        [
+          "Datasets",
+          "Dataset",
+          "Transaction"
+        ],
+        [
+          "Ontologies",
+          "Ontology",
+          "ActionType"
+        ],
+        [
+          "Ontologies",
+          "Ontology",
+          "ObjectType"
+        ],
+        [
+          "Ontologies",
+          "Ontology",
+          "QueryType"
+        ]
+      ],
+      "namespaces": {
+        "Datasets": true,
+        "Ontologies": [
+          "listOntologies",
+          "getOntology",
+          "listActionTypes",
+          "getActionType",
+          "getOntologyFullMetadata",
+          "listObjectTypes",
+          "getObjectType",
+          "listOutgoingLinkTypes",
+          "getOutgoingLinkType",
+          "listQueryTypes",
+          "getQueryType"
+        ]
+      }
+    },
+    "v2": {
+      "additionalRelationships": [
+        [
+          "Ontologies",
+          "Ontology",
+          "ActionType"
+        ],
+        [
+          "Ontologies",
+          "Ontology",
+          "ObjectType"
+        ],
+        [
+          "Ontologies",
+          "Ontology",
+          "QueryType"
+        ]
+      ],
+      "namespaces": {
+        "Datasets": true,
+        "Admin": true,
+        "OntologiesV2": [
+          "listOntologiesV2",
+          "getOntologyV2",
+          "listActionTypesV2",
+          "getActionTypeV2",
+          "getOntologyFullMetadata",
+          "listDeployments",
+          "getDeployment",
+          "listObjectTypesV2",
+          "getObjectTypeV2",
+          "listOutgoingLinkTypesV2",
+          "getOutgoingLinkTypeV2",
+          "listQueryTypesV2",
+          "getQueryTypeV2"
+        ],
+        "Orchestration": true
+      },
+      "namespaceRenames": {
+        "OntologiesV2": "Ontologies"
+      },
+      "resourceRenames": {
+        "OntologyV2": "Ontology",
+        "ActionTypeV2": "ActionType",
+        "ObjectTypeV2": "ObjectType"
+      }
     }
+  }
 }
