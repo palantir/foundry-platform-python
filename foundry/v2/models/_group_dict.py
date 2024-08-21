@@ -38,12 +38,15 @@ class GroupDict(TypedDict):
     id: PrincipalId
 
     name: GroupName
+    """The name of the Group."""
 
     description: NotRequired[StrictStr]
+    """A description of the Group."""
 
     realm: Realm
 
     organizations: List[OrganizationRid]
+    """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
 
     attributes: Dict[AttributeName, AttributeValues]
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""

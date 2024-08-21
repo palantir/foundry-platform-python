@@ -31,8 +31,10 @@ class Website(BaseModel):
     """Website"""
 
     deployed_version: Optional[VersionVersion] = Field(alias="deployedVersion", default=None)
+    """The version of the Website that is currently deployed."""
 
     subdomains: List[Subdomain]
+    """The subdomains from which the Website is currently served."""
 
     model_config = {"extra": "allow"}
 

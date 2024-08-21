@@ -18,4 +18,4 @@ from __future__ import annotations
 from pydantic import StrictStr
 
 VersionVersion = StrictStr
-"""VersionVersion"""
+"""The semantic version of the Website."""

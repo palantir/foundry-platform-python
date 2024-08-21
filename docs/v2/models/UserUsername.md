@@ -1,6 +1,6 @@
 # UserUsername
 
-UserUsername
+The Foundry username of the User. This is unique within the realm.
 
 ## Type
 ```python

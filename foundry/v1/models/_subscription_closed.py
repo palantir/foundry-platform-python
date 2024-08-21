@@ -20,8 +20,8 @@ from typing import cast
 
 from pydantic import BaseModel
 
-from foundry.v1.models._error import Error
 from foundry.v1.models._subscription_closed_dict import SubscriptionClosedDict
+from foundry.v1.models._subscription_closure_cause import SubscriptionClosureCause
 from foundry.v1.models._subscription_id import SubscriptionId
 
 
@@ -30,7 +30,7 @@ class SubscriptionClosed(BaseModel):
 
     id: SubscriptionId
 
-    error: Error
+    cause: SubscriptionClosureCause
 
     type: Literal["subscriptionClosed"]
 

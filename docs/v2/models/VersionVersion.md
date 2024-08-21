@@ -1,6 +1,6 @@
 # VersionVersion
 
-VersionVersion
+The semantic version of the Website.
 
 ## Type
 ```python

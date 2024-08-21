@@ -15,14 +15,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
-
 from foundry.v2.models._duration_dict import DurationDict
 
-
-class RetryBackoffDurationDict(TypedDict):
-    """The duration to wait between job retries. Defaults to 0."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    duration: DurationDict
+RetryBackoffDurationDict = DurationDict
+"""The duration to wait before retrying after a Job fails."""

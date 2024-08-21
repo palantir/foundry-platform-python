@@ -19,7 +19,9 @@ from typing import Literal
 from typing import cast
 
 from pydantic import BaseModel
+from pydantic import Field
 
+from foundry.v1.models._object_type_api_name import ObjectTypeApiName
 from foundry.v1.models._refresh_object_set_dict import RefreshObjectSetDict
 from foundry.v1.models._subscription_id import SubscriptionId
 
@@ -28,6 +30,8 @@ class RefreshObjectSet(BaseModel):
     """The list of updated Foundry Objects cannot be provided. The object set must be refreshed using Object Set Service."""
 
     id: SubscriptionId
+
+    object_type: ObjectTypeApiName = Field(alias="objectType")
 
     type: Literal["refreshObjectSet"]
 

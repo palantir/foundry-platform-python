@@ -1,6 +1,6 @@
 # GroupName
 
-GroupName
+The name of the Group.
 
 ## Type
 ```python

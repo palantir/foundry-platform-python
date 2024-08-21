@@ -7,6 +7,7 @@ The list of updated Foundry Objects cannot be provided. The object set must be r
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **id** | SubscriptionId | Yes |  |
+**objectType** | ObjectTypeApiName | Yes |  |
 **type** | Literal["refreshObjectSet"] | Yes | None |
 
 

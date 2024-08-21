@@ -107,7 +107,7 @@ class DatasetResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Dataset:
         """
-        Get the Dataset
+        Get the Dataset with the specified rid.
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
         :param preview: preview

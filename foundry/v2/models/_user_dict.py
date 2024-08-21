@@ -37,10 +37,13 @@ class UserDict(TypedDict):
     id: PrincipalId
 
     username: UserUsername
+    """The Foundry username of the User. This is unique within the realm."""
 
     givenName: NotRequired[StrictStr]
+    """The given name of the User."""
 
     familyName: NotRequired[StrictStr]
+    """The family name (last name) of the User."""
 
     email: NotRequired[StrictStr]
     """The email at which to contact a User. Multiple users may have the same email address."""
@@ -48,6 +51,7 @@ class UserDict(TypedDict):
     realm: Realm
 
     organization: NotRequired[OrganizationRid]
+    """The RID of the user's primary Organization. This will be blank for third-party application service users."""
 
     attributes: Dict[AttributeName, AttributeValues]
     """

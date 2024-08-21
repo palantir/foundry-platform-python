@@ -34,10 +34,13 @@ class CreateGroupRequestDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     name: GroupName
+    """The name of the Group."""
 
     organizations: List[OrganizationRid]
+    """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
 
     description: NotRequired[StrictStr]
+    """A description of the Group."""
 
     attributes: Dict[AttributeName, AttributeValues]
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""

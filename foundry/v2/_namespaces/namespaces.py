@@ -20,6 +20,7 @@ from foundry.v2._namespaces.admin.group import GroupResource
 from foundry.v2._namespaces.admin.user import UserResource
 from foundry.v2._namespaces.datasets.dataset import DatasetResource
 from foundry.v2._namespaces.ontologies.ontology import OntologyResource
+from foundry.v2._namespaces.orchestration.build import BuildResource
 from foundry.v2._namespaces.orchestration.schedule import ScheduleResource
 
 
@@ -41,4 +42,5 @@ class Ontologies:
 
 class Orchestration:
     def __init__(self, api_client: ApiClient):
+        self.Build = BuildResource(api_client=api_client)
         self.Schedule = ScheduleResource(api_client=api_client)

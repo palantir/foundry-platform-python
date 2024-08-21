@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from typing import List
+from typing import Literal
 from typing import cast
 
 from pydantic import BaseModel
@@ -31,6 +32,8 @@ class Error(BaseModel):
     error: ErrorName
 
     args: List[Arg]
+
+    type: Literal["error"]
 
     model_config = {"extra": "allow"}
 

@@ -46,7 +46,7 @@ class ScheduleResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> Schedule:
         """
-        Get the Schedule
+        Get the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
         :type schedule_rid: ScheduleRid
         :param preview: preview

@@ -15,21 +15,7 @@
 
 from __future__ import annotations
 
-from typing import cast
-
-from pydantic import BaseModel
-
 from foundry.v2.models._duration import Duration
-from foundry.v2.models._retry_backoff_duration_dict import RetryBackoffDurationDict
 
-
-class RetryBackoffDuration(BaseModel):
-    """The duration to wait between job retries. Defaults to 0."""
-
-    duration: Duration
-
-    model_config = {"extra": "allow"}
-
-    def to_dict(self) -> RetryBackoffDurationDict:
-        """Return the dictionary representation of the model using the field aliases."""
-        return cast(RetryBackoffDurationDict, self.model_dump(by_alias=True, exclude_unset=True))
+RetryBackoffDuration = Duration
+"""The duration to wait before retrying after a Job fails."""

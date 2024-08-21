@@ -12,7 +12,7 @@ Method | HTTP request |
 [**search**](#search) | **POST** /v2/admin/users/search |
 
 # **delete**
-Deletes the given User
+Delete the User with the specified id.
 
 ### Parameters
 
@@ -68,7 +68,7 @@ See [README](../../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **get**
-Get the User
+Get the User with the specified id.
 
 ### Parameters
 
@@ -233,7 +233,9 @@ See [README](../../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **list**
-Lists all Users
+Lists all Users.
+
+This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
 
 ### Parameters
 
@@ -288,7 +290,9 @@ See [README](../../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **page**
-Lists all Users
+Lists all Users.
+
+This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
 
 ### Parameters
 
@@ -400,7 +404,7 @@ See [README](../../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | bytes  |  | application/octet-stream |
+**200** | bytes  | The user's profile picture in binary format. The format is the original format uploaded by the user.  The response will contain a `Content-Type` header that can be used to identify the media type.  | application/octet-stream |
 
 [[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 

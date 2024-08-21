@@ -27,6 +27,7 @@ class Version(BaseModel):
     """Version"""
 
     version: VersionVersion
+    """The semantic version of the Website."""
 
     model_config = {"extra": "allow"}
 

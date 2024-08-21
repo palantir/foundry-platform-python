@@ -359,6 +359,7 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | QueryType | [**get**](docs/v2/namespaces/Ontologies/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
 **Ontologies** | QueryType | [**list**](docs/v2/namespaces/Ontologies/QueryType.md#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
 **Ontologies** | QueryType | [**page**](docs/v2/namespaces/Ontologies/QueryType.md#page) | **GET** /v2/ontologies/{ontology}/queryTypes |
+**Orchestration** | Build | [**get**](docs/v2/namespaces/Orchestration/Build.md#get) | **GET** /v2/orchestration/builds/{buildRid} |
 **Orchestration** | Schedule | [**get**](docs/v2/namespaces/Orchestration/Schedule.md#get) | **GET** /v2/orchestration/schedules/{scheduleRid} |
 <a id="apis-v1-link"></a>
 ## Documentation for V1 API endpoints
@@ -582,6 +583,9 @@ Namespace | Resource | Operation | HTTP request |
 - [BranchDict](docs/v2/models/BranchDict.md)
 - [BranchId](docs/v2/models/BranchId.md)
 - [BranchName](docs/v2/models/BranchName.md)
+- [Build](docs/v2/models/Build.md)
+- [BuildDict](docs/v2/models/BuildDict.md)
+- [BuildRid](docs/v2/models/BuildRid.md)
 - [BuildStatus](docs/v2/models/BuildStatus.md)
 - [BuildTarget](docs/v2/models/BuildTarget.md)
 - [BuildTargetDict](docs/v2/models/BuildTargetDict.md)
@@ -1062,6 +1066,7 @@ Namespace | Resource | Operation | HTTP request |
 - [QueryOutputV2Dict](docs/v2/models/QueryOutputV2Dict.md)
 - [QueryParameterV2](docs/v2/models/QueryParameterV2.md)
 - [QueryParameterV2Dict](docs/v2/models/QueryParameterV2Dict.md)
+- [QueryRuntimeErrorParameter](docs/v2/models/QueryRuntimeErrorParameter.md)
 - [QuerySetType](docs/v2/models/QuerySetType.md)
 - [QuerySetTypeDict](docs/v2/models/QuerySetTypeDict.md)
 - [QueryStructField](docs/v2/models/QueryStructField.md)
@@ -1081,6 +1086,9 @@ Namespace | Resource | Operation | HTTP request |
 - [RangeConstraint](docs/v2/models/RangeConstraint.md)
 - [RangeConstraintDict](docs/v2/models/RangeConstraintDict.md)
 - [Realm](docs/v2/models/Realm.md)
+- [Reason](docs/v2/models/Reason.md)
+- [ReasonDict](docs/v2/models/ReasonDict.md)
+- [ReasonType](docs/v2/models/ReasonType.md)
 - [ReferenceUpdate](docs/v2/models/ReferenceUpdate.md)
 - [ReferenceUpdateDict](docs/v2/models/ReferenceUpdateDict.md)
 - [ReferenceValue](docs/v2/models/ReferenceValue.md)
@@ -1172,6 +1180,8 @@ Namespace | Resource | Operation | HTTP request |
 - [SubmissionCriteriaEvaluationDict](docs/v2/models/SubmissionCriteriaEvaluationDict.md)
 - [SubscriptionClosed](docs/v2/models/SubscriptionClosed.md)
 - [SubscriptionClosedDict](docs/v2/models/SubscriptionClosedDict.md)
+- [SubscriptionClosureCause](docs/v2/models/SubscriptionClosureCause.md)
+- [SubscriptionClosureCauseDict](docs/v2/models/SubscriptionClosureCauseDict.md)
 - [SubscriptionError](docs/v2/models/SubscriptionError.md)
 - [SubscriptionErrorDict](docs/v2/models/SubscriptionErrorDict.md)
 - [SubscriptionId](docs/v2/models/SubscriptionId.md)
@@ -1830,6 +1840,7 @@ Namespace | Resource | Operation | HTTP request |
 - [QueryOutputV2Dict](docs/v1/models/QueryOutputV2Dict.md)
 - [QueryParameterV2](docs/v1/models/QueryParameterV2.md)
 - [QueryParameterV2Dict](docs/v1/models/QueryParameterV2Dict.md)
+- [QueryRuntimeErrorParameter](docs/v1/models/QueryRuntimeErrorParameter.md)
 - [QuerySetType](docs/v1/models/QuerySetType.md)
 - [QuerySetTypeDict](docs/v1/models/QuerySetTypeDict.md)
 - [QueryStructField](docs/v1/models/QueryStructField.md)
@@ -1848,6 +1859,9 @@ Namespace | Resource | Operation | HTTP request |
 - [QueryUnionTypeDict](docs/v1/models/QueryUnionTypeDict.md)
 - [RangeConstraint](docs/v1/models/RangeConstraint.md)
 - [RangeConstraintDict](docs/v1/models/RangeConstraintDict.md)
+- [Reason](docs/v1/models/Reason.md)
+- [ReasonDict](docs/v1/models/ReasonDict.md)
+- [ReasonType](docs/v1/models/ReasonType.md)
 - [ReferenceUpdate](docs/v1/models/ReferenceUpdate.md)
 - [ReferenceUpdateDict](docs/v1/models/ReferenceUpdateDict.md)
 - [ReferenceValue](docs/v1/models/ReferenceValue.md)
@@ -1914,6 +1928,8 @@ Namespace | Resource | Operation | HTTP request |
 - [SubmissionCriteriaEvaluationDict](docs/v1/models/SubmissionCriteriaEvaluationDict.md)
 - [SubscriptionClosed](docs/v1/models/SubscriptionClosed.md)
 - [SubscriptionClosedDict](docs/v1/models/SubscriptionClosedDict.md)
+- [SubscriptionClosureCause](docs/v1/models/SubscriptionClosureCause.md)
+- [SubscriptionClosureCauseDict](docs/v1/models/SubscriptionClosureCauseDict.md)
 - [SubscriptionError](docs/v1/models/SubscriptionError.md)
 - [SubscriptionErrorDict](docs/v1/models/SubscriptionErrorDict.md)
 - [SubscriptionId](docs/v1/models/SubscriptionId.md)

@@ -255,6 +255,9 @@ from foundry.v2.models._branch import Branch
 from foundry.v2.models._branch_dict import BranchDict
 from foundry.v2.models._branch_id import BranchId
 from foundry.v2.models._branch_name import BranchName
+from foundry.v2.models._build import Build
+from foundry.v2.models._build_dict import BuildDict
+from foundry.v2.models._build_rid import BuildRid
 from foundry.v2.models._build_status import BuildStatus
 from foundry.v2.models._build_target import BuildTarget
 from foundry.v2.models._build_target_dict import BuildTargetDict
@@ -825,6 +828,7 @@ from foundry.v2.models._query_output_v2 import QueryOutputV2
 from foundry.v2.models._query_output_v2_dict import QueryOutputV2Dict
 from foundry.v2.models._query_parameter_v2 import QueryParameterV2
 from foundry.v2.models._query_parameter_v2_dict import QueryParameterV2Dict
+from foundry.v2.models._query_runtime_error_parameter import QueryRuntimeErrorParameter
 from foundry.v2.models._query_three_dimensional_aggregation import (
     QueryThreeDimensionalAggregation,
 )  # NOQA
@@ -844,6 +848,9 @@ from foundry.v2.models._query_type_v2_dict import QueryTypeV2Dict
 from foundry.v2.models._range_constraint import RangeConstraint
 from foundry.v2.models._range_constraint_dict import RangeConstraintDict
 from foundry.v2.models._realm import Realm
+from foundry.v2.models._reason import Reason
+from foundry.v2.models._reason_dict import ReasonDict
+from foundry.v2.models._reason_type import ReasonType
 from foundry.v2.models._reference_update import ReferenceUpdate
 from foundry.v2.models._reference_update_dict import ReferenceUpdateDict
 from foundry.v2.models._reference_value import ReferenceValue
@@ -965,6 +972,8 @@ from foundry.v2.models._submission_criteria_evaluation_dict import (
 )  # NOQA
 from foundry.v2.models._subscription_closed import SubscriptionClosed
 from foundry.v2.models._subscription_closed_dict import SubscriptionClosedDict
+from foundry.v2.models._subscription_closure_cause import SubscriptionClosureCause
+from foundry.v2.models._subscription_closure_cause_dict import SubscriptionClosureCauseDict  # NOQA
 from foundry.v2.models._subscription_error import SubscriptionError
 from foundry.v2.models._subscription_error_dict import SubscriptionErrorDict
 from foundry.v2.models._subscription_id import SubscriptionId
@@ -1232,6 +1241,9 @@ __all__ = [
     "BranchDict",
     "BranchId",
     "BranchName",
+    "Build",
+    "BuildDict",
+    "BuildRid",
     "BuildStatus",
     "BuildTarget",
     "BuildTargetDict",
@@ -1712,6 +1724,7 @@ __all__ = [
     "QueryOutputV2Dict",
     "QueryParameterV2",
     "QueryParameterV2Dict",
+    "QueryRuntimeErrorParameter",
     "QuerySetType",
     "QuerySetTypeDict",
     "QueryStructField",
@@ -1731,6 +1744,9 @@ __all__ = [
     "RangeConstraint",
     "RangeConstraintDict",
     "Realm",
+    "Reason",
+    "ReasonDict",
+    "ReasonType",
     "ReferenceUpdate",
     "ReferenceUpdateDict",
     "ReferenceValue",
@@ -1822,6 +1838,8 @@ __all__ = [
     "SubmissionCriteriaEvaluationDict",
     "SubscriptionClosed",
     "SubscriptionClosedDict",
+    "SubscriptionClosureCause",
+    "SubscriptionClosureCauseDict",
     "SubscriptionError",
     "SubscriptionErrorDict",
     "SubscriptionId",

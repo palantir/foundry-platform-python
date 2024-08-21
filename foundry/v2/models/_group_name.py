@@ -18,4 +18,4 @@ from __future__ import annotations
 from pydantic import StrictStr
 
 GroupName = StrictStr
-"""GroupName"""
+"""The name of the Group."""

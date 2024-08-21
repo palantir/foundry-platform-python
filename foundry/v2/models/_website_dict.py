@@ -30,5 +30,7 @@ class WebsiteDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     deployedVersion: NotRequired[VersionVersion]
+    """The version of the Website that is currently deployed."""
 
     subdomains: List[Subdomain]
+    """The subdomains from which the Website is currently served."""

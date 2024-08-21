@@ -63,7 +63,7 @@ class UserResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> None:
         """
-        Deletes the given User
+        Delete the User with the specified id.
         :param user_id: userId
         :type user_id: PrincipalId
         :param preview: preview
@@ -106,7 +106,7 @@ class UserResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> User:
         """
-        Get the User
+        Get the User with the specified id.
         :param user_id: userId
         :type user_id: PrincipalId
         :param preview: preview
@@ -240,7 +240,9 @@ class UserResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> ResourceIterator[User]:
         """
-        Lists all Users
+        Lists all Users.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
         :param preview: preview
@@ -286,7 +288,9 @@ class UserResource:
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> ListUsersResponse:
         """
-        Lists all Users
+        Lists all Users.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
         :param page_token: pageToken

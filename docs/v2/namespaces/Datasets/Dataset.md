@@ -64,7 +64,7 @@ See [README](../../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to README]](../../../../README.md)
 
 # **get**
-Get the Dataset
+Get the Dataset with the specified rid.
 
 ### Parameters
 

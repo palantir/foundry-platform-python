@@ -742,6 +742,7 @@ from foundry.v1.models._query_output_v2 import QueryOutputV2
 from foundry.v1.models._query_output_v2_dict import QueryOutputV2Dict
 from foundry.v1.models._query_parameter_v2 import QueryParameterV2
 from foundry.v1.models._query_parameter_v2_dict import QueryParameterV2Dict
+from foundry.v1.models._query_runtime_error_parameter import QueryRuntimeErrorParameter
 from foundry.v1.models._query_three_dimensional_aggregation import (
     QueryThreeDimensionalAggregation,
 )  # NOQA
@@ -760,6 +761,9 @@ from foundry.v1.models._query_type_v2 import QueryTypeV2
 from foundry.v1.models._query_type_v2_dict import QueryTypeV2Dict
 from foundry.v1.models._range_constraint import RangeConstraint
 from foundry.v1.models._range_constraint_dict import RangeConstraintDict
+from foundry.v1.models._reason import Reason
+from foundry.v1.models._reason_dict import ReasonDict
+from foundry.v1.models._reason_type import ReasonType
 from foundry.v1.models._reference_update import ReferenceUpdate
 from foundry.v1.models._reference_update_dict import ReferenceUpdateDict
 from foundry.v1.models._reference_value import ReferenceValue
@@ -854,6 +858,8 @@ from foundry.v1.models._submission_criteria_evaluation_dict import (
 )  # NOQA
 from foundry.v1.models._subscription_closed import SubscriptionClosed
 from foundry.v1.models._subscription_closed_dict import SubscriptionClosedDict
+from foundry.v1.models._subscription_closure_cause import SubscriptionClosureCause
+from foundry.v1.models._subscription_closure_cause_dict import SubscriptionClosureCauseDict  # NOQA
 from foundry.v1.models._subscription_error import SubscriptionError
 from foundry.v1.models._subscription_error_dict import SubscriptionErrorDict
 from foundry.v1.models._subscription_id import SubscriptionId
@@ -1492,6 +1498,7 @@ __all__ = [
     "QueryOutputV2Dict",
     "QueryParameterV2",
     "QueryParameterV2Dict",
+    "QueryRuntimeErrorParameter",
     "QuerySetType",
     "QuerySetTypeDict",
     "QueryStructField",
@@ -1510,6 +1517,9 @@ __all__ = [
     "QueryUnionTypeDict",
     "RangeConstraint",
     "RangeConstraintDict",
+    "Reason",
+    "ReasonDict",
+    "ReasonType",
     "ReferenceUpdate",
     "ReferenceUpdateDict",
     "ReferenceValue",
@@ -1576,6 +1586,8 @@ __all__ = [
     "SubmissionCriteriaEvaluationDict",
     "SubscriptionClosed",
     "SubscriptionClosedDict",
+    "SubscriptionClosureCause",
+    "SubscriptionClosureCauseDict",
     "SubscriptionError",
     "SubscriptionErrorDict",
     "SubscriptionId",

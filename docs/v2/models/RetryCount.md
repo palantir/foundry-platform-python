@@ -1,6 +1,9 @@
 # RetryCount
 
-The number of run attempts for failed jobs.
+The number of retry attempts for failed Jobs within the Build. A Job's failure is not considered final until
+all retries have been attempted or an error occurs indicating that retries cannot be performed. Be aware,
+not all types of failures can be retried.
+
 
 ## Type
 ```python

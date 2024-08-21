@@ -34,10 +34,13 @@ class CreateGroupRequest(BaseModel):
     """CreateGroupRequest"""
 
     name: GroupName
+    """The name of the Group."""
 
     organizations: List[OrganizationRid]
+    """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
 
     description: Optional[StrictStr] = None
+    """A description of the Group."""
 
     attributes: Dict[AttributeName, AttributeValues]
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""

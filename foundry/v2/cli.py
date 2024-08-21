@@ -74,7 +74,7 @@ def admin_user_delete(
     preview: Optional[bool],
 ):
     """
-    Deletes the given User
+    Delete the User with the specified id.
     """
     result = client.admin.User.delete(
         user_id=user_id,
@@ -93,7 +93,7 @@ def admin_user_get(
     preview: Optional[bool],
 ):
     """
-    Get the User
+    Get the User with the specified id.
     """
     result = client.admin.User.get(
         user_id=user_id,
@@ -147,7 +147,9 @@ def admin_user_list(
     preview: Optional[bool],
 ):
     """
-    Lists all Users
+    Lists all Users.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.User.list(
         page_size=page_size,
@@ -168,7 +170,9 @@ def admin_user_page(
     preview: Optional[bool],
 ):
     """
-    Lists all Users
+    Lists all Users.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.User.page(
         page_size=page_size,
@@ -241,7 +245,9 @@ def admin_user_group_membership_list(
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMemberships
+    Lists all GroupMemberships.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.User.GroupMembership.list(
         user_id=user_id,
@@ -268,7 +274,9 @@ def admin_user_group_membership_page(
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMemberships
+    Lists all GroupMemberships.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.User.GroupMembership.page(
         user_id=user_id,
@@ -286,9 +294,15 @@ def admin_group():
 
 
 @admin_group.command("create")
-@click.option("--name", type=str, required=True, help="""""")
-@click.option("--organizations", type=str, required=True, help="""""")
-@click.option("--description", type=str, required=False, help="""""")
+@click.option("--name", type=str, required=True, help="""The name of the Group.""")
+@click.option(
+    "--organizations",
+    type=str,
+    required=True,
+    help="""The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
+""",
+)
+@click.option("--description", type=str, required=False, help="""A description of the Group.""")
 @click.option(
     "--attributes",
     type=str,
@@ -306,7 +320,7 @@ def admin_group_create(
     preview: Optional[bool],
 ):
     """
-    Creates a new Group
+    Creates a new Group.
     """
     result = client.admin.Group.create(
         create_group_request=foundry.v2.models.CreateGroupRequest.model_validate(
@@ -332,7 +346,7 @@ def admin_group_delete(
     preview: Optional[bool],
 ):
     """
-    Deletes the given Group
+    Delete the Group with the specified id.
     """
     result = client.admin.Group.delete(
         group_id=group_id,
@@ -351,7 +365,7 @@ def admin_group_get(
     preview: Optional[bool],
 ):
     """
-    Get the Group
+    Get the Group with the specified id.
     """
     result = client.admin.Group.get(
         group_id=group_id,
@@ -391,7 +405,9 @@ def admin_group_list(
     preview: Optional[bool],
 ):
     """
-    Lists all Groups
+    Lists all Groups.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.Group.list(
         page_size=page_size,
@@ -412,7 +428,9 @@ def admin_group_page(
     preview: Optional[bool],
 ):
     """
-    Lists all Groups
+    Lists all Groups.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.Group.page(
         page_size=page_size,
@@ -495,7 +513,9 @@ def admin_group_group_member_list(
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMembers
+    Lists all GroupMembers.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.Group.GroupMember.list(
         group_id=group_id,
@@ -522,7 +542,9 @@ def admin_group_group_member_page(
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMembers
+    Lists all GroupMembers.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.Group.GroupMember.page(
         group_id=group_id,
@@ -605,7 +627,7 @@ def datasets_dataset_get(
     preview: Optional[bool],
 ):
     """
-    Get the Dataset
+    Get the Dataset with the specified rid.
     """
     result = client.datasets.Dataset.get(
         dataset_rid=dataset_rid,
@@ -1590,10 +1612,34 @@ def orchestration_schedule_get(
     preview: Optional[bool],
 ):
     """
-    Get the Schedule
+    Get the Schedule with the specified rid.
     """
     result = client.orchestration.Schedule.get(
         schedule_rid=schedule_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration.group("build")
+def orchestration_build():
+    pass
+
+
+@orchestration_build.command("get")
+@click.argument("build_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_build_get(
+    client: foundry.v2.FoundryV2Client,
+    build_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Build with the specified rid.
+    """
+    result = client.orchestration.Build.get(
+        build_rid=build_rid,
         preview=preview,
     )
     click.echo(repr(result))

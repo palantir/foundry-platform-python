@@ -5,7 +5,7 @@ Method | HTTP request |
 [**get**](#get) | **GET** /v2/orchestration/schedules/{scheduleRid} |
 
 # **get**
-Get the Schedule
+Get the Schedule with the specified rid.
 
 ### Parameters
 

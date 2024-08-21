@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from typing import List
+from typing import Literal
 
 from typing_extensions import TypedDict
 
@@ -31,3 +32,5 @@ class ErrorDict(TypedDict):
     error: ErrorName
 
     args: List[ArgDict]
+
+    type: Literal["error"]

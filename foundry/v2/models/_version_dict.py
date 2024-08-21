@@ -26,3 +26,4 @@ class VersionDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     version: VersionVersion
+    """The semantic version of the Website."""

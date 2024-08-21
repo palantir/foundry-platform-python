@@ -19,7 +19,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry.v2.models._error_dict import ErrorDict
+from foundry.v2.models._subscription_closure_cause_dict import SubscriptionClosureCauseDict  # NOQA
 from foundry.v2.models._subscription_id import SubscriptionId
 
 
@@ -30,6 +30,6 @@ class SubscriptionClosedDict(TypedDict):
 
     id: SubscriptionId
 
-    error: ErrorDict
+    cause: SubscriptionClosureCauseDict
 
     type: Literal["subscriptionClosed"]

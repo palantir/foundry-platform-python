@@ -19,6 +19,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
+from foundry.v2.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.models._subscription_id import SubscriptionId
 
 
@@ -28,5 +29,7 @@ class RefreshObjectSetDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     id: SubscriptionId
+
+    objectType: ObjectTypeApiName
 
     type: Literal["refreshObjectSet"]
