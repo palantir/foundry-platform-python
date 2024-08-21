@@ -40,12 +40,15 @@ def mock_list_ontologies(monkeypatch: Any):
                         "data": [
                             {
                                 "rid": "ri.a.b.c.d",
+                                "displayName": "TEST",
+                                "pluralDisplayName": "TEST",
                                 "apiName": "API",
                                 "status": "ACTIVE",
                                 "primaryKey": "123",
                                 "primaryKey": "abc",
                                 "titleProperty": "abc",
                                 "properties": {},
+                                "icon": {"type": "blueprint", "name": "test", "color": "test"},
                             }
                         ],
                     },

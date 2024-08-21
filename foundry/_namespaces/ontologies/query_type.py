@@ -52,7 +52,7 @@ class QueryTypeResource:
         """
         Gets a specific query type with the given API name.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -104,7 +104,7 @@ class QueryTypeResource:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -156,7 +156,7 @@ class QueryTypeResource:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier

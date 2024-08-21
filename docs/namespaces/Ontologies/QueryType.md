@@ -9,7 +9,7 @@ Method | HTTP request |
 # **get**
 Gets a specific query type with the given API name.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -71,7 +71,7 @@ Lists the query types for the given Ontology.
 Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
 results available, at least one result will be present in the response.        
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -132,7 +132,7 @@ Lists the query types for the given Ontology.
 Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
 results available, at least one result will be present in the response.        
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters

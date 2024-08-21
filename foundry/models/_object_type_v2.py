@@ -24,6 +24,7 @@ from pydantic import Field
 from pydantic import StrictStr
 
 from foundry.models._display_name import DisplayName
+from foundry.models._icon import Icon
 from foundry.models._object_type_api_name import ObjectTypeApiName
 from foundry.models._object_type_rid import ObjectTypeRid
 from foundry.models._object_type_v2_dict import ObjectTypeV2Dict
@@ -38,12 +39,17 @@ class ObjectTypeV2(BaseModel):
 
     api_name: ObjectTypeApiName = Field(alias="apiName")
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+    display_name: DisplayName = Field(alias="displayName")
 
     status: ReleaseStatus
 
     description: Optional[StrictStr] = None
     """The description of the object type."""
+
+    plural_display_name: StrictStr = Field(alias="pluralDisplayName")
+    """The plural display name of the object type."""
+
+    icon: Icon
 
     primary_key: PropertyApiName = Field(alias="primaryKey")
 

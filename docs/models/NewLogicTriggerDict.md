@@ -1,0 +1,15 @@
+# NewLogicTriggerDict
+
+Trigger whenever a new JobSpec is put on the dataset and on
+that branch.
+
+
+## Properties
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
+**branchName** | BranchName | Yes |  |
+**datasetRid** | DatasetRid | Yes |  |
+**type** | Literal["newLogic"] | Yes | None |
+
+
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

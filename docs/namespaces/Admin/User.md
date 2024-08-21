@@ -4,6 +4,7 @@ Method | HTTP request |
 ------------- | ------------- |
 [**delete**](#delete) | **DELETE** /v2/admin/users/{userId} |
 [**get**](#get) | **GET** /v2/admin/users/{userId} |
+[**get_batch**](#get_batch) | **POST** /v2/admin/users/getBatch |
 [**get_current**](#get_current) | **GET** /v2/admin/users/getCurrent |
 [**list**](#list) | **GET** /v2/admin/users |
 [**page**](#page) | **GET** /v2/admin/users |
@@ -119,6 +120,64 @@ See [README](../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | User  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
+
+# **get_batch**
+Execute multiple get requests on User.
+
+The maximum batch size for this endpoint is 500.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | Union[List[GetUsersBatchRequestElement], List[GetUsersBatchRequestElementDict]] | Body of the request |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**GetUsersBatchResponse**
+
+### Example
+
+```python
+from foundry import FoundryClient
+from foundry import PalantirRPCException
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# Union[List[GetUsersBatchRequestElement], List[GetUsersBatchRequestElementDict]] | Body of the request
+body = {"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
+
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.User.get_batch(
+        body,
+        preview=preview,
+    )
+    print("The get_batch response:\n")
+    pprint(api_response)
+except PalantirRPCException as e:
+    print("HTTP error when calling User.get_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetUsersBatchResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -370,7 +429,11 @@ foundry_client = FoundryClient(
 )
 
 # Union[SearchUsersRequest, SearchUsersRequestDict] | Body of the request
-search_users_request = None
+search_users_request = {
+    "pageSize": 100,
+    "where": {"type": "queryString"},
+    "pageToken": "v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv",
+}
 
 # Optional[PreviewMode] | preview
 preview = None

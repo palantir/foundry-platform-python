@@ -66,7 +66,7 @@ def admin_user():
 
 @admin_user.command("delete")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_delete(
     client: foundry.FoundryClient,
@@ -85,7 +85,7 @@ def admin_user_delete(
 
 @admin_user.command("get")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_get(
     client: foundry.FoundryClient,
@@ -102,8 +102,29 @@ def admin_user_get(
     click.echo(repr(result))
 
 
+@admin_user.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_user_get_batch(
+    client: foundry.FoundryClient,
+    body: str,
+    preview: Optional[bool],
+):
+    """
+    Execute multiple get requests on User.
+
+    The maximum batch size for this endpoint is 500.
+    """
+    result = client.admin.User.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_user.command("get_current")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_get_current(
     client: foundry.FoundryClient,
@@ -117,8 +138,8 @@ def admin_user_get_current(
 
 
 @admin_user.command("list")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_list(
     client: foundry.FoundryClient,
@@ -136,9 +157,9 @@ def admin_user_list(
 
 
 @admin_user.command("page")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_page(
     client: foundry.FoundryClient,
@@ -159,7 +180,7 @@ def admin_user_page(
 
 @admin_user.command("profile_picture")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_profile_picture(
     client: foundry.FoundryClient,
@@ -175,10 +196,10 @@ def admin_user_profile_picture(
 
 
 @admin_user.command("search")
-@click.option("--where", type=str, required=True, help="Body of the request")
-@click.option("--page_size", type=int, required=False, help="Body of the request")
-@click.option("--page_token", type=str, required=False, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--where", type=str, required=True, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_search(
     client: foundry.FoundryClient,
@@ -208,9 +229,9 @@ def admin_user_group_membership():
 
 @admin_user_group_membership.command("list")
 @click.argument("user_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_user_group_membership_list(
     client: foundry.FoundryClient,
@@ -233,10 +254,10 @@ def admin_user_group_membership_list(
 
 @admin_user_group_membership.command("page")
 @click.argument("user_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_user_group_membership_page(
     client: foundry.FoundryClient,
@@ -265,11 +286,16 @@ def admin_group():
 
 
 @admin_group.command("create")
-@click.option("--name", type=str, required=True, help="Body of the request")
-@click.option("--organizations", type=str, required=True, help="Body of the request")
-@click.option("--description", type=str, required=False, help="Body of the request")
-@click.option("--attributes", type=str, required=True, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--organizations", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option(
+    "--attributes",
+    type=str,
+    required=True,
+    help="""A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_create(
     client: foundry.FoundryClient,
@@ -298,7 +324,7 @@ def admin_group_create(
 
 @admin_group.command("delete")
 @click.argument("group_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_delete(
     client: foundry.FoundryClient,
@@ -317,7 +343,7 @@ def admin_group_delete(
 
 @admin_group.command("get")
 @click.argument("group_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_get(
     client: foundry.FoundryClient,
@@ -334,9 +360,30 @@ def admin_group_get(
     click.echo(repr(result))
 
 
+@admin_group.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_group_get_batch(
+    client: foundry.FoundryClient,
+    body: str,
+    preview: Optional[bool],
+):
+    """
+    Execute multiple get requests on Group.
+
+    The maximum batch size for this endpoint is 500.
+    """
+    result = client.admin.Group.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_group.command("list")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_list(
     client: foundry.FoundryClient,
@@ -354,9 +401,9 @@ def admin_group_list(
 
 
 @admin_group.command("page")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_page(
     client: foundry.FoundryClient,
@@ -376,10 +423,10 @@ def admin_group_page(
 
 
 @admin_group.command("search")
-@click.option("--where", type=str, required=True, help="Body of the request")
-@click.option("--page_size", type=int, required=False, help="Body of the request")
-@click.option("--page_token", type=str, required=False, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--where", type=str, required=True, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_search(
     client: foundry.FoundryClient,
@@ -409,9 +456,9 @@ def admin_group_group_member():
 
 @admin_group_group_member.command("add")
 @click.argument("group_id", type=str, required=True)
-@click.option("--principal_ids", type=str, required=True, help="Body of the request")
-@click.option("--expiration", type=str, required=False, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option("--expiration", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_group_member_add(
     client: foundry.FoundryClient,
@@ -436,9 +483,9 @@ def admin_group_group_member_add(
 
 @admin_group_group_member.command("list")
 @click.argument("group_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_group_group_member_list(
     client: foundry.FoundryClient,
@@ -461,10 +508,10 @@ def admin_group_group_member_list(
 
 @admin_group_group_member.command("page")
 @click.argument("group_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transitive", type=bool, required=False, help="transitive")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_group_group_member_page(
     client: foundry.FoundryClient,
@@ -489,8 +536,8 @@ def admin_group_group_member_page(
 
 @admin_group_group_member.command("remove")
 @click.argument("group_id", type=str, required=True)
-@click.option("--principal_ids", type=str, required=True, help="Body of the request")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_group_member_remove(
     client: foundry.FoundryClient,
@@ -522,8 +569,8 @@ def datasets_dataset():
 
 
 @datasets_dataset.command("create")
-@click.option("--name", type=str, required=True, help="Body of the request")
-@click.option("--parent_folder_rid", type=str, required=True, help="Body of the request")
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.pass_obj
 def datasets_dataset_create(
     client: foundry.FoundryClient,
@@ -549,9 +596,9 @@ def datasets_dataset_create(
 
 @datasets_dataset.command("delete_schema")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transaction_rid", type=str, required=False, help="transactionRid")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.pass_obj
 def datasets_dataset_delete_schema(
     client: foundry.FoundryClient,
@@ -594,9 +641,9 @@ def datasets_dataset_get(
 
 @datasets_dataset.command("get_schema")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--preview", type=bool, required=False, help="preview")
-@click.option("--transaction_rid", type=str, required=False, help="transactionRid")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.pass_obj
 def datasets_dataset_get_schema(
     client: foundry.FoundryClient,
@@ -620,12 +667,12 @@ def datasets_dataset_get_schema(
 
 @datasets_dataset.command("read")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--format", type=click.Choice(["ARROW", "CSV"]), required=True, help="format")
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--columns", type=str, required=False, help="columns")
-@click.option("--end_transaction_rid", type=str, required=False, help="endTransactionRid")
-@click.option("--row_limit", type=int, required=False, help="rowLimit")
-@click.option("--start_transaction_rid", type=str, required=False, help="startTransactionRid")
+@click.option("--format", type=click.Choice(["ARROW", "CSV"]), required=True, help="""format""")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--columns", type=str, required=False, help="""columns""")
+@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
+@click.option("--row_limit", type=int, required=False, help="""rowLimit""")
+@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_read(
     client: foundry.FoundryClient,
@@ -660,8 +707,8 @@ def datasets_dataset_read(
 @datasets_dataset.command("replace_schema")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("body", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--preview", type=bool, required=False, help="preview")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_replace_schema(
     client: foundry.FoundryClient,
@@ -740,9 +787,9 @@ def datasets_dataset_transaction_commit(
     "--transaction_type",
     type=click.Choice(["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]),
     required=False,
-    help="Body of the request",
+    help="""""",
 )
-@click.option("--branch_id", type=str, required=False, help="branchId")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
 @click.pass_obj
 def datasets_dataset_transaction_create(
     client: foundry.FoundryClient,
@@ -798,8 +845,8 @@ def datasets_dataset_file():
 @datasets_dataset_file.command("delete")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--transaction_rid", type=str, required=False, help="transactionRid")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.pass_obj
 def datasets_dataset_file_delete(
     client: foundry.FoundryClient,
@@ -839,9 +886,9 @@ def datasets_dataset_file_delete(
 @datasets_dataset_file.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--end_transaction_rid", type=str, required=False, help="endTransactionRid")
-@click.option("--start_transaction_rid", type=str, required=False, help="startTransactionRid")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
+@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_get(
     client: foundry.FoundryClient,
@@ -890,10 +937,10 @@ def datasets_dataset_file_get(
 
 @datasets_dataset_file.command("list")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--end_transaction_rid", type=str, required=False, help="endTransactionRid")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--start_transaction_rid", type=str, required=False, help="startTransactionRid")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_list(
     client: foundry.FoundryClient,
@@ -944,11 +991,11 @@ def datasets_dataset_file_list(
 
 @datasets_dataset_file.command("page")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--end_transaction_rid", type=str, required=False, help="endTransactionRid")
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
-@click.option("--start_transaction_rid", type=str, required=False, help="startTransactionRid")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_page(
     client: foundry.FoundryClient,
@@ -1002,9 +1049,9 @@ def datasets_dataset_file_page(
 @datasets_dataset_file.command("read")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--end_transaction_rid", type=str, required=False, help="endTransactionRid")
-@click.option("--start_transaction_rid", type=str, required=False, help="startTransactionRid")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
+@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_read(
     client: foundry.FoundryClient,
@@ -1055,14 +1102,14 @@ def datasets_dataset_file_read(
 @datasets_dataset_file.command("upload")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--file_path", type=str, required=True, help="filePath")
-@click.option("--branch_id", type=str, required=False, help="branchId")
-@click.option("--transaction_rid", type=str, required=False, help="transactionRid")
+@click.option("--file_path", type=str, required=True, help="""filePath""")
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.option(
     "--transaction_type",
     type=click.Choice(["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]),
     required=False,
-    help="transactionType",
+    help="""transactionType""",
 )
 @click.pass_obj
 def datasets_dataset_file_upload(
@@ -1115,8 +1162,8 @@ def datasets_dataset_branch():
 
 @datasets_dataset_branch.command("create")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=True, help="Body of the request")
-@click.option("--transaction_rid", type=str, required=False, help="Body of the request")
+@click.option("--branch_id", type=str, required=True, help="""""")
+@click.option("--transaction_rid", type=str, required=False, help="""""")
 @click.pass_obj
 def datasets_dataset_branch_create(
     client: foundry.FoundryClient,
@@ -1188,7 +1235,7 @@ def datasets_dataset_branch_get(
 
 @datasets_dataset_branch.command("list")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def datasets_dataset_branch_list(
     client: foundry.FoundryClient,
@@ -1210,8 +1257,8 @@ def datasets_dataset_branch_list(
 
 @datasets_dataset_branch.command("page")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def datasets_dataset_branch_page(
     client: foundry.FoundryClient,
@@ -1253,7 +1300,7 @@ def ontologies_ontology_get(
     """
     Gets a specific ontology with the given Ontology RID.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.get(
@@ -1287,7 +1334,7 @@ def ontologies_ontology_list(
     """
     Lists the Ontologies visible to the current user.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.list()
@@ -1311,7 +1358,7 @@ def ontologies_ontology_query_type_get(
     """
     Gets a specific query type with the given API name.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.QueryType.get(
@@ -1323,7 +1370,7 @@ def ontologies_ontology_query_type_get(
 
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def ontologies_ontology_query_type_list(
     client: foundry.FoundryClient,
@@ -1336,7 +1383,7 @@ def ontologies_ontology_query_type_list(
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.QueryType.list(
@@ -1348,8 +1395,8 @@ def ontologies_ontology_query_type_list(
 
 @ontologies_ontology_query_type.command("page")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_query_type_page(
     client: foundry.FoundryClient,
@@ -1363,7 +1410,7 @@ def ontologies_ontology_query_type_page(
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.QueryType.page(
@@ -1391,7 +1438,7 @@ def ontologies_ontology_object_type_get(
     """
     Gets a specific object type with the given API name.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.get(
@@ -1416,7 +1463,7 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
     Get an outgoing link for an object type.
 
     Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:read-data`.
+    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
@@ -1429,7 +1476,7 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 
 @ontologies_ontology_object_type.command("list")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def ontologies_ontology_object_type_list(
     client: foundry.FoundryClient,
@@ -1443,7 +1490,7 @@ def ontologies_ontology_object_type_list(
     more results available, at least one result will be present in the
     response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.list(
@@ -1456,7 +1503,7 @@ def ontologies_ontology_object_type_list(
 @ontologies_ontology_object_type.command("list_outgoing_link_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def ontologies_ontology_object_type_list_outgoing_link_types(
     client: foundry.FoundryClient,
@@ -1468,7 +1515,7 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
     List the outgoing links for an object type.
 
     Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:read-data`.
+    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
@@ -1481,8 +1528,8 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
 
 @ontologies_ontology_object_type.command("page")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_object_type_page(
     client: foundry.FoundryClient,
@@ -1497,7 +1544,7 @@ def ontologies_ontology_object_type_page(
     more results available, at least one result will be present in the
     response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.page(
@@ -1511,8 +1558,8 @@ def ontologies_ontology_object_type_page(
 @ontologies_ontology_object_type.command("page_outgoing_link_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_object_type_page_outgoing_link_types(
     client: foundry.FoundryClient,
@@ -1525,7 +1572,7 @@ def ontologies_ontology_object_type_page_outgoing_link_types(
     List the outgoing links for an object type.
 
     Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:read-data`.
+    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.page_outgoing_link_types(
@@ -1554,7 +1601,7 @@ def ontologies_ontology_action_type_get(
     """
     Gets a specific action type with the given API name.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ActionType.get(
@@ -1566,7 +1613,7 @@ def ontologies_ontology_action_type_get(
 
 @ontologies_ontology_action_type.command("list")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def ontologies_ontology_action_type_list(
     client: foundry.FoundryClient,
@@ -1579,7 +1626,7 @@ def ontologies_ontology_action_type_list(
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ActionType.list(
@@ -1591,8 +1638,8 @@ def ontologies_ontology_action_type_list(
 
 @ontologies_ontology_action_type.command("page")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="pageSize")
-@click.option("--page_token", type=str, required=False, help="pageToken")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_action_type_page(
     client: foundry.FoundryClient,
@@ -1606,13 +1653,42 @@ def ontologies_ontology_action_type_page(
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ActionType.page(
         ontology=ontology,
         page_size=page_size,
         page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@cli.group("orchestration")
+def orchestration():
+    pass
+
+
+@orchestration.group("schedule")
+def orchestration_schedule():
+    pass
+
+
+@orchestration_schedule.command("get")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_get(
+    client: foundry.FoundryClient,
+    schedule_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Schedule
+    """
+    result = client.orchestration.Schedule.get(
+        schedule_rid=schedule_rid,
+        preview=preview,
     )
     click.echo(repr(result))
 

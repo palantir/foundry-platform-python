@@ -18,6 +18,7 @@ from __future__ import annotations
 from typing import Annotated
 from typing import Any
 from typing import Dict
+from typing import List
 from typing import Optional
 from typing import Union
 
@@ -30,6 +31,11 @@ from foundry._errors import handle_unexpected
 from foundry._namespaces.admin.group_membership import GroupMembershipResource
 from foundry.api_client import ApiClient
 from foundry.api_client import RequestInfo
+from foundry.models._get_users_batch_request_element import GetUsersBatchRequestElement
+from foundry.models._get_users_batch_request_element_dict import (
+    GetUsersBatchRequestElementDict,
+)  # NOQA
+from foundry.models._get_users_batch_response import GetUsersBatchResponse
 from foundry.models._list_users_response import ListUsersResponse
 from foundry.models._page_size import PageSize
 from foundry.models._page_token import PageToken
@@ -131,6 +137,55 @@ class UserResource:
                 body=_body_params,
                 body_type=None,
                 response_type=User,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def get_batch(
+        self,
+        body: Union[List[GetUsersBatchRequestElement], List[GetUsersBatchRequestElementDict]],
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> GetUsersBatchResponse:
+        """
+        Execute multiple get requests on User.
+
+        The maximum batch size for this endpoint is 500.
+        :param body: Body of the request
+        :type body: Union[List[GetUsersBatchRequestElement], List[GetUsersBatchRequestElementDict]]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: GetUsersBatchResponse
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = body
+        _query_params["preview"] = preview
+
+        _header_params["Content-Type"] = "application/json"
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/users/getBatch",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=Union[
+                    List[GetUsersBatchRequestElement], List[GetUsersBatchRequestElementDict]
+                ],
+                response_type=GetUsersBatchResponse,
                 request_timeout=request_timeout,
             ),
         )

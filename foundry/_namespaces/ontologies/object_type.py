@@ -57,7 +57,7 @@ class ObjectTypeResource:
         """
         Gets a specific object type with the given API name.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -108,7 +108,7 @@ class ObjectTypeResource:
         Get an outgoing link for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:read-data`.
+        following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -165,7 +165,7 @@ class ObjectTypeResource:
         more results available, at least one result will be present in the
         response.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -215,7 +215,7 @@ class ObjectTypeResource:
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:read-data`.
+        following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -272,7 +272,7 @@ class ObjectTypeResource:
         more results available, at least one result will be present in the
         response.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -327,7 +327,7 @@ class ObjectTypeResource:
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:read-data`.
+        following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier

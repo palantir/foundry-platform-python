@@ -55,7 +55,7 @@ class OntologyResource:
         """
         Gets a specific ontology with the given Ontology RID.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
         :type ontology: OntologyIdentifier
@@ -140,7 +140,7 @@ class OntologyResource:
         """
         Lists the Ontologies visible to the current user.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:read-data`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

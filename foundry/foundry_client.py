@@ -18,6 +18,7 @@ from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry._namespaces.namespaces import Admin
 from foundry._namespaces.namespaces import Datasets
 from foundry._namespaces.namespaces import Ontologies
+from foundry._namespaces.namespaces import Orchestration
 from foundry.api_client import ApiClient
 
 
@@ -34,3 +35,4 @@ class FoundryClient:
         self.admin = Admin(api_client=api_client)
         self.datasets = Datasets(api_client=api_client)
         self.ontologies = Ontologies(api_client=api_client)
+        self.orchestration = Orchestration(api_client=api_client)
