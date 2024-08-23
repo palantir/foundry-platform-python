@@ -24,7 +24,6 @@ from foundry._errors.palantir_rpc_exception import PalantirRPCException
 # The SDK version
 from foundry._versions import __openapi_document_version__
 from foundry._versions import __version__
-from foundry.foundry_client import FoundryClient
 
 # The OpenAPI specification version
 # See https://swagger.io/specification/#versions
@@ -38,5 +37,4 @@ __all__ = [
     "NotAuthenticated",
     "EnvironmentNotConfigured",
     "PalantirRPCException",
-    "FoundryClient",
 ]

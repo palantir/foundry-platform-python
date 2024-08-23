@@ -20,6 +20,7 @@ from unittest.mock import ANY
 from unittest.mock import Mock
 
 import pytest
+
 from foundry import PalantirRPCException
 from foundry import UserTokenAuth
 from foundry import __version__

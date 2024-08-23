@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 import pytest
+
 from foundry import ConfidentialClientAuth
 from foundry._errors.not_authenticated import NotAuthenticated
 

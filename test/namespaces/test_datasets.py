@@ -15,12 +15,13 @@
 from typing import Any
 
 import pytest
-from foundry import FoundryClient
-from foundry.models import Branch
-from foundry.models import CreateBranchRequest
 from pydantic import ValidationError
 
-from ..utils import client  # type: ignore
+from foundry.v1 import FoundryV1Client
+from foundry.v1.models import Branch
+from foundry.v1.models import CreateBranchRequest
+
+from ..utils import client_v1  # type: ignore
 from ..utils import mock_responses
 
 TEST_RID = "ri.foundry.main.dataset.abc"
@@ -47,20 +48,20 @@ def mock_create_branch(monkeypatch: Any, dataset_rid: str, branch_id: str):
     )
 
 
-def test_create_branch_fails_no_body(client: FoundryClient):
+def test_create_branch_fails_no_body(client_v1: FoundryV1Client):
     with pytest.raises(ValueError):
-        client.datasets.Dataset.Branch.create("test", create_branch_request=None)  # type: ignore
+        client_v1.datasets.Dataset.Branch.create("test", create_branch_request=None)  # type: ignore
 
 
-def test_create_branch_fails_bad_body(client: FoundryClient):
+def test_create_branch_fails_bad_body(client_v1: FoundryV1Client):
     with pytest.raises(ValidationError):
-        client.datasets.Dataset.Branch.create(
+        client_v1.datasets.Dataset.Branch.create(
             dataset_rid=TEST_RID,
             create_branch_request={"branchId": "123", "transactionRid": 123},  # type: ignore
         )
 
 
-def test_works_with_extra_property(client: FoundryClient, monkeypatch: Any):
+def test_works_with_extra_property(client_v1: FoundryV1Client, monkeypatch: Any):
     dataset_rid = TEST_RID
     mock_create_branch(
         monkeypatch,
@@ -69,19 +70,19 @@ def test_works_with_extra_property(client: FoundryClient, monkeypatch: Any):
     )
 
     # Just making sure this works
-    client.datasets.Dataset.Branch.create(
+    client_v1.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
         create_branch_request={"branchId": "branch_test"},
     )
 
     # This ensures we don't fail if the user passes in an extra property
-    client.datasets.Dataset.Branch.create(
+    client_v1.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
         create_branch_request={"branchId": "branch_test", "foo": "bar"},  # type: ignore
     )
 
 
-def test_create_branch_with_dict(client: FoundryClient, monkeypatch: Any):
+def test_create_branch_with_dict(client_v1: FoundryV1Client, monkeypatch: Any):
     dataset_rid = TEST_RID
     mock_create_branch(
         monkeypatch,
@@ -89,7 +90,7 @@ def test_create_branch_with_dict(client: FoundryClient, monkeypatch: Any):
         branch_id="branch_test",
     )
 
-    res = client.datasets.Dataset.Branch.create(
+    res = client_v1.datasets.Dataset.Branch.create(
         dataset_rid,
         create_branch_request={
             "branchId": "branch_test",
@@ -101,14 +102,14 @@ def test_create_branch_with_dict(client: FoundryClient, monkeypatch: Any):
     assert res.transaction_rid is None
 
 
-def test_create_branch_with_model(client: FoundryClient, monkeypatch: Any):
+def test_create_branch_with_model(client_v1: FoundryV1Client, monkeypatch: Any):
     mock_create_branch(
         monkeypatch,
         dataset_rid=TEST_RID,
         branch_id="branch_test",
     )
 
-    res = client.datasets.Dataset.Branch.create(
+    res = client_v1.datasets.Dataset.Branch.create(
         TEST_RID,
         create_branch_request=CreateBranchRequest(
             branchId="branch_test",
@@ -120,7 +121,7 @@ def test_create_branch_with_model(client: FoundryClient, monkeypatch: Any):
     assert res.transaction_rid is None
 
 
-def test_create_branch_doesnt_fail_extra_property(client: FoundryClient, monkeypatch: Any):
+def test_create_branch_doesnt_fail_extra_property(client_v1: FoundryV1Client, monkeypatch: Any):
     """
     We want to make sure that additional properties don't cause a failure when the extra
     properties come from the server.
@@ -132,7 +133,7 @@ def test_create_branch_doesnt_fail_extra_property(client: FoundryClient, monkeyp
         branch_id="branch_test",
     )
 
-    res = client.datasets.Dataset.Branch.create(
+    res = client_v1.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
         create_branch_request={"branchId": "branch_test"},
     )
@@ -161,7 +162,7 @@ def mock_data_read(monkeypatch: Any, data: bytes):
     )
 
 
-def test_read_table_can_pass_in_str(client: FoundryClient, monkeypatch: Any):
+def test_read_table_can_pass_in_str(client_v1: FoundryV1Client, monkeypatch: Any):
     mock_data_read(monkeypatch, data=b"hello")
-    res = client.datasets.Dataset.read(format="CSV", dataset_rid=TEST_RID, columns=[])
+    res = client_v1.datasets.Dataset.read(format="CSV", dataset_rid=TEST_RID, columns=[])
     assert res == b"hello"

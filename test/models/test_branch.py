@@ -13,8 +13,9 @@
 #  limitations under the License.
 
 import pytest
-from foundry.models import Branch
 from pydantic import ValidationError
+
+from foundry.v1.models import Branch
 
 
 def test_model_validate():

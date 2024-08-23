@@ -12,10 +12,13 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from pydantic import PydanticUndefinedAnnotation, ValidationError
-from pydantic import TypeAdapter
 import pytest
-from foundry import models
+from pydantic import PydanticUndefinedAnnotation
+from pydantic import TypeAdapter
+from pydantic import ValidationError
+
+from foundry.v1 import models as models_v1
+from foundry.v2 import models as models_v2
 
 
 def test_can_validate_types():
@@ -24,7 +27,9 @@ def test_can_validate_types():
     that all discriminators are importable without raising any issues.
     """
 
-    for model_name in dir(models):
+    for models, model_name in [(models_v1, model_name) for model_name in dir(models_v1)] + [
+        (models_v2, model_name) for model_name in dir(models_v2)
+    ]:
         klass = getattr(models, model_name)
 
         if "Annotated[Union[" not in str(klass):

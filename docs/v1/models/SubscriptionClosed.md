@@ -1,0 +1,14 @@
+# SubscriptionClosed
+
+The subscription has been closed due to an irrecoverable error during its lifecycle.
+
+
+## Properties
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
+**id** | SubscriptionId | Yes |  |
+**cause** | SubscriptionClosureCause | Yes |  |
+**type** | Literal["subscriptionClosed"] | Yes | None |
+
+
+[[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to README]](../../../README.md)

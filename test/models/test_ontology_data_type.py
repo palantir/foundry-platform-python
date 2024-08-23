@@ -12,8 +12,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from foundry.models import OntologyDataType
 from pydantic import TypeAdapter
+
+from foundry.v2.models import OntologyDataType
 
 
 def test_model_validate():

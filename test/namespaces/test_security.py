@@ -14,14 +14,14 @@
 
 from typing import Any
 
-from foundry.foundry_client import FoundryClient
+from foundry.v2 import FoundryV2Client
 
 # from foundry.models.search_json_query import EqualsQuery
-from ..utils import client  # type: ignore
+from ..utils import client_v2  # type: ignore
 from ..utils import mock_responses
 
 
-def test_can_get_user(client: FoundryClient, monkeypatch: Any):
+def test_can_get_user(client_v2: FoundryV2Client, monkeypatch: Any):
     user_id = "176a8ce7-1f63-4942-b89e-208f5f3d4380"
 
     mock_responses(
@@ -52,12 +52,12 @@ def test_can_get_user(client: FoundryClient, monkeypatch: Any):
         ],
     )
 
-    user = client.admin.User.get(user_id)
+    user = client_v2.admin.User.get(user_id)
     assert user.id == user_id
     assert user.username == "test-username"
 
 
-def test_can_get_user_groups(client: FoundryClient, monkeypatch: Any):
+def test_can_get_user_groups(client_v2: FoundryV2Client, monkeypatch: Any):
     user_id = "176a8ce7-1f63-4942-b89e-208f5f3d4380"
     group_id = "186a8ce7-1f63-4942-b89e-208f5f3d4380"
 
@@ -83,7 +83,7 @@ def test_can_get_user_groups(client: FoundryClient, monkeypatch: Any):
         ],
     )
 
-    result = client.admin.User.GroupMembership.page(user_id)
+    result = client_v2.admin.User.GroupMembership.page(user_id)
     assert result.next_page_token == "123"
     assert len(result.data) == 1
     assert result.data[0].group_id == group_id
