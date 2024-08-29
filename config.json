@@ -46,15 +46,24 @@
         "Ontologies": [
           "listOntologies",
           "getOntology",
-          "listActionTypes",
-          "getActionType",
-          "getOntologyFullMetadata",
           "listObjectTypes",
           "getObjectType",
           "listOutgoingLinkTypes",
           "getOutgoingLinkType",
+          "listActionTypes",
+          "getActionType",
+          "applyAction",
+          "applyActionBatch",
+          "validateAction",
           "listQueryTypes",
-          "getQueryType"
+          "getQueryType",
+          "executeQuery",
+          "listObjects",
+          "getObject",
+          "listLinkedObjects",
+          "getLinkedObject",
+          "searchObjects",
+          "aggregateObjects"
         ]
       }
     },
@@ -80,21 +89,46 @@
         "Datasets": true,
         "Admin": true,
         "OntologiesV2": [
-          "listOntologiesV2",
           "getOntologyV2",
+          "getOntologyFullMetadata",
           "listActionTypesV2",
           "getActionTypeV2",
-          "getOntologyFullMetadata",
-          "listDeployments",
-          "getDeployment",
           "listObjectTypesV2",
           "getObjectTypeV2",
           "listOutgoingLinkTypesV2",
           "getOutgoingLinkTypeV2",
+          "listObjectsV2",
+          "getObjectV2",
+          "countObjects",
+          "searchObjectsV2",
+          "aggregateObjectsV2",
+          "listLinkedObjectsV2",
+          "getLinkedObjectV2",
+          "listPropertyAttachments",
+          "getAttachmentPropertyByRidV2",
+          "getAttachmentPropertyContentV2",
+          "getAttachmentPropertyContentByRidV2",
+          "getFirstPoint",
+          "getLastPoint",
+          "streamPoints",
+          "listInterfaceTypes",
+          "getInterfaceType",
+          "aggregateObjectsForInterface",
+          "applyActionV2",
+          "applyActionBatchV2",
           "listQueryTypesV2",
-          "getQueryTypeV2"
+          "getQueryTypeV2",
+          "executeQueryV2",
+          "createTemporaryObjectSetV2",
+          "getObjectSetV2",
+          "loadObjectSetV2",
+          "aggregateObjectSetV2",
+          "uploadAttachmentV2",
+          "getAttachmentContentV2",
+          "getAttachmentV2"
         ],
-        "Orchestration": true
+        "Orchestration": true,
+        "ThirdPartyApplications": true
       },
       "namespaceRenames": {
         "OntologiesV2": "Ontologies"
@@ -102,7 +136,10 @@
       "resourceRenames": {
         "OntologyV2": "Ontology",
         "ActionTypeV2": "ActionType",
-        "ObjectTypeV2": "ObjectType"
+        "ObjectTypeV2": "ObjectType",
+        "OntologyObjectV2": "OntologyObject",
+        "LinkedObjectV2": "LinkedObject",
+        "AttachmentPropertyV2": "AttachmentProperty"
       }
     }
   }

@@ -781,6 +781,413 @@ def ontologies():
     pass
 
 
+@ontologies.group("query")
+def ontologies_query():
+    pass
+
+
+@ontologies_query.command("execute")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("query_api_name", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def ontologies_query_execute(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    query_api_name: str,
+    parameters: str,
+    preview: Optional[bool],
+):
+    """
+    Executes a Query using the given parameters. Optional parameters do not need to be supplied.
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Query.execute(
+        ontology_rid=ontology_rid,
+        query_api_name=query_api_name,
+        execute_query_request=foundry.v1.models.ExecuteQueryRequest.model_validate(
+            {
+                "parameters": parameters,
+            }
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies.group("ontology_object")
+def ontologies_ontology_object():
+    pass
+
+
+@ontologies_ontology_object.command("aggregate")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--aggregation", type=str, required=True, help="""""")
+@click.option("--query", type=str, required=False, help="""""")
+@click.option("--group_by", type=str, required=True, help="""""")
+@click.pass_obj
+def ontologies_ontology_object_aggregate(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    aggregation: str,
+    query: Optional[str],
+    group_by: str,
+):
+    """
+    Perform functions on object fields in the specified ontology and object type.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.aggregate(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        aggregate_objects_request=foundry.v1.models.AggregateObjectsRequest.model_validate(
+            {
+                "aggregation": aggregation,
+                "query": query,
+                "groupBy": group_by,
+            }
+        ),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("get")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.option("--properties", type=str, required=False, help="""properties""")
+@click.pass_obj
+def ontologies_ontology_object_get(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    primary_key: str,
+    properties: Optional[str],
+):
+    """
+    Gets a specific object with the given primary key.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.get(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        primary_key=primary_key,
+        properties=None if properties is None else json.loads(properties),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("get_linked_object")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("link_type", type=str, required=True)
+@click.argument("linked_object_primary_key", type=str, required=True)
+@click.option("--properties", type=str, required=False, help="""properties""")
+@click.pass_obj
+def ontologies_ontology_object_get_linked_object(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    primary_key: str,
+    link_type: str,
+    linked_object_primary_key: str,
+    properties: Optional[str],
+):
+    """
+    Get a specific linked object that originates from another object. If there is no link between the two objects,
+    LinkedObjectNotFound is thrown.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.get_linked_object(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        primary_key=primary_key,
+        link_type=link_type,
+        linked_object_primary_key=linked_object_primary_key,
+        properties=None if properties is None else json.loads(properties),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("list")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--order_by", type=str, required=False, help="""orderBy""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--properties", type=str, required=False, help="""properties""")
+@click.pass_obj
+def ontologies_ontology_object_list(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    order_by: Optional[str],
+    page_size: Optional[int],
+    properties: Optional[str],
+):
+    """
+    Lists the objects for the given Ontology and object type.
+
+    This endpoint supports filtering objects.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+
+    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.list(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        order_by=order_by,
+        page_size=page_size,
+        properties=None if properties is None else json.loads(properties),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("list_linked_objects")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("link_type", type=str, required=True)
+@click.option("--order_by", type=str, required=False, help="""orderBy""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--properties", type=str, required=False, help="""properties""")
+@click.pass_obj
+def ontologies_ontology_object_list_linked_objects(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    primary_key: str,
+    link_type: str,
+    order_by: Optional[str],
+    page_size: Optional[int],
+    properties: Optional[str],
+):
+    """
+    Lists the linked objects for a specific object and the given link type.
+
+    This endpoint supports filtering objects.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+
+    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.list_linked_objects(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        primary_key=primary_key,
+        link_type=link_type,
+        order_by=order_by,
+        page_size=page_size,
+        properties=None if properties is None else json.loads(properties),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("page")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--order_by", type=str, required=False, help="""orderBy""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--properties", type=str, required=False, help="""properties""")
+@click.pass_obj
+def ontologies_ontology_object_page(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    order_by: Optional[str],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    properties: Optional[str],
+):
+    """
+    Lists the objects for the given Ontology and object type.
+
+    This endpoint supports filtering objects.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+
+    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.page(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        order_by=order_by,
+        page_size=page_size,
+        page_token=page_token,
+        properties=None if properties is None else json.loads(properties),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("page_linked_objects")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("link_type", type=str, required=True)
+@click.option("--order_by", type=str, required=False, help="""orderBy""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--properties", type=str, required=False, help="""properties""")
+@click.pass_obj
+def ontologies_ontology_object_page_linked_objects(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    primary_key: str,
+    link_type: str,
+    order_by: Optional[str],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    properties: Optional[str],
+):
+    """
+    Lists the linked objects for a specific object and the given link type.
+
+    This endpoint supports filtering objects.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+
+    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.page_linked_objects(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        primary_key=primary_key,
+        link_type=link_type,
+        order_by=order_by,
+        page_size=page_size,
+        page_token=page_token,
+        properties=None if properties is None else json.loads(properties),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object.command("search")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--query", type=str, required=True, help="""""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--fields",
+    type=str,
+    required=True,
+    help="""The API names of the object type properties to include in the response.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_search(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    object_type: str,
+    query: str,
+    order_by: Optional[str],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    fields: str,
+):
+    """
+    Search for objects in the specified ontology and object type. The request body is used
+    to filter objects based on the specified query. The supported queries are:
+
+    | Query type            | Description                                                                       | Supported Types                 |
+    |----------|-----------------------------------------------------------------------------------|---------------------------------|
+    | lt       | The provided property is less than the provided value.                            | number, string, date, timestamp |
+    | gt       | The provided property is greater than the provided value.                         | number, string, date, timestamp |
+    | lte      | The provided property is less than or equal to the provided value.                | number, string, date, timestamp |
+    | gte      | The provided property is greater than or equal to the provided value.             | number, string, date, timestamp |
+    | eq       | The provided property is exactly equal to the provided value.                     | number, string, date, timestamp |
+    | isNull   | The provided property is (or is not) null.                                        | all                             |
+    | contains | The provided property contains the provided value.                                | array                           |
+    | not      | The sub-query does not match.                                                     | N/A (applied on a query)        |
+    | and      | All the sub-queries match.                                                        | N/A (applied on queries)        |
+    | or       | At least one of the sub-queries match.                                            | N/A (applied on queries)        |
+    | prefix   | The provided property starts with the provided value.                             | string                          |
+    | phrase   | The provided property contains the provided value as a substring.                 | string                          |
+    | anyTerm  | The provided property contains at least one of the terms separated by whitespace. | string                          |
+    | allTerms | The provided property contains all the terms separated by whitespace.             | string                          |                                                                            |
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.search(
+        ontology_rid=ontology_rid,
+        object_type=object_type,
+        search_objects_request=foundry.v1.models.SearchObjectsRequest.model_validate(
+            {
+                "query": query,
+                "orderBy": order_by,
+                "pageSize": page_size,
+                "pageToken": page_token,
+                "fields": fields,
+            }
+        ),
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("ontology")
 def ontologies_ontology():
     pass
@@ -1148,6 +1555,118 @@ def ontologies_ontology_action_type_page(
         ontology_rid=ontology_rid,
         page_size=page_size,
         page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies.group("action")
+def ontologies_action():
+    pass
+
+
+@ontologies_action.command("apply")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("action_type", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.pass_obj
+def ontologies_action_apply(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    action_type: str,
+    parameters: str,
+):
+    """
+    Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take
+    some time to be visible.
+
+    Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+    this endpoint.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read api:ontologies-write`.
+
+    """
+    result = client.ontologies.Action.apply(
+        ontology_rid=ontology_rid,
+        action_type=action_type,
+        apply_action_request=foundry.v1.models.ApplyActionRequest.model_validate(
+            {
+                "parameters": parameters,
+            }
+        ),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_action.command("apply_batch")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("action_type", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.pass_obj
+def ontologies_action_apply_batch(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    action_type: str,
+    requests: str,
+):
+    """
+    Applies multiple actions (of the same Action Type) using the given parameters.
+    Changes to the Ontology are eventually consistent and may take some time to be visible.
+
+    Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
+    call Functions may receive a higher limit.
+
+    Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) and
+    [notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read api:ontologies-write`.
+
+    """
+    result = client.ontologies.Action.apply_batch(
+        ontology_rid=ontology_rid,
+        action_type=action_type,
+        batch_apply_action_request=foundry.v1.models.BatchApplyActionRequest.model_validate(
+            {
+                "requests": requests,
+            }
+        ),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_action.command("validate")
+@click.argument("ontology_rid", type=str, required=True)
+@click.argument("action_type", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.pass_obj
+def ontologies_action_validate(
+    client: foundry.v1.FoundryV1Client,
+    ontology_rid: str,
+    action_type: str,
+    parameters: str,
+):
+    """
+    Validates if an action can be run with the given set of parameters.
+    The response contains the evaluation of parameters and **submission criteria**
+    that determine if the request is `VALID` or `INVALID`.
+    For performance reasons, validations will not consider existing objects or other data in Foundry.
+    For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
+    Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+    this endpoint. Unspecified parameters will be given a default value of `null`.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Action.validate(
+        ontology_rid=ontology_rid,
+        action_type=action_type,
+        validate_action_request=foundry.v1.models.ValidateActionRequest.model_validate(
+            {
+                "parameters": parameters,
+            }
+        ),
     )
     click.echo(repr(result))
 
