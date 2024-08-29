@@ -3005,17 +3005,17 @@ def third_party_applications_third_party_application_website_undeploy(
     click.echo(repr(result))
 
 
-@third_party_applications_website_third_party_application.group("version")
-def third_party_applications_website_third_party_application_version():
+@third_party_applications_third_party_application_website.group("version")
+def third_party_applications_third_party_application_website_version():
     pass
 
 
-@third_party_applications_website_third_party_application_version.command("delete")
+@third_party_applications_third_party_application_website_version.command("delete")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("version_version", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def third_party_applications_website_third_party_application_version_delete(
+def third_party_applications_third_party_application_website_version_delete(
     client: foundry.v2.FoundryV2Client,
     third_party_application_rid: str,
     version_version: str,
@@ -3032,12 +3032,12 @@ def third_party_applications_website_third_party_application_version_delete(
     click.echo(repr(result))
 
 
-@third_party_applications_website_third_party_application_version.command("get")
+@third_party_applications_third_party_application_website_version.command("get")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("version_version", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def third_party_applications_website_third_party_application_version_get(
+def third_party_applications_third_party_application_website_version_get(
     client: foundry.v2.FoundryV2Client,
     third_party_application_rid: str,
     version_version: str,
@@ -3054,12 +3054,12 @@ def third_party_applications_website_third_party_application_version_get(
     click.echo(repr(result))
 
 
-@third_party_applications_website_third_party_application_version.command("list")
+@third_party_applications_third_party_application_website_version.command("list")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def third_party_applications_website_third_party_application_version_list(
+def third_party_applications_third_party_application_website_version_list(
     client: foundry.v2.FoundryV2Client,
     third_party_application_rid: str,
     page_size: Optional[int],
@@ -3078,13 +3078,13 @@ def third_party_applications_website_third_party_application_version_list(
     click.echo(repr(result))
 
 
-@third_party_applications_website_third_party_application_version.command("page")
+@third_party_applications_third_party_application_website_version.command("page")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def third_party_applications_website_third_party_application_version_page(
+def third_party_applications_third_party_application_website_version_page(
     client: foundry.v2.FoundryV2Client,
     third_party_application_rid: str,
     page_size: Optional[int],
@@ -3105,13 +3105,13 @@ def third_party_applications_website_third_party_application_version_page(
     click.echo(repr(result))
 
 
-@third_party_applications_website_third_party_application_version.command("upload")
+@third_party_applications_third_party_application_website_version.command("upload")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
 @click.option("--version", type=str, required=True, help="""version""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def third_party_applications_website_third_party_application_version_upload(
+def third_party_applications_third_party_application_website_version_upload(
     client: foundry.v2.FoundryV2Client,
     third_party_application_rid: str,
     body: io.BufferedReader,
