@@ -31,9 +31,11 @@ class FoundryV2Client:
         from foundry.v2._namespaces.namespaces import Datasets
         from foundry.v2._namespaces.namespaces import Ontologies
         from foundry.v2._namespaces.namespaces import Orchestration
+        from foundry.v2._namespaces.namespaces import ThirdPartyApplications
 
         api_client = ApiClient(auth=auth, hostname=hostname)
         self.admin = Admin(api_client=api_client)
         self.datasets = Datasets(api_client=api_client)
         self.ontologies = Ontologies(api_client=api_client)
         self.orchestration = Orchestration(api_client=api_client)
+        self.third_party_applications = ThirdPartyApplications(api_client=api_client)

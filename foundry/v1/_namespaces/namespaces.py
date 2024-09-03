@@ -17,7 +17,10 @@ from __future__ import annotations
 
 from foundry.api_client import ApiClient
 from foundry.v1._namespaces.datasets.dataset import DatasetResource
+from foundry.v1._namespaces.ontologies.action import ActionResource
 from foundry.v1._namespaces.ontologies.ontology import OntologyResource
+from foundry.v1._namespaces.ontologies.ontology_object import OntologyObjectResource
+from foundry.v1._namespaces.ontologies.query import QueryResource
 
 
 class Datasets:
@@ -27,4 +30,7 @@ class Datasets:
 
 class Ontologies:
     def __init__(self, api_client: ApiClient):
+        self.Action = ActionResource(api_client=api_client)
         self.Ontology = OntologyResource(api_client=api_client)
+        self.OntologyObject = OntologyObjectResource(api_client=api_client)
+        self.Query = QueryResource(api_client=api_client)

@@ -30,7 +30,6 @@ from foundry.api_client import RequestInfo
 from foundry.v2._namespaces.ontologies.action_type import ActionTypeResource
 from foundry.v2._namespaces.ontologies.object_type import ObjectTypeResource
 from foundry.v2._namespaces.ontologies.query_type import QueryTypeResource
-from foundry.v2.models._list_ontologies_v2_response import ListOntologiesV2Response
 from foundry.v2.models._ontology_full_metadata import OntologyFullMetadata
 from foundry.v2.models._ontology_identifier import OntologyIdentifier
 from foundry.v2.models._ontology_v2 import OntologyV2
@@ -126,45 +125,6 @@ class OntologyResource:
                 body=_body_params,
                 body_type=None,
                 response_type=OntologyFullMetadata,
-                request_timeout=request_timeout,
-            ),
-        )
-
-    @validate_call
-    @handle_unexpected
-    def list(
-        self,
-        *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> ListOntologiesV2Response:
-        """
-        Lists the Ontologies visible to the current user.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ListOntologiesV2Response
-        """
-
-        _path_params: Dict[str, Any] = {}
-        _query_params: Dict[str, Any] = {}
-        _header_params: Dict[str, Any] = {}
-        _body_params: Any = None
-
-        _header_params["Accept"] = "application/json"
-
-        return self._api_client.call_api(
-            RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies",
-                query_params=_query_params,
-                path_params=_path_params,
-                header_params=_header_params,
-                body=_body_params,
-                body_type=None,
-                response_type=ListOntologiesV2Response,
                 request_timeout=request_timeout,
             ),
         )
