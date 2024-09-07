@@ -1,30 +1,30 @@
-# Foundry Platform SDK
+# Gotham Platform SDK
 
-![Supported Python Versions](https://img.shields.io/pypi/pyversions/foundry-platform-sdk)
-[![PyPI Version](https://img.shields.io/pypi/v/foundry-platform-sdk)](https://pypi.org/project/foundry-platform-sdk/)
+![Supported Python Versions](https://img.shields.io/pypi/pyversions/Gotham-platform-sdk)
+[![PyPI Version](https://img.shields.io/pypi/v/Gotham-platform-sdk)](https://pypi.org/project/Gotham-platform-sdk/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg)](https://opensource.org/licenses/Apache-2.0)
 
 > [!WARNING]
 > This SDK is incubating and subject to change.
 
-The Foundry Platform SDK is a Python SDK built on top of the Foundry API. Review [Foundry API documentation](https://www.palantir.com/docs/foundry/api/) for more details.
+The Gotham Platform SDK is a Python SDK built on top of the Gotham API. Review [Gotham API documentation](https://www.palantir.com/docs/Gotham/api/) for more details.
 
 > [!NOTE]
 > This Python package is automatically generated based off our [OpenAPI specification](openapi.yml).
 
 
 <a id="sdk-vs-sdk"></a>
-## Foundry Platform SDK vs. Ontology SDK
-Palantir provides two different Python Software Development Kits (SDKs) for interacting with Foundry. Make sure to choose the correct SDK for your use case. As a general rule of thumb, any applications which leverage the Ontology should use the Ontology SDK for a superior development experience.
+## Gotham Platform SDK vs. Ontology SDK
+Palantir provides two different Python Software Development Kits (SDKs) for interacting with Gotham. Make sure to choose the correct SDK for your use case. As a general rule of thumb, any applications which leverage the Ontology should use the Ontology SDK for a superior development experience.
 
 > [!IMPORTANT]
-> Make sure to understand the difference between the Foundry SDK and the Ontology SDK. Review this section before continuing with the installation of this library.
+> Make sure to understand the difference between the Gotham SDK and the Ontology SDK. Review this section before continuing with the installation of this library.
 
 ### Ontology SDK
-The Ontology SDK allows you to access the full power of the Ontology directly from your development environment. You can generate the Ontology SDK using the Developer Console, a portal for creating and managing applications using Palantir APIs. Review the [Ontology SDK documentation](https://www.palantir.com/docs/foundry/ontology-sdk) for more information.
+The Ontology SDK allows you to access the full power of the Ontology directly from your development environment. You can generate the Ontology SDK using the Developer Console, a portal for creating and managing applications using Palantir APIs. Review the [Ontology SDK documentation](https://www.palantir.com/docs/Gotham/ontology-sdk) for more information.
 
-### Foundry Platform SDK
-The Foundry Platform Software Development Kit (SDK) is generated from the Foundry API's OpenAPI specification
+### Gotham Platform SDK
+The Gotham Platform Software Development Kit (SDK) is generated from the Gotham API's OpenAPI specification
 file (see [openapi.yml](openapi.yml)). The intention of this SDK is to encompass endpoints related to interacting
 with the platform itself. Although there are Ontology services included by this SDK, this SDK surfaces endpoints
 for interacting with Ontological resources such as object types, link types, and action types. In contrast, the OSDK allows you to interact with objects, links and Actions (for example, querying your objects, applying an action).
@@ -34,17 +34,17 @@ for interacting with Ontological resources such as object types, link types, and
 You can install the Python package using `pip`:
 
 ```sh
-pip install foundry-platform-sdk
+pip install Gotham-platform-sdk
 ```
 
 Then, import the package:
 ```python
-import foundry
+import Gotham
 ```
 
 <a id="major-version-link"></a>
 ## API Versioning
-Every endpoint of the Foundry API is versioned using a version number that appears in the URL. For example,
+Every endpoint of the Gotham API is versioned using a version number that appears in the URL. For example,
 v1 endpoints look like this:
 
 ```
@@ -52,11 +52,11 @@ https://<hostname>/api/v1/...
 ```
 
 This SDK exposes several clients, one for each major version of the API. For example, the latest major version of the
-SDK is **v2** and is exposed using the `FoundryV2Client` located in the
-`foundry.v2` package. To use this SDK, you must choose the specific client (or clients)
+SDK is **v2** and is exposed using the `GothamV2Client` located in the
+`Gotham.v2` package. To use this SDK, you must choose the specific client (or clients)
 you would like to use.
 
-More information about how the API is versioned can be found [here](https://www.palantir.com/docs/foundry/api/general/overview/versioning/).
+More information about how the API is versioned can be found [here](https://www.palantir.com/docs/Gotham/api/general/overview/versioning/).
 
 <a id="authorization"></a>
 ## Authorization and client initalization
@@ -64,7 +64,7 @@ There are two options for authorizing the SDK.
 
 ### User token
 > [!WARNING]
-> User tokens are associated with your personal Foundry user account and must not be used in
+> User tokens are associated with your personal Gotham user account and must not be used in
 > production applications or committed to shared or public code repositories. We recommend
 > you store test API tokens as environment variables during development. For authorizing
 > production applications, you should register an OAuth2 application (see
@@ -74,8 +74,8 @@ There are two options for authorizing the SDK.
 Configuration for hostname and an authentication token are provided by environment
 variables (`PALANTIR_HOSTNAME`, `PALANTIR_TOKEN`)
 
-* `PALANTIR_HOSTNAME` is the hostname of your instance (such as `example.palantirfoundry.com`)
-* `PALANTIR_TOKEN` is a token acquired from the `Tokens` section of **Foundry Settings**
+* `PALANTIR_HOSTNAME` is the hostname of your instance (such as `example.palantirGotham.com`)
+* `PALANTIR_TOKEN` is a token acquired from the `Tokens` section of **Gotham Settings**
 
 
 You can alternatively pass in the hostname and token as keyword arguments when
@@ -86,31 +86,31 @@ You can pass in the hostname and token as keyword arguments when
 initializing the `UserTokenAuth`:
 
 ```python
-foundry_client = foundry.v2.FoundryV2Client(
-    auth=foundry.UserTokenAuth(
-        hostname="example.palantirfoundry.com",
+Gotham_client = Gotham.v2.GothamV2Client(
+    auth=Gotham.UserTokenAuth(
+        hostname="example.palantirGotham.com",
         token=os.environ["BEARER_TOKEN"],
     ),
-    hostname="example.palantirfoundry.com",
+    hostname="example.palantirGotham.com",
 )
 ```
 
 <a id="oauth2-client"></a>
 ### OAuth2 Client
-OAuth2 clients are the recommended way to connect to Foundry in production applications. Currently, this SDK
-natively supports the [client credentials grant flow](https://www.palantir.com/docs/foundry/platform-security-third-party/writing-oauth2-clients/#client-credentials-grant).
+OAuth2 clients are the recommended way to connect to Gotham in production applications. Currently, this SDK
+natively supports the [client credentials grant flow](https://www.palantir.com/docs/Gotham/platform-security-third-party/writing-oauth2-clients/#client-credentials-grant).
 The token obtained by this grant can be used to access resources on behalf of the created service user. To use this
-authentication method, you will first need to register a third-party application in Foundry by following [the guide on third-party application registration](https://www.palantir.com/docs/foundry/platform-security-third-party/register-3pa).
+authentication method, you will first need to register a third-party application in Gotham by following [the guide on third-party application registration](https://www.palantir.com/docs/Gotham/platform-security-third-party/register-3pa).
 
 To use the confidential client functionality, you first need to contstruct a `ConfidentialClientAuth` object and initiate
 the sign-in process using the `sign_in_as_service_user` method. As these service user tokens have a short lifespan, we
 automatically retry all operations one time if a `401` (Unauthorized) error is thrown after refreshing the token.
 
 ```python
-auth = foundry.ConfidentialClientAuth(
+auth = Gotham.ConfidentialClientAuth(
     client_id=os.environ["CLIENT_ID"],
     client_secret=os.environ["CLIENT_SECRET"],
-    hostname="example.palantirfoundry.com",
+    hostname="example.palantirGotham.com",
     scopes=["api:read-data"],
 )
 
@@ -121,10 +121,10 @@ auth.sign_in_as_service_user()
 > Make sure to select the appropriate scopes when initializating the `ConfidentialClientAuth`. You can find the relevant scopes
 > in the [endpoint documentation](#apis-link).
 
-After creating the `ConfidentialClientAuth` object, pass it in to the `FoundryV2Client`,
+After creating the `ConfidentialClientAuth` object, pass it in to the `GothamV2Client`,
 
 ```python
-foundry_client = foundry.v2.FoundryV2Client(auth=auth, hostname="example.palantirfoundry.com")
+Gotham_client = Gotham.v2.GothamV2Client(auth=auth, hostname="example.palantirGotham.com")
 ```
 
 ## Quickstart
@@ -134,23 +134,23 @@ best suited for your instance before following this example. For simplicity, the
 purposes.
 
 ```python
-from foundry.v1 import FoundryV1Client
-from foundry import PalantirRPCException
+from Gotham.v1 import GothamV1Client
+from Gotham import PalantirRPCException
 from pprint import pprint
 
-foundry_client = FoundryV1Client(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+Gotham_client = GothamV1Client(
+    auth=Gotham.UserTokenAuth(...), hostname="example.palantirGotham.com"
 )
 
 # DatasetRid | datasetRid
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+dataset_rid = "ri.Gotham.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 # Union[CreateBranchRequest, CreateBranchRequestDict] | Body of the request
 create_branch_request = {"branchId": "my-branch"}
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.create(
+    api_response = Gotham_client.datasets.Dataset.Branch.create(
         dataset_rid,
         create_branch_request,
     )
@@ -161,7 +161,7 @@ except PalantirRPCException as e:
 
 ```
 
-Want to learn more about this Foundry SDK library? Review the following sections.
+Want to learn more about this Gotham SDK library? Review the following sections.
 
 ↳ [Error handling](#errors): Learn more about HTTP & data validation error handling  
 ↳ [Pagination](#pagination): Learn how to work with paginated endpoints in the SDK  
@@ -174,8 +174,8 @@ of arguments. In the example below, we are passing in a number to `transactionRi
 which should actually be a string type:
 
 ```python
-foundry_client.datasets.Dataset.Branch.create(
-    "ri.foundry.main.dataset.abc",
+Gotham_client.datasets.Dataset.Branch.create(
+    "ri.Gotham.main.dataset.abc",
     create_branch_request={"branchId": "123", "transactionRid": 123},
 )
 ```
@@ -201,23 +201,23 @@ experience. See [Static Type Analysis](#static-types) below for more information
 When an HTTP error status is returned, a `PalantirRPCException` is thrown. All HTTP error exception classes inherit from `ApiException`.
 
 ```python
-from foundry import PalantirRPCException
+from Gotham import PalantirRPCException
 
 
 try:
-    api_response = foundry_client.datasets.Transaction.abort(dataset_rid, transaction_rid)
+    api_response = Gotham_client.datasets.Transaction.abort(dataset_rid, transaction_rid)
     ...
 except PalantirRPCException as e:
     print("Another HTTP exception occurred: " + str(e))
 ```
 
-This exception will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
+This exception will have the following properties. See the [Gotham API docs](https://www.palantir.com/docs/Gotham/api/general/overview/errors) for details about the Gotham error information.
 
 | Property          | Type                   | Description                                                                                                                    |
 | ----------------- | -----------------------| ------------------------------------------------------------------------------------------------------------------------------ |
-| name              | str                    | The Palantir error name. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
-| error_instance_id | str                    | The Palantir error instance ID. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors). |
-| parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).  |
+| name              | str                    | The Palantir error name. See the [Gotham API docs](https://www.palantir.com/docs/Gotham/api/general/overview/errors).        |
+| error_instance_id | str                    | The Palantir error instance ID. See the [Gotham API docs](https://www.palantir.com/docs/Gotham/api/general/overview/errors). |
+| parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Gotham API docs](https://www.palantir.com/docs/Gotham/api/general/overview/errors).  |
 
 
 <a id="pagination"></a>
@@ -229,19 +229,19 @@ of data, while handling the underlying pagination logic.
 To iterate over all items, you can simply create a `Pager` instance and use it in a for loop, like this:
 
 ```python
-for branch in foundry_client.datasets.Dataset.Branch.list(dataset_rid):
+for branch in Gotham_client.datasets.Dataset.Branch.list(dataset_rid):
     print(branch)
 ```
 
 This will automatically fetch and iterate through all the pages of data from the specified API endpoint. For more granular control, you can manually fetch each page using the associated page methods.
 
 ```python
-page = foundry_client.datasets.Dataset.Branch.page(dataset_rid)
+page = Gotham_client.datasets.Dataset.Branch.page(dataset_rid)
 while page.next_page_token:
     for branch in page.data:
         print(branch)
 
-    page = foundry_client.datasets.Dataset.Branch.page(dataset_rid, page_token=page.next_page_token)
+    page = Gotham_client.datasets.Dataset.Branch.page(dataset_rid, page_token=page.next_page_token)
 ```
 
 
@@ -276,8 +276,8 @@ property is actually called `branch_id`), you will get the following errors:
 
 
 ```python
-branch = foundry_client.datasets.Dataset.Branch.create(
-    "ri.foundry.main.dataset.abc",
+branch = Gotham_client.datasets.Dataset.Branch.create(
+    "ri.Gotham.main.dataset.abc",
     create_branch_request={
         # ERROR: "Literal[123]" is incompatible with "BranchId"
         "branchId": 123
