@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg)](https://opensource.org/licenses/Apache-2.0)
 
 > [!WARNING]
-> This SDK is incubating and subject to change.
+> This SDK is incubating and subject to change
 
 The Gotham Platform SDK is a Python SDK built on top of the Gotham API. Review [Gotham API documentation](https://www.palantir.com/docs/Gotham/api/) for more details.
 
