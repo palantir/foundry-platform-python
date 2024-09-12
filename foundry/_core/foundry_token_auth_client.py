@@ -27,7 +27,6 @@ T = TypeVar("T")
 
 
 class _UserToken(Token):
-
     def __init__(self, token: str) -> None:
         self._token = token
 

@@ -26,7 +26,8 @@ T = TypeVar("T")
 class PageFunction(Generic[T], Protocol):
     def __call__(
         self, page_size: Optional[int], next_page_token: Optional[str]
-    ) -> Tuple[Optional[str], List[T]]: ...
+    ) -> Tuple[Optional[str], List[T]]:
+        ...
 
 
 class PageIterator(Generic[T]):
