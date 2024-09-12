@@ -52,9 +52,9 @@ class SearchObjectsForInterfaceRequest(BaseModel):
     of properties specified in the value.
     """
 
-    augmented_shared_property_types: Dict[
-        InterfaceTypeApiName, List[SharedPropertyTypeApiName]
-    ] = Field(alias="augmentedSharedPropertyTypes")
+    augmented_shared_property_types: Dict[InterfaceTypeApiName, List[SharedPropertyTypeApiName]] = (
+        Field(alias="augmentedSharedPropertyTypes")
+    )
     """
     A map from interface type API name to a list of shared property type API names. For each returned object, if
     the object implements an interface that is a key in the map, then we augment the response for that object 

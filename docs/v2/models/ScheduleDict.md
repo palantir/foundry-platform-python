@@ -8,7 +8,7 @@ Schedule
 **rid** | ScheduleRid | Yes |  |
 **displayName** | NotRequired[StrictStr] | No |  |
 **description** | NotRequired[StrictStr] | No |  |
-**versionRid** | ScheduleVersionRid | Yes | The RID of the current schedule version |
+**currentVersionRid** | ScheduleVersionRid | Yes | The RID of the current schedule version |
 **createdTime** | CreatedTime | Yes |  |
 **createdBy** | CreatedBy | Yes |  |
 **updatedTime** | UpdatedTime | Yes |  |

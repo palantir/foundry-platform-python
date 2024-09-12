@@ -1,6 +1,6 @@
 # ApproximatePercentileAggregationV2
 
-Computes the approximate percentile value for the provided field.
+Computes the approximate percentile value for the provided field. Requires Object Storage V2.
 
 ## Properties
 | Name | Type | Required | Description |

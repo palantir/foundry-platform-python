@@ -267,15 +267,6 @@ from foundry.v2.models._center_point import CenterPoint
 from foundry.v2.models._center_point_dict import CenterPointDict
 from foundry.v2.models._center_point_types import CenterPointTypes
 from foundry.v2.models._center_point_types_dict import CenterPointTypesDict
-from foundry.v2.models._chat_completion_choice import ChatCompletionChoice
-from foundry.v2.models._chat_completion_choice_dict import ChatCompletionChoiceDict
-from foundry.v2.models._chat_completion_request import ChatCompletionRequest
-from foundry.v2.models._chat_completion_request_dict import ChatCompletionRequestDict
-from foundry.v2.models._chat_completion_response import ChatCompletionResponse
-from foundry.v2.models._chat_completion_response_dict import ChatCompletionResponseDict
-from foundry.v2.models._chat_message import ChatMessage
-from foundry.v2.models._chat_message_dict import ChatMessageDict
-from foundry.v2.models._chat_message_role import ChatMessageRole
 from foundry.v2.models._connecting_target import ConnectingTarget
 from foundry.v2.models._connecting_target_dict import ConnectingTargetDict
 from foundry.v2.models._contains_all_terms_in_order_prefix_last_term import (
@@ -309,6 +300,8 @@ from foundry.v2.models._count_objects_response_v2 import CountObjectsResponseV2
 from foundry.v2.models._count_objects_response_v2_dict import CountObjectsResponseV2Dict
 from foundry.v2.models._create_branch_request import CreateBranchRequest
 from foundry.v2.models._create_branch_request_dict import CreateBranchRequestDict
+from foundry.v2.models._create_builds_request import CreateBuildsRequest
+from foundry.v2.models._create_builds_request_dict import CreateBuildsRequestDict
 from foundry.v2.models._create_dataset_request import CreateDatasetRequest
 from foundry.v2.models._create_dataset_request_dict import CreateDatasetRequestDict
 from foundry.v2.models._create_group_request import CreateGroupRequest
@@ -377,6 +370,10 @@ from foundry.v2.models._equals_query_v2_dict import EqualsQueryV2Dict
 from foundry.v2.models._error import Error
 from foundry.v2.models._error_dict import ErrorDict
 from foundry.v2.models._error_name import ErrorName
+from foundry.v2.models._exact_distinct_aggregation_v2 import ExactDistinctAggregationV2
+from foundry.v2.models._exact_distinct_aggregation_v2_dict import (
+    ExactDistinctAggregationV2Dict,
+)  # NOQA
 from foundry.v2.models._execute_query_request import ExecuteQueryRequest
 from foundry.v2.models._execute_query_request_dict import ExecuteQueryRequestDict
 from foundry.v2.models._execute_query_response import ExecuteQueryResponse
@@ -400,6 +397,8 @@ from foundry.v2.models._filesystem_resource_dict import FilesystemResourceDict
 from foundry.v2.models._filter_value import FilterValue
 from foundry.v2.models._float_type import FloatType
 from foundry.v2.models._float_type_dict import FloatTypeDict
+from foundry.v2.models._folder import Folder
+from foundry.v2.models._folder_dict import FolderDict
 from foundry.v2.models._folder_rid import FolderRid
 from foundry.v2.models._force_build import ForceBuild
 from foundry.v2.models._function_rid import FunctionRid
@@ -484,10 +483,6 @@ from foundry.v2.models._is_null_query_v2 import IsNullQueryV2
 from foundry.v2.models._is_null_query_v2_dict import IsNullQueryV2Dict
 from foundry.v2.models._job_succeeded_trigger import JobSucceededTrigger
 from foundry.v2.models._job_succeeded_trigger_dict import JobSucceededTriggerDict
-from foundry.v2.models._language_model import LanguageModel
-from foundry.v2.models._language_model_api_name import LanguageModelApiName
-from foundry.v2.models._language_model_dict import LanguageModelDict
-from foundry.v2.models._language_model_source import LanguageModelSource
 from foundry.v2.models._line_string import LineString
 from foundry.v2.models._line_string_coordinates import LineStringCoordinates
 from foundry.v2.models._line_string_dict import LineStringDict
@@ -532,10 +527,6 @@ from foundry.v2.models._list_groups_response_dict import ListGroupsResponseDict
 from foundry.v2.models._list_interface_types_response import ListInterfaceTypesResponse
 from foundry.v2.models._list_interface_types_response_dict import (
     ListInterfaceTypesResponseDict,
-)  # NOQA
-from foundry.v2.models._list_language_models_response import ListLanguageModelsResponse
-from foundry.v2.models._list_language_models_response_dict import (
-    ListLanguageModelsResponseDict,
 )  # NOQA
 from foundry.v2.models._list_linked_objects_response import ListLinkedObjectsResponse
 from foundry.v2.models._list_linked_objects_response_dict import (
@@ -761,10 +752,8 @@ from foundry.v2.models._parameter_evaluation_result_dict import (
     ParameterEvaluationResultDict,
 )  # NOQA
 from foundry.v2.models._parameter_id import ParameterId
-from foundry.v2.models._parameter_key import ParameterKey
 from foundry.v2.models._parameter_option import ParameterOption
 from foundry.v2.models._parameter_option_dict import ParameterOptionDict
-from foundry.v2.models._parameter_value import ParameterValue
 from foundry.v2.models._phrase_query import PhraseQuery
 from foundry.v2.models._phrase_query_dict import PhraseQueryDict
 from foundry.v2.models._polygon import Polygon
@@ -779,6 +768,8 @@ from foundry.v2.models._primary_key_value import PrimaryKeyValue
 from foundry.v2.models._principal_filter_type import PrincipalFilterType
 from foundry.v2.models._principal_id import PrincipalId
 from foundry.v2.models._principal_type import PrincipalType
+from foundry.v2.models._project import Project
+from foundry.v2.models._project_dict import ProjectDict
 from foundry.v2.models._project_rid import ProjectRid
 from foundry.v2.models._project_scope import ProjectScope
 from foundry.v2.models._project_scope_dict import ProjectScopeDict
@@ -869,7 +860,12 @@ from foundry.v2.models._remove_group_members_request_dict import (
     RemoveGroupMembersRequestDict,
 )  # NOQA
 from foundry.v2.models._request_id import RequestId
+from foundry.v2.models._resource import Resource
+from foundry.v2.models._resource_dict import ResourceDict
+from foundry.v2.models._resource_display_name import ResourceDisplayName
 from foundry.v2.models._resource_path import ResourcePath
+from foundry.v2.models._resource_rid import ResourceRid
+from foundry.v2.models._resource_type import ResourceType
 from foundry.v2.models._retry_backoff_duration import RetryBackoffDuration
 from foundry.v2.models._retry_backoff_duration_dict import RetryBackoffDurationDict
 from foundry.v2.models._retry_count import RetryCount
@@ -878,6 +874,18 @@ from foundry.v2.models._schedule import Schedule
 from foundry.v2.models._schedule_dict import ScheduleDict
 from foundry.v2.models._schedule_paused import SchedulePaused
 from foundry.v2.models._schedule_rid import ScheduleRid
+from foundry.v2.models._schedule_run import ScheduleRun
+from foundry.v2.models._schedule_run_dict import ScheduleRunDict
+from foundry.v2.models._schedule_run_error import ScheduleRunError
+from foundry.v2.models._schedule_run_error_dict import ScheduleRunErrorDict
+from foundry.v2.models._schedule_run_error_name import ScheduleRunErrorName
+from foundry.v2.models._schedule_run_ignored import ScheduleRunIgnored
+from foundry.v2.models._schedule_run_ignored_dict import ScheduleRunIgnoredDict
+from foundry.v2.models._schedule_run_result import ScheduleRunResult
+from foundry.v2.models._schedule_run_result_dict import ScheduleRunResultDict
+from foundry.v2.models._schedule_run_rid import ScheduleRunRid
+from foundry.v2.models._schedule_run_submitted import ScheduleRunSubmitted
+from foundry.v2.models._schedule_run_submitted_dict import ScheduleRunSubmittedDict
 from foundry.v2.models._schedule_succeeded_trigger import ScheduleSucceededTrigger
 from foundry.v2.models._schedule_succeeded_trigger_dict import ScheduleSucceededTriggerDict  # NOQA
 from foundry.v2.models._schedule_version import ScheduleVersion
@@ -940,6 +948,9 @@ from foundry.v2.models._shared_property_type_rid import SharedPropertyTypeRid
 from foundry.v2.models._short_type import ShortType
 from foundry.v2.models._short_type_dict import ShortTypeDict
 from foundry.v2.models._size_bytes import SizeBytes
+from foundry.v2.models._space import Space
+from foundry.v2.models._space_dict import SpaceDict
+from foundry.v2.models._space_rid import SpaceRid
 from foundry.v2.models._starts_with_query import StartsWithQuery
 from foundry.v2.models._starts_with_query_dict import StartsWithQueryDict
 from foundry.v2.models._stream_message import StreamMessage
@@ -1015,6 +1026,7 @@ from foundry.v2.models._transaction_dict import TransactionDict
 from foundry.v2.models._transaction_rid import TransactionRid
 from foundry.v2.models._transaction_status import TransactionStatus
 from foundry.v2.models._transaction_type import TransactionType
+from foundry.v2.models._trashed_status import TrashedStatus
 from foundry.v2.models._trigger import AndTrigger
 from foundry.v2.models._trigger import OrTrigger
 from foundry.v2.models._trigger import Trigger
@@ -1253,15 +1265,6 @@ __all__ = [
     "CenterPointDict",
     "CenterPointTypes",
     "CenterPointTypesDict",
-    "ChatCompletionChoice",
-    "ChatCompletionChoiceDict",
-    "ChatCompletionRequest",
-    "ChatCompletionRequestDict",
-    "ChatCompletionResponse",
-    "ChatCompletionResponseDict",
-    "ChatMessage",
-    "ChatMessageDict",
-    "ChatMessageRole",
     "ConnectingTarget",
     "ConnectingTargetDict",
     "ContainsAllTermsInOrderPrefixLastTerm",
@@ -1287,6 +1290,8 @@ __all__ = [
     "CountObjectsResponseV2Dict",
     "CreateBranchRequest",
     "CreateBranchRequestDict",
+    "CreateBuildsRequest",
+    "CreateBuildsRequestDict",
     "CreateDatasetRequest",
     "CreateDatasetRequestDict",
     "CreatedBy",
@@ -1341,6 +1346,8 @@ __all__ = [
     "Error",
     "ErrorDict",
     "ErrorName",
+    "ExactDistinctAggregationV2",
+    "ExactDistinctAggregationV2Dict",
     "ExecuteQueryRequest",
     "ExecuteQueryRequestDict",
     "ExecuteQueryResponse",
@@ -1364,6 +1371,8 @@ __all__ = [
     "FilterValue",
     "FloatType",
     "FloatTypeDict",
+    "Folder",
+    "FolderDict",
     "FolderRid",
     "ForceBuild",
     "FunctionRid",
@@ -1438,10 +1447,6 @@ __all__ = [
     "IsNullQueryV2Dict",
     "JobSucceededTrigger",
     "JobSucceededTriggerDict",
-    "LanguageModel",
-    "LanguageModelApiName",
-    "LanguageModelDict",
-    "LanguageModelSource",
     "LinearRing",
     "LineString",
     "LineStringCoordinates",
@@ -1477,8 +1482,6 @@ __all__ = [
     "ListGroupsResponseDict",
     "ListInterfaceTypesResponse",
     "ListInterfaceTypesResponseDict",
-    "ListLanguageModelsResponse",
-    "ListLanguageModelsResponseDict",
     "ListLinkedObjectsResponse",
     "ListLinkedObjectsResponseDict",
     "ListLinkedObjectsResponseV2",
@@ -1671,10 +1674,8 @@ __all__ = [
     "ParameterEvaluationResult",
     "ParameterEvaluationResultDict",
     "ParameterId",
-    "ParameterKey",
     "ParameterOption",
     "ParameterOptionDict",
-    "ParameterValue",
     "PhraseQuery",
     "PhraseQueryDict",
     "Polygon",
@@ -1689,6 +1690,8 @@ __all__ = [
     "PrincipalFilterType",
     "PrincipalId",
     "PrincipalType",
+    "Project",
+    "ProjectDict",
     "ProjectRid",
     "ProjectScope",
     "ProjectScopeDict",
@@ -1763,7 +1766,12 @@ __all__ = [
     "RemoveGroupMembersRequest",
     "RemoveGroupMembersRequestDict",
     "RequestId",
+    "Resource",
+    "ResourceDict",
+    "ResourceDisplayName",
     "ResourcePath",
+    "ResourceRid",
+    "ResourceType",
     "RetryBackoffDuration",
     "RetryBackoffDurationDict",
     "RetryCount",
@@ -1772,6 +1780,18 @@ __all__ = [
     "ScheduleDict",
     "SchedulePaused",
     "ScheduleRid",
+    "ScheduleRun",
+    "ScheduleRunDict",
+    "ScheduleRunError",
+    "ScheduleRunErrorDict",
+    "ScheduleRunErrorName",
+    "ScheduleRunIgnored",
+    "ScheduleRunIgnoredDict",
+    "ScheduleRunResult",
+    "ScheduleRunResultDict",
+    "ScheduleRunRid",
+    "ScheduleRunSubmitted",
+    "ScheduleRunSubmittedDict",
     "ScheduleSucceededTrigger",
     "ScheduleSucceededTriggerDict",
     "ScheduleVersion",
@@ -1818,6 +1838,9 @@ __all__ = [
     "ShortType",
     "ShortTypeDict",
     "SizeBytes",
+    "Space",
+    "SpaceDict",
+    "SpaceRid",
     "StartsWithQuery",
     "StartsWithQueryDict",
     "StreamMessage",
@@ -1877,6 +1900,7 @@ __all__ = [
     "TransactionRid",
     "TransactionStatus",
     "TransactionType",
+    "TrashedStatus",
     "Trigger",
     "TriggerDict",
     "TwoDimensionalAggregation",

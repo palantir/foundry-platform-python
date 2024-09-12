@@ -790,14 +790,12 @@ def ontologies_query():
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_query_execute(
     client: foundry.v1.FoundryV1Client,
     ontology_rid: str,
     query_api_name: str,
     parameters: str,
-    preview: Optional[bool],
 ):
     """
     Executes a Query using the given parameters. Optional parameters do not need to be supplied.
@@ -813,7 +811,6 @@ def ontologies_query_execute(
                 "parameters": parameters,
             }
         ),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1235,13 +1232,11 @@ def ontologies_ontology_query_type():
 @ontologies_ontology_query_type.command("get")
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_ontology_query_type_get(
     client: foundry.v1.FoundryV1Client,
     ontology_rid: str,
     query_api_name: str,
-    preview: Optional[bool],
 ):
     """
     Gets a specific query type with the given API name.
@@ -1252,7 +1247,6 @@ def ontologies_ontology_query_type_get(
     result = client.ontologies.Ontology.QueryType.get(
         ontology_rid=ontology_rid,
         query_api_name=query_api_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1260,13 +1254,11 @@ def ontologies_ontology_query_type_get(
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_ontology_query_type_list(
     client: foundry.v1.FoundryV1Client,
     ontology_rid: str,
     page_size: Optional[int],
-    preview: Optional[bool],
 ):
     """
     Lists the query types for the given Ontology.
@@ -1280,7 +1272,6 @@ def ontologies_ontology_query_type_list(
     result = client.ontologies.Ontology.QueryType.list(
         ontology_rid=ontology_rid,
         page_size=page_size,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1289,14 +1280,12 @@ def ontologies_ontology_query_type_list(
 @click.argument("ontology_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_ontology_query_type_page(
     client: foundry.v1.FoundryV1Client,
     ontology_rid: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Lists the query types for the given Ontology.
@@ -1311,7 +1300,6 @@ def ontologies_ontology_query_type_page(
         ontology_rid=ontology_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 

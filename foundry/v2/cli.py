@@ -2883,9 +2883,109 @@ def orchestration_schedule_get(
     click.echo(repr(result))
 
 
+@orchestration_schedule.command("pause")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_pause(
+    client: foundry.v2.FoundryV2Client,
+    schedule_rid: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.orchestration.Schedule.pause(
+        schedule_rid=schedule_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule.command("run")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_run(
+    client: foundry.v2.FoundryV2Client,
+    schedule_rid: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.orchestration.Schedule.run(
+        schedule_rid=schedule_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule.command("unpause")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_unpause(
+    client: foundry.v2.FoundryV2Client,
+    schedule_rid: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.orchestration.Schedule.unpause(
+        schedule_rid=schedule_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @orchestration.group("build")
 def orchestration_build():
     pass
+
+
+@orchestration_build.command("create")
+@click.option("--target", type=str, required=True, help="""The targets of the schedule.""")
+@click.option(
+    "--branch_name", type=str, required=False, help="""The target branch the build should run on."""
+)
+@click.option("--fallback_branches", type=str, required=True, help="""""")
+@click.option("--force_build", type=bool, required=False, help="""""")
+@click.option(
+    "--retry_count",
+    type=int,
+    required=False,
+    help="""The number of retry attempts for failed jobs.""",
+)
+@click.option("--retry_backoff_duration", type=str, required=False, help="""""")
+@click.option("--abort_on_failure", type=bool, required=False, help="""""")
+@click.option("--notifications_enabled", type=bool, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_build_create(
+    client: foundry.v2.FoundryV2Client,
+    target: str,
+    branch_name: Optional[str],
+    fallback_branches: str,
+    force_build: Optional[bool],
+    retry_count: Optional[int],
+    retry_backoff_duration: Optional[str],
+    abort_on_failure: Optional[bool],
+    notifications_enabled: Optional[bool],
+    preview: Optional[bool],
+):
+    """ """
+    result = client.orchestration.Build.create(
+        create_builds_request=foundry.v2.models.CreateBuildsRequest.model_validate(
+            {
+                "target": target,
+                "branchName": branch_name,
+                "fallbackBranches": fallback_branches,
+                "forceBuild": force_build,
+                "retryCount": retry_count,
+                "retryBackoffDuration": retry_backoff_duration,
+                "abortOnFailure": abort_on_failure,
+                "notificationsEnabled": notifications_enabled,
+            }
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
 
 
 @orchestration_build.command("get")

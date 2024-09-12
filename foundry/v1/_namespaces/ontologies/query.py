@@ -32,7 +32,6 @@ from foundry.v1.models._execute_query_request import ExecuteQueryRequest
 from foundry.v1.models._execute_query_request_dict import ExecuteQueryRequestDict
 from foundry.v1.models._execute_query_response import ExecuteQueryResponse
 from foundry.v1.models._ontology_rid import OntologyRid
-from foundry.v1.models._preview_mode import PreviewMode
 from foundry.v1.models._query_api_name import QueryApiName
 
 
@@ -48,7 +47,6 @@ class QueryResource:
         query_api_name: QueryApiName,
         execute_query_request: Union[ExecuteQueryRequest, ExecuteQueryRequestDict],
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> ExecuteQueryResponse:
         """
@@ -62,8 +60,6 @@ class QueryResource:
         :type query_api_name: QueryApiName
         :param execute_query_request: Body of the request
         :type execute_query_request: Union[ExecuteQueryRequest, ExecuteQueryRequestDict]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -74,7 +70,6 @@ class QueryResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = execute_query_request
-        _query_params["preview"] = preview
 
         _path_params["ontologyRid"] = ontology_rid
 

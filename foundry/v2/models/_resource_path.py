@@ -18,4 +18,4 @@ from __future__ import annotations
 from pydantic import StrictStr
 
 ResourcePath = StrictStr
-"""A path in the Foundry file tree."""
+"""The full path to the resource, including the resource name itself"""

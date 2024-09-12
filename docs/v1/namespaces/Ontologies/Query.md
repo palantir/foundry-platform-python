@@ -17,7 +17,6 @@ Name | Type | Description  | Notes |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **query_api_name** | QueryApiName | queryApiName |  |
 **execute_query_request** | Union[ExecuteQueryRequest, ExecuteQueryRequestDict] | Body of the request |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -42,16 +41,12 @@ query_api_name = "getEmployeesInCity"
 # Union[ExecuteQueryRequest, ExecuteQueryRequestDict] | Body of the request
 execute_query_request = {"parameters": {"city": "New York"}}
 
-# Optional[PreviewMode] | preview
-preview = true
-
 
 try:
     api_response = foundry_client.ontologies.Query.execute(
         ontology_rid,
         query_api_name,
         execute_query_request,
-        preview=preview,
     )
     print("The execute response:\n")
     pprint(api_response)

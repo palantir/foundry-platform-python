@@ -44,7 +44,7 @@ class Schedule(BaseModel):
 
     description: Optional[StrictStr] = None
 
-    version_rid: ScheduleVersionRid = Field(alias="versionRid")
+    current_version_rid: ScheduleVersionRid = Field(alias="currentVersionRid")
     """The RID of the current schedule version"""
 
     created_time: CreatedTime = Field(alias="createdTime")

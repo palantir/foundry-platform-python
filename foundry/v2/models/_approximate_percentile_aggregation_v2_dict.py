@@ -27,7 +27,7 @@ from foundry.v2.models._property_api_name import PropertyApiName
 
 
 class ApproximatePercentileAggregationV2Dict(TypedDict):
-    """Computes the approximate percentile value for the provided field."""
+    """Computes the approximate percentile value for the provided field. Requires Object Storage V2."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

@@ -1,7 +1,6 @@
 # ProjectRid
 
-The Resource Identifier (RID) of a Project.
-
+The unique resource identifier (RID) of a Project.
 
 ## Type
 ```python

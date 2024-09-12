@@ -1,7 +1,6 @@
 # ResourcePath
 
-A path in the Foundry file tree.
-
+The full path to the resource, including the resource name itself
 
 ## Type
 ```python

@@ -16,6 +16,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 [CountAggregationV2](CountAggregationV2.md) | count
 [ApproximateDistinctAggregationV2](ApproximateDistinctAggregationV2.md) | approximateDistinct
 [ApproximatePercentileAggregationV2](ApproximatePercentileAggregationV2.md) | approximatePercentile
+[ExactDistinctAggregationV2](ExactDistinctAggregationV2.md) | exactDistinct
 
 
 [[Back to Model list]](../../../README.md#models-v1-link) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to README]](../../../README.md)

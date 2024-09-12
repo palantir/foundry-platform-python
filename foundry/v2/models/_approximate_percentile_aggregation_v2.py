@@ -32,7 +32,7 @@ from foundry.v2.models._property_api_name import PropertyApiName
 
 
 class ApproximatePercentileAggregationV2(BaseModel):
-    """Computes the approximate percentile value for the provided field."""
+    """Computes the approximate percentile value for the provided field. Requires Object Storage V2."""
 
     field: PropertyApiName
 

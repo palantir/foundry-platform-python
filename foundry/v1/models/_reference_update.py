@@ -35,11 +35,11 @@ class ReferenceUpdate(BaseModel):
     field returns a dereferenced value rather than the reference itself.
     """
 
-    api_name: ObjectTypeApiName = Field(alias="apiName")
+    object_type: ObjectTypeApiName = Field(alias="objectType")
 
     primary_key: ObjectPrimaryKey = Field(alias="primaryKey")
 
-    property_api_name: PropertyApiName = Field(alias="propertyApiName")
+    property: PropertyApiName
 
     value: ReferenceValue
 

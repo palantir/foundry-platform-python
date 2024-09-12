@@ -18,7 +18,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **query_api_name** | QueryApiName | queryApiName |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **QueryType**
@@ -40,15 +39,11 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # QueryApiName | queryApiName
 query_api_name = "getEmployeesInCity"
 
-# Optional[PreviewMode] | preview
-preview = true
-
 
 try:
     api_response = foundry_client.ontologies.Ontology.QueryType.get(
         ontology_rid,
         query_api_name,
-        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
@@ -85,7 +80,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ResourceIterator[QueryType]**
@@ -107,15 +101,11 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # Optional[PageSize] | pageSize
 page_size = None
 
-# Optional[PreviewMode] | preview
-preview = true
-
 
 try:
     for query_type in foundry_client.ontologies.Ontology.QueryType.list(
         ontology_rid,
         page_size=page_size,
-        preview=preview,
     ):
         pprint(query_type)
 except PalantirRPCException as e:
@@ -152,7 +142,6 @@ Name | Type | Description  | Notes |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListQueryTypesResponse**
@@ -177,16 +166,12 @@ page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
 
-# Optional[PreviewMode] | preview
-preview = true
-
 
 try:
     api_response = foundry_client.ontologies.Ontology.QueryType.page(
         ontology_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     print("The page response:\n")
     pprint(api_response)

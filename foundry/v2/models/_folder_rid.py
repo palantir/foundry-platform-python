@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 FolderRid = RID
-"""FolderRid"""
+"""The unique resource identifier (RID) of a Folder."""

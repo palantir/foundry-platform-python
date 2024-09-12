@@ -5,7 +5,6 @@ ObjectSetStreamSubscribeRequest
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**ontology** | NotRequired[OntologyIdentifier] | No |  |
 **objectSet** | ObjectSetDict | Yes |  |
 **propertySet** | List[SelectedPropertyApiName] | Yes |  |
 **referenceSet** | List[SelectedPropertyApiName] | Yes |  |

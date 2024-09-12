@@ -8,9 +8,9 @@ field returns a dereferenced value rather than the reference itself.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**api_name** | ObjectTypeApiName | Yes |  |
+**object_type** | ObjectTypeApiName | Yes |  |
 **primary_key** | ObjectPrimaryKey | Yes |  |
-**property_api_name** | PropertyApiName | Yes |  |
+**property** | PropertyApiName | Yes |  |
 **value** | ReferenceValue | Yes |  |
 **type** | Literal["reference"] | Yes | None |
 
