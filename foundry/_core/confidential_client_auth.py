@@ -51,11 +51,6 @@ class ConfidentialClientAuth(Auth):
         scopes: Optional[List[str]] = None,
         should_refresh: bool = False,
     ) -> None:
-        if len(scopes) == 0:
-            raise ValueError(
-                "You have not provided any scopes. At least one scope must be provided."
-            )
-
         self._client_id = client_id
         self._client_secret = client_secret
         self._token: Optional[OAuthToken] = None
