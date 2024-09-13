@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Make scopes parameter to ConfidentialClientAuth optional
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/20
