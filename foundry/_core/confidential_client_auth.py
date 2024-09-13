@@ -48,7 +48,7 @@ class ConfidentialClientAuth(Auth):
         client_id: str,
         client_secret: str,
         hostname: str,
-        scopes: List[str],
+        scopes: Optional[List[str]] = None,
         should_refresh: bool = False,
     ) -> None:
         if len(scopes) == 0:
