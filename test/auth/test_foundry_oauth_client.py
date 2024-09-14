@@ -17,6 +17,7 @@ import pytest
 from foundry import ConfidentialClientAuth
 from foundry._errors.not_authenticated import NotAuthenticated
 
+
 def test_can_pass_config():
     config = ConfidentialClientAuth(
         client_id="123",
