@@ -19,6 +19,7 @@ import dataclasses
 import io
 import json
 import os
+from datetime import datetime
 from typing import Literal
 from typing import Optional
 
@@ -611,14 +612,14 @@ def admin_group_group_member():
 @admin_group_group_member.command("add")
 @click.argument("group_id", type=str, required=True)
 @click.option("--principal_ids", type=str, required=True, help="""""")
-@click.option("--expiration", type=str, required=False, help="""""")
+@click.option("--expiration", type=click.DateTime(), required=False, help="""""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_group_member_add(
     client: foundry.v2.FoundryClient,
     group_id: str,
     principal_ids: str,
-    expiration: Optional[str],
+    expiration: Optional[datetime],
     preview: Optional[bool],
 ):
     """ """
