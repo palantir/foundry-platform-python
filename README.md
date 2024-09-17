@@ -172,13 +172,14 @@ Want to learn more about this Foundry SDK library? Review the following sections
 ## Error handling
 ### Data validation
 The SDK employs [Pydantic](https://docs.pydantic.dev/latest/) for runtime validation
-of arguments. In the example below, we are passing in a number to `transactionRid`
+of arguments. In the example below, we are passing in a number to `transaction_rid`
 which should actually be a string type:
 
 ```python
 foundry_client.datasets.Dataset.Branch.create(
     "ri.foundry.main.dataset.abc",
-    create_branch_request={"branchId": "123", "transactionRid": 123},
+    name="123",
+    transaction_rid=123,
 )
 ```
 
@@ -186,7 +187,7 @@ If you did this, you would receive an error that looks something like:
 
 ```
 pydantic_core._pydantic_core.ValidationError: 1 validation error for create
-create_branch_request.transactionRid
+transaction_rid
   Input should be a valid string [type=string_type, input_value=123, input_type=int]
     For further information visit https://errors.pydantic.dev/2.5/v/string_type
 ```
@@ -251,46 +252,43 @@ while page.next_page_token:
 ## Static type analysis
 This library uses [Pydantic](https://docs.pydantic.dev) for creating and validating data models which you will see in the
 method definitions (see [Documentation for Models](#models-link) below for a full list of models). All request parameters with nested
-objects use a [TypedDict](https://docs.python.org/3/library/typing.html#typing.TypedDict) whereas responses only use `Pydantic`
-models. For example, here is how `Branch.create` method is defined in the
-datasets namespace:
+models use a [TypedDict](https://docs.python.org/3/library/typing.html#typing.TypedDict) whereas responses use `Pydantic`
+models. For example, here is how `Group.search` method is defined in the `Admin` namespace:
 
 ```python
     @validate_call
     @handle_unexpected
-    def create(
+    def search(
         self,
-        dataset_rid: DatasetRid,
         *,
-        name: BranchName,
+        where: GroupSearchFilterDict,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> Branch:
+    ) -> SearchGroupsResponse:
         ...
 ```
 
 > [!TIP]
 > A `Pydantic` model can be converted into its `TypedDict` representation using the `to_dict` method. For example, if you handle
-> a variable of type `CreateBranchRequest` and you called `to_dict()` on that variable you would receive a `CreateBranchRequestDict`
+> a variable of type `Branch` and you called `to_dict()` on that variable you would receive a `BranchDict`
 > variable.
 
 If you are using a static type checker (for example, [mypy](https://mypy-lang.org), [pyright](https://github.com/microsoft/pyright)), you
-get static type analysis for the arguments you provide to the function *and* with the response. For example, if you pass an `int`
-to `branchId` while calling `create` and then try to access `branchId` in returned [`Branch`](docs/Branch.md) object (the
-property is actually called `branch_id`), you will get the following errors:
+get static type analysis for the arguments you provide to the function and with the response. For example, if you pass an `int`
+to `name` but `name` expects a string or if you try to access `branchName` on the returned [`Branch`](docs/Branch.md) object (the
+property is actually called `name`), you will get the following errors:
 
 
 ```python
 branch = foundry_client.datasets.Dataset.Branch.create(
     "ri.foundry.main.dataset.abc",
-    create_branch_request={
-        # ERROR: "Literal[123]" is incompatible with "BranchId"
-        "branchId": 123
-    },
+    # ERROR: "Literal[123]" is incompatible with "BranchName"
+    name=123,
 )
-# ERROR: Cannot access member "branchId" for type "Branch"
-print(branch.branchId)
+# ERROR: Cannot access member "branchName" for type "Branch"
+print(branch.branchName)
 ```
 
 ## Common errors
