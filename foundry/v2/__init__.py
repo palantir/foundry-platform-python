@@ -13,8 +13,8 @@
 #  limitations under the License.
 
 
-from foundry.v2.foundry_client import FoundryV2Client
+from foundry.v2.client import FoundryClient
 
 __all__ = [
-    "FoundryV2Client",
+    "FoundryClient",
 ]

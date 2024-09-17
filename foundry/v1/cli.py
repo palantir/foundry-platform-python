@@ -25,12 +25,11 @@ from typing import Optional
 import click
 
 import foundry.v1
-import foundry.v1.models
 
 
 @dataclasses.dataclass
 class _Context:
-    obj: foundry.v1.FoundryV1Client
+    obj: foundry.v1.FoundryClient
 
 
 def get_from_environ(key: str) -> str:
@@ -41,17 +40,22 @@ def get_from_environ(key: str) -> str:
     return value
 
 
-@click.group()
+@click.group()  # type: ignore
 @click.pass_context  # type: ignore
 def cli(ctx: _Context):
     "An experimental CLI for the Foundry API"
-    ctx.obj = foundry.v1.FoundryV1Client(
+    ctx.obj = foundry.v1.FoundryClient(
         auth=foundry.UserTokenAuth(
             hostname=get_from_environ("FOUNDRY_HOSTNAME"),
             token=get_from_environ("FOUNDRY_TOKEN"),
         ),
         hostname=get_from_environ("FOUNDRY_HOSTNAME"),
     )
+
+
+@cli.group("core")
+def core():
+    pass
 
 
 @cli.group("datasets")
@@ -69,7 +73,7 @@ def datasets_dataset():
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.pass_obj
 def datasets_dataset_create(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     name: str,
     parent_folder_rid: str,
 ):
@@ -80,12 +84,8 @@ def datasets_dataset_create(
 
     """
     result = client.datasets.Dataset.create(
-        create_dataset_request=foundry.v1.models.CreateDatasetRequest.model_validate(
-            {
-                "name": name,
-                "parentFolderRid": parent_folder_rid,
-            }
-        ),
+        name=name,
+        parent_folder_rid=parent_folder_rid,
     )
     click.echo(repr(result))
 
@@ -97,7 +97,7 @@ def datasets_dataset_create(
 @click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.pass_obj
 def datasets_dataset_delete_schema(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: Optional[str],
     preview: Optional[bool],
@@ -120,7 +120,7 @@ def datasets_dataset_delete_schema(
 @click.argument("dataset_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
 ):
     """
@@ -142,7 +142,7 @@ def datasets_dataset_get(
 @click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.pass_obj
 def datasets_dataset_get_schema(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: Optional[str],
     preview: Optional[bool],
@@ -171,7 +171,7 @@ def datasets_dataset_get_schema(
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_read(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     format: Literal["ARROW", "CSV"],
     branch_id: Optional[str],
@@ -207,7 +207,7 @@ def datasets_dataset_read(
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_replace_schema(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     body: str,
     branch_id: Optional[str],
@@ -236,7 +236,7 @@ def datasets_dataset_transaction():
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_transaction_abort(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
 ):
@@ -259,7 +259,7 @@ def datasets_dataset_transaction_abort(
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_transaction_commit(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
 ):
@@ -279,19 +279,19 @@ def datasets_dataset_transaction_commit(
 
 @datasets_dataset_transaction.command("create")
 @click.argument("dataset_rid", type=str, required=True)
+@click.option("--branch_id", type=str, required=False, help="""branchId""")
 @click.option(
     "--transaction_type",
     type=click.Choice(["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]),
     required=False,
     help="""""",
 )
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
 @click.pass_obj
 def datasets_dataset_transaction_create(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    transaction_type: Optional[Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
     branch_id: Optional[str],
+    transaction_type: Optional[Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
 ):
     """
     Creates a Transaction on a Branch of a Dataset.
@@ -301,12 +301,8 @@ def datasets_dataset_transaction_create(
     """
     result = client.datasets.Dataset.Transaction.create(
         dataset_rid=dataset_rid,
-        create_transaction_request=foundry.v1.models.CreateTransactionRequest.model_validate(
-            {
-                "transactionType": transaction_type,
-            }
-        ),
         branch_id=branch_id,
+        transaction_type=transaction_type,
     )
     click.echo(repr(result))
 
@@ -316,7 +312,7 @@ def datasets_dataset_transaction_create(
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_transaction_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
 ):
@@ -345,7 +341,7 @@ def datasets_dataset_file():
 @click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.pass_obj
 def datasets_dataset_file_delete(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     file_path: str,
     branch_id: Optional[str],
@@ -387,7 +383,7 @@ def datasets_dataset_file_delete(
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     file_path: str,
     branch_id: Optional[str],
@@ -439,7 +435,7 @@ def datasets_dataset_file_get(
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_list(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: Optional[str],
     end_transaction_rid: Optional[str],
@@ -494,7 +490,7 @@ def datasets_dataset_file_list(
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_page(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: Optional[str],
     end_transaction_rid: Optional[str],
@@ -550,7 +546,7 @@ def datasets_dataset_file_page(
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_read(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     file_path: str,
     branch_id: Optional[str],
@@ -609,7 +605,7 @@ def datasets_dataset_file_read(
 )
 @click.pass_obj
 def datasets_dataset_file_upload(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     body: io.BufferedReader,
     file_path: str,
@@ -662,7 +658,7 @@ def datasets_dataset_branch():
 @click.option("--transaction_rid", type=str, required=False, help="""""")
 @click.pass_obj
 def datasets_dataset_branch_create(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: str,
     transaction_rid: Optional[str],
@@ -675,12 +671,8 @@ def datasets_dataset_branch_create(
     """
     result = client.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
-        create_branch_request=foundry.v1.models.CreateBranchRequest.model_validate(
-            {
-                "branchId": branch_id,
-                "transactionRid": transaction_rid,
-            }
-        ),
+        branch_id=branch_id,
+        transaction_rid=transaction_rid,
     )
     click.echo(repr(result))
 
@@ -690,7 +682,7 @@ def datasets_dataset_branch_create(
 @click.argument("branch_id", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_branch_delete(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: str,
 ):
@@ -712,7 +704,7 @@ def datasets_dataset_branch_delete(
 @click.argument("branch_id", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_branch_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: str,
 ):
@@ -734,7 +726,7 @@ def datasets_dataset_branch_get(
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def datasets_dataset_branch_list(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     page_size: Optional[int],
 ):
@@ -757,7 +749,7 @@ def datasets_dataset_branch_list(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def datasets_dataset_branch_page(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     dataset_rid: str,
     page_size: Optional[int],
     page_token: Optional[str],
@@ -776,6 +768,11 @@ def datasets_dataset_branch_page(
     click.echo(repr(result))
 
 
+@cli.group("geo")
+def geo():
+    pass
+
+
 @cli.group("ontologies")
 def ontologies():
     pass
@@ -790,14 +787,12 @@ def ontologies_query():
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_query_execute(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     query_api_name: str,
     parameters: str,
-    preview: Optional[bool],
 ):
     """
     Executes a Query using the given parameters. Optional parameters do not need to be supplied.
@@ -808,12 +803,7 @@ def ontologies_query_execute(
     result = client.ontologies.Query.execute(
         ontology_rid=ontology_rid,
         query_api_name=query_api_name,
-        execute_query_request=foundry.v1.models.ExecuteQueryRequest.model_validate(
-            {
-                "parameters": parameters,
-            }
-        ),
-        preview=preview,
+        parameters=json.loads(parameters),
     )
     click.echo(repr(result))
 
@@ -827,16 +817,16 @@ def ontologies_ontology_object():
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--aggregation", type=str, required=True, help="""""")
-@click.option("--query", type=str, required=False, help="""""")
 @click.option("--group_by", type=str, required=True, help="""""")
+@click.option("--query", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_aggregate(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     aggregation: str,
-    query: Optional[str],
     group_by: str,
+    query: Optional[str],
 ):
     """
     Perform functions on object fields in the specified ontology and object type.
@@ -847,13 +837,9 @@ def ontologies_ontology_object_aggregate(
     result = client.ontologies.OntologyObject.aggregate(
         ontology_rid=ontology_rid,
         object_type=object_type,
-        aggregate_objects_request=foundry.v1.models.AggregateObjectsRequest.model_validate(
-            {
-                "aggregation": aggregation,
-                "query": query,
-                "groupBy": group_by,
-            }
-        ),
+        aggregation=json.loads(aggregation),
+        group_by=json.loads(group_by),
+        query=None if query is None else json.loads(query),
     )
     click.echo(repr(result))
 
@@ -865,7 +851,7 @@ def ontologies_ontology_object_aggregate(
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     primary_key: str,
@@ -895,7 +881,7 @@ def ontologies_ontology_object_get(
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_get_linked_object(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     primary_key: str,
@@ -929,7 +915,7 @@ def ontologies_ontology_object_get_linked_object(
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_list(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     order_by: Optional[str],
@@ -977,7 +963,7 @@ def ontologies_ontology_object_list(
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_list_linked_objects(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     primary_key: str,
@@ -1028,7 +1014,7 @@ def ontologies_ontology_object_list_linked_objects(
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_page(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     order_by: Optional[str],
@@ -1079,7 +1065,7 @@ def ontologies_ontology_object_page(
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_page_linked_objects(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     primary_key: str,
@@ -1126,10 +1112,6 @@ def ontologies_ontology_object_page_linked_objects(
 @ontologies_ontology_object.command("search")
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--query", type=str, required=True, help="""""")
-@click.option("--order_by", type=str, required=False, help="""""")
-@click.option("--page_size", type=int, required=False, help="""""")
-@click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
     "--fields",
     type=str,
@@ -1137,16 +1119,20 @@ def ontologies_ontology_object_page_linked_objects(
     help="""The API names of the object type properties to include in the response.
 """,
 )
+@click.option("--query", type=str, required=True, help="""""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_search(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
+    fields: str,
     query: str,
     order_by: Optional[str],
     page_size: Optional[int],
     page_token: Optional[str],
-    fields: str,
 ):
     """
     Search for objects in the specified ontology and object type. The request body is used
@@ -1175,15 +1161,11 @@ def ontologies_ontology_object_search(
     result = client.ontologies.OntologyObject.search(
         ontology_rid=ontology_rid,
         object_type=object_type,
-        search_objects_request=foundry.v1.models.SearchObjectsRequest.model_validate(
-            {
-                "query": query,
-                "orderBy": order_by,
-                "pageSize": page_size,
-                "pageToken": page_token,
-                "fields": fields,
-            }
-        ),
+        fields=json.loads(fields),
+        query=json.loads(query),
+        order_by=None if order_by is None else json.loads(order_by),
+        page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -1197,7 +1179,7 @@ def ontologies_ontology():
 @click.argument("ontology_rid", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
 ):
     """
@@ -1215,7 +1197,7 @@ def ontologies_ontology_get(
 @ontologies_ontology.command("list")
 @click.pass_obj
 def ontologies_ontology_list(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
 ):
     """
     Lists the Ontologies visible to the current user.
@@ -1235,13 +1217,11 @@ def ontologies_ontology_query_type():
 @ontologies_ontology_query_type.command("get")
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_ontology_query_type_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     query_api_name: str,
-    preview: Optional[bool],
 ):
     """
     Gets a specific query type with the given API name.
@@ -1252,7 +1232,6 @@ def ontologies_ontology_query_type_get(
     result = client.ontologies.Ontology.QueryType.get(
         ontology_rid=ontology_rid,
         query_api_name=query_api_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1260,13 +1239,11 @@ def ontologies_ontology_query_type_get(
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_ontology_query_type_list(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
-    preview: Optional[bool],
 ):
     """
     Lists the query types for the given Ontology.
@@ -1280,7 +1257,6 @@ def ontologies_ontology_query_type_list(
     result = client.ontologies.Ontology.QueryType.list(
         ontology_rid=ontology_rid,
         page_size=page_size,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1289,14 +1265,12 @@ def ontologies_ontology_query_type_list(
 @click.argument("ontology_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_ontology_query_type_page(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Lists the query types for the given Ontology.
@@ -1311,7 +1285,6 @@ def ontologies_ontology_query_type_page(
         ontology_rid=ontology_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1326,7 +1299,7 @@ def ontologies_ontology_object_type():
 @click.argument("object_type", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_object_type_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
 ):
@@ -1349,7 +1322,7 @@ def ontologies_ontology_object_type_get(
 @click.argument("link_type", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_object_type_get_outgoing_link_type(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     link_type: str,
@@ -1374,7 +1347,7 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def ontologies_ontology_object_type_list(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
 ):
@@ -1401,7 +1374,7 @@ def ontologies_ontology_object_type_list(
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def ontologies_ontology_object_type_list_outgoing_link_types(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     page_size: Optional[int],
@@ -1427,7 +1400,7 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_object_type_page(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
     page_token: Optional[str],
@@ -1457,7 +1430,7 @@ def ontologies_ontology_object_type_page(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_object_type_page_outgoing_link_types(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     page_size: Optional[int],
@@ -1489,7 +1462,7 @@ def ontologies_ontology_action_type():
 @click.argument("action_type_api_name", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_action_type_get(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     action_type_api_name: str,
 ):
@@ -1511,7 +1484,7 @@ def ontologies_ontology_action_type_get(
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.pass_obj
 def ontologies_ontology_action_type_list(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
 ):
@@ -1537,7 +1510,7 @@ def ontologies_ontology_action_type_list(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_action_type_page(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
     page_token: Optional[str],
@@ -1570,7 +1543,7 @@ def ontologies_action():
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.pass_obj
 def ontologies_action_apply(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     action_type: str,
     parameters: str,
@@ -1589,11 +1562,7 @@ def ontologies_action_apply(
     result = client.ontologies.Action.apply(
         ontology_rid=ontology_rid,
         action_type=action_type,
-        apply_action_request=foundry.v1.models.ApplyActionRequest.model_validate(
-            {
-                "parameters": parameters,
-            }
-        ),
+        parameters=json.loads(parameters),
     )
     click.echo(repr(result))
 
@@ -1604,7 +1573,7 @@ def ontologies_action_apply(
 @click.option("--requests", type=str, required=True, help="""""")
 @click.pass_obj
 def ontologies_action_apply_batch(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     action_type: str,
     requests: str,
@@ -1626,11 +1595,7 @@ def ontologies_action_apply_batch(
     result = client.ontologies.Action.apply_batch(
         ontology_rid=ontology_rid,
         action_type=action_type,
-        batch_apply_action_request=foundry.v1.models.BatchApplyActionRequest.model_validate(
-            {
-                "requests": requests,
-            }
-        ),
+        requests=json.loads(requests),
     )
     click.echo(repr(result))
 
@@ -1641,7 +1606,7 @@ def ontologies_action_apply_batch(
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.pass_obj
 def ontologies_action_validate(
-    client: foundry.v1.FoundryV1Client,
+    client: foundry.v1.FoundryClient,
     ontology_rid: str,
     action_type: str,
     parameters: str,
@@ -1662,11 +1627,7 @@ def ontologies_action_validate(
     result = client.ontologies.Action.validate(
         ontology_rid=ontology_rid,
         action_type=action_type,
-        validate_action_request=foundry.v1.models.ValidateActionRequest.model_validate(
-            {
-                "parameters": parameters,
-            }
-        ),
+        parameters=json.loads(parameters),
     )
     click.echo(repr(result))
 

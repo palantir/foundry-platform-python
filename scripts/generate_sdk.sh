@@ -12,8 +12,7 @@ EXCLUDED_PATHS=(
     "tmp"
     # Docs examples live here. These will go away eventually.
     "assets"
-    # Unit tets are written manually
-    "test"
+    "venv"
 )
 
 TMP_DIR=$(mktemp -d)
@@ -21,7 +20,7 @@ TMP_DIR=$(mktemp -d)
 for EXCLUDED_PATH in "${EXCLUDED_PATHS[@]}"; do
     TARGET_PATH="$TMP_DIR/$EXCLUDED_PATH"
     mkdir -p $(dirname $TARGET_PATH)
-    cp -r $EXCLUDED_PATH $TARGET_PATH
+    cp -r $EXCLUDED_PATH $TARGET_PATH > /dev/null 2>&1 || true
 done
 
 # Remove everything in the current directory
@@ -34,7 +33,7 @@ rsync -av "$TMP_DIR/" ./ &> /dev/null
 # Clean up the temporary directory
 rm -rf "$TMP_DIR"
 
-foundry_sdk_generator \
+python -m platform_sdk_generator \
     --config_path config.json \
     --output_dir . \
     --manifest_path "tmp/manifest.yml" \

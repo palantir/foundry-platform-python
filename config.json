@@ -42,7 +42,9 @@
         ]
       ],
       "namespaces": {
+        "Core": true,
         "Datasets": true,
+        "Geo": true,
         "Ontologies": [
           "listOntologies",
           "getOntology",
@@ -65,29 +67,63 @@
           "searchObjects",
           "aggregateObjects"
         ]
-      }
+      },
+      "skipTests": [
+        "createDataset",
+        "getActionType",
+        "listActionTypes",
+        "pageActionTypes",
+        "getObjectType",
+        "getOutgoingLinkType",
+        "listObjectTypes",
+        "listOutgoingLinkTypes",
+        "pageObjectTypes",
+        "pageOutgoingLinkTypes",
+        "aggregateObjects",
+        "getObject",
+        "getLinkedObject",
+        "listObjects",
+        "listLinkedObjects",
+        "pageObjects",
+        "pageLinkedObjects",
+        "deployWebsite",
+        "getQueryType",
+        "listQueryTypes",
+        "pageQueryTypes",
+        "getAttachmentV2",
+        "getTransaction",
+        "createTransaction",
+        "commitTransaction",
+        "getFileMetadata",
+        "listBranches",
+        "abortTransaction"
+      ]
     },
     "v2": {
       "additionalRelationships": [
         [
-          "Ontologies",
-          "Ontology",
-          "ActionType"
+          "OntologiesV2",
+          "OntologyV2",
+          "ActionTypeV2"
         ],
         [
-          "Ontologies",
-          "Ontology",
-          "ObjectType"
+          "OntologiesV2",
+          "OntologyV2",
+          "ObjectTypeV2"
         ],
         [
-          "Ontologies",
-          "Ontology",
+          "OntologiesV2",
+          "OntologyV2",
           "QueryType"
         ]
       ],
       "namespaces": {
-        "Datasets": true,
         "Admin": true,
+        "Core": true,
+        "Datasets": true,
+        "Geo": true,
+        "Ontologies": [],
+        "Filesystem": [],
         "OntologiesV2": [
           "getOntologyV2",
           "getOntologyFullMetadata",
@@ -124,8 +160,7 @@
           "loadObjectSetV2",
           "aggregateObjectSetV2",
           "uploadAttachmentV2",
-          "getAttachmentContentV2",
-          "getAttachmentV2"
+          "getAttachmentContentV2"
         ],
         "Orchestration": true,
         "ThirdPartyApplications": true
@@ -140,7 +175,61 @@
         "OntologyObjectV2": "OntologyObject",
         "LinkedObjectV2": "LinkedObject",
         "AttachmentPropertyV2": "AttachmentProperty"
-      }
+      },
+      "skipTests": [
+        "getObjectSetV2",
+        "getBuild",
+        "getWebsite",
+        "deployWebsite",
+        "undeployWebsite",
+        "getActionType",
+        "listActionTypes",
+        "pageActionTypes",
+        "getObjectType",
+        "getOutgoingLinkType",
+        "listObjectTypes",
+        "listOutgoingLinkTypes",
+        "pageObjectTypes",
+        "pageOutgoingLinkTypes",
+        "aggregateObjects",
+        "getObject",
+        "getLinkedObject",
+        "listObjects",
+        "listLinkedObjects",
+        "pageObjects",
+        "pageLinkedObjects",
+        "getGroupsBatch",
+        "searchGroups",
+        "getUsersBatch",
+        "searchUsers",
+        "getActionTypeV2",
+        "listActionTypesV2",
+        "pageActionTypesV2",
+        "getAttachmentV2",
+        "listPropertyAttachments",
+        "getAttachmentPropertyByRidV2",
+        "getLinkedObjectV2",
+        "listLinkedObjectsV2",
+        "pageLinkedObjectsV2",
+        "getObjectTypeV2",
+        "getOutgoingLinkTypeV2",
+        "listObjectTypesV2",
+        "listOutgoingLinkTypesV2",
+        "pageObjectTypesV2",
+        "pageOutgoingLinkTypesV2",
+        "getInterfaceType",
+        "listInterfaceTypes",
+        "pageInterfaceTypes",
+        "getObjectV2",
+        "listObjectsV2",
+        "pageObjectsV2",
+        "getQueryTypeV2",
+        "listQueryTypesV2",
+        "pageQueryTypesV2",
+        "applyActionV2",
+        "aggregateObjectsForInterface",
+        "aggregateObjectsV2"
+      ]
     }
   }
 }

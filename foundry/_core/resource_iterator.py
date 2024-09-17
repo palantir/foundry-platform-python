@@ -14,6 +14,7 @@
 
 
 from typing import Generic
+from typing import List
 from typing import Optional
 from typing import TypeVar
 
@@ -28,7 +29,7 @@ class ResourceIterator(Generic[T]):
 
     def __init__(self, paged_func: PageFunction[T], page_size: Optional[int] = None) -> None:
         self._page_iterator = PageIterator(paged_func, page_size)
-        self._data = []
+        self._data: List[T] = []
         self._index = 0
 
     @property
