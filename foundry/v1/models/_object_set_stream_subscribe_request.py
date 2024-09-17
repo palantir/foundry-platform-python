@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 from typing import List
-from typing import Optional
 from typing import cast
 
 from pydantic import BaseModel
@@ -26,14 +25,11 @@ from foundry.v1.models._object_set import ObjectSet
 from foundry.v1.models._object_set_stream_subscribe_request_dict import (
     ObjectSetStreamSubscribeRequestDict,
 )  # NOQA
-from foundry.v1.models._ontology_identifier import OntologyIdentifier
 from foundry.v1.models._selected_property_api_name import SelectedPropertyApiName
 
 
 class ObjectSetStreamSubscribeRequest(BaseModel):
     """ObjectSetStreamSubscribeRequest"""
-
-    ontology: Optional[OntologyIdentifier] = None
 
     object_set: ObjectSet = Field(alias="objectSet")
 

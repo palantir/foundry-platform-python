@@ -18,6 +18,6 @@ from __future__ import annotations
 from typing import Literal
 
 TimeUnit = Literal[
-    "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS", "QUARTERS"
+    "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS"
 ]
 """TimeUnit"""

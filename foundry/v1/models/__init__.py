@@ -247,15 +247,6 @@ from foundry.v1.models._center_point import CenterPoint
 from foundry.v1.models._center_point_dict import CenterPointDict
 from foundry.v1.models._center_point_types import CenterPointTypes
 from foundry.v1.models._center_point_types_dict import CenterPointTypesDict
-from foundry.v1.models._chat_completion_choice import ChatCompletionChoice
-from foundry.v1.models._chat_completion_choice_dict import ChatCompletionChoiceDict
-from foundry.v1.models._chat_completion_request import ChatCompletionRequest
-from foundry.v1.models._chat_completion_request_dict import ChatCompletionRequestDict
-from foundry.v1.models._chat_completion_response import ChatCompletionResponse
-from foundry.v1.models._chat_completion_response_dict import ChatCompletionResponseDict
-from foundry.v1.models._chat_message import ChatMessage
-from foundry.v1.models._chat_message_dict import ChatMessageDict
-from foundry.v1.models._chat_message_role import ChatMessageRole
 from foundry.v1.models._contains_all_terms_in_order_prefix_last_term import (
     ContainsAllTermsInOrderPrefixLastTerm,
 )  # NOQA
@@ -346,6 +337,10 @@ from foundry.v1.models._equals_query_v2_dict import EqualsQueryV2Dict
 from foundry.v1.models._error import Error
 from foundry.v1.models._error_dict import ErrorDict
 from foundry.v1.models._error_name import ErrorName
+from foundry.v1.models._exact_distinct_aggregation_v2 import ExactDistinctAggregationV2
+from foundry.v1.models._exact_distinct_aggregation_v2_dict import (
+    ExactDistinctAggregationV2Dict,
+)  # NOQA
 from foundry.v1.models._execute_query_request import ExecuteQueryRequest
 from foundry.v1.models._execute_query_request_dict import ExecuteQueryRequestDict
 from foundry.v1.models._execute_query_response import ExecuteQueryResponse
@@ -425,10 +420,6 @@ from foundry.v1.models._is_null_query import IsNullQuery
 from foundry.v1.models._is_null_query_dict import IsNullQueryDict
 from foundry.v1.models._is_null_query_v2 import IsNullQueryV2
 from foundry.v1.models._is_null_query_v2_dict import IsNullQueryV2Dict
-from foundry.v1.models._language_model import LanguageModel
-from foundry.v1.models._language_model_api_name import LanguageModelApiName
-from foundry.v1.models._language_model_dict import LanguageModelDict
-from foundry.v1.models._language_model_source import LanguageModelSource
 from foundry.v1.models._line_string import LineString
 from foundry.v1.models._line_string_coordinates import LineStringCoordinates
 from foundry.v1.models._line_string_dict import LineStringDict
@@ -465,10 +456,6 @@ from foundry.v1.models._list_files_response_dict import ListFilesResponseDict
 from foundry.v1.models._list_interface_types_response import ListInterfaceTypesResponse
 from foundry.v1.models._list_interface_types_response_dict import (
     ListInterfaceTypesResponseDict,
-)  # NOQA
-from foundry.v1.models._list_language_models_response import ListLanguageModelsResponse
-from foundry.v1.models._list_language_models_response_dict import (
-    ListLanguageModelsResponseDict,
 )  # NOQA
 from foundry.v1.models._list_linked_objects_response import ListLinkedObjectsResponse
 from foundry.v1.models._list_linked_objects_response_dict import (
@@ -681,10 +668,8 @@ from foundry.v1.models._parameter_evaluation_result_dict import (
     ParameterEvaluationResultDict,
 )  # NOQA
 from foundry.v1.models._parameter_id import ParameterId
-from foundry.v1.models._parameter_key import ParameterKey
 from foundry.v1.models._parameter_option import ParameterOption
 from foundry.v1.models._parameter_option_dict import ParameterOptionDict
-from foundry.v1.models._parameter_value import ParameterValue
 from foundry.v1.models._phrase_query import PhraseQuery
 from foundry.v1.models._phrase_query_dict import PhraseQueryDict
 from foundry.v1.models._polygon import Polygon
@@ -1089,15 +1074,6 @@ __all__ = [
     "CenterPointDict",
     "CenterPointTypes",
     "CenterPointTypesDict",
-    "ChatCompletionChoice",
-    "ChatCompletionChoiceDict",
-    "ChatCompletionRequest",
-    "ChatCompletionRequestDict",
-    "ChatCompletionResponse",
-    "ChatCompletionResponseDict",
-    "ChatMessage",
-    "ChatMessageDict",
-    "ChatMessageRole",
     "ContainsAllTermsInOrderPrefixLastTerm",
     "ContainsAllTermsInOrderPrefixLastTermDict",
     "ContainsAllTermsInOrderQuery",
@@ -1166,6 +1142,8 @@ __all__ = [
     "Error",
     "ErrorDict",
     "ErrorName",
+    "ExactDistinctAggregationV2",
+    "ExactDistinctAggregationV2Dict",
     "ExecuteQueryRequest",
     "ExecuteQueryRequestDict",
     "ExecuteQueryResponse",
@@ -1239,10 +1217,6 @@ __all__ = [
     "IsNullQueryDict",
     "IsNullQueryV2",
     "IsNullQueryV2Dict",
-    "LanguageModel",
-    "LanguageModelApiName",
-    "LanguageModelDict",
-    "LanguageModelSource",
     "LinearRing",
     "LineString",
     "LineStringCoordinates",
@@ -1272,8 +1246,6 @@ __all__ = [
     "ListFilesResponseDict",
     "ListInterfaceTypesResponse",
     "ListInterfaceTypesResponseDict",
-    "ListLanguageModelsResponse",
-    "ListLanguageModelsResponseDict",
     "ListLinkedObjectsResponse",
     "ListLinkedObjectsResponseDict",
     "ListLinkedObjectsResponseV2",
@@ -1451,10 +1423,8 @@ __all__ = [
     "ParameterEvaluationResult",
     "ParameterEvaluationResultDict",
     "ParameterId",
-    "ParameterKey",
     "ParameterOption",
     "ParameterOptionDict",
-    "ParameterValue",
     "PhraseQuery",
     "PhraseQueryDict",
     "Polygon",

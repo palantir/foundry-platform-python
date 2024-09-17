@@ -42,7 +42,7 @@ class ScheduleDict(TypedDict):
 
     description: NotRequired[StrictStr]
 
-    versionRid: ScheduleVersionRid
+    currentVersionRid: ScheduleVersionRid
     """The RID of the current schedule version"""
 
     createdTime: CreatedTime

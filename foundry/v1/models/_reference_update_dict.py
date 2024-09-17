@@ -34,11 +34,11 @@ class ReferenceUpdateDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: ObjectTypeApiName
+    objectType: ObjectTypeApiName
 
     primaryKey: ObjectPrimaryKey
 
-    propertyApiName: PropertyApiName
+    property: PropertyApiName
 
     value: ReferenceValueDict
 

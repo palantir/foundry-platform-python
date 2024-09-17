@@ -32,7 +32,6 @@ from foundry.v1.models._list_query_types_response import ListQueryTypesResponse
 from foundry.v1.models._ontology_rid import OntologyRid
 from foundry.v1.models._page_size import PageSize
 from foundry.v1.models._page_token import PageToken
-from foundry.v1.models._preview_mode import PreviewMode
 from foundry.v1.models._query_api_name import QueryApiName
 from foundry.v1.models._query_type import QueryType
 
@@ -48,7 +47,6 @@ class QueryTypeResource:
         ontology_rid: OntologyRid,
         query_api_name: QueryApiName,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> QueryType:
         """
@@ -60,8 +58,6 @@ class QueryTypeResource:
         :type ontology_rid: OntologyRid
         :param query_api_name: queryApiName
         :type query_api_name: QueryApiName
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -72,7 +68,6 @@ class QueryTypeResource:
         _query_params: Dict[str, Any] = {}
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
-        _query_params["preview"] = preview
 
         _path_params["ontologyRid"] = ontology_rid
 
@@ -101,7 +96,6 @@ class QueryTypeResource:
         ontology_rid: OntologyRid,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> ResourceIterator[QueryType]:
         """
@@ -116,8 +110,6 @@ class QueryTypeResource:
         :type ontology_rid: OntologyRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -129,8 +121,6 @@ class QueryTypeResource:
         _header_params: Dict[str, Any] = {}
         _body_params: Any = None
         _query_params["pageSize"] = page_size
-
-        _query_params["preview"] = preview
 
         _path_params["ontologyRid"] = ontology_rid
 
@@ -158,7 +148,6 @@ class QueryTypeResource:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
     ) -> ListQueryTypesResponse:
         """
@@ -175,8 +164,6 @@ class QueryTypeResource:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -190,8 +177,6 @@ class QueryTypeResource:
         _query_params["pageSize"] = page_size
 
         _query_params["pageToken"] = page_token
-
-        _query_params["preview"] = preview
 
         _path_params["ontologyRid"] = ontology_rid
 

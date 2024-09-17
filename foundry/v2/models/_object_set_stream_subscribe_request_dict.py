@@ -17,11 +17,9 @@ from __future__ import annotations
 
 from typing import List
 
-from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.v2.models._object_set_dict import ObjectSetDict
-from foundry.v2.models._ontology_identifier import OntologyIdentifier
 from foundry.v2.models._selected_property_api_name import SelectedPropertyApiName
 
 
@@ -29,8 +27,6 @@ class ObjectSetStreamSubscribeRequestDict(TypedDict):
     """ObjectSetStreamSubscribeRequest"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    ontology: NotRequired[OntologyIdentifier]
 
     objectSet: ObjectSetDict
 

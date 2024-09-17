@@ -14,6 +14,7 @@ EXCLUDED_PATHS=(
     "assets"
     # Unit tets are written manually
     "test"
+    "venv"
 )
 
 TMP_DIR=$(mktemp -d)
@@ -34,7 +35,7 @@ rsync -av "$TMP_DIR/" ./ &> /dev/null
 # Clean up the temporary directory
 rm -rf "$TMP_DIR"
 
-foundry_sdk_generator \
+python -m platform_sdk_generator \
     --config_path config.json \
     --output_dir . \
     --manifest_path "tmp/manifest.yml" \

@@ -30,6 +30,7 @@ from foundry.api_client import RequestInfo
 from foundry.v2.models._preview_mode import PreviewMode
 from foundry.v2.models._schedule import Schedule
 from foundry.v2.models._schedule_rid import ScheduleRid
+from foundry.v2.models._schedule_run import ScheduleRun
 
 
 class ScheduleResource:
@@ -77,6 +78,137 @@ class ScheduleResource:
                 body=_body_params,
                 body_type=None,
                 response_type=Schedule,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def pause(
+        self,
+        schedule_rid: ScheduleRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> None:
+        """
+
+        :param schedule_rid: scheduleRid
+        :type schedule_rid: ScheduleRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = None
+        _query_params["preview"] = preview
+
+        _path_params["scheduleRid"] = schedule_rid
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/schedules/{scheduleRid}/pause",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def run(
+        self,
+        schedule_rid: ScheduleRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> ScheduleRun:
+        """
+
+        :param schedule_rid: scheduleRid
+        :type schedule_rid: ScheduleRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ScheduleRun
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = None
+        _query_params["preview"] = preview
+
+        _path_params["scheduleRid"] = schedule_rid
+
+        _header_params["Accept"] = "application/json"
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/schedules/{scheduleRid}/run",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=ScheduleRun,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def unpause(
+        self,
+        schedule_rid: ScheduleRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> None:
+        """
+
+        :param schedule_rid: scheduleRid
+        :type schedule_rid: ScheduleRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        _path_params: Dict[str, Any] = {}
+        _query_params: Dict[str, Any] = {}
+        _header_params: Dict[str, Any] = {}
+        _body_params: Any = None
+        _query_params["preview"] = preview
+
+        _path_params["scheduleRid"] = schedule_rid
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/schedules/{scheduleRid}/unpause",
+                query_params=_query_params,
+                path_params=_path_params,
+                header_params=_header_params,
+                body=_body_params,
+                body_type=None,
+                response_type=None,
                 request_timeout=request_timeout,
             ),
         )

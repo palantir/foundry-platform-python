@@ -1,6 +1,6 @@
 # FolderRid
 
-FolderRid
+The unique resource identifier (RID) of a Folder.
 
 ## Type
 ```python

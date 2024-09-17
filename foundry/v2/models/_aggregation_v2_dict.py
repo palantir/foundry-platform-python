@@ -28,6 +28,9 @@ from foundry.v2.models._approximate_percentile_aggregation_v2_dict import (
 )  # NOQA
 from foundry.v2.models._avg_aggregation_v2_dict import AvgAggregationV2Dict
 from foundry.v2.models._count_aggregation_v2_dict import CountAggregationV2Dict
+from foundry.v2.models._exact_distinct_aggregation_v2_dict import (
+    ExactDistinctAggregationV2Dict,
+)  # NOQA
 from foundry.v2.models._max_aggregation_v2_dict import MaxAggregationV2Dict
 from foundry.v2.models._min_aggregation_v2_dict import MinAggregationV2Dict
 from foundry.v2.models._sum_aggregation_v2_dict import SumAggregationV2Dict
@@ -41,6 +44,7 @@ AggregationV2Dict = Annotated[
         CountAggregationV2Dict,
         ApproximateDistinctAggregationV2Dict,
         ApproximatePercentileAggregationV2Dict,
+        ExactDistinctAggregationV2Dict,
     ],
     Field(discriminator="type"),
 ]

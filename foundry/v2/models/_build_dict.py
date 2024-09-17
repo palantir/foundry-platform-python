@@ -18,10 +18,12 @@ from __future__ import annotations
 from typing_extensions import TypedDict
 
 from foundry.v2.models._abort_on_failure import AbortOnFailure
+from foundry.v2.models._branch_name import BranchName
 from foundry.v2.models._build_rid import BuildRid
 from foundry.v2.models._build_status import BuildStatus
 from foundry.v2.models._created_by import CreatedBy
 from foundry.v2.models._created_time import CreatedTime
+from foundry.v2.models._fallback_branches import FallbackBranches
 from foundry.v2.models._retry_backoff_duration_dict import RetryBackoffDurationDict
 from foundry.v2.models._retry_count import RetryCount
 
@@ -34,11 +36,16 @@ class BuildDict(TypedDict):
     rid: BuildRid
     """The RID of a build"""
 
+    branchName: BranchName
+    """The branch that the build is running on."""
+
     createdTime: CreatedTime
     """The timestamp that the build was created."""
 
     createdBy: CreatedBy
     """The user who created the build."""
+
+    fallbackBranches: FallbackBranches
 
     retryCount: RetryCount
 

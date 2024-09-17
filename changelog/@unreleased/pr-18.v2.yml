@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: Update APIs
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/18

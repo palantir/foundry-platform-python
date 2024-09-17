@@ -5,7 +5,7 @@ A measurement of duration.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**value** | StrictFloat | Yes | The duration value. |
+**value** | StrictInt | Yes | The duration value. |
 **unit** | TimeUnit | Yes | The unit of duration. |
 
 
