@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: Remove yq from script
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/23
