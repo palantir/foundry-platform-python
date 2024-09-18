@@ -19,8 +19,6 @@ from json import JSONDecodeError
 from typing import Any
 from typing import Dict
 
-import requests
-
 
 def format_error_message(fields: Dict[str, Any]) -> str:
     return json.dumps(fields, sort_keys=True, indent=4)

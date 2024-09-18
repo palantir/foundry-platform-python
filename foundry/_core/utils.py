@@ -13,10 +13,11 @@
 #  limitations under the License.
 
 
-from typing import Annotated
+from typing import List
 
 from pydantic import StrictStr
 from pydantic import StringConstraints
+from typing_extensions import Annotated
 
 RID = Annotated[
     StrictStr,
@@ -32,3 +33,10 @@ UUID = Annotated[
         pattern=r"^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$",
     ),
 ]
+
+
+def remove_prefixes(text: str, prefixes: List[str]):
+    for prefix in prefixes:
+        if text.startswith(prefix):
+            text = text[len(prefix) :]
+    return text

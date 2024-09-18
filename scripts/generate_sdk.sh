@@ -12,8 +12,6 @@ EXCLUDED_PATHS=(
     "tmp"
     # Docs examples live here. These will go away eventually.
     "assets"
-    # Unit tets are written manually
-    "test"
     "venv"
 )
 
@@ -22,7 +20,7 @@ TMP_DIR=$(mktemp -d)
 for EXCLUDED_PATH in "${EXCLUDED_PATHS[@]}"; do
     TARGET_PATH="$TMP_DIR/$EXCLUDED_PATH"
     mkdir -p $(dirname $TARGET_PATH)
-    cp -r $EXCLUDED_PATH $TARGET_PATH
+    cp -r $EXCLUDED_PATH $TARGET_PATH > /dev/null 2>&1 || true
 done
 
 # Remove everything in the current directory

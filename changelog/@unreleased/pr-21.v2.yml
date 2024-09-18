@@ -1,0 +1,9 @@
+type: feature
+feature:
+  description: |
+    - Move data models from `foundry/<VERSION>/models` to their respective namespace. For example, the V2 dataset models are located in `foundry/v2/datasets/models`.
+    - The request body is now passed in as method parameters. For example, rather than creating a branch like this `client.datasets.Dataset.Branch.create(dataset_rid, create_branch_request={"name": "develop"})` you would do this `client.datasets.Dataset.Branch.create(dataset_rid, name="develop")`.
+    - Renamed `FoundryV1Client` and `FoundryV2Client` back to `FoundryClient`
+    - Removed unused models
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/21

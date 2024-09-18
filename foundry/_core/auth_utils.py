@@ -22,6 +22,7 @@ T = TypeVar("T")
 
 
 class Token(ABC):
+
     @property
     @abstractmethod
     def access_token(self) -> str:
@@ -29,6 +30,7 @@ class Token(ABC):
 
 
 class Auth(ABC):
+
     @abstractmethod
     def get_token(self) -> "Token":
         pass

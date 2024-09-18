@@ -26,6 +26,7 @@ import requests
 
 from foundry._core.auth_utils import Auth
 from foundry._core.auth_utils import Token
+from foundry._core.utils import remove_prefixes
 
 
 def _run_with_401_status_check(
@@ -53,7 +54,7 @@ class PalantirSession:
 
     def __init__(self, auth: Auth, hostname: str, preview: bool = False) -> None:
         self._auth = auth
-        self._hostname = hostname.removeprefix("https://").removeprefix("http://")
+        self._hostname = remove_prefixes(hostname, ["https://", "http://"])
         self.preview = preview
         self._session = requests.Session()
 
@@ -201,4 +202,4 @@ class PalantirSession:
         }
 
     def _remove_host_prefix(self, url: str) -> str:
-        return url.removeprefix("https://").removeprefix("http://")
+        return remove_prefixes(url, ["https://", "http://"])

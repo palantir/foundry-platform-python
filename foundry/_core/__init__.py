@@ -13,4 +13,7 @@
 #  limitations under the License.
 
 
+from foundry._core.api_client import ApiClient
+from foundry._core.api_client import RequestInfo
+from foundry._core.auth_utils import Auth
 from foundry._core.resource_iterator import ResourceIterator

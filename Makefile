@@ -10,13 +10,13 @@ sdk:
 
 test:
 	@echo === Testing the SDK ===
-	@python -m pytest test
+	@python -m pytest tests
 
 format:
 	@echo
 	@echo === Formatting the Generator ===
-	@isort foundry test --profile black --multi-line NOQA -sl --project foundry
-	@python -m black foundry test
+	@isort foundry tests --profile black --multi-line NOQA -sl --project foundry
+	@python -m black foundry tests
 
 lint:
 	@echo === Linting the SDK ===
