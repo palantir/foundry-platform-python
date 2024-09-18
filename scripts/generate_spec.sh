@@ -6,7 +6,7 @@ MAVEN_REPO_PATH="$MAVEN_DIST_RELEASE/$(echo "$MAVEN_CONJURE_GROUP_ID" | sed 's/\
 
 mkdir -p $TMP_DIR
 API_GATEWAY_VERSION=$( wget -q -O - "${MAVEN_REPO_PATH}/maven-metadata.xml" | \
-    yq -p xml -r '.metadata.versioning.release' )
+    python scripts/parse_version.py )
 
 echo Downloading $API_GATEWAY_VERSION...
 mkdir -p "${TMP_DIR}"

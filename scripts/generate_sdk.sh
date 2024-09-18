@@ -5,6 +5,7 @@ EXCLUDED_PATHS=(
     "Makefile"
     "scripts/generate_sdk.sh"
     "scripts/generate_spec.sh"
+    "scripts/parse_version.py"
     "config.json"
     ".policy.yml"
     "changelog"
