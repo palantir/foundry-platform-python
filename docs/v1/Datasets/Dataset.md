@@ -26,7 +26,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -46,7 +46,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Dataset.create: %s\n" % e)
 
 ```
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -109,7 +109,7 @@ try:
     )
     print("The delete_schema response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Dataset.delete_schema: %s\n" % e)
 
 ```
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -163,7 +163,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Dataset.get: %s\n" % e)
 
 ```
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -226,7 +226,7 @@ try:
     )
     print("The get_schema response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Dataset.get_schema: %s\n" % e)
 
 ```
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -306,7 +306,7 @@ try:
     )
     print("The read response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Dataset.read: %s\n" % e)
 
 ```
@@ -400,7 +400,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -426,7 +426,7 @@ try:
     )
     print("The replace_schema response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Dataset.replace_schema: %s\n" % e)
 
 ```

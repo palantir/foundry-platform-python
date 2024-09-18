@@ -26,7 +26,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -53,7 +53,7 @@ try:
     )
     print("The delete response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Version.delete: %s\n" % e)
 
 ```
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -116,7 +116,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Version.get: %s\n" % e)
 
 ```
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -180,7 +180,7 @@ try:
         preview=preview,
     ):
         pprint(version)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Version.list: %s\n" % e)
 
 ```
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -249,7 +249,7 @@ try:
     )
     print("The page response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Version.page: %s\n" % e)
 
 ```
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -316,7 +316,7 @@ try:
     )
     print("The upload response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Version.upload: %s\n" % e)
 
 ```

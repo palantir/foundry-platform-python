@@ -24,7 +24,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -41,7 +41,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Ontology.get: %s\n" % e)
 
 ```
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -89,7 +89,7 @@ try:
     api_response = foundry_client.ontologies.Ontology.list()
     print("The list response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Ontology.list: %s\n" % e)
 
 ```

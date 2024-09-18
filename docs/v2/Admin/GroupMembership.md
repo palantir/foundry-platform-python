@@ -26,7 +26,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -51,7 +51,7 @@ try:
         transitive=transitive,
     ):
         pprint(group_membership)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling GroupMembership.list: %s\n" % e)
 
 ```
@@ -91,7 +91,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -120,7 +120,7 @@ try:
     )
     print("The page response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling GroupMembership.page: %s\n" % e)
 
 ```

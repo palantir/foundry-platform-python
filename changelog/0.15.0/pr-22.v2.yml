@@ -1,0 +1,7 @@
+type: improvement
+improvement:
+  description: |-
+    - Docs updates including updating examples and fixing imports
+    - Adding size constraints around List types when applicable
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/22

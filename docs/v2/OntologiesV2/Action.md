@@ -35,7 +35,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -67,7 +67,7 @@ try:
     )
     print("The apply response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Action.apply: %s\n" % e)
 
 ```
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -151,7 +151,7 @@ try:
     )
     print("The apply_batch response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Action.apply_batch: %s\n" % e)
 
 ```

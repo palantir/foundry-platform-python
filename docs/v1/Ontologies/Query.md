@@ -25,7 +25,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -48,7 +48,7 @@ try:
     )
     print("The execute response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Query.execute: %s\n" % e)
 
 ```

@@ -34,7 +34,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -82,7 +82,7 @@ try:
     )
     print("The aggregate response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling OntologyObject.aggregate: %s\n" % e)
 
 ```
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -147,7 +147,7 @@ try:
     )
     print("The count response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling OntologyObject.count: %s\n" % e)
 
 ```
@@ -190,7 +190,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -225,7 +225,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling OntologyObject.get: %s\n" % e)
 
 ```
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -318,7 +318,7 @@ try:
         select=select,
     ):
         pprint(ontology_object)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling OntologyObject.list: %s\n" % e)
 
 ```
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -416,7 +416,7 @@ try:
     )
     print("The page response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling OntologyObject.page: %s\n" % e)
 
 ```
@@ -481,7 +481,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -525,7 +525,7 @@ try:
     )
     print("The search response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling OntologyObject.search: %s\n" % e)
 
 ```

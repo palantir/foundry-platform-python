@@ -28,7 +28,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -48,7 +48,7 @@ try:
     )
     print("The delete response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.delete: %s\n" % e)
 
 ```
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -103,7 +103,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.get: %s\n" % e)
 
 ```
@@ -130,7 +130,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | List[GetUsersBatchRequestElementDict] | Body of the request |  |
+**body** | Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -140,14 +140,14 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# List[GetUsersBatchRequestElementDict] | Body of the request
+# Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request
 body = {"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
 # Optional[PreviewMode] | preview
 preview = None
@@ -160,7 +160,7 @@ try:
     )
     print("The get_batch response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.get_batch: %s\n" % e)
 
 ```
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -211,7 +211,7 @@ try:
     )
     print("The get_current response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.get_current: %s\n" % e)
 
 ```
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -265,7 +265,7 @@ try:
     )
     print("The get_markings response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.get_markings: %s\n" % e)
 
 ```
@@ -302,7 +302,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -321,7 +321,7 @@ try:
         preview=preview,
     ):
         pprint(user)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.list: %s\n" % e)
 
 ```
@@ -359,7 +359,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -382,7 +382,7 @@ try:
     )
     print("The page response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.page: %s\n" % e)
 
 ```
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -437,7 +437,7 @@ try:
     )
     print("The profile_picture response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.profile_picture: %s\n" % e)
 
 ```
@@ -474,7 +474,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -500,7 +500,7 @@ try:
     )
     print("The search response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling User.search: %s\n" % e)
 
 ```
