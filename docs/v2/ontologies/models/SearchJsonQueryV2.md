@@ -10,6 +10,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 OrQueryV2 | or
+InQuery | in
 DoesNotIntersectPolygonQuery | doesNotIntersectPolygon
 LtQueryV2 | lt
 DoesNotIntersectBoundingBoxQuery | doesNotIntersectBoundingBox

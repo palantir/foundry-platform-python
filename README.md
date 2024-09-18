@@ -710,6 +710,8 @@ Namespace | Resource | Operation | HTTP request |
 - [GtQueryV2Dict](docs/v2/models/GtQueryV2Dict.md)
 - [Icon](docs/v2/models/Icon.md)
 - [IconDict](docs/v2/models/IconDict.md)
+- [InQuery](docs/v2/models/InQuery.md)
+- [InQueryDict](docs/v2/models/InQueryDict.md)
 - [InterfaceLinkType](docs/v2/models/InterfaceLinkType.md)
 - [InterfaceLinkTypeApiName](docs/v2/models/InterfaceLinkTypeApiName.md)
 - [InterfaceLinkTypeCardinality](docs/v2/models/InterfaceLinkTypeCardinality.md)
