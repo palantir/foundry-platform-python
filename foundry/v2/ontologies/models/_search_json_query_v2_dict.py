@@ -45,6 +45,7 @@ from foundry.v2.ontologies.models._does_not_intersect_polygon_query_dict import 
 from foundry.v2.ontologies.models._equals_query_v2_dict import EqualsQueryV2Dict
 from foundry.v2.ontologies.models._gt_query_v2_dict import GtQueryV2Dict
 from foundry.v2.ontologies.models._gte_query_v2_dict import GteQueryV2Dict
+from foundry.v2.ontologies.models._in_query_dict import InQueryDict
 from foundry.v2.ontologies.models._intersects_bounding_box_query_dict import (
     IntersectsBoundingBoxQueryDict,
 )  # NOQA
@@ -97,6 +98,7 @@ class AndQueryV2Dict(TypedDict):
 SearchJsonQueryV2Dict = Annotated[
     Union[
         OrQueryV2Dict,
+        InQueryDict,
         DoesNotIntersectPolygonQueryDict,
         LtQueryV2Dict,
         DoesNotIntersectBoundingBoxQueryDict,
