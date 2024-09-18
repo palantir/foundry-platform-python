@@ -17,9 +17,12 @@ from __future__ import annotations
 
 from typing import List
 
+from annotated_types import Len
+from typing_extensions import Annotated
+
 from foundry.v2.geo.models._position import Position
 
-LinearRing = List[Position]
+LinearRing = Annotated[List[Position], Len(min_length=4)]
 """
 A linear ring is a closed LineString with four or more positions.
 

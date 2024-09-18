@@ -20,6 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
+from annotated_types import Len
 from pydantic import Field
 from pydantic import StrictInt
 from pydantic import validate_call
@@ -137,7 +138,7 @@ class UserClient:
     @handle_unexpected
     def get_batch(
         self,
-        body: List[GetUsersBatchRequestElementDict],
+        body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
@@ -147,7 +148,7 @@ class UserClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: List[GetUsersBatchRequestElementDict]
+        :type body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -169,7 +170,9 @@ class UserClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=List[GetUsersBatchRequestElementDict],
+                body_type=Annotated[
+                    List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)
+                ],
                 response_type=GetUsersBatchResponse,
                 request_timeout=request_timeout,
             ),

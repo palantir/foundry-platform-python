@@ -37,11 +37,6 @@ You can install the Python package using `pip`:
 pip install foundry-platform-sdk
 ```
 
-Then, import the package:
-```python
-import foundry.v2
-```
-
 <a id="major-version-link"></a>
 ## API Versioning
 Every endpoint of the Foundry API is versioned using a version number that appears in the URL. For example,
@@ -86,6 +81,8 @@ You can pass in the hostname and token as keyword arguments when
 initializing the `UserTokenAuth`:
 
 ```python
+import foundry
+
 foundry_client = foundry.v2.FoundryClient(
     auth=foundry.UserTokenAuth(
         hostname="example.palantirfoundry.com",
@@ -107,6 +104,8 @@ the sign-in process using the `sign_in_as_service_user` method. As these service
 automatically retry all operations one time if a `401` (Unauthorized) error is thrown after refreshing the token.
 
 ```python
+import foundry
+
 auth = foundry.ConfidentialClientAuth(
     client_id=os.environ["CLIENT_ID"],
     client_secret=os.environ["CLIENT_SECRET"],
@@ -124,6 +123,8 @@ auth.sign_in_as_service_user()
 After creating the `ConfidentialClientAuth` object, pass it in to the `FoundryClient`,
 
 ```python
+import foundry.v2
+
 foundry_client = foundry.v2.FoundryClient(auth=auth, hostname="example.palantirfoundry.com")
 ```
 
@@ -135,7 +136,7 @@ purposes.
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -158,7 +159,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling Branch.create: %s\n" % e)
 
 ```
@@ -201,7 +202,7 @@ the [Pydantic error documentation](https://docs.pydantic.dev/latest/errors/error
 experience. See [Static Type Analysis](#static-types) below for more information.
 
 ### HTTP exceptions
-When an HTTP error status is returned, a `PalantirRPCException` is thrown. All HTTP error exception classes inherit from `ApiException`.
+When an HTTP error status is returned, a `PalantirRPCException` is thrown.
 
 ```python
 from foundry import PalantirRPCException

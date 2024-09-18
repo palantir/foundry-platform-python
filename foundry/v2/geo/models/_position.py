@@ -17,9 +17,12 @@ from __future__ import annotations
 
 from typing import List
 
+from annotated_types import Len
+from typing_extensions import Annotated
+
 from foundry.v2.geo.models._coordinate import Coordinate
 
-Position = List[Coordinate]
+Position = Annotated[List[Coordinate], Len(min_length=2, max_length=3)]
 """
 GeoJSon fundamental geometry construct.
 

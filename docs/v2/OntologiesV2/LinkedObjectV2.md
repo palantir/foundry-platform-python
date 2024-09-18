@@ -35,7 +35,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -76,7 +76,7 @@ try:
     )
     print("The get_linked_object response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling LinkedObject.get_linked_object: %s\n" % e)
 
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -177,7 +177,7 @@ try:
         select=select,
     ):
         pprint(linked_object)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling LinkedObject.list_linked_objects: %s\n" % e)
 
 ```
@@ -236,7 +236,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v2 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -283,7 +283,7 @@ try:
     )
     print("The page_linked_objects response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling LinkedObject.page_linked_objects: %s\n" % e)
 
 ```

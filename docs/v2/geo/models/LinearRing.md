@@ -15,7 +15,7 @@ clockwise.
 
 ## Type
 ```python
-List[Position]
+Annotated[List[Position], Len(min_length=4)]
 ```
 
 

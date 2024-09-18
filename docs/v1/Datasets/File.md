@@ -44,7 +44,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -70,7 +70,7 @@ try:
     )
     print("The delete response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling File.delete: %s\n" % e)
 
 ```
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -161,7 +161,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling File.get: %s\n" % e)
 
 ```
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -253,7 +253,7 @@ try:
         start_transaction_rid=start_transaction_rid,
     ):
         pprint(file)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling File.list: %s\n" % e)
 
 ```
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -370,7 +370,7 @@ try:
     )
     print("The page response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling File.page: %s\n" % e)
 
 ```
@@ -433,7 +433,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -462,7 +462,7 @@ try:
     )
     print("The read response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling File.read: %s\n" % e)
 
 ```
@@ -521,7 +521,7 @@ Name | Type | Description  | Notes |
 
 ```python
 from foundry.v1 import FoundryClient
-from foundry import PalantirRPCException
+import foundry
 from pprint import pprint
 
 foundry_client = FoundryClient(
@@ -553,7 +553,7 @@ try:
     )
     print("The upload response:\n")
     pprint(api_response)
-except PalantirRPCException as e:
+except foundry.PalantirRPCException as e:
     print("HTTP error when calling File.upload: %s\n" % e)
 
 ```
