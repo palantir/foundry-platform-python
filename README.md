@@ -24,7 +24,7 @@ Palantir provides two different Python Software Development Kits (SDKs) for inte
 The Ontology SDK allows you to access the full power of the Ontology directly from your development environment. You can generate the Ontology SDK using the Developer Console, a portal for creating and managing applications using Palantir APIs. Review the [Ontology SDK documentation](https://www.palantir.com/docs/foundry/ontology-sdk) for more information.
 
 ### Foundry Platform SDK
-The Foundry Platform Software Development Kit (SDK) is generated from the Foundry API's OpenAPI specification
+The Foundry Platform Software Development Kit (SDK) is generated from the Foundry API specification
 file. The intention of this SDK is to encompass endpoints related to interacting
 with the platform itself. Although there are Ontology services included by this SDK, this SDK surfaces endpoints
 for interacting with Ontological resources such as object types, link types, and action types. In contrast, the OSDK allows you to interact with objects, links and Actions (for example, querying your objects, applying an action).

@@ -40,7 +40,7 @@ class ConfidentialClientAuth(Auth):
 
     :param client_id: OAuth client id to be used by the application.
     :param client_secret: OAuth client secret to be used by the application.
-    :param scopes: The list of scopes to request.
+    :param scopes: The list of scopes to request. By default, no specific scope is provided and a token will be returned with all scopes.
     :param hostname: Hostname for authentication and ontology endpoints.
     """
 
@@ -49,14 +49,9 @@ class ConfidentialClientAuth(Auth):
         client_id: str,
         client_secret: str,
         hostname: str,
-        scopes: List[str],
+        scopes: Optional[List[str]] = None,
         should_refresh: bool = False,
     ) -> None:
-        if len(scopes) == 0:
-            raise ValueError(
-                "You have not provided any scopes. At least one scope must be provided."
-            )
-
         self._client_id = client_id
         self._client_secret = client_secret
         self._token: Optional[OAuthToken] = None
