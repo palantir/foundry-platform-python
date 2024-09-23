@@ -120,9 +120,10 @@
         "Admin": true,
         "Core": true,
         "Datasets": true,
+        "Functions": true,
         "Geo": true,
         "Ontologies": [],
-        "Filesystem": [],
+        "Filesystem": true,
         "OntologiesV2": [
           "getOntologyV2",
           "getOntologyFullMetadata",
@@ -162,6 +163,7 @@
           "getAttachmentContentV2"
         ],
         "Orchestration": true,
+        "Streams" :true,
         "ThirdPartyApplications": true
       },
       "namespaceRenames": {
