@@ -229,7 +229,9 @@
         "pageQueryTypesV2",
         "applyActionV2",
         "aggregateObjectsForInterface",
-        "aggregateObjectsV2"
+        "aggregateObjectsV2",
+        "getResource",
+        "getMarkingsBatch"
       ]
     }
   }
