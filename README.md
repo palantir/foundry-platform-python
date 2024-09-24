@@ -536,6 +536,8 @@ Namespace | Resource | Operation | HTTP request |
 - [GeoPointTypeDict](docs/v2/models/GeoPointTypeDict.md)
 - [GeoShapeType](docs/v2/models/GeoShapeType.md)
 - [GeoShapeTypeDict](docs/v2/models/GeoShapeTypeDict.md)
+- [GeotimeSeriesReferenceType](docs/v2/models/GeotimeSeriesReferenceType.md)
+- [GeotimeSeriesReferenceTypeDict](docs/v2/models/GeotimeSeriesReferenceTypeDict.md)
 - [IntegerType](docs/v2/models/IntegerType.md)
 - [IntegerTypeDict](docs/v2/models/IntegerTypeDict.md)
 - [LongType](docs/v2/models/LongType.md)

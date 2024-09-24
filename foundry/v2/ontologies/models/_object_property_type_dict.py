@@ -31,6 +31,9 @@ from foundry.v2.core.models._double_type_dict import DoubleTypeDict
 from foundry.v2.core.models._float_type_dict import FloatTypeDict
 from foundry.v2.core.models._geo_point_type_dict import GeoPointTypeDict
 from foundry.v2.core.models._geo_shape_type_dict import GeoShapeTypeDict
+from foundry.v2.core.models._geotime_series_reference_type_dict import (
+    GeotimeSeriesReferenceTypeDict,
+)  # NOQA
 from foundry.v2.core.models._integer_type_dict import IntegerTypeDict
 from foundry.v2.core.models._long_type_dict import LongTypeDict
 from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
@@ -57,6 +60,7 @@ ObjectPropertyTypeDict = Annotated[
         ByteTypeDict,
         DoubleTypeDict,
         GeoPointTypeDict,
+        GeotimeSeriesReferenceTypeDict,
         IntegerTypeDict,
         FloatTypeDict,
         GeoShapeTypeDict,

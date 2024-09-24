@@ -15,6 +15,7 @@ StringTypeDict | string
 ByteTypeDict | byte
 DoubleTypeDict | double
 GeoPointTypeDict | geopoint
+GeotimeSeriesReferenceTypeDict | geotimeSeriesReference
 IntegerTypeDict | integer
 FloatTypeDict | float
 GeoShapeTypeDict | geoshape

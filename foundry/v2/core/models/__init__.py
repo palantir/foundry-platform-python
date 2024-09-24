@@ -43,6 +43,10 @@ from foundry.v2.core.models._geo_point_type import GeoPointType
 from foundry.v2.core.models._geo_point_type_dict import GeoPointTypeDict
 from foundry.v2.core.models._geo_shape_type import GeoShapeType
 from foundry.v2.core.models._geo_shape_type_dict import GeoShapeTypeDict
+from foundry.v2.core.models._geotime_series_reference_type import GeotimeSeriesReferenceType  # NOQA
+from foundry.v2.core.models._geotime_series_reference_type_dict import (
+    GeotimeSeriesReferenceTypeDict,
+)  # NOQA
 from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._integer_type_dict import IntegerTypeDict
 from foundry.v2.core.models._long_type import LongType
@@ -114,6 +118,8 @@ __all__ = [
     "GeoPointTypeDict",
     "GeoShapeType",
     "GeoShapeTypeDict",
+    "GeotimeSeriesReferenceType",
+    "GeotimeSeriesReferenceTypeDict",
     "IntegerType",
     "IntegerTypeDict",
     "LongType",
