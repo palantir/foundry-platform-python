@@ -57,6 +57,62 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+Execute multiple get requests on Marking.
+
+The maximum batch size for this endpoint is 500.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**GetMarkingsBatchResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request
+body = {"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Marking.get_batch(
+        body,
+        preview=preview,
+    )
+    print("The get_batch response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Marking.get_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetMarkingsBatchResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 Maximum page size 100.
 
 ### Parameters
