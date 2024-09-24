@@ -27,12 +27,18 @@ class FoundryClient:
     def __init__(self, auth: Auth, hostname: str):
         from foundry.v2.admin.client import AdminClient
         from foundry.v2.datasets.client import DatasetsClient
+        from foundry.v2.filesystem.client import FilesystemClient
+        from foundry.v2.functions.client import FunctionsClient
         from foundry.v2.ontologies.client import OntologiesClient
         from foundry.v2.orchestration.client import OrchestrationClient
+        from foundry.v2.streams.client import StreamsClient
         from foundry.v2.third_party_applications.client import ThirdPartyApplicationsClient  # NOQA
 
         self.admin = AdminClient(auth=auth, hostname=hostname)
         self.datasets = DatasetsClient(auth=auth, hostname=hostname)
+        self.filesystem = FilesystemClient(auth=auth, hostname=hostname)
+        self.functions = FunctionsClient(auth=auth, hostname=hostname)
         self.ontologies = OntologiesClient(auth=auth, hostname=hostname)
         self.orchestration = OrchestrationClient(auth=auth, hostname=hostname)
+        self.streams = StreamsClient(auth=auth, hostname=hostname)
         self.third_party_applications = ThirdPartyApplicationsClient(auth=auth, hostname=hostname)

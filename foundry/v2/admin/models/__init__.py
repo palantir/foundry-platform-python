@@ -23,6 +23,13 @@ from foundry.v2.admin.models._get_groups_batch_response import GetGroupsBatchRes
 from foundry.v2.admin.models._get_groups_batch_response_dict import (
     GetGroupsBatchResponseDict,
 )  # NOQA
+from foundry.v2.admin.models._get_markings_batch_request_element_dict import (
+    GetMarkingsBatchRequestElementDict,
+)  # NOQA
+from foundry.v2.admin.models._get_markings_batch_response import GetMarkingsBatchResponse  # NOQA
+from foundry.v2.admin.models._get_markings_batch_response_dict import (
+    GetMarkingsBatchResponseDict,
+)  # NOQA
 from foundry.v2.admin.models._get_user_markings_response import GetUserMarkingsResponse
 from foundry.v2.admin.models._get_user_markings_response_dict import (
     GetUserMarkingsResponseDict,
@@ -91,6 +98,9 @@ __all__ = [
     "GetGroupsBatchRequestElementDict",
     "GetGroupsBatchResponse",
     "GetGroupsBatchResponseDict",
+    "GetMarkingsBatchRequestElementDict",
+    "GetMarkingsBatchResponse",
+    "GetMarkingsBatchResponseDict",
     "GetUserMarkingsResponse",
     "GetUserMarkingsResponseDict",
     "GetUsersBatchRequestElementDict",

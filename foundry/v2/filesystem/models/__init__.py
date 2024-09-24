@@ -15,8 +15,22 @@
 
 from foundry.v2.filesystem.models._folder_rid import FolderRid
 from foundry.v2.filesystem.models._project_rid import ProjectRid
+from foundry.v2.filesystem.models._resource import Resource
+from foundry.v2.filesystem.models._resource_dict import ResourceDict
+from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
+from foundry.v2.filesystem.models._resource_path import ResourcePath
+from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry.v2.filesystem.models._space_rid import SpaceRid
+from foundry.v2.filesystem.models._trashed_status import TrashedStatus
 
 __all__ = [
     "FolderRid",
     "ProjectRid",
+    "Resource",
+    "ResourceDict",
+    "ResourceDisplayName",
+    "ResourcePath",
+    "ResourceRid",
+    "SpaceRid",
+    "TrashedStatus",
 ]

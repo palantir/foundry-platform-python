@@ -392,6 +392,27 @@ def admin_marking_get(
     click.echo(repr(result))
 
 
+@admin_marking.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_get_batch(
+    client: foundry.v2.FoundryClient,
+    body: str,
+    preview: Optional[bool],
+):
+    """
+    Execute multiple get requests on Marking.
+
+    The maximum batch size for this endpoint is 500.
+    """
+    result = client.admin.Marking.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_marking.command("list")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1333,6 +1354,105 @@ def datasets_dataset_branch_page(
 @cli.group("filesystem")
 def filesystem():
     pass
+
+
+@filesystem.group("resource")
+def filesystem_resource():
+    pass
+
+
+@filesystem_resource.command("get")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_get(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Resource with the specified rid.
+    """
+    result = client.filesystem.Resource.get(
+        resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@cli.group("functions")
+def functions():
+    pass
+
+
+@functions.group("query")
+def functions_query():
+    pass
+
+
+@functions_query.command("execute")
+@click.argument("query_api_name", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def functions_query_execute(
+    client: foundry.v2.FoundryClient,
+    query_api_name: str,
+    parameters: str,
+    preview: Optional[bool],
+):
+    """
+    Executes a Query using the given parameters.
+
+    Optional parameters do not need to be supplied.
+
+    """
+    result = client.functions.Query.execute(
+        query_api_name=query_api_name,
+        parameters=json.loads(parameters),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@functions_query.command("get")
+@click.argument("query_api_name", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def functions_query_get(
+    client: foundry.v2.FoundryClient,
+    query_api_name: str,
+    preview: Optional[bool],
+):
+    """
+    Gets a specific query type with the given API name.
+
+    """
+    result = client.functions.Query.get(
+        query_api_name=query_api_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@functions_query.command("get_by_rid")
+@click.option("--rid", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def functions_query_get_by_rid(
+    client: foundry.v2.FoundryClient,
+    rid: str,
+    preview: Optional[bool],
+):
+    """
+    Gets a specific query type with the given RID.
+
+    """
+    result = client.functions.Query.get_by_rid(
+        rid=rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
 
 
 @cli.group("geo")
@@ -3077,6 +3197,115 @@ def orchestration_build_get(
     """
     result = client.orchestration.Build.get(
         build_rid=build_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@cli.group("streams")
+def streams():
+    pass
+
+
+@streams.group("dataset")
+def streams_dataset():
+    pass
+
+
+@streams_dataset.command("create")
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--parent_folder_rid", type=str, required=True, help="""""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The branch to create the initial stream on. If not specified, the default branch will be used
+('master' for most enrollments).
+""",
+)
+@click.option(
+    "--compressed",
+    type=bool,
+    required=False,
+    help="""Whether or not compression is enabled for the stream. Defaults to false.
+""",
+)
+@click.option(
+    "--partitions_count",
+    type=int,
+    required=False,
+    help="""The number of partitions for the Foundry stream.
+
+Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
+are recommended.
+
+If not specified, 1 partition is used.
+
+This value cannot be changed later.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--stream_type",
+    type=click.Choice(["LOW_LATENCY", "HIGH_THROUGHPUT"]),
+    required=False,
+    help="""A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
+LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+""",
+)
+@click.pass_obj
+def streams_dataset_create(
+    client: foundry.v2.FoundryClient,
+    name: str,
+    parent_folder_rid: str,
+    branch_name: Optional[str],
+    compressed: Optional[bool],
+    partitions_count: Optional[int],
+    preview: Optional[bool],
+    stream_type: Optional[Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
+):
+    """
+    Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
+    default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
+    [streams](/docs/foundry/data-integration/streams/) user documentation.
+
+    """
+    result = client.streams.Dataset.create(
+        name=name,
+        parent_folder_rid=parent_folder_rid,
+        branch_name=branch_name,
+        compressed=compressed,
+        partitions_count=partitions_count,
+        preview=preview,
+        stream_type=stream_type,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset.group("stream")
+def streams_dataset_stream():
+    pass
+
+
+@streams_dataset_stream.command("get")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def streams_dataset_stream_get(
+    client: foundry.v2.FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    preview: Optional[bool],
+):
+    """
+    Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
+    user does not have permission to access the stream, a 404 error will be returned.
+
+    """
+    result = client.streams.Dataset.Stream.get(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
         preview=preview,
     )
     click.echo(repr(result))
