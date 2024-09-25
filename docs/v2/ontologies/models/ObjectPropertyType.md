@@ -15,6 +15,7 @@ StringType | string
 ByteType | byte
 DoubleType | double
 GeoPointType | geopoint
+GeotimeSeriesReferenceType | geotimeSeriesReference
 IntegerType | integer
 FloatType | float
 GeoShapeType | geoshape

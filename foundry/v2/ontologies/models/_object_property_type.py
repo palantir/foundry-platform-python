@@ -32,6 +32,7 @@ from foundry.v2.core.models._double_type import DoubleType
 from foundry.v2.core.models._float_type import FloatType
 from foundry.v2.core.models._geo_point_type import GeoPointType
 from foundry.v2.core.models._geo_shape_type import GeoShapeType
+from foundry.v2.core.models._geotime_series_reference_type import GeotimeSeriesReferenceType  # NOQA
 from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._long_type import LongType
 from foundry.v2.core.models._marking_type import MarkingType
@@ -65,6 +66,7 @@ ObjectPropertyType = Annotated[
         ByteType,
         DoubleType,
         GeoPointType,
+        GeotimeSeriesReferenceType,
         IntegerType,
         FloatType,
         GeoShapeType,
