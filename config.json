@@ -231,7 +231,8 @@
         "aggregateObjectsForInterface",
         "aggregateObjectsV2",
         "getResource",
-        "getMarkingsBatch"
+        "getMarkingsBatch",
+        "createSchedule"
       ]
     }
   }
