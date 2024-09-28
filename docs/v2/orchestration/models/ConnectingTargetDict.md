@@ -7,9 +7,9 @@ target datasets (inclusive) except for the datasets to ignore.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**inputDatasetRids** | List[DatasetRid] | Yes | The upstream input datasets (exclusive). |
-**targetDatasetRids** | List[DatasetRid] | Yes | The downstream target datasets (inclusive). |
-**ignoredDatasetRids** | List[DatasetRid] | Yes | The datasets between the input datasets and target datasets to exclude. |
+**inputRids** | List[BuildableRid] | Yes | The upstream input datasets (exclusive). |
+**targetRids** | List[BuildableRid] | Yes | The downstream target datasets (inclusive). |
+**ignoredRids** | List[BuildableRid] | Yes | The datasets between the input datasets and target datasets to exclude. |
 **type** | Literal["connecting"] | Yes | None |
 
 

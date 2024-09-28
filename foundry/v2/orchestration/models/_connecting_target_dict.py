@@ -20,7 +20,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 
 
 class ConnectingTargetDict(TypedDict):
@@ -31,13 +31,13 @@ class ConnectingTargetDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    inputDatasetRids: List[DatasetRid]
+    inputRids: List[BuildableRid]
     """The upstream input datasets (exclusive)."""
 
-    targetDatasetRids: List[DatasetRid]
+    targetRids: List[BuildableRid]
     """The downstream target datasets (inclusive)."""
 
-    ignoredDatasetRids: List[DatasetRid]
+    ignoredRids: List[BuildableRid]
     """The datasets between the input datasets and target datasets to exclude."""
 
     type: Literal["connecting"]

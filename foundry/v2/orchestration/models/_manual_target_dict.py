@@ -20,7 +20,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 
 
 class ManualTargetDict(TypedDict):
@@ -28,6 +28,6 @@ class ManualTargetDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRids: List[DatasetRid]
+    targetRids: List[BuildableRid]
 
     type: Literal["manual"]

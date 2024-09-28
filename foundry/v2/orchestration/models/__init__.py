@@ -24,8 +24,33 @@ from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._build_status import BuildStatus
 from foundry.v2.orchestration.models._build_target import BuildTarget
 from foundry.v2.orchestration.models._build_target_dict import BuildTargetDict
+from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._connecting_target import ConnectingTarget
 from foundry.v2.orchestration.models._connecting_target_dict import ConnectingTargetDict
+from foundry.v2.orchestration.models._create_schedule_request_action_build_target_connecting_target_dict import (
+    CreateScheduleRequestActionBuildTargetConnectingTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_action_build_target_dict import (
+    CreateScheduleRequestActionBuildTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_action_build_target_manual_target_dict import (
+    CreateScheduleRequestActionBuildTargetManualTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_action_build_target_upstream_target_dict import (
+    CreateScheduleRequestActionBuildTargetUpstreamTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_action_dict import (
+    CreateScheduleRequestActionDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_scope_mode_dict import (
+    CreateScheduleRequestScopeModeDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_scope_mode_project_scope_dict import (
+    CreateScheduleRequestScopeModeProjectScopeDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_scope_mode_user_scope_dict import (
+    CreateScheduleRequestScopeModeUserScopeDict,
+)  # NOQA
 from foundry.v2.orchestration.models._cron_expression import CronExpression
 from foundry.v2.orchestration.models._dataset_updated_trigger import DatasetUpdatedTrigger  # NOQA
 from foundry.v2.orchestration.models._dataset_updated_trigger_dict import (
@@ -52,6 +77,30 @@ from foundry.v2.orchestration.models._or_trigger import OrTrigger
 from foundry.v2.orchestration.models._or_trigger_dict import OrTriggerDict
 from foundry.v2.orchestration.models._project_scope import ProjectScope
 from foundry.v2.orchestration.models._project_scope_dict import ProjectScopeDict
+from foundry.v2.orchestration.models._replace_schedule_request_action_build_target_connecting_target_dict import (
+    ReplaceScheduleRequestActionBuildTargetConnectingTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_action_build_target_dict import (
+    ReplaceScheduleRequestActionBuildTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_action_build_target_manual_target_dict import (
+    ReplaceScheduleRequestActionBuildTargetManualTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_action_build_target_upstream_target_dict import (
+    ReplaceScheduleRequestActionBuildTargetUpstreamTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_action_dict import (
+    ReplaceScheduleRequestActionDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_dict import (
+    ReplaceScheduleRequestScopeModeDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_project_scope_dict import (
+    ReplaceScheduleRequestScopeModeProjectScopeDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_user_scope_dict import (
+    ReplaceScheduleRequestScopeModeUserScopeDict,
+)  # NOQA
 from foundry.v2.orchestration.models._retry_backoff_duration import RetryBackoffDuration
 from foundry.v2.orchestration.models._retry_backoff_duration_dict import (
     RetryBackoffDurationDict,
@@ -94,7 +143,6 @@ from foundry.v2.orchestration.models._upstream_target import UpstreamTarget
 from foundry.v2.orchestration.models._upstream_target_dict import UpstreamTargetDict
 from foundry.v2.orchestration.models._user_scope import UserScope
 from foundry.v2.orchestration.models._user_scope_dict import UserScopeDict
-from foundry.v2.orchestration.models._zone_id import ZoneId
 
 __all__ = [
     "AbortOnFailure",
@@ -108,8 +156,17 @@ __all__ = [
     "BuildStatus",
     "BuildTarget",
     "BuildTargetDict",
+    "BuildableRid",
     "ConnectingTarget",
     "ConnectingTargetDict",
+    "CreateScheduleRequestActionBuildTargetConnectingTargetDict",
+    "CreateScheduleRequestActionBuildTargetDict",
+    "CreateScheduleRequestActionBuildTargetManualTargetDict",
+    "CreateScheduleRequestActionBuildTargetUpstreamTargetDict",
+    "CreateScheduleRequestActionDict",
+    "CreateScheduleRequestScopeModeDict",
+    "CreateScheduleRequestScopeModeProjectScopeDict",
+    "CreateScheduleRequestScopeModeUserScopeDict",
     "CronExpression",
     "DatasetUpdatedTrigger",
     "DatasetUpdatedTriggerDict",
@@ -128,6 +185,14 @@ __all__ = [
     "OrTriggerDict",
     "ProjectScope",
     "ProjectScopeDict",
+    "ReplaceScheduleRequestActionBuildTargetConnectingTargetDict",
+    "ReplaceScheduleRequestActionBuildTargetDict",
+    "ReplaceScheduleRequestActionBuildTargetManualTargetDict",
+    "ReplaceScheduleRequestActionBuildTargetUpstreamTargetDict",
+    "ReplaceScheduleRequestActionDict",
+    "ReplaceScheduleRequestScopeModeDict",
+    "ReplaceScheduleRequestScopeModeProjectScopeDict",
+    "ReplaceScheduleRequestScopeModeUserScopeDict",
     "RetryBackoffDuration",
     "RetryBackoffDurationDict",
     "RetryCount",
@@ -160,5 +225,4 @@ __all__ = [
     "UpstreamTargetDict",
     "UserScope",
     "UserScopeDict",
-    "ZoneId",
 ]

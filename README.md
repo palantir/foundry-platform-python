@@ -386,8 +386,11 @@ Namespace | Resource | Operation | HTTP request |
 **OntologiesV2** | TimeSeriesPropertyV2 | [**stream_points**](docs/v2/OntologiesV2/TimeSeriesPropertyV2.md#stream_points) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints |
 **Orchestration** | Build | [**create**](docs/v2/Orchestration/Build.md#create) | **POST** /v2/orchestration/builds/create |
 **Orchestration** | Build | [**get**](docs/v2/Orchestration/Build.md#get) | **GET** /v2/orchestration/builds/{buildRid} |
+**Orchestration** | Schedule | [**create**](docs/v2/Orchestration/Schedule.md#create) | **POST** /v2/orchestration/schedules |
+**Orchestration** | Schedule | [**delete**](docs/v2/Orchestration/Schedule.md#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**get**](docs/v2/Orchestration/Schedule.md#get) | **GET** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**pause**](docs/v2/Orchestration/Schedule.md#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause |
+**Orchestration** | Schedule | [**replace**](docs/v2/Orchestration/Schedule.md#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**run**](docs/v2/Orchestration/Schedule.md#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run |
 **Orchestration** | Schedule | [**unpause**](docs/v2/Orchestration/Schedule.md#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause |
 **ThirdPartyApplications** | Version | [**delete**](docs/v2/ThirdPartyApplications/Version.md#delete) | **DELETE** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} |
@@ -557,7 +560,6 @@ Namespace | Resource | Operation | HTTP request |
 - [PrincipalType](docs/v2/models/PrincipalType.md)
 - [Realm](docs/v2/models/Realm.md)
 - [ReleaseStatus](docs/v2/models/ReleaseStatus.md)
-- [ResourceType](docs/v2/models/ResourceType.md)
 - [ShortType](docs/v2/models/ShortType.md)
 - [ShortTypeDict](docs/v2/models/ShortTypeDict.md)
 - [SizeBytes](docs/v2/models/SizeBytes.md)
@@ -577,6 +579,7 @@ Namespace | Resource | Operation | HTTP request |
 - [UpdatedBy](docs/v2/models/UpdatedBy.md)
 - [UpdatedTime](docs/v2/models/UpdatedTime.md)
 - [UserId](docs/v2/models/UserId.md)
+- [ZoneId](docs/v2/models/ZoneId.md)
 - [Branch](docs/v2/models/Branch.md)
 - [BranchDict](docs/v2/models/BranchDict.md)
 - [BranchName](docs/v2/models/BranchName.md)
@@ -605,6 +608,7 @@ Namespace | Resource | Operation | HTTP request |
 - [ResourceDisplayName](docs/v2/models/ResourceDisplayName.md)
 - [ResourcePath](docs/v2/models/ResourcePath.md)
 - [ResourceRid](docs/v2/models/ResourceRid.md)
+- [ResourceType](docs/v2/models/ResourceType.md)
 - [SpaceRid](docs/v2/models/SpaceRid.md)
 - [TrashedStatus](docs/v2/models/TrashedStatus.md)
 - [DataValue](docs/v2/models/DataValue.md)
@@ -979,6 +983,7 @@ Namespace | Resource | Operation | HTTP request |
 - [AndTrigger](docs/v2/models/AndTrigger.md)
 - [AndTriggerDict](docs/v2/models/AndTriggerDict.md)
 - [Build](docs/v2/models/Build.md)
+- [BuildableRid](docs/v2/models/BuildableRid.md)
 - [BuildDict](docs/v2/models/BuildDict.md)
 - [BuildRid](docs/v2/models/BuildRid.md)
 - [BuildStatus](docs/v2/models/BuildStatus.md)
@@ -986,6 +991,14 @@ Namespace | Resource | Operation | HTTP request |
 - [BuildTargetDict](docs/v2/models/BuildTargetDict.md)
 - [ConnectingTarget](docs/v2/models/ConnectingTarget.md)
 - [ConnectingTargetDict](docs/v2/models/ConnectingTargetDict.md)
+- [CreateScheduleRequestActionBuildTargetConnectingTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetConnectingTargetDict.md)
+- [CreateScheduleRequestActionBuildTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetDict.md)
+- [CreateScheduleRequestActionBuildTargetManualTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetManualTargetDict.md)
+- [CreateScheduleRequestActionBuildTargetUpstreamTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetUpstreamTargetDict.md)
+- [CreateScheduleRequestActionDict](docs/v2/models/CreateScheduleRequestActionDict.md)
+- [CreateScheduleRequestScopeModeDict](docs/v2/models/CreateScheduleRequestScopeModeDict.md)
+- [CreateScheduleRequestScopeModeProjectScopeDict](docs/v2/models/CreateScheduleRequestScopeModeProjectScopeDict.md)
+- [CreateScheduleRequestScopeModeUserScopeDict](docs/v2/models/CreateScheduleRequestScopeModeUserScopeDict.md)
 - [CronExpression](docs/v2/models/CronExpression.md)
 - [DatasetUpdatedTrigger](docs/v2/models/DatasetUpdatedTrigger.md)
 - [DatasetUpdatedTriggerDict](docs/v2/models/DatasetUpdatedTriggerDict.md)
@@ -1004,6 +1017,14 @@ Namespace | Resource | Operation | HTTP request |
 - [OrTriggerDict](docs/v2/models/OrTriggerDict.md)
 - [ProjectScope](docs/v2/models/ProjectScope.md)
 - [ProjectScopeDict](docs/v2/models/ProjectScopeDict.md)
+- [ReplaceScheduleRequestActionBuildTargetConnectingTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetConnectingTargetDict.md)
+- [ReplaceScheduleRequestActionBuildTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetDict.md)
+- [ReplaceScheduleRequestActionBuildTargetManualTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetManualTargetDict.md)
+- [ReplaceScheduleRequestActionBuildTargetUpstreamTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetUpstreamTargetDict.md)
+- [ReplaceScheduleRequestActionDict](docs/v2/models/ReplaceScheduleRequestActionDict.md)
+- [ReplaceScheduleRequestScopeModeDict](docs/v2/models/ReplaceScheduleRequestScopeModeDict.md)
+- [ReplaceScheduleRequestScopeModeProjectScopeDict](docs/v2/models/ReplaceScheduleRequestScopeModeProjectScopeDict.md)
+- [ReplaceScheduleRequestScopeModeUserScopeDict](docs/v2/models/ReplaceScheduleRequestScopeModeUserScopeDict.md)
 - [RetryBackoffDuration](docs/v2/models/RetryBackoffDuration.md)
 - [RetryBackoffDurationDict](docs/v2/models/RetryBackoffDurationDict.md)
 - [RetryCount](docs/v2/models/RetryCount.md)
@@ -1036,11 +1057,11 @@ Namespace | Resource | Operation | HTTP request |
 - [UpstreamTargetDict](docs/v2/models/UpstreamTargetDict.md)
 - [UserScope](docs/v2/models/UserScope.md)
 - [UserScopeDict](docs/v2/models/UserScopeDict.md)
-- [ZoneId](docs/v2/models/ZoneId.md)
 - [Compressed](docs/v2/models/Compressed.md)
 - [Dataset](docs/v2/models/Dataset.md)
 - [DatasetDict](docs/v2/models/DatasetDict.md)
 - [PartitionsCount](docs/v2/models/PartitionsCount.md)
+- [Record](docs/v2/models/Record.md)
 - [Stream](docs/v2/models/Stream.md)
 - [StreamDict](docs/v2/models/StreamDict.md)
 - [StreamType](docs/v2/models/StreamType.md)

@@ -21,9 +21,9 @@ from typing import cast
 from pydantic import BaseModel
 from pydantic import Field
 
+from foundry.v2.core.models._zone_id import ZoneId
 from foundry.v2.orchestration.models._cron_expression import CronExpression
 from foundry.v2.orchestration.models._time_trigger_dict import TimeTriggerDict
-from foundry.v2.orchestration.models._zone_id import ZoneId
 
 
 class TimeTrigger(BaseModel):

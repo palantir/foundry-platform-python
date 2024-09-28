@@ -5,8 +5,8 @@ Target the specified datasets along with all upstream datasets except the ignore
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**datasetRids** | List[DatasetRid] | Yes | The target datasets. |
-**ignoredDatasetRids** | List[DatasetRid] | Yes | The datasets to ignore when calculating the final set of dataset to build. |
+**targetRids** | List[BuildableRid] | Yes | The target datasets. |
+**ignoredRids** | List[BuildableRid] | Yes | The datasets to ignore when calculating the final set of dataset to build. |
 **type** | Literal["upstream"] | Yes | None |
 
 

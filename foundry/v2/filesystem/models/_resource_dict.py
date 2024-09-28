@@ -21,7 +21,6 @@ from typing_extensions import TypedDict
 
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
-from foundry.v2.core.models._resource_type import ResourceType
 from foundry.v2.core.models._updated_by import UpdatedBy
 from foundry.v2.core.models._updated_time import UpdatedTime
 from foundry.v2.filesystem.models._folder_rid import FolderRid
@@ -29,6 +28,7 @@ from foundry.v2.filesystem.models._project_rid import ProjectRid
 from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
 from foundry.v2.filesystem.models._resource_path import ResourcePath
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry.v2.filesystem.models._resource_type import ResourceType
 from foundry.v2.filesystem.models._space_rid import SpaceRid
 from foundry.v2.filesystem.models._trashed_status import TrashedStatus
 

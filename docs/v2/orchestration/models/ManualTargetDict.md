@@ -5,7 +5,7 @@ Manually specify all datasets to build.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**datasetRids** | List[DatasetRid] | Yes |  |
+**targetRids** | List[BuildableRid] | Yes |  |
 **type** | Literal["manual"] | Yes | None |
 
 

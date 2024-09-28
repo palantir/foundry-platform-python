@@ -20,7 +20,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 
 
 class UpstreamTargetDict(TypedDict):
@@ -28,10 +28,10 @@ class UpstreamTargetDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRids: List[DatasetRid]
+    targetRids: List[BuildableRid]
     """The target datasets."""
 
-    ignoredDatasetRids: List[DatasetRid]
+    ignoredRids: List[BuildableRid]
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     type: Literal["upstream"]

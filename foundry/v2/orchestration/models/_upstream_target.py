@@ -22,17 +22,17 @@ from typing import cast
 from pydantic import BaseModel
 from pydantic import Field
 
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._upstream_target_dict import UpstreamTargetDict
 
 
 class UpstreamTarget(BaseModel):
     """Target the specified datasets along with all upstream datasets except the ignored datasets."""
 
-    dataset_rids: List[DatasetRid] = Field(alias="datasetRids")
+    target_rids: List[BuildableRid] = Field(alias="targetRids")
     """The target datasets."""
 
-    ignored_dataset_rids: List[DatasetRid] = Field(alias="ignoredDatasetRids")
+    ignored_rids: List[BuildableRid] = Field(alias="ignoredRids")
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     type: Literal["upstream"]

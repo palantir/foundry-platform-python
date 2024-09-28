@@ -22,14 +22,14 @@ from typing import cast
 from pydantic import BaseModel
 from pydantic import Field
 
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._manual_target_dict import ManualTargetDict
 
 
 class ManualTarget(BaseModel):
     """Manually specify all datasets to build."""
 
-    dataset_rids: List[DatasetRid] = Field(alias="datasetRids")
+    target_rids: List[BuildableRid] = Field(alias="targetRids")
 
     type: Literal["manual"]
 
