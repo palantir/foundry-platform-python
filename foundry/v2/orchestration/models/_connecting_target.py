@@ -22,7 +22,7 @@ from typing import cast
 from pydantic import BaseModel
 from pydantic import Field
 
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._connecting_target_dict import ConnectingTargetDict
 
 
@@ -32,13 +32,13 @@ class ConnectingTarget(BaseModel):
     target datasets (inclusive) except for the datasets to ignore.
     """
 
-    input_dataset_rids: List[DatasetRid] = Field(alias="inputDatasetRids")
+    input_rids: List[BuildableRid] = Field(alias="inputRids")
     """The upstream input datasets (exclusive)."""
 
-    target_dataset_rids: List[DatasetRid] = Field(alias="targetDatasetRids")
+    target_rids: List[BuildableRid] = Field(alias="targetRids")
     """The downstream target datasets (inclusive)."""
 
-    ignored_dataset_rids: List[DatasetRid] = Field(alias="ignoredDatasetRids")
+    ignored_rids: List[BuildableRid] = Field(alias="ignoredRids")
     """The datasets between the input datasets and target datasets to exclude."""
 
     type: Literal["connecting"]

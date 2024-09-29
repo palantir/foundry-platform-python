@@ -66,7 +66,6 @@ from foundry.v2.core.models._principal_id import PrincipalId
 from foundry.v2.core.models._principal_type import PrincipalType
 from foundry.v2.core.models._realm import Realm
 from foundry.v2.core.models._release_status import ReleaseStatus
-from foundry.v2.core.models._resource_type import ResourceType
 from foundry.v2.core.models._short_type import ShortType
 from foundry.v2.core.models._short_type_dict import ShortTypeDict
 from foundry.v2.core.models._size_bytes import SizeBytes
@@ -86,6 +85,7 @@ from foundry.v2.core.models._unsupported_type_dict import UnsupportedTypeDict
 from foundry.v2.core.models._updated_by import UpdatedBy
 from foundry.v2.core.models._updated_time import UpdatedTime
 from foundry.v2.core.models._user_id import UserId
+from foundry.v2.core.models._zone_id import ZoneId
 
 __all__ = [
     "AttachmentType",
@@ -139,7 +139,6 @@ __all__ = [
     "PrincipalType",
     "Realm",
     "ReleaseStatus",
-    "ResourceType",
     "ShortType",
     "ShortTypeDict",
     "SizeBytes",
@@ -159,4 +158,5 @@ __all__ = [
     "UpdatedBy",
     "UpdatedTime",
     "UserId",
+    "ZoneId",
 ]

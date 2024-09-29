@@ -17,6 +17,7 @@ from foundry.v2.streams.models._compressed import Compressed
 from foundry.v2.streams.models._dataset import Dataset
 from foundry.v2.streams.models._dataset_dict import DatasetDict
 from foundry.v2.streams.models._partitions_count import PartitionsCount
+from foundry.v2.streams.models._record import Record
 from foundry.v2.streams.models._stream import Stream
 from foundry.v2.streams.models._stream_dict import StreamDict
 from foundry.v2.streams.models._stream_type import StreamType
@@ -27,6 +28,7 @@ __all__ = [
     "Dataset",
     "DatasetDict",
     "PartitionsCount",
+    "Record",
     "Stream",
     "StreamDict",
     "StreamType",

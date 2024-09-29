@@ -1361,6 +1361,27 @@ def filesystem_resource():
     pass
 
 
+@filesystem_resource.command("delete")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_delete(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Move the given resource to the trash. Following this operation, the resource can be restored, using the
+    `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
+
+    """
+    result = client.filesystem.Resource.delete(
+        resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.command("get")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1374,6 +1395,48 @@ def filesystem_resource_get(
     Get the Resource with the specified rid.
     """
     result = client.filesystem.Resource.get(
+        resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource.command("permanently_delete")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_permanently_delete(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
+    `ResourceNotTrashed` error will be thrown.
+
+    """
+    result = client.filesystem.Resource.permanently_delete(
+        resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource.command("restore")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_restore(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Restore the given resource and any directly trashed ancestors from the trash. If the resource is not
+    trashed, this operation will be ignored.
+
+    """
+    result = client.filesystem.Resource.restore(
         resource_rid=resource_rid,
         preview=preview,
     )
@@ -3061,6 +3124,63 @@ def orchestration_schedule():
     pass
 
 
+@orchestration_schedule.command("create")
+@click.option("--action", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option("--display_name", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--scope_mode", type=str, required=False, help="""""")
+@click.option(
+    "--trigger",
+    type=str,
+    required=False,
+    help="""The schedule trigger. If the requesting user does not have
+permission to see the trigger, this will be empty.
+""",
+)
+@click.pass_obj
+def orchestration_schedule_create(
+    client: foundry.v2.FoundryClient,
+    action: str,
+    description: Optional[str],
+    display_name: Optional[str],
+    preview: Optional[bool],
+    scope_mode: Optional[str],
+    trigger: Optional[str],
+):
+    """
+    Creates a new Schedule.
+    """
+    result = client.orchestration.Schedule.create(
+        action=json.loads(action),
+        description=description,
+        display_name=display_name,
+        preview=preview,
+        scope_mode=None if scope_mode is None else json.loads(scope_mode),
+        trigger=None if trigger is None else json.loads(trigger),
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule.command("delete")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_delete(
+    client: foundry.v2.FoundryClient,
+    schedule_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Delete the Schedule with the specified rid.
+    """
+    result = client.orchestration.Schedule.delete(
+        schedule_rid=schedule_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @orchestration_schedule.command("get")
 @click.argument("schedule_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -3093,6 +3213,47 @@ def orchestration_schedule_pause(
     result = client.orchestration.Schedule.pause(
         schedule_rid=schedule_rid,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule.command("replace")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--action", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option("--display_name", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--scope_mode", type=str, required=False, help="""""")
+@click.option(
+    "--trigger",
+    type=str,
+    required=False,
+    help="""The schedule trigger. If the requesting user does not have
+permission to see the trigger, this will be empty.
+""",
+)
+@click.pass_obj
+def orchestration_schedule_replace(
+    client: foundry.v2.FoundryClient,
+    schedule_rid: str,
+    action: str,
+    description: Optional[str],
+    display_name: Optional[str],
+    preview: Optional[bool],
+    scope_mode: Optional[str],
+    trigger: Optional[str],
+):
+    """
+    Replace the Schedule with the specified rid.
+    """
+    result = client.orchestration.Schedule.replace(
+        schedule_rid=schedule_rid,
+        action=json.loads(action),
+        description=description,
+        display_name=display_name,
+        preview=preview,
+        scope_mode=None if scope_mode is None else json.loads(scope_mode),
+        trigger=None if trigger is None else json.loads(trigger),
     )
     click.echo(repr(result))
 
@@ -3307,6 +3468,98 @@ def streams_dataset_stream_get(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream.command("publish_record")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option(
+    "--record",
+    type=str,
+    required=True,
+    help="""The record to publish to the stream
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+not provided, this endpoint will write the latest stream on the branch.
+
+Providing this value is an advanced configuration, to be used when additional control over the
+underlying streaming data structures is needed.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_publish_record(
+    client: foundry.v2.FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    record: str,
+    preview: Optional[bool],
+    view_rid: Optional[str],
+):
+    """
+    Publish a single record to the stream. The record will be validated against the stream's schema, and
+    rejected if it is invalid.
+
+    """
+    result = client.streams.Dataset.Stream.publish_record(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        record=json.loads(record),
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream.command("publish_records")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option(
+    "--records",
+    type=str,
+    required=True,
+    help="""The records to publish to the stream
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+not provided, this endpoint will write to the latest stream on the branch.
+
+Providing this value is an advanced configuration, to be used when additional control over the
+underlying streaming data structures is needed.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_publish_records(
+    client: foundry.v2.FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    records: str,
+    preview: Optional[bool],
+    view_rid: Optional[str],
+):
+    """
+    Publish a batch of records to the stream. The records will be validated against the stream's schema, and
+    the batch will be rejected if one or more of the records are invalid.
+
+    """
+    result = client.streams.Dataset.Stream.publish_records(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        records=json.loads(records),
+        preview=preview,
+        view_rid=view_rid,
     )
     click.echo(repr(result))
 
