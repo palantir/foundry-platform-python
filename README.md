@@ -509,6 +509,7 @@ Namespace | Resource | Operation | HTTP request |
 - [UserDict](docs/v2/models/UserDict.md)
 - [UserSearchFilterDict](docs/v2/models/UserSearchFilterDict.md)
 - [UserUsername](docs/v2/models/UserUsername.md)
+- [FileImportRid](docs/v2/models/FileImportRid.md)
 - [AttachmentType](docs/v2/models/AttachmentType.md)
 - [AttachmentTypeDict](docs/v2/models/AttachmentTypeDict.md)
 - [BooleanType](docs/v2/models/BooleanType.md)
