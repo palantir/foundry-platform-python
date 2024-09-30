@@ -730,6 +730,37 @@ def admin_group_group_member_remove(
     click.echo(repr(result))
 
 
+@cli.group("connectivity")
+def connectivity():
+    pass
+
+
+@connectivity.group("file_import")
+def connectivity_file_import():
+    pass
+
+
+@connectivity_file_import.command("trigger")
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_file_import_trigger(
+    client: foundry.v2.FoundryClient,
+    file_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Triggers the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+    The returned BuildRid can be used to check the status via the Orchestration API.
+
+    """
+    result = client.connectivity.FileImport.trigger(
+        file_import_rid=file_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("core")
 def core():
     pass

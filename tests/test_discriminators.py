@@ -23,6 +23,7 @@ from foundry.v1.datasets import models as models_datasets_v1
 from foundry.v1.geo import models as models_geo_v1
 from foundry.v1.ontologies import models as models_ontologies_v1
 from foundry.v2.admin import models as models_admin_v2
+from foundry.v2.connectivity import models as models_connectivity_v2
 from foundry.v2.core import models as models_core_v2
 from foundry.v2.datasets import models as models_datasets_v2
 from foundry.v2.filesystem import models as models_filesystem_v2
@@ -46,6 +47,7 @@ def test_can_validate_types():
         *[(models_geo_v1, model_name) for model_name in dir(models_geo_v1)],
         *[(models_ontologies_v1, model_name) for model_name in dir(models_ontologies_v1)],
         *[(models_admin_v2, model_name) for model_name in dir(models_admin_v2)],
+        *[(models_connectivity_v2, model_name) for model_name in dir(models_connectivity_v2)],
         *[(models_core_v2, model_name) for model_name in dir(models_core_v2)],
         *[(models_datasets_v2, model_name) for model_name in dir(models_datasets_v2)],
         *[(models_filesystem_v2, model_name) for model_name in dir(models_filesystem_v2)],
