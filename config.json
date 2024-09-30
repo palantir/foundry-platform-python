@@ -119,6 +119,7 @@
       "namespaces": {
         "Admin": true,
         "Core": true,
+        "Connectivity": true,
         "Datasets": true,
         "Functions": true,
         "Geo": true,
