@@ -740,6 +740,25 @@ def connectivity_file_import():
     pass
 
 
+@connectivity_file_import.command("get")
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_file_import_get(
+    client: foundry.v2.FoundryClient,
+    file_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the FileImport with the specified rid.
+    """
+    result = client.connectivity.FileImport.get(
+        file_import_rid=file_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @connectivity_file_import.command("trigger")
 @click.argument("file_import_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1469,6 +1488,114 @@ def filesystem_resource_restore(
     """
     result = client.filesystem.Resource.restore(
         resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem.group("folder")
+def filesystem_folder():
+    pass
+
+
+@filesystem_folder.command("children")
+@click.argument("folder_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_folder_children(
+    client: foundry.v2.FoundryClient,
+    folder_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    List all child Resources of the Folder.
+
+    This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
+    provided, this page size will also be used as the default.
+
+    """
+    result = client.filesystem.Folder.children(
+        folder_rid=folder_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_folder.command("children_page")
+@click.argument("folder_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_folder_children_page(
+    client: foundry.v2.FoundryClient,
+    folder_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List all child Resources of the Folder.
+
+    This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
+    provided, this page size will also be used as the default.
+
+    """
+    result = client.filesystem.Folder.children_page(
+        folder_rid=folder_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_folder.command("create")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--parent_folder_rid",
+    type=str,
+    required=True,
+    help="""The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
+this value will be the root folder (`ri.compass.main.folder.0`).
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_folder_create(
+    client: foundry.v2.FoundryClient,
+    display_name: str,
+    parent_folder_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Creates a new Folder.
+    """
+    result = client.filesystem.Folder.create(
+        display_name=display_name,
+        parent_folder_rid=parent_folder_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_folder.command("get")
+@click.argument("folder_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_folder_get(
+    client: foundry.v2.FoundryClient,
+    folder_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Folder with the specified rid.
+    """
+    result = client.filesystem.Folder.get(
+        folder_rid=folder_rid,
         preview=preview,
     )
     click.echo(repr(result))

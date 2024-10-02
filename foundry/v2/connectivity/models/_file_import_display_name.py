@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from pydantic import StrictStr
 
-TrashedStatus = Literal["DIRECTLY_TRASHED", "ANCESTOR_TRASHED", "NOT_TRASHED"]
-"""TrashedStatus"""
+FileImportDisplayName = StrictStr
+"""FileImportDisplayName"""

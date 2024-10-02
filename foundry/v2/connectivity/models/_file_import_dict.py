@@ -13,16 +13,32 @@
 #  limitations under the License.
 
 
+from __future__ import annotations
+
+from typing_extensions import NotRequired
+from typing_extensions import TypedDict
+
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._file_import import FileImport
-from foundry.v2.connectivity.models._file_import_dict import FileImportDict
 from foundry.v2.connectivity.models._file_import_display_name import FileImportDisplayName  # NOQA
 from foundry.v2.connectivity.models._file_import_rid import FileImportRid
+from foundry.v2.datasets.models._branch_name import BranchName
+from foundry.v2.datasets.models._dataset_rid import DatasetRid
 
-__all__ = [
-    "ConnectionRid",
-    "FileImport",
-    "FileImportDict",
-    "FileImportDisplayName",
-    "FileImportRid",
-]
+
+class FileImportDict(TypedDict):
+    """FileImport"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    rid: FileImportRid
+
+    connectionRid: ConnectionRid
+    """The RID of the Connection (formerly known as a source) that the File Import uses to import data."""
+
+    datasetRid: DatasetRid
+    """The RID of the output dataset."""
+
+    branchName: NotRequired[BranchName]
+    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
+
+    displayName: FileImportDisplayName

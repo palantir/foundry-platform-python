@@ -13,8 +13,22 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.942.0"
+from typing import List
+
+from typing_extensions import NotRequired
+from typing_extensions import TypedDict
+
+from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.filesystem.models._resource_dict import ResourceDict
+
+
+class ListChildrenOfFolderResponseDict(TypedDict):
+    """ListChildrenOfFolderResponse"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: List[ResourceDict]
+
+    nextPageToken: NotRequired[PageToken]

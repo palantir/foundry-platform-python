@@ -1,6 +1,6 @@
-# TrashedStatus
+# TrashStatus
 
-TrashedStatus
+TrashStatus
 
 | **Value** |
 | --------- |

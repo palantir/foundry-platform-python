@@ -349,6 +349,10 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Transaction | [**commit**](docs/v2/Datasets/Transaction.md#commit) | **POST** /v2/datasets/{datasetRid}/transactions/{transactionRid}/commit |
 **Datasets** | Transaction | [**create**](docs/v2/Datasets/Transaction.md#create) | **POST** /v2/datasets/{datasetRid}/transactions |
 **Datasets** | Transaction | [**get**](docs/v2/Datasets/Transaction.md#get) | **GET** /v2/datasets/{datasetRid}/transactions/{transactionRid} |
+**Filesystem** | Folder | [**children**](docs/v2/Filesystem/Folder.md#children) | **GET** /v2/filesystem/folders/{folderRid}/children |
+**Filesystem** | Folder | [**children_page**](docs/v2/Filesystem/Folder.md#children_page) | **GET** /v2/filesystem/folders/{folderRid}/children |
+**Filesystem** | Folder | [**create**](docs/v2/Filesystem/Folder.md#create) | **POST** /v2/filesystem/folders |
+**Filesystem** | Folder | [**get**](docs/v2/Filesystem/Folder.md#get) | **GET** /v2/filesystem/folders/{folderRid} |
 **OntologiesV2** | Action | [**apply**](docs/v2/OntologiesV2/Action.md#apply) | **POST** /v2/ontologies/{ontology}/actions/{action}/apply |
 **OntologiesV2** | Action | [**apply_batch**](docs/v2/OntologiesV2/Action.md#apply_batch) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyBatch |
 **OntologiesV2** | ActionTypeV2 | [**get**](docs/v2/OntologiesV2/ActionTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
@@ -509,6 +513,10 @@ Namespace | Resource | Operation | HTTP request |
 - [UserDict](docs/v2/models/UserDict.md)
 - [UserSearchFilterDict](docs/v2/models/UserSearchFilterDict.md)
 - [UserUsername](docs/v2/models/UserUsername.md)
+- [ConnectionRid](docs/v2/models/ConnectionRid.md)
+- [FileImport](docs/v2/models/FileImport.md)
+- [FileImportDict](docs/v2/models/FileImportDict.md)
+- [FileImportDisplayName](docs/v2/models/FileImportDisplayName.md)
 - [FileImportRid](docs/v2/models/FileImportRid.md)
 - [AttachmentType](docs/v2/models/AttachmentType.md)
 - [AttachmentTypeDict](docs/v2/models/AttachmentTypeDict.md)
@@ -602,7 +610,12 @@ Namespace | Resource | Operation | HTTP request |
 - [TransactionRid](docs/v2/models/TransactionRid.md)
 - [TransactionStatus](docs/v2/models/TransactionStatus.md)
 - [TransactionType](docs/v2/models/TransactionType.md)
+- [Folder](docs/v2/models/Folder.md)
+- [FolderDict](docs/v2/models/FolderDict.md)
 - [FolderRid](docs/v2/models/FolderRid.md)
+- [FolderType](docs/v2/models/FolderType.md)
+- [ListChildrenOfFolderResponse](docs/v2/models/ListChildrenOfFolderResponse.md)
+- [ListChildrenOfFolderResponseDict](docs/v2/models/ListChildrenOfFolderResponseDict.md)
 - [ProjectRid](docs/v2/models/ProjectRid.md)
 - [Resource](docs/v2/models/Resource.md)
 - [ResourceDict](docs/v2/models/ResourceDict.md)
@@ -611,7 +624,7 @@ Namespace | Resource | Operation | HTTP request |
 - [ResourceRid](docs/v2/models/ResourceRid.md)
 - [ResourceType](docs/v2/models/ResourceType.md)
 - [SpaceRid](docs/v2/models/SpaceRid.md)
-- [TrashedStatus](docs/v2/models/TrashedStatus.md)
+- [TrashStatus](docs/v2/models/TrashStatus.md)
 - [DataValue](docs/v2/models/DataValue.md)
 - [ExecuteQueryResponse](docs/v2/models/ExecuteQueryResponse.md)
 - [ExecuteQueryResponseDict](docs/v2/models/ExecuteQueryResponseDict.md)

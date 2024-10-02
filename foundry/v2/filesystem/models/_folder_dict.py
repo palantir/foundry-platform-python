@@ -24,66 +24,61 @@ from foundry.v2.core.models._created_time import CreatedTime
 from foundry.v2.core.models._updated_by import UpdatedBy
 from foundry.v2.core.models._updated_time import UpdatedTime
 from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry.v2.filesystem.models._folder_type import FolderType
 from foundry.v2.filesystem.models._project_rid import ProjectRid
 from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
 from foundry.v2.filesystem.models._resource_path import ResourcePath
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
-from foundry.v2.filesystem.models._resource_type import ResourceType
 from foundry.v2.filesystem.models._space_rid import SpaceRid
 from foundry.v2.filesystem.models._trash_status import TrashStatus
 
 
-class ResourceDict(TypedDict):
-    """Resource"""
+class FolderDict(TypedDict):
+    """Folder"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: ResourceRid
+    rid: FolderRid
 
     displayName: ResourceDisplayName
-    """The display name of the Resource"""
 
     description: NotRequired[StrictStr]
-    """The description of the Resource"""
+    """The description associated with the Folder."""
 
     documentation: NotRequired[StrictStr]
-    """The documentation associated with the Resource"""
+    """The documentation associated with the Folder."""
 
     path: ResourcePath
-    """The full path to the resource, including the resource name itself"""
 
-    type: ResourceType
-    """The type of the Resource derived from the Resource Identifier (RID)."""
+    type: FolderType
 
     createdBy: CreatedBy
-    """The user that created the Resource."""
 
     updatedBy: UpdatedBy
-    """The user that last updated the Resource."""
 
     createdTime: CreatedTime
-    """The timestamp that the Resource was last created."""
 
     updatedTime: UpdatedTime
-    """
-    The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For
-    top level folders (spaces and projects), this is not updated by child updates for performance reasons.
-    """
 
     trashStatus: TrashStatus
     """
-    The trash status of the Resource. If trashed, this could either be because the Resource itself has been
+    The trash status of the Folder. If trashed, this could either be because the Folder itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
     parentFolderRid: FolderRid
-    """The parent folder Resource Identifier (RID). For projects, this will be the Space RID."""
-
-    projectRid: ProjectRid
     """
-    The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a
-    Project, this value will still be populated with the Project RID.
+    The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
+    this value will be the root folder (`ri.compass.main.folder.0`).
+    """
+
+    projectRid: NotRequired[ProjectRid]
+    """
+    The Project Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
+    not be defined.
     """
 
     spaceRid: SpaceRid
-    """The Space Resource Identifier (RID) that the Resource lives in."""
+    """
+    The Space Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
+    be the same as the Folder RID.
+    """

@@ -13,8 +13,13 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.942.0"
+from typing import Literal
+
+FolderType = Literal["FOLDER", "SPACE", "PROJECT"]
+"""
+A folder can either a regular Folder, a
+[Project](https://www.palantir.com/docs/foundry/getting-started/projects-and-resources/#projects) or a
+[Space](/docs/foundry/security/orgs-and-spaces/#spaces).
+"""
