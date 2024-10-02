@@ -1,6 +1,6 @@
-# FileImportRid
+# ConnectionRid
 
-The Resource Identifier (RID) of a FileImport (formerly known as a batch sync).
+The Resource Identifier (RID) of a Connection (formerly known as a source).
 
 
 ## Type

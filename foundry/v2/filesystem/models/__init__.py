@@ -13,7 +13,16 @@
 #  limitations under the License.
 
 
+from foundry.v2.filesystem.models._folder import Folder
+from foundry.v2.filesystem.models._folder_dict import FolderDict
 from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry.v2.filesystem.models._folder_type import FolderType
+from foundry.v2.filesystem.models._list_children_of_folder_response import (
+    ListChildrenOfFolderResponse,
+)  # NOQA
+from foundry.v2.filesystem.models._list_children_of_folder_response_dict import (
+    ListChildrenOfFolderResponseDict,
+)  # NOQA
 from foundry.v2.filesystem.models._project_rid import ProjectRid
 from foundry.v2.filesystem.models._resource import Resource
 from foundry.v2.filesystem.models._resource_dict import ResourceDict
@@ -22,10 +31,15 @@ from foundry.v2.filesystem.models._resource_path import ResourcePath
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
 from foundry.v2.filesystem.models._resource_type import ResourceType
 from foundry.v2.filesystem.models._space_rid import SpaceRid
-from foundry.v2.filesystem.models._trashed_status import TrashedStatus
+from foundry.v2.filesystem.models._trash_status import TrashStatus
 
 __all__ = [
+    "Folder",
+    "FolderDict",
     "FolderRid",
+    "FolderType",
+    "ListChildrenOfFolderResponse",
+    "ListChildrenOfFolderResponseDict",
     "ProjectRid",
     "Resource",
     "ResourceDict",
@@ -34,5 +48,5 @@ __all__ = [
     "ResourceRid",
     "ResourceType",
     "SpaceRid",
-    "TrashedStatus",
+    "TrashStatus",
 ]

@@ -16,9 +16,11 @@
 from __future__ import annotations
 
 from foundry._core import Auth
+from foundry.v2.filesystem.folder import FolderClient
 from foundry.v2.filesystem.resource import ResourceClient
 
 
 class FilesystemClient:
     def __init__(self, auth: Auth, hostname: str):
+        self.Folder = FolderClient(auth=auth, hostname=hostname)
         self.Resource = ResourceClient(auth=auth, hostname=hostname)

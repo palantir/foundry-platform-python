@@ -1,11 +1,10 @@
-# FileImportRid
+# FileImportDisplayName
 
-The Resource Identifier (RID) of a FileImport (formerly known as a batch sync).
-
+FileImportDisplayName
 
 ## Type
 ```python
-RID
+StrictStr
 ```
 
 

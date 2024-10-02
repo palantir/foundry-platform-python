@@ -15,7 +15,7 @@ Resource
 **updated_by** | UpdatedBy | Yes | The user that last updated the Resource. |
 **created_time** | CreatedTime | Yes | The timestamp that the Resource was last created. |
 **updated_time** | UpdatedTime | Yes | The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For top level folders (spaces and projects), this is not updated by child updates for performance reasons.  |
-**trashed** | TrashedStatus | Yes | The trash status of the resource. If trashed, a resource can either be directly trashed or one of its ancestors can be trashed.  |
+**trash_status** | TrashStatus | Yes | The trash status of the Resource. If trashed, this could either be because the Resource itself has been trashed or because one of its ancestors has been trashed.  |
 **parent_folder_rid** | FolderRid | Yes | The parent folder Resource Identifier (RID). For projects, this will be the Space RID. |
 **project_rid** | ProjectRid | Yes | The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a Project, this value will still be populated with the Project RID.  |
 **space_rid** | SpaceRid | Yes | The Space Resource Identifier (RID) that the Resource lives in.  |
