@@ -233,7 +233,13 @@
         "aggregateObjectsV2",
         "getResource",
         "getMarkingsBatch",
-        "createSchedule"
+        "createSchedule",
+        "getFolder",
+        "createFolder",
+        "createProject",
+        "getProject",
+        "getByPath",
+        "replaceResource"
       ]
     }
   }
