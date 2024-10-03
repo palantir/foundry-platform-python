@@ -73,6 +73,10 @@ class OntologyInterfaceClient:
     ) -> AggregateObjectsResponseV2:
         """
         :::callout{theme=warning title=Warning}
+        This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
+        sets.
+        :::
+        :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
           To use this endpoint, add `preview=true` to the request query parameters.
         :::

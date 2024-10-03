@@ -22,12 +22,22 @@ from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
+from pydantic import StrictStr
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
+from foundry.v2.ontologies.models._object_set_as_base_object_types_type_dict import (
+    ObjectSetAsBaseObjectTypesTypeDict,
+)  # NOQA
+from foundry.v2.ontologies.models._object_set_as_type_type_dict import (
+    ObjectSetAsTypeTypeDict,
+)  # NOQA
 from foundry.v2.ontologies.models._object_set_base_type import ObjectSetBaseType
 from foundry.v2.ontologies.models._object_set_filter_type_dict import (
     ObjectSetFilterTypeDict,
+)  # NOQA
+from foundry.v2.ontologies.models._object_set_interface_base_type import (
+    ObjectSetInterfaceBaseType,
 )  # NOQA
 from foundry.v2.ontologies.models._object_set_intersection_type_dict import (
     ObjectSetIntersectionTypeDict,
@@ -94,6 +104,26 @@ class ObjectSetIntersectionType(BaseModel):
         )
 
 
+class ObjectSetAsBaseObjectTypesType(BaseModel):
+    """
+    Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
+    properties in the resulting object set, not just the properties that implement interface properties. This is
+    currently unsupported and an exception will be thrown if used.
+    """
+
+    object_set: ObjectSet = Field(alias="objectSet")
+
+    type: Literal["asBaseObjectTypes"]
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> ObjectSetAsBaseObjectTypesTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            ObjectSetAsBaseObjectTypesTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+        )
+
+
 class ObjectSetSubtractType(BaseModel):
     """ObjectSetSubtractType"""
 
@@ -122,15 +152,39 @@ class ObjectSetUnionType(BaseModel):
         return cast(ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
+class ObjectSetAsTypeType(BaseModel):
+    """ObjectSetAsTypeType"""
+
+    entity_type: StrictStr = Field(alias="entityType")
+    """
+    An object type or interface type API name to cast the object set to. Any object whose object type does not 
+    match the object type provided or implement the interface type provided will be dropped from the resulting 
+    object set. This is currently unsupported and an exception will be thrown if used.
+    """
+
+    object_set: ObjectSet = Field(alias="objectSet")
+
+    type: Literal["asType"]
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> ObjectSetAsTypeTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(ObjectSetAsTypeTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+
+
 ObjectSet = Annotated[
     Union[
         ObjectSetReferenceType,
         ObjectSetFilterType,
         ObjectSetSearchAroundType,
+        ObjectSetInterfaceBaseType,
         ObjectSetStaticType,
         ObjectSetIntersectionType,
+        ObjectSetAsBaseObjectTypesType,
         ObjectSetSubtractType,
         ObjectSetUnionType,
+        ObjectSetAsTypeType,
         ObjectSetBaseType,
     ],
     Field(discriminator="type"),
