@@ -12,10 +12,13 @@ This discriminator class uses the `type` field to differentiate between classes.
 ObjectSetReferenceType | reference
 ObjectSetFilterType | filter
 ObjectSetSearchAroundType | searchAround
+ObjectSetInterfaceBaseType | interfaceBase
 ObjectSetStaticType | static
 ObjectSetIntersectionType | intersect
+ObjectSetAsBaseObjectTypesType | asBaseObjectTypes
 ObjectSetSubtractType | subtract
 ObjectSetUnionType | union
+ObjectSetAsTypeType | asType
 ObjectSetBaseType | base
 
 
