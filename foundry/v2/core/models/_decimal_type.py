@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 from typing import Literal
-from typing import Optional
 from typing import cast
 
 from pydantic import BaseModel
@@ -28,9 +27,11 @@ from foundry.v2.core.models._decimal_type_dict import DecimalTypeDict
 class DecimalType(BaseModel):
     """DecimalType"""
 
-    precision: Optional[StrictInt] = None
+    scale: StrictInt
+    """The number of digits to the right of the decimal point. The maximum value is 38."""
 
-    scale: Optional[StrictInt] = None
+    precision: StrictInt
+    """The total number of digits of the Decimal type. The maximum value is 38."""
 
     type: Literal["decimal"]
 

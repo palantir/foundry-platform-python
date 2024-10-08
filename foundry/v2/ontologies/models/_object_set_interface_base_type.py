@@ -31,6 +31,11 @@ class ObjectSetInterfaceBaseType(BaseModel):
     """ObjectSetInterfaceBaseType"""
 
     interface_type: StrictStr = Field(alias="interfaceType")
+    """
+    An object set with objects that implement the interface with the given interface API name. The objects in 
+    the object set will only have properties that implement properties of the given interface. This is currently 
+    unsupported and an exception will be thrown if used.
+    """
 
     type: Literal["interfaceBase"]
 

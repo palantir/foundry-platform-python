@@ -13,15 +13,18 @@
 #  limitations under the License.
 
 
+import json
 from typing import Any
 from typing import Dict
 
-from foundry._errors.helpers import format_error_message
+
+def format_error_message(fields: Dict[str, Any]) -> str:
+    return json.dumps(fields, sort_keys=True, indent=4, default=str)
 
 
 class PalantirRPCException(Exception):
     def __init__(self, error_metadata: Dict[str, Any]):
         super().__init__(format_error_message(error_metadata))
-        self.name: str = error_metadata["errorName"]
-        self.parameters: Dict[str, Any] = error_metadata["parameters"]
-        self.error_instance_id: str = error_metadata["errorInstanceId"]
+        self.name = error_metadata.get("errorName")
+        self.parameters = error_metadata.get("parameters")
+        self.error_instance_id = error_metadata.get("errorInstanceId")

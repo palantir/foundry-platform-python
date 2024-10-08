@@ -15,15 +15,19 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing import Optional
 from typing import cast
 
 from pydantic import BaseModel
 from pydantic import Field
+from pydantic import StrictStr
 
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._file_import_dict import FileImportDict
 from foundry.v2.connectivity.models._file_import_display_name import FileImportDisplayName  # NOQA
+from foundry.v2.connectivity.models._file_import_filter import FileImportFilter
+from foundry.v2.connectivity.models._file_import_mode import FileImportMode
 from foundry.v2.connectivity.models._file_import_rid import FileImportRid
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
@@ -44,6 +48,14 @@ class FileImport(BaseModel):
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
     display_name: FileImportDisplayName = Field(alias="displayName")
+
+    file_import_filters: List[FileImportFilter] = Field(alias="fileImportFilters")
+    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
+
+    import_mode: FileImportMode = Field(alias="importMode")
+
+    subfolder: Optional[StrictStr] = None
+    """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
 
     model_config = {"extra": "allow"}
 

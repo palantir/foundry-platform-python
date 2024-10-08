@@ -18,7 +18,6 @@ from __future__ import annotations
 from typing import Literal
 
 from pydantic import StrictInt
-from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 
@@ -27,8 +26,10 @@ class DecimalTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    precision: NotRequired[StrictInt]
+    scale: StrictInt
+    """The number of digits to the right of the decimal point. The maximum value is 38."""
 
-    scale: NotRequired[StrictInt]
+    precision: StrictInt
+    """The total number of digits of the Decimal type. The maximum value is 38."""
 
     type: Literal["decimal"]

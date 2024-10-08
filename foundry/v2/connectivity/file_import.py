@@ -40,6 +40,91 @@ class FileImportClient:
 
     @validate_call
     @handle_unexpected
+    def delete(
+        self,
+        file_import_rid: FileImportRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> None:
+        """
+        Delete the FileImport with the specified RID.
+        Deleting the file import does not delete the destination dataset but the dataset will no longer
+        be updated by this import.
+
+        :param file_import_rid: fileImportRid
+        :type file_import_rid: FileImportRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="DELETE",
+                resource_path="/v2/connectivity/fileImports/{fileImportRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "fileImportRid": file_import_rid,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
+    def execute(
+        self,
+        file_import_rid: FileImportRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+    ) -> BuildRid:
+        """
+        Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+        The returned BuildRid can be used to check the status via the Orchestration API.
+
+        :param file_import_rid: fileImportRid
+        :type file_import_rid: FileImportRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: BuildRid
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/fileImports/{fileImportRid}/execute",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "fileImportRid": file_import_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=BuildRid,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @validate_call
+    @handle_unexpected
     def get(
         self,
         file_import_rid: FileImportRid,
@@ -75,49 +160,6 @@ class FileImportClient:
                 body=None,
                 body_type=None,
                 response_type=FileImport,
-                request_timeout=request_timeout,
-            ),
-        )
-
-    @validate_call
-    @handle_unexpected
-    def trigger(
-        self,
-        file_import_rid: FileImportRid,
-        *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
-    ) -> BuildRid:
-        """
-        Triggers the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
-        The returned BuildRid can be used to check the status via the Orchestration API.
-
-        :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: BuildRid
-        """
-
-        return self._api_client.call_api(
-            RequestInfo(
-                method="POST",
-                resource_path="/v2/connectivity/fileImports/{fileImportRid}/trigger",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "fileImportRid": file_import_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=BuildRid,
                 request_timeout=request_timeout,
             ),
         )

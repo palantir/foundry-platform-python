@@ -14,6 +14,9 @@
 
 
 from foundry.v2.streams.models._compressed import Compressed
+from foundry.v2.streams.models._create_stream_request_stream_schema_dict import (
+    CreateStreamRequestStreamSchemaDict,
+)  # NOQA
 from foundry.v2.streams.models._dataset import Dataset
 from foundry.v2.streams.models._dataset_dict import DatasetDict
 from foundry.v2.streams.models._partitions_count import PartitionsCount
@@ -25,6 +28,7 @@ from foundry.v2.streams.models._view_rid import ViewRid
 
 __all__ = [
     "Compressed",
+    "CreateStreamRequestStreamSchemaDict",
     "Dataset",
     "DatasetDict",
     "PartitionsCount",

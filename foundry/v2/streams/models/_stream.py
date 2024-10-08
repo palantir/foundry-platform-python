@@ -20,6 +20,7 @@ from typing import cast
 from pydantic import BaseModel
 from pydantic import Field
 
+from foundry.v2.core.models._stream_schema import StreamSchema
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.streams.models._compressed import Compressed
 from foundry.v2.streams.models._partitions_count import PartitionsCount
@@ -33,12 +34,15 @@ class Stream(BaseModel):
 
     branch_name: BranchName = Field(alias="branchName")
 
+    schema: StreamSchema  # type: ignore
+    """The Foundry schema for this stream."""
+
     view_rid: ViewRid = Field(alias="viewRid")
     """The view that this stream corresponds to."""
 
     partitions_count: PartitionsCount = Field(alias="partitionsCount")
     """
-    The number of partitions for the Foundry stream.
+    The number of partitions for the Foundry stream. Defaults to 1.
 
     Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
     are recommended.
