@@ -36,7 +36,7 @@ rm -rf "$TMP_DIR"
 
 python -m platform_sdk_generator \
     --config_path config.json \
-    --output_dir . \
+    --output_dir "output-sdk-temp/" \
     --manifest_path "tmp/manifest.yml" \
     --version v1 --ir_path "tmp/openapi-ir.json" \
     --version v2 --ir_path "tmp/openapi-ir.json" \
