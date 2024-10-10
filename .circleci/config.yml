@@ -21,7 +21,8 @@ jobs:
     steps:
       - checkout
       - run: pip install --user tox
-      - run: tox -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-requests<< parameters.requests_version >>
+      - run: poetry --no-ansi install --no-root --sync
+      - run: poetry --no-ansi run tox -v -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-requests<< parameters.requests_version >> --recreate
 
   pyright:
     docker:

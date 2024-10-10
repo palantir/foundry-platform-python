@@ -13,7 +13,8 @@
 #  limitations under the License.
 
 
-import asyncio
+import threading
+import time
 from typing import Callable
 from typing import List
 from typing import Optional
@@ -27,7 +28,6 @@ from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.utils import remove_prefixes
-from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry._errors.not_authenticated import NotAuthenticated
 
 T = TypeVar("T")
@@ -56,7 +56,7 @@ class ConfidentialClientAuth(Auth):
         self._client_secret = client_secret
         self._token: Optional[OAuthToken] = None
         self._should_refresh = should_refresh
-        self._refresh_task: Optional[asyncio.Task] = None
+        self._stop_refresh_event = threading.Event()
         self._hostname = hostname
         self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
             client_id, client_secret, self.url, scopes=scopes
@@ -70,15 +70,21 @@ class ConfidentialClientAuth(Auth):
     def execute_with_token(self, func: Callable[[OAuthToken], T]) -> T:
         try:
             return self._run_with_attempted_refresh(func)
+        except requests.HTTPError as http_e:
+            if http_e.response.status_code == 401:
+                self.sign_out()
+            raise http_e
         except Exception as e:
-            self.sign_out()
             raise e
 
     def run_with_token(self, func: Callable[[OAuthToken], T]) -> None:
         try:
             self._run_with_attempted_refresh(func)
+        except requests.HTTPError as http_e:
+            if http_e.response.status_code == 401:
+                self.sign_out()
+            raise http_e
         except Exception as e:
-            self.sign_out()
             raise e
 
     def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
@@ -89,45 +95,50 @@ class ConfidentialClientAuth(Auth):
         try:
             return func(self.get_token())
         except requests.HTTPError as e:
-            if e.response is not None and e.response.status_code == 401:
+            if e.response.status_code == 401:
                 self._refresh_token()
                 return func(self.get_token())
             else:
                 raise e
 
     @property
-    def url(self):
+    def url(self) -> str:
         return remove_prefixes(self._hostname, ["https://", "http://"])
 
-    def _refresh_token(self):
+    def _refresh_token(self) -> None:
         self._token = self._server_oauth_flow_provider.get_token()
+
+    def _start_auto_refresh(self) -> None:
+        def _auto_refresh_token() -> None:
+            while not self._stop_refresh_event.is_set():
+                if self._token:
+                    # Sleep for (expires_in - 60) seconds to refresh the token 1 minute before it expires
+                    time.sleep(self._token.expires_in - 60)
+                    self._refresh_token()
+                else:
+                    # Wait 10 seconds and check again if the token is set
+                    time.sleep(10)
+
+        refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
+        refresh_thread.start()
 
     def sign_in_as_service_user(self) -> SignInResponse:
         token = self._server_oauth_flow_provider.get_token()
         self._token = token
 
-        async def refresh_token_task():
-            while True:
-                if self._token is None:
-                    raise RuntimeError("The token was None when trying to refresh.")
-
-                await asyncio.sleep(self._token.expires_in / 60 - 10)
-                self._token = self._server_oauth_flow_provider.get_token()
-
         if self._should_refresh:
-            loop = asyncio.get_event_loop()
-            self._refresh_task = loop.create_task(refresh_token_task())
+            self._start_auto_refresh()
         return SignInResponse(
             session={"accessToken": token.access_token, "expiresIn": token.expires_in}
         )
 
     def sign_out(self) -> SignOutResponse:
-        if self._refresh_task:
-            self._refresh_task.cancel()
-            self._refresh_task = None
-
         if self._token:
             self._server_oauth_flow_provider.revoke_token(self._token.access_token)
 
         self._token = None
+
+        # Signal the auto-refresh thread to stop
+        self._stop_refresh_event.set()
+
         return SignOutResponse()

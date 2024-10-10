@@ -13,8 +13,25 @@
 #  limitations under the License.
 
 
-from foundry._errors.environment_not_configured import EnvironmentNotConfigured
+import pytest
+
+from foundry import ConfidentialClientAuth
 from foundry._errors.not_authenticated import NotAuthenticated
-from foundry._errors.palantir_rpc_exception import PalantirRPCException
-from foundry._errors.sdk_internal_error import SDKInternalError
-from foundry._errors.sdk_internal_error import handle_unexpected
+
+
+def test_can_pass_config():
+    config = ConfidentialClientAuth(
+        client_id="123",
+        client_secret="abc",
+        hostname="example.com",
+        scopes=["hello"],
+    )
+
+    assert config._hostname == "example.com"  # type: ignore
+    assert config._client_id == "123"  # type: ignore
+    assert config._client_secret == "abc"  # type: ignore
+
+    with pytest.raises(NotAuthenticated) as info:
+        config.get_token()
+
+    assert str(info.value) == "Client has not been authenticated."
