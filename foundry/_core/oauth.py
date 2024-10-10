@@ -13,11 +13,14 @@
 #  limitations under the License.
 
 
+from typing import Any
+from typing import Dict
+
 from pydantic import BaseModel
 
 
 class SignInResponse(BaseModel):
-    session: dict
+    session: Dict[str, Any]
 
 
 class SignOutResponse(BaseModel):

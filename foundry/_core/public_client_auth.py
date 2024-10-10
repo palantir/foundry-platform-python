@@ -36,19 +36,21 @@ T = TypeVar("T")
 
 
 class PublicClientAuth(Auth):
-    scopes: List[str] = ["api:read-data", "api:write-data", "offline_access"]
-
     """
     Client for Public Client OAuth-authenticated Ontology applications.
     Runs a background thread to periodically refresh access token.
-
     :param client_id: OAuth client id to be used by the application.
     :param client_secret: OAuth client secret to be used by the application.
     :param hostname: Hostname for authentication and ontology endpoints.
     """
 
     def __init__(
-        self, client_id: str, redirect_url: str, hostname: str, should_refresh: bool = False
+        self,
+        client_id: str,
+        redirect_url: str,
+        hostname: str,
+        scopes: Optional[List[str]] = None,
+        should_refresh: bool = False,
     ) -> None:
         self._client_id = client_id
         self._redirect_url = redirect_url
@@ -58,7 +60,7 @@ class PublicClientAuth(Auth):
         self._stop_refresh_event = threading.Event()
         self._hostname = hostname
         self._server_oauth_flow_provider = PublicClientOAuthFlowProvider(
-            client_id=client_id, redirect_url=redirect_url, url=self.url, scopes=self.scopes
+            client_id=client_id, redirect_url=redirect_url, url=self.url, scopes=scopes
         )
         self._auth_request: Optional[AuthorizeRequest] = None
 
@@ -81,9 +83,11 @@ class PublicClientAuth(Auth):
             self.sign_out()
             raise e
 
-    def _refresh_token(self):
-        if self._token is None:
-            raise Exception("")
+    def _refresh_token(self) -> None:
+        if not self._token:
+            raise RuntimeError("must have token to refresh")
+        if not self._token.refresh_token:
+            raise RuntimeError("no refresh token provided")
 
         self._token = self._server_oauth_flow_provider.refresh_token(
             refresh_token=self._token.refresh_token
@@ -92,30 +96,29 @@ class PublicClientAuth(Auth):
     def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
         """
         Attempt to run func, and if it fails with a 401, refresh the token and try again.
-
         If it fails with a 401 again, raise the exception.
         """
         try:
             return func(self.get_token())
         except requests.HTTPError as e:
-            if e.response is not None and e.response.status_code == 401:
+            if e.response.status_code == 401:
                 self._refresh_token()
                 return func(self.get_token())
             else:
                 raise e
 
     @property
-    def url(self):
+    def url(self) -> str:
         return remove_prefixes(self._hostname, ["https://", "http://"])
 
-    def sign_in(self) -> None:
+    def sign_in(self) -> str:
         self._auth_request = self._server_oauth_flow_provider.generate_auth_request()
-        webbrowser.open(self._auth_request.url)
+        return self._auth_request.url
 
-    def _start_auto_refresh(self):
-        def _auto_refresh_token():
+    def _start_auto_refresh(self) -> None:
+        def _auto_refresh_token() -> None:
             while not self._stop_refresh_event.is_set():
-                if self._token:
+                if self._token and self._token.refresh_token:
                     # Sleep for (expires_in - 60) seconds to refresh the token 1 minute before it expires
                     time.sleep(self._token.expires_in - 60)
                     self._token = self._server_oauth_flow_provider.refresh_token(
@@ -129,9 +132,10 @@ class PublicClientAuth(Auth):
         refresh_thread.start()
 
     def set_token(self, code: str, state: str) -> None:
-        if self._auth_request is None or state != self._auth_request.state:
-            raise RuntimeError("Unable to verify the state")
-
+        if not self._auth_request:
+            raise RuntimeError("Must sign in prior to setting token")
+        if state != self._auth_request.state:
+            raise RuntimeError("Unable to verify state")
         self._token = self._server_oauth_flow_provider.get_token(
             code=code, code_verifier=self._auth_request.code_verifier
         )

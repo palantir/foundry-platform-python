@@ -18,6 +18,8 @@ import hashlib
 import secrets
 import string
 import time
+from typing import Any
+from typing import Dict
 from typing import List
 from typing import Optional
 from urllib.parse import urlencode
@@ -68,7 +70,7 @@ class OAuthTokenResponse(BaseModel):
     expires_in: int
     refresh_token: Optional[str] = None
 
-    def __init__(self, token_response: dict) -> None:
+    def __init__(self, token_response: Dict[str, Any]) -> None:
         super().__init__(**token_response)
 
 
@@ -167,13 +169,13 @@ class ConfidentialClientOAuthFlowProvider:
         return scopes
 
 
-def generate_random_string(min_length=43, max_length=128):
+def generate_random_string(min_length: int = 43, max_length: int = 128) -> str:
     characters = string.ascii_letters + string.digits + "-._~"
     length = secrets.randbelow(max_length - min_length + 1) + min_length
     return "".join(secrets.choice(characters) for _ in range(length))
 
 
-def generate_code_challenge(input_string):
+def generate_code_challenge(input_string: str) -> str:
     # Calculate the SHA256 hash
     sha256_hash = hashlib.sha256(input_string.encode("utf-8")).digest()
 
@@ -249,7 +251,7 @@ class PublicClientOAuthFlowProvider:
         response.raise_for_status()
         return OAuthToken(token=OAuthTokenResponse(token_response=response.json()))
 
-    def refresh_token(self, refresh_token):
+    def refresh_token(self, refresh_token: str) -> OAuthToken:
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         params = {
             "grant_type": "refresh_token",
