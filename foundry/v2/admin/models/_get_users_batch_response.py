@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Dict
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.admin.models._get_users_batch_response_dict import GetUsersBatchResponseDict  # NOQA
 from foundry.v2.admin.models._user import User
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
-class GetUsersBatchResponse(BaseModel):
+class GetUsersBatchResponse(pydantic.BaseModel):
     """GetUsersBatchResponse"""
 
     data: Dict[PrincipalId, User]

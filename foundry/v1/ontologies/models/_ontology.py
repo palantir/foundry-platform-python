@@ -17,9 +17,7 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v1.core.models._display_name import DisplayName
 from foundry.v1.ontologies.models._ontology_api_name import OntologyApiName
@@ -27,14 +25,14 @@ from foundry.v1.ontologies.models._ontology_dict import OntologyDict
 from foundry.v1.ontologies.models._ontology_rid import OntologyRid
 
 
-class Ontology(BaseModel):
+class Ontology(pydantic.BaseModel):
     """Metadata about an Ontology."""
 
-    api_name: OntologyApiName = Field(alias="apiName")
+    api_name: OntologyApiName = pydantic.Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias="displayName")
 
-    description: StrictStr
+    description: pydantic.StrictStr
 
     rid: OntologyRid
 

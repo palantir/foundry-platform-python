@@ -5,7 +5,7 @@ The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `data
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

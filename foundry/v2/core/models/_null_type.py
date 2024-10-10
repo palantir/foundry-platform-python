@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._null_type_dict import NullTypeDict
 
 
-class NullType(BaseModel):
+class NullType(pydantic.BaseModel):
     """NullType"""
 
     type: Literal["null"]

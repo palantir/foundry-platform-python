@@ -4,7 +4,7 @@ AttributeValue
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

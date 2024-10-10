@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
@@ -36,50 +34,50 @@ from foundry.v2.filesystem.models._space_rid import SpaceRid
 from foundry.v2.filesystem.models._trash_status import TrashStatus
 
 
-class Folder(BaseModel):
+class Folder(pydantic.BaseModel):
     """Folder"""
 
     rid: FolderRid
 
-    display_name: ResourceDisplayName = Field(alias="displayName")
+    display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """The description associated with the Folder."""
 
-    documentation: Optional[StrictStr] = None
+    documentation: Optional[pydantic.StrictStr] = None
     """The documentation associated with the Folder."""
 
     path: ResourcePath
 
     type: FolderType
 
-    created_by: CreatedBy = Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias="createdBy")
 
-    updated_by: UpdatedBy = Field(alias="updatedBy")
+    updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
 
-    created_time: CreatedTime = Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias="createdTime")
 
-    updated_time: UpdatedTime = Field(alias="updatedTime")
+    updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
 
-    trash_status: TrashStatus = Field(alias="trashStatus")
+    trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
     """
     The trash status of the Folder. If trashed, this could either be because the Folder itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
-    parent_folder_rid: FolderRid = Field(alias="parentFolderRid")
+    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
     """
     The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
     this value will be the root folder (`ri.compass.main.folder.0`).
     """
 
-    project_rid: Optional[ProjectRid] = Field(alias="projectRid", default=None)
+    project_rid: Optional[ProjectRid] = pydantic.Field(alias="projectRid", default=None)
     """
     The Project Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     not be defined.
     """
 
-    space_rid: SpaceRid = Field(alias="spaceRid")
+    space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
     """
     The Space Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     be the same as the Folder RID.

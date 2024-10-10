@@ -19,10 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictBool
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -44,7 +41,7 @@ class GroupMembershipClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
@@ -52,8 +49,8 @@ class GroupMembershipClient:
         *,
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
-        transitive: Optional[StrictBool] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        transitive: Optional[pydantic.StrictBool] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[GroupMembership]:
         """
         Lists all GroupMemberships.
@@ -66,7 +63,7 @@ class GroupMembershipClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[StrictBool]
+        :type transitive: Optional[pydantic.StrictBool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -95,7 +92,7 @@ class GroupMembershipClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -104,8 +101,8 @@ class GroupMembershipClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        transitive: Optional[StrictBool] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        transitive: Optional[pydantic.StrictBool] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListGroupMembershipsResponse:
         """
         Lists all GroupMemberships.
@@ -120,7 +117,7 @@ class GroupMembershipClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[StrictBool]
+        :type transitive: Optional[pydantic.StrictBool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

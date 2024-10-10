@@ -4,7 +4,7 @@ The display name of the Resource
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

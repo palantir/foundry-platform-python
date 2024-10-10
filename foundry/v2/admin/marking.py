@@ -20,10 +20,8 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
+import pydantic
 from annotated_types import Len
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -47,14 +45,14 @@ class MarkingClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         marking_id: MarkingId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Marking:
         """
         Get the Marking with the specified id.
@@ -88,7 +86,7 @@ class MarkingClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_batch(
         self,
@@ -97,7 +95,7 @@ class MarkingClient:
         ],
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetMarkingsBatchResponse:
         """
         Execute multiple get requests on Marking.
@@ -134,14 +132,14 @@ class MarkingClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
         *,
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Marking]:
         """
         Maximum page size 100.
@@ -174,7 +172,7 @@ class MarkingClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -182,7 +180,7 @@ class MarkingClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListMarkingsResponse:
         """
         Maximum page size 100.

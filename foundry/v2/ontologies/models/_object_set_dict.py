@@ -19,8 +19,7 @@ from typing import List
 from typing import Literal
 from typing import Union
 
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -111,7 +110,7 @@ class ObjectSetAsTypeTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    entityType: StrictStr
+    entityType: pydantic.StrictStr
     """
     An object type or interface type API name to cast the object set to. Any object whose object type does not 
     match the object type provided or implement the interface type provided will be dropped from the resulting 
@@ -137,6 +136,6 @@ ObjectSetDict = Annotated[
         ObjectSetAsTypeTypeDict,
         ObjectSetBaseTypeDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """Represents the definition of an `ObjectSet` in the `Ontology`."""

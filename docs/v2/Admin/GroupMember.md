@@ -82,7 +82,7 @@ Name | Type | Description  | Notes |
 **group_id** | PrincipalId | groupId |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**transitive** | Optional[StrictBool] | transitive | [optional] |
+**transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
 ### Return type
 **ResourceIterator[GroupMember]**
@@ -104,7 +104,7 @@ group_id = None
 page_size = None
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[StrictBool] | transitive
+# Optional[pydantic.StrictBool] | transitive
 transitive = None
 
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**transitive** | Optional[StrictBool] | transitive | [optional] |
+**transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
 ### Return type
 **ListGroupMembersResponse**
@@ -171,7 +171,7 @@ page_size = None
 page_token = None
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[StrictBool] | transitive
+# Optional[pydantic.StrictBool] | transitive
 transitive = None
 
 

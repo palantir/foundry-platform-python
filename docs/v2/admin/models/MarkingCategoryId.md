@@ -6,7 +6,7 @@ Organizations are placed in a category with ID "Organization".
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

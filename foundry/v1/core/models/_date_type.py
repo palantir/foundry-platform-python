@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._date_type_dict import DateTypeDict
 
 
-class DateType(BaseModel):
+class DateType(pydantic.BaseModel):
     """DateType"""
 
     type: Literal["date"]

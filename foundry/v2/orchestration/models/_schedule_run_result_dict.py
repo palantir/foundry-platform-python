@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.orchestration.models._schedule_run_error_dict import ScheduleRunErrorDict  # NOQA
@@ -30,7 +30,7 @@ from foundry.v2.orchestration.models._schedule_run_submitted_dict import (
 
 ScheduleRunResultDict = Annotated[
     Union[ScheduleRunIgnoredDict, ScheduleRunSubmittedDict, ScheduleRunErrorDict],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """
 The result of attempting to trigger the schedule. The schedule run will either be submitted as a build,

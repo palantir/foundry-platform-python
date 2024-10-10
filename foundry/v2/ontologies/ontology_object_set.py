@@ -20,10 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictBool
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -63,7 +60,7 @@ class OntologyObjectSetClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def aggregate(
         self,
@@ -75,7 +72,7 @@ class OntologyObjectSetClient:
         accuracy: Optional[AggregationAccuracyRequest] = None,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AggregateObjectsResponseV2:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -137,14 +134,14 @@ class OntologyObjectSetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create_temporary(
         self,
         ontology: OntologyIdentifier,
         *,
         object_set: ObjectSetDict,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> CreateTemporaryObjectSetResponseV2:
         """
         Creates a temporary `ObjectSet` from the given definition.
@@ -188,14 +185,14 @@ class OntologyObjectSetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         ontology: OntologyIdentifier,
         object_set_rid: ObjectSetRid,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ObjectSet:
         """
         Gets the definition of the `ObjectSet` with the given RID.
@@ -231,7 +228,7 @@ class OntologyObjectSetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def load(
         self,
@@ -240,12 +237,12 @@ class OntologyObjectSetClient:
         object_set: ObjectSetDict,
         select: List[SelectedPropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         order_by: Optional[SearchOrderByV2Dict] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> LoadObjectSetResponseV2:
         """
         Load the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -266,7 +263,7 @@ class OntologyObjectSetClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2Dict]
         :param package_name: packageName
@@ -312,7 +309,7 @@ class OntologyObjectSetClient:
                         "select": List[SelectedPropertyApiName],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],
-                        "excludeRid": Optional[StrictBool],
+                        "excludeRid": Optional[pydantic.StrictBool],
                     },
                 ),
                 response_type=LoadObjectSetResponseV2,

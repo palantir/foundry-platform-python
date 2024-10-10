@@ -5,7 +5,7 @@ The total number of items across all pages.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

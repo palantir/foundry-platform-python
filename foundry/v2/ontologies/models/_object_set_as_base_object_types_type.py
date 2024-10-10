@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_set import ObjectSet
 from foundry.v2.ontologies.models._object_set_as_base_object_types_type_dict import (
@@ -27,14 +26,14 @@ from foundry.v2.ontologies.models._object_set_as_base_object_types_type_dict imp
 )  # NOQA
 
 
-class ObjectSetAsBaseObjectTypesType(BaseModel):
+class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
     """
     Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
     properties in the resulting object set, not just the properties that implement interface properties. This is
     currently unsupported and an exception will be thrown if used.
     """
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     type: Literal["asBaseObjectTypes"]
 

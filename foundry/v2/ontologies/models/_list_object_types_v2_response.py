@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.ontologies.models._list_object_types_v2_response_dict import (
@@ -29,10 +28,10 @@ from foundry.v2.ontologies.models._list_object_types_v2_response_dict import (
 from foundry.v2.ontologies.models._object_type_v2 import ObjectTypeV2
 
 
-class ListObjectTypesV2Response(BaseModel):
+class ListObjectTypesV2Response(pydantic.BaseModel):
     """ListObjectTypesV2Response"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[ObjectTypeV2]
     """The list of object types in the current page."""

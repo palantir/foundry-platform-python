@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
 from foundry.v2.ontologies.models._object_set import ObjectSet
@@ -28,10 +27,10 @@ from foundry.v2.ontologies.models._object_set_search_around_type_dict import (
 )  # NOQA
 
 
-class ObjectSetSearchAroundType(BaseModel):
+class ObjectSetSearchAroundType(pydantic.BaseModel):
     """ObjectSetSearchAroundType"""
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     link: LinkTypeApiName
 

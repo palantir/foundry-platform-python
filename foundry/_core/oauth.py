@@ -16,12 +16,12 @@
 from typing import Any
 from typing import Dict
 
-from pydantic import BaseModel
+import pydantic
 
 
-class SignInResponse(BaseModel):
+class SignInResponse(pydantic.BaseModel):
     session: Dict[str, Any]
 
 
-class SignOutResponse(BaseModel):
+class SignOutResponse(pydantic.BaseModel):
     pass

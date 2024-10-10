@@ -19,8 +19,7 @@ from typing import Literal
 from typing import Union
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.core.models._attachment_type import AttachmentType
@@ -39,10 +38,10 @@ from foundry.v2.ontologies.models._ontology_object_set_type import OntologyObjec
 from foundry.v2.ontologies.models._ontology_object_type import OntologyObjectType
 
 
-class ActionParameterArrayType(BaseModel):
+class ActionParameterArrayType(pydantic.BaseModel):
     """ActionParameterArrayType"""
 
-    sub_type: ActionParameterType = Field(alias="subType")
+    sub_type: ActionParameterType = pydantic.Field(alias="subType")
 
     type: Literal["array"]
 
@@ -70,6 +69,6 @@ ActionParameterType = Annotated[
         OntologyObjectType,
         TimestampType,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by Ontology Action parameters."""

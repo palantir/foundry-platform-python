@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._linked_interface_type_api_name import (
@@ -28,6 +28,6 @@ from foundry.v2.ontologies.models._linked_object_type_api_name import (
 )  # NOQA
 
 InterfaceLinkTypeLinkedEntityApiName = Annotated[
-    Union[LinkedObjectTypeApiName, LinkedInterfaceTypeApiName], Field(discriminator="type")
+    Union[LinkedObjectTypeApiName, LinkedInterfaceTypeApiName], pydantic.Field(discriminator="type")
 ]
 """A reference to the linked entity. This can either be an object or an interface type."""

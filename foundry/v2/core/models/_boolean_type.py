@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._boolean_type_dict import BooleanTypeDict
 
 
-class BooleanType(BaseModel):
+class BooleanType(pydantic.BaseModel):
     """BooleanType"""
 
     type: Literal["boolean"]

@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Dict
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.admin.models._get_markings_batch_response_dict import (
     GetMarkingsBatchResponseDict,
@@ -27,7 +27,7 @@ from foundry.v2.admin.models._marking import Marking
 from foundry.v2.core.models._marking_id import MarkingId
 
 
-class GetMarkingsBatchResponse(BaseModel):
+class GetMarkingsBatchResponse(pydantic.BaseModel):
     """GetMarkingsBatchResponse"""
 
     data: Dict[MarkingId, Marking]

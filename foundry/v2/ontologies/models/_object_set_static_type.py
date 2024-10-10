@@ -19,7 +19,7 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._object_rid import ObjectRid
 from foundry.v2.ontologies.models._object_set_static_type_dict import (
@@ -27,7 +27,7 @@ from foundry.v2.ontologies.models._object_set_static_type_dict import (
 )  # NOQA
 
 
-class ObjectSetStaticType(BaseModel):
+class ObjectSetStaticType(pydantic.BaseModel):
     """ObjectSetStaticType"""
 
     objects: List[ObjectRid]

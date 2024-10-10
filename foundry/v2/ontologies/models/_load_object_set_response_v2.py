@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._total_count import TotalCount
@@ -30,15 +29,15 @@ from foundry.v2.ontologies.models._load_object_set_response_v2_dict import (
 from foundry.v2.ontologies.models._ontology_object_v2 import OntologyObjectV2
 
 
-class LoadObjectSetResponseV2(BaseModel):
+class LoadObjectSetResponseV2(pydantic.BaseModel):
     """Represents the API response when loading an `ObjectSet`."""
 
     data: List[OntologyObjectV2]
     """The list of objects in the current Page."""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
-    total_count: TotalCount = Field(alias="totalCount")
+    total_count: TotalCount = pydantic.Field(alias="totalCount")
 
     model_config = {"extra": "allow"}
 

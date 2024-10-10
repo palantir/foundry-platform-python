@@ -17,9 +17,9 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
+from foundry.v2.core.models._stream_schema import StreamSchema
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.streams.models._compressed import Compressed
 from foundry.v2.streams.models._partitions_count import PartitionsCount
@@ -28,23 +28,26 @@ from foundry.v2.streams.models._stream_type import StreamType
 from foundry.v2.streams.models._view_rid import ViewRid
 
 
-class Stream(BaseModel):
+class Stream(pydantic.BaseModel):
     """Stream"""
 
-    branch_name: BranchName = Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias="branchName")
 
-    view_rid: ViewRid = Field(alias="viewRid")
+    schema: StreamSchema  # type: ignore
+    """The Foundry schema for this stream."""
+
+    view_rid: ViewRid = pydantic.Field(alias="viewRid")
     """The view that this stream corresponds to."""
 
-    partitions_count: PartitionsCount = Field(alias="partitionsCount")
+    partitions_count: PartitionsCount = pydantic.Field(alias="partitionsCount")
     """
-    The number of partitions for the Foundry stream.
+    The number of partitions for the Foundry stream. Defaults to 1.
 
     Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
     are recommended.
     """
 
-    stream_type: StreamType = Field(alias="streamType")
+    stream_type: StreamType = pydantic.Field(alias="streamType")
     """
     A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
     LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.

@@ -6,7 +6,7 @@ Divides objects into groups according to an exact value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**maxGroupCount** | NotRequired[StrictInt] | No |  |
+**maxGroupCount** | NotRequired[pydantic.StrictInt] | No |  |
 **type** | Literal["exact"] | Yes | None |
 
 

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.orchestration.models._connecting_target_dict import ConnectingTargetDict
@@ -25,6 +25,7 @@ from foundry.v2.orchestration.models._manual_target_dict import ManualTargetDict
 from foundry.v2.orchestration.models._upstream_target_dict import UpstreamTargetDict
 
 BuildTargetDict = Annotated[
-    Union[UpstreamTargetDict, ManualTargetDict, ConnectingTargetDict], Field(discriminator="type")
+    Union[UpstreamTargetDict, ManualTargetDict, ConnectingTargetDict],
+    pydantic.Field(discriminator="type"),
 ]
 """The targets of the build."""

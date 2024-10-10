@@ -18,17 +18,16 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._create_object_rule_dict import CreateObjectRuleDict
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 
 
-class CreateObjectRule(BaseModel):
+class CreateObjectRule(pydantic.BaseModel):
     """CreateObjectRule"""
 
-    object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
     type: Literal["createObject"]
 

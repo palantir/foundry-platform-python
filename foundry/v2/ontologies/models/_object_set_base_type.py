@@ -18,17 +18,15 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._object_set_base_type_dict import ObjectSetBaseTypeDict  # NOQA
 
 
-class ObjectSetBaseType(BaseModel):
+class ObjectSetBaseType(pydantic.BaseModel):
     """ObjectSetBaseType"""
 
-    object_type: StrictStr = Field(alias="objectType")
+    object_type: pydantic.StrictStr = pydantic.Field(alias="objectType")
 
     type: Literal["base"]
 

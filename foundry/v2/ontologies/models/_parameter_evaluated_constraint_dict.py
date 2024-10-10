@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._array_size_constraint_dict import ArraySizeConstraintDict  # NOQA
@@ -54,7 +54,7 @@ ParameterEvaluatedConstraintDict = Annotated[
         StringRegexMatchConstraintDict,
         UnevaluableConstraintDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """
 A constraint that an action parameter value must satisfy in order to be considered valid.

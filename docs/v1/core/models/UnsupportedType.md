@@ -5,7 +5,7 @@ UnsupportedType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**unsupported_type** | StrictStr | Yes |  |
+**unsupported_type** | pydantic.StrictStr | Yes |  |
 **type** | Literal["unsupported"] | Yes | None |
 
 

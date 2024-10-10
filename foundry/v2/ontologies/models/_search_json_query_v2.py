@@ -20,8 +20,7 @@ from typing import Literal
 from typing import Union
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._and_query_v2_dict import AndQueryV2Dict
@@ -59,7 +58,7 @@ from foundry.v2.ontologies.models._within_distance_of_query import WithinDistanc
 from foundry.v2.ontologies.models._within_polygon_query import WithinPolygonQuery
 
 
-class OrQueryV2(BaseModel):
+class OrQueryV2(pydantic.BaseModel):
     """Returns objects where at least 1 query is satisfied."""
 
     value: List[SearchJsonQueryV2]
@@ -73,7 +72,7 @@ class OrQueryV2(BaseModel):
         return cast(OrQueryV2Dict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class NotQueryV2(BaseModel):
+class NotQueryV2(pydantic.BaseModel):
     """Returns objects where the query is not satisfied."""
 
     value: SearchJsonQueryV2
@@ -87,7 +86,7 @@ class NotQueryV2(BaseModel):
         return cast(NotQueryV2Dict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class AndQueryV2(BaseModel):
+class AndQueryV2(pydantic.BaseModel):
     """Returns objects where every query is satisfied."""
 
     value: List[SearchJsonQueryV2]
@@ -127,6 +126,6 @@ SearchJsonQueryV2 = Annotated[
         LteQueryV2,
         StartsWithQuery,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """SearchJsonQueryV2"""

@@ -19,25 +19,23 @@ from datetime import datetime
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v1.core.models._file_path import FilePath
 from foundry.v1.datasets.models._file_dict import FileDict
 from foundry.v1.datasets.models._transaction_rid import TransactionRid
 
 
-class File(BaseModel):
+class File(pydantic.BaseModel):
     """File"""
 
     path: FilePath
 
-    transaction_rid: TransactionRid = Field(alias="transactionRid")
+    transaction_rid: TransactionRid = pydantic.Field(alias="transactionRid")
 
-    size_bytes: Optional[StrictStr] = Field(alias="sizeBytes", default=None)
+    size_bytes: Optional[pydantic.StrictStr] = pydantic.Field(alias="sizeBytes", default=None)
 
-    updated_time: datetime = Field(alias="updatedTime")
+    updated_time: datetime = pydantic.Field(alias="updatedTime")
 
     model_config = {"extra": "allow"}
 

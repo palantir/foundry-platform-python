@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._bounding_box_value import BoundingBoxValue
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
@@ -27,7 +27,7 @@ from foundry.v2.ontologies.models._within_bounding_box_query_dict import (
 )  # NOQA
 
 
-class WithinBoundingBoxQuery(BaseModel):
+class WithinBoundingBoxQuery(pydantic.BaseModel):
     """Returns objects where the specified field contains a point within the bounding box provided."""
 
     field: PropertyApiName

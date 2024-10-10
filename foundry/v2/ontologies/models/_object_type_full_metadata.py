@@ -19,8 +19,7 @@ from typing import Dict
 from typing import List
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v2.ontologies.models._link_type_side_v2 import LinkTypeSideV2
@@ -37,22 +36,22 @@ from foundry.v2.ontologies.models._shared_property_type_api_name import (
 )  # NOQA
 
 
-class ObjectTypeFullMetadata(BaseModel):
+class ObjectTypeFullMetadata(pydantic.BaseModel):
     """ObjectTypeFullMetadata"""
 
-    object_type: ObjectTypeV2 = Field(alias="objectType")
+    object_type: ObjectTypeV2 = pydantic.Field(alias="objectType")
 
-    link_types: List[LinkTypeSideV2] = Field(alias="linkTypes")
+    link_types: List[LinkTypeSideV2] = pydantic.Field(alias="linkTypes")
 
-    implements_interfaces: List[InterfaceTypeApiName] = Field(alias="implementsInterfaces")
+    implements_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias="implementsInterfaces")
     """A list of interfaces that this object type implements."""
 
-    implements_interfaces2: Dict[InterfaceTypeApiName, ObjectTypeInterfaceImplementation] = Field(
-        alias="implementsInterfaces2"
+    implements_interfaces2: Dict[InterfaceTypeApiName, ObjectTypeInterfaceImplementation] = (
+        pydantic.Field(alias="implementsInterfaces2")
     )
     """A list of interfaces that this object type implements and how it implements them."""
 
-    shared_property_type_mapping: Dict[SharedPropertyTypeApiName, PropertyApiName] = Field(
+    shared_property_type_mapping: Dict[SharedPropertyTypeApiName, PropertyApiName] = pydantic.Field(
         alias="sharedPropertyTypeMapping"
     )
     """

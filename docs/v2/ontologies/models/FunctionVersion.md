@@ -6,7 +6,7 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

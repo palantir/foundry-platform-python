@@ -7,7 +7,7 @@ The parameter has a manually predefined set of options.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **options** | List[ParameterOption] | Yes |  |
-**other_values_allowed** | StrictBool | Yes | A flag denoting whether custom, user provided values will be considered valid. This is configured via the **Allowed "Other" value** toggle in the **Ontology Manager**. |
+**other_values_allowed** | pydantic.StrictBool | Yes | A flag denoting whether custom, user provided values will be considered valid. This is configured via the **Allowed "Other" value** toggle in the **Ontology Manager**. |
 **type** | Literal["oneOf"] | Yes | None |
 
 

@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._action_parameter_array_type_dict import (
     ActionParameterArrayTypeDict,
@@ -27,10 +26,10 @@ from foundry.v2.ontologies.models._action_parameter_array_type_dict import (
 from foundry.v2.ontologies.models._action_parameter_type import ActionParameterType
 
 
-class ActionParameterArrayType(BaseModel):
+class ActionParameterArrayType(pydantic.BaseModel):
     """ActionParameterArrayType"""
 
-    sub_type: ActionParameterType = Field(alias="subType")
+    sub_type: ActionParameterType = pydantic.Field(alias="subType")
 
     type: Literal["array"]
 

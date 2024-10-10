@@ -18,20 +18,19 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.datasets.models._branch_dict import BranchDict
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
 
 
-class Branch(BaseModel):
+class Branch(pydantic.BaseModel):
     """Branch"""
 
     name: BranchName
 
-    transaction_rid: Optional[TransactionRid] = Field(alias="transactionRid", default=None)
+    transaction_rid: Optional[TransactionRid] = pydantic.Field(alias="transactionRid", default=None)
 
     model_config = {"extra": "allow"}
 

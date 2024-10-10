@@ -19,9 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.admin.models._marking_category_dict import MarkingCategoryDict
 from foundry.v2.admin.models._marking_category_display_name import (
@@ -35,24 +33,24 @@ from foundry.v2.core.models._created_time import CreatedTime
 from foundry.v2.core.models._marking_id import MarkingId
 
 
-class MarkingCategory(BaseModel):
+class MarkingCategory(pydantic.BaseModel):
     """MarkingCategory"""
 
     id: MarkingCategoryId
 
-    display_name: MarkingCategoryDisplayName = Field(alias="displayName")
+    display_name: MarkingCategoryDisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    category_type: MarkingCategoryType = Field(alias="categoryType")
+    category_type: MarkingCategoryType = pydantic.Field(alias="categoryType")
 
-    marking_type: MarkingType = Field(alias="markingType")
+    marking_type: MarkingType = pydantic.Field(alias="markingType")
 
     markings: List[MarkingId]
 
-    created_time: CreatedTime = Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias="createdTime")
 
-    created_by: Optional[CreatedBy] = Field(alias="createdBy", default=None)
+    created_by: Optional[CreatedBy] = pydantic.Field(alias="createdBy", default=None)
 
     model_config = {"extra": "allow"}
 

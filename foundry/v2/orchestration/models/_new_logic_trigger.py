@@ -18,23 +18,22 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.orchestration.models._new_logic_trigger_dict import NewLogicTriggerDict
 
 
-class NewLogicTrigger(BaseModel):
+class NewLogicTrigger(pydantic.BaseModel):
     """
     Trigger whenever a new JobSpec is put on the dataset and on
     that branch.
     """
 
-    branch_name: BranchName = Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias="branchName")
 
-    dataset_rid: DatasetRid = Field(alias="datasetRid")
+    dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
 
     type: Literal["newLogic"]
 

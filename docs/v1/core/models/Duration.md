@@ -4,7 +4,7 @@ An ISO 8601 formatted duration.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

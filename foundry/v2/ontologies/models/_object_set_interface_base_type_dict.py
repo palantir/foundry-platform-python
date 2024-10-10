@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import TypedDict
 
 
@@ -26,6 +26,11 @@ class ObjectSetInterfaceBaseTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    interfaceType: StrictStr
+    interfaceType: pydantic.StrictStr
+    """
+    An object set with objects that implement the interface with the given interface API name. The objects in 
+    the object set will only have properties that implement properties of the given interface. This is currently 
+    unsupported and an exception will be thrown if used.
+    """
 
     type: Literal["interfaceBase"]

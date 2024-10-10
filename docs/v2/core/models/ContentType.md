@@ -4,7 +4,7 @@ ContentType
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

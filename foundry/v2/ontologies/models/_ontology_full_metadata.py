@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Dict
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._action_type_api_name import ActionTypeApiName
 from foundry.v2.ontologies.models._action_type_v2 import ActionTypeV2
@@ -39,20 +38,24 @@ from foundry.v2.ontologies.models._shared_property_type_api_name import (
 )  # NOQA
 
 
-class OntologyFullMetadata(BaseModel):
+class OntologyFullMetadata(pydantic.BaseModel):
     """OntologyFullMetadata"""
 
     ontology: OntologyV2
 
-    object_types: Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = Field(alias="objectTypes")
+    object_types: Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = pydantic.Field(
+        alias="objectTypes"
+    )
 
-    action_types: Dict[ActionTypeApiName, ActionTypeV2] = Field(alias="actionTypes")
+    action_types: Dict[ActionTypeApiName, ActionTypeV2] = pydantic.Field(alias="actionTypes")
 
-    query_types: Dict[QueryApiName, QueryTypeV2] = Field(alias="queryTypes")
+    query_types: Dict[QueryApiName, QueryTypeV2] = pydantic.Field(alias="queryTypes")
 
-    interface_types: Dict[InterfaceTypeApiName, InterfaceType] = Field(alias="interfaceTypes")
+    interface_types: Dict[InterfaceTypeApiName, InterfaceType] = pydantic.Field(
+        alias="interfaceTypes"
+    )
 
-    shared_property_types: Dict[SharedPropertyTypeApiName, SharedPropertyType] = Field(
+    shared_property_types: Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(
         alias="sharedPropertyTypes"
     )
 

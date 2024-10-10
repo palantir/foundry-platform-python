@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._float_type_dict import FloatTypeDict
 
 
-class FloatType(BaseModel):
+class FloatType(pydantic.BaseModel):
     """FloatType"""
 
     type: Literal["float"]

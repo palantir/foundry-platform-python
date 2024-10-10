@@ -20,10 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictBool
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -66,7 +63,7 @@ class OntologyObjectClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def aggregate(
         self,
@@ -79,7 +76,7 @@ class OntologyObjectClient:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         where: Optional[SearchJsonQueryV2Dict] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AggregateObjectsResponseV2:
         """
         Perform functions on object fields in the specified ontology and object type.
@@ -144,7 +141,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def count(
         self,
@@ -153,7 +150,7 @@ class OntologyObjectClient:
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> CountObjectsResponseV2:
         """
         Returns a count of the objects of the given object type.
@@ -196,7 +193,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
@@ -205,10 +202,10 @@ class OntologyObjectClient:
         primary_key: PropertyValueEscapedString,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         package_name: Optional[SdkPackageName] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> OntologyObjectV2:
         """
         Gets a specific object with the given primary key.
@@ -224,7 +221,7 @@ class OntologyObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param select: select
@@ -260,7 +257,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
@@ -268,12 +265,12 @@ class OntologyObjectClient:
         object_type: ObjectTypeApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         order_by: Optional[OrderBy] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OntologyObjectV2]:
         """
         Lists the objects for the given Ontology and object type.
@@ -299,7 +296,7 @@ class OntologyObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param order_by: orderBy
         :type order_by: Optional[OrderBy]
         :param package_name: packageName
@@ -340,7 +337,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -348,13 +345,13 @@ class OntologyObjectClient:
         object_type: ObjectTypeApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         order_by: Optional[OrderBy] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListObjectsResponseV2:
         """
         Lists the objects for the given Ontology and object type.
@@ -380,7 +377,7 @@ class OntologyObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param order_by: orderBy
         :type order_by: Optional[OrderBy]
         :param package_name: packageName
@@ -424,7 +421,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def search(
         self,
@@ -433,13 +430,13 @@ class OntologyObjectClient:
         *,
         select: List[PropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         order_by: Optional[SearchOrderByV2Dict] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         where: Optional[SearchJsonQueryV2Dict] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchObjectsResponseV2:
         """
         Search for objects in the specified ontology and object type. The request body is used
@@ -474,7 +471,7 @@ class OntologyObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2Dict]
         :param package_name: packageName
@@ -523,7 +520,7 @@ class OntologyObjectClient:
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                         "select": List[PropertyApiName],
-                        "excludeRid": Optional[StrictBool],
+                        "excludeRid": Optional[pydantic.StrictBool],
                     },
                 ),
                 response_type=SearchObjectsResponseV2,

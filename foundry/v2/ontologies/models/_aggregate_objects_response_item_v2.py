@@ -19,7 +19,7 @@ from typing import Dict
 from typing import List
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._aggregate_objects_response_item_v2_dict import (
     AggregateObjectsResponseItemV2Dict,
@@ -31,7 +31,7 @@ from foundry.v2.ontologies.models._aggregation_metric_result_v2 import (
 )  # NOQA
 
 
-class AggregateObjectsResponseItemV2(BaseModel):
+class AggregateObjectsResponseItemV2(pydantic.BaseModel):
     """AggregateObjectsResponseItemV2"""
 
     group: Dict[AggregationGroupKeyV2, AggregationGroupValueV2]

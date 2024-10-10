@@ -18,10 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictBool
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.ontologies.models._interface_link_type_api_name import (
@@ -37,7 +34,7 @@ from foundry.v2.ontologies.models._interface_link_type_linked_entity_api_name im
 from foundry.v2.ontologies.models._interface_link_type_rid import InterfaceLinkTypeRid
 
 
-class InterfaceLinkType(BaseModel):
+class InterfaceLinkType(pydantic.BaseModel):
     """
     A link type constraint defined at the interface level where the implementation of the links is provided
     by the implementing object types.
@@ -45,20 +42,20 @@ class InterfaceLinkType(BaseModel):
 
     rid: InterfaceLinkTypeRid
 
-    api_name: InterfaceLinkTypeApiName = Field(alias="apiName")
+    api_name: InterfaceLinkTypeApiName = pydantic.Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """The description of the interface link type."""
 
-    linked_entity_api_name: InterfaceLinkTypeLinkedEntityApiName = Field(
+    linked_entity_api_name: InterfaceLinkTypeLinkedEntityApiName = pydantic.Field(
         alias="linkedEntityApiName"
     )
 
     cardinality: InterfaceLinkTypeCardinality
 
-    required: StrictBool
+    required: pydantic.StrictBool
     """Whether each implementing object type must declare at least one implementation of this link."""
 
     model_config = {"extra": "allow"}

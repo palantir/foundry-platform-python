@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -46,14 +44,14 @@ class ObjectTypeClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         ontology_rid: OntologyRid,
         object_type: ObjectTypeApiName,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ObjectType:
         """
         Gets a specific object type with the given API name.
@@ -89,7 +87,7 @@ class ObjectTypeClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_outgoing_link_type(
         self,
@@ -97,7 +95,7 @@ class ObjectTypeClient:
         object_type: ObjectTypeApiName,
         link_type: LinkTypeApiName,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> LinkTypeSide:
         """
         Get an outgoing link for an object type.
@@ -137,14 +135,14 @@ class ObjectTypeClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
         ontology_rid: OntologyRid,
         *,
         page_size: Optional[PageSize] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[ObjectType]:
         """
         Lists the object types for the given Ontology.
@@ -185,7 +183,7 @@ class ObjectTypeClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list_outgoing_link_types(
         self,
@@ -193,7 +191,7 @@ class ObjectTypeClient:
         object_type: ObjectTypeApiName,
         *,
         page_size: Optional[PageSize] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[LinkTypeSide]:
         """
         List the outgoing links for an object type.
@@ -234,7 +232,7 @@ class ObjectTypeClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -242,7 +240,7 @@ class ObjectTypeClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListObjectTypesResponse:
         """
         Lists the object types for the given Ontology.
@@ -286,7 +284,7 @@ class ObjectTypeClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page_outgoing_link_types(
         self,
@@ -295,7 +293,7 @@ class ObjectTypeClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListOutgoingLinkTypesResponse:
         """
         List the outgoing links for an object type.

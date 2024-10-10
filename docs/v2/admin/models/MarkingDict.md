@@ -8,7 +8,7 @@ Marking
 **id** | MarkingId | Yes |  |
 **categoryId** | MarkingCategoryId | Yes |  |
 **displayName** | MarkingDisplayName | Yes |  |
-**description** | NotRequired[StrictStr] | No |  |
+**description** | NotRequired[pydantic.StrictStr] | No |  |
 **organizationRid** | NotRequired[OrganizationRid] | No | If this marking is associated with an Organization, its RID will be populated here.  |
 **createdTime** | CreatedTime | Yes |  |
 **createdBy** | NotRequired[CreatedBy] | No |  |

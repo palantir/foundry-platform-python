@@ -18,19 +18,18 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._blueprint_icon_dict import BlueprintIconDict
 
 
-class BlueprintIcon(BaseModel):
+class BlueprintIcon(pydantic.BaseModel):
     """BlueprintIcon"""
 
-    color: StrictStr
+    color: pydantic.StrictStr
     """A hexadecimal color code."""
 
-    name: StrictStr
+    name: pydantic.StrictStr
     """
     The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 
     Used to specify the Blueprint icon to represent the object type in a React app.

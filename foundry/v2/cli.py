@@ -740,6 +740,49 @@ def connectivity_file_import():
     pass
 
 
+@connectivity_file_import.command("delete")
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_file_import_delete(
+    client: foundry.v2.FoundryClient,
+    file_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Delete the FileImport with the specified RID.
+    Deleting the file import does not delete the destination dataset but the dataset will no longer
+    be updated by this import.
+
+    """
+    result = client.connectivity.FileImport.delete(
+        file_import_rid=file_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_file_import.command("execute")
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_file_import_execute(
+    client: foundry.v2.FoundryClient,
+    file_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+    The returned BuildRid can be used to check the status via the Orchestration API.
+
+    """
+    result = client.connectivity.FileImport.execute(
+        file_import_rid=file_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @connectivity_file_import.command("get")
 @click.argument("file_import_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -753,27 +796,6 @@ def connectivity_file_import_get(
     Get the FileImport with the specified rid.
     """
     result = client.connectivity.FileImport.get(
-        file_import_rid=file_import_rid,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@connectivity_file_import.command("trigger")
-@click.argument("file_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.pass_obj
-def connectivity_file_import_trigger(
-    client: foundry.v2.FoundryClient,
-    file_import_rid: str,
-    preview: Optional[bool],
-):
-    """
-    Triggers the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
-    The returned BuildRid can be used to check the status via the Orchestration API.
-
-    """
-    result = client.connectivity.FileImport.trigger(
         file_import_rid=file_import_rid,
         preview=preview,
     )
@@ -3539,6 +3561,13 @@ def streams_dataset():
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.option(
+    "--schema",
+    type=str,
+    required=True,
+    help="""The Foundry schema to apply to the new stream.
+""",
+)
+@click.option(
     "--branch_name",
     type=str,
     required=False,
@@ -3581,6 +3610,7 @@ def streams_dataset_create(
     client: foundry.v2.FoundryClient,
     name: str,
     parent_folder_rid: str,
+    schema: str,
     branch_name: Optional[str],
     compressed: Optional[bool],
     partitions_count: Optional[int],
@@ -3596,6 +3626,7 @@ def streams_dataset_create(
     result = client.streams.Dataset.create(
         name=name,
         parent_folder_rid=parent_folder_rid,
+        schema=json.loads(schema),
         branch_name=branch_name,
         compressed=compressed,
         partitions_count=partitions_count,
@@ -3608,6 +3639,63 @@ def streams_dataset_create(
 @streams_dataset.group("stream")
 def streams_dataset_stream():
     pass
+
+
+@streams_dataset_stream.command("create")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option("--branch_name", type=str, required=True, help="""""")
+@click.option("--schema", type=str, required=True, help="""The Foundry schema for this stream.""")
+@click.option(
+    "--compressed",
+    type=bool,
+    required=False,
+    help="""Whether or not compression is enabled for the stream. Defaults to false.
+""",
+)
+@click.option(
+    "--partitions_count",
+    type=int,
+    required=False,
+    help="""The number of partitions for the Foundry stream. Defaults to 1.
+
+Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
+are recommended.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--stream_type",
+    type=click.Choice(["LOW_LATENCY", "HIGH_THROUGHPUT"]),
+    required=False,
+    help="""A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
+LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_create(
+    client: foundry.v2.FoundryClient,
+    dataset_rid: str,
+    branch_name: str,
+    schema: str,
+    compressed: Optional[bool],
+    partitions_count: Optional[int],
+    preview: Optional[bool],
+    stream_type: Optional[Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
+):
+    """
+    Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
+
+    """
+    result = client.streams.Dataset.Stream.create(
+        dataset_rid=dataset_rid,
+        branch_name=branch_name,
+        schema=json.loads(schema),
+        compressed=compressed,
+        partitions_count=partitions_count,
+        preview=preview,
+        stream_type=stream_type,
+    )
+    click.echo(repr(result))
 
 
 @streams_dataset_stream.command("get")
@@ -3630,6 +3718,35 @@ def streams_dataset_stream_get(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream.command("publish_binary_record")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("body", type=click.File("rb"), required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--view_rid", type=str, required=False, help="""viewRid""")
+@click.pass_obj
+def streams_dataset_stream_publish_binary_record(
+    client: foundry.v2.FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    body: io.BufferedReader,
+    preview: Optional[bool],
+    view_rid: Optional[str],
+):
+    """
+    Publish a single binary record to the stream. The stream's schema must be a single binary field.
+
+    """
+    result = client.streams.Dataset.Stream.publish_binary_record(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        body=body.read(),
+        preview=preview,
+        view_rid=view_rid,
     )
     click.echo(repr(result))
 
@@ -3722,6 +3839,82 @@ def streams_dataset_stream_publish_records(
         records=json.loads(records),
         preview=preview,
         view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream.command("reset")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option(
+    "--compressed",
+    type=bool,
+    required=False,
+    help="""Whether or not compression is enabled for the stream.
+
+If omitted, the compression setting of the existing stream on the branch will be used.
+""",
+)
+@click.option(
+    "--partitions_count",
+    type=int,
+    required=False,
+    help="""The number of partitions for the Foundry stream.
+Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
+are recommended.
+
+If omitted, the partitions count of the existing stream on the branch will be used.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--schema",
+    type=str,
+    required=False,
+    help="""The Foundry schema to apply to the new stream. 
+
+If omitted, the schema of the existing stream on the branch will be used.
+""",
+)
+@click.option(
+    "--stream_type",
+    type=click.Choice(["LOW_LATENCY", "HIGH_THROUGHPUT"]),
+    required=False,
+    help="""A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
+LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+
+If omitted, the stream type of the existing stream on the branch will be used.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_reset(
+    client: foundry.v2.FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    compressed: Optional[bool],
+    partitions_count: Optional[int],
+    preview: Optional[bool],
+    schema: Optional[str],
+    stream_type: Optional[Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
+):
+    """
+    Reset the stream on the given dataset branch, clearing the existing records and allowing new configurations
+    to be applied.
+
+    To change the stream settings without clearing the records, update the stream settings in-platform.
+
+    This will create a new stream view (as seen by the change of the `viewRid` on the branch),
+    which will be the new stream view that will be written to for the branch.
+
+    """
+    result = client.streams.Dataset.Stream.reset(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        compressed=compressed,
+        partitions_count=partitions_count,
+        preview=preview,
+        schema=None if schema is None else json.loads(schema),
+        stream_type=stream_type,
     )
     click.echo(repr(result))
 

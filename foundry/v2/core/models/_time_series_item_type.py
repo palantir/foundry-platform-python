@@ -17,11 +17,11 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.core.models._double_type import DoubleType
 from foundry.v2.core.models._string_type import StringType
 
-TimeSeriesItemType = Annotated[Union[StringType, DoubleType], Field(discriminator="type")]
+TimeSeriesItemType = Annotated[Union[StringType, DoubleType], pydantic.Field(discriminator="type")]
 """A union of the types supported by time series properties."""

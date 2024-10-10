@@ -20,14 +20,14 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._string_length_constraint_dict import (
     StringLengthConstraintDict,
 )  # NOQA
 
 
-class StringLengthConstraint(BaseModel):
+class StringLengthConstraint(pydantic.BaseModel):
     """
     The parameter value must have a length within the defined range.
     *This range is always inclusive.*

@@ -27,8 +27,7 @@ from typing import Type
 from typing import Union
 from urllib.parse import quote
 
-from pydantic import BaseModel
-from pydantic import TypeAdapter
+import pydantic
 from requests import Response
 
 from foundry._core.auth_utils import Auth
@@ -75,14 +74,14 @@ class RequestInfo:
 
 
 class _BaseModelTypeAdapter:
-    def __init__(self, _type: Type[BaseModel]) -> None:
+    def __init__(self, _type: Type[pydantic.BaseModel]) -> None:
         self._type = _type
 
     def validate_python(self, data: Any):
         return self._type.model_validate(data)
 
     def dump_json(self, data: Any, **kwargs: Dict[str, Any]):
-        # .encode() to match the behaviour of TypeAdapter.dump_json which returns bytes.
+        # .encode() to match the behaviour of pydantic.TypeAdapter.dump_json which returns bytes.
         return self._type.model_dump_json(data, **kwargs).encode()  # type: ignore
 
 
@@ -210,11 +209,11 @@ class ApiClient:
     @staticmethod
     def _get_type_adapter(_type: Any):
         if _type not in _TYPE_ADAPTERS:
-            if isclass(_type) and issubclass(_type, BaseModel):
+            if isclass(_type) and issubclass(_type, pydantic.BaseModel):
                 _TYPE_ADAPTERS[_type] = _BaseModelTypeAdapter(_type)  # type: ignore
             else:
                 # Create an instance of a type adapter. This has a non-trivial overhead according
                 # to the documentation so we do this once the first time we encounter this type
-                _TYPE_ADAPTERS[_type] = TypeAdapter(_type)
+                _TYPE_ADAPTERS[_type] = pydantic.TypeAdapter(_type)
 
         return _TYPE_ADAPTERS[_type]

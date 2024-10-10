@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.core.models._date_type import DateType
@@ -25,6 +25,6 @@ from foundry.v2.core.models._double_type import DoubleType
 from foundry.v2.core.models._timestamp_type import TimestampType
 
 QueryAggregationValueType = Annotated[
-    Union[DateType, DoubleType, TimestampType], Field(discriminator="type")
+    Union[DateType, DoubleType, TimestampType], pydantic.Field(discriminator="type")
 ]
 """A union of all the types supported by query aggregation keys."""

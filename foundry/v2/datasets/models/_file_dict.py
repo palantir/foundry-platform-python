@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -33,6 +33,6 @@ class FileDict(TypedDict):
 
     transactionRid: TransactionRid
 
-    sizeBytes: NotRequired[StrictStr]
+    sizeBytes: NotRequired[pydantic.StrictStr]
 
     updatedTime: FileUpdatedTime

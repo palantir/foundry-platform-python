@@ -17,6 +17,7 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
+from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.streams.models._compressed import Compressed
 from foundry.v2.streams.models._partitions_count import PartitionsCount
@@ -31,12 +32,15 @@ class StreamDict(TypedDict):
 
     branchName: BranchName
 
+    schema: StreamSchemaDict
+    """The Foundry schema for this stream."""
+
     viewRid: ViewRid
     """The view that this stream corresponds to."""
 
     partitionsCount: PartitionsCount
     """
-    The number of partitions for the Foundry stream.
+    The number of partitions for the Foundry stream. Defaults to 1.
 
     Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
     are recommended.

@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.core.models._total_count import TotalCount
@@ -28,15 +27,15 @@ from foundry.v1.ontologies.models._list_objects_response_dict import ListObjects
 from foundry.v1.ontologies.models._ontology_object import OntologyObject
 
 
-class ListObjectsResponse(BaseModel):
+class ListObjectsResponse(pydantic.BaseModel):
     """ListObjectsResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[OntologyObject]
     """The list of objects in the current page."""
 
-    total_count: TotalCount = Field(alias="totalCount")
+    total_count: TotalCount = pydantic.Field(alias="totalCount")
 
     model_config = {"extra": "allow"}
 

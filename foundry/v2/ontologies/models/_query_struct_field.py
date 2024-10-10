@@ -17,20 +17,19 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._struct_field_name import StructFieldName
 from foundry.v2.ontologies.models._query_data_type import QueryDataType
 from foundry.v2.ontologies.models._query_struct_field_dict import QueryStructFieldDict
 
 
-class QueryStructField(BaseModel):
+class QueryStructField(pydantic.BaseModel):
     """QueryStructField"""
 
     name: StructFieldName
 
-    field_type: QueryDataType = Field(alias="fieldType")
+    field_type: QueryDataType = pydantic.Field(alias="fieldType")
 
     model_config = {"extra": "allow"}
 

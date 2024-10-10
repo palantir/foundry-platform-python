@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
@@ -37,18 +35,18 @@ from foundry.v2.filesystem.models._space_rid import SpaceRid
 from foundry.v2.filesystem.models._trash_status import TrashStatus
 
 
-class Resource(BaseModel):
+class Resource(pydantic.BaseModel):
     """Resource"""
 
     rid: ResourceRid
 
-    display_name: ResourceDisplayName = Field(alias="displayName")
+    display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
     """The display name of the Resource"""
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """The description of the Resource"""
 
-    documentation: Optional[StrictStr] = None
+    documentation: Optional[pydantic.StrictStr] = None
     """The documentation associated with the Resource"""
 
     path: ResourcePath
@@ -57,37 +55,37 @@ class Resource(BaseModel):
     type: ResourceType
     """The type of the Resource derived from the Resource Identifier (RID)."""
 
-    created_by: CreatedBy = Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias="createdBy")
     """The user that created the Resource."""
 
-    updated_by: UpdatedBy = Field(alias="updatedBy")
+    updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
     """The user that last updated the Resource."""
 
-    created_time: CreatedTime = Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias="createdTime")
     """The timestamp that the Resource was last created."""
 
-    updated_time: UpdatedTime = Field(alias="updatedTime")
+    updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
     """
     The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For
     top level folders (spaces and projects), this is not updated by child updates for performance reasons.
     """
 
-    trash_status: TrashStatus = Field(alias="trashStatus")
+    trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
     """
     The trash status of the Resource. If trashed, this could either be because the Resource itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
-    parent_folder_rid: FolderRid = Field(alias="parentFolderRid")
+    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
     """The parent folder Resource Identifier (RID). For projects, this will be the Space RID."""
 
-    project_rid: ProjectRid = Field(alias="projectRid")
+    project_rid: ProjectRid = pydantic.Field(alias="projectRid")
     """
     The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a
     Project, this value will still be populated with the Project RID.
     """
 
-    space_rid: SpaceRid = Field(alias="spaceRid")
+    space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
     """The Space Resource Identifier (RID) that the Resource lives in."""
 
     model_config = {"extra": "allow"}

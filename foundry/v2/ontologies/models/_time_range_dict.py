@@ -17,13 +17,13 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._absolute_time_range_dict import AbsoluteTimeRangeDict
 from foundry.v2.ontologies.models._relative_time_range_dict import RelativeTimeRangeDict
 
 TimeRangeDict = Annotated[
-    Union[AbsoluteTimeRangeDict, RelativeTimeRangeDict], Field(discriminator="type")
+    Union[AbsoluteTimeRangeDict, RelativeTimeRangeDict], pydantic.Field(discriminator="type")
 ]
 """An absolute or relative range for a time series query."""

@@ -20,10 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictBool
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -53,7 +50,7 @@ class LinkedObjectClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_linked_object(
         self,
@@ -64,10 +61,10 @@ class LinkedObjectClient:
         linked_object_primary_key: PropertyValueEscapedString,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         package_name: Optional[SdkPackageName] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> OntologyObjectV2:
         """
         Get a specific linked object that originates from another object.
@@ -89,7 +86,7 @@ class LinkedObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param select: select
@@ -127,7 +124,7 @@ class LinkedObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list_linked_objects(
         self,
@@ -137,12 +134,12 @@ class LinkedObjectClient:
         link_type: LinkTypeApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         order_by: Optional[OrderBy] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OntologyObjectV2]:
         """
         Lists the linked objects for a specific object and the given link type.
@@ -172,7 +169,7 @@ class LinkedObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param order_by: orderBy
         :type order_by: Optional[OrderBy]
         :param package_name: packageName
@@ -215,7 +212,7 @@ class LinkedObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page_linked_objects(
         self,
@@ -225,13 +222,13 @@ class LinkedObjectClient:
         link_type: LinkTypeApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[StrictBool] = None,
+        exclude_rid: Optional[pydantic.StrictBool] = None,
         order_by: Optional[OrderBy] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListLinkedObjectsResponseV2:
         """
         Lists the linked objects for a specific object and the given link type.
@@ -261,7 +258,7 @@ class LinkedObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[StrictBool]
+        :type exclude_rid: Optional[pydantic.StrictBool]
         :param order_by: orderBy
         :type order_by: Optional[OrderBy]
         :param package_name: packageName

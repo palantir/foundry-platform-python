@@ -17,8 +17,7 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
@@ -32,28 +31,28 @@ from foundry.v2.orchestration.models._retry_backoff_duration import RetryBackoff
 from foundry.v2.orchestration.models._retry_count import RetryCount
 
 
-class Build(BaseModel):
+class Build(pydantic.BaseModel):
     """Build"""
 
     rid: BuildRid
     """The RID of a build"""
 
-    branch_name: BranchName = Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias="branchName")
     """The branch that the build is running on."""
 
-    created_time: CreatedTime = Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias="createdTime")
     """The timestamp that the build was created."""
 
-    created_by: CreatedBy = Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias="createdBy")
     """The user who created the build."""
 
-    fallback_branches: FallbackBranches = Field(alias="fallbackBranches")
+    fallback_branches: FallbackBranches = pydantic.Field(alias="fallbackBranches")
 
-    retry_count: RetryCount = Field(alias="retryCount")
+    retry_count: RetryCount = pydantic.Field(alias="retryCount")
 
-    retry_backoff_duration: RetryBackoffDuration = Field(alias="retryBackoffDuration")
+    retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias="retryBackoffDuration")
 
-    abort_on_failure: AbortOnFailure = Field(alias="abortOnFailure")
+    abort_on_failure: AbortOnFailure = pydantic.Field(alias="abortOnFailure")
 
     status: BuildStatus
 

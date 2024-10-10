@@ -20,9 +20,7 @@ from typing import Literal
 from typing import Union
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
@@ -54,10 +52,10 @@ from foundry.v2.ontologies.models._object_set_union_type_dict import ObjectSetUn
 from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 
 
-class ObjectSetFilterType(BaseModel):
+class ObjectSetFilterType(pydantic.BaseModel):
     """ObjectSetFilterType"""
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     where: SearchJsonQueryV2
 
@@ -70,10 +68,10 @@ class ObjectSetFilterType(BaseModel):
         return cast(ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class ObjectSetSearchAroundType(BaseModel):
+class ObjectSetSearchAroundType(pydantic.BaseModel):
     """ObjectSetSearchAroundType"""
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     link: LinkTypeApiName
 
@@ -88,10 +86,10 @@ class ObjectSetSearchAroundType(BaseModel):
         )
 
 
-class ObjectSetIntersectionType(BaseModel):
+class ObjectSetIntersectionType(pydantic.BaseModel):
     """ObjectSetIntersectionType"""
 
-    object_sets: List[ObjectSet] = Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
     type: Literal["intersect"]
 
@@ -104,14 +102,14 @@ class ObjectSetIntersectionType(BaseModel):
         )
 
 
-class ObjectSetAsBaseObjectTypesType(BaseModel):
+class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
     """
     Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
     properties in the resulting object set, not just the properties that implement interface properties. This is
     currently unsupported and an exception will be thrown if used.
     """
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     type: Literal["asBaseObjectTypes"]
 
@@ -124,10 +122,10 @@ class ObjectSetAsBaseObjectTypesType(BaseModel):
         )
 
 
-class ObjectSetSubtractType(BaseModel):
+class ObjectSetSubtractType(pydantic.BaseModel):
     """ObjectSetSubtractType"""
 
-    object_sets: List[ObjectSet] = Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
     type: Literal["subtract"]
 
@@ -138,10 +136,10 @@ class ObjectSetSubtractType(BaseModel):
         return cast(ObjectSetSubtractTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class ObjectSetUnionType(BaseModel):
+class ObjectSetUnionType(pydantic.BaseModel):
     """ObjectSetUnionType"""
 
-    object_sets: List[ObjectSet] = Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
     type: Literal["union"]
 
@@ -152,17 +150,17 @@ class ObjectSetUnionType(BaseModel):
         return cast(ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class ObjectSetAsTypeType(BaseModel):
+class ObjectSetAsTypeType(pydantic.BaseModel):
     """ObjectSetAsTypeType"""
 
-    entity_type: StrictStr = Field(alias="entityType")
+    entity_type: pydantic.StrictStr = pydantic.Field(alias="entityType")
     """
     An object type or interface type API name to cast the object set to. Any object whose object type does not 
     match the object type provided or implement the interface type provided will be dropped from the resulting 
     object set. This is currently unsupported and an exception will be thrown if used.
     """
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     type: Literal["asType"]
 
@@ -187,6 +185,6 @@ ObjectSet = Annotated[
         ObjectSetAsTypeType,
         ObjectSetBaseType,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """Represents the definition of an `ObjectSet` in the `Ontology`."""

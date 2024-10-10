@@ -17,20 +17,19 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.admin.models._group_member_dict import GroupMemberDict
 from foundry.v2.core.models._principal_id import PrincipalId
 from foundry.v2.core.models._principal_type import PrincipalType
 
 
-class GroupMember(BaseModel):
+class GroupMember(pydantic.BaseModel):
     """GroupMember"""
 
-    principal_type: PrincipalType = Field(alias="principalType")
+    principal_type: PrincipalType = pydantic.Field(alias="principalType")
 
-    principal_id: PrincipalId = Field(alias="principalId")
+    principal_id: PrincipalId = pydantic.Field(alias="principalId")
 
     model_config = {"extra": "allow"}
 

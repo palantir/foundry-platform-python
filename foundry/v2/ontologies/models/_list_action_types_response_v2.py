@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.ontologies.models._action_type_v2 import ActionTypeV2
@@ -29,10 +28,10 @@ from foundry.v2.ontologies.models._list_action_types_response_v2_dict import (
 )  # NOQA
 
 
-class ListActionTypesResponseV2(BaseModel):
+class ListActionTypesResponseV2(pydantic.BaseModel):
     """ListActionTypesResponseV2"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[ActionTypeV2]
 

@@ -4,7 +4,7 @@ A string representation of a java.time.ZoneId
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

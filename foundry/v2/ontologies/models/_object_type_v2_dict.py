@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Dict
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -42,10 +42,10 @@ class ObjectTypeV2Dict(TypedDict):
 
     status: ReleaseStatus
 
-    description: NotRequired[StrictStr]
+    description: NotRequired[pydantic.StrictStr]
     """The description of the object type."""
 
-    pluralDisplayName: StrictStr
+    pluralDisplayName: pydantic.StrictStr
     """The plural display name of the object type."""
 
     icon: IconDict

@@ -18,19 +18,18 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._starts_with_query_dict import StartsWithQueryDict
 
 
-class StartsWithQuery(BaseModel):
+class StartsWithQuery(pydantic.BaseModel):
     """Returns objects where the specified field starts with the provided value."""
 
     field: PropertyApiName
 
-    value: StrictStr
+    value: pydantic.StrictStr
 
     type: Literal["startsWith"]
 

@@ -4,7 +4,7 @@ Setting fuzzy to `true` allows approximate matching in search queries that suppo
 
 ## Type
 ```python
-StrictBool
+pydantic.StrictBool
 ```
 
 

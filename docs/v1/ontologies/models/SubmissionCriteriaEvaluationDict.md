@@ -8,7 +8,7 @@ These are configured in the **Ontology Manager**.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**configuredFailureMessage** | NotRequired[StrictStr] | No | The message indicating one of the **submission criteria** was not satisfied. This is configured per **submission criteria** in the **Ontology Manager**.  |
+**configuredFailureMessage** | NotRequired[pydantic.StrictStr] | No | The message indicating one of the **submission criteria** was not satisfied. This is configured per **submission criteria** in the **Ontology Manager**.  |
 **result** | ValidationResult | Yes |  |
 
 

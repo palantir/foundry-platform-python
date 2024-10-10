@@ -19,10 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import StrictStr
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -53,27 +50,27 @@ class ScheduleClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create(
         self,
         *,
         action: CreateScheduleRequestActionDict,
-        description: Optional[StrictStr] = None,
-        display_name: Optional[StrictStr] = None,
+        description: Optional[pydantic.StrictStr] = None,
+        display_name: Optional[pydantic.StrictStr] = None,
         preview: Optional[PreviewMode] = None,
         scope_mode: Optional[CreateScheduleRequestScopeModeDict] = None,
         trigger: Optional[TriggerDict] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Schedule:
         """
         Creates a new Schedule.
         :param action:
         :type action: CreateScheduleRequestActionDict
         :param description:
-        :type description: Optional[StrictStr]
+        :type description: Optional[pydantic.StrictStr]
         :param display_name:
-        :type display_name: Optional[StrictStr]
+        :type display_name: Optional[pydantic.StrictStr]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
@@ -108,8 +105,8 @@ class ScheduleClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[StrictStr],
-                        "description": Optional[StrictStr],
+                        "displayName": Optional[pydantic.StrictStr],
+                        "description": Optional[pydantic.StrictStr],
                         "action": CreateScheduleRequestActionDict,
                         "trigger": Optional[TriggerDict],
                         "scopeMode": Optional[CreateScheduleRequestScopeModeDict],
@@ -120,14 +117,14 @@ class ScheduleClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def delete(
         self,
         schedule_rid: ScheduleRid,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Delete the Schedule with the specified rid.
@@ -159,14 +156,14 @@ class ScheduleClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         schedule_rid: ScheduleRid,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Schedule:
         """
         Get the Schedule with the specified rid.
@@ -200,14 +197,14 @@ class ScheduleClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def pause(
         self,
         schedule_rid: ScheduleRid,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
 
@@ -239,19 +236,19 @@ class ScheduleClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def replace(
         self,
         schedule_rid: ScheduleRid,
         *,
         action: ReplaceScheduleRequestActionDict,
-        description: Optional[StrictStr] = None,
-        display_name: Optional[StrictStr] = None,
+        description: Optional[pydantic.StrictStr] = None,
+        display_name: Optional[pydantic.StrictStr] = None,
         preview: Optional[PreviewMode] = None,
         scope_mode: Optional[ReplaceScheduleRequestScopeModeDict] = None,
         trigger: Optional[TriggerDict] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Schedule:
         """
         Replace the Schedule with the specified rid.
@@ -260,9 +257,9 @@ class ScheduleClient:
         :param action:
         :type action: ReplaceScheduleRequestActionDict
         :param description:
-        :type description: Optional[StrictStr]
+        :type description: Optional[pydantic.StrictStr]
         :param display_name:
-        :type display_name: Optional[StrictStr]
+        :type display_name: Optional[pydantic.StrictStr]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
@@ -299,8 +296,8 @@ class ScheduleClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[StrictStr],
-                        "description": Optional[StrictStr],
+                        "displayName": Optional[pydantic.StrictStr],
+                        "description": Optional[pydantic.StrictStr],
                         "action": ReplaceScheduleRequestActionDict,
                         "trigger": Optional[TriggerDict],
                         "scopeMode": Optional[ReplaceScheduleRequestScopeModeDict],
@@ -311,14 +308,14 @@ class ScheduleClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def run(
         self,
         schedule_rid: ScheduleRid,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ScheduleRun:
         """
 
@@ -352,14 +349,14 @@ class ScheduleClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def unpause(
         self,
         schedule_rid: ScheduleRid,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
 

@@ -19,9 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictInt
+import pydantic
 
 from foundry.v2.ontologies.models._aggregate_objects_response_item_v2 import (
     AggregateObjectsResponseItemV2,
@@ -32,10 +30,12 @@ from foundry.v2.ontologies.models._aggregate_objects_response_v2_dict import (
 from foundry.v2.ontologies.models._aggregation_accuracy import AggregationAccuracy
 
 
-class AggregateObjectsResponseV2(BaseModel):
+class AggregateObjectsResponseV2(pydantic.BaseModel):
     """AggregateObjectsResponseV2"""
 
-    excluded_items: Optional[StrictInt] = Field(alias="excludedItems", default=None)
+    excluded_items: Optional[pydantic.StrictInt] = pydantic.Field(
+        alias="excludedItems", default=None
+    )
 
     accuracy: AggregationAccuracy
 

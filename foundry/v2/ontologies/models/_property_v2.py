@@ -18,23 +18,21 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.ontologies.models._object_property_type import ObjectPropertyType
 from foundry.v2.ontologies.models._property_v2_dict import PropertyV2Dict
 
 
-class PropertyV2(BaseModel):
+class PropertyV2(pydantic.BaseModel):
     """Details about some property of an object."""
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 
-    data_type: ObjectPropertyType = Field(alias="dataType")
+    data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
 
     model_config = {"extra": "allow"}
 

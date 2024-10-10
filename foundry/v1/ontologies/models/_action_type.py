@@ -20,9 +20,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v1.core.models._display_name import DisplayName
 from foundry.v1.core.models._release_status import ReleaseStatus
@@ -34,14 +32,14 @@ from foundry.v1.ontologies.models._parameter import Parameter
 from foundry.v1.ontologies.models._parameter_id import ParameterId
 
 
-class ActionType(BaseModel):
+class ActionType(pydantic.BaseModel):
     """Represents an action type in the Ontology."""
 
-    api_name: ActionTypeApiName = Field(alias="apiName")
+    api_name: ActionTypeApiName = pydantic.Field(alias="apiName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 
     status: ReleaseStatus
 

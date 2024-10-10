@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-DatasetName = StrictStr
+DatasetName = pydantic.StrictStr
 """DatasetName"""

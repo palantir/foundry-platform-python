@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Dict
 from typing import List
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -40,7 +40,7 @@ class GroupDict(TypedDict):
     name: GroupName
     """The name of the Group."""
 
-    description: NotRequired[StrictStr]
+    description: NotRequired[pydantic.StrictStr]
     """A description of the Group."""
 
     realm: Realm

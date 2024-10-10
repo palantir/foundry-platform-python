@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -27,10 +27,10 @@ class StringRegexMatchConstraintDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    regex: StrictStr
+    regex: pydantic.StrictStr
     """The regular expression configured in the **Ontology Manager**."""
 
-    configuredFailureMessage: NotRequired[StrictStr]
+    configuredFailureMessage: NotRequired[pydantic.StrictStr]
     """
     The message indicating that the regular expression was not matched.
     This is configured per parameter in the **Ontology Manager**.

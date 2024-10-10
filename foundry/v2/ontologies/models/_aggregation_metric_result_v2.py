@@ -19,18 +19,17 @@ from typing import Any
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._aggregation_metric_result_v2_dict import (
     AggregationMetricResultV2Dict,
 )  # NOQA
 
 
-class AggregationMetricResultV2(BaseModel):
+class AggregationMetricResultV2(pydantic.BaseModel):
     """AggregationMetricResultV2"""
 
-    name: StrictStr
+    name: pydantic.StrictStr
 
     value: Optional[Any] = None
     """

@@ -4,7 +4,7 @@ A string indicating the API name to use for the interface link.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

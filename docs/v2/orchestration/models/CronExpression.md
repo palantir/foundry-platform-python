@@ -6,7 +6,7 @@ and day of week.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

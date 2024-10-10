@@ -6,7 +6,7 @@ Returns objects where the specified field starts with the provided value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | StrictStr | Yes |  |
+**value** | pydantic.StrictStr | Yes |  |
 **type** | Literal["prefix"] | Yes | None |
 
 

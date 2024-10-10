@@ -259,9 +259,9 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **format** | TableExportFormat | format |  |
 **branch_id** | Optional[BranchId] | branchId | [optional] |
-**columns** | Optional[List[StrictStr]] | columns | [optional] |
+**columns** | Optional[List[pydantic.StrictStr]] | columns | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**row_limit** | Optional[StrictInt] | rowLimit | [optional] |
+**row_limit** | Optional[pydantic.StrictInt] | rowLimit | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
@@ -284,11 +284,11 @@ dataset_rid = None
 format = "CSV"
 # Optional[BranchId] | branchId
 branch_id = None
-# Optional[List[StrictStr]] | columns
+# Optional[List[pydantic.StrictStr]] | columns
 columns = None
 # Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[StrictInt] | rowLimit
+# Optional[pydantic.StrictInt] | rowLimit
 row_limit = None
 # Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None

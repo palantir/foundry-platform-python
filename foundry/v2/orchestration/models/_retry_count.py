@@ -15,9 +15,9 @@
 
 from __future__ import annotations
 
-from pydantic import StrictInt
+import pydantic
 
-RetryCount = StrictInt
+RetryCount = pydantic.StrictInt
 """
 The number of retry attempts for failed Jobs within the Build. A Job's failure is not considered final until
 all retries have been attempted or an error occurs indicating that retries cannot be performed. Be aware,

@@ -4,7 +4,7 @@ FileImportDisplayName
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

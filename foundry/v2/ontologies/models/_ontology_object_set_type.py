@@ -19,8 +19,7 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._ontology_object_set_type_dict import (
@@ -28,12 +27,14 @@ from foundry.v2.ontologies.models._ontology_object_set_type_dict import (
 )  # NOQA
 
 
-class OntologyObjectSetType(BaseModel):
+class OntologyObjectSetType(pydantic.BaseModel):
     """OntologyObjectSetType"""
 
-    object_api_name: Optional[ObjectTypeApiName] = Field(alias="objectApiName", default=None)
+    object_api_name: Optional[ObjectTypeApiName] = pydantic.Field(
+        alias="objectApiName", default=None
+    )
 
-    object_type_api_name: Optional[ObjectTypeApiName] = Field(
+    object_type_api_name: Optional[ObjectTypeApiName] = pydantic.Field(
         alias="objectTypeApiName", default=None
     )
 

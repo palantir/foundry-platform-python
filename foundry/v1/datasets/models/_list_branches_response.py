@@ -19,18 +19,17 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.datasets.models._branch import Branch
 from foundry.v1.datasets.models._list_branches_response_dict import ListBranchesResponseDict  # NOQA
 
 
-class ListBranchesResponse(BaseModel):
+class ListBranchesResponse(pydantic.BaseModel):
     """ListBranchesResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[Branch]
     """The list of branches in the current page."""

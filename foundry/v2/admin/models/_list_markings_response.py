@@ -19,20 +19,19 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.admin.models._list_markings_response_dict import ListMarkingsResponseDict  # NOQA
 from foundry.v2.admin.models._marking import Marking
 from foundry.v2.core.models._page_token import PageToken
 
 
-class ListMarkingsResponse(BaseModel):
+class ListMarkingsResponse(pydantic.BaseModel):
     """ListMarkingsResponse"""
 
     data: List[Marking]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

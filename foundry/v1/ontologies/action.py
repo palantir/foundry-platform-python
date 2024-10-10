@@ -20,9 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -46,7 +44,7 @@ class ActionClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def apply(
         self,
@@ -54,7 +52,7 @@ class ActionClient:
         action_type: ActionTypeApiName,
         *,
         parameters: Dict[ParameterId, Optional[DataValue]],
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApplyActionResponse:
         """
         Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take
@@ -105,7 +103,7 @@ class ActionClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def apply_batch(
         self,
@@ -113,7 +111,7 @@ class ActionClient:
         action_type: ActionTypeApiName,
         *,
         requests: List[ApplyActionRequestDict],
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> BatchApplyActionResponse:
         """
         Applies multiple actions (of the same Action Type) using the given parameters.
@@ -167,7 +165,7 @@ class ActionClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def validate(
         self,
@@ -175,7 +173,7 @@ class ActionClient:
         action_type: ActionTypeApiName,
         *,
         parameters: Dict[ParameterId, Optional[DataValue]],
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ValidateActionResponse:
         """
         Validates if an action can be run with the given set of parameters.

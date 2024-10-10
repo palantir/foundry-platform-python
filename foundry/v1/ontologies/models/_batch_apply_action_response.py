@@ -17,14 +17,14 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._batch_apply_action_response_dict import (
     BatchApplyActionResponseDict,
 )  # NOQA
 
 
-class BatchApplyActionResponse(BaseModel):
+class BatchApplyActionResponse(pydantic.BaseModel):
     """BatchApplyActionResponse"""
 
     model_config = {"extra": "allow"}

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.core.models._date_type import DateType
@@ -26,6 +26,6 @@ from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._timestamp_type import TimestampType
 
 QueryAggregationRangeSubType = Annotated[
-    Union[DateType, DoubleType, IntegerType, TimestampType], Field(discriminator="type")
+    Union[DateType, DoubleType, IntegerType, TimestampType], pydantic.Field(discriminator="type")
 ]
 """A union of all the types supported by query aggregation ranges."""

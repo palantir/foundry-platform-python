@@ -20,12 +20,12 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._range_constraint_dict import RangeConstraintDict
 
 
-class RangeConstraint(BaseModel):
+class RangeConstraint(pydantic.BaseModel):
     """The parameter value must be within the defined range."""
 
     lt: Optional[Any] = None

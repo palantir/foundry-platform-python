@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._modify_interface_object_rule_dict import (
     ModifyInterfaceObjectRuleDict,
 )  # NOQA
 
 
-class ModifyInterfaceObjectRule(BaseModel):
+class ModifyInterfaceObjectRule(pydantic.BaseModel):
     """ModifyInterfaceObjectRule"""
 
     type: Literal["modifyInterfaceObject"]

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-BranchId = StrictStr
+BranchId = pydantic.StrictStr
 """The identifier (name) of a Branch. Example: `master`."""

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictBool
+import pydantic
 
-NotificationsEnabled = StrictBool
+NotificationsEnabled = pydantic.StrictBool
 """Whether to receive a notification at the end of scheduled builds."""

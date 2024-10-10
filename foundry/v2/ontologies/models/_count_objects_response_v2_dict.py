@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictInt
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -25,4 +25,4 @@ class CountObjectsResponseV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    count: NotRequired[StrictInt]
+    count: NotRequired[pydantic.StrictInt]

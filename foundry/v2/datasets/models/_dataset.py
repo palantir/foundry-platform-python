@@ -17,8 +17,7 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.datasets.models._dataset_dict import DatasetDict
 from foundry.v2.datasets.models._dataset_name import DatasetName
@@ -26,14 +25,14 @@ from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.filesystem.models._folder_rid import FolderRid
 
 
-class Dataset(BaseModel):
+class Dataset(pydantic.BaseModel):
     """Dataset"""
 
     rid: DatasetRid
 
     name: DatasetName
 
-    parent_folder_rid: FolderRid = Field(alias="parentFolderRid")
+    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
 
     model_config = {"extra": "allow"}
 

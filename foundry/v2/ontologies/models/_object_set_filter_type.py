@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_set import ObjectSet
 from foundry.v2.ontologies.models._object_set_filter_type_dict import (
@@ -28,10 +27,10 @@ from foundry.v2.ontologies.models._object_set_filter_type_dict import (
 from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 
 
-class ObjectSetFilterType(BaseModel):
+class ObjectSetFilterType(pydantic.BaseModel):
     """ObjectSetFilterType"""
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     where: SearchJsonQueryV2
 

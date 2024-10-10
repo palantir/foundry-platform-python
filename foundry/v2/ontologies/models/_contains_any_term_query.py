@@ -19,8 +19,7 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._contains_any_term_query_dict import (
     ContainsAnyTermQueryDict,
@@ -29,7 +28,7 @@ from foundry.v2.ontologies.models._fuzzy_v2 import FuzzyV2
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
-class ContainsAnyTermQuery(BaseModel):
+class ContainsAnyTermQuery(pydantic.BaseModel):
     """
     Returns objects where the specified field contains any of the whitespace separated words in any
     order in the provided value. This query supports fuzzy matching.
@@ -37,7 +36,7 @@ class ContainsAnyTermQuery(BaseModel):
 
     field: PropertyApiName
 
-    value: StrictStr
+    value: pydantic.StrictStr
 
     fuzzy: Optional[FuzzyV2] = None
 

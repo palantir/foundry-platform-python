@@ -7,7 +7,7 @@ File
 | ------------ | ------------- | ------------- | ------------- |
 **path** | FilePath | Yes |  |
 **transactionRid** | TransactionRid | Yes |  |
-**sizeBytes** | NotRequired[StrictStr] | No |  |
+**sizeBytes** | NotRequired[pydantic.StrictStr] | No |  |
 **updatedTime** | datetime | Yes |  |
 
 

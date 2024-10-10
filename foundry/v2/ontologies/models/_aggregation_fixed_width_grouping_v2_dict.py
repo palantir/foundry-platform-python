@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictInt
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
@@ -30,6 +30,6 @@ class AggregationFixedWidthGroupingV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    fixedWidth: StrictInt
+    fixedWidth: pydantic.StrictInt
 
     type: Literal["fixedWidth"]
