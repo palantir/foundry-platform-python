@@ -11,8 +11,11 @@ packages = [{ include = "foundry" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+expects = ">=0.9.0"
 requests = "^2.25.0"
 pydantic = "^2.1.0"
+pytest = ">=7.4.0"
+mockito = ">=1.5.1"
 typing-extensions = ">=4.7.1"
 annotated-types = ">=0.7.0"
 
