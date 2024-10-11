@@ -19,13 +19,13 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._ontology_struct_field import OntologyStructField
 from foundry.v1.ontologies.models._ontology_struct_type_dict import OntologyStructTypeDict  # NOQA
 
 
-class OntologyStructType(BaseModel):
+class OntologyStructType(pydantic.BaseModel):
     """OntologyStructType"""
 
     fields: List[OntologyStructField]

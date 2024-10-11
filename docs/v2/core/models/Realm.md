@@ -6,7 +6,7 @@ The `palantir-internal-realm` is used for Users or Groups that are created in Fo
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

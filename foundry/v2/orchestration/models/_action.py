@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
@@ -32,27 +31,27 @@ from foundry.v2.orchestration.models._retry_backoff_duration import RetryBackoff
 from foundry.v2.orchestration.models._retry_count import RetryCount
 
 
-class Action(BaseModel):
+class Action(pydantic.BaseModel):
     """Action"""
 
     target: BuildTarget
 
-    branch_name: BranchName = Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias="branchName")
     """The target branch the schedule should run on."""
 
-    fallback_branches: FallbackBranches = Field(alias="fallbackBranches")
+    fallback_branches: FallbackBranches = pydantic.Field(alias="fallbackBranches")
 
-    force_build: ForceBuild = Field(alias="forceBuild")
+    force_build: ForceBuild = pydantic.Field(alias="forceBuild")
 
-    retry_count: Optional[RetryCount] = Field(alias="retryCount", default=None)
+    retry_count: Optional[RetryCount] = pydantic.Field(alias="retryCount", default=None)
 
-    retry_backoff_duration: Optional[RetryBackoffDuration] = Field(
+    retry_backoff_duration: Optional[RetryBackoffDuration] = pydantic.Field(
         alias="retryBackoffDuration", default=None
     )
 
-    abort_on_failure: AbortOnFailure = Field(alias="abortOnFailure")
+    abort_on_failure: AbortOnFailure = pydantic.Field(alias="abortOnFailure")
 
-    notifications_enabled: NotificationsEnabled = Field(alias="notificationsEnabled")
+    notifications_enabled: NotificationsEnabled = pydantic.Field(alias="notificationsEnabled")
 
     model_config = {"extra": "allow"}
 

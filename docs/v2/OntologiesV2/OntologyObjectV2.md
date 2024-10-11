@@ -179,7 +179,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[StrictBool] | excludeRid | [optional] |
+**exclude_rid** | Optional[pydantic.StrictBool] | excludeRid | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
 
@@ -205,7 +205,7 @@ object_type = "employee"
 primary_key = 50030
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[StrictBool] | excludeRid
+# Optional[pydantic.StrictBool] | excludeRid
 exclude_rid = None
 # Optional[SdkPackageName] | packageName
 package_name = None
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[StrictBool] | excludeRid | [optional] |
+**exclude_rid** | Optional[pydantic.StrictBool] | excludeRid | [optional] |
 **order_by** | Optional[OrderBy] | orderBy | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
@@ -294,7 +294,7 @@ ontology = "palantir"
 object_type = "employee"
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[StrictBool] | excludeRid
+# Optional[pydantic.StrictBool] | excludeRid
 exclude_rid = None
 # Optional[OrderBy] | orderBy
 order_by = None
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[StrictBool] | excludeRid | [optional] |
+**exclude_rid** | Optional[pydantic.StrictBool] | excludeRid | [optional] |
 **order_by** | Optional[OrderBy] | orderBy | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
@@ -388,7 +388,7 @@ ontology = "palantir"
 object_type = "employee"
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[StrictBool] | excludeRid
+# Optional[pydantic.StrictBool] | excludeRid
 exclude_rid = None
 # Optional[OrderBy] | orderBy
 order_by = None
@@ -467,7 +467,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**exclude_rid** | Optional[pydantic.StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2Dict] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -496,7 +496,7 @@ object_type = "employee"
 select = None
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+# Optional[pydantic.StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2Dict] |
 order_by = None

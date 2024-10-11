@@ -6,7 +6,7 @@ Divides objects into groups with the specified width.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**fixedWidth** | StrictInt | Yes |  |
+**fixedWidth** | pydantic.StrictInt | Yes |  |
 **type** | Literal["fixedWidth"] | Yes | None |
 
 

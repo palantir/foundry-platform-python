@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._unevaluable_constraint_dict import (
     UnevaluableConstraintDict,
 )  # NOQA
 
 
-class UnevaluableConstraint(BaseModel):
+class UnevaluableConstraint(pydantic.BaseModel):
     """
     The parameter cannot be evaluated because it depends on another parameter or object set that can't be evaluated.
     This can happen when a parameter's allowed values are defined by another parameter that is missing or invalid.

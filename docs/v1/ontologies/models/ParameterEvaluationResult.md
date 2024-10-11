@@ -7,7 +7,7 @@ Represents the validity of a parameter against the configured constraints.
 | ------------ | ------------- | ------------- | ------------- |
 **result** | ValidationResult | Yes |  |
 **evaluated_constraints** | List[ParameterEvaluatedConstraint] | Yes |  |
-**required** | StrictBool | Yes | Represents whether the parameter is a required input to the action. |
+**required** | pydantic.StrictBool | Yes | Represents whether the parameter is a required input to the action. |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

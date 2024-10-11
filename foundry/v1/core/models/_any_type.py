@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._any_type_dict import AnyTypeDict
 
 
-class AnyType(BaseModel):
+class AnyType(pydantic.BaseModel):
     """AnyType"""
 
     type: Literal["any"]

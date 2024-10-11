@@ -19,8 +19,7 @@ from typing import Dict
 from typing import List
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._parameter_evaluation_result import (
     ParameterEvaluationResult,
@@ -35,12 +34,14 @@ from foundry.v2.ontologies.models._validate_action_response_v2_dict import (
 from foundry.v2.ontologies.models._validation_result import ValidationResult
 
 
-class ValidateActionResponseV2(BaseModel):
+class ValidateActionResponseV2(pydantic.BaseModel):
     """ValidateActionResponseV2"""
 
     result: ValidationResult
 
-    submission_criteria: List[SubmissionCriteriaEvaluation] = Field(alias="submissionCriteria")
+    submission_criteria: List[SubmissionCriteriaEvaluation] = pydantic.Field(
+        alias="submissionCriteria"
+    )
 
     parameters: Dict[ParameterId, ParameterEvaluationResult]
 

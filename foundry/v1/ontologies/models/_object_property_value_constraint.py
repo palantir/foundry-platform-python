@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._object_property_value_constraint_dict import (
     ObjectPropertyValueConstraintDict,
 )  # NOQA
 
 
-class ObjectPropertyValueConstraint(BaseModel):
+class ObjectPropertyValueConstraint(pydantic.BaseModel):
     """The parameter value must be a property value of an object found within an object set."""
 
     type: Literal["objectPropertyValue"]

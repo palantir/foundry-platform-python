@@ -19,7 +19,7 @@ from typing import Dict
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._object_rid import ObjectRid
 from foundry.v1.ontologies.models._ontology_object_dict import OntologyObjectDict
@@ -27,7 +27,7 @@ from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 from foundry.v1.ontologies.models._property_value import PropertyValue
 
 
-class OntologyObject(BaseModel):
+class OntologyObject(pydantic.BaseModel):
     """Represents an object in the Ontology."""
 
     properties: Dict[PropertyApiName, Optional[PropertyValue]]

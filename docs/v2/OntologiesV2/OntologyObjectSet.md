@@ -217,7 +217,7 @@ Name | Type | Description  | Notes |
 **object_set** | ObjectSetDict |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**exclude_rid** | Optional[pydantic.StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2Dict] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -245,7 +245,7 @@ object_set = {"type": "base", "objectType": "Employee"}
 select = None
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+# Optional[pydantic.StrictBool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2Dict] |
 order_by = None

@@ -5,7 +5,7 @@ ObjectSetInterfaceBaseType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**interfaceType** | StrictStr | Yes |  |
+**interfaceType** | pydantic.StrictStr | Yes | An object set with objects that implement the interface with the given interface API name. The objects in  the object set will only have properties that implement properties of the given interface. This is currently  unsupported and an exception will be thrown if used.  |
 **type** | Literal["interfaceBase"] | Yes | None |
 
 

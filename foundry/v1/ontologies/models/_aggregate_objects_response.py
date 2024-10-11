@@ -19,9 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictInt
+import pydantic
 
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.ontologies.models._aggregate_objects_response_dict import (
@@ -32,12 +30,14 @@ from foundry.v1.ontologies.models._aggregate_objects_response_item import (
 )  # NOQA
 
 
-class AggregateObjectsResponse(BaseModel):
+class AggregateObjectsResponse(pydantic.BaseModel):
     """AggregateObjectsResponse"""
 
-    excluded_items: Optional[StrictInt] = Field(alias="excludedItems", default=None)
+    excluded_items: Optional[pydantic.StrictInt] = pydantic.Field(
+        alias="excludedItems", default=None
+    )
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[AggregateObjectsResponseItem]
 

@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Dict
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._object_type_interface_implementation_dict import (
     ObjectTypeInterfaceImplementationDict,
@@ -29,7 +29,7 @@ from foundry.v2.ontologies.models._shared_property_type_api_name import (
 )  # NOQA
 
 
-class ObjectTypeInterfaceImplementation(BaseModel):
+class ObjectTypeInterfaceImplementation(pydantic.BaseModel):
     """ObjectTypeInterfaceImplementation"""
 
     properties: Dict[SharedPropertyTypeApiName, PropertyApiName]

@@ -18,20 +18,18 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._query_data_type import QueryDataType
 from foundry.v2.ontologies.models._query_parameter_v2_dict import QueryParameterV2Dict
 
 
-class QueryParameterV2(BaseModel):
+class QueryParameterV2(pydantic.BaseModel):
     """Details about a parameter of a query."""
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    data_type: QueryDataType = Field(alias="dataType")
+    data_type: QueryDataType = pydantic.Field(alias="dataType")
 
     model_config = {"extra": "allow"}
 

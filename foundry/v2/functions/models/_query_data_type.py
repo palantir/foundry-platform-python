@@ -20,8 +20,7 @@ from typing import Literal
 from typing import Union
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.core.models._attachment_type import AttachmentType
@@ -49,12 +48,12 @@ from foundry.v2.functions.models._two_dimensional_aggregation import (
 )  # NOQA
 
 
-class QueryStructField(BaseModel):
+class QueryStructField(pydantic.BaseModel):
     """QueryStructField"""
 
     name: StructFieldName
 
-    field_type: QueryDataType = Field(alias="fieldType")
+    field_type: QueryDataType = pydantic.Field(alias="fieldType")
 
     model_config = {"extra": "allow"}
 
@@ -63,7 +62,7 @@ class QueryStructField(BaseModel):
         return cast(QueryStructFieldDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class QueryStructType(BaseModel):
+class QueryStructType(pydantic.BaseModel):
     """QueryStructType"""
 
     fields: List[QueryStructField]
@@ -77,10 +76,10 @@ class QueryStructType(BaseModel):
         return cast(QueryStructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class QuerySetType(BaseModel):
+class QuerySetType(pydantic.BaseModel):
     """QuerySetType"""
 
-    sub_type: QueryDataType = Field(alias="subType")
+    sub_type: QueryDataType = pydantic.Field(alias="subType")
 
     type: Literal["set"]
 
@@ -91,10 +90,10 @@ class QuerySetType(BaseModel):
         return cast(QuerySetTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class QueryUnionType(BaseModel):
+class QueryUnionType(pydantic.BaseModel):
     """QueryUnionType"""
 
-    union_types: List[QueryDataType] = Field(alias="unionTypes")
+    union_types: List[QueryDataType] = pydantic.Field(alias="unionTypes")
 
     type: Literal["union"]
 
@@ -105,10 +104,10 @@ class QueryUnionType(BaseModel):
         return cast(QueryUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class QueryArrayType(BaseModel):
+class QueryArrayType(pydantic.BaseModel):
     """QueryArrayType"""
 
-    sub_type: QueryDataType = Field(alias="subType")
+    sub_type: QueryDataType = pydantic.Field(alias="subType")
 
     type: Literal["array"]
 
@@ -139,6 +138,6 @@ QueryDataType = Annotated[
         TwoDimensionalAggregation,
         TimestampType,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by Query parameters or outputs."""

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-Subdomain = StrictStr
+Subdomain = pydantic.StrictStr
 """A subdomain from which a website is served."""

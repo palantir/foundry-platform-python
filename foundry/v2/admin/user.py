@@ -20,10 +20,8 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
+import pydantic
 from annotated_types import Len
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -54,14 +52,14 @@ class UserClient:
 
         self.GroupMembership = GroupMembershipClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def delete(
         self,
         user_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Delete the User with the specified id.
@@ -93,14 +91,14 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         user_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> User:
         """
         Get the User with the specified id.
@@ -134,14 +132,14 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_batch(
         self,
         body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetUsersBatchResponse:
         """
         Execute multiple get requests on User.
@@ -178,13 +176,13 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_current(
         self,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> User:
         """
 
@@ -214,14 +212,14 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_markings(
         self,
         user_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetUserMarkingsResponse:
         """
         Retrieve Markings that the user is currently a member of.
@@ -255,14 +253,14 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
         *,
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[User]:
         """
         Lists all Users.
@@ -297,7 +295,7 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -305,7 +303,7 @@ class UserClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListUsersResponse:
         """
         Lists all Users.
@@ -343,14 +341,14 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def profile_picture(
         self,
         user_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
 
@@ -384,7 +382,7 @@ class UserClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def search(
         self,
@@ -393,7 +391,7 @@ class UserClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchUsersResponse:
         """
 

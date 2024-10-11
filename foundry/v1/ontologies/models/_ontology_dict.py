@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v1.core.models._display_name import DisplayName
@@ -32,6 +32,6 @@ class OntologyDict(TypedDict):
 
     displayName: DisplayName
 
-    description: StrictStr
+    description: pydantic.StrictStr
 
     rid: OntologyRid

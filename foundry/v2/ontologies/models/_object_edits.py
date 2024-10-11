@@ -19,28 +19,26 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictInt
+import pydantic
 
 from foundry.v2.ontologies.models._object_edit import ObjectEdit
 from foundry.v2.ontologies.models._object_edits_dict import ObjectEditsDict
 
 
-class ObjectEdits(BaseModel):
+class ObjectEdits(pydantic.BaseModel):
     """ObjectEdits"""
 
     edits: List[ObjectEdit]
 
-    added_object_count: StrictInt = Field(alias="addedObjectCount")
+    added_object_count: pydantic.StrictInt = pydantic.Field(alias="addedObjectCount")
 
-    modified_objects_count: StrictInt = Field(alias="modifiedObjectsCount")
+    modified_objects_count: pydantic.StrictInt = pydantic.Field(alias="modifiedObjectsCount")
 
-    deleted_objects_count: StrictInt = Field(alias="deletedObjectsCount")
+    deleted_objects_count: pydantic.StrictInt = pydantic.Field(alias="deletedObjectsCount")
 
-    added_links_count: StrictInt = Field(alias="addedLinksCount")
+    added_links_count: pydantic.StrictInt = pydantic.Field(alias="addedLinksCount")
 
-    deleted_links_count: StrictInt = Field(alias="deletedLinksCount")
+    deleted_links_count: pydantic.StrictInt = pydantic.Field(alias="deletedLinksCount")
 
     type: Literal["edits"]
 

@@ -19,9 +19,7 @@ from typing import Dict
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v1.core.models._display_name import DisplayName
 from foundry.v1.ontologies.models._function_rid import FunctionRid
@@ -33,14 +31,14 @@ from foundry.v1.ontologies.models._query_api_name import QueryApiName
 from foundry.v1.ontologies.models._query_type_dict import QueryTypeDict
 
 
-class QueryType(BaseModel):
+class QueryType(pydantic.BaseModel):
     """Represents a query type in the Ontology."""
 
-    api_name: QueryApiName = Field(alias="apiName")
+    api_name: QueryApiName = pydantic.Field(alias="apiName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 
     parameters: Dict[ParameterId, Parameter]
 

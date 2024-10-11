@@ -8,7 +8,7 @@ When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be 
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**value** | StrictInt | Yes |  |
+**value** | pydantic.StrictInt | Yes |  |
 **unit** | TimeUnit | Yes |  |
 **type** | Literal["duration"] | Yes | None |
 

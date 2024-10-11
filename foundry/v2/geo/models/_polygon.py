@@ -20,14 +20,14 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.geo.models._b_box import BBox
 from foundry.v2.geo.models._linear_ring import LinearRing
 from foundry.v2.geo.models._polygon_dict import PolygonDict
 
 
-class Polygon(BaseModel):
+class Polygon(pydantic.BaseModel):
     """Polygon"""
 
     coordinates: List[LinearRing]

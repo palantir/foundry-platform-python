@@ -19,9 +19,7 @@ from typing import Dict
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.admin.models._attribute_name import AttributeName
 from foundry.v2.admin.models._attribute_values import AttributeValues
@@ -32,7 +30,7 @@ from foundry.v2.core.models._principal_id import PrincipalId
 from foundry.v2.core.models._realm import Realm
 
 
-class User(BaseModel):
+class User(pydantic.BaseModel):
     """User"""
 
     id: PrincipalId
@@ -40,13 +38,13 @@ class User(BaseModel):
     username: UserUsername
     """The Foundry username of the User. This is unique within the realm."""
 
-    given_name: Optional[StrictStr] = Field(alias="givenName", default=None)
+    given_name: Optional[pydantic.StrictStr] = pydantic.Field(alias="givenName", default=None)
     """The given name of the User."""
 
-    family_name: Optional[StrictStr] = Field(alias="familyName", default=None)
+    family_name: Optional[pydantic.StrictStr] = pydantic.Field(alias="familyName", default=None)
     """The family name (last name) of the User."""
 
-    email: Optional[StrictStr] = None
+    email: Optional[pydantic.StrictStr] = None
     """The email at which to contact a User. Multiple users may have the same email address."""
 
     realm: Realm

@@ -19,8 +19,7 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_set import ObjectSet
 from foundry.v2.ontologies.models._object_set_subtract_type_dict import (
@@ -28,10 +27,10 @@ from foundry.v2.ontologies.models._object_set_subtract_type_dict import (
 )  # NOQA
 
 
-class ObjectSetSubtractType(BaseModel):
+class ObjectSetSubtractType(pydantic.BaseModel):
     """ObjectSetSubtractType"""
 
-    object_sets: List[ObjectSet] = Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
     type: Literal["subtract"]
 

@@ -17,11 +17,11 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._object_edits import ObjectEdits
 from foundry.v2.ontologies.models._object_type_edits import ObjectTypeEdits
 
-ActionResults = Annotated[Union[ObjectEdits, ObjectTypeEdits], Field(discriminator="type")]
+ActionResults = Annotated[Union[ObjectEdits, ObjectTypeEdits], pydantic.Field(discriminator="type")]
 """ActionResults"""

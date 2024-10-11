@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._integer_type_dict import IntegerTypeDict
 
 
-class IntegerType(BaseModel):
+class IntegerType(pydantic.BaseModel):
     """IntegerType"""
 
     type: Literal["integer"]

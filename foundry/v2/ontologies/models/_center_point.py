@@ -17,14 +17,14 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._distance import Distance
 from foundry.v2.ontologies.models._center_point_dict import CenterPointDict
 from foundry.v2.ontologies.models._center_point_types import CenterPointTypes
 
 
-class CenterPoint(BaseModel):
+class CenterPoint(pydantic.BaseModel):
     """The coordinate point to use as the center of the distance query."""
 
     center: CenterPointTypes

@@ -19,18 +19,19 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.third_party_applications.models._subdomain import Subdomain
 from foundry.v2.third_party_applications.models._version_version import VersionVersion
 from foundry.v2.third_party_applications.models._website_dict import WebsiteDict
 
 
-class Website(BaseModel):
+class Website(pydantic.BaseModel):
     """Website"""
 
-    deployed_version: Optional[VersionVersion] = Field(alias="deployedVersion", default=None)
+    deployed_version: Optional[VersionVersion] = pydantic.Field(
+        alias="deployedVersion", default=None
+    )
     """The version of the Website that is currently deployed."""
 
     subdomains: List[Subdomain]

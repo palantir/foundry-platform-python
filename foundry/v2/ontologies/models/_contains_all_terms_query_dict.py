@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -35,7 +35,7 @@ class ContainsAllTermsQueryDict(TypedDict):
 
     field: PropertyApiName
 
-    value: StrictStr
+    value: pydantic.StrictStr
 
     fuzzy: NotRequired[FuzzyV2]
 

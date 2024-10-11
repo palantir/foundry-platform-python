@@ -18,24 +18,23 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._add_link_dict import AddLinkDict
 from foundry.v2.ontologies.models._link_side_object import LinkSideObject
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
 
 
-class AddLink(BaseModel):
+class AddLink(pydantic.BaseModel):
     """AddLink"""
 
-    link_type_api_name_ato_b: LinkTypeApiName = Field(alias="linkTypeApiNameAtoB")
+    link_type_api_name_ato_b: LinkTypeApiName = pydantic.Field(alias="linkTypeApiNameAtoB")
 
-    link_type_api_name_bto_a: LinkTypeApiName = Field(alias="linkTypeApiNameBtoA")
+    link_type_api_name_bto_a: LinkTypeApiName = pydantic.Field(alias="linkTypeApiNameBtoA")
 
-    a_side_object: LinkSideObject = Field(alias="aSideObject")
+    a_side_object: LinkSideObject = pydantic.Field(alias="aSideObject")
 
-    b_side_object: LinkSideObject = Field(alias="bSideObject")
+    b_side_object: LinkSideObject = pydantic.Field(alias="bSideObject")
 
     type: Literal["addLink"]
 

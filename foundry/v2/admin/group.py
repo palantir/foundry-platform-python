@@ -20,11 +20,8 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
+import pydantic
 from annotated_types import Len
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import StrictStr
-from pydantic import validate_call
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -58,7 +55,7 @@ class GroupClient:
 
         self.GroupMember = GroupMemberClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create(
         self,
@@ -66,9 +63,9 @@ class GroupClient:
         attributes: Dict[AttributeName, AttributeValues],
         name: GroupName,
         organizations: List[OrganizationRid],
-        description: Optional[StrictStr] = None,
+        description: Optional[pydantic.StrictStr] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Group:
         """
         Creates a new Group.
@@ -79,7 +76,7 @@ class GroupClient:
         :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
         :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
-        :type description: Optional[StrictStr]
+        :type description: Optional[pydantic.StrictStr]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -111,7 +108,7 @@ class GroupClient:
                     {  # type: ignore
                         "name": GroupName,
                         "organizations": List[OrganizationRid],
-                        "description": Optional[StrictStr],
+                        "description": Optional[pydantic.StrictStr],
                         "attributes": Dict[AttributeName, AttributeValues],
                     },
                 ),
@@ -120,14 +117,14 @@ class GroupClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def delete(
         self,
         group_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Delete the Group with the specified id.
@@ -159,14 +156,14 @@ class GroupClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         group_id: PrincipalId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Group:
         """
         Get the Group with the specified id.
@@ -200,14 +197,14 @@ class GroupClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_batch(
         self,
         body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)],
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetGroupsBatchResponse:
         """
         Execute multiple get requests on Group.
@@ -244,14 +241,14 @@ class GroupClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
         *,
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Group]:
         """
         Lists all Groups.
@@ -286,7 +283,7 @@ class GroupClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -294,7 +291,7 @@ class GroupClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListGroupsResponse:
         """
         Lists all Groups.
@@ -332,7 +329,7 @@ class GroupClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def search(
         self,
@@ -341,7 +338,7 @@ class GroupClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchGroupsResponse:
         """
 

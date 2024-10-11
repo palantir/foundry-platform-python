@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.third_party_applications.models._list_versions_response_dict import (
@@ -29,12 +28,12 @@ from foundry.v2.third_party_applications.models._list_versions_response_dict imp
 from foundry.v2.third_party_applications.models._version import Version
 
 
-class ListVersionsResponse(BaseModel):
+class ListVersionsResponse(pydantic.BaseModel):
     """ListVersionsResponse"""
 
     data: List[Version]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

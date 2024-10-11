@@ -17,19 +17,18 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._bounding_box_value_dict import BoundingBoxValueDict
 from foundry.v2.ontologies.models._within_bounding_box_point import WithinBoundingBoxPoint  # NOQA
 
 
-class BoundingBoxValue(BaseModel):
+class BoundingBoxValue(pydantic.BaseModel):
     """The top left and bottom right coordinate points that make up the bounding box."""
 
-    top_left: WithinBoundingBoxPoint = Field(alias="topLeft")
+    top_left: WithinBoundingBoxPoint = pydantic.Field(alias="topLeft")
 
-    bottom_right: WithinBoundingBoxPoint = Field(alias="bottomRight")
+    bottom_right: WithinBoundingBoxPoint = pydantic.Field(alias="bottomRight")
 
     model_config = {"extra": "allow"}
 

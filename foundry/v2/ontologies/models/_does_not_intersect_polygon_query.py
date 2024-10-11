@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._does_not_intersect_polygon_query_dict import (
     DoesNotIntersectPolygonQueryDict,
@@ -27,7 +27,7 @@ from foundry.v2.ontologies.models._polygon_value import PolygonValue
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
-class DoesNotIntersectPolygonQuery(BaseModel):
+class DoesNotIntersectPolygonQuery(pydantic.BaseModel):
     """Returns objects where the specified field does not intersect the polygon provided."""
 
     field: PropertyApiName

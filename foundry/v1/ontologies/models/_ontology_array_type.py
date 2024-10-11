@@ -18,17 +18,16 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.ontologies.models._ontology_array_type_dict import OntologyArrayTypeDict
 from foundry.v1.ontologies.models._ontology_data_type import OntologyDataType
 
 
-class OntologyArrayType(BaseModel):
+class OntologyArrayType(pydantic.BaseModel):
     """OntologyArrayType"""
 
-    item_type: OntologyDataType = Field(alias="itemType")
+    item_type: OntologyDataType = pydantic.Field(alias="itemType")
 
     type: Literal["array"]
 

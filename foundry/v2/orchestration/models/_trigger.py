@@ -20,8 +20,7 @@ from typing import Literal
 from typing import Union
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.orchestration.models._and_trigger_dict import AndTriggerDict
@@ -38,7 +37,7 @@ from foundry.v2.orchestration.models._schedule_succeeded_trigger import (
 from foundry.v2.orchestration.models._time_trigger import TimeTrigger
 
 
-class OrTrigger(BaseModel):
+class OrTrigger(pydantic.BaseModel):
     """Trigger whenever any of the given triggers emit an event."""
 
     triggers: List[Trigger]
@@ -52,7 +51,7 @@ class OrTrigger(BaseModel):
         return cast(OrTriggerDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class AndTrigger(BaseModel):
+class AndTrigger(pydantic.BaseModel):
     """Trigger after all of the given triggers emit an event."""
 
     triggers: List[Trigger]
@@ -77,6 +76,6 @@ Trigger = Annotated[
         MediaSetUpdatedTrigger,
         TimeTrigger,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """Trigger"""

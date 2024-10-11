@@ -4,7 +4,7 @@ The page size to use for the endpoint.
 
 ## Type
 ```python
-StrictInt
+pydantic.StrictInt
 ```
 
 

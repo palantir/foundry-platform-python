@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._object_set_dict import ObjectSetDict
@@ -28,7 +28,7 @@ class ObjectSetAsTypeTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    entityType: StrictStr
+    entityType: pydantic.StrictStr
     """
     An object type or interface type API name to cast the object set to. Any object whose object type does not 
     match the object type provided or implement the interface type provided will be dropped from the resulting 

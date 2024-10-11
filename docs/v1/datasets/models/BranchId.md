@@ -5,7 +5,7 @@ The identifier (name) of a Branch. Example: `master`.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -31,7 +31,7 @@ class SubmissionCriteriaEvaluationDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    configuredFailureMessage: NotRequired[StrictStr]
+    configuredFailureMessage: NotRequired[pydantic.StrictStr]
     """
     The message indicating one of the **submission criteria** was not satisfied.
     This is configured per **submission criteria** in the **Ontology Manager**.

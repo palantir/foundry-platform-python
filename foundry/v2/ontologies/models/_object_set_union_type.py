@@ -19,17 +19,16 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_set import ObjectSet
 from foundry.v2.ontologies.models._object_set_union_type_dict import ObjectSetUnionTypeDict  # NOQA
 
 
-class ObjectSetUnionType(BaseModel):
+class ObjectSetUnionType(pydantic.BaseModel):
     """ObjectSetUnionType"""
 
-    object_sets: List[ObjectSet] = Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
     type: Literal["union"]
 

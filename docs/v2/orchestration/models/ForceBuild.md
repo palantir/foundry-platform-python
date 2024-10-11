@@ -4,7 +4,7 @@ Whether to ignore staleness information when running the build.
 
 ## Type
 ```python
-StrictBool
+pydantic.StrictBool
 ```
 
 

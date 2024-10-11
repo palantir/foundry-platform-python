@@ -14,7 +14,7 @@ You may also use the shorthand `p` instead of `properties` such as `orderBy=p.la
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

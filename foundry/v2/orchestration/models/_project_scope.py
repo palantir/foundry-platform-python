@@ -19,17 +19,16 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.filesystem.models._project_rid import ProjectRid
 from foundry.v2.orchestration.models._project_scope_dict import ProjectScopeDict
 
 
-class ProjectScope(BaseModel):
+class ProjectScope(pydantic.BaseModel):
     """The schedule will only build resources in the following projects."""
 
-    project_rids: List[ProjectRid] = Field(alias="projectRids")
+    project_rids: List[ProjectRid] = pydantic.Field(alias="projectRids")
 
     type: Literal["project"]
 

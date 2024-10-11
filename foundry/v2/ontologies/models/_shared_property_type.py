@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.ontologies.models._object_property_type import ObjectPropertyType
@@ -31,19 +29,19 @@ from foundry.v2.ontologies.models._shared_property_type_dict import SharedProper
 from foundry.v2.ontologies.models._shared_property_type_rid import SharedPropertyTypeRid
 
 
-class SharedPropertyType(BaseModel):
+class SharedPropertyType(pydantic.BaseModel):
     """A property type that can be shared across object types."""
 
     rid: SharedPropertyTypeRid
 
-    api_name: SharedPropertyTypeApiName = Field(alias="apiName")
+    api_name: SharedPropertyTypeApiName = pydantic.Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """A short text that describes the SharedPropertyType."""
 
-    data_type: ObjectPropertyType = Field(alias="dataType")
+    data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
 
     model_config = {"extra": "allow"}
 

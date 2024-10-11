@@ -19,17 +19,16 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._manual_target_dict import ManualTargetDict
 
 
-class ManualTarget(BaseModel):
+class ManualTarget(pydantic.BaseModel):
     """Manually specify all datasets to build."""
 
-    target_rids: List[BuildableRid] = Field(alias="targetRids")
+    target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
 
     type: Literal["manual"]
 

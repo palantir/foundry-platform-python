@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._filename import Filename
 from foundry.v2.core.models._media_type import MediaType
@@ -28,16 +27,16 @@ from foundry.v2.ontologies.models._attachment_rid import AttachmentRid
 from foundry.v2.ontologies.models._attachment_v2_dict import AttachmentV2Dict
 
 
-class AttachmentV2(BaseModel):
+class AttachmentV2(pydantic.BaseModel):
     """The representation of an attachment."""
 
     rid: AttachmentRid
 
     filename: Filename
 
-    size_bytes: SizeBytes = Field(alias="sizeBytes")
+    size_bytes: SizeBytes = pydantic.Field(alias="sizeBytes")
 
-    media_type: MediaType = Field(alias="mediaType")
+    media_type: MediaType = pydantic.Field(alias="mediaType")
 
     type: Literal["single"]
 

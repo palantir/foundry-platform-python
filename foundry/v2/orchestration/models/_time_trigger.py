@@ -18,20 +18,19 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._zone_id import ZoneId
 from foundry.v2.orchestration.models._cron_expression import CronExpression
 from foundry.v2.orchestration.models._time_trigger_dict import TimeTriggerDict
 
 
-class TimeTrigger(BaseModel):
+class TimeTrigger(pydantic.BaseModel):
     """Trigger on a time based schedule."""
 
-    cron_expression: CronExpression = Field(alias="cronExpression")
+    cron_expression: CronExpression = pydantic.Field(alias="cronExpression")
 
-    time_zone: ZoneId = Field(alias="timeZone")
+    time_zone: ZoneId = pydantic.Field(alias="timeZone")
 
     type: Literal["time"]
 

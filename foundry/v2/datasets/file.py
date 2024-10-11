@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -45,7 +43,7 @@ class FileClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def content(
         self,
@@ -56,7 +54,7 @@ class FileClient:
         end_transaction_rid: Optional[TransactionRid] = None,
         preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
@@ -119,7 +117,7 @@ class FileClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def delete(
         self,
@@ -129,7 +127,7 @@ class FileClient:
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
@@ -180,7 +178,7 @@ class FileClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
@@ -191,7 +189,7 @@ class FileClient:
         end_transaction_rid: Optional[TransactionRid] = None,
         preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> File:
         """
         Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
@@ -253,7 +251,7 @@ class FileClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
@@ -264,7 +262,7 @@ class FileClient:
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[File]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
@@ -328,7 +326,7 @@ class FileClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -340,7 +338,7 @@ class FileClient:
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListFilesResponse:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
@@ -407,7 +405,7 @@ class FileClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def upload(
         self,
@@ -419,7 +417,7 @@ class FileClient:
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
         transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> File:
         """
         Uploads a File to an existing Dataset.

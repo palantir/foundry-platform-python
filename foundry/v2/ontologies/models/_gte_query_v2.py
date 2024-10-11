@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._gte_query_v2_dict import GteQueryV2Dict
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._property_value import PropertyValue
 
 
-class GteQueryV2(BaseModel):
+class GteQueryV2(pydantic.BaseModel):
     """Returns objects where the specified field is greater than or equal to a value."""
 
     field: PropertyApiName

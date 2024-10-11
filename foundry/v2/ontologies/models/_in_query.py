@@ -19,14 +19,14 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._in_query_dict import InQueryDict
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._property_value import PropertyValue
 
 
-class InQuery(BaseModel):
+class InQuery(pydantic.BaseModel):
     """Returns objects where the specified field equals any of the provided values."""
 
     field: PropertyApiName

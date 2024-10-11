@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-SizeBytes = StrictStr
+SizeBytes = pydantic.StrictStr
 """The size of the file or attachment in bytes."""

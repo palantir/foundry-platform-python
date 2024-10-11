@@ -8,7 +8,7 @@ network bandwidth symptoms like non-zero lag, lower than expected throughput, or
 
 ## Type
 ```python
-StrictBool
+pydantic.StrictBool
 ```
 
 

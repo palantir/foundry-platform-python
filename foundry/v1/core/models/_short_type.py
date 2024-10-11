@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._short_type_dict import ShortTypeDict
 
 
-class ShortType(BaseModel):
+class ShortType(pydantic.BaseModel):
     """ShortType"""
 
     type: Literal["short"]

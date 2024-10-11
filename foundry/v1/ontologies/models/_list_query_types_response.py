@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.ontologies.models._list_query_types_response_dict import (
@@ -29,10 +28,10 @@ from foundry.v1.ontologies.models._list_query_types_response_dict import (
 from foundry.v1.ontologies.models._query_type import QueryType
 
 
-class ListQueryTypesResponse(BaseModel):
+class ListQueryTypesResponse(pydantic.BaseModel):
     """ListQueryTypesResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[QueryType]
 

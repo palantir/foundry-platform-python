@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_project_scope_dict import (
@@ -32,6 +32,6 @@ ReplaceScheduleRequestScopeModeDict = Annotated[
         ReplaceScheduleRequestScopeModeProjectScopeDict,
         ReplaceScheduleRequestScopeModeUserScopeDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""

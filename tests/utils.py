@@ -25,8 +25,8 @@ from unittest.mock import Mock
 from unittest.mock import patch
 from urllib.parse import quote
 
+import pydantic
 import pytest
-from pydantic import BaseModel
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -73,7 +73,7 @@ def serialize_response(response: Any):
         return [serialize_response(value) for value in response]
     elif isinstance(response, dict):
         return {key: serialize_response(value) for key, value in response.items()}
-    elif isinstance(response, BaseModel):
+    elif isinstance(response, pydantic.BaseModel):
         # The to_dict() method will exist on each data model
         return cast(Any, response).to_dict()
     else:

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictBool
+import pydantic
 
-ForceBuild = StrictBool
+ForceBuild = pydantic.StrictBool
 """Whether to ignore staleness information when running the build."""

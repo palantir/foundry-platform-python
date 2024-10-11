@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.orchestration.models._create_schedule_request_action_build_target_connecting_target_dict import (
@@ -36,6 +36,6 @@ CreateScheduleRequestActionBuildTargetDict = Annotated[
         CreateScheduleRequestActionBuildTargetManualTargetDict,
         CreateScheduleRequestActionBuildTargetConnectingTargetDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """The targets of the build."""

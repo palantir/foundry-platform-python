@@ -18,17 +18,16 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.ontologies.models._delete_object_rule_dict import DeleteObjectRuleDict
 from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
 
 
-class DeleteObjectRule(BaseModel):
+class DeleteObjectRule(pydantic.BaseModel):
     """DeleteObjectRule"""
 
-    object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
     type: Literal["deleteObject"]
 

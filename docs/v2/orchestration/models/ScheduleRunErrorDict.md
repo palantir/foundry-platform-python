@@ -6,7 +6,7 @@ An error occurred attempting to run the schedule.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **errorName** | ScheduleRunErrorName | Yes |  |
-**description** | StrictStr | Yes |  |
+**description** | pydantic.StrictStr | Yes |  |
 **type** | Literal["error"] | Yes | None |
 
 

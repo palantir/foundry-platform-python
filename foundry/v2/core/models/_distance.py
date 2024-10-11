@@ -17,17 +17,16 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictFloat
+import pydantic
 
 from foundry.v2.core.models._distance_dict import DistanceDict
 from foundry.v2.core.models._distance_unit import DistanceUnit
 
 
-class Distance(BaseModel):
+class Distance(pydantic.BaseModel):
     """A measurement of distance."""
 
-    value: StrictFloat
+    value: pydantic.StrictFloat
 
     unit: DistanceUnit
 

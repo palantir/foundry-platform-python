@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
@@ -30,20 +29,20 @@ from foundry.v2.orchestration.models._schedule_run_rid import ScheduleRunRid
 from foundry.v2.orchestration.models._schedule_version_rid import ScheduleVersionRid
 
 
-class ScheduleRun(BaseModel):
+class ScheduleRun(pydantic.BaseModel):
     """ScheduleRun"""
 
     rid: ScheduleRunRid
     """The RID of a schedule run"""
 
-    schedule_rid: ScheduleRid = Field(alias="scheduleRid")
+    schedule_rid: ScheduleRid = pydantic.Field(alias="scheduleRid")
 
-    schedule_version_rid: ScheduleVersionRid = Field(alias="scheduleVersionRid")
+    schedule_version_rid: ScheduleVersionRid = pydantic.Field(alias="scheduleVersionRid")
 
-    created_time: CreatedTime = Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias="createdTime")
     """The time at which the schedule run was created."""
 
-    created_by: Optional[CreatedBy] = Field(alias="createdBy", default=None)
+    created_by: Optional[CreatedBy] = pydantic.Field(alias="createdBy", default=None)
     """
     The Foundry user who manually invoked this schedule run. Automatic trigger runs have this field set to
     empty.

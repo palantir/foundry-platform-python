@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
@@ -28,15 +27,15 @@ from foundry.v2.orchestration.models._dataset_updated_trigger_dict import (
 )  # NOQA
 
 
-class DatasetUpdatedTrigger(BaseModel):
+class DatasetUpdatedTrigger(pydantic.BaseModel):
     """
     Trigger whenever a new transaction is committed to the
     dataset on the target branch.
     """
 
-    dataset_rid: DatasetRid = Field(alias="datasetRid")
+    dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
 
-    branch_name: BranchName = Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias="branchName")
 
     type: Literal["datasetUpdated"]
 

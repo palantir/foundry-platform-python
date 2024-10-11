@@ -6,11 +6,11 @@ ObjectEdits
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **edits** | List[ObjectEditDict] | Yes |  |
-**addedObjectCount** | StrictInt | Yes |  |
-**modifiedObjectsCount** | StrictInt | Yes |  |
-**deletedObjectsCount** | StrictInt | Yes |  |
-**addedLinksCount** | StrictInt | Yes |  |
-**deletedLinksCount** | StrictInt | Yes |  |
+**addedObjectCount** | pydantic.StrictInt | Yes |  |
+**modifiedObjectsCount** | pydantic.StrictInt | Yes |  |
+**deletedObjectsCount** | pydantic.StrictInt | Yes |  |
+**addedLinksCount** | pydantic.StrictInt | Yes |  |
+**deletedLinksCount** | pydantic.StrictInt | Yes |  |
 **type** | Literal["edits"] | Yes | None |
 
 

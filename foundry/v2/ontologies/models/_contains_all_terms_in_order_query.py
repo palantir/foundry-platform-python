@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._contains_all_terms_in_order_query_dict import (
     ContainsAllTermsInOrderQueryDict,
@@ -27,7 +26,7 @@ from foundry.v2.ontologies.models._contains_all_terms_in_order_query_dict import
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
-class ContainsAllTermsInOrderQuery(BaseModel):
+class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
     """
     Returns objects where the specified field contains all of the terms in the order provided,
     but they do have to be adjacent to each other.
@@ -35,7 +34,7 @@ class ContainsAllTermsInOrderQuery(BaseModel):
 
     field: PropertyApiName
 
-    value: StrictStr
+    value: pydantic.StrictStr
 
     type: Literal["containsAllTermsInOrder"]
 

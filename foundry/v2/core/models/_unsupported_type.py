@@ -18,17 +18,15 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._unsupported_type_dict import UnsupportedTypeDict
 
 
-class UnsupportedType(BaseModel):
+class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
-    unsupported_type: StrictStr = Field(alias="unsupportedType")
+    unsupported_type: pydantic.StrictStr = pydantic.Field(alias="unsupportedType")
 
     type: Literal["unsupported"]
 

@@ -4,7 +4,7 @@ OntologyApiName
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

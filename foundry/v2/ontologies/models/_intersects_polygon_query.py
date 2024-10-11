@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._intersects_polygon_query_dict import (
     IntersectsPolygonQueryDict,
@@ -27,7 +27,7 @@ from foundry.v2.ontologies.models._polygon_value import PolygonValue
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
-class IntersectsPolygonQuery(BaseModel):
+class IntersectsPolygonQuery(pydantic.BaseModel):
     """Returns objects where the specified field intersects the polygon provided."""
 
     field: PropertyApiName

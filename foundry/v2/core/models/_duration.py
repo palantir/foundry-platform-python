@@ -17,17 +17,16 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictInt
+import pydantic
 
 from foundry.v2.core.models._duration_dict import DurationDict
 from foundry.v2.core.models._time_unit import TimeUnit
 
 
-class Duration(BaseModel):
+class Duration(pydantic.BaseModel):
     """A measurement of duration."""
 
-    value: StrictInt
+    value: pydantic.StrictInt
     """The duration value."""
 
     unit: TimeUnit

@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Any
 from typing import Dict
 
-from pydantic import StrictStr
+import pydantic
 
-Record = Dict[StrictStr, Any]
+Record = Dict[pydantic.StrictStr, Any]
 """A record to be published to a stream."""

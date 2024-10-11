@@ -6,7 +6,7 @@ Returns objects where the specified field contains the provided value as a subst
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | StrictStr | Yes |  |
+**value** | pydantic.StrictStr | Yes |  |
 **type** | Literal["phrase"] | Yes | None |
 
 

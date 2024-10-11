@@ -15,21 +15,20 @@
 
 from typing import List
 
-from pydantic import StrictStr
-from pydantic import StringConstraints
+import pydantic
 from typing_extensions import Annotated
 
 RID = Annotated[
-    StrictStr,
-    StringConstraints(
+    pydantic.StrictStr,
+    pydantic.StringConstraints(
         pattern=r"^ri\.[a-z][a-z0-9-]*\.([a-z0-9][a-z0-9\-]*)?\.[a-z][a-z0-9-]*\.[a-zA-Z0-9._-]+$",
     ),
 ]
 
 
 UUID = Annotated[
-    StrictStr,
-    StringConstraints(
+    pydantic.StrictStr,
+    pydantic.StringConstraints(
         pattern=r"^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$",
     ),
 ]

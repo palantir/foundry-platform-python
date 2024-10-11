@@ -8,7 +8,7 @@ but they do have to be adjacent to each other.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**value** | StrictStr | Yes |  |
+**value** | pydantic.StrictStr | Yes |  |
 **type** | Literal["containsAllTermsInOrder"] | Yes | None |
 
 

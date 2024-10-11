@@ -20,9 +20,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.ontologies.models._interface_link_type import InterfaceLinkType
@@ -38,16 +36,16 @@ from foundry.v2.ontologies.models._shared_property_type_api_name import (
 )  # NOQA
 
 
-class InterfaceType(BaseModel):
+class InterfaceType(pydantic.BaseModel):
     """Represents an interface type in the Ontology."""
 
     rid: InterfaceTypeRid
 
-    api_name: InterfaceTypeApiName = Field(alias="apiName")
+    api_name: InterfaceTypeApiName = pydantic.Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """The description of the interface."""
 
     properties: Dict[SharedPropertyTypeApiName, SharedPropertyType]
@@ -56,7 +54,7 @@ class InterfaceType(BaseModel):
     set of properties the interface has. A shared property type must be unique across all of the properties.
     """
 
-    extends_interfaces: List[InterfaceTypeApiName] = Field(alias="extendsInterfaces")
+    extends_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias="extendsInterfaces")
     """
     A list of interface API names that this interface extends. An interface can extend other interfaces to 
     inherit their properties.

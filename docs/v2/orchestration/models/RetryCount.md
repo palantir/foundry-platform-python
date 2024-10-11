@@ -7,7 +7,7 @@ not all types of failures can be retried.
 
 ## Type
 ```python
-StrictInt
+pydantic.StrictInt
 ```
 
 

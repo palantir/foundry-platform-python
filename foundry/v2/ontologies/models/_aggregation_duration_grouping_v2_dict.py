@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictInt
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.core.models._time_unit import TimeUnit
@@ -34,7 +34,7 @@ class AggregationDurationGroupingV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    value: StrictInt
+    value: pydantic.StrictInt
 
     unit: TimeUnit
 

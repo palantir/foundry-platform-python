@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._action_results import ActionResults
 from foundry.v2.ontologies.models._batch_apply_action_response_v2_dict import (
@@ -26,7 +26,7 @@ from foundry.v2.ontologies.models._batch_apply_action_response_v2_dict import (
 )  # NOQA
 
 
-class BatchApplyActionResponseV2(BaseModel):
+class BatchApplyActionResponseV2(pydantic.BaseModel):
     """BatchApplyActionResponseV2"""
 
     edits: Optional[ActionResults] = None

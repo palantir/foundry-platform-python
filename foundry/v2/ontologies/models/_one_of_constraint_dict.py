@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import List
 from typing import Literal
 
-from pydantic import StrictBool
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._parameter_option_dict import ParameterOptionDict
@@ -31,7 +31,7 @@ class OneOfConstraintDict(TypedDict):
 
     options: List[ParameterOptionDict]
 
-    otherValuesAllowed: StrictBool
+    otherValuesAllowed: pydantic.StrictBool
     """A flag denoting whether custom, user provided values will be considered valid. This is configured via the **Allowed "Other" value** toggle in the **Ontology Manager**."""
 
     type: Literal["oneOf"]

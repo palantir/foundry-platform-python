@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Dict
 from typing import List
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -46,7 +46,7 @@ class InterfaceTypeDict(TypedDict):
 
     displayName: DisplayName
 
-    description: NotRequired[StrictStr]
+    description: NotRequired[pydantic.StrictStr]
     """The description of the interface."""
 
     properties: Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]

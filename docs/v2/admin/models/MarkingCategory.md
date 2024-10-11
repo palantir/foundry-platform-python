@@ -7,7 +7,7 @@ MarkingCategory
 | ------------ | ------------- | ------------- | ------------- |
 **id** | MarkingCategoryId | Yes |  |
 **display_name** | MarkingCategoryDisplayName | Yes |  |
-**description** | Optional[StrictStr] | No |  |
+**description** | Optional[pydantic.StrictStr] | No |  |
 **category_type** | MarkingCategoryType | Yes |  |
 **marking_type** | MarkingType | Yes |  |
 **markings** | List[MarkingId] | Yes |  |

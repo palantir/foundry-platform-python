@@ -20,8 +20,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.admin.models._attribute_name import AttributeName
 from foundry.v2.admin.models._attribute_values import AttributeValues
@@ -32,7 +31,7 @@ from foundry.v2.core.models._principal_id import PrincipalId
 from foundry.v2.core.models._realm import Realm
 
 
-class Group(BaseModel):
+class Group(pydantic.BaseModel):
     """Group"""
 
     id: PrincipalId
@@ -40,7 +39,7 @@ class Group(BaseModel):
     name: GroupName
     """The name of the Group."""
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """A description of the Group."""
 
     realm: Realm

@@ -19,13 +19,13 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._and_query_v2_dict import AndQueryV2Dict
 from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 
 
-class AndQueryV2(BaseModel):
+class AndQueryV2(pydantic.BaseModel):
     """Returns objects where every query is satisfied."""
 
     value: List[SearchJsonQueryV2]

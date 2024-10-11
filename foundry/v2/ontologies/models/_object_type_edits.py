@@ -19,17 +19,16 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._object_type_edits_dict import ObjectTypeEditsDict
 
 
-class ObjectTypeEdits(BaseModel):
+class ObjectTypeEdits(pydantic.BaseModel):
     """ObjectTypeEdits"""
 
-    edited_object_types: List[ObjectTypeApiName] = Field(alias="editedObjectTypes")
+    edited_object_types: List[ObjectTypeApiName] = pydantic.Field(alias="editedObjectTypes")
 
     type: Literal["largeScaleEdits"]
 

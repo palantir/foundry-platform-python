@@ -18,17 +18,16 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._time_series_item_type import TimeSeriesItemType
 from foundry.v2.core.models._timeseries_type_dict import TimeseriesTypeDict
 
 
-class TimeseriesType(BaseModel):
+class TimeseriesType(pydantic.BaseModel):
     """TimeseriesType"""
 
-    item_type: TimeSeriesItemType = Field(alias="itemType")
+    item_type: TimeSeriesItemType = pydantic.Field(alias="itemType")
 
     type: Literal["timeseries"]
 

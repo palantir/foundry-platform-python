@@ -20,9 +20,7 @@ from typing import Literal
 from typing import Union
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictBool
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v1.core.models._any_type import AnyType
@@ -50,14 +48,14 @@ from foundry.v1.ontologies.models._ontology_struct_field_dict import OntologyStr
 from foundry.v1.ontologies.models._ontology_struct_type_dict import OntologyStructTypeDict  # NOQA
 
 
-class OntologyStructField(BaseModel):
+class OntologyStructField(pydantic.BaseModel):
     """OntologyStructField"""
 
     name: StructFieldName
 
-    field_type: OntologyDataType = Field(alias="fieldType")
+    field_type: OntologyDataType = pydantic.Field(alias="fieldType")
 
-    required: StrictBool
+    required: pydantic.StrictBool
 
     model_config = {"extra": "allow"}
 
@@ -66,7 +64,7 @@ class OntologyStructField(BaseModel):
         return cast(OntologyStructFieldDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class OntologyStructType(BaseModel):
+class OntologyStructType(pydantic.BaseModel):
     """OntologyStructType"""
 
     fields: List[OntologyStructField]
@@ -80,10 +78,10 @@ class OntologyStructType(BaseModel):
         return cast(OntologyStructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class OntologySetType(BaseModel):
+class OntologySetType(pydantic.BaseModel):
     """OntologySetType"""
 
-    item_type: OntologyDataType = Field(alias="itemType")
+    item_type: OntologyDataType = pydantic.Field(alias="itemType")
 
     type: Literal["set"]
 
@@ -94,10 +92,10 @@ class OntologySetType(BaseModel):
         return cast(OntologySetTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class OntologyArrayType(BaseModel):
+class OntologyArrayType(pydantic.BaseModel):
     """OntologyArrayType"""
 
-    item_type: OntologyDataType = Field(alias="itemType")
+    item_type: OntologyDataType = pydantic.Field(alias="itemType")
 
     type: Literal["array"]
 
@@ -108,12 +106,12 @@ class OntologyArrayType(BaseModel):
         return cast(OntologyArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
-class OntologyMapType(BaseModel):
+class OntologyMapType(pydantic.BaseModel):
     """OntologyMapType"""
 
-    key_type: OntologyDataType = Field(alias="keyType")
+    key_type: OntologyDataType = pydantic.Field(alias="keyType")
 
-    value_type: OntologyDataType = Field(alias="valueType")
+    value_type: OntologyDataType = pydantic.Field(alias="valueType")
 
     type: Literal["map"]
 
@@ -148,6 +146,6 @@ OntologyDataType = Annotated[
         TimestampType,
         OntologyObjectType,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the primitive types used by Palantir's Ontology-based products."""

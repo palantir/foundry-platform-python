@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v1.ontologies.models._create_interface_object_rule_dict import (
@@ -42,6 +42,6 @@ LogicRuleDict = Annotated[
         CreateObjectRuleDict,
         CreateLinkRuleDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """LogicRule"""

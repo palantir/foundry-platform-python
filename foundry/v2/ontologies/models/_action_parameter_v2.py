@@ -18,23 +18,20 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictBool
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._action_parameter_type import ActionParameterType
 from foundry.v2.ontologies.models._action_parameter_v2_dict import ActionParameterV2Dict
 
 
-class ActionParameterV2(BaseModel):
+class ActionParameterV2(pydantic.BaseModel):
     """Details about a parameter of an action."""
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    data_type: ActionParameterType = Field(alias="dataType")
+    data_type: ActionParameterType = pydantic.Field(alias="dataType")
 
-    required: StrictBool
+    required: pydantic.StrictBool
 
     model_config = {"extra": "allow"}
 

@@ -7,8 +7,8 @@ Resource
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ResourceRid | Yes |  |
 **displayName** | ResourceDisplayName | Yes | The display name of the Resource |
-**description** | NotRequired[StrictStr] | No | The description of the Resource |
-**documentation** | NotRequired[StrictStr] | No | The documentation associated with the Resource |
+**description** | NotRequired[pydantic.StrictStr] | No | The description of the Resource |
+**documentation** | NotRequired[pydantic.StrictStr] | No | The documentation associated with the Resource |
 **path** | ResourcePath | Yes | The full path to the resource, including the resource name itself |
 **type** | ResourceType | Yes | The type of the Resource derived from the Resource Identifier (RID). |
 **createdBy** | CreatedBy | Yes | The user that created the Resource. |

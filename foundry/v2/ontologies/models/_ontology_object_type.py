@@ -18,19 +18,18 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._ontology_object_type_dict import OntologyObjectTypeDict  # NOQA
 
 
-class OntologyObjectType(BaseModel):
+class OntologyObjectType(pydantic.BaseModel):
     """OntologyObjectType"""
 
-    object_api_name: ObjectTypeApiName = Field(alias="objectApiName")
+    object_api_name: ObjectTypeApiName = pydantic.Field(alias="objectApiName")
 
-    object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
     type: Literal["object"]
 

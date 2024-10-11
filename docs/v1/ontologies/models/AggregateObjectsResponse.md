@@ -5,7 +5,7 @@ AggregateObjectsResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**excluded_items** | Optional[StrictInt] | No |  |
+**excluded_items** | Optional[pydantic.StrictInt] | No |  |
 **next_page_token** | Optional[PageToken] | No |  |
 **data** | List[AggregateObjectsResponseItem] | Yes |  |
 

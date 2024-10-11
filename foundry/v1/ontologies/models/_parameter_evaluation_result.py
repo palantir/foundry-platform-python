@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import List
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictBool
+import pydantic
 
 from foundry.v1.ontologies.models._parameter_evaluated_constraint import (
     ParameterEvaluatedConstraint,
@@ -31,14 +29,16 @@ from foundry.v1.ontologies.models._parameter_evaluation_result_dict import (
 from foundry.v1.ontologies.models._validation_result import ValidationResult
 
 
-class ParameterEvaluationResult(BaseModel):
+class ParameterEvaluationResult(pydantic.BaseModel):
     """Represents the validity of a parameter against the configured constraints."""
 
     result: ValidationResult
 
-    evaluated_constraints: List[ParameterEvaluatedConstraint] = Field(alias="evaluatedConstraints")
+    evaluated_constraints: List[ParameterEvaluatedConstraint] = pydantic.Field(
+        alias="evaluatedConstraints"
+    )
 
-    required: StrictBool
+    required: pydantic.StrictBool
     """Represents whether the parameter is a required input to the action."""
 
     model_config = {"extra": "allow"}

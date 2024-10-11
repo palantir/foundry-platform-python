@@ -18,13 +18,13 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._not_query_v2_dict import NotQueryV2Dict
 from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 
 
-class NotQueryV2(BaseModel):
+class NotQueryV2(pydantic.BaseModel):
     """Returns objects where the query is not satisfied."""
 
     value: SearchJsonQueryV2

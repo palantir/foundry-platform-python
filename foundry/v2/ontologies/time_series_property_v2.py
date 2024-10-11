@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -45,7 +43,7 @@ class TimeSeriesPropertyV2Client:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_first_point(
         self,
@@ -56,7 +54,7 @@ class TimeSeriesPropertyV2Client:
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> TimeSeriesPoint:
         """
         Get the first point of a time series property.
@@ -106,7 +104,7 @@ class TimeSeriesPropertyV2Client:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_last_point(
         self,
@@ -117,7 +115,7 @@ class TimeSeriesPropertyV2Client:
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> TimeSeriesPoint:
         """
         Get the last point of a time series property.
@@ -167,7 +165,7 @@ class TimeSeriesPropertyV2Client:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def stream_points(
         self,
@@ -179,7 +177,7 @@ class TimeSeriesPropertyV2Client:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         range: Optional[TimeRangeDict] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
         Stream all of the points of a time series property.

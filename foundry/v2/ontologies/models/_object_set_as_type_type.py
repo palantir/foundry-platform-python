@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._object_set import ObjectSet
 from foundry.v2.ontologies.models._object_set_as_type_type_dict import (
@@ -28,17 +26,17 @@ from foundry.v2.ontologies.models._object_set_as_type_type_dict import (
 )  # NOQA
 
 
-class ObjectSetAsTypeType(BaseModel):
+class ObjectSetAsTypeType(pydantic.BaseModel):
     """ObjectSetAsTypeType"""
 
-    entity_type: StrictStr = Field(alias="entityType")
+    entity_type: pydantic.StrictStr = pydantic.Field(alias="entityType")
     """
     An object type or interface type API name to cast the object set to. Any object whose object type does not 
     match the object type provided or implement the interface type provided will be dropped from the resulting 
     object set. This is currently unsupported and an exception will be thrown if used.
     """
 
-    object_set: ObjectSet = Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
     type: Literal["asType"]
 

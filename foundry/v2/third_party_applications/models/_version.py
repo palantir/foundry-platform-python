@@ -17,13 +17,13 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.third_party_applications.models._version_dict import VersionDict
 from foundry.v2.third_party_applications.models._version_version import VersionVersion
 
 
-class Version(BaseModel):
+class Version(pydantic.BaseModel):
     """Version"""
 
     version: VersionVersion

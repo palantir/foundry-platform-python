@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import List
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.admin.models._get_user_markings_response_dict import (
     GetUserMarkingsResponseDict,
@@ -26,7 +26,7 @@ from foundry.v2.admin.models._get_user_markings_response_dict import (
 from foundry.v2.core.models._marking_id import MarkingId
 
 
-class GetUserMarkingsResponse(BaseModel):
+class GetUserMarkingsResponse(pydantic.BaseModel):
     """GetUserMarkingsResponse"""
 
     view: List[MarkingId]

@@ -24,8 +24,8 @@ from typing import List
 from typing import Optional
 from urllib.parse import urlencode
 
+import pydantic
 import requests
-from pydantic import BaseModel
 
 from foundry._core.auth_utils import Token
 
@@ -64,7 +64,7 @@ class OAuthUtils:
             return "https://" + base_uri + context_path + request_path
 
 
-class OAuthTokenResponse(BaseModel):
+class OAuthTokenResponse(pydantic.BaseModel):
     access_token: str
     token_type: str
     expires_in: int
@@ -106,7 +106,7 @@ class OAuthToken(Token):
         return int(time.time() * 1000)
 
 
-class AuthorizeRequest(BaseModel):
+class AuthorizeRequest(pydantic.BaseModel):
     url: str
     state: str
     code_verifier: str

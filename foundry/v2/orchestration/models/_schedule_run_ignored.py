@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.orchestration.models._schedule_run_ignored_dict import (
     ScheduleRunIgnoredDict,
 )  # NOQA
 
 
-class ScheduleRunIgnored(BaseModel):
+class ScheduleRunIgnored(pydantic.BaseModel):
     """The schedule is not running as all targets are up-to-date."""
 
     type: Literal["ignored"]

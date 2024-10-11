@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-InterfaceLinkTypeApiName = StrictStr
+InterfaceLinkTypeApiName = pydantic.StrictStr
 """A string indicating the API name to use for the interface link."""

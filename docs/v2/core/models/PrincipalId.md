@@ -4,7 +4,7 @@ The ID of a Foundry Group or User.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

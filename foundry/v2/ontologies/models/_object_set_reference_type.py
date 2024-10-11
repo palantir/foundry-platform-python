@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry._core.utils import RID
 from foundry.v2.ontologies.models._object_set_reference_type_dict import (
@@ -26,7 +26,7 @@ from foundry.v2.ontologies.models._object_set_reference_type_dict import (
 )  # NOQA
 
 
-class ObjectSetReferenceType(BaseModel):
+class ObjectSetReferenceType(pydantic.BaseModel):
     """ObjectSetReferenceType"""
 
     reference: RID

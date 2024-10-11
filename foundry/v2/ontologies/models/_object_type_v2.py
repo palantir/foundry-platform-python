@@ -19,9 +19,7 @@ from typing import Dict
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.core.models._release_status import ReleaseStatus
@@ -34,31 +32,31 @@ from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._property_v2 import PropertyV2
 
 
-class ObjectTypeV2(BaseModel):
+class ObjectTypeV2(pydantic.BaseModel):
     """Represents an object type in the Ontology."""
 
-    api_name: ObjectTypeApiName = Field(alias="apiName")
+    api_name: ObjectTypeApiName = pydantic.Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias="displayName")
 
     status: ReleaseStatus
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """The description of the object type."""
 
-    plural_display_name: StrictStr = Field(alias="pluralDisplayName")
+    plural_display_name: pydantic.StrictStr = pydantic.Field(alias="pluralDisplayName")
     """The plural display name of the object type."""
 
     icon: Icon
 
-    primary_key: PropertyApiName = Field(alias="primaryKey")
+    primary_key: PropertyApiName = pydantic.Field(alias="primaryKey")
 
     properties: Dict[PropertyApiName, PropertyV2]
     """A map of the properties of the object type."""
 
     rid: ObjectTypeRid
 
-    title_property: PropertyApiName = Field(alias="titleProperty")
+    title_property: PropertyApiName = pydantic.Field(alias="titleProperty")
 
     visibility: Optional[ObjectTypeVisibility] = None
 

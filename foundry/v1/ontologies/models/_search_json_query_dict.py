@@ -19,7 +19,7 @@ from typing import List
 from typing import Literal
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -83,6 +83,6 @@ SearchJsonQueryDict = Annotated[
         AnyTermQueryDict,
         LteQueryDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """SearchJsonQuery"""

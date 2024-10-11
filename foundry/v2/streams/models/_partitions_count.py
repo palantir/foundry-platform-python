@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictInt
+import pydantic
 
-PartitionsCount = StrictInt
+PartitionsCount = pydantic.StrictInt
 """The number of partitions for a Foundry stream."""

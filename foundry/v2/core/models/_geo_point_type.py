@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._geo_point_type_dict import GeoPointTypeDict
 
 
-class GeoPointType(BaseModel):
+class GeoPointType(pydantic.BaseModel):
     """GeoPointType"""
 
     type: Literal["geopoint"]

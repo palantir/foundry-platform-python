@@ -5,7 +5,7 @@ Details about some property of an object.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | NotRequired[StrictStr] | No |  |
+**description** | NotRequired[pydantic.StrictStr] | No |  |
 **displayName** | NotRequired[DisplayName] | No |  |
 **baseType** | ValueType | Yes |  |
 

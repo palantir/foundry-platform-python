@@ -19,20 +19,18 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictBool
+import pydantic
 
 from foundry.v2.ontologies.models._one_of_constraint_dict import OneOfConstraintDict
 from foundry.v2.ontologies.models._parameter_option import ParameterOption
 
 
-class OneOfConstraint(BaseModel):
+class OneOfConstraint(pydantic.BaseModel):
     """The parameter has a manually predefined set of options."""
 
     options: List[ParameterOption]
 
-    other_values_allowed: StrictBool = Field(alias="otherValuesAllowed")
+    other_values_allowed: pydantic.StrictBool = pydantic.Field(alias="otherValuesAllowed")
     """A flag denoting whether custom, user provided values will be considered valid. This is configured via the **Allowed "Other" value** toggle in the **Ontology Manager**."""
 
     type: Literal["oneOf"]

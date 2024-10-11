@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._binary_type_dict import BinaryTypeDict
 
 
-class BinaryType(BaseModel):
+class BinaryType(pydantic.BaseModel):
     """BinaryType"""
 
     type: Literal["binary"]

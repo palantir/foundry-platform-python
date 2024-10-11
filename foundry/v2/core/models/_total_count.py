@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-TotalCount = StrictStr
+TotalCount = pydantic.StrictStr
 """The total number of items across all pages."""

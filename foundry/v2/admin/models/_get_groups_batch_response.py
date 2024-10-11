@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Dict
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.admin.models._get_groups_batch_response_dict import (
     GetGroupsBatchResponseDict,
@@ -27,7 +27,7 @@ from foundry.v2.admin.models._group import Group
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
-class GetGroupsBatchResponse(BaseModel):
+class GetGroupsBatchResponse(pydantic.BaseModel):
     """GetGroupsBatchResponse"""
 
     data: Dict[PrincipalId, Group]
