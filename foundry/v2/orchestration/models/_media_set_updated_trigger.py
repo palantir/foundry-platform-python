@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._media_set_rid import MediaSetRid
 from foundry.v2.datasets.models._branch_name import BranchName
@@ -28,7 +27,7 @@ from foundry.v2.orchestration.models._media_set_updated_trigger_dict import (
 )  # NOQA
 
 
-class MediaSetUpdatedTrigger(BaseModel):
+class MediaSetUpdatedTrigger(pydantic.BaseModel):
     """
     Trigger whenever an update is made to a media set on the target
     branch. For transactional media sets, this happens when a transaction
@@ -36,9 +35,9 @@ class MediaSetUpdatedTrigger(BaseModel):
     eventually (but not necessary immediately) after an update.
     """
 
-    media_set_rid: MediaSetRid = Field(alias="mediaSetRid")
+    media_set_rid: MediaSetRid = pydantic.Field(alias="mediaSetRid")
 
-    branch_name: BranchName = Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias="branchName")
 
     type: Literal["mediaSetUpdated"]
 

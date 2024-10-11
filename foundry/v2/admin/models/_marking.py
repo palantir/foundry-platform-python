@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
 from foundry.v2.admin.models._marking_dict import MarkingDict
@@ -31,23 +29,25 @@ from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
-class Marking(BaseModel):
+class Marking(pydantic.BaseModel):
     """Marking"""
 
     id: MarkingId
 
-    category_id: MarkingCategoryId = Field(alias="categoryId")
+    category_id: MarkingCategoryId = pydantic.Field(alias="categoryId")
 
-    display_name: MarkingDisplayName = Field(alias="displayName")
+    display_name: MarkingDisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    organization_rid: Optional[OrganizationRid] = Field(alias="organizationRid", default=None)
+    organization_rid: Optional[OrganizationRid] = pydantic.Field(
+        alias="organizationRid", default=None
+    )
     """If this marking is associated with an Organization, its RID will be populated here."""
 
-    created_time: CreatedTime = Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias="createdTime")
 
-    created_by: Optional[CreatedBy] = Field(alias="createdBy", default=None)
+    created_by: Optional[CreatedBy] = pydantic.Field(alias="createdBy", default=None)
 
     model_config = {"extra": "allow"}
 

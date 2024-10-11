@@ -20,10 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import StrictStr
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -52,14 +49,14 @@ class DatasetClient:
         self.File = FileClient(auth=auth, hostname=hostname)
         self.Transaction = TransactionClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create(
         self,
         *,
         name: DatasetName,
         parent_folder_rid: FolderRid,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Dataset:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
@@ -102,7 +99,7 @@ class DatasetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def delete_schema(
         self,
@@ -111,7 +108,7 @@ class DatasetClient:
         branch_id: Optional[BranchId] = None,
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Deletes the Schema from a Dataset and Branch.
@@ -150,13 +147,13 @@ class DatasetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         dataset_rid: DatasetRid,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Dataset:
         """
         Gets the Dataset with the given DatasetRid.
@@ -189,7 +186,7 @@ class DatasetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_schema(
         self,
@@ -198,7 +195,7 @@ class DatasetClient:
         branch_id: Optional[BranchId] = None,
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Any:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
@@ -239,7 +236,7 @@ class DatasetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def read(
         self,
@@ -247,11 +244,11 @@ class DatasetClient:
         *,
         format: TableExportFormat,
         branch_id: Optional[BranchId] = None,
-        columns: Optional[List[StrictStr]] = None,
+        columns: Optional[List[pydantic.StrictStr]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[StrictInt] = None,
+        row_limit: Optional[pydantic.StrictInt] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
         Gets the content of a dataset as a table in the specified format.
@@ -267,11 +264,11 @@ class DatasetClient:
         :param branch_id: branchId
         :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: Optional[List[StrictStr]]
+        :type columns: Optional[List[pydantic.StrictStr]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: Optional[StrictInt]
+        :type row_limit: Optional[pydantic.StrictInt]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -305,7 +302,7 @@ class DatasetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def replace_schema(
         self,
@@ -314,7 +311,7 @@ class DatasetClient:
         *,
         branch_id: Optional[BranchId] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Puts a Schema on an existing Dataset and Branch.

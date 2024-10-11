@@ -4,7 +4,7 @@ A reference to an Ontology object property with the form `properties.{propertyAp
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

@@ -17,17 +17,16 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.admin.models._group_membership_dict import GroupMembershipDict
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
-class GroupMembership(BaseModel):
+class GroupMembership(pydantic.BaseModel):
     """GroupMembership"""
 
-    group_id: PrincipalId = Field(alias="groupId")
+    group_id: PrincipalId = pydantic.Field(alias="groupId")
 
     model_config = {"extra": "allow"}
 

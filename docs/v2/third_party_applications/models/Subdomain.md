@@ -4,7 +4,7 @@ A subdomain from which a website is served.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

@@ -6,7 +6,7 @@ Parameters can be viewed and managed in the **Ontology Manager**.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

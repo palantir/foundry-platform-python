@@ -19,17 +19,16 @@ from typing import Any
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.core.models._display_name import DisplayName
 from foundry.v1.ontologies.models._parameter_option_dict import ParameterOptionDict
 
 
-class ParameterOption(BaseModel):
+class ParameterOption(pydantic.BaseModel):
     """A possible value for the parameter. This is defined in the **Ontology Manager** by Actions admins."""
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 
     value: Optional[Any] = None
     """An allowed configured value for a parameter within an action."""

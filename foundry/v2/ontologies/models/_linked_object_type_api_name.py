@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._linked_object_type_api_name_dict import (
     LinkedObjectTypeApiNameDict,
@@ -27,10 +26,10 @@ from foundry.v2.ontologies.models._linked_object_type_api_name_dict import (
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 
 
-class LinkedObjectTypeApiName(BaseModel):
+class LinkedObjectTypeApiName(pydantic.BaseModel):
     """A reference to the linked object type."""
 
-    api_name: ObjectTypeApiName = Field(alias="apiName")
+    api_name: ObjectTypeApiName = pydantic.Field(alias="apiName")
 
     type: Literal["objectTypeApiName"]
 

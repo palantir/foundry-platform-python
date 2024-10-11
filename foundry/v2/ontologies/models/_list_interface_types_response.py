@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.ontologies.models._interface_type import InterfaceType
@@ -29,10 +28,10 @@ from foundry.v2.ontologies.models._list_interface_types_response_dict import (
 )  # NOQA
 
 
-class ListInterfaceTypesResponse(BaseModel):
+class ListInterfaceTypesResponse(pydantic.BaseModel):
     """ListInterfaceTypesResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[InterfaceType]
 

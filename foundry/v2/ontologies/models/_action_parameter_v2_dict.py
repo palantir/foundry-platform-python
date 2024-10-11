@@ -15,8 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictBool
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -28,8 +27,8 @@ class ActionParameterV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    description: NotRequired[StrictStr]
+    description: NotRequired[pydantic.StrictStr]
 
     dataType: ActionParameterTypeDict
 
-    required: StrictBool
+    required: pydantic.StrictBool

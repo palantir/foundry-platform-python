@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._object_query_result_constraint_dict import (
     ObjectQueryResultConstraintDict,
 )  # NOQA
 
 
-class ObjectQueryResultConstraint(BaseModel):
+class ObjectQueryResultConstraint(pydantic.BaseModel):
     """The parameter value must be the primary key of an object found within an object set."""
 
     type: Literal["objectQueryResult"]

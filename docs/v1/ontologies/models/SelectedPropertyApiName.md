@@ -19,7 +19,7 @@ To find the API name for your property, use the `Get object type` endpoint or ch
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

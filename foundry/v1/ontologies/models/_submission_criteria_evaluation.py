@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v1.ontologies.models._submission_criteria_evaluation_dict import (
     SubmissionCriteriaEvaluationDict,
@@ -28,14 +26,14 @@ from foundry.v1.ontologies.models._submission_criteria_evaluation_dict import (
 from foundry.v1.ontologies.models._validation_result import ValidationResult
 
 
-class SubmissionCriteriaEvaluation(BaseModel):
+class SubmissionCriteriaEvaluation(pydantic.BaseModel):
     """
     Contains the status of the **submission criteria**.
     **Submission criteria** are the prerequisites that need to be satisfied before an Action can be applied.
     These are configured in the **Ontology Manager**.
     """
 
-    configured_failure_message: Optional[StrictStr] = Field(
+    configured_failure_message: Optional[pydantic.StrictStr] = pydantic.Field(
         alias="configuredFailureMessage", default=None
     )
     """

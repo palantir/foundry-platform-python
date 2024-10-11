@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._long_type_dict import LongTypeDict
 
 
-class LongType(BaseModel):
+class LongType(pydantic.BaseModel):
     """LongType"""
 
     type: Literal["long"]

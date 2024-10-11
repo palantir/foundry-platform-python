@@ -6,7 +6,7 @@ shared property type, use the `List shared property types` endpoint or check the
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

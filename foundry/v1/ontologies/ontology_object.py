@@ -20,9 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -61,7 +59,7 @@ class OntologyObjectClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def aggregate(
         self,
@@ -71,7 +69,7 @@ class OntologyObjectClient:
         aggregation: List[AggregationDict],
         group_by: List[AggregationGroupByDict],
         query: Optional[SearchJsonQueryDict] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AggregateObjectsResponse:
         """
         Perform functions on object fields in the specified ontology and object type.
@@ -125,7 +123,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
@@ -134,7 +132,7 @@ class OntologyObjectClient:
         primary_key: PropertyValueEscapedString,
         *,
         properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> OntologyObject:
         """
         Gets a specific object with the given primary key.
@@ -177,7 +175,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_linked_object(
         self,
@@ -188,7 +186,7 @@ class OntologyObjectClient:
         linked_object_primary_key: PropertyValueEscapedString,
         *,
         properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> OntologyObject:
         """
         Get a specific linked object that originates from another object. If there is no link between the two objects,
@@ -238,7 +236,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
@@ -248,7 +246,7 @@ class OntologyObjectClient:
         order_by: Optional[OrderBy] = None,
         page_size: Optional[PageSize] = None,
         properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OntologyObject]:
         """
         Lists the objects for the given Ontology and object type.
@@ -309,7 +307,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list_linked_objects(
         self,
@@ -321,7 +319,7 @@ class OntologyObjectClient:
         order_by: Optional[OrderBy] = None,
         page_size: Optional[PageSize] = None,
         properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OntologyObject]:
         """
         Lists the linked objects for a specific object and the given link type.
@@ -388,7 +386,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -399,7 +397,7 @@ class OntologyObjectClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListObjectsResponse:
         """
         Lists the objects for the given Ontology and object type.
@@ -463,7 +461,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page_linked_objects(
         self,
@@ -476,7 +474,7 @@ class OntologyObjectClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListLinkedObjectsResponse:
         """
         Lists the linked objects for a specific object and the given link type.
@@ -546,7 +544,7 @@ class OntologyObjectClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def search(
         self,
@@ -558,7 +556,7 @@ class OntologyObjectClient:
         order_by: Optional[SearchOrderByDict] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchObjectsResponse:
         """
         Search for objects in the specified ontology and object type. The request body is used

@@ -17,11 +17,13 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.orchestration.models._project_scope_dict import ProjectScopeDict
 from foundry.v2.orchestration.models._user_scope_dict import UserScopeDict
 
-ScopeModeDict = Annotated[Union[ProjectScopeDict, UserScopeDict], Field(discriminator="type")]
+ScopeModeDict = Annotated[
+    Union[ProjectScopeDict, UserScopeDict], pydantic.Field(discriminator="type")
+]
 """The boundaries for the schedule build."""

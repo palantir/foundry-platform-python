@@ -6,7 +6,7 @@ application.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

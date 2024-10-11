@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._aggregation_duration_grouping_v2_dict import (
@@ -40,6 +40,6 @@ AggregationGroupByV2Dict = Annotated[
         AggregationRangesGroupingV2Dict,
         AggregationExactGroupingV2Dict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """Specifies a grouping for aggregation results."""

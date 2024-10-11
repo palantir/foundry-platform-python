@@ -13,16 +13,27 @@
 #  limitations under the License.
 
 
+from foundry.v2.core.models._array_field_type import ArrayFieldType
+from foundry.v2.core.models._array_field_type_dict import ArrayFieldTypeDict
 from foundry.v2.core.models._attachment_type import AttachmentType
 from foundry.v2.core.models._attachment_type_dict import AttachmentTypeDict
+from foundry.v2.core.models._binary_type import BinaryType
+from foundry.v2.core.models._binary_type_dict import BinaryTypeDict
 from foundry.v2.core.models._boolean_type import BooleanType
 from foundry.v2.core.models._boolean_type_dict import BooleanTypeDict
 from foundry.v2.core.models._byte_type import ByteType
 from foundry.v2.core.models._byte_type_dict import ByteTypeDict
+from foundry.v2.core.models._change_data_capture_configuration import (
+    ChangeDataCaptureConfiguration,
+)  # NOQA
+from foundry.v2.core.models._change_data_capture_configuration_dict import (
+    ChangeDataCaptureConfigurationDict,
+)  # NOQA
 from foundry.v2.core.models._content_length import ContentLength
 from foundry.v2.core.models._content_type import ContentType
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
+from foundry.v2.core.models._custom_metadata import CustomMetadata
 from foundry.v2.core.models._date_type import DateType
 from foundry.v2.core.models._date_type_dict import DateTypeDict
 from foundry.v2.core.models._decimal_type import DecimalType
@@ -35,10 +46,23 @@ from foundry.v2.core.models._double_type import DoubleType
 from foundry.v2.core.models._double_type_dict import DoubleTypeDict
 from foundry.v2.core.models._duration import Duration
 from foundry.v2.core.models._duration_dict import DurationDict
+from foundry.v2.core.models._field import Field
+from foundry.v2.core.models._field_data_type import FieldDataType
+from foundry.v2.core.models._field_data_type_dict import FieldDataTypeDict
+from foundry.v2.core.models._field_dict import FieldDict
+from foundry.v2.core.models._field_name import FieldName
+from foundry.v2.core.models._field_schema import FieldSchema
+from foundry.v2.core.models._field_schema_dict import FieldSchemaDict
 from foundry.v2.core.models._file_path import FilePath
 from foundry.v2.core.models._filename import Filename
 from foundry.v2.core.models._float_type import FloatType
 from foundry.v2.core.models._float_type_dict import FloatTypeDict
+from foundry.v2.core.models._full_row_change_data_capture_configuration import (
+    FullRowChangeDataCaptureConfiguration,
+)  # NOQA
+from foundry.v2.core.models._full_row_change_data_capture_configuration_dict import (
+    FullRowChangeDataCaptureConfigurationDict,
+)  # NOQA
 from foundry.v2.core.models._geo_point_type import GeoPointType
 from foundry.v2.core.models._geo_point_type_dict import GeoPointTypeDict
 from foundry.v2.core.models._geo_shape_type import GeoShapeType
@@ -51,6 +75,8 @@ from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._integer_type_dict import IntegerTypeDict
 from foundry.v2.core.models._long_type import LongType
 from foundry.v2.core.models._long_type_dict import LongTypeDict
+from foundry.v2.core.models._map_field_type import MapFieldType
+from foundry.v2.core.models._map_field_type_dict import MapFieldTypeDict
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._marking_type import MarkingType
 from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
@@ -69,9 +95,13 @@ from foundry.v2.core.models._release_status import ReleaseStatus
 from foundry.v2.core.models._short_type import ShortType
 from foundry.v2.core.models._short_type_dict import ShortTypeDict
 from foundry.v2.core.models._size_bytes import SizeBytes
+from foundry.v2.core.models._stream_schema import StreamSchema
+from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
 from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._string_type_dict import StringTypeDict
 from foundry.v2.core.models._struct_field_name import StructFieldName
+from foundry.v2.core.models._struct_field_type import StructFieldType
+from foundry.v2.core.models._struct_field_type_dict import StructFieldTypeDict
 from foundry.v2.core.models._time_series_item_type import TimeSeriesItemType
 from foundry.v2.core.models._time_series_item_type_dict import TimeSeriesItemTypeDict
 from foundry.v2.core.models._time_unit import TimeUnit
@@ -88,16 +118,23 @@ from foundry.v2.core.models._user_id import UserId
 from foundry.v2.core.models._zone_id import ZoneId
 
 __all__ = [
+    "ArrayFieldType",
+    "ArrayFieldTypeDict",
     "AttachmentType",
     "AttachmentTypeDict",
+    "BinaryType",
+    "BinaryTypeDict",
     "BooleanType",
     "BooleanTypeDict",
     "ByteType",
     "ByteTypeDict",
+    "ChangeDataCaptureConfiguration",
+    "ChangeDataCaptureConfigurationDict",
     "ContentLength",
     "ContentType",
     "CreatedBy",
     "CreatedTime",
+    "CustomMetadata",
     "DateType",
     "DateTypeDict",
     "DecimalType",
@@ -110,10 +147,19 @@ __all__ = [
     "DoubleTypeDict",
     "Duration",
     "DurationDict",
+    "Field",
+    "FieldDataType",
+    "FieldDataTypeDict",
+    "FieldDict",
+    "FieldName",
+    "FieldSchema",
+    "FieldSchemaDict",
     "FilePath",
     "Filename",
     "FloatType",
     "FloatTypeDict",
+    "FullRowChangeDataCaptureConfiguration",
+    "FullRowChangeDataCaptureConfigurationDict",
     "GeoPointType",
     "GeoPointTypeDict",
     "GeoShapeType",
@@ -124,6 +170,8 @@ __all__ = [
     "IntegerTypeDict",
     "LongType",
     "LongTypeDict",
+    "MapFieldType",
+    "MapFieldTypeDict",
     "MarkingId",
     "MarkingType",
     "MarkingTypeDict",
@@ -142,9 +190,13 @@ __all__ = [
     "ShortType",
     "ShortTypeDict",
     "SizeBytes",
+    "StreamSchema",
+    "StreamSchemaDict",
     "StringType",
     "StringTypeDict",
     "StructFieldName",
+    "StructFieldType",
+    "StructFieldTypeDict",
     "TimeSeriesItemType",
     "TimeSeriesItemTypeDict",
     "TimeUnit",

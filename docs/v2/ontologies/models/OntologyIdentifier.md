@@ -4,7 +4,7 @@ Either an ontology rid or an ontology api name.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

@@ -19,8 +19,7 @@ from typing import List
 from typing import Literal
 from typing import Union
 
-from pydantic import Field
-from pydantic import StrictBool
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -55,7 +54,7 @@ class OntologyStructFieldDict(TypedDict):
 
     fieldType: OntologyDataTypeDict
 
-    required: StrictBool
+    required: pydantic.StrictBool
 
 
 class OntologyStructTypeDict(TypedDict):
@@ -124,6 +123,6 @@ OntologyDataTypeDict = Annotated[
         TimestampTypeDict,
         OntologyObjectTypeDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the primitive types used by Palantir's Ontology-based products."""

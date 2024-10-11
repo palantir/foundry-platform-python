@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._bounding_box_value import BoundingBoxValue
 from foundry.v2.ontologies.models._does_not_intersect_bounding_box_query_dict import (
@@ -27,7 +27,7 @@ from foundry.v2.ontologies.models._does_not_intersect_bounding_box_query_dict im
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
-class DoesNotIntersectBoundingBoxQuery(BaseModel):
+class DoesNotIntersectBoundingBoxQuery(pydantic.BaseModel):
     """Returns objects where the specified field does not intersect the bounding box provided."""
 
     field: PropertyApiName

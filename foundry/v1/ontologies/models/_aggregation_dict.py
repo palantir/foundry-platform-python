@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v1.ontologies.models._approximate_distinct_aggregation_dict import (
@@ -38,6 +38,6 @@ AggregationDict = Annotated[
         CountAggregationDict,
         SumAggregationDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """Specifies an aggregation function."""

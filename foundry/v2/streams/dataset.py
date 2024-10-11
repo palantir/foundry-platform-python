@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -30,6 +28,7 @@ from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_name import DatasetName
 from foundry.v2.filesystem.models._folder_rid import FolderRid
@@ -46,19 +45,20 @@ class DatasetClient:
 
         self.Stream = StreamClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create(
         self,
         *,
         name: DatasetName,
         parent_folder_rid: FolderRid,
+        schema: StreamSchemaDict,
         branch_name: Optional[BranchName] = None,
         compressed: Optional[Compressed] = None,
         partitions_count: Optional[PartitionsCount] = None,
         preview: Optional[PreviewMode] = None,
         stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Dataset:
         """
         Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
@@ -69,6 +69,8 @@ class DatasetClient:
         :type name: DatasetName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
+        :param schema: The Foundry schema to apply to the new stream.
+        :type schema: StreamSchemaDict
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
         :type branch_name: Optional[BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
@@ -100,6 +102,7 @@ class DatasetClient:
                 body={
                     "name": name,
                     "parentFolderRid": parent_folder_rid,
+                    "schema": schema,
                     "branchName": branch_name,
                     "partitionsCount": partitions_count,
                     "streamType": stream_type,
@@ -110,6 +113,7 @@ class DatasetClient:
                     {  # type: ignore
                         "name": DatasetName,
                         "parentFolderRid": FolderRid,
+                        "schema": StreamSchemaDict,
                         "branchName": Optional[BranchName],
                         "partitionsCount": Optional[PartitionsCount],
                         "streamType": Optional[StreamType],

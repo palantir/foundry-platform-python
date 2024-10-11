@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -43,14 +41,14 @@ class MarkingCategoryClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         marking_category_id: MarkingCategoryId,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> MarkingCategory:
         """
         Get the MarkingCategory with the specified id.
@@ -84,14 +82,14 @@ class MarkingCategoryClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
         *,
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[MarkingCategory]:
         """
         Maximum page size 100.
@@ -124,7 +122,7 @@ class MarkingCategoryClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -132,7 +130,7 @@ class MarkingCategoryClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListMarkingCategoriesResponse:
         """
         Maximum page size 100.

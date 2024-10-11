@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
 from foundry.v2.orchestration.models._schedule_succeeded_trigger_dict import (
@@ -27,13 +26,13 @@ from foundry.v2.orchestration.models._schedule_succeeded_trigger_dict import (
 )  # NOQA
 
 
-class ScheduleSucceededTrigger(BaseModel):
+class ScheduleSucceededTrigger(pydantic.BaseModel):
     """
     Trigger whenever the specified schedule completes its action
     successfully.
     """
 
-    schedule_rid: ScheduleRid = Field(alias="scheduleRid")
+    schedule_rid: ScheduleRid = pydantic.Field(alias="scheduleRid")
 
     type: Literal["scheduleSucceeded"]
 

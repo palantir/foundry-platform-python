@@ -19,20 +19,19 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._upstream_target_dict import UpstreamTargetDict
 
 
-class UpstreamTarget(BaseModel):
+class UpstreamTarget(pydantic.BaseModel):
     """Target the specified datasets along with all upstream datasets except the ignored datasets."""
 
-    target_rids: List[BuildableRid] = Field(alias="targetRids")
+    target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
     """The target datasets."""
 
-    ignored_rids: List[BuildableRid] = Field(alias="ignoredRids")
+    ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     type: Literal["upstream"]

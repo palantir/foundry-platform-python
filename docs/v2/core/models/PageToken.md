@@ -6,7 +6,7 @@ The page token indicates where to start paging. This should be omitted from the 
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

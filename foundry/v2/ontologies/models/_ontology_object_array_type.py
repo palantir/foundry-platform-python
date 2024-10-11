@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._object_property_type import ObjectPropertyType
 from foundry.v2.ontologies.models._ontology_object_array_type_dict import (
@@ -27,10 +26,10 @@ from foundry.v2.ontologies.models._ontology_object_array_type_dict import (
 )  # NOQA
 
 
-class OntologyObjectArrayType(BaseModel):
+class OntologyObjectArrayType(pydantic.BaseModel):
     """OntologyObjectArrayType"""
 
-    sub_type: ObjectPropertyType = Field(alias="subType")
+    sub_type: ObjectPropertyType = pydantic.Field(alias="subType")
 
     type: Literal["array"]
 

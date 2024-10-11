@@ -18,19 +18,18 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictBool
+import pydantic
 
 from foundry.v2.ontologies.models._is_null_query_v2_dict import IsNullQueryV2Dict
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
-class IsNullQueryV2(BaseModel):
+class IsNullQueryV2(pydantic.BaseModel):
     """Returns objects based on the existence of the specified field."""
 
     field: PropertyApiName
 
-    value: StrictBool
+    value: pydantic.StrictBool
 
     type: Literal["isNull"]
 

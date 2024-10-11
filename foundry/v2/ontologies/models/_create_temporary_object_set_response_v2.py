@@ -17,8 +17,7 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._create_temporary_object_set_response_v2_dict import (
     CreateTemporaryObjectSetResponseV2Dict,
@@ -26,10 +25,10 @@ from foundry.v2.ontologies.models._create_temporary_object_set_response_v2_dict 
 from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
 
 
-class CreateTemporaryObjectSetResponseV2(BaseModel):
+class CreateTemporaryObjectSetResponseV2(pydantic.BaseModel):
     """CreateTemporaryObjectSetResponseV2"""
 
-    object_set_rid: ObjectSetRid = Field(alias="objectSetRid")
+    object_set_rid: ObjectSetRid = pydantic.Field(alias="objectSetRid")
 
     model_config = {"extra": "allow"}
 

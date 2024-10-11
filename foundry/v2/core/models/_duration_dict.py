@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictInt
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.core.models._time_unit import TimeUnit
@@ -26,7 +26,7 @@ class DurationDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: StrictInt
+    value: pydantic.StrictInt
     """The duration value."""
 
     unit: TimeUnit

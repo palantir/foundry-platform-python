@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-GroupName = StrictStr
+GroupName = pydantic.StrictStr
 """The name of the Group."""

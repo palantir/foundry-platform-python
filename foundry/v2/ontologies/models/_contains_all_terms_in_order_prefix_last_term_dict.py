@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
@@ -34,6 +34,6 @@ class ContainsAllTermsInOrderPrefixLastTermDict(TypedDict):
 
     field: PropertyApiName
 
-    value: StrictStr
+    value: pydantic.StrictStr
 
     type: Literal["containsAllTermsInOrderPrefixLastTerm"]

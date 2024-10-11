@@ -7,8 +7,8 @@ Folder
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | FolderRid | Yes |  |
 **display_name** | ResourceDisplayName | Yes |  |
-**description** | Optional[StrictStr] | No | The description associated with the Folder. |
-**documentation** | Optional[StrictStr] | No | The documentation associated with the Folder. |
+**description** | Optional[pydantic.StrictStr] | No | The description associated with the Folder. |
+**documentation** | Optional[pydantic.StrictStr] | No | The documentation associated with the Folder. |
 **path** | ResourcePath | Yes |  |
 **type** | FolderType | Yes |  |
 **created_by** | CreatedBy | Yes |  |

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import List
 
-from pydantic import StrictBool
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._parameter_evaluated_constraint_dict import (
@@ -35,5 +35,5 @@ class ParameterEvaluationResultDict(TypedDict):
 
     evaluatedConstraints: List[ParameterEvaluatedConstraintDict]
 
-    required: StrictBool
+    required: pydantic.StrictBool
     """Represents whether the parameter is a required input to the action."""

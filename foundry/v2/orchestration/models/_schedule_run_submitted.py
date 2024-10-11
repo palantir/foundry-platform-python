@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._schedule_run_submitted_dict import (
@@ -27,10 +26,10 @@ from foundry.v2.orchestration.models._schedule_run_submitted_dict import (
 )  # NOQA
 
 
-class ScheduleRunSubmitted(BaseModel):
+class ScheduleRunSubmitted(pydantic.BaseModel):
     """The schedule has been successfully triggered."""
 
-    build_rid: BuildRid = Field(alias="buildRid")
+    build_rid: BuildRid = pydantic.Field(alias="buildRid")
 
     type: Literal["submitted"]
 

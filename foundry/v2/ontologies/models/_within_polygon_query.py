@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._polygon_value import PolygonValue
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._within_polygon_query_dict import WithinPolygonQueryDict  # NOQA
 
 
-class WithinPolygonQuery(BaseModel):
+class WithinPolygonQuery(pydantic.BaseModel):
     """Returns objects where the specified field contains a point within the polygon provided."""
 
     field: PropertyApiName

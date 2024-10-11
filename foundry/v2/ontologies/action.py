@@ -20,9 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -57,7 +55,7 @@ class ActionClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def apply(
         self,
@@ -68,7 +66,7 @@ class ActionClient:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         options: Optional[ApplyActionRequestOptionsDict] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SyncApplyActionResponseV2:
         """
         Applies an action using the given parameters.
@@ -131,7 +129,7 @@ class ActionClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def apply_batch(
         self,
@@ -142,7 +140,7 @@ class ActionClient:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         options: Optional[BatchApplyActionRequestOptionsDict] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> BatchApplyActionResponseV2:
         """
         Applies multiple actions (of the same Action Type) using the given parameters.

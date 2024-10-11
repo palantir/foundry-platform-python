@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._data_value import DataValue
 from foundry.v2.ontologies.models._execute_query_response_dict import (
@@ -25,7 +25,7 @@ from foundry.v2.ontologies.models._execute_query_response_dict import (
 )  # NOQA
 
 
-class ExecuteQueryResponse(BaseModel):
+class ExecuteQueryResponse(pydantic.BaseModel):
     """ExecuteQueryResponse"""
 
     value: DataValue

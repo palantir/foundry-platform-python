@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._attachment_type_dict import AttachmentTypeDict
 
 
-class AttachmentType(BaseModel):
+class AttachmentType(pydantic.BaseModel):
     """AttachmentType"""
 
     type: Literal["attachment"]

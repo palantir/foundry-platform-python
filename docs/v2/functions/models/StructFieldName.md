@@ -5,7 +5,7 @@ The name of a field in a `Struct`.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

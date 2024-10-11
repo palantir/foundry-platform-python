@@ -4,7 +4,7 @@ A user-specified alias for an aggregation metric name.
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

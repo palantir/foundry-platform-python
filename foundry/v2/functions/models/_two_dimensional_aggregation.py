@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.functions.models._query_aggregation_key_type import QueryAggregationKeyType  # NOQA
 from foundry.v2.functions.models._query_aggregation_value_type import (
@@ -30,12 +29,12 @@ from foundry.v2.functions.models._two_dimensional_aggregation_dict import (
 )  # NOQA
 
 
-class TwoDimensionalAggregation(BaseModel):
+class TwoDimensionalAggregation(pydantic.BaseModel):
     """TwoDimensionalAggregation"""
 
-    key_type: QueryAggregationKeyType = Field(alias="keyType")
+    key_type: QueryAggregationKeyType = pydantic.Field(alias="keyType")
 
-    value_type: QueryAggregationValueType = Field(alias="valueType")
+    value_type: QueryAggregationValueType = pydantic.Field(alias="valueType")
 
     type: Literal["twoDimensionalAggregation"]
 

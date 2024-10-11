@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import List
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._list_ontologies_response_dict import (
     ListOntologiesResponseDict,
@@ -26,7 +26,7 @@ from foundry.v1.ontologies.models._list_ontologies_response_dict import (
 from foundry.v1.ontologies.models._ontology import Ontology
 
 
-class ListOntologiesResponse(BaseModel):
+class ListOntologiesResponse(pydantic.BaseModel):
     """ListOntologiesResponse"""
 
     data: List[Ontology]

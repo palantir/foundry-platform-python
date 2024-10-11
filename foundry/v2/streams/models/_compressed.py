@@ -15,9 +15,9 @@
 
 from __future__ import annotations
 
-from pydantic import StrictBool
+import pydantic
 
-Compressed = StrictBool
+Compressed = pydantic.StrictBool
 """
 Compression helps reduce the size of the data being sent, resulting in lower network usage and
 storage, at the cost of some additional CPU usage for compression and decompression. This stream type

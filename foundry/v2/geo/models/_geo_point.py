@@ -19,14 +19,14 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.geo.models._b_box import BBox
 from foundry.v2.geo.models._geo_point_dict import GeoPointDict
 from foundry.v2.geo.models._position import Position
 
 
-class GeoPoint(BaseModel):
+class GeoPoint(pydantic.BaseModel):
     """GeoPoint"""
 
     coordinates: Position

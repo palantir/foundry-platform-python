@@ -19,12 +19,12 @@ from datetime import datetime
 from typing import Any
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._time_series_point_dict import TimeSeriesPointDict
 
 
-class TimeSeriesPoint(BaseModel):
+class TimeSeriesPoint(pydantic.BaseModel):
     """A time and value pair."""
 
     time: datetime

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-UserUsername = StrictStr
+UserUsername = pydantic.StrictStr
 """The Foundry username of the User. This is unique within the realm."""

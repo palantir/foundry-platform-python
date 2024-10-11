@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.admin.models._principal_filter_type import PrincipalFilterType
@@ -28,4 +28,4 @@ class UserSearchFilterDict(TypedDict):
 
     type: PrincipalFilterType
 
-    value: StrictStr
+    value: pydantic.StrictStr

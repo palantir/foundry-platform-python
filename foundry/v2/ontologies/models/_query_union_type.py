@@ -19,17 +19,16 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._query_data_type import QueryDataType
 from foundry.v2.ontologies.models._query_union_type_dict import QueryUnionTypeDict
 
 
-class QueryUnionType(BaseModel):
+class QueryUnionType(pydantic.BaseModel):
     """QueryUnionType"""
 
-    union_types: List[QueryDataType] = Field(alias="unionTypes")
+    union_types: List[QueryDataType] = pydantic.Field(alias="unionTypes")
 
     type: Literal["union"]
 

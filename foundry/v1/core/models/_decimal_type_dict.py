@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictInt
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -27,8 +27,8 @@ class DecimalTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    precision: NotRequired[StrictInt]
+    precision: NotRequired[pydantic.StrictInt]
 
-    scale: NotRequired[StrictInt]
+    scale: NotRequired[pydantic.StrictInt]
 
     type: Literal["decimal"]

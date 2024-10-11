@@ -20,8 +20,7 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.ontologies.models._attachment_v2 import AttachmentV2
@@ -30,12 +29,12 @@ from foundry.v2.ontologies.models._list_attachments_response_v2_dict import (
 )  # NOQA
 
 
-class ListAttachmentsResponseV2(BaseModel):
+class ListAttachmentsResponseV2(pydantic.BaseModel):
     """ListAttachmentsResponseV2"""
 
     data: List[AttachmentV2]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     type: Literal["multiple"]
 

@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v2.ontologies.models._linked_interface_type_api_name_dict import (
@@ -27,10 +26,10 @@ from foundry.v2.ontologies.models._linked_interface_type_api_name_dict import (
 )  # NOQA
 
 
-class LinkedInterfaceTypeApiName(BaseModel):
+class LinkedInterfaceTypeApiName(pydantic.BaseModel):
     """A reference to the linked interface type."""
 
-    api_name: InterfaceTypeApiName = Field(alias="apiName")
+    api_name: InterfaceTypeApiName = pydantic.Field(alias="apiName")
 
     type: Literal["interfaceTypeApiName"]
 

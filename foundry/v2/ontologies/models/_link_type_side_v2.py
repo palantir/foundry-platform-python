@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.core.models._release_status import ReleaseStatus
@@ -31,24 +30,24 @@ from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
-class LinkTypeSideV2(BaseModel):
+class LinkTypeSideV2(pydantic.BaseModel):
     """LinkTypeSideV2"""
 
-    api_name: LinkTypeApiName = Field(alias="apiName")
+    api_name: LinkTypeApiName = pydantic.Field(alias="apiName")
 
-    display_name: DisplayName = Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias="displayName")
 
     status: ReleaseStatus
 
-    object_type_api_name: ObjectTypeApiName = Field(alias="objectTypeApiName")
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
     cardinality: LinkTypeSideCardinality
 
-    foreign_key_property_api_name: Optional[PropertyApiName] = Field(
+    foreign_key_property_api_name: Optional[PropertyApiName] = pydantic.Field(
         alias="foreignKeyPropertyApiName", default=None
     )
 
-    link_type_rid: LinkTypeRid = Field(alias="linkTypeRid")
+    link_type_rid: LinkTypeRid = pydantic.Field(alias="linkTypeRid")
 
     model_config = {"extra": "allow"}
 

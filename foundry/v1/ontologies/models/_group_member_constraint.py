@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.ontologies.models._group_member_constraint_dict import (
     GroupMemberConstraintDict,
 )  # NOQA
 
 
-class GroupMemberConstraint(BaseModel):
+class GroupMemberConstraint(pydantic.BaseModel):
     """The parameter value must be the user id of a member belonging to at least one of the groups defined by the constraint."""
 
     type: Literal["groupMember"]

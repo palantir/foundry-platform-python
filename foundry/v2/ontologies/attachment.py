@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -39,13 +37,13 @@ class AttachmentClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def read(
         self,
         attachment_rid: AttachmentRid,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
         Get the content of an attachment.
@@ -79,7 +77,7 @@ class AttachmentClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def upload(
         self,
@@ -88,7 +86,7 @@ class AttachmentClient:
         content_length: ContentLength,
         content_type: ContentType,
         filename: Filename,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AttachmentV2:
         """
         Upload an attachment to use in an action. Any attachment which has not been linked to an object via

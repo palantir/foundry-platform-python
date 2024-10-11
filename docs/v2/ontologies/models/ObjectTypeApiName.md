@@ -6,7 +6,7 @@ The name of the object type in the API in camelCase format. To find the API name
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

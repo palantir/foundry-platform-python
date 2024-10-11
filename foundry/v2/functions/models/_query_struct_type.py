@@ -19,13 +19,13 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.functions.models._query_struct_field import QueryStructField
 from foundry.v2.functions.models._query_struct_type_dict import QueryStructTypeDict
 
 
-class QueryStructType(BaseModel):
+class QueryStructType(pydantic.BaseModel):
     """QueryStructType"""
 
     fields: List[QueryStructField]

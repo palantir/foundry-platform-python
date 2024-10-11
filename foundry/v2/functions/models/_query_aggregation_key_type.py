@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.core.models._boolean_type import BooleanType
@@ -40,6 +40,6 @@ QueryAggregationKeyType = Annotated[
         IntegerType,
         TimestampType,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""

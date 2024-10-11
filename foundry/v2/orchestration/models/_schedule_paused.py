@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictBool
+import pydantic
 
-SchedulePaused = StrictBool
+SchedulePaused = pydantic.StrictBool
 """SchedulePaused"""

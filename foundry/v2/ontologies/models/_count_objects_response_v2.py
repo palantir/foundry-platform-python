@@ -18,18 +18,17 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictInt
+import pydantic
 
 from foundry.v2.ontologies.models._count_objects_response_v2_dict import (
     CountObjectsResponseV2Dict,
 )  # NOQA
 
 
-class CountObjectsResponseV2(BaseModel):
+class CountObjectsResponseV2(pydantic.BaseModel):
     """CountObjectsResponseV2"""
 
-    count: Optional[StrictInt] = None
+    count: Optional[pydantic.StrictInt] = None
 
     model_config = {"extra": "allow"}
 

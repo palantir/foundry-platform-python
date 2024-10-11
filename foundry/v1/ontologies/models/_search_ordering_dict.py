@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -29,5 +29,5 @@ class SearchOrderingDict(TypedDict):
 
     field: FieldNameV1
 
-    direction: NotRequired[StrictStr]
+    direction: NotRequired[pydantic.StrictStr]
     """Specifies the ordering direction (can be either `asc` or `desc`)"""

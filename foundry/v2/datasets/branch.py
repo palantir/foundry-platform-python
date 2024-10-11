@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -44,7 +42,7 @@ class BranchClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create(
         self,
@@ -53,7 +51,7 @@ class BranchClient:
         name: BranchName,
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Branch:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
@@ -102,7 +100,7 @@ class BranchClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def delete(
         self,
@@ -110,7 +108,7 @@ class BranchClient:
         branch_name: BranchName,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Deletes the Branch with the given BranchName.
@@ -146,7 +144,7 @@ class BranchClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
@@ -154,7 +152,7 @@ class BranchClient:
         branch_name: BranchName,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Branch:
         """
         Get a Branch of a Dataset.
@@ -192,7 +190,7 @@ class BranchClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
@@ -200,7 +198,7 @@ class BranchClient:
         *,
         page_size: Optional[PageSize] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Branch]:
         """
         Lists the Branches of a Dataset.
@@ -238,7 +236,7 @@ class BranchClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -247,7 +245,7 @@ class BranchClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListBranchesResponse:
         """
         Lists the Branches of a Dataset.

@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.orchestration.models._user_scope_dict import UserScopeDict
 
 
-class UserScope(BaseModel):
+class UserScope(pydantic.BaseModel):
     """
     When triggered, the schedule will build all resources that the
     associated user is permitted to build.

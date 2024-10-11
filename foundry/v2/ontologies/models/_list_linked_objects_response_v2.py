@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.ontologies.models._list_linked_objects_response_v2_dict import (
@@ -29,12 +28,12 @@ from foundry.v2.ontologies.models._list_linked_objects_response_v2_dict import (
 from foundry.v2.ontologies.models._ontology_object_v2 import OntologyObjectV2
 
 
-class ListLinkedObjectsResponseV2(BaseModel):
+class ListLinkedObjectsResponseV2(pydantic.BaseModel):
     """ListLinkedObjectsResponseV2"""
 
     data: List[OntologyObjectV2]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

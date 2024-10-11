@@ -18,21 +18,19 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictFloat
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v1.ontologies.models._aggregation_metric_result_dict import (
     AggregationMetricResultDict,
 )  # NOQA
 
 
-class AggregationMetricResult(BaseModel):
+class AggregationMetricResult(pydantic.BaseModel):
     """AggregationMetricResult"""
 
-    name: StrictStr
+    name: pydantic.StrictStr
 
-    value: Optional[StrictFloat] = None
+    value: Optional[pydantic.StrictFloat] = None
     """TBD"""
 
     model_config = {"extra": "allow"}

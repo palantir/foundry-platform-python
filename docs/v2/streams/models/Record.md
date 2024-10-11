@@ -5,7 +5,7 @@ A record to be published to a stream.
 
 ## Type
 ```python
-Dict[StrictStr, Any]
+Dict[pydantic.StrictStr, Any]
 ```
 
 

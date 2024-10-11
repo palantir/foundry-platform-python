@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -47,7 +45,7 @@ class AttachmentPropertyClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_attachment(
         self,
@@ -58,7 +56,7 @@ class AttachmentPropertyClient:
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AttachmentMetadataResponse:
         """
         Get the metadata of attachments parented to the given object.
@@ -108,7 +106,7 @@ class AttachmentPropertyClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get_attachment_by_rid(
         self,
@@ -120,7 +118,7 @@ class AttachmentPropertyClient:
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AttachmentV2:
         """
         Get the metadata of a particular attachment in an attachment list.
@@ -173,7 +171,7 @@ class AttachmentPropertyClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def read_attachment(
         self,
@@ -184,7 +182,7 @@ class AttachmentPropertyClient:
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
         Get the content of an attachment.
@@ -234,7 +232,7 @@ class AttachmentPropertyClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def read_attachment_by_rid(
         self,
@@ -246,7 +244,7 @@ class AttachmentPropertyClient:
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
         Get the content of an attachment by its RID.

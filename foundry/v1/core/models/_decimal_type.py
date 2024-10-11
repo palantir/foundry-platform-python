@@ -19,18 +19,17 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import StrictInt
+import pydantic
 
 from foundry.v1.core.models._decimal_type_dict import DecimalTypeDict
 
 
-class DecimalType(BaseModel):
+class DecimalType(pydantic.BaseModel):
     """DecimalType"""
 
-    precision: Optional[StrictInt] = None
+    precision: Optional[pydantic.StrictInt] = None
 
-    scale: Optional[StrictInt] = None
+    scale: Optional[pydantic.StrictInt] = None
 
     type: Literal["decimal"]
 

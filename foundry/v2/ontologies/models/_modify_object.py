@@ -18,20 +18,19 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._modify_object_dict import ModifyObjectDict
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._property_value import PropertyValue
 
 
-class ModifyObject(BaseModel):
+class ModifyObject(pydantic.BaseModel):
     """ModifyObject"""
 
-    primary_key: PropertyValue = Field(alias="primaryKey")
+    primary_key: PropertyValue = pydantic.Field(alias="primaryKey")
 
-    object_type: ObjectTypeApiName = Field(alias="objectType")
+    object_type: ObjectTypeApiName = pydantic.Field(alias="objectType")
 
     type: Literal["modifyObject"]
 

@@ -19,20 +19,19 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.admin.models._group import Group
 from foundry.v2.admin.models._search_groups_response_dict import SearchGroupsResponseDict  # NOQA
 from foundry.v2.core.models._page_token import PageToken
 
 
-class SearchGroupsResponse(BaseModel):
+class SearchGroupsResponse(pydantic.BaseModel):
     """SearchGroupsResponse"""
 
     data: List[Group]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

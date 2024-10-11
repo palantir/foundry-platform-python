@@ -18,8 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.ontologies.models._query_aggregation_range_sub_type import (
     QueryAggregationRangeSubType,
@@ -29,10 +28,10 @@ from foundry.v2.ontologies.models._query_aggregation_range_type_dict import (
 )  # NOQA
 
 
-class QueryAggregationRangeType(BaseModel):
+class QueryAggregationRangeType(pydantic.BaseModel):
     """QueryAggregationRangeType"""
 
-    sub_type: QueryAggregationRangeSubType = Field(alias="subType")
+    sub_type: QueryAggregationRangeSubType = pydantic.Field(alias="subType")
 
     type: Literal["range"]
 

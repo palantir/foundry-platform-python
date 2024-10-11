@@ -4,7 +4,7 @@ SdkPackageName
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

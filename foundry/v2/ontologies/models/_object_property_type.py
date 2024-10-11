@@ -19,8 +19,7 @@ from typing import Literal
 from typing import Union
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.core.models._attachment_type import AttachmentType
@@ -45,10 +44,10 @@ from foundry.v2.ontologies.models._ontology_object_array_type_dict import (
 )  # NOQA
 
 
-class OntologyObjectArrayType(BaseModel):
+class OntologyObjectArrayType(pydantic.BaseModel):
     """OntologyObjectArrayType"""
 
-    sub_type: ObjectPropertyType = Field(alias="subType")
+    sub_type: ObjectPropertyType = pydantic.Field(alias="subType")
 
     type: Literal["array"]
 
@@ -80,6 +79,6 @@ ObjectPropertyType = Annotated[
         DecimalType,
         TimestampType,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by Ontology Object properties."""

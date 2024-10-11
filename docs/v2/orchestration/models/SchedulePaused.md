@@ -4,7 +4,7 @@ SchedulePaused
 
 ## Type
 ```python
-StrictBool
+pydantic.StrictBool
 ```
 
 

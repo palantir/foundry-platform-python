@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._action_results import ActionResults
 from foundry.v2.ontologies.models._sync_apply_action_response_v2_dict import (
@@ -29,7 +29,7 @@ from foundry.v2.ontologies.models._validate_action_response_v2 import (
 )  # NOQA
 
 
-class SyncApplyActionResponseV2(BaseModel):
+class SyncApplyActionResponseV2(pydantic.BaseModel):
     """SyncApplyActionResponseV2"""
 
     validation: Optional[ValidateActionResponseV2] = None

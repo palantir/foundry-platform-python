@@ -19,7 +19,7 @@ from typing import List
 from typing import Literal
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -113,6 +113,6 @@ QueryDataTypeDict = Annotated[
         TwoDimensionalAggregationDict,
         TimestampTypeDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by Query parameters or outputs."""

@@ -4,7 +4,7 @@ Whether to receive a notification at the end of scheduled builds.
 
 ## Type
 ```python
-StrictBool
+pydantic.StrictBool
 ```
 
 

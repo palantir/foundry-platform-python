@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.admin.models._list_marking_categories_response_dict import (
     ListMarkingCategoriesResponseDict,
@@ -29,12 +28,12 @@ from foundry.v2.admin.models._marking_category import MarkingCategory
 from foundry.v2.core.models._page_token import PageToken
 
 
-class ListMarkingCategoriesResponse(BaseModel):
+class ListMarkingCategoriesResponse(pydantic.BaseModel):
     """ListMarkingCategoriesResponse"""
 
     data: List[MarkingCategory]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

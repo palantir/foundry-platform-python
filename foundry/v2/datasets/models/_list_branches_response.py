@@ -19,20 +19,19 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.datasets.models._branch import Branch
 from foundry.v2.datasets.models._list_branches_response_dict import ListBranchesResponseDict  # NOQA
 
 
-class ListBranchesResponse(BaseModel):
+class ListBranchesResponse(pydantic.BaseModel):
     """ListBranchesResponse"""
 
     data: List[Branch]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

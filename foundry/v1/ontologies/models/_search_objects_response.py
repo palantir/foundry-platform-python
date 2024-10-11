@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.core.models._total_count import TotalCount
@@ -30,14 +29,14 @@ from foundry.v1.ontologies.models._search_objects_response_dict import (
 )  # NOQA
 
 
-class SearchObjectsResponse(BaseModel):
+class SearchObjectsResponse(pydantic.BaseModel):
     """SearchObjectsResponse"""
 
     data: List[OntologyObject]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
-    total_count: TotalCount = Field(alias="totalCount")
+    total_count: TotalCount = pydantic.Field(alias="totalCount")
 
     model_config = {"extra": "allow"}
 

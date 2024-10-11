@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._contains_query_v2_dict import ContainsQueryV2Dict
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._property_value import PropertyValue
 
 
-class ContainsQueryV2(BaseModel):
+class ContainsQueryV2(pydantic.BaseModel):
     """Returns objects where the specified array contains a value."""
 
     field: PropertyApiName

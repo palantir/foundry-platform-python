@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -44,14 +42,14 @@ class ThirdPartyApplicationClient:
 
         self.Website = WebsiteClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         third_party_application_rid: ThirdPartyApplicationRid,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ThirdPartyApplication:
         """
         Get the ThirdPartyApplication with the specified rid.

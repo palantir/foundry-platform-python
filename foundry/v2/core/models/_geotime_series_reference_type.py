@@ -18,14 +18,14 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._geotime_series_reference_type_dict import (
     GeotimeSeriesReferenceTypeDict,
 )  # NOQA
 
 
-class GeotimeSeriesReferenceType(BaseModel):
+class GeotimeSeriesReferenceType(pydantic.BaseModel):
     """GeotimeSeriesReferenceType"""
 
     type: Literal["geotimeSeriesReference"]

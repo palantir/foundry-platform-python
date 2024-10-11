@@ -19,7 +19,7 @@ from typing import Any
 from typing import Callable
 from typing import TypeVar
 
-from pydantic import ValidationError
+import pydantic
 from pydantic import __version__ as __pydantic__version__
 from pydantic_core import __version__ as __pydantic_core_version__
 from requests import __version__ as __requests_version__
@@ -37,7 +37,12 @@ def handle_unexpected(__func: AnyCallableT) -> AnyCallableT:
     def validate(*args, **kwargs):
         try:
             return __func(*args, **kwargs)
-        except (PalantirRPCException, SDKInternalError, ValidationError, ConnectionError) as e:
+        except (
+            PalantirRPCException,
+            SDKInternalError,
+            pydantic.ValidationError,
+            ConnectionError,
+        ) as e:
             # pass through these exceptions
             raise e
         except Exception as e:

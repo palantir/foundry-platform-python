@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import StrictInt
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -31,6 +31,6 @@ class AggregationExactGroupingV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    maxGroupCount: NotRequired[StrictInt]
+    maxGroupCount: NotRequired[pydantic.StrictInt]
 
     type: Literal["exact"]

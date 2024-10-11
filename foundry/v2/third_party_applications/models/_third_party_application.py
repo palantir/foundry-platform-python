@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.third_party_applications.models._third_party_application_dict import (
     ThirdPartyApplicationDict,
@@ -27,7 +27,7 @@ from foundry.v2.third_party_applications.models._third_party_application_rid imp
 )  # NOQA
 
 
-class ThirdPartyApplication(BaseModel):
+class ThirdPartyApplication(pydantic.BaseModel):
     """ThirdPartyApplication"""
 
     rid: ThirdPartyApplicationRid

@@ -8,7 +8,7 @@ Represents an object type in the Ontology.
 **apiName** | ObjectTypeApiName | Yes |  |
 **displayName** | NotRequired[DisplayName] | No |  |
 **status** | ReleaseStatus | Yes |  |
-**description** | NotRequired[StrictStr] | No | The description of the object type. |
+**description** | NotRequired[pydantic.StrictStr] | No | The description of the object type. |
 **visibility** | NotRequired[ObjectTypeVisibility] | No |  |
 **primaryKey** | List[PropertyApiName] | Yes | The primary key of the object. This is a list of properties that can be used to uniquely identify the object. |
 **properties** | Dict[PropertyApiName, PropertyDict] | Yes | A map of the properties of the object type. |

@@ -18,20 +18,18 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.orchestration.models._schedule_run_error_dict import ScheduleRunErrorDict  # NOQA
 from foundry.v2.orchestration.models._schedule_run_error_name import ScheduleRunErrorName  # NOQA
 
 
-class ScheduleRunError(BaseModel):
+class ScheduleRunError(pydantic.BaseModel):
     """An error occurred attempting to run the schedule."""
 
-    error_name: ScheduleRunErrorName = Field(alias="errorName")
+    error_name: ScheduleRunErrorName = pydantic.Field(alias="errorName")
 
-    description: StrictStr
+    description: pydantic.StrictStr
 
     type: Literal["error"]
 

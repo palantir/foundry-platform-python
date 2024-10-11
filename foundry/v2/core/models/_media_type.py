@@ -15,9 +15,9 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-MediaType = StrictStr
+MediaType = pydantic.StrictStr
 """
 The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
 Examples: `application/json`, `application/pdf`, `application/octet-stream`, `image/jpeg`

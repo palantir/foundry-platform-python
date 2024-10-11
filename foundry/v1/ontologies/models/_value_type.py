@@ -15,9 +15,9 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-ValueType = StrictStr
+ValueType = pydantic.StrictStr
 """
 A string indicating the type of each data value. Note that these types can be nested, for example an array of
 structs.

@@ -20,9 +20,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v1.core.models._display_name import DisplayName
 from foundry.v1.core.models._release_status import ReleaseStatus
@@ -34,21 +32,21 @@ from foundry.v1.ontologies.models._property import Property
 from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 
 
-class ObjectType(BaseModel):
+class ObjectType(pydantic.BaseModel):
     """Represents an object type in the Ontology."""
 
-    api_name: ObjectTypeApiName = Field(alias="apiName")
+    api_name: ObjectTypeApiName = pydantic.Field(alias="apiName")
 
-    display_name: Optional[DisplayName] = Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 
     status: ReleaseStatus
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
     """The description of the object type."""
 
     visibility: Optional[ObjectTypeVisibility] = None
 
-    primary_key: List[PropertyApiName] = Field(alias="primaryKey")
+    primary_key: List[PropertyApiName] = pydantic.Field(alias="primaryKey")
     """The primary key of the object. This is a list of properties that can be used to uniquely identify the object."""
 
     properties: Dict[PropertyApiName, Property]

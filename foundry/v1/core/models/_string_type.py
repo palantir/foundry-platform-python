@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._string_type_dict import StringTypeDict
 
 
-class StringType(BaseModel):
+class StringType(pydantic.BaseModel):
     """StringType"""
 
     type: Literal["string"]

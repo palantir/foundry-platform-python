@@ -15,8 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictBool
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -47,12 +46,12 @@ class InterfaceLinkTypeDict(TypedDict):
 
     displayName: DisplayName
 
-    description: NotRequired[StrictStr]
+    description: NotRequired[pydantic.StrictStr]
     """The description of the interface link type."""
 
     linkedEntityApiName: InterfaceLinkTypeLinkedEntityApiNameDict
 
     cardinality: InterfaceLinkTypeCardinality
 
-    required: StrictBool
+    required: pydantic.StrictBool
     """Whether each implementing object type must declare at least one implementation of this link."""

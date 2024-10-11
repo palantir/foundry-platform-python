@@ -18,17 +18,16 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.functions.models._query_array_type_dict import QueryArrayTypeDict
 from foundry.v2.functions.models._query_data_type import QueryDataType
 
 
-class QueryArrayType(BaseModel):
+class QueryArrayType(pydantic.BaseModel):
     """QueryArrayType"""
 
-    sub_type: QueryDataType = Field(alias="subType")
+    sub_type: QueryDataType = pydantic.Field(alias="subType")
 
     type: Literal["array"]
 

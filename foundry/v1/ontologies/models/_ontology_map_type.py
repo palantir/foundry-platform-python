@@ -18,19 +18,18 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.ontologies.models._ontology_data_type import OntologyDataType
 from foundry.v1.ontologies.models._ontology_map_type_dict import OntologyMapTypeDict
 
 
-class OntologyMapType(BaseModel):
+class OntologyMapType(pydantic.BaseModel):
     """OntologyMapType"""
 
-    key_type: OntologyDataType = Field(alias="keyType")
+    key_type: OntologyDataType = pydantic.Field(alias="keyType")
 
-    value_type: OntologyDataType = Field(alias="valueType")
+    value_type: OntologyDataType = pydantic.Field(alias="valueType")
 
     type: Literal["map"]
 

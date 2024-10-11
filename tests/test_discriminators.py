@@ -13,10 +13,8 @@
 #  limitations under the License.
 
 
+import pydantic
 import pytest
-from pydantic import PydanticUndefinedAnnotation
-from pydantic import TypeAdapter
-from pydantic import ValidationError
 
 from foundry.v1.core import models as models_core_v1
 from foundry.v1.datasets import models as models_datasets_v1
@@ -68,12 +66,12 @@ def test_can_validate_types():
             continue
 
         try:
-            ta = TypeAdapter(klass)
-        except PydanticUndefinedAnnotation as e:
+            ta = pydantic.TypeAdapter(klass)
+        except pydantic.PydanticUndefinedAnnotation as e:
             print(model_name, str(klass))
             raise e
 
-        with pytest.raises(ValidationError) as error:
+        with pytest.raises(pydantic.ValidationError) as error:
             ta.validate_python({})
 
         assert error.value.errors(include_url=False) == [

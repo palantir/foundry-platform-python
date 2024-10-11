@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-SdkPackageName = StrictStr
+SdkPackageName = pydantic.StrictStr
 """SdkPackageName"""

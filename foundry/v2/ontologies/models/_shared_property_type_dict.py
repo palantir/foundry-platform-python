@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -38,7 +38,7 @@ class SharedPropertyTypeDict(TypedDict):
 
     displayName: DisplayName
 
-    description: NotRequired[StrictStr]
+    description: NotRequired[pydantic.StrictStr]
     """A short text that describes the SharedPropertyType."""
 
     dataType: ObjectPropertyTypeDict

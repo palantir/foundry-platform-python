@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.ontologies.models._link_type_side import LinkTypeSide
@@ -29,10 +28,10 @@ from foundry.v1.ontologies.models._list_outgoing_link_types_response_dict import
 )  # NOQA
 
 
-class ListOutgoingLinkTypesResponse(BaseModel):
+class ListOutgoingLinkTypesResponse(pydantic.BaseModel):
     """ListOutgoingLinkTypesResponse"""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[LinkTypeSide]
     """The list of link type sides in the current page."""

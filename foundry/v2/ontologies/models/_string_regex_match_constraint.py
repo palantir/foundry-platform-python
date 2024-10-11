@@ -19,22 +19,20 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._string_regex_match_constraint_dict import (
     StringRegexMatchConstraintDict,
 )  # NOQA
 
 
-class StringRegexMatchConstraint(BaseModel):
+class StringRegexMatchConstraint(pydantic.BaseModel):
     """The parameter value must match a predefined regular expression."""
 
-    regex: StrictStr
+    regex: pydantic.StrictStr
     """The regular expression configured in the **Ontology Manager**."""
 
-    configured_failure_message: Optional[StrictStr] = Field(
+    configured_failure_message: Optional[pydantic.StrictStr] = pydantic.Field(
         alias="configuredFailureMessage", default=None
     )
     """

@@ -20,12 +20,12 @@ from typing import Literal
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._array_size_constraint_dict import ArraySizeConstraintDict  # NOQA
 
 
-class ArraySizeConstraint(BaseModel):
+class ArraySizeConstraint(pydantic.BaseModel):
     """The parameter expects an array of values and the size of the array must fall within the defined range."""
 
     lt: Optional[Any] = None

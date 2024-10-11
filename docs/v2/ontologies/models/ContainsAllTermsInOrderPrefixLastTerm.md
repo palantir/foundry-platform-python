@@ -9,7 +9,7 @@ The last term can be a partial prefix match.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**value** | StrictStr | Yes |  |
+**value** | pydantic.StrictStr | Yes |  |
 **type** | Literal["containsAllTermsInOrderPrefixLastTerm"] | Yes | None |
 
 

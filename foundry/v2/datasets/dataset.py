@@ -20,10 +20,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import StrictStr
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -52,7 +49,7 @@ class DatasetClient:
         self.Transaction = TransactionClient(auth=auth, hostname=hostname)
         self.File = FileClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create(
         self,
@@ -60,7 +57,7 @@ class DatasetClient:
         name: DatasetName,
         parent_folder_rid: FolderRid,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Dataset:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
@@ -105,14 +102,14 @@ class DatasetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         dataset_rid: DatasetRid,
         *,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Dataset:
         """
         Get the Dataset with the specified rid.
@@ -146,7 +143,7 @@ class DatasetClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def read_table(
         self,
@@ -154,12 +151,12 @@ class DatasetClient:
         *,
         format: TableExportFormat,
         branch_name: Optional[BranchName] = None,
-        columns: Optional[List[StrictStr]] = None,
+        columns: Optional[List[pydantic.StrictStr]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
         preview: Optional[PreviewMode] = None,
-        row_limit: Optional[StrictInt] = None,
+        row_limit: Optional[pydantic.StrictInt] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
         Gets the content of a dataset as a table in the specified format.
@@ -173,13 +170,13 @@ class DatasetClient:
         :param branch_name: branchName
         :type branch_name: Optional[BranchName]
         :param columns: columns
-        :type columns: Optional[List[StrictStr]]
+        :type columns: Optional[List[pydantic.StrictStr]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param row_limit: rowLimit
-        :type row_limit: Optional[StrictInt]
+        :type row_limit: Optional[pydantic.StrictInt]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.

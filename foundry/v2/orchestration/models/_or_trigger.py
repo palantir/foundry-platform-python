@@ -19,13 +19,13 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.orchestration.models._or_trigger_dict import OrTriggerDict
 from foundry.v2.orchestration.models._trigger import Trigger
 
 
-class OrTrigger(BaseModel):
+class OrTrigger(pydantic.BaseModel):
     """Trigger whenever any of the given triggers emit an event."""
 
     triggers: List[Trigger]

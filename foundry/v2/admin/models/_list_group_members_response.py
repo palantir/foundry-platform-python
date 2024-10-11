@@ -19,8 +19,7 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.admin.models._group_member import GroupMember
 from foundry.v2.admin.models._list_group_members_response_dict import (
@@ -29,12 +28,12 @@ from foundry.v2.admin.models._list_group_members_response_dict import (
 from foundry.v2.core.models._page_token import PageToken
 
 
-class ListGroupMembersResponse(BaseModel):
+class ListGroupMembersResponse(pydantic.BaseModel):
     """ListGroupMembersResponse"""
 
     data: List[GroupMember]
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     model_config = {"extra": "allow"}
 

@@ -19,13 +19,13 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._or_query_v2_dict import OrQueryV2Dict
 from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 
 
-class OrQueryV2(BaseModel):
+class OrQueryV2(pydantic.BaseModel):
     """Returns objects where at least 1 query is satisfied."""
 
     value: List[SearchJsonQueryV2]

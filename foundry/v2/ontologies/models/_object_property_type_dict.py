@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -74,6 +74,6 @@ ObjectPropertyTypeDict = Annotated[
         DecimalTypeDict,
         TimestampTypeDict,
     ],
-    Field(discriminator="type"),
+    pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by Ontology Object properties."""

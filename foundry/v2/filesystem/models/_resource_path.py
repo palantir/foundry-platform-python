@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from pydantic import StrictStr
+import pydantic
 
-ResourcePath = StrictStr
+ResourcePath = pydantic.StrictStr
 """The full path to the resource, including the resource name itself"""

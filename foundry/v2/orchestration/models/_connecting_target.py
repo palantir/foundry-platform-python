@@ -19,26 +19,25 @@ from typing import List
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._connecting_target_dict import ConnectingTargetDict
 
 
-class ConnectingTarget(BaseModel):
+class ConnectingTarget(pydantic.BaseModel):
     """
     All datasets between the input datasets (exclusive) and the
     target datasets (inclusive) except for the datasets to ignore.
     """
 
-    input_rids: List[BuildableRid] = Field(alias="inputRids")
+    input_rids: List[BuildableRid] = pydantic.Field(alias="inputRids")
     """The upstream input datasets (exclusive)."""
 
-    target_rids: List[BuildableRid] = Field(alias="targetRids")
+    target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
     """The downstream target datasets (inclusive)."""
 
-    ignored_rids: List[BuildableRid] = Field(alias="ignoredRids")
+    ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
     """The datasets between the input datasets and target datasets to exclude."""
 
     type: Literal["connecting"]

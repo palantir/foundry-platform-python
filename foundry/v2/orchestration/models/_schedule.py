@@ -18,9 +18,7 @@ from __future__ import annotations
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
@@ -35,25 +33,25 @@ from foundry.v2.orchestration.models._scope_mode import ScopeMode
 from foundry.v2.orchestration.models._trigger import Trigger
 
 
-class Schedule(BaseModel):
+class Schedule(pydantic.BaseModel):
     """Schedule"""
 
     rid: ScheduleRid
 
-    display_name: Optional[StrictStr] = Field(alias="displayName", default=None)
+    display_name: Optional[pydantic.StrictStr] = pydantic.Field(alias="displayName", default=None)
 
-    description: Optional[StrictStr] = None
+    description: Optional[pydantic.StrictStr] = None
 
-    current_version_rid: ScheduleVersionRid = Field(alias="currentVersionRid")
+    current_version_rid: ScheduleVersionRid = pydantic.Field(alias="currentVersionRid")
     """The RID of the current schedule version"""
 
-    created_time: CreatedTime = Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias="createdTime")
 
-    created_by: CreatedBy = Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias="createdBy")
 
-    updated_time: UpdatedTime = Field(alias="updatedTime")
+    updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
 
-    updated_by: UpdatedBy = Field(alias="updatedBy")
+    updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
 
     paused: SchedulePaused
 
@@ -65,7 +63,7 @@ class Schedule(BaseModel):
 
     action: Action
 
-    scope_mode: ScopeMode = Field(alias="scopeMode")
+    scope_mode: ScopeMode = pydantic.Field(alias="scopeMode")
 
     model_config = {"extra": "allow"}
 

@@ -6,8 +6,8 @@ Schedule
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ScheduleRid | Yes |  |
-**displayName** | NotRequired[StrictStr] | No |  |
-**description** | NotRequired[StrictStr] | No |  |
+**displayName** | NotRequired[pydantic.StrictStr] | No |  |
+**description** | NotRequired[pydantic.StrictStr] | No |  |
 **currentVersionRid** | ScheduleVersionRid | Yes | The RID of the current schedule version |
 **createdTime** | CreatedTime | Yes |  |
 **createdBy** | CreatedBy | Yes |  |

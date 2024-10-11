@@ -18,19 +18,22 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictStr
+import pydantic
 
 from foundry.v2.ontologies.models._object_set_interface_base_type_dict import (
     ObjectSetInterfaceBaseTypeDict,
 )  # NOQA
 
 
-class ObjectSetInterfaceBaseType(BaseModel):
+class ObjectSetInterfaceBaseType(pydantic.BaseModel):
     """ObjectSetInterfaceBaseType"""
 
-    interface_type: StrictStr = Field(alias="interfaceType")
+    interface_type: pydantic.StrictStr = pydantic.Field(alias="interfaceType")
+    """
+    An object set with objects that implement the interface with the given interface API name. The objects in 
+    the object set will only have properties that implement properties of the given interface. This is currently 
+    unsupported and an exception will be thrown if used.
+    """
 
     type: Literal["interfaceBase"]
 

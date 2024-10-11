@@ -19,18 +19,17 @@ from typing import List
 from typing import Optional
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
+import pydantic
 
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.datasets.models._file import File
 from foundry.v1.datasets.models._list_files_response_dict import ListFilesResponseDict
 
 
-class ListFilesResponse(BaseModel):
+class ListFilesResponse(pydantic.BaseModel):
     """A page of Files and an optional page token that can be used to retrieve the next page."""
 
-    next_page_token: Optional[PageToken] = Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[File]
 

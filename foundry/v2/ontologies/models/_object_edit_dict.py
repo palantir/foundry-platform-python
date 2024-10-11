@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._add_link_dict import AddLinkDict
@@ -25,6 +25,6 @@ from foundry.v2.ontologies.models._add_object_dict import AddObjectDict
 from foundry.v2.ontologies.models._modify_object_dict import ModifyObjectDict
 
 ObjectEditDict = Annotated[
-    Union[ModifyObjectDict, AddObjectDict, AddLinkDict], Field(discriminator="type")
+    Union[ModifyObjectDict, AddObjectDict, AddLinkDict], pydantic.Field(discriminator="type")
 ]
 """ObjectEdit"""

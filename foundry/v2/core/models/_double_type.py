@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.core.models._double_type_dict import DoubleTypeDict
 
 
-class DoubleType(BaseModel):
+class DoubleType(pydantic.BaseModel):
     """DoubleType"""
 
     type: Literal["double"]

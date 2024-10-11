@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
@@ -43,14 +41,14 @@ class ActionTypeClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         ontology: OntologyIdentifier,
         action_type: ActionTypeApiName,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ActionTypeV2:
         """
         Gets a specific action type with the given API name.
@@ -86,14 +84,14 @@ class ActionTypeClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def list(
         self,
         ontology: OntologyIdentifier,
         *,
         page_size: Optional[PageSize] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[ActionTypeV2]:
         """
         Lists the action types for the given Ontology.
@@ -133,7 +131,7 @@ class ActionTypeClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def page(
         self,
@@ -141,7 +139,7 @@ class ActionTypeClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListActionTypesResponseV2:
         """
         Lists the action types for the given Ontology.

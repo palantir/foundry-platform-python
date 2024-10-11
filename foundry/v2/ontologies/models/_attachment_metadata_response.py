@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import Union
 
-from pydantic import Field
+import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._attachment_v2 import AttachmentV2
@@ -26,6 +26,6 @@ from foundry.v2.ontologies.models._list_attachments_response_v2 import (
 )  # NOQA
 
 AttachmentMetadataResponse = Annotated[
-    Union[AttachmentV2, ListAttachmentsResponseV2], Field(discriminator="type")
+    Union[AttachmentV2, ListAttachmentsResponseV2], pydantic.Field(discriminator="type")
 ]
 """The attachment metadata response"""

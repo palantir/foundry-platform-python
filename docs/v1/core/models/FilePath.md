@@ -5,7 +5,7 @@ The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg
 
 ## Type
 ```python
-StrictStr
+pydantic.StrictStr
 ```
 
 

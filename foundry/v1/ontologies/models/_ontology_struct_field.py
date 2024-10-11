@@ -17,23 +17,21 @@ from __future__ import annotations
 
 from typing import cast
 
-from pydantic import BaseModel
-from pydantic import Field
-from pydantic import StrictBool
+import pydantic
 
 from foundry.v1.core.models._struct_field_name import StructFieldName
 from foundry.v1.ontologies.models._ontology_data_type import OntologyDataType
 from foundry.v1.ontologies.models._ontology_struct_field_dict import OntologyStructFieldDict  # NOQA
 
 
-class OntologyStructField(BaseModel):
+class OntologyStructField(pydantic.BaseModel):
     """OntologyStructField"""
 
     name: StructFieldName
 
-    field_type: OntologyDataType = Field(alias="fieldType")
+    field_type: OntologyDataType = pydantic.Field(alias="fieldType")
 
-    required: StrictBool
+    required: pydantic.StrictBool
 
     model_config = {"extra": "allow"}
 

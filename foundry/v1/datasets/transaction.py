@@ -19,9 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 
-from pydantic import Field
-from pydantic import StrictInt
-from pydantic import validate_call
+import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -40,14 +38,14 @@ class TransactionClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def abort(
         self,
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
@@ -84,14 +82,14 @@ class TransactionClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def commit(
         self,
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
@@ -128,7 +126,7 @@ class TransactionClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def create(
         self,
@@ -136,7 +134,7 @@ class TransactionClient:
         *,
         branch_id: Optional[BranchId] = None,
         transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Creates a Transaction on a Branch of a Dataset.
@@ -183,14 +181,14 @@ class TransactionClient:
             ),
         )
 
-    @validate_call
+    @pydantic.validate_call
     @handle_unexpected
     def get(
         self,
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        request_timeout: Optional[Annotated[StrictInt, Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
         Gets a Transaction of a Dataset.

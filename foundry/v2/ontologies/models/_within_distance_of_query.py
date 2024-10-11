@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v2.ontologies.models._center_point import CenterPoint
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
@@ -27,7 +27,7 @@ from foundry.v2.ontologies.models._within_distance_of_query_dict import (
 )  # NOQA
 
 
-class WithinDistanceOfQuery(BaseModel):
+class WithinDistanceOfQuery(pydantic.BaseModel):
     """Returns objects where the specified field contains a point within the distance provided of the center point."""
 
     field: PropertyApiName

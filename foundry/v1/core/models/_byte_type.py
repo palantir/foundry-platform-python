@@ -18,12 +18,12 @@ from __future__ import annotations
 from typing import Literal
 from typing import cast
 
-from pydantic import BaseModel
+import pydantic
 
 from foundry.v1.core.models._byte_type_dict import ByteTypeDict
 
 
-class ByteType(BaseModel):
+class ByteType(pydantic.BaseModel):
     """ByteType"""
 
     type: Literal["byte"]
