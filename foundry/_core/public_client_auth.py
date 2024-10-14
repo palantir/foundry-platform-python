@@ -19,7 +19,6 @@ import webbrowser
 from typing import Callable
 from typing import List
 from typing import Optional
-from typing import TypeVar
 
 import requests
 
@@ -31,8 +30,6 @@ from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
 from foundry._core.utils import remove_prefixes
 from foundry._errors.not_authenticated import NotAuthenticated
 from foundry._errors.sdk_internal_error import SDKInternalError
-
-T = TypeVar("T")
 
 
 class PublicClientAuth(Auth):
@@ -69,14 +66,16 @@ class PublicClientAuth(Auth):
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def execute_with_token(self, func: Callable[[OAuthToken], T]) -> T:
+    def execute_with_token(
+        self, func: Callable[[OAuthToken], requests.Response]
+    ) -> requests.Response:
         try:
             return self._run_with_attempted_refresh(func)
         except Exception as e:
             self.sign_out()
             raise e
 
-    def run_with_token(self, func: Callable[[OAuthToken], T]) -> None:
+    def run_with_token(self, func: Callable[[OAuthToken], requests.Response]) -> None:
         try:
             self._run_with_attempted_refresh(func)
         except Exception as e:
@@ -93,7 +92,9 @@ class PublicClientAuth(Auth):
             refresh_token=self._token.refresh_token
         )
 
-    def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
+    def _run_with_attempted_refresh(
+        self, func: Callable[[OAuthToken], requests.Response]
+    ) -> requests.Response:
         """
         Attempt to run func, and if it fails with a 401, refresh the token and try again.
         If it fails with a 401 again, raise the exception.
