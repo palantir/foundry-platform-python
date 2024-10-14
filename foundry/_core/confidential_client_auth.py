@@ -18,7 +18,6 @@ import time
 from typing import Callable
 from typing import List
 from typing import Optional
-from typing import TypeVar
 
 import requests
 
@@ -29,8 +28,6 @@ from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.utils import remove_prefixes
 from foundry._errors.not_authenticated import NotAuthenticated
-
-T = TypeVar("T")
 
 
 class ConfidentialClientAuth(Auth):
@@ -67,7 +64,9 @@ class ConfidentialClientAuth(Auth):
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def execute_with_token(self, func: Callable[[OAuthToken], T]) -> T:
+    def execute_with_token(
+        self, func: Callable[[OAuthToken], requests.Response]
+    ) -> requests.Response:
         try:
             return self._run_with_attempted_refresh(func)
         except requests.HTTPError as http_e:
@@ -77,7 +76,7 @@ class ConfidentialClientAuth(Auth):
         except Exception as e:
             raise e
 
-    def run_with_token(self, func: Callable[[OAuthToken], T]) -> None:
+    def run_with_token(self, func: Callable[[OAuthToken], requests.Response]) -> None:
         try:
             self._run_with_attempted_refresh(func)
         except requests.HTTPError as http_e:
@@ -87,7 +86,9 @@ class ConfidentialClientAuth(Auth):
         except Exception as e:
             raise e
 
-    def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
+    def _run_with_attempted_refresh(
+        self, func: Callable[[OAuthToken], requests.Response]
+    ) -> requests.Response:
         """
         Attempt to run func, and if it fails with a 401, refresh the token and try again.
         If it fails with a 401 again, raise the exception.

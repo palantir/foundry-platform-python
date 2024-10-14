@@ -16,9 +16,8 @@
 from abc import ABC
 from abc import abstractmethod
 from typing import Callable
-from typing import TypeVar
 
-T = TypeVar("T")
+import requests
 
 
 class Token(ABC):
@@ -36,9 +35,9 @@ class Auth(ABC):
         pass
 
     @abstractmethod
-    def execute_with_token(self, func: Callable[["Token"], T]) -> T:
+    def execute_with_token(self, func: Callable[["Token"], requests.Response]) -> requests.Response:
         pass
 
     @abstractmethod
-    def run_with_token(self, func: Callable[["Token"], None]) -> None:
+    def run_with_token(self, func: Callable[["Token"], requests.Response]) -> None:
         pass

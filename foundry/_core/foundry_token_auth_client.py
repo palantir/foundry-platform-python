@@ -18,6 +18,8 @@ from typing import Callable
 from typing import Tuple
 from typing import TypeVar
 
+import requests
+
 from foundry._core.auth_utils import Auth
 from foundry._core.auth_utils import Token
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured
@@ -46,8 +48,8 @@ class UserTokenAuth(Auth):
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def execute_with_token(self, func: Callable[[Token], T]) -> T:
+    def execute_with_token(self, func: Callable[[Token], requests.Response]) -> requests.Response:
         return func(self.get_token())
 
-    def run_with_token(self, func: Callable[[Token], None]) -> None:
+    def run_with_token(self, func: Callable[[Token], requests.Response]) -> None:
         func(self.get_token())
