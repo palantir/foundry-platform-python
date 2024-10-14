@@ -32,7 +32,7 @@ class Field(pydantic.BaseModel):
 
     name: FieldName
 
-    schema: FieldSchema  # type: ignore
+    schema_: FieldSchema = pydantic.Field(alias="schema")
 
     model_config = {"extra": "allow"}
 

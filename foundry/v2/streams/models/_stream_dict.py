@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
