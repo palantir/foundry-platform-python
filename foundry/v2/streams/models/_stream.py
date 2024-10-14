@@ -33,7 +33,7 @@ class Stream(pydantic.BaseModel):
 
     branch_name: BranchName = pydantic.Field(alias="branchName")
 
-    schema: StreamSchema  # type: ignore
+    schema_: StreamSchema = pydantic.Field(alias="schema")
     """The Foundry schema for this stream."""
 
     view_rid: ViewRid = pydantic.Field(alias="viewRid")
