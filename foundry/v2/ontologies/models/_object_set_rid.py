@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 ObjectSetRid = RID
-"""ObjectSetRid"""
+"""The Resource Identifier (RID) for an object set."""

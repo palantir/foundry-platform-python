@@ -46,6 +46,7 @@ from foundry.v2.core.models._double_type import DoubleType
 from foundry.v2.core.models._double_type_dict import DoubleTypeDict
 from foundry.v2.core.models._duration import Duration
 from foundry.v2.core.models._duration_dict import DurationDict
+from foundry.v2.core.models._enrollment_rid import EnrollmentRid
 from foundry.v2.core.models._field import Field
 from foundry.v2.core.models._field_data_type import FieldDataType
 from foundry.v2.core.models._field_data_type_dict import FieldDataTypeDict
@@ -80,6 +81,8 @@ from foundry.v2.core.models._map_field_type_dict import MapFieldTypeDict
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._marking_type import MarkingType
 from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
+from foundry.v2.core.models._media_reference_type import MediaReferenceType
+from foundry.v2.core.models._media_reference_type_dict import MediaReferenceTypeDict
 from foundry.v2.core.models._media_set_rid import MediaSetRid
 from foundry.v2.core.models._media_type import MediaType
 from foundry.v2.core.models._null_type import NullType
@@ -147,6 +150,7 @@ __all__ = [
     "DoubleTypeDict",
     "Duration",
     "DurationDict",
+    "EnrollmentRid",
     "Field",
     "FieldDataType",
     "FieldDataTypeDict",
@@ -175,6 +179,8 @@ __all__ = [
     "MarkingId",
     "MarkingType",
     "MarkingTypeDict",
+    "MediaReferenceType",
+    "MediaReferenceTypeDict",
     "MediaSetRid",
     "MediaType",
     "NullType",

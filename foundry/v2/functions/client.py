@@ -17,8 +17,10 @@ from __future__ import annotations
 
 from foundry._core import Auth
 from foundry.v2.functions.query import QueryClient
+from foundry.v2.functions.value_type import ValueTypeClient
 
 
 class FunctionsClient:
     def __init__(self, auth: Auth, hostname: str):
         self.Query = QueryClient(auth=auth, hostname=hostname)
+        self.ValueType = ValueTypeClient(auth=auth, hostname=hostname)

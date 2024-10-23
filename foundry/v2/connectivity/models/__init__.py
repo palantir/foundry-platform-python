@@ -13,7 +13,21 @@
 #  limitations under the License.
 
 
+from foundry.v2.connectivity.models._agent_proxy_runtime import AgentProxyRuntime
+from foundry.v2.connectivity.models._agent_proxy_runtime_dict import AgentProxyRuntimeDict  # NOQA
+from foundry.v2.connectivity.models._agent_rid import AgentRid
+from foundry.v2.connectivity.models._agent_worker_runtime import AgentWorkerRuntime
+from foundry.v2.connectivity.models._agent_worker_runtime_dict import AgentWorkerRuntimeDict  # NOQA
+from foundry.v2.connectivity.models._connection import Connection
+from foundry.v2.connectivity.models._connection_dict import ConnectionDict
+from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._direct_connection_runtime import (
+    DirectConnectionRuntime,
+)  # NOQA
+from foundry.v2.connectivity.models._direct_connection_runtime_dict import (
+    DirectConnectionRuntimeDict,
+)  # NOQA
 from foundry.v2.connectivity.models._file_import import FileImport
 from foundry.v2.connectivity.models._file_import_custom_filter import FileImportCustomFilter  # NOQA
 from foundry.v2.connectivity.models._file_import_custom_filter_dict import (
@@ -37,9 +51,22 @@ from foundry.v2.connectivity.models._file_path_matches_filter_dict import (
 )  # NOQA
 from foundry.v2.connectivity.models._file_size_filter import FileSizeFilter
 from foundry.v2.connectivity.models._file_size_filter_dict import FileSizeFilterDict
+from foundry.v2.connectivity.models._network_egress_policy_rid import NetworkEgressPolicyRid  # NOQA
+from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
+from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
 
 __all__ = [
+    "AgentProxyRuntime",
+    "AgentProxyRuntimeDict",
+    "AgentRid",
+    "AgentWorkerRuntime",
+    "AgentWorkerRuntimeDict",
+    "Connection",
+    "ConnectionDict",
+    "ConnectionDisplayName",
     "ConnectionRid",
+    "DirectConnectionRuntime",
+    "DirectConnectionRuntimeDict",
     "FileImport",
     "FileImportCustomFilter",
     "FileImportCustomFilterDict",
@@ -55,4 +82,7 @@ __all__ = [
     "FilePathMatchesFilterDict",
     "FileSizeFilter",
     "FileSizeFilterDict",
+    "NetworkEgressPolicyRid",
+    "RuntimePlatform",
+    "RuntimePlatformDict",
 ]

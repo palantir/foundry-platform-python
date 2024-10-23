@@ -35,6 +35,7 @@ from foundry.v2.core.models._geotime_series_reference_type import GeotimeSeriesR
 from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._long_type import LongType
 from foundry.v2.core.models._marking_type import MarkingType
+from foundry.v2.core.models._media_reference_type import MediaReferenceType
 from foundry.v2.core.models._short_type import ShortType
 from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._timeseries_type import TimeseriesType
@@ -73,6 +74,7 @@ ObjectPropertyType = Annotated[
         BooleanType,
         MarkingType,
         AttachmentType,
+        MediaReferenceType,
         TimeseriesType,
         OntologyObjectArrayType,
         ShortType,

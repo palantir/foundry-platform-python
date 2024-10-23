@@ -37,6 +37,7 @@ from foundry.v2.core.models._geotime_series_reference_type_dict import (
 from foundry.v2.core.models._integer_type_dict import IntegerTypeDict
 from foundry.v2.core.models._long_type_dict import LongTypeDict
 from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
+from foundry.v2.core.models._media_reference_type_dict import MediaReferenceTypeDict
 from foundry.v2.core.models._short_type_dict import ShortTypeDict
 from foundry.v2.core.models._string_type_dict import StringTypeDict
 from foundry.v2.core.models._timeseries_type_dict import TimeseriesTypeDict
@@ -68,6 +69,7 @@ ObjectPropertyTypeDict = Annotated[
         BooleanTypeDict,
         MarkingTypeDict,
         AttachmentTypeDict,
+        MediaReferenceTypeDict,
         TimeseriesTypeDict,
         OntologyObjectArrayTypeDict,
         ShortTypeDict,

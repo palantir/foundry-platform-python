@@ -106,16 +106,16 @@ class ObjectSetUnionTypeDict(TypedDict):
 
 
 class ObjectSetAsTypeTypeDict(TypedDict):
-    """ObjectSetAsTypeType"""
+    """
+    Casts an object set to a specified object type or interface type API name. Any object whose object type does
+    not match the object type provided or implement the interface type provided will be dropped from the resulting
+    object set. This is currently unsupported and an exception will be thrown if used.
+    """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     entityType: pydantic.StrictStr
-    """
-    An object type or interface type API name to cast the object set to. Any object whose object type does not 
-    match the object type provided or implement the interface type provided will be dropped from the resulting 
-    object set. This is currently unsupported and an exception will be thrown if used.
-    """
+    """An object type or interface type API name."""
 
     objectSet: ObjectSetDict
 

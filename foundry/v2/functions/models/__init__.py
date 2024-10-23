@@ -73,6 +73,136 @@ from foundry.v2.functions.models._two_dimensional_aggregation import (
 from foundry.v2.functions.models._two_dimensional_aggregation_dict import (
     TwoDimensionalAggregationDict,
 )  # NOQA
+from foundry.v2.functions.models._value_type import ValueType
+from foundry.v2.functions.models._value_type_api_name import ValueTypeApiName
+from foundry.v2.functions.models._value_type_data_type import ValueTypeDataType
+from foundry.v2.functions.models._value_type_data_type_array_type import (
+    ValueTypeDataTypeArrayType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_array_type_dict import (
+    ValueTypeDataTypeArrayTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_binary_type import (
+    ValueTypeDataTypeBinaryType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_binary_type_dict import (
+    ValueTypeDataTypeBinaryTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_boolean_type import (
+    ValueTypeDataTypeBooleanType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_boolean_type_dict import (
+    ValueTypeDataTypeBooleanTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_byte_type import (
+    ValueTypeDataTypeByteType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_byte_type_dict import (
+    ValueTypeDataTypeByteTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_date_type import (
+    ValueTypeDataTypeDateType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_date_type_dict import (
+    ValueTypeDataTypeDateTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_decimal_type import (
+    ValueTypeDataTypeDecimalType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_decimal_type_dict import (
+    ValueTypeDataTypeDecimalTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import ValueTypeDataTypeDict
+from foundry.v2.functions.models._value_type_data_type_double_type import (
+    ValueTypeDataTypeDoubleType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_double_type_dict import (
+    ValueTypeDataTypeDoubleTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_float_type import (
+    ValueTypeDataTypeFloatType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_float_type_dict import (
+    ValueTypeDataTypeFloatTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_integer_type import (
+    ValueTypeDataTypeIntegerType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_integer_type_dict import (
+    ValueTypeDataTypeIntegerTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_long_type import (
+    ValueTypeDataTypeLongType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_long_type_dict import (
+    ValueTypeDataTypeLongTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_map_type import (
+    ValueTypeDataTypeMapType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_map_type_dict import (
+    ValueTypeDataTypeMapTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_optional_type import (
+    ValueTypeDataTypeOptionalType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_optional_type_dict import (
+    ValueTypeDataTypeOptionalTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_referenced_type import (
+    ValueTypeDataTypeReferencedType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_referenced_type_dict import (
+    ValueTypeDataTypeReferencedTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_short_type import (
+    ValueTypeDataTypeShortType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_short_type_dict import (
+    ValueTypeDataTypeShortTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_string_type import (
+    ValueTypeDataTypeStringType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_string_type_dict import (
+    ValueTypeDataTypeStringTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_struct_element import (
+    ValueTypeDataTypeStructElement,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_struct_element_dict import (
+    ValueTypeDataTypeStructElementDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_struct_field_identifier import (
+    ValueTypeDataTypeStructFieldIdentifier,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_struct_type import (
+    ValueTypeDataTypeStructType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_struct_type_dict import (
+    ValueTypeDataTypeStructTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_timestamp_type import (
+    ValueTypeDataTypeTimestampType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_timestamp_type_dict import (
+    ValueTypeDataTypeTimestampTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_union_type import (
+    ValueTypeDataTypeUnionType,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_union_type_dict import (
+    ValueTypeDataTypeUnionTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_description import ValueTypeDescription
+from foundry.v2.functions.models._value_type_dict import ValueTypeDict
+from foundry.v2.functions.models._value_type_reference import ValueTypeReference
+from foundry.v2.functions.models._value_type_reference_dict import ValueTypeReferenceDict  # NOQA
+from foundry.v2.functions.models._value_type_rid import ValueTypeRid
+from foundry.v2.functions.models._value_type_version import ValueTypeVersion
+from foundry.v2.functions.models._value_type_version_id import ValueTypeVersionId
+from foundry.v2.functions.models._version_id import VersionId
+from foundry.v2.functions.models._version_id_dict import VersionIdDict
 
 __all__ = [
     "DataValue",
@@ -111,4 +241,56 @@ __all__ = [
     "ThreeDimensionalAggregationDict",
     "TwoDimensionalAggregation",
     "TwoDimensionalAggregationDict",
+    "ValueType",
+    "ValueTypeApiName",
+    "ValueTypeDataType",
+    "ValueTypeDataTypeArrayType",
+    "ValueTypeDataTypeArrayTypeDict",
+    "ValueTypeDataTypeBinaryType",
+    "ValueTypeDataTypeBinaryTypeDict",
+    "ValueTypeDataTypeBooleanType",
+    "ValueTypeDataTypeBooleanTypeDict",
+    "ValueTypeDataTypeByteType",
+    "ValueTypeDataTypeByteTypeDict",
+    "ValueTypeDataTypeDateType",
+    "ValueTypeDataTypeDateTypeDict",
+    "ValueTypeDataTypeDecimalType",
+    "ValueTypeDataTypeDecimalTypeDict",
+    "ValueTypeDataTypeDict",
+    "ValueTypeDataTypeDoubleType",
+    "ValueTypeDataTypeDoubleTypeDict",
+    "ValueTypeDataTypeFloatType",
+    "ValueTypeDataTypeFloatTypeDict",
+    "ValueTypeDataTypeIntegerType",
+    "ValueTypeDataTypeIntegerTypeDict",
+    "ValueTypeDataTypeLongType",
+    "ValueTypeDataTypeLongTypeDict",
+    "ValueTypeDataTypeMapType",
+    "ValueTypeDataTypeMapTypeDict",
+    "ValueTypeDataTypeOptionalType",
+    "ValueTypeDataTypeOptionalTypeDict",
+    "ValueTypeDataTypeReferencedType",
+    "ValueTypeDataTypeReferencedTypeDict",
+    "ValueTypeDataTypeShortType",
+    "ValueTypeDataTypeShortTypeDict",
+    "ValueTypeDataTypeStringType",
+    "ValueTypeDataTypeStringTypeDict",
+    "ValueTypeDataTypeStructElement",
+    "ValueTypeDataTypeStructElementDict",
+    "ValueTypeDataTypeStructFieldIdentifier",
+    "ValueTypeDataTypeStructType",
+    "ValueTypeDataTypeStructTypeDict",
+    "ValueTypeDataTypeTimestampType",
+    "ValueTypeDataTypeTimestampTypeDict",
+    "ValueTypeDataTypeUnionType",
+    "ValueTypeDataTypeUnionTypeDict",
+    "ValueTypeDescription",
+    "ValueTypeDict",
+    "ValueTypeReference",
+    "ValueTypeReferenceDict",
+    "ValueTypeRid",
+    "ValueTypeVersion",
+    "ValueTypeVersionId",
+    "VersionId",
+    "VersionIdDict",
 ]

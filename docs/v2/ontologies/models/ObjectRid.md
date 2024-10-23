@@ -1,7 +1,6 @@
 # ObjectRid
 
-The unique resource identifier of an object, useful for interacting with other Foundry APIs.
-
+The Resource Identifier (RID) for an ontology object instance.
 
 ## Type
 ```python

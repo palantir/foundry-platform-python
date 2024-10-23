@@ -730,6 +730,103 @@ def admin_group_group_member_remove(
     click.echo(repr(result))
 
 
+@admin.group("enrollment")
+def admin_enrollment():
+    pass
+
+
+@admin_enrollment.command("get")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_get(
+    client: foundry.v2.FoundryClient,
+    enrollment_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Enrollment with the specified rid.
+    """
+    result = client.admin.Enrollment.get(
+        enrollment_rid=enrollment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment.command("get_current")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_get_current(
+    client: foundry.v2.FoundryClient,
+    preview: Optional[bool],
+):
+    """
+    Returns the Enrollment associated with the current User's primary organization.
+
+    """
+    result = client.admin.Enrollment.get_current(
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment.group("host")
+def admin_enrollment_host():
+    pass
+
+
+@admin_enrollment_host.command("list")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_host_list(
+    client: foundry.v2.FoundryClient,
+    enrollment_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    Lists all Hosts.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+    """
+    result = client.admin.Enrollment.Host.list(
+        enrollment_rid=enrollment_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment_host.command("page")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_host_page(
+    client: foundry.v2.FoundryClient,
+    enrollment_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Lists all Hosts.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+    """
+    result = client.admin.Enrollment.Host.page(
+        enrollment_rid=enrollment_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("connectivity")
 def connectivity():
     pass
@@ -856,6 +953,30 @@ def connectivity_file_import_get(
     """
     result = client.connectivity.FileImport.get(
         file_import_rid=file_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity.group("connection")
+def connectivity_connection():
+    pass
+
+
+@connectivity_connection.command("get")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_get(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Connection with the specified rid.
+    """
+    result = client.connectivity.Connection.get(
+        connection_rid=connection_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -1532,6 +1653,25 @@ def filesystem_resource_get(
     click.echo(repr(result))
 
 
+@filesystem_resource.command("get_by_path")
+@click.option("--path", type=str, required=True, help="""path""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_get_by_path(
+    client: foundry.v2.FoundryClient,
+    path: str,
+    preview: Optional[bool],
+):
+    """
+    Get a Resource by its absolute path.
+    """
+    result = client.filesystem.Resource.get_by_path(
+        path=path,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.command("permanently_delete")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1685,6 +1825,59 @@ def filesystem_folder_get(
 @cli.group("functions")
 def functions():
     pass
+
+
+@functions.group("value_type")
+def functions_value_type():
+    pass
+
+
+@functions_value_type.command("get")
+@click.argument("value_type_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def functions_value_type_get(
+    client: foundry.v2.FoundryClient,
+    value_type_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Gets a specific value type with the given RID. The latest version is returned.
+
+    """
+    result = client.functions.ValueType.get(
+        value_type_rid=value_type_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@functions_value_type.group("version_id")
+def functions_value_type_version_id():
+    pass
+
+
+@functions_value_type_version_id.command("get")
+@click.argument("value_type_rid", type=str, required=True)
+@click.argument("version_id_version_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def functions_value_type_version_id_get(
+    client: foundry.v2.FoundryClient,
+    value_type_rid: str,
+    version_id_version_id: str,
+    preview: Optional[bool],
+):
+    """
+    Gets a specific value type with the given RID. The specified version is returned.
+
+    """
+    result = client.functions.ValueType.VersionId.get(
+        value_type_rid=value_type_rid,
+        version_id_version_id=version_id_version_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
 
 
 @functions.group("query")

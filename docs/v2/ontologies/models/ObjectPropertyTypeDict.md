@@ -23,6 +23,7 @@ LongTypeDict | long
 BooleanTypeDict | boolean
 MarkingTypeDict | marking
 AttachmentTypeDict | attachment
+MediaReferenceTypeDict | mediaReference
 TimeseriesTypeDict | timeseries
 OntologyObjectArrayTypeDict | array
 ShortTypeDict | short

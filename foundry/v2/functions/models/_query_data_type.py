@@ -46,6 +46,7 @@ from foundry.v2.functions.models._three_dimensional_aggregation import (
 from foundry.v2.functions.models._two_dimensional_aggregation import (
     TwoDimensionalAggregation,
 )  # NOQA
+from foundry.v2.functions.models._value_type_reference import ValueTypeReference
 
 
 class QueryStructField(pydantic.BaseModel):
@@ -136,6 +137,7 @@ QueryDataType = Annotated[
         NullType,
         QueryArrayType,
         TwoDimensionalAggregation,
+        ValueTypeReference,
         TimestampType,
     ],
     pydantic.Field(discriminator="type"),

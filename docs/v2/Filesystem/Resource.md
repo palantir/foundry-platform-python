@@ -113,6 +113,60 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+Get a Resource by its absolute path.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**path** | ResourcePath | path |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**Resource**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ResourcePath | path
+path = "/My Organization/My Important Project/My Dataset"
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.filesystem.Resource.get_by_path(
+        path=path,
+        preview=preview,
+    )
+    print("The get_by_path response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Resource.get_by_path: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Resource  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
 `ResourceNotTrashed` error will be thrown.
 

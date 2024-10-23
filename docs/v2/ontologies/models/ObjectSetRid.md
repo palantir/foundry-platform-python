@@ -1,6 +1,6 @@
 # ObjectSetRid
 
-ObjectSetRid
+The Resource Identifier (RID) for an object set.
 
 ## Type
 ```python
