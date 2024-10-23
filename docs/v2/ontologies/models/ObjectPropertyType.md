@@ -23,6 +23,7 @@ LongType | long
 BooleanType | boolean
 MarkingType | marking
 AttachmentType | attachment
+MediaReferenceType | mediaReference
 TimeseriesType | timeseries
 OntologyObjectArrayType | array
 ShortType | short

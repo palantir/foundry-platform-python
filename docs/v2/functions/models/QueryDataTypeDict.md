@@ -26,6 +26,7 @@ AttachmentTypeDict | attachment
 NullTypeDict | null
 QueryArrayTypeDict | array
 TwoDimensionalAggregationDict | twoDimensionalAggregation
+ValueTypeReferenceDict | valueTypeReference
 TimestampTypeDict | timestamp
 
 

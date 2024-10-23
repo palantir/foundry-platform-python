@@ -26,6 +26,7 @@ AttachmentType | attachment
 NullType | null
 QueryArrayType | array
 TwoDimensionalAggregation | twoDimensionalAggregation
+ValueTypeReference | valueTypeReference
 TimestampType | timestamp
 
 

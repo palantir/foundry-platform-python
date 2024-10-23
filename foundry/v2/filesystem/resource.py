@@ -28,6 +28,7 @@ from foundry._core import RequestInfo
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.filesystem.models._resource import Resource
+from foundry.v2.filesystem.models._resource_path import ResourcePath
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
 
 
@@ -107,6 +108,46 @@ class ResourceClient:
                 path_params={
                     "resourceRid": resource_rid,
                 },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Resource,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_by_path(
+        self,
+        *,
+        path: ResourcePath,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Resource:
+        """
+        Get a Resource by its absolute path.
+        :param path: path
+        :type path: ResourcePath
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Resource
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/getByPath",
+                query_params={
+                    "path": path,
+                    "preview": preview,
+                },
+                path_params={},
                 header_params={
                     "Accept": "application/json",
                 },

@@ -83,7 +83,7 @@ foundry_client = FoundryClient(
 )
 
 # Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request
-body = {"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}
+body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
 # Optional[PreviewMode] | preview
 preview = None
 

@@ -16,9 +16,11 @@
 from __future__ import annotations
 
 from foundry._core import Auth
+from foundry.v2.connectivity.connection import ConnectionClient
 from foundry.v2.connectivity.file_import import FileImportClient
 
 
 class ConnectivityClient:
     def __init__(self, auth: Auth, hostname: str):
+        self.Connection = ConnectionClient(auth=auth, hostname=hostname)
         self.FileImport = FileImportClient(auth=auth, hostname=hostname)

@@ -41,6 +41,7 @@ from foundry.v2.functions.models._three_dimensional_aggregation_dict import (
 from foundry.v2.functions.models._two_dimensional_aggregation_dict import (
     TwoDimensionalAggregationDict,
 )  # NOQA
+from foundry.v2.functions.models._value_type_reference_dict import ValueTypeReferenceDict  # NOQA
 
 
 class QueryStructFieldDict(TypedDict):
@@ -111,6 +112,7 @@ QueryDataTypeDict = Annotated[
         NullTypeDict,
         QueryArrayTypeDict,
         TwoDimensionalAggregationDict,
+        ValueTypeReferenceDict,
         TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),

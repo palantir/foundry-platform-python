@@ -148,7 +148,7 @@ foundry_client = FoundryClient(
 )
 
 # Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request
-body = {"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
+body = [{"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 # Optional[PreviewMode] | preview
 preview = None
 

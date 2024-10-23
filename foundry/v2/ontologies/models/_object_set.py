@@ -151,14 +151,14 @@ class ObjectSetUnionType(pydantic.BaseModel):
 
 
 class ObjectSetAsTypeType(pydantic.BaseModel):
-    """ObjectSetAsTypeType"""
-
-    entity_type: pydantic.StrictStr = pydantic.Field(alias="entityType")
     """
-    An object type or interface type API name to cast the object set to. Any object whose object type does not 
-    match the object type provided or implement the interface type provided will be dropped from the resulting 
+    Casts an object set to a specified object type or interface type API name. Any object whose object type does
+    not match the object type provided or implement the interface type provided will be dropped from the resulting
     object set. This is currently unsupported and an exception will be thrown if used.
     """
+
+    entity_type: pydantic.StrictStr = pydantic.Field(alias="entityType")
+    """An object type or interface type API name."""
 
     object_set: ObjectSet = pydantic.Field(alias="objectSet")
 
