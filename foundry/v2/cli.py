@@ -982,6 +982,36 @@ def connectivity_connection_get(
     click.echo(repr(result))
 
 
+@connectivity_connection.command("update_secrets")
+@click.argument("connection_rid", type=str, required=True)
+@click.option(
+    "--secrets",
+    type=str,
+    required=True,
+    help="""The secrets to be updated. The specified secret names must already be configured on the connection.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_update_secrets(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    secrets: str,
+    preview: Optional[bool],
+):
+    """
+    Updates the secrets on the connection to the specified secret values.
+    Secrets that are currently configured on the connection but are omitted in the request will remain unchanged.
+
+    """
+    result = client.connectivity.Connection.update_secrets(
+        connection_rid=connection_rid,
+        secrets=json.loads(secrets),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("core")
 def core():
     pass

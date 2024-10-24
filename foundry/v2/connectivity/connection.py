@@ -21,6 +21,7 @@ from typing import Optional
 
 import pydantic
 from typing_extensions import Annotated
+from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
 from foundry._core import Auth
@@ -28,6 +29,8 @@ from foundry._core import RequestInfo
 from foundry._errors import handle_unexpected
 from foundry.v2.connectivity.models._connection import Connection
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry.v2.connectivity.models._secret_value import SecretValue
 from foundry.v2.core.models._preview_mode import PreviewMode
 
 
@@ -72,6 +75,59 @@ class ConnectionClient:
                 body=None,
                 body_type=None,
                 response_type=Connection,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @pydantic.validate_call
+    @handle_unexpected
+    def update_secrets(
+        self,
+        connection_rid: ConnectionRid,
+        *,
+        secrets: Dict[SecretName, SecretValue],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> None:
+        """
+        Updates the secrets on the connection to the specified secret values.
+        Secrets that are currently configured on the connection but are omitted in the request will remain unchanged.
+
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
+        :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
+        :type secrets: Dict[SecretName, SecretValue]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/connections/{connectionRid}/updateSecrets",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "secrets": secrets,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "secrets": Dict[SecretName, SecretValue],
+                    },
+                ),
+                response_type=None,
                 request_timeout=request_timeout,
             ),
         )
