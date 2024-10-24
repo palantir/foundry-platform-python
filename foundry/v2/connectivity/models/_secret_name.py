@@ -13,8 +13,9 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.964.0"
+import pydantic
+
+SecretName = pydantic.StrictStr
+"""SecretName"""

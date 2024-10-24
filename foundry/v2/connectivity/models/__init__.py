@@ -54,6 +54,8 @@ from foundry.v2.connectivity.models._file_size_filter_dict import FileSizeFilter
 from foundry.v2.connectivity.models._network_egress_policy_rid import NetworkEgressPolicyRid  # NOQA
 from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
 from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
+from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry.v2.connectivity.models._secret_value import SecretValue
 
 __all__ = [
     "AgentProxyRuntime",
@@ -85,4 +87,6 @@ __all__ = [
     "NetworkEgressPolicyRid",
     "RuntimePlatform",
     "RuntimePlatformDict",
+    "SecretName",
+    "SecretValue",
 ]

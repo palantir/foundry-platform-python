@@ -550,6 +550,8 @@ Namespace | Resource | Operation | HTTP request |
 - [NetworkEgressPolicyRid](docs/v2/models/NetworkEgressPolicyRid.md)
 - [RuntimePlatform](docs/v2/models/RuntimePlatform.md)
 - [RuntimePlatformDict](docs/v2/models/RuntimePlatformDict.md)
+- [SecretName](docs/v2/models/SecretName.md)
+- [SecretValue](docs/v2/models/SecretValue.md)
 - [ArrayFieldType](docs/v2/models/ArrayFieldType.md)
 - [ArrayFieldTypeDict](docs/v2/models/ArrayFieldTypeDict.md)
 - [AttachmentType](docs/v2/models/AttachmentType.md)
