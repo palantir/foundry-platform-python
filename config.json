@@ -118,6 +118,7 @@
       ],
       "namespaces": {
         "Admin": true,
+        "AipAgents": true,
         "Core": true,
         "Connectivity": true,
         "Datasets": true,

@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: Add AipAgents namespace
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/57
