@@ -74,6 +74,12 @@ from foundry.v2.admin.models._list_marking_categories_response import (
 from foundry.v2.admin.models._list_marking_categories_response_dict import (
     ListMarkingCategoriesResponseDict,
 )  # NOQA
+from foundry.v2.admin.models._list_marking_members_response import (
+    ListMarkingMembersResponse,
+)  # NOQA
+from foundry.v2.admin.models._list_marking_members_response_dict import (
+    ListMarkingMembersResponseDict,
+)  # NOQA
 from foundry.v2.admin.models._list_markings_response import ListMarkingsResponse
 from foundry.v2.admin.models._list_markings_response_dict import ListMarkingsResponseDict  # NOQA
 from foundry.v2.admin.models._list_users_response import ListUsersResponse
@@ -88,6 +94,8 @@ from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
 from foundry.v2.admin.models._marking_category_type import MarkingCategoryType
 from foundry.v2.admin.models._marking_dict import MarkingDict
 from foundry.v2.admin.models._marking_display_name import MarkingDisplayName
+from foundry.v2.admin.models._marking_member import MarkingMember
+from foundry.v2.admin.models._marking_member_dict import MarkingMemberDict
 from foundry.v2.admin.models._marking_type import MarkingType
 from foundry.v2.admin.models._principal_filter_type import PrincipalFilterType
 from foundry.v2.admin.models._search_groups_response import SearchGroupsResponse
@@ -139,6 +147,8 @@ __all__ = [
     "ListHostsResponseDict",
     "ListMarkingCategoriesResponse",
     "ListMarkingCategoriesResponseDict",
+    "ListMarkingMembersResponse",
+    "ListMarkingMembersResponseDict",
     "ListMarkingsResponse",
     "ListMarkingsResponseDict",
     "ListUsersResponse",
@@ -151,6 +161,8 @@ __all__ = [
     "MarkingCategoryType",
     "MarkingDict",
     "MarkingDisplayName",
+    "MarkingMember",
+    "MarkingMemberDict",
     "MarkingType",
     "PrincipalFilterType",
     "SearchGroupsResponse",

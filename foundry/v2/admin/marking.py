@@ -29,6 +29,7 @@ from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._errors import handle_unexpected
+from foundry.v2.admin.marking_member import MarkingMemberClient
 from foundry.v2.admin.models._get_markings_batch_request_element_dict import (
     GetMarkingsBatchRequestElementDict,
 )  # NOQA
@@ -44,6 +45,8 @@ from foundry.v2.core.models._preview_mode import PreviewMode
 class MarkingClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
+
+        self.MarkingMember = MarkingMemberClient(auth=auth, hostname=hostname)
 
     @pydantic.validate_call
     @handle_unexpected

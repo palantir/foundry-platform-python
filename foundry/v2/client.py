@@ -26,6 +26,7 @@ class FoundryClient:
 
     def __init__(self, auth: Auth, hostname: str):
         from foundry.v2.admin.client import AdminClient
+        from foundry.v2.aip_agents.client import AipAgentsClient
         from foundry.v2.connectivity.client import ConnectivityClient
         from foundry.v2.datasets.client import DatasetsClient
         from foundry.v2.filesystem.client import FilesystemClient
@@ -36,6 +37,7 @@ class FoundryClient:
         from foundry.v2.third_party_applications.client import ThirdPartyApplicationsClient  # NOQA
 
         self.admin = AdminClient(auth=auth, hostname=hostname)
+        self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname)
         self.connectivity = ConnectivityClient(auth=auth, hostname=hostname)
         self.datasets = DatasetsClient(auth=auth, hostname=hostname)
         self.filesystem = FilesystemClient(auth=auth, hostname=hostname)
