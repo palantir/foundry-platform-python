@@ -1,6 +1,6 @@
 # InputContextDict
 
-Custom retrieved [context](https://www.palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide
+Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide
 to an Agent for continuing a session.
 
 

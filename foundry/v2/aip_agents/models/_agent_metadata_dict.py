@@ -37,4 +37,4 @@ class AgentMetadataDict(TypedDict):
     """The default text to show as the placeholder input for chats with the Agent."""
 
     suggestedPrompts: List[pydantic.StrictStr]
-    """Prompts to show to the user as example messages to send to start a conversation with the Agent."""
+    """Prompts to show to the user as example messages to start a conversation with the Agent."""

@@ -15,22 +15,23 @@
 
 from __future__ import annotations
 
-from typing import Literal
-
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry.v2.ontologies.models._object_set_dict import ObjectSetDict
+from foundry.v2.aip_agents.models._session_exchange_result_dict import (
+    SessionExchangeResultDict,
+)  # NOQA
 
 
-class ObjectSetAsBaseObjectTypesTypeDict(TypedDict):
-    """
-    Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
-    properties in the resulting object set, not just the properties that implement interface properties. This is
-    currently unsupported and an exception will be thrown if used.
-    """
+class CancelSessionResponseDict(TypedDict):
+    """CancelSessionResponse"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectSet: ObjectSetDict
-
-    type: Literal["asBaseObjectTypes"]
+    result: NotRequired[SessionExchangeResultDict]
+    """
+    If the `response` field was specified, this returns the result that was added to the session
+    for the canceled exchange, with the client-provided response.
+    If no `response` was specified in the request, this returns an empty response as no exchange
+    was added to the session.
+    """

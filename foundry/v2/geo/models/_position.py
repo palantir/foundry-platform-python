@@ -17,19 +17,14 @@ from __future__ import annotations
 
 from typing import List
 
-from annotated_types import Len
-from typing_extensions import Annotated
-
 from foundry.v2.geo.models._coordinate import Coordinate
 
-Position = Annotated[List[Coordinate], Len(min_length=2, max_length=3)]
+Position = List[Coordinate]
 """
 GeoJSon fundamental geometry construct.
-
 A position is an array of numbers. There MUST be two or more elements.
 The first two elements are longitude and latitude, precisely in that order and using decimal numbers.
 Altitude or elevation MAY be included as an optional third element.
-
 Implementations SHOULD NOT extend positions beyond three elements
 because the semantics of extra elements are unspecified and ambiguous.
 Historically, some implementations have used a fourth element to carry

@@ -39,7 +39,7 @@ class AgentMetadata(pydantic.BaseModel):
     """The default text to show as the placeholder input for chats with the Agent."""
 
     suggested_prompts: List[pydantic.StrictStr] = pydantic.Field(alias="suggestedPrompts")
-    """Prompts to show to the user as example messages to send to start a conversation with the Agent."""
+    """Prompts to show to the user as example messages to start a conversation with the Agent."""
 
     model_config = {"extra": "allow"}
 

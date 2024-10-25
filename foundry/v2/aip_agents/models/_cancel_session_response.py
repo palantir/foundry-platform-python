@@ -15,32 +15,30 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Optional
 from typing import cast
 
 import pydantic
 
-from foundry.v2.ontologies.models._object_set_interface_base_type_dict import (
-    ObjectSetInterfaceBaseTypeDict,
+from foundry.v2.aip_agents.models._cancel_session_response_dict import (
+    CancelSessionResponseDict,
 )  # NOQA
+from foundry.v2.aip_agents.models._session_exchange_result import SessionExchangeResult
 
 
-class ObjectSetInterfaceBaseType(pydantic.BaseModel):
-    """ObjectSetInterfaceBaseType"""
+class CancelSessionResponse(pydantic.BaseModel):
+    """CancelSessionResponse"""
 
-    interface_type: pydantic.StrictStr = pydantic.Field(alias="interfaceType")
+    result: Optional[SessionExchangeResult] = None
     """
-    An object set with objects that implement the interface with the given interface API name. The objects in 
-    the object set will only have properties that implement properties of the given interface. This is currently 
-    unsupported and an exception will be thrown if used.
+    If the `response` field was specified, this returns the result that was added to the session
+    for the canceled exchange, with the client-provided response.
+    If no `response` was specified in the request, this returns an empty response as no exchange
+    was added to the session.
     """
-
-    type: Literal["interfaceBase"]
 
     model_config = {"extra": "allow"}
 
-    def to_dict(self) -> ObjectSetInterfaceBaseTypeDict:
+    def to_dict(self) -> CancelSessionResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ObjectSetInterfaceBaseTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(CancelSessionResponseDict, self.model_dump(by_alias=True, exclude_unset=True))

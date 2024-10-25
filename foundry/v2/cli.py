@@ -1020,7 +1020,7 @@ def aip_agents_agent_session():
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied [parameter values](https://www.palantir.com/docs/foundry/agent-studio/parameters/) to
+    help="""Any supplied [parameter values](/docs/foundry/agent-studio/parameters/) to
 pass to the Agent for the exchange.
 """,
 )
@@ -1034,11 +1034,10 @@ pass to the Agent for the exchange.
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context retrieval]
-(https://www.palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of
-specified context is provided to the Agent instead. If omitted, relevant context for the user message 
-is automatically retrieved and included in the prompt, based on data sources configured on the Agent 
-for the session.
+    help="""If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) 
+is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context 
+for the user message is automatically retrieved and included in the prompt, based on data sources configured 
+on the Agent for the session.
 """,
 )
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1057,6 +1056,8 @@ def aip_agents_agent_session_blocking_continue(
     Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
     Blocks on returning the result of the added exchange until the response is fully generated.
     Streamed responses are also supported; see `streamingContinue` for details.
+    Concurrent requests to continue the same session are not supported. Clients should wait
+    to receive a response before sending the next message.
 
     """
     result = client.aip_agents.Agent.Session.blocking_continue(
@@ -1066,6 +1067,53 @@ def aip_agents_agent_session_blocking_continue(
         user_input=json.loads(user_input),
         contexts_override=None if contexts_override is None else json.loads(contexts_override),
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_session.command("cancel")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option(
+    "--message_id",
+    type=str,
+    required=True,
+    help="""The identifier for the in-progress exchange to cancel. This should match the `messageId` which
+was provided when initiating the exchange with `streamingContinue`.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--response",
+    type=str,
+    required=False,
+    help="""When specified, the exchange is added to the session with the client-provided response as the result.
+When omitted, the exchange is not added to the session.
+""",
+)
+@click.pass_obj
+def aip_agents_agent_session_cancel(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    message_id: str,
+    preview: Optional[bool],
+    response: Optional[str],
+):
+    """
+    Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
+    Canceling an exchange allows clients to prevent the exchange from being added to the session,
+    or to provide a response to replace the Agent-generated response.
+    Note that canceling an exchange does not terminate the stream returned by `streamingContinue`;
+    clients should close the stream on triggering the cancellation request to stop reading from the stream.
+
+    """
+    result = client.aip_agents.Agent.Session.cancel(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        message_id=message_id,
+        preview=preview,
+        response=response,
     )
     click.echo(repr(result))
 
@@ -1179,6 +1227,49 @@ def aip_agents_agent_session_page(
     click.echo(repr(result))
 
 
+@aip_agents_agent_session.command("rag_context")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option(
+    "--parameter_inputs",
+    type=str,
+    required=True,
+    help="""Any parameter values to use for the context retrieval.
+""",
+)
+@click.option(
+    "--user_input",
+    type=str,
+    required=True,
+    help="""The user message to retrieve relevant context for from the configured Agent data sources.""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_rag_context(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    parameter_inputs: str,
+    user_input: str,
+    preview: Optional[bool],
+):
+    """
+    Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message
+    from the data sources configured for the session. This allows clients to pre-retrieve context for a user
+    message before sending it to the Agent with the `contextsOverride` option when continuing a session, to
+    allow any pre-processing of the context before sending it to the Agent.
+
+    """
+    result = client.aip_agents.Agent.Session.rag_context(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        parameter_inputs=json.loads(parameter_inputs),
+        user_input=json.loads(user_input),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @aip_agents_agent_session.command("streaming_continue")
 @click.argument("agent_rid", type=str, required=True)
 @click.argument("session_rid", type=str, required=True)
@@ -1186,7 +1277,7 @@ def aip_agents_agent_session_page(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied [parameter](https://www.palantir.com/docs/foundry/agent-studio/parameters/) values to
+    help="""Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to
 pass to the Agent for the exchange.
 """,
 )
@@ -1200,7 +1291,7 @@ pass to the Agent for the exchange.
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context](https://www.palantir.com/docs/foundry/agent-studio/retrieval-context/)
+    help="""If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/)
 retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted,
 relevant context for the user message is automatically retrieved and included in the prompt, based on
 data sources configured on the Agent for the session.
@@ -1234,6 +1325,8 @@ def aip_agents_agent_session_streaming_continue(
     On completion of the streamed response, clients can load the full details of the exchange that was
     added to the session by reloading the session content.
     Streamed exchanges also support cancellation; see `cancel` for details.
+    Concurrent requests to continue the same session are not supported. Clients should wait to receive a
+    response, or cancel the in-progress exchange, before sending the next message.
 
     """
     result = client.aip_agents.Agent.Session.streaming_continue(
@@ -1358,132 +1451,6 @@ def connectivity():
     pass
 
 
-@connectivity.group("file_import")
-def connectivity_file_import():
-    pass
-
-
-@connectivity_file_import.command("create")
-@click.option(
-    "--connection_rid",
-    type=str,
-    required=True,
-    help="""The RID of the Connection (formerly known as a source) that the File Import uses to import data.""",
-)
-@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
-@click.option("--display_name", type=str, required=True, help="""""")
-@click.option(
-    "--file_import_filters",
-    type=str,
-    required=True,
-    help="""Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)""",
-)
-@click.option(
-    "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
-)
-@click.option(
-    "--branch_name",
-    type=str,
-    required=False,
-    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
-)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option(
-    "--subfolder",
-    type=str,
-    required=False,
-    help="""A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.""",
-)
-@click.pass_obj
-def connectivity_file_import_create(
-    client: foundry.v2.FoundryClient,
-    connection_rid: str,
-    dataset_rid: str,
-    display_name: str,
-    file_import_filters: str,
-    import_mode: Literal["SNAPSHOT", "APPEND", "UPDATE"],
-    branch_name: Optional[str],
-    preview: Optional[bool],
-    subfolder: Optional[str],
-):
-    """
-    Creates a new FileImport.
-    """
-    result = client.connectivity.FileImport.create(
-        connection_rid=connection_rid,
-        dataset_rid=dataset_rid,
-        display_name=display_name,
-        file_import_filters=json.loads(file_import_filters),
-        import_mode=import_mode,
-        branch_name=branch_name,
-        preview=preview,
-        subfolder=subfolder,
-    )
-    click.echo(repr(result))
-
-
-@connectivity_file_import.command("delete")
-@click.argument("file_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.pass_obj
-def connectivity_file_import_delete(
-    client: foundry.v2.FoundryClient,
-    file_import_rid: str,
-    preview: Optional[bool],
-):
-    """
-    Delete the FileImport with the specified RID.
-    Deleting the file import does not delete the destination dataset but the dataset will no longer
-    be updated by this import.
-
-    """
-    result = client.connectivity.FileImport.delete(
-        file_import_rid=file_import_rid,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@connectivity_file_import.command("execute")
-@click.argument("file_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.pass_obj
-def connectivity_file_import_execute(
-    client: foundry.v2.FoundryClient,
-    file_import_rid: str,
-    preview: Optional[bool],
-):
-    """
-    Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
-    The returned BuildRid can be used to check the status via the Orchestration API.
-
-    """
-    result = client.connectivity.FileImport.execute(
-        file_import_rid=file_import_rid,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@connectivity_file_import.command("get")
-@click.argument("file_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.pass_obj
-def connectivity_file_import_get(
-    client: foundry.v2.FoundryClient,
-    file_import_rid: str,
-    preview: Optional[bool],
-):
-    """
-    Get the FileImport with the specified rid.
-    """
-    result = client.connectivity.FileImport.get(
-        file_import_rid=file_import_rid,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @connectivity.group("connection")
 def connectivity_connection():
     pass
@@ -1533,6 +1500,136 @@ def connectivity_connection_update_secrets(
     result = client.connectivity.Connection.update_secrets(
         connection_rid=connection_rid,
         secrets=json.loads(secrets),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection.group("file_import")
+def connectivity_connection_file_import():
+    pass
+
+
+@connectivity_connection_file_import.command("create")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--file_import_filters",
+    type=str,
+    required=True,
+    help="""Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)""",
+)
+@click.option(
+    "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--subfolder",
+    type=str,
+    required=False,
+    help="""A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.""",
+)
+@click.pass_obj
+def connectivity_connection_file_import_create(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    dataset_rid: str,
+    display_name: str,
+    file_import_filters: str,
+    import_mode: Literal["SNAPSHOT", "APPEND", "UPDATE"],
+    branch_name: Optional[str],
+    preview: Optional[bool],
+    subfolder: Optional[str],
+):
+    """
+    Creates a new FileImport.
+    """
+    result = client.connectivity.Connection.FileImport.create(
+        connection_rid=connection_rid,
+        dataset_rid=dataset_rid,
+        display_name=display_name,
+        file_import_filters=json.loads(file_import_filters),
+        import_mode=import_mode,
+        branch_name=branch_name,
+        preview=preview,
+        subfolder=subfolder,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_file_import.command("delete")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_file_import_delete(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    file_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Delete the FileImport with the specified RID.
+    Deleting the file import does not delete the destination dataset but the dataset will no longer
+    be updated by this import.
+
+    """
+    result = client.connectivity.Connection.FileImport.delete(
+        connection_rid=connection_rid,
+        file_import_rid=file_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_file_import.command("execute")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_file_import_execute(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    file_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+    The returned BuildRid can be used to check the status via the Orchestration API.
+
+    """
+    result = client.connectivity.Connection.FileImport.execute(
+        connection_rid=connection_rid,
+        file_import_rid=file_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_file_import.command("get")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_file_import_get(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    file_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the FileImport with the specified rid.
+    """
+    result = client.connectivity.Connection.FileImport.get(
+        connection_rid=connection_rid,
+        file_import_rid=file_import_rid,
         preview=preview,
     )
     click.echo(repr(result))

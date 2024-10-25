@@ -1,6 +1,6 @@
 # ObjectSet
 
-Represents the definition of an `ObjectSet` in the `Ontology`.
+Represents the definition of an `ObjectSet` in the ontology.
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
 of of the models listed below.
@@ -12,13 +12,10 @@ This discriminator class uses the `type` field to differentiate between classes.
 ObjectSetReferenceType | reference
 ObjectSetFilterType | filter
 ObjectSetSearchAroundType | searchAround
-ObjectSetInterfaceBaseType | interfaceBase
 ObjectSetStaticType | static
 ObjectSetIntersectionType | intersect
-ObjectSetAsBaseObjectTypesType | asBaseObjectTypes
 ObjectSetSubtractType | subtract
 ObjectSetUnionType | union
-ObjectSetAsTypeType | asType
 ObjectSetBaseType | base
 
 

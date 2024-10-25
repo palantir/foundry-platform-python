@@ -5,7 +5,7 @@ ObjectSetReferenceType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**reference** | RID | Yes |  |
+**reference** | ObjectSetRid | Yes |  |
 **type** | Literal["reference"] | Yes | None |
 
 

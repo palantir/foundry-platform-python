@@ -19,7 +19,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry._core.utils import RID
+from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
 
 
 class ObjectSetReferenceTypeDict(TypedDict):
@@ -27,6 +27,6 @@ class ObjectSetReferenceTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    reference: RID
+    reference: ObjectSetRid
 
     type: Literal["reference"]

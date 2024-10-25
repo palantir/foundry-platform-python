@@ -1,6 +1,6 @@
 # ObjectSetDict
 
-Represents the definition of an `ObjectSet` in the `Ontology`.
+Represents the definition of an `ObjectSet` in the ontology.
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
 of of the models listed below.
@@ -12,13 +12,10 @@ This discriminator class uses the `type` field to differentiate between classes.
 ObjectSetReferenceTypeDict | reference
 ObjectSetFilterTypeDict | filter
 ObjectSetSearchAroundTypeDict | searchAround
-ObjectSetInterfaceBaseTypeDict | interfaceBase
 ObjectSetStaticTypeDict | static
 ObjectSetIntersectionTypeDict | intersect
-ObjectSetAsBaseObjectTypesTypeDict | asBaseObjectTypes
 ObjectSetSubtractTypeDict | subtract
 ObjectSetUnionTypeDict | union
-ObjectSetAsTypeTypeDict | asType
 ObjectSetBaseTypeDict | base
 
 

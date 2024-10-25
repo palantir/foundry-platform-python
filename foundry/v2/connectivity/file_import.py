@@ -48,8 +48,8 @@ class FileImportClient:
     @handle_unexpected
     def create(
         self,
-        *,
         connection_rid: ConnectionRid,
+        *,
         dataset_rid: DatasetRid,
         display_name: FileImportDisplayName,
         file_import_filters: List[FileImportFilterDict],
@@ -61,7 +61,7 @@ class FileImportClient:
     ) -> FileImport:
         """
         Creates a new FileImport.
-        :param connection_rid: The RID of the Connection (formerly known as a source) that the File Import uses to import data.
+        :param connection_rid: connectionRid
         :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
@@ -86,11 +86,13 @@ class FileImportClient:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/connectivity/fileImports",
+                resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
                     "preview": preview,
                 },
-                path_params={},
+                path_params={
+                    "connectionRid": connection_rid,
+                },
                 header_params={
                     "Content-Type": "application/json",
                     "Accept": "application/json",
@@ -99,7 +101,6 @@ class FileImportClient:
                     "datasetRid": dataset_rid,
                     "importMode": import_mode,
                     "displayName": display_name,
-                    "connectionRid": connection_rid,
                     "branchName": branch_name,
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
@@ -110,7 +111,6 @@ class FileImportClient:
                         "datasetRid": DatasetRid,
                         "importMode": FileImportMode,
                         "displayName": FileImportDisplayName,
-                        "connectionRid": ConnectionRid,
                         "branchName": Optional[BranchName],
                         "subfolder": Optional[pydantic.StrictStr],
                         "fileImportFilters": List[FileImportFilterDict],
@@ -125,6 +125,7 @@ class FileImportClient:
     @handle_unexpected
     def delete(
         self,
+        connection_rid: ConnectionRid,
         file_import_rid: FileImportRid,
         *,
         preview: Optional[PreviewMode] = None,
@@ -135,6 +136,8 @@ class FileImportClient:
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
         :type file_import_rid: FileImportRid
         :param preview: preview
@@ -148,11 +151,12 @@ class FileImportClient:
         return self._api_client.call_api(
             RequestInfo(
                 method="DELETE",
-                resource_path="/v2/connectivity/fileImports/{fileImportRid}",
+                resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
+                    "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
                 },
                 header_params={},
@@ -167,6 +171,7 @@ class FileImportClient:
     @handle_unexpected
     def execute(
         self,
+        connection_rid: ConnectionRid,
         file_import_rid: FileImportRid,
         *,
         preview: Optional[PreviewMode] = None,
@@ -176,6 +181,8 @@ class FileImportClient:
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
         :type file_import_rid: FileImportRid
         :param preview: preview
@@ -189,11 +196,12 @@ class FileImportClient:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/connectivity/fileImports/{fileImportRid}/execute",
+                resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
+                    "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
                 },
                 header_params={
@@ -210,6 +218,7 @@ class FileImportClient:
     @handle_unexpected
     def get(
         self,
+        connection_rid: ConnectionRid,
         file_import_rid: FileImportRid,
         *,
         preview: Optional[PreviewMode] = None,
@@ -217,6 +226,8 @@ class FileImportClient:
     ) -> FileImport:
         """
         Get the FileImport with the specified rid.
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
         :type file_import_rid: FileImportRid
         :param preview: preview
@@ -230,11 +241,12 @@ class FileImportClient:
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
-                resource_path="/v2/connectivity/fileImports/{fileImportRid}",
+                resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
+                    "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
                 },
                 header_params={

@@ -19,6 +19,12 @@ from foundry.v2.aip_agents.models._agent_markdown_response import AgentMarkdownR
 from foundry.v2.aip_agents.models._agent_metadata import AgentMetadata
 from foundry.v2.aip_agents.models._agent_metadata_dict import AgentMetadataDict
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
+from foundry.v2.aip_agents.models._agent_session_rag_context_response import (
+    AgentSessionRagContextResponse,
+)  # NOQA
+from foundry.v2.aip_agents.models._agent_session_rag_context_response_dict import (
+    AgentSessionRagContextResponseDict,
+)  # NOQA
 from foundry.v2.aip_agents.models._agent_version import AgentVersion
 from foundry.v2.aip_agents.models._agent_version_details import AgentVersionDetails
 from foundry.v2.aip_agents.models._agent_version_details_dict import AgentVersionDetailsDict  # NOQA
@@ -26,6 +32,10 @@ from foundry.v2.aip_agents.models._agent_version_dict import AgentVersionDict
 from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
 from foundry.v2.aip_agents.models._agents_sessions_page import AgentsSessionsPage
 from foundry.v2.aip_agents.models._agents_sessions_page_dict import AgentsSessionsPageDict  # NOQA
+from foundry.v2.aip_agents.models._cancel_session_response import CancelSessionResponse
+from foundry.v2.aip_agents.models._cancel_session_response_dict import (
+    CancelSessionResponseDict,
+)  # NOQA
 from foundry.v2.aip_agents.models._content import Content
 from foundry.v2.aip_agents.models._content_dict import ContentDict
 from foundry.v2.aip_agents.models._input_context_dict import InputContextDict
@@ -94,6 +104,8 @@ __all__ = [
     "AgentMetadata",
     "AgentMetadataDict",
     "AgentRid",
+    "AgentSessionRagContextResponse",
+    "AgentSessionRagContextResponseDict",
     "AgentVersion",
     "AgentVersionDetails",
     "AgentVersionDetailsDict",
@@ -101,6 +113,8 @@ __all__ = [
     "AgentVersionString",
     "AgentsSessionsPage",
     "AgentsSessionsPageDict",
+    "CancelSessionResponse",
+    "CancelSessionResponseDict",
     "Content",
     "ContentDict",
     "InputContextDict",

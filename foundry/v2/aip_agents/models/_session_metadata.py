@@ -43,7 +43,7 @@ class SessionMetadata(pydantic.BaseModel):
 
     estimated_expires_time: datetime = pydantic.Field(alias="estimatedExpiresTime")
     """
-    The estimated time the session is due to expire at. Once a session has expired, it can no longer
+    The estimated time the session is due to expire. Once a session has expired, it can no longer
     be accessed and a new session must be created.
     The expiry time is automatically extended when new exchanges are added to the session.
     """
