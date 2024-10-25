@@ -454,6 +454,108 @@ def admin_marking_page(
     click.echo(repr(result))
 
 
+@admin_marking.group("marking_member")
+def admin_marking_marking_member():
+    pass
+
+
+@admin_marking_marking_member.command("add")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_marking_member_add(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    principal_ids: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.Marking.MarkingMember.add(
+        marking_id=marking_id,
+        principal_ids=json.loads(principal_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_marking_marking_member.command("list")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.pass_obj
+def admin_marking_marking_member_list(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+    transitive: Optional[bool],
+):
+    """
+    Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
+    Requires `api:admin-write` because only marking administrators can view marking members.
+
+    """
+    result = client.admin.Marking.MarkingMember.list(
+        marking_id=marking_id,
+        page_size=page_size,
+        preview=preview,
+        transitive=transitive,
+    )
+    click.echo(repr(result))
+
+
+@admin_marking_marking_member.command("page")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.pass_obj
+def admin_marking_marking_member_page(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+    transitive: Optional[bool],
+):
+    """
+    Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
+    Requires `api:admin-write` because only marking administrators can view marking members.
+
+    """
+    result = client.admin.Marking.MarkingMember.page(
+        marking_id=marking_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        transitive=transitive,
+    )
+    click.echo(repr(result))
+
+
+@admin_marking_marking_member.command("remove")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_marking_member_remove(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    principal_ids: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.Marking.MarkingMember.remove(
+        marking_id=marking_id,
+        principal_ids=json.loads(principal_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin.group("group")
 def admin_group():
     pass
@@ -827,6 +929,430 @@ def admin_enrollment_host_page(
     click.echo(repr(result))
 
 
+@cli.group("aip_agents")
+def aip_agents():
+    pass
+
+
+@aip_agents.group("agent")
+def aip_agents_agent():
+    pass
+
+
+@aip_agents_agent.command("all_sessions")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_all_sessions(
+    client: foundry.v2.FoundryClient,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    List all conversation sessions between the calling user across all accessible Agents that were created
+    by this client.
+    Sessions are returned in order of most recently updated first.
+
+    """
+    result = client.aip_agents.Agent.all_sessions(
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent.command("all_sessions_page")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_all_sessions_page(
+    client: foundry.v2.FoundryClient,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List all conversation sessions between the calling user across all accessible Agents that were created
+    by this client.
+    Sessions are returned in order of most recently updated first.
+
+    """
+    result = client.aip_agents.Agent.all_sessions_page(
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent.command("get")
+@click.argument("agent_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--version", type=str, required=False, help="""version""")
+@click.pass_obj
+def aip_agents_agent_get(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    preview: Optional[bool],
+    version: Optional[str],
+):
+    """
+    Get details for an AIP Agent.
+    """
+    result = client.aip_agents.Agent.get(
+        agent_rid=agent_rid,
+        preview=preview,
+        version=version,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent.group("session")
+def aip_agents_agent_session():
+    pass
+
+
+@aip_agents_agent_session.command("blocking_continue")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option(
+    "--parameter_inputs",
+    type=str,
+    required=True,
+    help="""Any supplied [parameter values](https://www.palantir.com/docs/foundry/agent-studio/parameters/) to
+pass to the Agent for the exchange.
+""",
+)
+@click.option(
+    "--user_input",
+    type=str,
+    required=True,
+    help="""The user message for the Agent to respond to.""",
+)
+@click.option(
+    "--contexts_override",
+    type=str,
+    required=False,
+    help="""If set, automatic [context retrieval]
+(https://www.palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of
+specified context is provided to the Agent instead. If omitted, relevant context for the user message 
+is automatically retrieved and included in the prompt, based on data sources configured on the Agent 
+for the session.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_blocking_continue(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    parameter_inputs: str,
+    user_input: str,
+    contexts_override: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Continue a conversation session with an Agent, or add the first exchange to a session after creation.
+    Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+    Blocks on returning the result of the added exchange until the response is fully generated.
+    Streamed responses are also supported; see `streamingContinue` for details.
+
+    """
+    result = client.aip_agents.Agent.Session.blocking_continue(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        parameter_inputs=json.loads(parameter_inputs),
+        user_input=json.loads(user_input),
+        contexts_override=None if contexts_override is None else json.loads(contexts_override),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_session.command("create")
+@click.argument("agent_rid", type=str, required=True)
+@click.option(
+    "--agent_version",
+    type=str,
+    required=False,
+    help="""The version of the Agent that the session is with.
+This can be set by clients on session creation. If not specified, defaults to use the latest
+published version of the Agent at session creation time.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_create(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    agent_version: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Create a new conversation session between the calling user and an Agent.
+    Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
+
+    """
+    result = client.aip_agents.Agent.Session.create(
+        agent_rid=agent_rid,
+        agent_version=agent_version,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_session.command("get")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_get(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get details of a conversation session between the calling user and an Agent.
+    """
+    result = client.aip_agents.Agent.Session.get(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_session.command("list")
+@click.argument("agent_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_list(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    List all conversation sessions between the calling user and an Agent that were created by this client.
+    This does not list sessions for the user created by other clients. For example, any sessions created by
+    the user in AIP Agent Studio will not be listed here.
+    Sessions are returned in order of most recently updated first.
+
+    """
+    result = client.aip_agents.Agent.Session.list(
+        agent_rid=agent_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_session.command("page")
+@click.argument("agent_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_page(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List all conversation sessions between the calling user and an Agent that were created by this client.
+    This does not list sessions for the user created by other clients. For example, any sessions created by
+    the user in AIP Agent Studio will not be listed here.
+    Sessions are returned in order of most recently updated first.
+
+    """
+    result = client.aip_agents.Agent.Session.page(
+        agent_rid=agent_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_session.command("streaming_continue")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option(
+    "--parameter_inputs",
+    type=str,
+    required=True,
+    help="""Any supplied [parameter](https://www.palantir.com/docs/foundry/agent-studio/parameters/) values to
+pass to the Agent for the exchange.
+""",
+)
+@click.option(
+    "--user_input",
+    type=str,
+    required=True,
+    help="""The user message for the Agent to respond to.""",
+)
+@click.option(
+    "--contexts_override",
+    type=str,
+    required=False,
+    help="""If set, automatic [context](https://www.palantir.com/docs/foundry/agent-studio/retrieval-context/)
+retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted,
+relevant context for the user message is automatically retrieved and included in the prompt, based on
+data sources configured on the Agent for the session.
+""",
+)
+@click.option(
+    "--message_id",
+    type=str,
+    required=False,
+    help="""A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can
+use to cancel the exchange before the streaming response is complete.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_streaming_continue(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    parameter_inputs: str,
+    user_input: str,
+    contexts_override: Optional[str],
+    message_id: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Continue a conversation session with an Agent, or add the first exchange to a session after creation.
+    Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+    Returns a stream of the Agent response text (formatted using markdown) for clients to consume as
+    the response is generated.
+    On completion of the streamed response, clients can load the full details of the exchange that was
+    added to the session by reloading the session content.
+    Streamed exchanges also support cancellation; see `cancel` for details.
+
+    """
+    result = client.aip_agents.Agent.Session.streaming_continue(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        parameter_inputs=json.loads(parameter_inputs),
+        user_input=json.loads(user_input),
+        contexts_override=None if contexts_override is None else json.loads(contexts_override),
+        message_id=message_id,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@aip_agents_agent_session.group("content")
+def aip_agents_agent_session_content():
+    pass
+
+
+@aip_agents_agent_session_content.command("get")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_session_content_get(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the conversation content for a session between the calling user and an Agent.
+    """
+    result = client.aip_agents.Agent.Session.Content.get(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent.group("agent_version")
+def aip_agents_agent_agent_version():
+    pass
+
+
+@aip_agents_agent_agent_version.command("get")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("agent_version_string", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_agent_version_get(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    agent_version_string: str,
+    preview: Optional[bool],
+):
+    """
+    Get version details for an AIP Agent.
+    """
+    result = client.aip_agents.Agent.AgentVersion.get(
+        agent_rid=agent_rid,
+        agent_version_string=agent_version_string,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_agent_version.command("list")
+@click.argument("agent_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_agent_version_list(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    List all versions for an AIP Agent.
+    Versions are returned in descending order, by most recent versions first.
+
+    """
+    result = client.aip_agents.Agent.AgentVersion.list(
+        agent_rid=agent_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_agent_version.command("page")
+@click.argument("agent_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def aip_agents_agent_agent_version_page(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List all versions for an AIP Agent.
+    Versions are returned in descending order, by most recent versions first.
+
+    """
+    result = client.aip_agents.Agent.AgentVersion.page(
+        agent_rid=agent_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("connectivity")
 def connectivity():
     pass
@@ -977,6 +1503,36 @@ def connectivity_connection_get(
     """
     result = client.connectivity.Connection.get(
         connection_rid=connection_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection.command("update_secrets")
+@click.argument("connection_rid", type=str, required=True)
+@click.option(
+    "--secrets",
+    type=str,
+    required=True,
+    help="""The secrets to be updated. The specified secret names must already be configured on the connection.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_update_secrets(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    secrets: str,
+    preview: Optional[bool],
+):
+    """
+    Updates the secrets on the connection to the specified secret values.
+    Secrets that are currently configured on the connection but are omitted in the request will remain unchanged.
+
+    """
+    result = client.connectivity.Connection.update_secrets(
+        connection_rid=connection_rid,
+        secrets=json.loads(secrets),
         preview=preview,
     )
     click.echo(repr(result))
