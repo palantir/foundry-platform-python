@@ -15,26 +15,19 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import List
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry.v2.ontologies.models._object_set_dict import ObjectSetDict
+from foundry.v2.aip_agents.models._object_context_dict import ObjectContextDict
 
 
-class ObjectSetAsTypeTypeDict(TypedDict):
+class AgentSessionRagContextResponseDict(TypedDict):
     """
-    Casts an object set to a specified object type or interface type API name. Any object whose object type does
-    not match the object type provided or implement the interface type provided will be dropped from the resulting
-    object set. This is currently unsupported and an exception will be thrown if used.
+    Context retrieved from an Agent's configured context data sources which was relevant to the
+    supplied user message.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    entityType: pydantic.StrictStr
-    """An object type or interface type API name."""
-
-    objectSet: ObjectSetDict
-
-    type: Literal["asType"]
+    objectContexts: List[ObjectContextDict]

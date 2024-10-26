@@ -9,7 +9,7 @@ Creates a new FileImport.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | The RID of the Connection (formerly known as a source) that the File Import uses to import data. |  |
+**connection_rid** | ConnectionRid | connectionRid |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
 **file_import_filters** | List[FileImportFilterDict] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
@@ -32,8 +32,8 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | The RID of the Connection (formerly known as a source) that the File Import uses to import data.
-connection_rid = "ri.magritte..source.c078b71b-92f9-41b6-b0df-3760f411120b"
+# ConnectionRid | connectionRid
+connection_rid = None
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName |
@@ -51,8 +51,8 @@ subfolder = "subfolder1/subfolder2"
 
 
 try:
-    api_response = foundry_client.connectivity.FileImport.create(
-        connection_rid=connection_rid,
+    api_response = foundry_client.connectivity.Connection.FileImport.create(
+        connection_rid,
         dataset_rid=dataset_rid,
         display_name=display_name,
         file_import_filters=file_import_filters,
@@ -90,6 +90,7 @@ be updated by this import.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
 **file_import_rid** | FileImportRid | fileImportRid |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
@@ -107,6 +108,8 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
+# ConnectionRid | connectionRid
+connection_rid = None
 # FileImportRid | fileImportRid
 file_import_rid = None
 # Optional[PreviewMode] | preview
@@ -114,7 +117,8 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.FileImport.delete(
+    api_response = foundry_client.connectivity.Connection.FileImport.delete(
+        connection_rid,
         file_import_rid,
         preview=preview,
     )
@@ -146,6 +150,7 @@ The returned BuildRid can be used to check the status via the Orchestration API.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
 **file_import_rid** | FileImportRid | fileImportRid |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
@@ -163,6 +168,8 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
+# ConnectionRid | connectionRid
+connection_rid = None
 # FileImportRid | fileImportRid
 file_import_rid = None
 # Optional[PreviewMode] | preview
@@ -170,7 +177,8 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.FileImport.execute(
+    api_response = foundry_client.connectivity.Connection.FileImport.execute(
+        connection_rid,
         file_import_rid,
         preview=preview,
     )
@@ -200,6 +208,7 @@ Get the FileImport with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
 **file_import_rid** | FileImportRid | fileImportRid |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
@@ -217,6 +226,8 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
+# ConnectionRid | connectionRid
+connection_rid = None
 # FileImportRid | fileImportRid
 file_import_rid = None
 # Optional[PreviewMode] | preview
@@ -224,7 +235,8 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.FileImport.get(
+    api_response = foundry_client.connectivity.Connection.FileImport.get(
+        connection_rid,
         file_import_rid,
         preview=preview,
     )

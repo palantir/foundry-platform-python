@@ -1,6 +1,7 @@
 # GeoPointDict
 
-GeoPoint
+See https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.2 for more information.
+
 
 ## Properties
 | Name | Type | Required | Description |

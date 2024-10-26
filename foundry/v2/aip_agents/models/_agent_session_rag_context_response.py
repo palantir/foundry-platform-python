@@ -15,32 +15,29 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import List
 from typing import cast
 
 import pydantic
 
-from foundry.v2.ontologies.models._object_set import ObjectSet
-from foundry.v2.ontologies.models._object_set_as_base_object_types_type_dict import (
-    ObjectSetAsBaseObjectTypesTypeDict,
+from foundry.v2.aip_agents.models._agent_session_rag_context_response_dict import (
+    AgentSessionRagContextResponseDict,
 )  # NOQA
+from foundry.v2.aip_agents.models._object_context import ObjectContext
 
 
-class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
+class AgentSessionRagContextResponse(pydantic.BaseModel):
     """
-    Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
-    properties in the resulting object set, not just the properties that implement interface properties. This is
-    currently unsupported and an exception will be thrown if used.
+    Context retrieved from an Agent's configured context data sources which was relevant to the
+    supplied user message.
     """
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
-
-    type: Literal["asBaseObjectTypes"]
+    object_contexts: List[ObjectContext] = pydantic.Field(alias="objectContexts")
 
     model_config = {"extra": "allow"}
 
-    def to_dict(self) -> ObjectSetAsBaseObjectTypesTypeDict:
+    def to_dict(self) -> AgentSessionRagContextResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectSetAsBaseObjectTypesTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            AgentSessionRagContextResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
         )

@@ -21,6 +21,6 @@ from foundry.v2.aip_agents.models._string_parameter_value_dict import (
 
 ParameterValueDict = StringParameterValueDict
 """
-The value provided for a [parameter](https://www.palantir.com/docs/foundry/agent-studio/parameters/)
+The value provided for a [parameter](/docs/foundry/agent-studio/parameters/)
 configured on an Agent.
 """

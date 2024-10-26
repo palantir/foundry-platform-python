@@ -27,6 +27,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._errors import handle_unexpected
+from foundry.v2.connectivity.file_import import FileImportClient
 from foundry.v2.connectivity.models._connection import Connection
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
@@ -37,6 +38,8 @@ from foundry.v2.core.models._preview_mode import PreviewMode
 class ConnectionClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
+
+        self.FileImport = FileImportClient(auth=auth, hostname=hostname)
 
     @pydantic.validate_call
     @handle_unexpected

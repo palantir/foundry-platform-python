@@ -20,6 +20,6 @@ from typing import Literal
 FolderType = Literal["FOLDER", "SPACE", "PROJECT"]
 """
 A folder can either a regular Folder, a
-[Project](https://www.palantir.com/docs/foundry/getting-started/projects-and-resources/#projects) or a
+[Project](/docs/foundry/getting-started/projects-and-resources/#projects) or a
 [Space](/docs/foundry/security/orgs-and-spaces/#spaces).
 """

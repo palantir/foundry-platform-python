@@ -20,16 +20,16 @@ from typing import cast
 
 import pydantic
 
-from foundry._core.utils import RID
 from foundry.v2.ontologies.models._object_set_reference_type_dict import (
     ObjectSetReferenceTypeDict,
 )  # NOQA
+from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
 
 
 class ObjectSetReferenceType(pydantic.BaseModel):
     """ObjectSetReferenceType"""
 
-    reference: RID
+    reference: ObjectSetRid
 
     type: Literal["reference"]
 

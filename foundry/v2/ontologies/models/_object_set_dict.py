@@ -25,9 +25,6 @@ from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
 from foundry.v2.ontologies.models._object_set_base_type_dict import ObjectSetBaseTypeDict  # NOQA
-from foundry.v2.ontologies.models._object_set_interface_base_type_dict import (
-    ObjectSetInterfaceBaseTypeDict,
-)  # NOQA
 from foundry.v2.ontologies.models._object_set_reference_type_dict import (
     ObjectSetReferenceTypeDict,
 )  # NOQA
@@ -71,20 +68,6 @@ class ObjectSetIntersectionTypeDict(TypedDict):
     type: Literal["intersect"]
 
 
-class ObjectSetAsBaseObjectTypesTypeDict(TypedDict):
-    """
-    Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
-    properties in the resulting object set, not just the properties that implement interface properties. This is
-    currently unsupported and an exception will be thrown if used.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: ObjectSetDict
-
-    type: Literal["asBaseObjectTypes"]
-
-
 class ObjectSetSubtractTypeDict(TypedDict):
     """ObjectSetSubtractType"""
 
@@ -105,37 +88,17 @@ class ObjectSetUnionTypeDict(TypedDict):
     type: Literal["union"]
 
 
-class ObjectSetAsTypeTypeDict(TypedDict):
-    """
-    Casts an object set to a specified object type or interface type API name. Any object whose object type does
-    not match the object type provided or implement the interface type provided will be dropped from the resulting
-    object set. This is currently unsupported and an exception will be thrown if used.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    entityType: pydantic.StrictStr
-    """An object type or interface type API name."""
-
-    objectSet: ObjectSetDict
-
-    type: Literal["asType"]
-
-
 ObjectSetDict = Annotated[
     Union[
         ObjectSetReferenceTypeDict,
         ObjectSetFilterTypeDict,
         ObjectSetSearchAroundTypeDict,
-        ObjectSetInterfaceBaseTypeDict,
         ObjectSetStaticTypeDict,
         ObjectSetIntersectionTypeDict,
-        ObjectSetAsBaseObjectTypesTypeDict,
         ObjectSetSubtractTypeDict,
         ObjectSetUnionTypeDict,
-        ObjectSetAsTypeTypeDict,
         ObjectSetBaseTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""Represents the definition of an `ObjectSet` in the `Ontology`."""
+"""Represents the definition of an `ObjectSet` in the ontology."""

@@ -1,6 +1,6 @@
 # ParameterValueDict
 
-The value provided for a [parameter](https://www.palantir.com/docs/foundry/agent-studio/parameters/)
+The value provided for a [parameter](/docs/foundry/agent-studio/parameters/)
 configured on an Agent.
 
 
