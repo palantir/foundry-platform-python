@@ -106,7 +106,7 @@ class ValueTypeDataTypeStructType(pydantic.BaseModel):
 
     fields: List[ValueTypeDataTypeStructElement]
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 
@@ -122,7 +122,7 @@ class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
 
     wrapped_type: ValueTypeDataType = pydantic.Field(alias="wrappedType")
 
-    type: Literal["optional"]
+    type: Literal["optional"] = "optional"
 
     model_config = {"extra": "allow"}
 
@@ -138,7 +138,7 @@ class ValueTypeDataTypeUnionType(pydantic.BaseModel):
 
     member_types: List[ValueTypeDataType] = pydantic.Field(alias="memberTypes")
 
-    type: Literal["union"]
+    type: Literal["union"] = "union"
 
     model_config = {"extra": "allow"}
 
@@ -154,7 +154,7 @@ class ValueTypeDataTypeArrayType(pydantic.BaseModel):
 
     element_type: ValueTypeDataType = pydantic.Field(alias="elementType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 
@@ -172,7 +172,7 @@ class ValueTypeDataTypeMapType(pydantic.BaseModel):
 
     value_type: ValueTypeDataType = pydantic.Field(alias="valueType")
 
-    type: Literal["map"]
+    type: Literal["map"] = "map"
 
     model_config = {"extra": "allow"}
 

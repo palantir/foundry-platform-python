@@ -31,7 +31,7 @@ class ScheduleRunSubmitted(pydantic.BaseModel):
 
     build_rid: BuildRid = pydantic.Field(alias="buildRid")
 
-    type: Literal["submitted"]
+    type: Literal["submitted"] = "submitted"
 
     model_config = {"extra": "allow"}
 

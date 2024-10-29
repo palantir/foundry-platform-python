@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_short_type_dict import (
 class ValueTypeDataTypeShortType(pydantic.BaseModel):
     """ValueTypeDataTypeShortType"""
 
-    type: Literal["short"]
+    type: Literal["short"] = "short"
 
     model_config = {"extra": "allow"}
 

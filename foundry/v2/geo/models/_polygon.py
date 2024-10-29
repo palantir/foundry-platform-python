@@ -34,7 +34,7 @@ class Polygon(pydantic.BaseModel):
 
     bbox: Optional[BBox] = None
 
-    type: Literal["Polygon"]
+    type: Literal["Polygon"] = "Polygon"
 
     model_config = {"extra": "allow"}
 

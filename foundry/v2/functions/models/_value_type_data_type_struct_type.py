@@ -34,7 +34,7 @@ class ValueTypeDataTypeStructType(pydantic.BaseModel):
 
     fields: List[ValueTypeDataTypeStructElement]
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 

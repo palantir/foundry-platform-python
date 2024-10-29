@@ -29,7 +29,7 @@ class CreateObjectRule(pydantic.BaseModel):
 
     object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
-    type: Literal["createObject"]
+    type: Literal["createObject"] = "createObject"
 
     model_config = {"extra": "allow"}
 

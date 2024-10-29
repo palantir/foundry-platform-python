@@ -29,7 +29,7 @@ class OntologySetType(pydantic.BaseModel):
 
     item_type: OntologyDataType = pydantic.Field(alias="itemType")
 
-    type: Literal["set"]
+    type: Literal["set"] = "set"
 
     model_config = {"extra": "allow"}
 

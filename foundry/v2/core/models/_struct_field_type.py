@@ -30,7 +30,7 @@ class StructFieldType(pydantic.BaseModel):
 
     sub_fields: List[Field] = pydantic.Field(alias="subFields")
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 

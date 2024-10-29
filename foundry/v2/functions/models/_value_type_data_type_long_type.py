@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_long_type_dict import (
 class ValueTypeDataTypeLongType(pydantic.BaseModel):
     """ValueTypeDataTypeLongType"""
 
-    type: Literal["long"]
+    type: Literal["long"] = "long"
 
     model_config = {"extra": "allow"}
 

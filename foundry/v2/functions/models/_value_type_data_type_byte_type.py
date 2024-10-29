@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_byte_type_dict import (
 class ValueTypeDataTypeByteType(pydantic.BaseModel):
     """ValueTypeDataTypeByteType"""
 
-    type: Literal["byte"]
+    type: Literal["byte"] = "byte"
 
     model_config = {"extra": "allow"}
 

@@ -36,7 +36,7 @@ class AddLink(pydantic.BaseModel):
 
     b_side_object: LinkSideObject = pydantic.Field(alias="bSideObject")
 
-    type: Literal["addLink"]
+    type: Literal["addLink"] = "addLink"
 
     model_config = {"extra": "allow"}
 

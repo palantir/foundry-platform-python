@@ -28,7 +28,7 @@ from foundry.v1.ontologies.models._object_property_value_constraint_dict import 
 class ObjectPropertyValueConstraint(pydantic.BaseModel):
     """The parameter value must be a property value of an object found within an object set."""
 
-    type: Literal["objectPropertyValue"]
+    type: Literal["objectPropertyValue"] = "objectPropertyValue"
 
     model_config = {"extra": "allow"}
 

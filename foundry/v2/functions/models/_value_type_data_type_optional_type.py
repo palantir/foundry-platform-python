@@ -31,7 +31,7 @@ class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
 
     wrapped_type: ValueTypeDataType = pydantic.Field(alias="wrappedType")
 
-    type: Literal["optional"]
+    type: Literal["optional"] = "optional"
 
     model_config = {"extra": "allow"}
 

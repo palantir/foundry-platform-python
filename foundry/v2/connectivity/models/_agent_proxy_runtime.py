@@ -42,7 +42,7 @@ class AgentProxyRuntime(pydantic.BaseModel):
     connection.
     """
 
-    type: Literal["agentProxyRuntime"]
+    type: Literal["agentProxyRuntime"] = "agentProxyRuntime"
 
     model_config = {"extra": "allow"}
 

@@ -30,7 +30,7 @@ class ProjectScope(pydantic.BaseModel):
 
     project_rids: List[ProjectRid] = pydantic.Field(alias="projectRids")
 
-    type: Literal["project"]
+    type: Literal["project"] = "project"
 
     model_config = {"extra": "allow"}
 

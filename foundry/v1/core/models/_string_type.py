@@ -26,7 +26,7 @@ from foundry.v1.core.models._string_type_dict import StringTypeDict
 class StringType(pydantic.BaseModel):
     """StringType"""
 
-    type: Literal["string"]
+    type: Literal["string"] = "string"
 
     model_config = {"extra": "allow"}
 

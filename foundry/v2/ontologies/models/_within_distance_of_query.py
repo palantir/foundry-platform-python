@@ -34,7 +34,7 @@ class WithinDistanceOfQuery(pydantic.BaseModel):
 
     value: CenterPoint
 
-    type: Literal["withinDistanceOf"]
+    type: Literal["withinDistanceOf"] = "withinDistanceOf"
 
     model_config = {"extra": "allow"}
 

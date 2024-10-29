@@ -31,7 +31,7 @@ class ActionParameterArrayType(pydantic.BaseModel):
 
     sub_type: ActionParameterType = pydantic.Field(alias="subType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 

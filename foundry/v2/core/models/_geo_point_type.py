@@ -26,7 +26,7 @@ from foundry.v2.core.models._geo_point_type_dict import GeoPointTypeDict
 class GeoPointType(pydantic.BaseModel):
     """GeoPointType"""
 
-    type: Literal["geopoint"]
+    type: Literal["geopoint"] = "geopoint"
 
     model_config = {"extra": "allow"}
 

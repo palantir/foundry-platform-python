@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_timestamp_type_dict impor
 class ValueTypeDataTypeTimestampType(pydantic.BaseModel):
     """ValueTypeDataTypeTimestampType"""
 
-    type: Literal["timestamp"]
+    type: Literal["timestamp"] = "timestamp"
 
     model_config = {"extra": "allow"}
 

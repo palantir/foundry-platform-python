@@ -26,7 +26,7 @@ from foundry.v1.core.models._binary_type_dict import BinaryTypeDict
 class BinaryType(pydantic.BaseModel):
     """BinaryType"""
 
-    type: Literal["binary"]
+    type: Literal["binary"] = "binary"
 
     model_config = {"extra": "allow"}
 

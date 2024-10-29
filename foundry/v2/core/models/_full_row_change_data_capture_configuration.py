@@ -51,7 +51,7 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
     - Timestamp
     """
 
-    type: Literal["fullRow"]
+    type: Literal["fullRow"] = "fullRow"
 
     model_config = {"extra": "allow"}
 

@@ -29,7 +29,7 @@ class DeleteObjectRule(pydantic.BaseModel):
 
     object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
-    type: Literal["deleteObject"]
+    type: Literal["deleteObject"] = "deleteObject"
 
     model_config = {"extra": "allow"}
 

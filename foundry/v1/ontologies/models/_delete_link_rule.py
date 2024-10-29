@@ -36,7 +36,7 @@ class DeleteLinkRule(pydantic.BaseModel):
 
     b_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="bSideObjectTypeApiName")
 
-    type: Literal["deleteLink"]
+    type: Literal["deleteLink"] = "deleteLink"
 
     model_config = {"extra": "allow"}
 

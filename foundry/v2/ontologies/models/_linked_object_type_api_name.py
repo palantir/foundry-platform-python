@@ -31,7 +31,7 @@ class LinkedObjectTypeApiName(pydantic.BaseModel):
 
     api_name: ObjectTypeApiName = pydantic.Field(alias="apiName")
 
-    type: Literal["objectTypeApiName"]
+    type: Literal["objectTypeApiName"] = "objectTypeApiName"
 
     model_config = {"extra": "allow"}
 

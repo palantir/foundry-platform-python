@@ -32,7 +32,7 @@ class ObjectSetSubtractType(pydantic.BaseModel):
 
     object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
-    type: Literal["subtract"]
+    type: Literal["subtract"] = "subtract"
 
     model_config = {"extra": "allow"}
 

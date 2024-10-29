@@ -31,7 +31,7 @@ class MapFieldType(pydantic.BaseModel):
 
     value_schema: FieldSchema = pydantic.Field(alias="valueSchema")
 
-    type: Literal["map"]
+    type: Literal["map"] = "map"
 
     model_config = {"extra": "allow"}
 

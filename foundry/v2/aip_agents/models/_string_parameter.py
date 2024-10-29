@@ -30,7 +30,7 @@ class StringParameter(pydantic.BaseModel):
     default_value: Optional[pydantic.StrictStr] = pydantic.Field(alias="defaultValue", default=None)
     """The default value to use for this parameter."""
 
-    type: Literal["string"]
+    type: Literal["string"] = "string"
 
     model_config = {"extra": "allow"}
 

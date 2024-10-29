@@ -30,7 +30,7 @@ class ObjectSetUnionType(pydantic.BaseModel):
 
     object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
-    type: Literal["union"]
+    type: Literal["union"] = "union"
 
     model_config = {"extra": "allow"}
 

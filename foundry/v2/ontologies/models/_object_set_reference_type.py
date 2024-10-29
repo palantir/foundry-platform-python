@@ -31,7 +31,7 @@ class ObjectSetReferenceType(pydantic.BaseModel):
 
     reference: ObjectSetRid
 
-    type: Literal["reference"]
+    type: Literal["reference"] = "reference"
 
     model_config = {"extra": "allow"}
 

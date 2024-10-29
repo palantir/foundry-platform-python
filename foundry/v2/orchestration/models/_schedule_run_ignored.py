@@ -28,7 +28,7 @@ from foundry.v2.orchestration.models._schedule_run_ignored_dict import (
 class ScheduleRunIgnored(pydantic.BaseModel):
     """The schedule is not running as all targets are up-to-date."""
 
-    type: Literal["ignored"]
+    type: Literal["ignored"] = "ignored"
 
     model_config = {"extra": "allow"}
 

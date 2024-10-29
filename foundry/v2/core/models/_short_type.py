@@ -26,7 +26,7 @@ from foundry.v2.core.models._short_type_dict import ShortTypeDict
 class ShortType(pydantic.BaseModel):
     """ShortType"""
 
-    type: Literal["short"]
+    type: Literal["short"] = "short"
 
     model_config = {"extra": "allow"}
 

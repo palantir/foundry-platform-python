@@ -34,7 +34,7 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
 
     schedule_rid: ScheduleRid = pydantic.Field(alias="scheduleRid")
 
-    type: Literal["scheduleSucceeded"]
+    type: Literal["scheduleSucceeded"] = "scheduleSucceeded"
 
     model_config = {"extra": "allow"}
 

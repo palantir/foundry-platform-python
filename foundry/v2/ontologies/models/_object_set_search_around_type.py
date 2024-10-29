@@ -34,7 +34,7 @@ class ObjectSetSearchAroundType(pydantic.BaseModel):
 
     link: LinkTypeApiName
 
-    type: Literal["searchAround"]
+    type: Literal["searchAround"] = "searchAround"
 
     model_config = {"extra": "allow"}
 

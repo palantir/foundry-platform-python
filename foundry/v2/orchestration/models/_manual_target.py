@@ -30,7 +30,7 @@ class ManualTarget(pydantic.BaseModel):
 
     target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
 
-    type: Literal["manual"]
+    type: Literal["manual"] = "manual"
 
     model_config = {"extra": "allow"}
 

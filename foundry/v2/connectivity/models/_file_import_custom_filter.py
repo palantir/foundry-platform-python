@@ -34,7 +34,7 @@ class FileImportCustomFilter(pydantic.BaseModel):
 
     config: Any
 
-    type: Literal["customFilter"]
+    type: Literal["customFilter"] = "customFilter"
 
     model_config = {"extra": "allow"}
 

@@ -38,7 +38,7 @@ class OntologyObjectSetType(pydantic.BaseModel):
         alias="objectTypeApiName", default=None
     )
 
-    type: Literal["objectSet"]
+    type: Literal["objectSet"] = "objectSet"
 
     model_config = {"extra": "allow"}
 

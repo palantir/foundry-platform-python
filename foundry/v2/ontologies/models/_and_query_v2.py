@@ -30,7 +30,7 @@ class AndQueryV2(pydantic.BaseModel):
 
     value: List[SearchJsonQueryV2]
 
-    type: Literal["and"]
+    type: Literal["and"] = "and"
 
     model_config = {"extra": "allow"}
 

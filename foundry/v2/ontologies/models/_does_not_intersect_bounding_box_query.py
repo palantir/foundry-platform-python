@@ -34,7 +34,7 @@ class DoesNotIntersectBoundingBoxQuery(pydantic.BaseModel):
 
     value: BoundingBoxValue
 
-    type: Literal["doesNotIntersectBoundingBox"]
+    type: Literal["doesNotIntersectBoundingBox"] = "doesNotIntersectBoundingBox"
 
     model_config = {"extra": "allow"}
 

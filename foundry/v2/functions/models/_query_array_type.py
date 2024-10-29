@@ -29,7 +29,7 @@ class QueryArrayType(pydantic.BaseModel):
 
     sub_type: QueryDataType = pydantic.Field(alias="subType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 

@@ -36,7 +36,7 @@ class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
 
     value: pydantic.StrictStr
 
-    type: Literal["containsAllTermsInOrder"]
+    type: Literal["containsAllTermsInOrder"] = "containsAllTermsInOrder"
 
     model_config = {"extra": "allow"}
 

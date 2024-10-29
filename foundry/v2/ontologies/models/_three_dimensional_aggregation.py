@@ -36,7 +36,7 @@ class ThreeDimensionalAggregation(pydantic.BaseModel):
 
     value_type: TwoDimensionalAggregation = pydantic.Field(alias="valueType")
 
-    type: Literal["threeDimensionalAggregation"]
+    type: Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
 
     model_config = {"extra": "allow"}
 

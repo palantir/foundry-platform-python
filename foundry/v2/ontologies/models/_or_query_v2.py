@@ -30,7 +30,7 @@ class OrQueryV2(pydantic.BaseModel):
 
     value: List[SearchJsonQueryV2]
 
-    type: Literal["or"]
+    type: Literal["or"] = "or"
 
     model_config = {"extra": "allow"}
 

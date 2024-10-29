@@ -33,7 +33,7 @@ class InQuery(pydantic.BaseModel):
 
     value: List[PropertyValue]
 
-    type: Literal["in"]
+    type: Literal["in"] = "in"
 
     model_config = {"extra": "allow"}
 

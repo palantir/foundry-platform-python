@@ -29,7 +29,7 @@ class NotQueryV2(pydantic.BaseModel):
 
     value: SearchJsonQueryV2
 
-    type: Literal["not"]
+    type: Literal["not"] = "not"
 
     model_config = {"extra": "allow"}
 

@@ -34,7 +34,7 @@ class IntersectsPolygonQuery(pydantic.BaseModel):
 
     value: PolygonValue
 
-    type: Literal["intersectsPolygon"]
+    type: Literal["intersectsPolygon"] = "intersectsPolygon"
 
     model_config = {"extra": "allow"}
 

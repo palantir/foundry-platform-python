@@ -69,7 +69,7 @@ class QueryStructType(pydantic.BaseModel):
 
     fields: List[QueryStructField]
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 
@@ -83,7 +83,7 @@ class QuerySetType(pydantic.BaseModel):
 
     sub_type: QueryDataType = pydantic.Field(alias="subType")
 
-    type: Literal["set"]
+    type: Literal["set"] = "set"
 
     model_config = {"extra": "allow"}
 
@@ -97,7 +97,7 @@ class QueryUnionType(pydantic.BaseModel):
 
     union_types: List[QueryDataType] = pydantic.Field(alias="unionTypes")
 
-    type: Literal["union"]
+    type: Literal["union"] = "union"
 
     model_config = {"extra": "allow"}
 
@@ -111,7 +111,7 @@ class QueryArrayType(pydantic.BaseModel):
 
     sub_type: QueryDataType = pydantic.Field(alias="subType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 

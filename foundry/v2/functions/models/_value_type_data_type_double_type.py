@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_double_type_dict import (
 class ValueTypeDataTypeDoubleType(pydantic.BaseModel):
     """ValueTypeDataTypeDoubleType"""
 
-    type: Literal["double"]
+    type: Literal["double"] = "double"
 
     model_config = {"extra": "allow"}
 

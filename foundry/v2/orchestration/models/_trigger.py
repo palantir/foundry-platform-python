@@ -42,7 +42,7 @@ class OrTrigger(pydantic.BaseModel):
 
     triggers: List[Trigger]
 
-    type: Literal["or"]
+    type: Literal["or"] = "or"
 
     model_config = {"extra": "allow"}
 
@@ -56,7 +56,7 @@ class AndTrigger(pydantic.BaseModel):
 
     triggers: List[Trigger]
 
-    type: Literal["and"]
+    type: Literal["and"] = "and"
 
     model_config = {"extra": "allow"}
 

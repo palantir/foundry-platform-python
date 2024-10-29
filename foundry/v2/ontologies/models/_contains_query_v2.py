@@ -32,7 +32,7 @@ class ContainsQueryV2(pydantic.BaseModel):
 
     value: PropertyValue
 
-    type: Literal["contains"]
+    type: Literal["contains"] = "contains"
 
     model_config = {"extra": "allow"}
 

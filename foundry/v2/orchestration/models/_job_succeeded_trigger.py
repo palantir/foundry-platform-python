@@ -37,7 +37,7 @@ class JobSucceededTrigger(pydantic.BaseModel):
 
     branch_name: BranchName = pydantic.Field(alias="branchName")
 
-    type: Literal["jobSucceeded"]
+    type: Literal["jobSucceeded"] = "jobSucceeded"
 
     model_config = {"extra": "allow"}
 

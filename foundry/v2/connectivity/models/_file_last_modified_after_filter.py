@@ -36,7 +36,7 @@ class FileLastModifiedAfterFilter(pydantic.BaseModel):
     If not specified, defaults to the timestamp the filter is added to the file import.
     """
 
-    type: Literal["lastModifiedAfterFilter"]
+    type: Literal["lastModifiedAfterFilter"] = "lastModifiedAfterFilter"
 
     model_config = {"extra": "allow"}
 

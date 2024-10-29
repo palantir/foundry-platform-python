@@ -32,7 +32,7 @@ class WithinPolygonQuery(pydantic.BaseModel):
 
     value: PolygonValue
 
-    type: Literal["withinPolygon"]
+    type: Literal["withinPolygon"] = "withinPolygon"
 
     model_config = {"extra": "allow"}
 

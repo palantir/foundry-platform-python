@@ -34,7 +34,7 @@ class UpstreamTarget(pydantic.BaseModel):
     ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
     """The datasets to ignore when calculating the final set of dataset to build."""
 
-    type: Literal["upstream"]
+    type: Literal["upstream"] = "upstream"
 
     model_config = {"extra": "allow"}
 

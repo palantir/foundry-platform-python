@@ -32,7 +32,7 @@ class AddObject(pydantic.BaseModel):
 
     object_type: ObjectTypeApiName = pydantic.Field(alias="objectType")
 
-    type: Literal["addObject"]
+    type: Literal["addObject"] = "addObject"
 
     model_config = {"extra": "allow"}
 

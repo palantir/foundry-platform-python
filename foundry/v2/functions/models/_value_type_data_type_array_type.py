@@ -31,7 +31,7 @@ class ValueTypeDataTypeArrayType(pydantic.BaseModel):
 
     element_type: ValueTypeDataType = pydantic.Field(alias="elementType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 

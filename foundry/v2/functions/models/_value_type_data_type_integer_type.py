@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_integer_type_dict import 
 class ValueTypeDataTypeIntegerType(pydantic.BaseModel):
     """ValueTypeDataTypeIntegerType"""
 
-    type: Literal["integer"]
+    type: Literal["integer"] = "integer"
 
     model_config = {"extra": "allow"}
 

@@ -32,7 +32,7 @@ class ObjectSetStaticType(pydantic.BaseModel):
 
     objects: List[ObjectRid]
 
-    type: Literal["static"]
+    type: Literal["static"] = "static"
 
     model_config = {"extra": "allow"}
 

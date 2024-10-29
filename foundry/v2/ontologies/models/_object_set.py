@@ -50,7 +50,7 @@ class ObjectSetFilterType(pydantic.BaseModel):
 
     where: SearchJsonQueryV2
 
-    type: Literal["filter"]
+    type: Literal["filter"] = "filter"
 
     model_config = {"extra": "allow"}
 
@@ -66,7 +66,7 @@ class ObjectSetSearchAroundType(pydantic.BaseModel):
 
     link: LinkTypeApiName
 
-    type: Literal["searchAround"]
+    type: Literal["searchAround"] = "searchAround"
 
     model_config = {"extra": "allow"}
 
@@ -82,7 +82,7 @@ class ObjectSetIntersectionType(pydantic.BaseModel):
 
     object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
-    type: Literal["intersect"]
+    type: Literal["intersect"] = "intersect"
 
     model_config = {"extra": "allow"}
 
@@ -98,7 +98,7 @@ class ObjectSetSubtractType(pydantic.BaseModel):
 
     object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
-    type: Literal["subtract"]
+    type: Literal["subtract"] = "subtract"
 
     model_config = {"extra": "allow"}
 
@@ -112,7 +112,7 @@ class ObjectSetUnionType(pydantic.BaseModel):
 
     object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
-    type: Literal["union"]
+    type: Literal["union"] = "union"
 
     model_config = {"extra": "allow"}
 

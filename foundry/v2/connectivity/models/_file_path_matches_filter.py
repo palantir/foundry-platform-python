@@ -42,7 +42,7 @@ class FilePathMatchesFilter(pydantic.BaseModel):
     regex: pydantic.StrictStr
     """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
 
-    type: Literal["pathMatchesFilter"]
+    type: Literal["pathMatchesFilter"] = "pathMatchesFilter"
 
     model_config = {"extra": "allow"}
 

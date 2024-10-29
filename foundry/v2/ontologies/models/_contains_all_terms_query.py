@@ -40,7 +40,7 @@ class ContainsAllTermsQuery(pydantic.BaseModel):
 
     fuzzy: Optional[FuzzyV2] = None
 
-    type: Literal["containsAllTerms"]
+    type: Literal["containsAllTerms"] = "containsAllTerms"
 
     model_config = {"extra": "allow"}
 

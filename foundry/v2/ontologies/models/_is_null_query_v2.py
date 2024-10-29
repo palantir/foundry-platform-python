@@ -31,7 +31,7 @@ class IsNullQueryV2(pydantic.BaseModel):
 
     value: pydantic.StrictBool
 
-    type: Literal["isNull"]
+    type: Literal["isNull"] = "isNull"
 
     model_config = {"extra": "allow"}
 

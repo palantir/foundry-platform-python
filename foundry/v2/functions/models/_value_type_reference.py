@@ -32,7 +32,7 @@ class ValueTypeReference(pydantic.BaseModel):
 
     version_id: ValueTypeVersionId = pydantic.Field(alias="versionId")
 
-    type: Literal["valueTypeReference"]
+    type: Literal["valueTypeReference"] = "valueTypeReference"
 
     model_config = {"extra": "allow"}
 

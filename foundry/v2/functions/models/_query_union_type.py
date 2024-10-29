@@ -30,7 +30,7 @@ class QueryUnionType(pydantic.BaseModel):
 
     union_types: List[QueryDataType] = pydantic.Field(alias="unionTypes")
 
-    type: Literal["union"]
+    type: Literal["union"] = "union"
 
     model_config = {"extra": "allow"}
 

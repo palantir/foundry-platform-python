@@ -34,7 +34,7 @@ class DoesNotIntersectPolygonQuery(pydantic.BaseModel):
 
     value: PolygonValue
 
-    type: Literal["doesNotIntersectPolygon"]
+    type: Literal["doesNotIntersectPolygon"] = "doesNotIntersectPolygon"
 
     model_config = {"extra": "allow"}
 

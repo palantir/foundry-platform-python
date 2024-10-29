@@ -69,7 +69,7 @@ class OntologyStructType(pydantic.BaseModel):
 
     fields: List[OntologyStructField]
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 
@@ -83,7 +83,7 @@ class OntologySetType(pydantic.BaseModel):
 
     item_type: OntologyDataType = pydantic.Field(alias="itemType")
 
-    type: Literal["set"]
+    type: Literal["set"] = "set"
 
     model_config = {"extra": "allow"}
 
@@ -97,7 +97,7 @@ class OntologyArrayType(pydantic.BaseModel):
 
     item_type: OntologyDataType = pydantic.Field(alias="itemType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 
@@ -113,7 +113,7 @@ class OntologyMapType(pydantic.BaseModel):
 
     value_type: OntologyDataType = pydantic.Field(alias="valueType")
 
-    type: Literal["map"]
+    type: Literal["map"] = "map"
 
     model_config = {"extra": "allow"}
 

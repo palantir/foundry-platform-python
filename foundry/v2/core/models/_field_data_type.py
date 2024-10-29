@@ -83,7 +83,7 @@ class StructFieldType(pydantic.BaseModel):
 
     sub_fields: List[Field] = pydantic.Field(alias="subFields")
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 
@@ -97,7 +97,7 @@ class ArrayFieldType(pydantic.BaseModel):
 
     items_schema: FieldSchema = pydantic.Field(alias="itemsSchema")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 
@@ -113,7 +113,7 @@ class MapFieldType(pydantic.BaseModel):
 
     value_schema: FieldSchema = pydantic.Field(alias="valueSchema")
 
-    type: Literal["map"]
+    type: Literal["map"] = "map"
 
     model_config = {"extra": "allow"}
 

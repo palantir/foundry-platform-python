@@ -37,7 +37,7 @@ class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
 
     value: pydantic.StrictStr
 
-    type: Literal["containsAllTermsInOrderPrefixLastTerm"]
+    type: Literal["containsAllTermsInOrderPrefixLastTerm"] = "containsAllTermsInOrderPrefixLastTerm"
 
     model_config = {"extra": "allow"}
 

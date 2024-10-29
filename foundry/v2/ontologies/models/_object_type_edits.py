@@ -30,7 +30,7 @@ class ObjectTypeEdits(pydantic.BaseModel):
 
     edited_object_types: List[ObjectTypeApiName] = pydantic.Field(alias="editedObjectTypes")
 
-    type: Literal["largeScaleEdits"]
+    type: Literal["largeScaleEdits"] = "largeScaleEdits"
 
     model_config = {"extra": "allow"}
 

@@ -30,7 +30,7 @@ class QueryStructType(pydantic.BaseModel):
 
     fields: List[QueryStructField]
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 

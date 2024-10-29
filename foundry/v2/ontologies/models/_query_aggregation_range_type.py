@@ -33,7 +33,7 @@ class QueryAggregationRangeType(pydantic.BaseModel):
 
     sub_type: QueryAggregationRangeSubType = pydantic.Field(alias="subType")
 
-    type: Literal["range"]
+    type: Literal["range"] = "range"
 
     model_config = {"extra": "allow"}
 

@@ -28,7 +28,7 @@ from foundry.v2.ontologies.models._group_member_constraint_dict import (
 class GroupMemberConstraint(pydantic.BaseModel):
     """The parameter value must be the user id of a member belonging to at least one of the groups defined by the constraint."""
 
-    type: Literal["groupMember"]
+    type: Literal["groupMember"] = "groupMember"
 
     model_config = {"extra": "allow"}
 

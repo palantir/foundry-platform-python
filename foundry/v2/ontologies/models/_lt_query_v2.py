@@ -32,7 +32,7 @@ class LtQueryV2(pydantic.BaseModel):
 
     value: PropertyValue
 
-    type: Literal["lt"]
+    type: Literal["lt"] = "lt"
 
     model_config = {"extra": "allow"}
 

@@ -32,7 +32,7 @@ class ObjectSetIntersectionType(pydantic.BaseModel):
 
     object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
 
-    type: Literal["intersect"]
+    type: Literal["intersect"] = "intersect"
 
     model_config = {"extra": "allow"}
 

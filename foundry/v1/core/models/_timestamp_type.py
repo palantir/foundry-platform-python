@@ -26,7 +26,7 @@ from foundry.v1.core.models._timestamp_type_dict import TimestampTypeDict
 class TimestampType(pydantic.BaseModel):
     """TimestampType"""
 
-    type: Literal["timestamp"]
+    type: Literal["timestamp"] = "timestamp"
 
     model_config = {"extra": "allow"}
 
