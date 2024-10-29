@@ -31,7 +31,7 @@ class OntologyObjectType(pydantic.BaseModel):
 
     object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
-    type: Literal["object"]
+    type: Literal["object"] = "object"
 
     model_config = {"extra": "allow"}
 

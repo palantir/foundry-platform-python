@@ -34,7 +34,7 @@ class ObjectSetFilterType(pydantic.BaseModel):
 
     where: SearchJsonQueryV2
 
-    type: Literal["filter"]
+    type: Literal["filter"] = "filter"
 
     model_config = {"extra": "allow"}
 

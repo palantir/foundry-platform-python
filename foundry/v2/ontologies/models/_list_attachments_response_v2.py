@@ -36,7 +36,7 @@ class ListAttachmentsResponseV2(pydantic.BaseModel):
 
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
-    type: Literal["multiple"]
+    type: Literal["multiple"] = "multiple"
 
     model_config = {"extra": "allow"}
 

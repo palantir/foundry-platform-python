@@ -32,7 +32,7 @@ class TimeTrigger(pydantic.BaseModel):
 
     time_zone: ZoneId = pydantic.Field(alias="timeZone")
 
-    type: Literal["time"]
+    type: Literal["time"] = "time"
 
     model_config = {"extra": "allow"}
 

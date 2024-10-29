@@ -26,7 +26,7 @@ from foundry.v2.core.models._attachment_type_dict import AttachmentTypeDict
 class AttachmentType(pydantic.BaseModel):
     """AttachmentType"""
 
-    type: Literal["attachment"]
+    type: Literal["attachment"] = "attachment"
 
     model_config = {"extra": "allow"}
 

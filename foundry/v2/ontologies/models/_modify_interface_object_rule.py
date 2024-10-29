@@ -28,7 +28,7 @@ from foundry.v2.ontologies.models._modify_interface_object_rule_dict import (
 class ModifyInterfaceObjectRule(pydantic.BaseModel):
     """ModifyInterfaceObjectRule"""
 
-    type: Literal["modifyInterfaceObject"]
+    type: Literal["modifyInterfaceObject"] = "modifyInterfaceObject"
 
     model_config = {"extra": "allow"}
 

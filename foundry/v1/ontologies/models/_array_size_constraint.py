@@ -40,7 +40,7 @@ class ArraySizeConstraint(pydantic.BaseModel):
     gte: Optional[Any] = None
     """Greater than or equal"""
 
-    type: Literal["arraySize"]
+    type: Literal["arraySize"] = "arraySize"
 
     model_config = {"extra": "allow"}
 

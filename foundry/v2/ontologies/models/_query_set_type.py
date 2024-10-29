@@ -29,7 +29,7 @@ class QuerySetType(pydantic.BaseModel):
 
     sub_type: QueryDataType = pydantic.Field(alias="subType")
 
-    type: Literal["set"]
+    type: Literal["set"] = "set"
 
     model_config = {"extra": "allow"}
 

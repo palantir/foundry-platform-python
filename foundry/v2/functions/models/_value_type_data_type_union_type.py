@@ -32,7 +32,7 @@ class ValueTypeDataTypeUnionType(pydantic.BaseModel):
 
     member_types: List[ValueTypeDataType] = pydantic.Field(alias="memberTypes")
 
-    type: Literal["union"]
+    type: Literal["union"] = "union"
 
     model_config = {"extra": "allow"}
 

@@ -39,7 +39,7 @@ class MediaSetUpdatedTrigger(pydantic.BaseModel):
 
     branch_name: BranchName = pydantic.Field(alias="branchName")
 
-    type: Literal["mediaSetUpdated"]
+    type: Literal["mediaSetUpdated"] = "mediaSetUpdated"
 
     model_config = {"extra": "allow"}
 

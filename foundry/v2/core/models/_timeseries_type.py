@@ -29,7 +29,7 @@ class TimeseriesType(pydantic.BaseModel):
 
     item_type: TimeSeriesItemType = pydantic.Field(alias="itemType")
 
-    type: Literal["timeseries"]
+    type: Literal["timeseries"] = "timeseries"
 
     model_config = {"extra": "allow"}
 

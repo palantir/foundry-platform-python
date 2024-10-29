@@ -29,7 +29,7 @@ class OntologyArrayType(pydantic.BaseModel):
 
     item_type: OntologyDataType = pydantic.Field(alias="itemType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 

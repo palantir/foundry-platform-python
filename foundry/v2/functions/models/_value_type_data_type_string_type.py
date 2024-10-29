@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_string_type_dict import (
 class ValueTypeDataTypeStringType(pydantic.BaseModel):
     """ValueTypeDataTypeStringType"""
 
-    type: Literal["string"]
+    type: Literal["string"] = "string"
 
     model_config = {"extra": "allow"}
 

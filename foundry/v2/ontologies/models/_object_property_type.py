@@ -50,7 +50,7 @@ class OntologyObjectArrayType(pydantic.BaseModel):
 
     sub_type: ObjectPropertyType = pydantic.Field(alias="subType")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 

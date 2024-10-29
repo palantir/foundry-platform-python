@@ -35,7 +35,7 @@ class BlueprintIcon(pydantic.BaseModel):
     Used to specify the Blueprint icon to represent the object type in a React app.
     """
 
-    type: Literal["blueprint"]
+    type: Literal["blueprint"] = "blueprint"
 
     model_config = {"extra": "allow"}
 

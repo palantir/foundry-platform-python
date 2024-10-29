@@ -26,7 +26,7 @@ from foundry.v1.core.models._any_type_dict import AnyTypeDict
 class AnyType(pydantic.BaseModel):
     """AnyType"""
 
-    type: Literal["any"]
+    type: Literal["any"] = "any"
 
     model_config = {"extra": "allow"}
 

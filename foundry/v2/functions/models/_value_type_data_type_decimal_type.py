@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_decimal_type_dict import 
 class ValueTypeDataTypeDecimalType(pydantic.BaseModel):
     """ValueTypeDataTypeDecimalType"""
 
-    type: Literal["decimal"]
+    type: Literal["decimal"] = "decimal"
 
     model_config = {"extra": "allow"}
 

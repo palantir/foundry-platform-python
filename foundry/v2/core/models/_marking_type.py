@@ -26,7 +26,7 @@ from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
 class MarkingType(pydantic.BaseModel):
     """MarkingType"""
 
-    type: Literal["marking"]
+    type: Literal["marking"] = "marking"
 
     model_config = {"extra": "allow"}
 

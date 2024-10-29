@@ -31,7 +31,7 @@ class ValueTypeDataTypeReferencedType(pydantic.BaseModel):
 
     versioned_referenced_type: ValueTypeReference = pydantic.Field(alias="versionedReferencedType")
 
-    type: Literal["referenced"]
+    type: Literal["referenced"] = "referenced"
 
     model_config = {"extra": "allow"}
 

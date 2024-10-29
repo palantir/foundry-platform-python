@@ -31,7 +31,7 @@ class StartsWithQuery(pydantic.BaseModel):
 
     value: pydantic.StrictStr
 
-    type: Literal["startsWith"]
+    type: Literal["startsWith"] = "startsWith"
 
     model_config = {"extra": "allow"}
 

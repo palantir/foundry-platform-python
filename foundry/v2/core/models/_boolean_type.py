@@ -26,7 +26,7 @@ from foundry.v2.core.models._boolean_type_dict import BooleanTypeDict
 class BooleanType(pydantic.BaseModel):
     """BooleanType"""
 
-    type: Literal["boolean"]
+    type: Literal["boolean"] = "boolean"
 
     model_config = {"extra": "allow"}
 

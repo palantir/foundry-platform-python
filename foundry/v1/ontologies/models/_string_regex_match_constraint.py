@@ -40,7 +40,7 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
     This is configured per parameter in the **Ontology Manager**.
     """
 
-    type: Literal["stringRegexMatch"]
+    type: Literal["stringRegexMatch"] = "stringRegexMatch"
 
     model_config = {"extra": "allow"}
 

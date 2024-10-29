@@ -31,7 +31,7 @@ class OntologyMapType(pydantic.BaseModel):
 
     value_type: OntologyDataType = pydantic.Field(alias="valueType")
 
-    type: Literal["map"]
+    type: Literal["map"] = "map"
 
     model_config = {"extra": "allow"}
 

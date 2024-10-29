@@ -28,7 +28,7 @@ from foundry.v2.core.models._geotime_series_reference_type_dict import (
 class GeotimeSeriesReferenceType(pydantic.BaseModel):
     """GeotimeSeriesReferenceType"""
 
-    type: Literal["geotimeSeriesReference"]
+    type: Literal["geotimeSeriesReference"] = "geotimeSeriesReference"
 
     model_config = {"extra": "allow"}
 

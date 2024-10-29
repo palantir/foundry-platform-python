@@ -32,7 +32,7 @@ class DecimalType(pydantic.BaseModel):
     precision: pydantic.StrictInt
     """The total number of digits of the Decimal type. The maximum value is 38."""
 
-    type: Literal["decimal"]
+    type: Literal["decimal"] = "decimal"
 
     model_config = {"extra": "allow"}
 

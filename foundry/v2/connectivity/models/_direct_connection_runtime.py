@@ -46,7 +46,7 @@ class DirectConnectionRuntime(pydantic.BaseModel):
     to egress to from a Foundry enrollment
     """
 
-    type: Literal["directConnectionRuntime"]
+    type: Literal["directConnectionRuntime"] = "directConnectionRuntime"
 
     model_config = {"extra": "allow"}
 

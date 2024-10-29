@@ -31,7 +31,7 @@ class LinkedInterfaceTypeApiName(pydantic.BaseModel):
 
     api_name: InterfaceTypeApiName = pydantic.Field(alias="apiName")
 
-    type: Literal["interfaceTypeApiName"]
+    type: Literal["interfaceTypeApiName"] = "interfaceTypeApiName"
 
     model_config = {"extra": "allow"}
 

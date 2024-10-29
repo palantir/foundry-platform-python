@@ -35,7 +35,7 @@ class NewLogicTrigger(pydantic.BaseModel):
 
     dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
 
-    type: Literal["newLogic"]
+    type: Literal["newLogic"] = "newLogic"
 
     model_config = {"extra": "allow"}
 

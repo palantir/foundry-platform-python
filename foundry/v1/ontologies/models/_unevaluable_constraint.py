@@ -31,7 +31,7 @@ class UnevaluableConstraint(pydantic.BaseModel):
     This can happen when a parameter's allowed values are defined by another parameter that is missing or invalid.
     """
 
-    type: Literal["unevaluable"]
+    type: Literal["unevaluable"] = "unevaluable"
 
     model_config = {"extra": "allow"}
 

@@ -40,7 +40,7 @@ class ConnectingTarget(pydantic.BaseModel):
     ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
     """The datasets between the input datasets and target datasets to exclude."""
 
-    type: Literal["connecting"]
+    type: Literal["connecting"] = "connecting"
 
     model_config = {"extra": "allow"}
 

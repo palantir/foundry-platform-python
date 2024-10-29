@@ -31,7 +31,7 @@ class DecimalType(pydantic.BaseModel):
 
     scale: Optional[pydantic.StrictInt] = None
 
-    type: Literal["decimal"]
+    type: Literal["decimal"] = "decimal"
 
     model_config = {"extra": "allow"}
 

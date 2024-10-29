@@ -26,7 +26,7 @@ from foundry.v1.core.models._date_type_dict import DateTypeDict
 class DateType(pydantic.BaseModel):
     """DateType"""
 
-    type: Literal["date"]
+    type: Literal["date"] = "date"
 
     model_config = {"extra": "allow"}
 

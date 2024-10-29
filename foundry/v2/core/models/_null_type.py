@@ -26,7 +26,7 @@ from foundry.v2.core.models._null_type_dict import NullTypeDict
 class NullType(pydantic.BaseModel):
     """NullType"""
 
-    type: Literal["null"]
+    type: Literal["null"] = "null"
 
     model_config = {"extra": "allow"}
 

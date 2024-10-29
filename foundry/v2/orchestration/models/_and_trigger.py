@@ -30,7 +30,7 @@ class AndTrigger(pydantic.BaseModel):
 
     triggers: List[Trigger]
 
-    type: Literal["and"]
+    type: Literal["and"] = "and"
 
     model_config = {"extra": "allow"}
 

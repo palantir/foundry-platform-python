@@ -29,7 +29,7 @@ class ArrayFieldType(pydantic.BaseModel):
 
     items_schema: FieldSchema = pydantic.Field(alias="itemsSchema")
 
-    type: Literal["array"]
+    type: Literal["array"] = "array"
 
     model_config = {"extra": "allow"}
 

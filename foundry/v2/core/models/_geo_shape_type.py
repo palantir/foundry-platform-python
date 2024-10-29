@@ -26,7 +26,7 @@ from foundry.v2.core.models._geo_shape_type_dict import GeoShapeTypeDict
 class GeoShapeType(pydantic.BaseModel):
     """GeoShapeType"""
 
-    type: Literal["geoshape"]
+    type: Literal["geoshape"] = "geoshape"
 
     model_config = {"extra": "allow"}
 

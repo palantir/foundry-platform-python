@@ -30,7 +30,7 @@ class OntologyStructType(pydantic.BaseModel):
 
     fields: List[OntologyStructField]
 
-    type: Literal["struct"]
+    type: Literal["struct"] = "struct"
 
     model_config = {"extra": "allow"}
 

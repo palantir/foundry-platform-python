@@ -45,7 +45,7 @@ class StringLengthConstraint(pydantic.BaseModel):
     gte: Optional[Any] = None
     """Greater than or equal"""
 
-    type: Literal["stringLength"]
+    type: Literal["stringLength"] = "stringLength"
 
     model_config = {"extra": "allow"}
 

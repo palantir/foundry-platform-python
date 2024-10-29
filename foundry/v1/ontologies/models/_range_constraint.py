@@ -40,7 +40,7 @@ class RangeConstraint(pydantic.BaseModel):
     gte: Optional[Any] = None
     """Greater than or equal"""
 
-    type: Literal["range"]
+    type: Literal["range"] = "range"
 
     model_config = {"extra": "allow"}
 

@@ -28,7 +28,7 @@ from foundry.v2.functions.models._value_type_data_type_date_type_dict import (
 class ValueTypeDataTypeDateType(pydantic.BaseModel):
     """ValueTypeDataTypeDateType"""
 
-    type: Literal["date"]
+    type: Literal["date"] = "date"
 
     model_config = {"extra": "allow"}
 

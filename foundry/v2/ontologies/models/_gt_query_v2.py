@@ -32,7 +32,7 @@ class GtQueryV2(pydantic.BaseModel):
 
     value: PropertyValue
 
-    type: Literal["gt"]
+    type: Literal["gt"] = "gt"
 
     model_config = {"extra": "allow"}
 

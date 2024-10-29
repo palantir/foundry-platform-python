@@ -41,7 +41,7 @@ class AgentWorkerRuntime(pydantic.BaseModel):
     connection.
     """
 
-    type: Literal["agentWorkerRuntime"]
+    type: Literal["agentWorkerRuntime"] = "agentWorkerRuntime"
 
     model_config = {"extra": "allow"}
 

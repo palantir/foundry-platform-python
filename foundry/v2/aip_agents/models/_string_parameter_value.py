@@ -30,7 +30,7 @@ class StringParameterValue(pydantic.BaseModel):
 
     value: pydantic.StrictStr
 
-    type: Literal["string"]
+    type: Literal["string"] = "string"
 
     model_config = {"extra": "allow"}
 

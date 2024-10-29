@@ -38,7 +38,7 @@ class AttachmentV2(pydantic.BaseModel):
 
     media_type: MediaType = pydantic.Field(alias="mediaType")
 
-    type: Literal["single"]
+    type: Literal["single"] = "single"
 
     model_config = {"extra": "allow"}
 

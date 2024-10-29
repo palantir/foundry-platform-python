@@ -26,7 +26,7 @@ from foundry.v1.core.models._float_type_dict import FloatTypeDict
 class FloatType(pydantic.BaseModel):
     """FloatType"""
 
-    type: Literal["float"]
+    type: Literal["float"] = "float"
 
     model_config = {"extra": "allow"}
 

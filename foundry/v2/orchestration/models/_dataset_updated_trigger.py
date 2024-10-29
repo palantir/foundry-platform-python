@@ -37,7 +37,7 @@ class DatasetUpdatedTrigger(pydantic.BaseModel):
 
     branch_name: BranchName = pydantic.Field(alias="branchName")
 
-    type: Literal["datasetUpdated"]
+    type: Literal["datasetUpdated"] = "datasetUpdated"
 
     model_config = {"extra": "allow"}
 

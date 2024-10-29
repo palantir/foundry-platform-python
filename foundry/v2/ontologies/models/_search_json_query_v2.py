@@ -63,7 +63,7 @@ class OrQueryV2(pydantic.BaseModel):
 
     value: List[SearchJsonQueryV2]
 
-    type: Literal["or"]
+    type: Literal["or"] = "or"
 
     model_config = {"extra": "allow"}
 
@@ -77,7 +77,7 @@ class NotQueryV2(pydantic.BaseModel):
 
     value: SearchJsonQueryV2
 
-    type: Literal["not"]
+    type: Literal["not"] = "not"
 
     model_config = {"extra": "allow"}
 
@@ -91,7 +91,7 @@ class AndQueryV2(pydantic.BaseModel):
 
     value: List[SearchJsonQueryV2]
 
-    type: Literal["and"]
+    type: Literal["and"] = "and"
 
     model_config = {"extra": "allow"}
 

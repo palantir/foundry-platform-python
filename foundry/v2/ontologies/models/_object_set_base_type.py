@@ -28,7 +28,7 @@ class ObjectSetBaseType(pydantic.BaseModel):
 
     object_type: pydantic.StrictStr = pydantic.Field(alias="objectType")
 
-    type: Literal["base"]
+    type: Literal["base"] = "base"
 
     model_config = {"extra": "allow"}
 

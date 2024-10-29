@@ -36,7 +36,7 @@ class CreateLinkRule(pydantic.BaseModel):
 
     b_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="bSideObjectTypeApiName")
 
-    type: Literal["createLink"]
+    type: Literal["createLink"] = "createLink"
 
     model_config = {"extra": "allow"}
 

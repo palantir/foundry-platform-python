@@ -31,7 +31,7 @@ class ObjectSetParameterValueUpdate(pydantic.BaseModel):
 
     value: ObjectSetRid
 
-    type: Literal["objectSet"]
+    type: Literal["objectSet"] = "objectSet"
 
     model_config = {"extra": "allow"}
 

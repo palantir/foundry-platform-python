@@ -29,7 +29,7 @@ class ModifyObjectRule(pydantic.BaseModel):
 
     object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
 
-    type: Literal["modifyObject"]
+    type: Literal["modifyObject"] = "modifyObject"
 
     model_config = {"extra": "allow"}
 

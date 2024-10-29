@@ -40,7 +40,7 @@ class ObjectEdits(pydantic.BaseModel):
 
     deleted_links_count: pydantic.StrictInt = pydantic.Field(alias="deletedLinksCount")
 
-    type: Literal["edits"]
+    type: Literal["edits"] = "edits"
 
     model_config = {"extra": "allow"}
 

@@ -38,7 +38,7 @@ class ObjectContext(pydantic.BaseModel):
     property_type_rids: List[PropertyTypeRid] = pydantic.Field(alias="propertyTypeRids")
     """The RIDs of the property types for the given objects to include in the prompt."""
 
-    type: Literal["objectContext"]
+    type: Literal["objectContext"] = "objectContext"
 
     model_config = {"extra": "allow"}
 

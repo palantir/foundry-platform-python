@@ -33,7 +33,7 @@ class GeoPoint(pydantic.BaseModel):
 
     bbox: Optional[BBox] = None
 
-    type: Literal["Point"]
+    type: Literal["Point"] = "Point"
 
     model_config = {"extra": "allow"}
 

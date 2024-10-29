@@ -28,7 +28,7 @@ class UnsupportedType(pydantic.BaseModel):
 
     unsupported_type: pydantic.StrictStr = pydantic.Field(alias="unsupportedType")
 
-    type: Literal["unsupported"]
+    type: Literal["unsupported"] = "unsupported"
 
     model_config = {"extra": "allow"}
 

@@ -31,7 +31,7 @@ class ScheduleRunError(pydantic.BaseModel):
 
     description: pydantic.StrictStr
 
-    type: Literal["error"]
+    type: Literal["error"] = "error"
 
     model_config = {"extra": "allow"}
 

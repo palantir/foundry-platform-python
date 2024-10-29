@@ -29,7 +29,7 @@ class UserScope(pydantic.BaseModel):
     associated user is permitted to build.
     """
 
-    type: Literal["user"]
+    type: Literal["user"] = "user"
 
     model_config = {"extra": "allow"}
 

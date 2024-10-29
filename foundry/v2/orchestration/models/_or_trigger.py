@@ -30,7 +30,7 @@ class OrTrigger(pydantic.BaseModel):
 
     triggers: List[Trigger]
 
-    type: Literal["or"]
+    type: Literal["or"] = "or"
 
     model_config = {"extra": "allow"}
 

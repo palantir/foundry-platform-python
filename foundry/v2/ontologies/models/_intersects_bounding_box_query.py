@@ -34,7 +34,7 @@ class IntersectsBoundingBoxQuery(pydantic.BaseModel):
 
     value: BoundingBoxValue
 
-    type: Literal["intersectsBoundingBox"]
+    type: Literal["intersectsBoundingBox"] = "intersectsBoundingBox"
 
     model_config = {"extra": "allow"}
 

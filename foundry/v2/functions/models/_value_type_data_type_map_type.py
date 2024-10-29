@@ -33,7 +33,7 @@ class ValueTypeDataTypeMapType(pydantic.BaseModel):
 
     value_type: ValueTypeDataType = pydantic.Field(alias="valueType")
 
-    type: Literal["map"]
+    type: Literal["map"] = "map"
 
     model_config = {"extra": "allow"}
 

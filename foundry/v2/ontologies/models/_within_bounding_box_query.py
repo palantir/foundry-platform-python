@@ -34,7 +34,7 @@ class WithinBoundingBoxQuery(pydantic.BaseModel):
 
     value: BoundingBoxValue
 
-    type: Literal["withinBoundingBox"]
+    type: Literal["withinBoundingBox"] = "withinBoundingBox"
 
     model_config = {"extra": "allow"}
 

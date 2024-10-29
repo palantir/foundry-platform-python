@@ -32,7 +32,7 @@ class EqualsQueryV2(pydantic.BaseModel):
 
     value: PropertyValue
 
-    type: Literal["eq"]
+    type: Literal["eq"] = "eq"
 
     model_config = {"extra": "allow"}
 

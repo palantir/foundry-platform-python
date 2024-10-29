@@ -44,7 +44,7 @@ class FileSizeFilter(pydantic.BaseModel):
     The value specified must be at least 1 byte.
     """
 
-    type: Literal["fileSizeFilter"]
+    type: Literal["fileSizeFilter"] = "fileSizeFilter"
 
     model_config = {"extra": "allow"}
 

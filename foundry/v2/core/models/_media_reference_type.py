@@ -26,7 +26,7 @@ from foundry.v2.core.models._media_reference_type_dict import MediaReferenceType
 class MediaReferenceType(pydantic.BaseModel):
     """MediaReferenceType"""
 
-    type: Literal["mediaReference"]
+    type: Literal["mediaReference"] = "mediaReference"
 
     model_config = {"extra": "allow"}
 
