@@ -16,7 +16,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | PrincipalId | userId |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
 ### Return type
@@ -37,8 +36,6 @@ foundry_client = FoundryClient(
 user_id = None
 # Optional[PageSize] | pageSize
 page_size = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[pydantic.StrictBool] | transitive
 transitive = None
 
@@ -47,7 +44,6 @@ try:
     for group_membership in foundry_client.admin.User.GroupMembership.list(
         user_id,
         page_size=page_size,
-        preview=preview,
         transitive=transitive,
     ):
         pprint(group_membership)
@@ -81,7 +77,6 @@ Name | Type | Description  | Notes |
 **user_id** | PrincipalId | userId |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
 ### Return type
@@ -104,8 +99,6 @@ user_id = None
 page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[pydantic.StrictBool] | transitive
 transitive = None
 
@@ -115,7 +108,6 @@ try:
         user_id,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         transitive=transitive,
     )
     print("The page response:\n")

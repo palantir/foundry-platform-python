@@ -17,7 +17,6 @@ Name | Type | Description  | Notes |
 **group_id** | PrincipalId | groupId |  |
 **principal_ids** | List[PrincipalId] |  |  |
 **expiration** | Optional[GroupMembershipExpiration] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -39,8 +38,6 @@ group_id = None
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 # Optional[GroupMembershipExpiration] |
 expiration = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -48,7 +45,6 @@ try:
         group_id,
         principal_ids=principal_ids,
         expiration=expiration,
-        preview=preview,
     )
     print("The add response:\n")
     pprint(api_response)
@@ -81,7 +77,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **group_id** | PrincipalId | groupId |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
 ### Return type
@@ -102,8 +97,6 @@ foundry_client = FoundryClient(
 group_id = None
 # Optional[PageSize] | pageSize
 page_size = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[pydantic.StrictBool] | transitive
 transitive = None
 
@@ -112,7 +105,6 @@ try:
     for group_member in foundry_client.admin.Group.GroupMember.list(
         group_id,
         page_size=page_size,
-        preview=preview,
         transitive=transitive,
     ):
         pprint(group_member)
@@ -146,7 +138,6 @@ Name | Type | Description  | Notes |
 **group_id** | PrincipalId | groupId |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
 ### Return type
@@ -169,8 +160,6 @@ group_id = None
 page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[pydantic.StrictBool] | transitive
 transitive = None
 
@@ -180,7 +169,6 @@ try:
         group_id,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         transitive=transitive,
     )
     print("The page response:\n")
@@ -212,7 +200,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **group_id** | PrincipalId | groupId |  |
 **principal_ids** | List[PrincipalId] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -232,15 +219,12 @@ foundry_client = FoundryClient(
 group_id = None
 # List[PrincipalId] |
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.admin.Group.GroupMember.remove(
         group_id,
         principal_ids=principal_ids,
-        preview=preview,
     )
     print("The remove response:\n")
     pprint(api_response)

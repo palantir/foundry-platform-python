@@ -45,7 +45,6 @@ from foundry.v2.admin.models._search_groups_response import SearchGroupsResponse
 from foundry.v2.core.models._organization_rid import OrganizationRid
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
@@ -64,7 +63,6 @@ class GroupClient:
         name: GroupName,
         organizations: List[OrganizationRid],
         description: Optional[pydantic.StrictStr] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Group:
         """
@@ -77,8 +75,6 @@ class GroupClient:
         :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
         :type description: Optional[pydantic.StrictStr]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -89,9 +85,7 @@ class GroupClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -123,15 +117,12 @@ class GroupClient:
         self,
         group_id: PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Delete the Group with the specified id.
         :param group_id: groupId
         :type group_id: PrincipalId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -142,9 +133,7 @@ class GroupClient:
             RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/groups/{groupId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },
@@ -162,15 +151,12 @@ class GroupClient:
         self,
         group_id: PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Group:
         """
         Get the Group with the specified id.
         :param group_id: groupId
         :type group_id: PrincipalId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -181,9 +167,7 @@ class GroupClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },
@@ -203,7 +187,6 @@ class GroupClient:
         self,
         body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)],
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetGroupsBatchResponse:
         """
@@ -212,8 +195,6 @@ class GroupClient:
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
         :type body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -224,9 +205,7 @@ class GroupClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -247,7 +226,6 @@ class GroupClient:
         self,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Group]:
         """
@@ -256,8 +234,6 @@ class GroupClient:
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -270,7 +246,6 @@ class GroupClient:
                 resource_path="/v2/admin/groups",
                 query_params={
                     "pageSize": page_size,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -290,7 +265,6 @@ class GroupClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListGroupsResponse:
         """
@@ -301,8 +275,6 @@ class GroupClient:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -316,7 +288,6 @@ class GroupClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -337,7 +308,6 @@ class GroupClient:
         where: GroupSearchFilterDict,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchGroupsResponse:
         """
@@ -348,8 +318,6 @@ class GroupClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -360,9 +328,7 @@ class GroupClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/search",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",

@@ -27,7 +27,6 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._transaction import Transaction
@@ -46,7 +45,6 @@ class TransactionClient:
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
@@ -57,8 +55,6 @@ class TransactionClient:
         :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -69,9 +65,7 @@ class TransactionClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/abort",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                     "transactionRid": transaction_rid,
@@ -93,7 +87,6 @@ class TransactionClient:
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
@@ -104,8 +97,6 @@ class TransactionClient:
         :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -116,9 +107,7 @@ class TransactionClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/commit",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                     "transactionRid": transaction_rid,
@@ -141,7 +130,6 @@ class TransactionClient:
         *,
         transaction_type: TransactionType,
         branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
@@ -153,8 +141,6 @@ class TransactionClient:
         :type transaction_type: TransactionType
         :param branch_name: branchName
         :type branch_name: Optional[BranchName]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -167,7 +153,6 @@ class TransactionClient:
                 resource_path="/v2/datasets/{datasetRid}/transactions",
                 query_params={
                     "branchName": branch_name,
-                    "preview": preview,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -197,7 +182,6 @@ class TransactionClient:
         dataset_rid: DatasetRid,
         transaction_rid: TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Transaction:
         """
@@ -207,8 +191,6 @@ class TransactionClient:
         :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
         :type transaction_rid: TransactionRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -219,9 +201,7 @@ class TransactionClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                     "transactionRid": transaction_rid,

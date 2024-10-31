@@ -15,7 +15,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **version** | VersionVersion |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Website**
@@ -37,15 +36,12 @@ third_party_application_rid = (
 )
 # VersionVersion |
 version = "1.2.0"
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.deploy(
         third_party_application_rid,
         version=version,
-        preview=preview,
     )
     print("The deploy response:\n")
     pprint(api_response)
@@ -75,7 +71,6 @@ Get the Website.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Website**
@@ -95,14 +90,11 @@ foundry_client = FoundryClient(
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.get(
         third_party_application_rid,
-        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
@@ -132,7 +124,6 @@ Remove the currently deployed version of the Website.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Website**
@@ -152,14 +143,11 @@ foundry_client = FoundryClient(
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.undeploy(
         third_party_application_rid,
-        preview=preview,
     )
     print("The undeploy response:\n")
     pprint(api_response)

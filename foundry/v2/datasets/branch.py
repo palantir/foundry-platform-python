@@ -30,7 +30,6 @@ from foundry._core import ResourceIterator
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch import Branch
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
@@ -49,7 +48,6 @@ class BranchClient:
         dataset_rid: DatasetRid,
         *,
         name: BranchName,
-        preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Branch:
@@ -60,8 +58,6 @@ class BranchClient:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param transaction_rid:
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -74,9 +70,7 @@ class BranchClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/branches",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                 },
@@ -107,7 +101,6 @@ class BranchClient:
         dataset_rid: DatasetRid,
         branch_name: BranchName,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
@@ -117,8 +110,6 @@ class BranchClient:
         :type dataset_rid: DatasetRid
         :param branch_name: branchName
         :type branch_name: BranchName
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -129,9 +120,7 @@ class BranchClient:
             RequestInfo(
                 method="DELETE",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                     "branchName": branch_name,
@@ -151,7 +140,6 @@ class BranchClient:
         dataset_rid: DatasetRid,
         branch_name: BranchName,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Branch:
         """
@@ -161,8 +149,6 @@ class BranchClient:
         :type dataset_rid: DatasetRid
         :param branch_name: branchName
         :type branch_name: BranchName
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -173,9 +159,7 @@ class BranchClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                     "branchName": branch_name,
@@ -197,7 +181,6 @@ class BranchClient:
         dataset_rid: DatasetRid,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Branch]:
         """
@@ -207,8 +190,6 @@ class BranchClient:
         :type dataset_rid: DatasetRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -221,7 +202,6 @@ class BranchClient:
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={
                     "pageSize": page_size,
-                    "preview": preview,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -244,7 +224,6 @@ class BranchClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListBranchesResponse:
         """
@@ -256,8 +235,6 @@ class BranchClient:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -271,7 +248,6 @@ class BranchClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "datasetRid": dataset_rid,

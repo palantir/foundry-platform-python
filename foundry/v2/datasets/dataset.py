@@ -28,7 +28,6 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.branch import BranchClient
 from foundry.v2.datasets.file import FileClient
 from foundry.v2.datasets.models._branch_name import BranchName
@@ -56,7 +55,6 @@ class DatasetClient:
         *,
         name: DatasetName,
         parent_folder_rid: FolderRid,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Dataset:
         """
@@ -66,8 +64,6 @@ class DatasetClient:
         :type name: DatasetName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -78,9 +74,7 @@ class DatasetClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -108,15 +102,12 @@ class DatasetClient:
         self,
         dataset_rid: DatasetRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Dataset:
         """
         Get the Dataset with the specified rid.
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -127,9 +118,7 @@ class DatasetClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                 },
@@ -153,7 +142,6 @@ class DatasetClient:
         branch_name: Optional[BranchName] = None,
         columns: Optional[List[pydantic.StrictStr]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        preview: Optional[PreviewMode] = None,
         row_limit: Optional[pydantic.StrictInt] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -173,8 +161,6 @@ class DatasetClient:
         :type columns: Optional[List[pydantic.StrictStr]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param row_limit: rowLimit
         :type row_limit: Optional[pydantic.StrictInt]
         :param start_transaction_rid: startTransactionRid
@@ -194,7 +180,6 @@ class DatasetClient:
                     "branchName": branch_name,
                     "columns": columns,
                     "endTransactionRid": end_transaction_rid,
-                    "preview": preview,
                     "rowLimit": row_limit,
                     "startTransactionRid": start_transaction_rid,
                 },
