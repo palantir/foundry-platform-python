@@ -30,7 +30,6 @@ from foundry._errors import handle_unexpected
 from foundry.v2.core.models._file_path import FilePath
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._file import File
@@ -52,7 +51,6 @@ class FileClient:
         *,
         branch_name: Optional[BranchName] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
@@ -83,8 +81,6 @@ class FileClient:
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -100,7 +96,6 @@ class FileClient:
                 query_params={
                     "branchName": branch_name,
                     "endTransactionRid": end_transaction_rid,
-                    "preview": preview,
                     "startTransactionRid": start_transaction_rid,
                 },
                 path_params={
@@ -125,7 +120,6 @@ class FileClient:
         file_path: FilePath,
         *,
         branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
@@ -147,8 +141,6 @@ class FileClient:
         :type file_path: FilePath
         :param branch_name: branchName
         :type branch_name: Optional[BranchName]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -163,7 +155,6 @@ class FileClient:
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}",
                 query_params={
                     "branchName": branch_name,
-                    "preview": preview,
                     "transactionRid": transaction_rid,
                 },
                 path_params={
@@ -187,7 +178,6 @@ class FileClient:
         *,
         branch_name: Optional[BranchName] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> File:
@@ -217,8 +207,6 @@ class FileClient:
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -234,7 +222,6 @@ class FileClient:
                 query_params={
                     "branchName": branch_name,
                     "endTransactionRid": end_transaction_rid,
-                    "preview": preview,
                     "startTransactionRid": start_transaction_rid,
                 },
                 path_params={
@@ -260,7 +247,6 @@ class FileClient:
         branch_name: Optional[BranchName] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[File]:
@@ -292,8 +278,6 @@ class FileClient:
         :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -310,7 +294,6 @@ class FileClient:
                     "branchName": branch_name,
                     "endTransactionRid": end_transaction_rid,
                     "pageSize": page_size,
-                    "preview": preview,
                     "startTransactionRid": start_transaction_rid,
                 },
                 path_params={
@@ -336,7 +319,6 @@ class FileClient:
         end_transaction_rid: Optional[TransactionRid] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListFilesResponse:
@@ -370,8 +352,6 @@ class FileClient:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -389,7 +369,6 @@ class FileClient:
                     "endTransactionRid": end_transaction_rid,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "startTransactionRid": start_transaction_rid,
                 },
                 path_params={
@@ -414,7 +393,6 @@ class FileClient:
         body: bytes,
         *,
         branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
         transaction_type: Optional[TransactionType] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -442,8 +420,6 @@ class FileClient:
         :type body: bytes
         :param branch_name: branchName
         :type branch_name: Optional[BranchName]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
         :type transaction_rid: Optional[TransactionRid]
         :param transaction_type: transactionType
@@ -460,7 +436,6 @@ class FileClient:
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}/upload",
                 query_params={
                     "branchName": branch_name,
-                    "preview": preview,
                     "transactionRid": transaction_rid,
                     "transactionType": transaction_type,
                 },

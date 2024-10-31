@@ -66,50 +66,42 @@ def admin_user():
 
 @admin_user.command("delete")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_delete(
     client: foundry.v2.FoundryClient,
     user_id: str,
-    preview: Optional[bool],
 ):
     """
     Delete the User with the specified id.
     """
     result = client.admin.User.delete(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_user.command("get")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_get(
     client: foundry.v2.FoundryClient,
     user_id: str,
-    preview: Optional[bool],
 ):
     """
     Get the User with the specified id.
     """
     result = client.admin.User.get(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_user.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_get_batch(
     client: foundry.v2.FoundryClient,
     body: str,
-    preview: Optional[bool],
 ):
     """
     Execute multiple get requests on User.
@@ -118,22 +110,17 @@ def admin_user_get_batch(
     """
     result = client.admin.User.get_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_user.command("get_current")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_get_current(
     client: foundry.v2.FoundryClient,
-    preview: Optional[bool],
 ):
     """ """
-    result = client.admin.User.get_current(
-        preview=preview,
-    )
+    result = client.admin.User.get_current()
     click.echo(repr(result))
 
 
@@ -158,12 +145,10 @@ def admin_user_get_markings(
 
 @admin_user.command("list")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_list(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
-    preview: Optional[bool],
 ):
     """
     Lists all Users.
@@ -172,7 +157,6 @@ def admin_user_list(
     """
     result = client.admin.User.list(
         page_size=page_size,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -180,13 +164,11 @@ def admin_user_list(
 @admin_user.command("page")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_page(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Lists all Users.
@@ -196,24 +178,20 @@ def admin_user_page(
     result = client.admin.User.page(
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_user.command("profile_picture")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_profile_picture(
     client: foundry.v2.FoundryClient,
     user_id: str,
-    preview: Optional[bool],
 ):
     """ """
     result = client.admin.User.profile_picture(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(result)
 
@@ -222,21 +200,18 @@ def admin_user_profile_picture(
 @click.option("--where", type=str, required=True, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_user_search(
     client: foundry.v2.FoundryClient,
     where: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """ """
     result = client.admin.User.search(
         where=json.loads(where),
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -249,14 +224,12 @@ def admin_user_group_membership():
 @admin_user_group_membership.command("list")
 @click.argument("user_id", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_user_group_membership_list(
     client: foundry.v2.FoundryClient,
     user_id: str,
     page_size: Optional[int],
-    preview: Optional[bool],
     transitive: Optional[bool],
 ):
     """
@@ -267,7 +240,6 @@ def admin_user_group_membership_list(
     result = client.admin.User.GroupMembership.list(
         user_id=user_id,
         page_size=page_size,
-        preview=preview,
         transitive=transitive,
     )
     click.echo(repr(result))
@@ -277,7 +249,6 @@ def admin_user_group_membership_list(
 @click.argument("user_id", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_user_group_membership_page(
@@ -285,7 +256,6 @@ def admin_user_group_membership_page(
     user_id: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
     transitive: Optional[bool],
 ):
     """
@@ -297,7 +267,6 @@ def admin_user_group_membership_page(
         user_id=user_id,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         transitive=transitive,
     )
     click.echo(repr(result))
@@ -577,7 +546,6 @@ def admin_group():
 """,
 )
 @click.option("--description", type=str, required=False, help="""A description of the Group.""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_create(
     client: foundry.v2.FoundryClient,
@@ -585,7 +553,6 @@ def admin_group_create(
     name: str,
     organizations: str,
     description: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Creates a new Group.
@@ -595,57 +562,48 @@ def admin_group_create(
         name=name,
         organizations=json.loads(organizations),
         description=description,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_group.command("delete")
 @click.argument("group_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_delete(
     client: foundry.v2.FoundryClient,
     group_id: str,
-    preview: Optional[bool],
 ):
     """
     Delete the Group with the specified id.
     """
     result = client.admin.Group.delete(
         group_id=group_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_group.command("get")
 @click.argument("group_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_get(
     client: foundry.v2.FoundryClient,
     group_id: str,
-    preview: Optional[bool],
 ):
     """
     Get the Group with the specified id.
     """
     result = client.admin.Group.get(
         group_id=group_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_group.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_get_batch(
     client: foundry.v2.FoundryClient,
     body: str,
-    preview: Optional[bool],
 ):
     """
     Execute multiple get requests on Group.
@@ -654,19 +612,16 @@ def admin_group_get_batch(
     """
     result = client.admin.Group.get_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_group.command("list")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_list(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
-    preview: Optional[bool],
 ):
     """
     Lists all Groups.
@@ -675,7 +630,6 @@ def admin_group_list(
     """
     result = client.admin.Group.list(
         page_size=page_size,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -683,13 +637,11 @@ def admin_group_list(
 @admin_group.command("page")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_page(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Lists all Groups.
@@ -699,7 +651,6 @@ def admin_group_page(
     result = client.admin.Group.page(
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -708,21 +659,18 @@ def admin_group_page(
 @click.option("--where", type=str, required=True, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_search(
     client: foundry.v2.FoundryClient,
     where: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """ """
     result = client.admin.Group.search(
         where=json.loads(where),
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -736,21 +684,18 @@ def admin_group_group_member():
 @click.argument("group_id", type=str, required=True)
 @click.option("--principal_ids", type=str, required=True, help="""""")
 @click.option("--expiration", type=click.DateTime(), required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_group_member_add(
     client: foundry.v2.FoundryClient,
     group_id: str,
     principal_ids: str,
     expiration: Optional[datetime],
-    preview: Optional[bool],
 ):
     """ """
     result = client.admin.Group.GroupMember.add(
         group_id=group_id,
         principal_ids=json.loads(principal_ids),
         expiration=expiration,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -758,14 +703,12 @@ def admin_group_group_member_add(
 @admin_group_group_member.command("list")
 @click.argument("group_id", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_group_group_member_list(
     client: foundry.v2.FoundryClient,
     group_id: str,
     page_size: Optional[int],
-    preview: Optional[bool],
     transitive: Optional[bool],
 ):
     """
@@ -776,7 +719,6 @@ def admin_group_group_member_list(
     result = client.admin.Group.GroupMember.list(
         group_id=group_id,
         page_size=page_size,
-        preview=preview,
         transitive=transitive,
     )
     click.echo(repr(result))
@@ -786,7 +728,6 @@ def admin_group_group_member_list(
 @click.argument("group_id", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_group_group_member_page(
@@ -794,7 +735,6 @@ def admin_group_group_member_page(
     group_id: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
     transitive: Optional[bool],
 ):
     """
@@ -806,7 +746,6 @@ def admin_group_group_member_page(
         group_id=group_id,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         transitive=transitive,
     )
     click.echo(repr(result))
@@ -815,19 +754,16 @@ def admin_group_group_member_page(
 @admin_group_group_member.command("remove")
 @click.argument("group_id", type=str, required=True)
 @click.option("--principal_ids", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_group_group_member_remove(
     client: foundry.v2.FoundryClient,
     group_id: str,
     principal_ids: str,
-    preview: Optional[bool],
 ):
     """ """
     result = client.admin.Group.GroupMember.remove(
         group_id=group_id,
         principal_ids=json.loads(principal_ids),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1653,13 +1589,11 @@ def datasets_dataset():
 @datasets_dataset.command("create")
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_create(
     client: foundry.v2.FoundryClient,
     name: str,
     parent_folder_rid: str,
-    preview: Optional[bool],
 ):
     """
     Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
@@ -1668,26 +1602,22 @@ def datasets_dataset_create(
     result = client.datasets.Dataset.create(
         name=name,
         parent_folder_rid=parent_folder_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @datasets_dataset.command("get")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_get(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
-    preview: Optional[bool],
 ):
     """
     Get the Dataset with the specified rid.
     """
     result = client.datasets.Dataset.get(
         dataset_rid=dataset_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1698,7 +1628,6 @@ def datasets_dataset_get(
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
 @click.option("--columns", type=str, required=False, help="""columns""")
 @click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--row_limit", type=int, required=False, help="""rowLimit""")
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
@@ -1709,7 +1638,6 @@ def datasets_dataset_read_table(
     branch_name: Optional[str],
     columns: Optional[str],
     end_transaction_rid: Optional[str],
-    preview: Optional[bool],
     row_limit: Optional[int],
     start_transaction_rid: Optional[str],
 ):
@@ -1725,7 +1653,6 @@ def datasets_dataset_read_table(
         branch_name=branch_name,
         columns=None if columns is None else json.loads(columns),
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         row_limit=row_limit,
         start_transaction_rid=start_transaction_rid,
     )
@@ -1742,7 +1669,6 @@ def datasets_dataset_file():
 @click.argument("file_path", type=str, required=True)
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
 @click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_content(
@@ -1751,7 +1677,6 @@ def datasets_dataset_file_content(
     file_path: str,
     branch_name: Optional[str],
     end_transaction_rid: Optional[str],
-    preview: Optional[bool],
     start_transaction_rid: Optional[str],
 ):
     """
@@ -1779,7 +1704,6 @@ def datasets_dataset_file_content(
         file_path=file_path,
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     )
     click.echo(result)
@@ -1789,7 +1713,6 @@ def datasets_dataset_file_content(
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.pass_obj
 def datasets_dataset_file_delete(
@@ -1797,7 +1720,6 @@ def datasets_dataset_file_delete(
     dataset_rid: str,
     file_path: str,
     branch_name: Optional[str],
-    preview: Optional[bool],
     transaction_rid: Optional[str],
 ):
     """
@@ -1817,7 +1739,6 @@ def datasets_dataset_file_delete(
         dataset_rid=dataset_rid,
         file_path=file_path,
         branch_name=branch_name,
-        preview=preview,
         transaction_rid=transaction_rid,
     )
     click.echo(repr(result))
@@ -1828,7 +1749,6 @@ def datasets_dataset_file_delete(
 @click.argument("file_path", type=str, required=True)
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
 @click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_get(
@@ -1837,7 +1757,6 @@ def datasets_dataset_file_get(
     file_path: str,
     branch_name: Optional[str],
     end_transaction_rid: Optional[str],
-    preview: Optional[bool],
     start_transaction_rid: Optional[str],
 ):
     """
@@ -1864,7 +1783,6 @@ def datasets_dataset_file_get(
         file_path=file_path,
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     )
     click.echo(repr(result))
@@ -1875,7 +1793,6 @@ def datasets_dataset_file_get(
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
 @click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_list(
@@ -1884,7 +1801,6 @@ def datasets_dataset_file_list(
     branch_name: Optional[str],
     end_transaction_rid: Optional[str],
     page_size: Optional[int],
-    preview: Optional[bool],
     start_transaction_rid: Optional[str],
 ):
     """
@@ -1913,7 +1829,6 @@ def datasets_dataset_file_list(
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     )
     click.echo(repr(result))
@@ -1925,7 +1840,6 @@ def datasets_dataset_file_list(
 @click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_page(
@@ -1935,7 +1849,6 @@ def datasets_dataset_file_page(
     end_transaction_rid: Optional[str],
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
     start_transaction_rid: Optional[str],
 ):
     """
@@ -1965,7 +1878,6 @@ def datasets_dataset_file_page(
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     )
     click.echo(repr(result))
@@ -1976,7 +1888,6 @@ def datasets_dataset_file_page(
 @click.argument("file_path", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
 @click.option(
     "--transaction_type",
@@ -1991,7 +1902,6 @@ def datasets_dataset_file_upload(
     file_path: str,
     body: io.BufferedReader,
     branch_name: Optional[str],
-    preview: Optional[bool],
     transaction_rid: Optional[str],
     transaction_type: Optional[Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
 ):
@@ -2016,7 +1926,6 @@ def datasets_dataset_file_upload(
         file_path=file_path,
         body=body.read(),
         branch_name=branch_name,
-        preview=preview,
         transaction_rid=transaction_rid,
         transaction_type=transaction_type,
     )
@@ -2031,13 +1940,11 @@ def datasets_dataset_transaction():
 @datasets_dataset_transaction.command("abort")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_transaction_abort(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
-    preview: Optional[bool],
 ):
     """
     Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
@@ -2047,7 +1954,6 @@ def datasets_dataset_transaction_abort(
     result = client.datasets.Dataset.Transaction.abort(
         dataset_rid=dataset_rid,
         transaction_rid=transaction_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2055,13 +1961,11 @@ def datasets_dataset_transaction_abort(
 @datasets_dataset_transaction.command("commit")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_transaction_commit(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
-    preview: Optional[bool],
 ):
     """
     Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
@@ -2071,7 +1975,6 @@ def datasets_dataset_transaction_commit(
     result = client.datasets.Dataset.Transaction.commit(
         dataset_rid=dataset_rid,
         transaction_rid=transaction_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2085,14 +1988,12 @@ def datasets_dataset_transaction_commit(
     help="""""",
 )
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_transaction_create(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     transaction_type: Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"],
     branch_name: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Creates a Transaction on a Branch of a Dataset.
@@ -2102,7 +2003,6 @@ def datasets_dataset_transaction_create(
         dataset_rid=dataset_rid,
         transaction_type=transaction_type,
         branch_name=branch_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2110,13 +2010,11 @@ def datasets_dataset_transaction_create(
 @datasets_dataset_transaction.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_transaction_get(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
-    preview: Optional[bool],
 ):
     """
     Gets a Transaction of a Dataset.
@@ -2125,7 +2023,6 @@ def datasets_dataset_transaction_get(
     result = client.datasets.Dataset.Transaction.get(
         dataset_rid=dataset_rid,
         transaction_rid=transaction_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2138,14 +2035,12 @@ def datasets_dataset_branch():
 @datasets_dataset_branch.command("create")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option("--name", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transaction_rid", type=str, required=False, help="""""")
 @click.pass_obj
 def datasets_dataset_branch_create(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     name: str,
-    preview: Optional[bool],
     transaction_rid: Optional[str],
 ):
     """
@@ -2155,7 +2050,6 @@ def datasets_dataset_branch_create(
     result = client.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
         name=name,
-        preview=preview,
         transaction_rid=transaction_rid,
     )
     click.echo(repr(result))
@@ -2164,13 +2058,11 @@ def datasets_dataset_branch_create(
 @datasets_dataset_branch.command("delete")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("branch_name", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_branch_delete(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     branch_name: str,
-    preview: Optional[bool],
 ):
     """
     Deletes the Branch with the given BranchName.
@@ -2179,7 +2071,6 @@ def datasets_dataset_branch_delete(
     result = client.datasets.Dataset.Branch.delete(
         dataset_rid=dataset_rid,
         branch_name=branch_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2187,13 +2078,11 @@ def datasets_dataset_branch_delete(
 @datasets_dataset_branch.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("branch_name", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_branch_get(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     branch_name: str,
-    preview: Optional[bool],
 ):
     """
     Get a Branch of a Dataset.
@@ -2202,7 +2091,6 @@ def datasets_dataset_branch_get(
     result = client.datasets.Dataset.Branch.get(
         dataset_rid=dataset_rid,
         branch_name=branch_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2210,13 +2098,11 @@ def datasets_dataset_branch_get(
 @datasets_dataset_branch.command("list")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_branch_list(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     page_size: Optional[int],
-    preview: Optional[bool],
 ):
     """
     Lists the Branches of a Dataset.
@@ -2225,7 +2111,6 @@ def datasets_dataset_branch_list(
     result = client.datasets.Dataset.Branch.list(
         dataset_rid=dataset_rid,
         page_size=page_size,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2234,14 +2119,12 @@ def datasets_dataset_branch_list(
 @click.argument("dataset_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def datasets_dataset_branch_page(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Lists the Branches of a Dataset.
@@ -2251,7 +2134,6 @@ def datasets_dataset_branch_page(
         dataset_rid=dataset_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4861,13 +4743,11 @@ def third_party_applications_third_party_application_website():
 @third_party_applications_third_party_application_website.command("deploy")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.option("--version", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_deploy(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
     version: str,
-    preview: Optional[bool],
 ):
     """
     Deploy a version of the Website.
@@ -4875,45 +4755,38 @@ def third_party_applications_third_party_application_website_deploy(
     result = client.third_party_applications.ThirdPartyApplication.Website.deploy(
         third_party_application_rid=third_party_application_rid,
         version=version,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @third_party_applications_third_party_application_website.command("get")
 @click.argument("third_party_application_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_get(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
-    preview: Optional[bool],
 ):
     """
     Get the Website.
     """
     result = client.third_party_applications.ThirdPartyApplication.Website.get(
         third_party_application_rid=third_party_application_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @third_party_applications_third_party_application_website.command("undeploy")
 @click.argument("third_party_application_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_undeploy(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
-    preview: Optional[bool],
 ):
     """
     Remove the currently deployed version of the Website.
     """
     result = client.third_party_applications.ThirdPartyApplication.Website.undeploy(
         third_party_application_rid=third_party_application_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4926,13 +4799,11 @@ def third_party_applications_third_party_application_website_version():
 @third_party_applications_third_party_application_website_version.command("delete")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("version_version", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_delete(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
     version_version: str,
-    preview: Optional[bool],
 ):
     """
     Delete the Version with the specified version.
@@ -4940,7 +4811,6 @@ def third_party_applications_third_party_application_website_version_delete(
     result = client.third_party_applications.ThirdPartyApplication.Website.Version.delete(
         third_party_application_rid=third_party_application_rid,
         version_version=version_version,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4948,13 +4818,11 @@ def third_party_applications_third_party_application_website_version_delete(
 @third_party_applications_third_party_application_website_version.command("get")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("version_version", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_get(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
     version_version: str,
-    preview: Optional[bool],
 ):
     """
     Get the Version with the specified version.
@@ -4962,7 +4830,6 @@ def third_party_applications_third_party_application_website_version_get(
     result = client.third_party_applications.ThirdPartyApplication.Website.Version.get(
         third_party_application_rid=third_party_application_rid,
         version_version=version_version,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4970,13 +4837,11 @@ def third_party_applications_third_party_application_website_version_get(
 @third_party_applications_third_party_application_website_version.command("list")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_list(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
     page_size: Optional[int],
-    preview: Optional[bool],
 ):
     """
     Lists all Versions.
@@ -4986,7 +4851,6 @@ def third_party_applications_third_party_application_website_version_list(
     result = client.third_party_applications.ThirdPartyApplication.Website.Version.list(
         third_party_application_rid=third_party_application_rid,
         page_size=page_size,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4995,14 +4859,12 @@ def third_party_applications_third_party_application_website_version_list(
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_page(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
     page_size: Optional[int],
     page_token: Optional[str],
-    preview: Optional[bool],
 ):
     """
     Lists all Versions.
@@ -5013,7 +4875,6 @@ def third_party_applications_third_party_application_website_version_page(
         third_party_application_rid=third_party_application_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5022,14 +4883,12 @@ def third_party_applications_third_party_application_website_version_page(
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
 @click.option("--version", type=str, required=True, help="""version""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_upload(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
     body: io.BufferedReader,
     version: str,
-    preview: Optional[bool],
 ):
     """
     Upload a new version of the Website.
@@ -5038,7 +4897,6 @@ def third_party_applications_third_party_application_website_version_upload(
         third_party_application_rid=third_party_application_rid,
         body=body.read(),
         version=version,
-        preview=preview,
     )
     click.echo(repr(result))
 

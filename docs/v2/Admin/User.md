@@ -19,7 +19,6 @@ Delete the User with the specified id.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | PrincipalId | userId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -37,14 +36,11 @@ foundry_client = FoundryClient(
 
 # PrincipalId | userId
 user_id = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.admin.User.delete(
         user_id,
-        preview=preview,
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -74,7 +70,6 @@ Get the User with the specified id.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | PrincipalId | userId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **User**
@@ -92,14 +87,11 @@ foundry_client = FoundryClient(
 
 # PrincipalId | userId
 user_id = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.admin.User.get(
         user_id,
-        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
@@ -131,7 +123,6 @@ The maximum batch size for this endpoint is 500.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **GetUsersBatchResponse**
@@ -149,14 +140,11 @@ foundry_client = FoundryClient(
 
 # Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request
 body = [{"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.admin.User.get_batch(
         body,
-        preview=preview,
     )
     print("The get_batch response:\n")
     pprint(api_response)
@@ -185,7 +173,6 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **User**
@@ -201,14 +188,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PreviewMode] | preview
-preview = None
-
 
 try:
-    api_response = foundry_client.admin.User.get_current(
-        preview=preview,
-    )
+    api_response = foundry_client.admin.User.get_current()
     print("The get_current response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -293,7 +275,6 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ResourceIterator[User]**
@@ -311,14 +292,11 @@ foundry_client = FoundryClient(
 
 # Optional[PageSize] | pageSize
 page_size = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     for user in foundry_client.admin.User.list(
         page_size=page_size,
-        preview=preview,
     ):
         pprint(user)
 except foundry.PalantirRPCException as e:
@@ -350,7 +328,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListUsersResponse**
@@ -370,15 +347,12 @@ foundry_client = FoundryClient(
 page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.admin.User.page(
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     print("The page response:\n")
     pprint(api_response)
@@ -408,7 +382,6 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | PrincipalId | userId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **bytes**
@@ -426,14 +399,11 @@ foundry_client = FoundryClient(
 
 # PrincipalId | userId
 user_id = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.admin.User.profile_picture(
         user_id,
-        preview=preview,
     )
     print("The profile_picture response:\n")
     pprint(api_response)
@@ -465,7 +435,6 @@ Name | Type | Description  | Notes |
 **where** | UserSearchFilterDict |  |  |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **SearchUsersResponse**
@@ -487,8 +456,6 @@ where = {"type": "queryString"}
 page_size = 100
 # Optional[PageToken] |
 page_token = "v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv"
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -496,7 +463,6 @@ try:
         where=where,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     print("The search response:\n")
     pprint(api_response)

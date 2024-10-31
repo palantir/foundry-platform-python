@@ -37,7 +37,6 @@ Name | Type | Description  | Notes |
 **file_path** | FilePath | filePath |  |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
@@ -62,8 +61,6 @@ file_path = None
 branch_name = None
 # Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
@@ -74,7 +71,6 @@ try:
         file_path,
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     )
     print("The content response:\n")
@@ -117,7 +113,6 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **file_path** | FilePath | filePath |  |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
 
 ### Return type
@@ -140,8 +135,6 @@ dataset_rid = None
 file_path = None
 # Optional[BranchName] | branchName
 branch_name = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[TransactionRid] | transactionRid
 transaction_rid = None
 
@@ -151,7 +144,6 @@ try:
         dataset_rid,
         file_path,
         branch_name=branch_name,
-        preview=preview,
         transaction_rid=transaction_rid,
     )
     print("The delete response:\n")
@@ -201,7 +193,6 @@ Name | Type | Description  | Notes |
 **file_path** | FilePath | filePath |  |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
@@ -226,8 +217,6 @@ file_path = None
 branch_name = None
 # Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
@@ -238,7 +227,6 @@ try:
         file_path,
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     )
     print("The get response:\n")
@@ -290,7 +278,6 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
@@ -315,8 +302,6 @@ branch_name = None
 end_transaction_rid = None
 # Optional[PageSize] | pageSize
 page_size = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
@@ -327,7 +312,6 @@ try:
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     ):
         pprint(file)
@@ -379,7 +363,6 @@ Name | Type | Description  | Notes |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
@@ -406,8 +389,6 @@ end_transaction_rid = None
 page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
@@ -419,7 +400,6 @@ try:
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         start_transaction_rid=start_transaction_rid,
     )
     print("The page response:\n")
@@ -466,7 +446,6 @@ Name | Type | Description  | Notes |
 **file_path** | FilePath | filePath |  |
 **body** | bytes | Body of the request |  |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
 **transaction_type** | Optional[TransactionType] | transactionType | [optional] |
 
@@ -492,8 +471,6 @@ file_path = None
 body = None
 # Optional[BranchName] | branchName
 branch_name = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[TransactionRid] | transactionRid
 transaction_rid = None
 # Optional[TransactionType] | transactionType
@@ -506,7 +483,6 @@ try:
         file_path,
         body,
         branch_name=branch_name,
-        preview=preview,
         transaction_rid=transaction_rid,
         transaction_type=transaction_type,
     )

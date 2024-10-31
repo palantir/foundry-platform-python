@@ -29,7 +29,6 @@ from foundry._core import ResourceIterator
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.third_party_applications.models._list_versions_response import (
     ListVersionsResponse,
 )  # NOQA
@@ -51,7 +50,6 @@ class VersionClient:
         third_party_application_rid: ThirdPartyApplicationRid,
         version_version: VersionVersion,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
@@ -60,8 +58,6 @@ class VersionClient:
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
         :type version_version: VersionVersion
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -72,9 +68,7 @@ class VersionClient:
             RequestInfo(
                 method="DELETE",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
                     "versionVersion": version_version,
@@ -94,7 +88,6 @@ class VersionClient:
         third_party_application_rid: ThirdPartyApplicationRid,
         version_version: VersionVersion,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Version:
         """
@@ -103,8 +96,6 @@ class VersionClient:
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
         :type version_version: VersionVersion
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -115,9 +106,7 @@ class VersionClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
                     "versionVersion": version_version,
@@ -139,7 +128,6 @@ class VersionClient:
         third_party_application_rid: ThirdPartyApplicationRid,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Version]:
         """
@@ -150,8 +138,6 @@ class VersionClient:
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -164,7 +150,6 @@ class VersionClient:
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions",
                 query_params={
                     "pageSize": page_size,
-                    "preview": preview,
                 },
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
@@ -187,7 +172,6 @@ class VersionClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListVersionsResponse:
         """
@@ -200,8 +184,6 @@ class VersionClient:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -215,7 +197,6 @@ class VersionClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
@@ -238,7 +219,6 @@ class VersionClient:
         body: bytes,
         *,
         version: VersionVersion,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Version:
         """
@@ -249,8 +229,6 @@ class VersionClient:
         :type body: bytes
         :param version: version
         :type version: VersionVersion
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -263,7 +241,6 @@ class VersionClient:
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/upload",
                 query_params={
                     "version": version,
-                    "preview": preview,
                 },
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,

@@ -27,7 +27,6 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.third_party_applications.models._third_party_application_rid import (
     ThirdPartyApplicationRid,
 )  # NOQA
@@ -49,7 +48,6 @@ class WebsiteClient:
         third_party_application_rid: ThirdPartyApplicationRid,
         *,
         version: VersionVersion,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Website:
         """
@@ -58,8 +56,6 @@ class WebsiteClient:
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
         :type version: VersionVersion
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -70,9 +66,7 @@ class WebsiteClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/deploy",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
                 },
@@ -100,15 +94,12 @@ class WebsiteClient:
         self,
         third_party_application_rid: ThirdPartyApplicationRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Website:
         """
         Get the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -119,9 +110,7 @@ class WebsiteClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
                 },
@@ -141,15 +130,12 @@ class WebsiteClient:
         self,
         third_party_application_rid: ThirdPartyApplicationRid,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Website:
         """
         Remove the currently deployed version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -160,9 +146,7 @@ class WebsiteClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/undeploy",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
                 },

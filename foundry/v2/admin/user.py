@@ -58,15 +58,12 @@ class UserClient:
         self,
         user_id: PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
         Delete the User with the specified id.
         :param user_id: userId
         :type user_id: PrincipalId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -77,9 +74,7 @@ class UserClient:
             RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/users/{userId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "userId": user_id,
                 },
@@ -97,15 +92,12 @@ class UserClient:
         self,
         user_id: PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> User:
         """
         Get the User with the specified id.
         :param user_id: userId
         :type user_id: PrincipalId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -116,9 +108,7 @@ class UserClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "userId": user_id,
                 },
@@ -138,7 +128,6 @@ class UserClient:
         self,
         body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetUsersBatchResponse:
         """
@@ -147,8 +136,6 @@ class UserClient:
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
         :type body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -159,9 +146,7 @@ class UserClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -181,13 +166,10 @@ class UserClient:
     def get_current(
         self,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> User:
         """
 
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -198,9 +180,7 @@ class UserClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/getCurrent",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Accept": "application/json",
@@ -259,7 +239,6 @@ class UserClient:
         self,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[User]:
         """
@@ -268,8 +247,6 @@ class UserClient:
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -282,7 +259,6 @@ class UserClient:
                 resource_path="/v2/admin/users",
                 query_params={
                     "pageSize": page_size,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -302,7 +278,6 @@ class UserClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListUsersResponse:
         """
@@ -313,8 +288,6 @@ class UserClient:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -328,7 +301,6 @@ class UserClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -347,15 +319,12 @@ class UserClient:
         self,
         user_id: PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
 
         :param user_id: userId
         :type user_id: PrincipalId
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -366,9 +335,7 @@ class UserClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/profilePicture",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "userId": user_id,
                 },
@@ -390,7 +357,6 @@ class UserClient:
         where: UserSearchFilterDict,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchUsersResponse:
         """
@@ -401,8 +367,6 @@ class UserClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -413,9 +377,7 @@ class UserClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/search",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",

@@ -16,7 +16,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **name** | DatasetName |  |  |
 **parent_folder_rid** | FolderRid |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Dataset**
@@ -36,15 +35,12 @@ foundry_client = FoundryClient(
 name = None
 # FolderRid |
 parent_folder_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.create(
         name=name,
         parent_folder_rid=parent_folder_rid,
-        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -74,7 +70,6 @@ Get the Dataset with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Dataset**
@@ -92,14 +87,11 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.get(
         dataset_rid,
-        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
@@ -136,7 +128,6 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
 **columns** | Optional[List[pydantic.StrictStr]] | columns | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **row_limit** | Optional[pydantic.StrictInt] | rowLimit | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
@@ -164,8 +155,6 @@ branch_name = None
 columns = None
 # Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[pydantic.StrictInt] | rowLimit
 row_limit = None
 # Optional[TransactionRid] | startTransactionRid
@@ -179,7 +168,6 @@ try:
         branch_name=branch_name,
         columns=columns,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         row_limit=row_limit,
         start_transaction_rid=start_transaction_rid,
     )

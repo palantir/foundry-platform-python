@@ -34,7 +34,6 @@ from foundry.v2.admin.models._group_membership_expiration import GroupMembership
 from foundry.v2.admin.models._list_group_members_response import ListGroupMembersResponse  # NOQA
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
@@ -50,7 +49,6 @@ class GroupMemberClient:
         *,
         principal_ids: List[PrincipalId],
         expiration: Optional[GroupMembershipExpiration] = None,
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
@@ -61,8 +59,6 @@ class GroupMemberClient:
         :type principal_ids: List[PrincipalId]
         :param expiration:
         :type expiration: Optional[GroupMembershipExpiration]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -73,9 +69,7 @@ class GroupMemberClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },
@@ -105,7 +99,6 @@ class GroupMemberClient:
         group_id: PrincipalId,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         transitive: Optional[pydantic.StrictBool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[GroupMember]:
@@ -117,8 +110,6 @@ class GroupMemberClient:
         :type group_id: PrincipalId
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param transitive: transitive
         :type transitive: Optional[pydantic.StrictBool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -133,7 +124,6 @@ class GroupMemberClient:
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
                     "pageSize": page_size,
-                    "preview": preview,
                     "transitive": transitive,
                 },
                 path_params={
@@ -157,7 +147,6 @@ class GroupMemberClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         transitive: Optional[pydantic.StrictBool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListGroupMembersResponse:
@@ -171,8 +160,6 @@ class GroupMemberClient:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param transitive: transitive
         :type transitive: Optional[pydantic.StrictBool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -188,7 +175,6 @@ class GroupMemberClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "transitive": transitive,
                 },
                 path_params={
@@ -211,7 +197,6 @@ class GroupMemberClient:
         group_id: PrincipalId,
         *,
         principal_ids: List[PrincipalId],
-        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
@@ -220,8 +205,6 @@ class GroupMemberClient:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -232,9 +215,7 @@ class GroupMemberClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },

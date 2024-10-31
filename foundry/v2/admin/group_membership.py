@@ -33,7 +33,6 @@ from foundry.v2.admin.models._list_group_memberships_response import (
 )  # NOQA
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
@@ -48,7 +47,6 @@ class GroupMembershipClient:
         user_id: PrincipalId,
         *,
         page_size: Optional[PageSize] = None,
-        preview: Optional[PreviewMode] = None,
         transitive: Optional[pydantic.StrictBool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[GroupMembership]:
@@ -60,8 +58,6 @@ class GroupMembershipClient:
         :type user_id: PrincipalId
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param transitive: transitive
         :type transitive: Optional[pydantic.StrictBool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -76,7 +72,6 @@ class GroupMembershipClient:
                 resource_path="/v2/admin/users/{userId}/groupMemberships",
                 query_params={
                     "pageSize": page_size,
-                    "preview": preview,
                     "transitive": transitive,
                 },
                 path_params={
@@ -100,7 +95,6 @@ class GroupMembershipClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
         transitive: Optional[pydantic.StrictBool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListGroupMembershipsResponse:
@@ -114,8 +108,6 @@ class GroupMembershipClient:
         :type page_size: Optional[PageSize]
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
-        :param preview: preview
-        :type preview: Optional[PreviewMode]
         :param transitive: transitive
         :type transitive: Optional[pydantic.StrictBool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -131,7 +123,6 @@ class GroupMembershipClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "transitive": transitive,
                 },
                 path_params={

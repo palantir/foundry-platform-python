@@ -18,7 +18,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **name** | BranchName |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 **transaction_rid** | Optional[TransactionRid] |  | [optional] |
 
 ### Return type
@@ -39,8 +38,6 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # BranchName |
 name = "master"
-# Optional[PreviewMode] | preview
-preview = None
 # Optional[TransactionRid] |
 transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"
 
@@ -49,7 +46,6 @@ try:
     api_response = foundry_client.datasets.Dataset.Branch.create(
         dataset_rid,
         name=name,
-        preview=preview,
         transaction_rid=transaction_rid,
     )
     print("The create response:\n")
@@ -82,7 +78,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **branch_name** | BranchName | branchName |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -102,15 +97,12 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # BranchName | branchName
 branch_name = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.delete(
         dataset_rid,
         branch_name,
-        preview=preview,
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -142,7 +134,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **branch_name** | BranchName | branchName |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Branch**
@@ -162,15 +153,12 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # BranchName | branchName
 branch_name = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.get(
         dataset_rid,
         branch_name,
-        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
@@ -202,7 +190,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ResourceIterator[Branch]**
@@ -222,15 +209,12 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # Optional[PageSize] | pageSize
 page_size = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     for branch in foundry_client.datasets.Dataset.Branch.list(
         dataset_rid,
         page_size=page_size,
-        preview=preview,
     ):
         pprint(branch)
 except foundry.PalantirRPCException as e:
@@ -262,7 +246,6 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListBranchesResponse**
@@ -284,8 +267,6 @@ dataset_rid = None
 page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -293,7 +274,6 @@ try:
         dataset_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     print("The page response:\n")
     pprint(api_response)

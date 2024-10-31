@@ -18,7 +18,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -38,15 +37,12 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TransactionRid | transactionRid
 transaction_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.abort(
         dataset_rid,
         transaction_rid,
-        preview=preview,
     )
     print("The abort response:\n")
     pprint(api_response)
@@ -79,7 +75,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -99,15 +94,12 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TransactionRid | transactionRid
 transaction_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.commit(
         dataset_rid,
         transaction_rid,
-        preview=preview,
     )
     print("The commit response:\n")
     pprint(api_response)
@@ -140,7 +132,6 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_type** | TransactionType |  |  |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -162,8 +153,6 @@ dataset_rid = None
 transaction_type = "APPEND"
 # Optional[BranchName] | branchName
 branch_name = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -171,7 +160,6 @@ try:
         dataset_rid,
         transaction_type=transaction_type,
         branch_name=branch_name,
-        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -225,7 +213,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Transaction**
@@ -245,15 +232,12 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TransactionRid | transactionRid
 transaction_rid = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.get(
         dataset_rid,
         transaction_rid,
-        preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)

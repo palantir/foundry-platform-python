@@ -17,7 +17,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **version_version** | VersionVersion | versionVersion |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -39,8 +38,6 @@ third_party_application_rid = (
 )
 # VersionVersion | versionVersion
 version_version = "1.2.0"
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -48,7 +45,6 @@ try:
         foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.delete(
             third_party_application_rid,
             version_version,
-            preview=preview,
         )
     )
     print("The delete response:\n")
@@ -80,7 +76,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **version_version** | VersionVersion | versionVersion |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Version**
@@ -102,8 +97,6 @@ third_party_application_rid = (
 )
 # VersionVersion | versionVersion
 version_version = "1.2.0"
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -111,7 +104,6 @@ try:
         foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.get(
             third_party_application_rid,
             version_version,
-            preview=preview,
         )
     )
     print("The get response:\n")
@@ -145,7 +137,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ResourceIterator[Version]**
@@ -167,8 +158,6 @@ third_party_application_rid = (
 )
 # Optional[PageSize] | pageSize
 page_size = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -177,7 +166,6 @@ try:
     ) in foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.list(
         third_party_application_rid,
         page_size=page_size,
-        preview=preview,
     ):
         pprint(version)
 except foundry.PalantirRPCException as e:
@@ -210,7 +198,6 @@ Name | Type | Description  | Notes |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListVersionsResponse**
@@ -234,8 +221,6 @@ third_party_application_rid = (
 page_size = None
 # Optional[PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -244,7 +229,6 @@ try:
             third_party_application_rid,
             page_size=page_size,
             page_token=page_token,
-            preview=preview,
         )
     )
     print("The page response:\n")
@@ -277,7 +261,6 @@ Name | Type | Description  | Notes |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
 **version** | VersionVersion | version |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Version**
@@ -301,8 +284,6 @@ third_party_application_rid = (
 body = None
 # VersionVersion | version
 version = None
-# Optional[PreviewMode] | preview
-preview = None
 
 
 try:
@@ -311,7 +292,6 @@ try:
             third_party_application_rid,
             body,
             version=version,
-            preview=preview,
         )
     )
     print("The upload response:\n")
