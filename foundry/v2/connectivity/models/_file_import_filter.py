@@ -26,10 +26,15 @@ from foundry.v2.connectivity.models._file_last_modified_after_filter import (
 )  # NOQA
 from foundry.v2.connectivity.models._file_path_matches_filter import FilePathMatchesFilter  # NOQA
 from foundry.v2.connectivity.models._file_size_filter import FileSizeFilter
+from foundry.v2.connectivity.models._files_count_limit_filter import FilesCountLimitFilter  # NOQA
 
 FileImportFilter = Annotated[
     Union[
-        FileImportCustomFilter, FileLastModifiedAfterFilter, FilePathMatchesFilter, FileSizeFilter
+        FilesCountLimitFilter,
+        FileImportCustomFilter,
+        FileLastModifiedAfterFilter,
+        FilePathMatchesFilter,
+        FileSizeFilter,
     ],
     pydantic.Field(discriminator="type"),
 ]

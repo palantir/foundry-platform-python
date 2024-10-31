@@ -260,3 +260,126 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+Lists all file imports defined for this connection.
+Only file imports that the user has permissions to view will be returned.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ResourceIterator[FileImport]**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ConnectionRid | connectionRid
+connection_rid = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    for file_import in foundry_client.connectivity.Connection.FileImport.list(
+        connection_rid,
+        page_size=page_size,
+        preview=preview,
+    ):
+        pprint(file_import)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling FileImport.list: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListFileImportsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+Lists all file imports defined for this connection.
+Only file imports that the user has permissions to view will be returned.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ListFileImportsResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ConnectionRid | connectionRid
+connection_rid = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.connectivity.Connection.FileImport.page(
+        connection_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The page response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling FileImport.page: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListFileImportsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+

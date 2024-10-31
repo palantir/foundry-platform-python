@@ -137,7 +137,7 @@ foundry_client = FoundryClient(
 )
 
 # ResourcePath | path
-path = "/My Organization/My Important Project/My Dataset"
+path = "/My Organization-abcd/My Important Project/My Dataset"
 # Optional[PreviewMode] | preview
 preview = None
 
