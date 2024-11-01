@@ -11,10 +11,13 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
+FilePathNotMatchesFilter | pathNotMatchesFilter
+FileAnyPathMatchesFilter | anyPathMatchesFilter
 FilesCountLimitFilter | filesCountLimitFilter
 FileImportCustomFilter | customFilter
 FileLastModifiedAfterFilter | lastModifiedAfterFilter
 FilePathMatchesFilter | pathMatchesFilter
+FileAtLeastCountFilter | atLeastCountFilter
 FileSizeFilter | fileSizeFilter
 
 
