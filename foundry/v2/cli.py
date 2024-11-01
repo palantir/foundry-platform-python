@@ -1571,6 +1571,57 @@ def connectivity_connection_file_import_get(
     click.echo(repr(result))
 
 
+@connectivity_connection_file_import.command("list")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_file_import_list(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    Lists all file imports defined for this connection.
+    Only file imports that the user has permissions to view will be returned.
+
+    """
+    result = client.connectivity.Connection.FileImport.list(
+        connection_rid=connection_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_file_import.command("page")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_file_import_page(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Lists all file imports defined for this connection.
+    Only file imports that the user has permissions to view will be returned.
+
+    """
+    result = client.connectivity.Connection.FileImport.page(
+        connection_rid=connection_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("core")
 def core():
     pass

@@ -30,9 +30,13 @@ from foundry.v2.connectivity.models._file_path_matches_filter_dict import (
     FilePathMatchesFilterDict,
 )  # NOQA
 from foundry.v2.connectivity.models._file_size_filter_dict import FileSizeFilterDict
+from foundry.v2.connectivity.models._files_count_limit_filter_dict import (
+    FilesCountLimitFilterDict,
+)  # NOQA
 
 FileImportFilterDict = Annotated[
     Union[
+        FilesCountLimitFilterDict,
         FileImportCustomFilterDict,
         FileLastModifiedAfterFilterDict,
         FilePathMatchesFilterDict,

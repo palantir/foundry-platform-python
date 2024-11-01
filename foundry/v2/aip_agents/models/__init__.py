@@ -54,6 +54,9 @@ from foundry.v2.aip_agents.models._object_context import ObjectContext
 from foundry.v2.aip_agents.models._object_context_dict import ObjectContextDict
 from foundry.v2.aip_agents.models._object_set_parameter import ObjectSetParameter
 from foundry.v2.aip_agents.models._object_set_parameter_dict import ObjectSetParameterDict  # NOQA
+from foundry.v2.aip_agents.models._object_set_parameter_value_dict import (
+    ObjectSetParameterValueDict,
+)  # NOQA
 from foundry.v2.aip_agents.models._object_set_parameter_value_update import (
     ObjectSetParameterValueUpdate,
 )  # NOQA
@@ -127,6 +130,7 @@ __all__ = [
     "ObjectContextDict",
     "ObjectSetParameter",
     "ObjectSetParameterDict",
+    "ObjectSetParameterValueDict",
     "ObjectSetParameterValueUpdate",
     "ObjectSetParameterValueUpdateDict",
     "PageSize",

@@ -15,7 +15,20 @@
 
 from __future__ import annotations
 
-import pydantic
+from typing import List
 
-OntologyIdentifier = pydantic.StrictStr
-"""Either an ontology RID or an ontology API name."""
+from typing_extensions import NotRequired
+from typing_extensions import TypedDict
+
+from foundry.v2.connectivity.models._file_import_dict import FileImportDict
+from foundry.v2.core.models._page_token import PageToken
+
+
+class ListFileImportsResponseDict(TypedDict):
+    """ListFileImportsResponse"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: List[FileImportDict]
+
+    nextPageToken: NotRequired[PageToken]

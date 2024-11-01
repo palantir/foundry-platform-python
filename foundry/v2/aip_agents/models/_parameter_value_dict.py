@@ -15,11 +15,22 @@
 
 from __future__ import annotations
 
+from typing import Union
+
+import pydantic
+from typing_extensions import Annotated
+
+from foundry.v2.aip_agents.models._object_set_parameter_value_dict import (
+    ObjectSetParameterValueDict,
+)  # NOQA
 from foundry.v2.aip_agents.models._string_parameter_value_dict import (
     StringParameterValueDict,
 )  # NOQA
 
-ParameterValueDict = StringParameterValueDict
+ParameterValueDict = Annotated[
+    Union[StringParameterValueDict, ObjectSetParameterValueDict],
+    pydantic.Field(discriminator="type"),
+]
 """
 The value provided for a [parameter](/docs/foundry/agent-studio/parameters/)
 configured on an Agent.

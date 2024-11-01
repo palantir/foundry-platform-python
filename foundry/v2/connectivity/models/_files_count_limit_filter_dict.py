@@ -15,7 +15,22 @@
 
 from __future__ import annotations
 
-import pydantic
+from typing import Literal
 
-OntologyIdentifier = pydantic.StrictStr
-"""Either an ontology RID or an ontology API name."""
+import pydantic
+from typing_extensions import TypedDict
+
+
+class FilesCountLimitFilterDict(TypedDict):
+    """
+    Only retain `filesCount` number of files in each transaction.
+    The choice of files to retain is made without any guarantee of order.
+    This option can increase the reliability of incremental syncs.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    filesCount: pydantic.StrictInt
+    """The number of files to import in the transaction. The value specified must be positive."""
+
+    type: Literal["filesCountLimitFilter"]

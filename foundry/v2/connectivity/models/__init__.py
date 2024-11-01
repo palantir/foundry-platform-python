@@ -51,6 +51,16 @@ from foundry.v2.connectivity.models._file_path_matches_filter_dict import (
 )  # NOQA
 from foundry.v2.connectivity.models._file_size_filter import FileSizeFilter
 from foundry.v2.connectivity.models._file_size_filter_dict import FileSizeFilterDict
+from foundry.v2.connectivity.models._files_count_limit_filter import FilesCountLimitFilter  # NOQA
+from foundry.v2.connectivity.models._files_count_limit_filter_dict import (
+    FilesCountLimitFilterDict,
+)  # NOQA
+from foundry.v2.connectivity.models._list_file_imports_response import (
+    ListFileImportsResponse,
+)  # NOQA
+from foundry.v2.connectivity.models._list_file_imports_response_dict import (
+    ListFileImportsResponseDict,
+)  # NOQA
 from foundry.v2.connectivity.models._network_egress_policy_rid import NetworkEgressPolicyRid  # NOQA
 from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
 from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
@@ -84,6 +94,10 @@ __all__ = [
     "FilePathMatchesFilterDict",
     "FileSizeFilter",
     "FileSizeFilterDict",
+    "FilesCountLimitFilter",
+    "FilesCountLimitFilterDict",
+    "ListFileImportsResponse",
+    "ListFileImportsResponseDict",
     "NetworkEgressPolicyRid",
     "PlaintextValue",
     "RuntimePlatform",

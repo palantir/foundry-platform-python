@@ -11,6 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
+FilesCountLimitFilterDict | filesCountLimitFilter
 FileImportCustomFilterDict | customFilter
 FileLastModifiedAfterFilterDict | lastModifiedAfterFilter
 FilePathMatchesFilterDict | pathMatchesFilter
