@@ -20,20 +20,32 @@ from typing import Union
 import pydantic
 from typing_extensions import Annotated
 
+from foundry.v2.connectivity.models._file_any_path_matches_filter import (
+    FileAnyPathMatchesFilter,
+)  # NOQA
+from foundry.v2.connectivity.models._file_at_least_count_filter import (
+    FileAtLeastCountFilter,
+)  # NOQA
 from foundry.v2.connectivity.models._file_import_custom_filter import FileImportCustomFilter  # NOQA
 from foundry.v2.connectivity.models._file_last_modified_after_filter import (
     FileLastModifiedAfterFilter,
 )  # NOQA
 from foundry.v2.connectivity.models._file_path_matches_filter import FilePathMatchesFilter  # NOQA
+from foundry.v2.connectivity.models._file_path_not_matches_filter import (
+    FilePathNotMatchesFilter,
+)  # NOQA
 from foundry.v2.connectivity.models._file_size_filter import FileSizeFilter
 from foundry.v2.connectivity.models._files_count_limit_filter import FilesCountLimitFilter  # NOQA
 
 FileImportFilter = Annotated[
     Union[
+        FilePathNotMatchesFilter,
+        FileAnyPathMatchesFilter,
         FilesCountLimitFilter,
         FileImportCustomFilter,
         FileLastModifiedAfterFilter,
         FilePathMatchesFilter,
+        FileAtLeastCountFilter,
         FileSizeFilter,
     ],
     pydantic.Field(discriminator="type"),

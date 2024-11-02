@@ -28,6 +28,18 @@ from foundry.v2.connectivity.models._direct_connection_runtime import (
 from foundry.v2.connectivity.models._direct_connection_runtime_dict import (
     DirectConnectionRuntimeDict,
 )  # NOQA
+from foundry.v2.connectivity.models._file_any_path_matches_filter import (
+    FileAnyPathMatchesFilter,
+)  # NOQA
+from foundry.v2.connectivity.models._file_any_path_matches_filter_dict import (
+    FileAnyPathMatchesFilterDict,
+)  # NOQA
+from foundry.v2.connectivity.models._file_at_least_count_filter import (
+    FileAtLeastCountFilter,
+)  # NOQA
+from foundry.v2.connectivity.models._file_at_least_count_filter_dict import (
+    FileAtLeastCountFilterDict,
+)  # NOQA
 from foundry.v2.connectivity.models._file_import import FileImport
 from foundry.v2.connectivity.models._file_import_custom_filter import FileImportCustomFilter  # NOQA
 from foundry.v2.connectivity.models._file_import_custom_filter_dict import (
@@ -48,6 +60,12 @@ from foundry.v2.connectivity.models._file_last_modified_after_filter_dict import
 from foundry.v2.connectivity.models._file_path_matches_filter import FilePathMatchesFilter  # NOQA
 from foundry.v2.connectivity.models._file_path_matches_filter_dict import (
     FilePathMatchesFilterDict,
+)  # NOQA
+from foundry.v2.connectivity.models._file_path_not_matches_filter import (
+    FilePathNotMatchesFilter,
+)  # NOQA
+from foundry.v2.connectivity.models._file_path_not_matches_filter_dict import (
+    FilePathNotMatchesFilterDict,
 )  # NOQA
 from foundry.v2.connectivity.models._file_size_filter import FileSizeFilter
 from foundry.v2.connectivity.models._file_size_filter_dict import FileSizeFilterDict
@@ -79,6 +97,10 @@ __all__ = [
     "ConnectionRid",
     "DirectConnectionRuntime",
     "DirectConnectionRuntimeDict",
+    "FileAnyPathMatchesFilter",
+    "FileAnyPathMatchesFilterDict",
+    "FileAtLeastCountFilter",
+    "FileAtLeastCountFilterDict",
     "FileImport",
     "FileImportCustomFilter",
     "FileImportCustomFilterDict",
@@ -92,6 +114,8 @@ __all__ = [
     "FileLastModifiedAfterFilterDict",
     "FilePathMatchesFilter",
     "FilePathMatchesFilterDict",
+    "FilePathNotMatchesFilter",
+    "FilePathNotMatchesFilterDict",
     "FileSizeFilter",
     "FileSizeFilterDict",
     "FilesCountLimitFilter",
