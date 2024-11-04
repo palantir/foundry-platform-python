@@ -14,6 +14,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 FilePathNotMatchesFilter | pathNotMatchesFilter
 FileAnyPathMatchesFilter | anyPathMatchesFilter
 FilesCountLimitFilter | filesCountLimitFilter
+FileChangedSinceLastUploadFilter | changedSinceLastUploadFilter
 FileImportCustomFilter | customFilter
 FileLastModifiedAfterFilter | lastModifiedAfterFilter
 FilePathMatchesFilter | pathMatchesFilter

@@ -152,7 +152,7 @@ class ValueTypeDataTypeUnionType(pydantic.BaseModel):
 class ValueTypeDataTypeArrayType(pydantic.BaseModel):
     """ValueTypeDataTypeArrayType"""
 
-    element_type: ValueTypeDataType = pydantic.Field(alias="elementType")
+    sub_type: ValueTypeDataType = pydantic.Field(alias="subType")
 
     type: Literal["array"] = "array"
 
