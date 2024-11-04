@@ -29,7 +29,7 @@ from foundry.v2.functions.models._value_type_data_type_array_type_dict import (
 class ValueTypeDataTypeArrayType(pydantic.BaseModel):
     """ValueTypeDataTypeArrayType"""
 
-    element_type: ValueTypeDataType = pydantic.Field(alias="elementType")
+    sub_type: ValueTypeDataType = pydantic.Field(alias="subType")
 
     type: Literal["array"] = "array"
 

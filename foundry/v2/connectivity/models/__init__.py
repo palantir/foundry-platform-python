@@ -40,6 +40,12 @@ from foundry.v2.connectivity.models._file_at_least_count_filter import (
 from foundry.v2.connectivity.models._file_at_least_count_filter_dict import (
     FileAtLeastCountFilterDict,
 )  # NOQA
+from foundry.v2.connectivity.models._file_changed_since_last_upload_filter import (
+    FileChangedSinceLastUploadFilter,
+)  # NOQA
+from foundry.v2.connectivity.models._file_changed_since_last_upload_filter_dict import (
+    FileChangedSinceLastUploadFilterDict,
+)  # NOQA
 from foundry.v2.connectivity.models._file_import import FileImport
 from foundry.v2.connectivity.models._file_import_custom_filter import FileImportCustomFilter  # NOQA
 from foundry.v2.connectivity.models._file_import_custom_filter_dict import (
@@ -67,6 +73,7 @@ from foundry.v2.connectivity.models._file_path_not_matches_filter import (
 from foundry.v2.connectivity.models._file_path_not_matches_filter_dict import (
     FilePathNotMatchesFilterDict,
 )  # NOQA
+from foundry.v2.connectivity.models._file_property import FileProperty
 from foundry.v2.connectivity.models._file_size_filter import FileSizeFilter
 from foundry.v2.connectivity.models._file_size_filter_dict import FileSizeFilterDict
 from foundry.v2.connectivity.models._files_count_limit_filter import FilesCountLimitFilter  # NOQA
@@ -101,6 +108,8 @@ __all__ = [
     "FileAnyPathMatchesFilterDict",
     "FileAtLeastCountFilter",
     "FileAtLeastCountFilterDict",
+    "FileChangedSinceLastUploadFilter",
+    "FileChangedSinceLastUploadFilterDict",
     "FileImport",
     "FileImportCustomFilter",
     "FileImportCustomFilterDict",
@@ -116,6 +125,7 @@ __all__ = [
     "FilePathMatchesFilterDict",
     "FilePathNotMatchesFilter",
     "FilePathNotMatchesFilterDict",
+    "FileProperty",
     "FileSizeFilter",
     "FileSizeFilterDict",
     "FilesCountLimitFilter",

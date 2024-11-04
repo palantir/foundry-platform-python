@@ -26,6 +26,9 @@ from foundry.v2.connectivity.models._file_any_path_matches_filter_dict import (
 from foundry.v2.connectivity.models._file_at_least_count_filter_dict import (
     FileAtLeastCountFilterDict,
 )  # NOQA
+from foundry.v2.connectivity.models._file_changed_since_last_upload_filter_dict import (
+    FileChangedSinceLastUploadFilterDict,
+)  # NOQA
 from foundry.v2.connectivity.models._file_import_custom_filter_dict import (
     FileImportCustomFilterDict,
 )  # NOQA
@@ -48,6 +51,7 @@ FileImportFilterDict = Annotated[
         FilePathNotMatchesFilterDict,
         FileAnyPathMatchesFilterDict,
         FilesCountLimitFilterDict,
+        FileChangedSinceLastUploadFilterDict,
         FileImportCustomFilterDict,
         FileLastModifiedAfterFilterDict,
         FilePathMatchesFilterDict,

@@ -27,6 +27,6 @@ class ValueTypeDataTypeArrayTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    elementType: ValueTypeDataTypeDict
+    subType: ValueTypeDataTypeDict
 
     type: Literal["array"]

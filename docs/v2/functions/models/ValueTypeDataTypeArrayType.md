@@ -5,7 +5,7 @@ ValueTypeDataTypeArrayType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**element_type** | ValueTypeDataType | Yes |  |
+**sub_type** | ValueTypeDataType | Yes |  |
 **type** | Literal["array"] | Yes | None |
 
 

@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from foundry._core.utils import RID
+from typing import Literal
 
-ObjectTypeRid = RID
-"""The unique Resource Identifier (RID) of an object type, useful for interacting with other Foundry APIs."""
+FileProperty = Literal["LAST_MODIFIED", "SIZE"]
+"""FileProperty"""
