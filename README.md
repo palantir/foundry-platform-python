@@ -756,6 +756,8 @@ Namespace | Resource | Operation | HTTP request |
 - [FolderType](docs/v2/models/FolderType.md)
 - [ListChildrenOfFolderResponse](docs/v2/models/ListChildrenOfFolderResponse.md)
 - [ListChildrenOfFolderResponseDict](docs/v2/models/ListChildrenOfFolderResponseDict.md)
+- [Project](docs/v2/models/Project.md)
+- [ProjectDict](docs/v2/models/ProjectDict.md)
 - [ProjectRid](docs/v2/models/ProjectRid.md)
 - [Resource](docs/v2/models/Resource.md)
 - [ResourceDict](docs/v2/models/ResourceDict.md)
