@@ -1,7 +1,6 @@
 # ObjectContextDict
 
-Details of relevant retrieved object instances for a user's message to include as
-additional context in the prompt to the Agent.
+Details of relevant retrieved object instances for a user's message to include as additional context in the prompt to the Agent.
 
 
 ## Properties

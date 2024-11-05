@@ -1,6 +1,6 @@
 # AgentVersionString
 
-The semantic version of the Agent, formatted as "<majorVersion>.<minorVersion>".
+The semantic version of the Agent, formatted as "majorVersion.minorVersion".
 
 ## Type
 ```python

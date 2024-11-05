@@ -18,4 +18,4 @@ from __future__ import annotations
 import pydantic
 
 ParameterId = pydantic.StrictStr
-"""The unique identifier for a parameter, as configured in AIP Agent Studio."""
+"""The unique identifier for a parameter, as configured in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""

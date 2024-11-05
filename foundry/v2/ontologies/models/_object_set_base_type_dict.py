@@ -27,5 +27,6 @@ class ObjectSetBaseTypeDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectType: pydantic.StrictStr
+    """The API name of the object type."""
 
     type: Literal["base"]

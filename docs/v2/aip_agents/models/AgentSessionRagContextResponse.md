@@ -1,7 +1,6 @@
 # AgentSessionRagContextResponse
 
-Context retrieved from an Agent's configured context data sources which was relevant to the
-supplied user message.
+Context retrieved from an Agent's configured context data sources which was relevant to the supplied user message.
 
 
 ## Properties

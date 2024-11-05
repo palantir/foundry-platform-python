@@ -27,10 +27,7 @@ from foundry.v2.aip_agents.models._object_context import ObjectContext
 
 
 class AgentSessionRagContextResponse(pydantic.BaseModel):
-    """
-    Context retrieved from an Agent's configured context data sources which was relevant to the
-    supplied user message.
-    """
+    """Context retrieved from an Agent's configured context data sources which was relevant to the supplied user message."""
 
     object_contexts: List[ObjectContext] = pydantic.Field(alias="objectContexts")
 

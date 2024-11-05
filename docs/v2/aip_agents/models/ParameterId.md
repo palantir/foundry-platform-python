@@ -1,6 +1,6 @@
 # ParameterId
 
-The unique identifier for a parameter, as configured in AIP Agent Studio.
+The unique identifier for a parameter, as configured in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 
 ## Type
 ```python

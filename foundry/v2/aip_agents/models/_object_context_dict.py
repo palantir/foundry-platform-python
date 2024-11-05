@@ -25,10 +25,7 @@ from foundry.v2.ontologies.models._property_type_rid import PropertyTypeRid
 
 
 class ObjectContextDict(TypedDict):
-    """
-    Details of relevant retrieved object instances for a user's message to include as
-    additional context in the prompt to the Agent.
-    """
+    """Details of relevant retrieved object instances for a user's message to include as additional context in the prompt to the Agent."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

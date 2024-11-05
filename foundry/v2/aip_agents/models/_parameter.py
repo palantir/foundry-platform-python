@@ -26,7 +26,7 @@ from foundry.v2.aip_agents.models._parameter_type import ParameterType
 
 
 class Parameter(pydantic.BaseModel):
-    """A parameter configured for an Agent in AIP Agent Studio."""
+    """A parameter configured for an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
     parameter_type: ParameterType = pydantic.Field(alias="parameterType")
     """Details of the types of values accepted and defaults for this parameter."""
@@ -36,8 +36,8 @@ class Parameter(pydantic.BaseModel):
 
     description: Optional[pydantic.StrictStr] = None
     """
-    A description to explain the use of this parameter. This description is injected with the
-    parameter value into the Agent's prompt, to provide context for when to use the parameter.
+    A description to explain the use of this parameter.
+    This description is injected with the parameter value into the Agent's prompt, to provide context for when to use the parameter.
     """
 
     model_config = {"extra": "allow"}

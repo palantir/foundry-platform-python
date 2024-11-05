@@ -1,7 +1,6 @@
 # InputContextDict
 
-Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide
-to an Agent for continuing a session.
+Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session.
 
 
 ## Type

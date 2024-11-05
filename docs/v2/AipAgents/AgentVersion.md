@@ -2,7 +2,11 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions/{agentVersionString} |
+[**list**](#list) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions |
+[**page**](#page) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions |
 
+# **get**
 Get version details for an AIP Agent.
 
 ### Parameters
@@ -61,6 +65,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **list**
 List all versions for an AIP Agent.
 Versions are returned in descending order, by most recent versions first.
 
@@ -120,6 +125,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **page**
 List all versions for an AIP Agent.
 Versions are returned in descending order, by most recent versions first.
 

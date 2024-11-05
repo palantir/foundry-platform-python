@@ -24,7 +24,7 @@ from foundry.v2.aip_agents.models._parameter_type_dict import ParameterTypeDict
 
 
 class ParameterDict(TypedDict):
-    """A parameter configured for an Agent in AIP Agent Studio."""
+    """A parameter configured for an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -36,6 +36,6 @@ class ParameterDict(TypedDict):
 
     description: NotRequired[pydantic.StrictStr]
     """
-    A description to explain the use of this parameter. This description is injected with the
-    parameter value into the Agent's prompt, to provide context for when to use the parameter.
+    A description to explain the use of this parameter.
+    This description is injected with the parameter value into the Agent's prompt, to provide context for when to use the parameter.
     """

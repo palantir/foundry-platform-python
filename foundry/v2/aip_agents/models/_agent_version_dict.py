@@ -27,7 +27,7 @@ class AgentVersionDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     string: AgentVersionString
-    """The semantic version of the Agent, formatted as "<majorVersion>.<minorVersion>"."""
+    """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
     version: AgentVersionDetailsDict
     """Semantic version details of the Agent."""

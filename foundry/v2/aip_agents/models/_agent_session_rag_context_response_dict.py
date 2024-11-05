@@ -23,10 +23,7 @@ from foundry.v2.aip_agents.models._object_context_dict import ObjectContextDict
 
 
 class AgentSessionRagContextResponseDict(TypedDict):
-    """
-    Context retrieved from an Agent's configured context data sources which was relevant to the
-    supplied user message.
-    """
+    """Context retrieved from an Agent's configured context data sources which was relevant to the supplied user message."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

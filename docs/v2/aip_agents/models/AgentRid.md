@@ -1,6 +1,6 @@
 # AgentRid
 
-A RID identifying an AIP Agent created in AIP Agent Studio.
+A RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 
 ## Type
 ```python

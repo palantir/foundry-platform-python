@@ -1,6 +1,6 @@
 # Parameter
 
-A parameter configured for an Agent in AIP Agent Studio.
+A parameter configured for an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 
 
 ## Properties

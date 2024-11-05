@@ -1,7 +1,6 @@
 # ParameterValueDict
 
-The value provided for a [parameter](/docs/foundry/agent-studio/parameters/)
-configured on an Agent.
+The value provided for a [parameter](/docs/foundry/agent-studio/parameters/) configured on an Agent.
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union

@@ -2,7 +2,9 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/content |
 
+# **get**
 Get the conversation content for a session between the calling user and an Agent.
 
 ### Parameters

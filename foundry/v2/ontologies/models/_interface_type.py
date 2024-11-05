@@ -30,6 +30,7 @@ from foundry.v2.ontologies.models._interface_link_type_api_name import (
 from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v2.ontologies.models._interface_type_dict import InterfaceTypeDict
 from foundry.v2.ontologies.models._interface_type_rid import InterfaceTypeRid
+from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._shared_property_type import SharedPropertyType
 from foundry.v2.ontologies.models._shared_property_type_api_name import (
     SharedPropertyTypeApiName,
@@ -59,6 +60,11 @@ class InterfaceType(pydantic.BaseModel):
     A list of interface API names that this interface extends. An interface can extend other interfaces to 
     inherit their properties.
     """
+
+    implemented_by_object_types: List[ObjectTypeApiName] = pydantic.Field(
+        alias="implementedByObjectTypes"
+    )
+    """A list of object API names that implement this interface."""
 
     links: Dict[InterfaceLinkTypeApiName, InterfaceLinkType]
     """

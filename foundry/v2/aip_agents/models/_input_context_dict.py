@@ -18,7 +18,4 @@ from __future__ import annotations
 from foundry.v2.aip_agents.models._object_context_dict import ObjectContextDict
 
 InputContextDict = ObjectContextDict
-"""
-Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide
-to an Agent for continuing a session.
-"""
+"""Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""

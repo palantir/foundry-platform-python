@@ -27,10 +27,7 @@ from foundry.v2.ontologies.models._property_type_rid import PropertyTypeRid
 
 
 class ObjectContext(pydantic.BaseModel):
-    """
-    Details of relevant retrieved object instances for a user's message to include as
-    additional context in the prompt to the Agent.
-    """
+    """Details of relevant retrieved object instances for a user's message to include as additional context in the prompt to the Agent."""
 
     object_rids: List[ObjectRid] = pydantic.Field(alias="objectRids")
     """The RIDs of the relevant object instances to include in the prompt."""

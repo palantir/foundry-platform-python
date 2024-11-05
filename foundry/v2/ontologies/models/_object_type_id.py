@@ -18,4 +18,4 @@ from __future__ import annotations
 import pydantic
 
 ObjectTypeId = pydantic.StrictStr
-"""The unique identifier (ID) for an object type. This can be viewed in Ontology Manager."""
+"""The unique identifier (ID) for an object type. This can be viewed in [Ontology Manager](/docs/foundry/ontology-manager/overview/)."""

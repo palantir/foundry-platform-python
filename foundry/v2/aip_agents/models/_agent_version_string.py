@@ -18,4 +18,4 @@ from __future__ import annotations
 import pydantic
 
 AgentVersionString = pydantic.StrictStr
-"""The semantic version of the Agent, formatted as "<majorVersion>.<minorVersion>"."""
+"""The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""

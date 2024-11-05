@@ -56,8 +56,7 @@ class AgentClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Session]:
         """
-        List all conversation sessions between the calling user across all accessible Agents that were created
-        by this client.
+        List all conversation sessions between the calling user across all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize
@@ -100,8 +99,7 @@ class AgentClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AgentsSessionsPage:
         """
-        List all conversation sessions between the calling user across all accessible Agents that were created
-        by this client.
+        List all conversation sessions between the calling user across all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize

@@ -885,8 +885,7 @@ def aip_agents_agent_all_sessions(
     preview: Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user across all accessible Agents that were created
-    by this client.
+    List all conversation sessions between the calling user across all accessible Agents that were created by this client.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -909,8 +908,7 @@ def aip_agents_agent_all_sessions_page(
     preview: Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user across all accessible Agents that were created
-    by this client.
+    List all conversation sessions between the calling user across all accessible Agents that were created by this client.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -956,8 +954,7 @@ def aip_agents_agent_session():
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied [parameter values](/docs/foundry/agent-studio/parameters/) to
-pass to the Agent for the exchange.
+    help="""Any supplied [parameter values](/docs/foundry/agent-studio/parameters/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -970,10 +967,8 @@ pass to the Agent for the exchange.
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) 
-is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context 
-for the user message is automatically retrieved and included in the prompt, based on data sources configured 
-on the Agent for the session.
+    help="""If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
+If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -992,8 +987,8 @@ def aip_agents_agent_session_blocking_continue(
     Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
     Blocks on returning the result of the added exchange until the response is fully generated.
     Streamed responses are also supported; see `streamingContinue` for details.
-    Concurrent requests to continue the same session are not supported. Clients should wait
-    to receive a response before sending the next message.
+    Concurrent requests to continue the same session are not supported.
+    Clients should wait to receive a response before sending the next message.
 
     """
     result = client.aip_agents.Agent.Session.blocking_continue(
@@ -1014,8 +1009,8 @@ def aip_agents_agent_session_blocking_continue(
     "--message_id",
     type=str,
     required=True,
-    help="""The identifier for the in-progress exchange to cancel. This should match the `messageId` which
-was provided when initiating the exchange with `streamingContinue`.
+    help="""The identifier for the in-progress exchange to cancel.
+This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
 """,
 )
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1038,10 +1033,8 @@ def aip_agents_agent_session_cancel(
 ):
     """
     Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
-    Canceling an exchange allows clients to prevent the exchange from being added to the session,
-    or to provide a response to replace the Agent-generated response.
-    Note that canceling an exchange does not terminate the stream returned by `streamingContinue`;
-    clients should close the stream on triggering the cancellation request to stop reading from the stream.
+    Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
+    Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
     """
     result = client.aip_agents.Agent.Session.cancel(
@@ -1061,8 +1054,8 @@ def aip_agents_agent_session_cancel(
     type=str,
     required=False,
     help="""The version of the Agent that the session is with.
-This can be set by clients on session creation. If not specified, defaults to use the latest
-published version of the Agent at session creation time.
+This can be set by clients on session creation.
+If not specified, defaults to use the latest published version of the Agent at session creation time.
 """,
 )
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1121,8 +1114,8 @@ def aip_agents_agent_session_list(
 ):
     """
     List all conversation sessions between the calling user and an Agent that were created by this client.
-    This does not list sessions for the user created by other clients. For example, any sessions created by
-    the user in AIP Agent Studio will not be listed here.
+    This does not list sessions for the user created by other clients.
+    For example, any sessions created by the user in AIP Agent Studio will not be listed here.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -1149,8 +1142,8 @@ def aip_agents_agent_session_page(
 ):
     """
     List all conversation sessions between the calling user and an Agent that were created by this client.
-    This does not list sessions for the user created by other clients. For example, any sessions created by
-    the user in AIP Agent Studio will not be listed here.
+    This does not list sessions for the user created by other clients.
+    For example, any sessions created by the user in AIP Agent Studio will not be listed here.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -1190,10 +1183,8 @@ def aip_agents_agent_session_rag_context(
     preview: Optional[bool],
 ):
     """
-    Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message
-    from the data sources configured for the session. This allows clients to pre-retrieve context for a user
-    message before sending it to the Agent with the `contextsOverride` option when continuing a session, to
-    allow any pre-processing of the context before sending it to the Agent.
+    Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
+    This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
     """
     result = client.aip_agents.Agent.Session.rag_context(
@@ -1213,8 +1204,7 @@ def aip_agents_agent_session_rag_context(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to
-pass to the Agent for the exchange.
+    help="""Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -1227,18 +1217,15 @@ pass to the Agent for the exchange.
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/)
-retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted,
-relevant context for the user message is automatically retrieved and included in the prompt, based on
-data sources configured on the Agent for the session.
+    help="""If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
+If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
 @click.option(
     "--message_id",
     type=str,
     required=False,
-    help="""A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can
-use to cancel the exchange before the streaming response is complete.
+    help="""A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
 """,
 )
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -1256,13 +1243,11 @@ def aip_agents_agent_session_streaming_continue(
     """
     Continue a conversation session with an Agent, or add the first exchange to a session after creation.
     Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-    Returns a stream of the Agent response text (formatted using markdown) for clients to consume as
-    the response is generated.
-    On completion of the streamed response, clients can load the full details of the exchange that was
-    added to the session by reloading the session content.
+    Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+    On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
     Streamed exchanges also support cancellation; see `cancel` for details.
-    Concurrent requests to continue the same session are not supported. Clients should wait to receive a
-    response, or cancel the in-progress exchange, before sending the next message.
+    Concurrent requests to continue the same session are not supported.
+    Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
     """
     result = client.aip_agents.Agent.Session.streaming_continue(
