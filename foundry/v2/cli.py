@@ -2300,6 +2300,30 @@ def filesystem_resource_restore(
     click.echo(repr(result))
 
 
+@filesystem.group("project")
+def filesystem_project():
+    pass
+
+
+@filesystem_project.command("get")
+@click.argument("project_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_project_get(
+    client: foundry.v2.FoundryClient,
+    project_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Project with the specified rid.
+    """
+    result = client.filesystem.Project.get(
+        project_rid=project_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem.group("folder")
 def filesystem_folder():
     pass

@@ -23,6 +23,8 @@ from foundry.v2.filesystem.models._list_children_of_folder_response import (
 from foundry.v2.filesystem.models._list_children_of_folder_response_dict import (
     ListChildrenOfFolderResponseDict,
 )  # NOQA
+from foundry.v2.filesystem.models._project import Project
+from foundry.v2.filesystem.models._project_dict import ProjectDict
 from foundry.v2.filesystem.models._project_rid import ProjectRid
 from foundry.v2.filesystem.models._resource import Resource
 from foundry.v2.filesystem.models._resource_dict import ResourceDict
@@ -40,6 +42,8 @@ __all__ = [
     "FolderType",
     "ListChildrenOfFolderResponse",
     "ListChildrenOfFolderResponseDict",
+    "Project",
+    "ProjectDict",
     "ProjectRid",
     "Resource",
     "ResourceDict",
