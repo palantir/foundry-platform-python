@@ -574,10 +574,13 @@ class OntologyObjectClient:
         | not      | The sub-query does not match.                                                     | N/A (applied on a query)        |
         | and      | All the sub-queries match.                                                        | N/A (applied on queries)        |
         | or       | At least one of the sub-queries match.                                            | N/A (applied on queries)        |
-        | prefix   | The provided property starts with the provided value.                             | string                          |
-        | phrase   | The provided property contains the provided value as a substring.                 | string                          |
+        | prefix   | The provided property starts with the provided term.                              | string                          |
+        | phrase   | The provided property contains the provided term as a substring.                  | string                          |
         | anyTerm  | The provided property contains at least one of the terms separated by whitespace. | string                          |
-        | allTerms | The provided property contains all the terms separated by whitespace.             | string                          |                                                                            |
+        | allTerms | The provided property contains all the terms separated by whitespace.             | string                          |
+
+        Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
+        Partial terms are not matched by terms filters except where explicitly noted.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 

@@ -454,11 +454,14 @@ class OntologyObjectClient:
         | not                                     | The sub-query does not match.                                                                                     | N/A (applied on a query)        |
         | and                                     | All the sub-queries match.                                                                                        | N/A (applied on queries)        |
         | or                                      | At least one of the sub-queries match.                                                                            | N/A (applied on queries)        |
-        | startsWith                              | The provided property starts with the provided value.                                                             | string                          |
+        | startsWith                              | The provided property starts with the provided term.                                                              | string                          |
         | containsAllTermsInOrderPrefixLastTerm   | The provided property contains all the terms provided in order. The last term can be a partial prefix match.      | string                          |
-        | containsAllTermsInOrder                 | The provided property contains the provided value as a substring.                                                 | string                          |
+        | containsAllTermsInOrder                 | The provided property contains the provided term as a substring.                                                  | string                          |
         | containsAnyTerm                         | The provided property contains at least one of the terms separated by whitespace.                                 | string                          |
         | containsAllTerms                        | The provided property contains all the terms separated by whitespace.                                             | string                          |
+
+        Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
+        Partial terms are not matched by terms filters except where explicitly noted.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 

@@ -36,9 +36,9 @@ foundry_client = FoundryClient(
 )
 
 # DatasetName |
-name = None
+name = "My Dataset"
 # FolderRid |
-parent_folder_rid = None
+parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 # StreamSchemaDict | The Foundry schema to apply to the new stream.
 schema = None
 # Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
