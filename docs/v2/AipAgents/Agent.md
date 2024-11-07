@@ -2,9 +2,12 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**all_sessions**](#all_sessions) | **GET** /v2/aipAgents/agents/allSessions |
+[**all_sessions_page**](#all_sessions_page) | **GET** /v2/aipAgents/agents/allSessions |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid} |
 
-List all conversation sessions between the calling user across all accessible Agents that were created
-by this client.
+# **all_sessions**
+List all conversation sessions between the calling user across all accessible Agents that were created by this client.
 Sessions are returned in order of most recently updated first.
 
 
@@ -59,8 +62,8 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
-List all conversation sessions between the calling user across all accessible Agents that were created
-by this client.
+# **all_sessions_page**
+List all conversation sessions between the calling user across all accessible Agents that were created by this client.
 Sessions are returned in order of most recently updated first.
 
 
@@ -120,6 +123,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Get details for an AIP Agent.
 
 ### Parameters

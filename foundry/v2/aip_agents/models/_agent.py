@@ -32,7 +32,7 @@ class Agent(pydantic.BaseModel):
     """Agent"""
 
     rid: AgentRid
-    """A RID identifying an AIP Agent created in AIP Agent Studio."""
+    """A RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
     version: AgentVersionString
     """The version of this instance of the Agent."""
@@ -41,7 +41,7 @@ class Agent(pydantic.BaseModel):
 
     parameters: Dict[ParameterId, Parameter]
     """
-    The types and names of parameters configured for the Agent in AIP Agent Studio.
+    The types and names of parameters configured for the Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
     Parameters are variables within the prompt for an Agent which can be used to customize and control behavior of the Agent.
     """
 

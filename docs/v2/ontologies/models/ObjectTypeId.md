@@ -1,6 +1,6 @@
 # ObjectTypeId
 
-The unique identifier (ID) for an object type. This can be viewed in Ontology Manager.
+The unique identifier (ID) for an object type. This can be viewed in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
 
 ## Type
 ```python

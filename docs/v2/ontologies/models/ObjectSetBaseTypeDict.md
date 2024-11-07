@@ -5,7 +5,7 @@ ObjectSetBaseType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**objectType** | pydantic.StrictStr | Yes |  |
+**objectType** | pydantic.StrictStr | Yes | The API name of the object type. |
 **type** | Literal["base"] | Yes | None |
 
 

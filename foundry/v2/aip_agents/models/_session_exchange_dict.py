@@ -37,9 +37,8 @@ class SessionExchangeDict(TypedDict):
 
     contexts: NotRequired[SessionExchangeContextsDict]
     """
-    Additional retrieved context which was included in the prompt to the Agent. This may include
-    context which was passed by the client with the user input, or relevant context
-    which was automatically retrieved and added based on available data sources configured on the Agent.
+    Additional retrieved context which was included in the prompt to the Agent.
+    This may include context which was passed by the client with the user input, or relevant context which was automatically retrieved and added based on available data sources configured on the Agent.
     Empty if no additional context was included in the prompt.
     """
 

@@ -27,6 +27,7 @@ class ObjectSetBaseType(pydantic.BaseModel):
     """ObjectSetBaseType"""
 
     object_type: pydantic.StrictStr = pydantic.Field(alias="objectType")
+    """The API name of the object type."""
 
     type: Literal["base"] = "base"
 

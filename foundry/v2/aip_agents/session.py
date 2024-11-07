@@ -75,8 +75,8 @@ class SessionClient:
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
         Blocks on returning the result of the added exchange until the response is fully generated.
         Streamed responses are also supported; see `streamingContinue` for details.
-        Concurrent requests to continue the same session are not supported. Clients should wait
-        to receive a response before sending the next message.
+        Concurrent requests to continue the same session are not supported.
+        Clients should wait to receive a response before sending the next message.
 
         :param agent_rid: agentRid
         :type agent_rid: AgentRid
@@ -86,7 +86,7 @@ class SessionClient:
         :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInputDict
-        :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/)  is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context  for the user message is automatically retrieved and included in the prompt, based on data sources configured  on the Agent for the session.
+        :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[InputContextDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
@@ -143,10 +143,8 @@ class SessionClient:
     ) -> CancelSessionResponse:
         """
         Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
-        Canceling an exchange allows clients to prevent the exchange from being added to the session,
-        or to provide a response to replace the Agent-generated response.
-        Note that canceling an exchange does not terminate the stream returned by `streamingContinue`;
-        clients should close the stream on triggering the cancellation request to stop reading from the stream.
+        Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
+        Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
         :param agent_rid: agentRid
         :type agent_rid: AgentRid
@@ -306,8 +304,8 @@ class SessionClient:
     ) -> ResourceIterator[Session]:
         """
         List all conversation sessions between the calling user and an Agent that were created by this client.
-        This does not list sessions for the user created by other clients. For example, any sessions created by
-        the user in AIP Agent Studio will not be listed here.
+        This does not list sessions for the user created by other clients.
+        For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
@@ -356,8 +354,8 @@ class SessionClient:
     ) -> ListSessionsResponse:
         """
         List all conversation sessions between the calling user and an Agent that were created by this client.
-        This does not list sessions for the user created by other clients. For example, any sessions created by
-        the user in AIP Agent Studio will not be listed here.
+        This does not list sessions for the user created by other clients.
+        For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
@@ -409,10 +407,8 @@ class SessionClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AgentSessionRagContextResponse:
         """
-        Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message
-        from the data sources configured for the session. This allows clients to pre-retrieve context for a user
-        message before sending it to the Agent with the `contextsOverride` option when continuing a session, to
-        allow any pre-processing of the context before sending it to the Agent.
+        Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
+        This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
         :param agent_rid: agentRid
         :type agent_rid: AgentRid
@@ -478,13 +474,11 @@ class SessionClient:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as
-        the response is generated.
-        On completion of the streamed response, clients can load the full details of the exchange that was
-        added to the session by reloading the session content.
+        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+        On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
         Streamed exchanges also support cancellation; see `cancel` for details.
-        Concurrent requests to continue the same session are not supported. Clients should wait to receive a
-        response, or cancel the in-progress exchange, before sending the next message.
+        Concurrent requests to continue the same session are not supported.
+        Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
         :type agent_rid: AgentRid

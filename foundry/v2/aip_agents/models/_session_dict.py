@@ -40,6 +40,6 @@ class SessionDict(TypedDict):
     agentVersion: AgentVersionString
     """
     The version of the Agent that the session is with.
-    This can be set by clients on session creation. If not specified, defaults to use the latest
-    published version of the Agent at session creation time.
+    This can be set by clients on session creation.
+    If not specified, defaults to use the latest published version of the Agent at session creation time.
     """

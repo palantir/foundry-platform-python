@@ -41,8 +41,8 @@ class Session(pydantic.BaseModel):
     agent_version: AgentVersionString = pydantic.Field(alias="agentVersion")
     """
     The version of the Agent that the session is with.
-    This can be set by clients on session creation. If not specified, defaults to use the latest
-    published version of the Agent at session creation time.
+    This can be set by clients on session creation.
+    If not specified, defaults to use the latest published version of the Agent at session creation time.
     """
 
     model_config = {"extra": "allow"}
