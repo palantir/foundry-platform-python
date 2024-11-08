@@ -7,7 +7,7 @@ Method | HTTP request |
 [**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid} |
 
 # **all_sessions**
-List all conversation sessions between the calling user across all accessible Agents that were created by this client.
+List all conversation sessions between the calling user and all accessible Agents that were created by this client.
 Sessions are returned in order of most recently updated first.
 
 
@@ -63,7 +63,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **all_sessions_page**
-List all conversation sessions between the calling user across all accessible Agents that were created by this client.
+List all conversation sessions between the calling user and all accessible Agents that were created by this client.
 Sessions are returned in order of most recently updated first.
 
 

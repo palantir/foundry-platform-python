@@ -28,4 +28,4 @@ class SessionExchangeContextsDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectContexts: List[ObjectContextDict]
-    """Relevant object context for the user's message which was included in the prompt to the Agent."""
+    """Relevant object context for the user's message that was included in the prompt to the Agent."""

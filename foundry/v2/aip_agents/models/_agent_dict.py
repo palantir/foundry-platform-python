@@ -32,7 +32,7 @@ class AgentDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: AgentRid
-    """A RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
     version: AgentVersionString
     """The version of this instance of the Agent."""
@@ -42,5 +42,5 @@ class AgentDict(TypedDict):
     parameters: Dict[ParameterId, ParameterDict]
     """
     The types and names of parameters configured for the Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-    Parameters are variables within the prompt for an Agent which can be used to customize and control behavior of the Agent.
+    Parameters are variables in the prompt sent to an Agent that can be used to customize and control the behavior of the Agent.
     """

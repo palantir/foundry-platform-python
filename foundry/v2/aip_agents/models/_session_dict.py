@@ -35,11 +35,11 @@ class SessionDict(TypedDict):
     """Metadata about the session."""
 
     agentRid: AgentRid
-    """The Resource Identifier (RID) of the Agent that the session is with."""
+    """The Resource Identifier (RID) of the Agent associated with the session."""
 
     agentVersion: AgentVersionString
     """
-    The version of the Agent that the session is with.
+    The version of the Agent associated with the session.
     This can be set by clients on session creation.
     If not specified, defaults to use the latest published version of the Agent at session creation time.
     """

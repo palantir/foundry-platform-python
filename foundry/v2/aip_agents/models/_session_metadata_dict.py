@@ -38,12 +38,12 @@ class SessionMetadataDict(TypedDict):
     messageCount: pydantic.StrictInt
     """
     The count of messages in the session.
-    Includes both user messages and Agent replies, so that each complete exchange counts as two messages.
+    Includes both user messages and Agent replies, so each complete exchange counts as two messages.
     """
 
     estimatedExpiresTime: datetime
     """
-    The estimated time the session is due to expire.
+    The estimated time at which the session is due to expire.
     Once a session has expired, it can no longer be accessed and a new session must be created.
     The expiry time is automatically extended when new exchanges are added to the session.
     """

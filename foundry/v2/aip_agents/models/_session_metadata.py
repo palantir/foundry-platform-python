@@ -38,12 +38,12 @@ class SessionMetadata(pydantic.BaseModel):
     message_count: pydantic.StrictInt = pydantic.Field(alias="messageCount")
     """
     The count of messages in the session.
-    Includes both user messages and Agent replies, so that each complete exchange counts as two messages.
+    Includes both user messages and Agent replies, so each complete exchange counts as two messages.
     """
 
     estimated_expires_time: datetime = pydantic.Field(alias="estimatedExpiresTime")
     """
-    The estimated time the session is due to expire.
+    The estimated time at which the session is due to expire.
     Once a session has expired, it can no longer be accessed and a new session must be created.
     The expiry time is automatically extended when new exchanges are added to the session.
     """

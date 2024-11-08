@@ -209,7 +209,7 @@ class SessionClient:
 
         :param agent_rid: agentRid
         :type agent_rid: AgentRid
-        :param agent_version: The version of the Agent that the session is with. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
+        :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
         :param preview: preview
         :type preview: Optional[PreviewMode]
@@ -258,7 +258,7 @@ class SessionClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Session:
         """
-        Get details of a conversation session between the calling user and an Agent.
+        Get the details of a conversation session between the calling user and an Agent.
         :param agent_rid: agentRid
         :type agent_rid: AgentRid
         :param session_rid: sessionRid
@@ -303,7 +303,7 @@ class SessionClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Session]:
         """
-        List all conversation sessions between the calling user and an Agent that were created by this client.
+        List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
@@ -353,7 +353,7 @@ class SessionClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListSessionsResponse:
         """
-        List all conversation sessions between the calling user and an Agent that were created by this client.
+        List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.

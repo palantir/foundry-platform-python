@@ -31,9 +31,9 @@ from foundry.v2.functions.models._value_type_data_type_struct_field_identifier i
 class ValueTypeDataTypeStructElement(pydantic.BaseModel):
     """ValueTypeDataTypeStructElement"""
 
-    identifier: ValueTypeDataTypeStructFieldIdentifier
+    name: ValueTypeDataTypeStructFieldIdentifier
 
-    base_type: ValueTypeDataType = pydantic.Field(alias="baseType")
+    field_type: ValueTypeDataType = pydantic.Field(alias="fieldType")
 
     model_config = {"extra": "allow"}
 
