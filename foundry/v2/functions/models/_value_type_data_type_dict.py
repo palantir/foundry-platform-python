@@ -50,9 +50,6 @@ from foundry.v2.functions.models._value_type_data_type_integer_type_dict import 
 from foundry.v2.functions.models._value_type_data_type_long_type_dict import (
     ValueTypeDataTypeLongTypeDict,
 )  # NOQA
-from foundry.v2.functions.models._value_type_data_type_referenced_type_dict import (
-    ValueTypeDataTypeReferencedTypeDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_short_type_dict import (
     ValueTypeDataTypeShortTypeDict,
 )  # NOQA
@@ -64,6 +61,9 @@ from foundry.v2.functions.models._value_type_data_type_struct_field_identifier i
 )  # NOQA
 from foundry.v2.functions.models._value_type_data_type_timestamp_type_dict import (
     ValueTypeDataTypeTimestampTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_value_type_reference_dict import (
+    ValueTypeDataTypeValueTypeReferenceDict,
 )  # NOQA
 
 
@@ -143,8 +143,8 @@ ValueTypeDataTypeDict = Annotated[
         ValueTypeDataTypeLongTypeDict,
         ValueTypeDataTypeBooleanTypeDict,
         ValueTypeDataTypeArrayTypeDict,
-        ValueTypeDataTypeReferencedTypeDict,
         ValueTypeDataTypeBinaryTypeDict,
+        ValueTypeDataTypeValueTypeReferenceDict,
         ValueTypeDataTypeShortTypeDict,
         ValueTypeDataTypeDecimalTypeDict,
         ValueTypeDataTypeMapTypeDict,

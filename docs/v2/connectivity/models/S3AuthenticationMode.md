@@ -1,10 +1,10 @@
-# PageSize
+# S3AuthenticationMode
 
-The maximum number of results to return in a single page.
+S3AuthenticationMode
 
 ## Type
 ```python
-pydantic.StrictInt
+AwsAccessKey
 ```
 
 

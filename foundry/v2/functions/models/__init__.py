@@ -149,12 +149,6 @@ from foundry.v2.functions.models._value_type_data_type_optional_type import (
 from foundry.v2.functions.models._value_type_data_type_optional_type_dict import (
     ValueTypeDataTypeOptionalTypeDict,
 )  # NOQA
-from foundry.v2.functions.models._value_type_data_type_referenced_type import (
-    ValueTypeDataTypeReferencedType,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_referenced_type_dict import (
-    ValueTypeDataTypeReferencedTypeDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_short_type import (
     ValueTypeDataTypeShortType,
 )  # NOQA
@@ -193,6 +187,12 @@ from foundry.v2.functions.models._value_type_data_type_union_type import (
 )  # NOQA
 from foundry.v2.functions.models._value_type_data_type_union_type_dict import (
     ValueTypeDataTypeUnionTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_value_type_reference import (
+    ValueTypeDataTypeValueTypeReference,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_value_type_reference_dict import (
+    ValueTypeDataTypeValueTypeReferenceDict,
 )  # NOQA
 from foundry.v2.functions.models._value_type_description import ValueTypeDescription
 from foundry.v2.functions.models._value_type_dict import ValueTypeDict
@@ -269,8 +269,6 @@ __all__ = [
     "ValueTypeDataTypeMapTypeDict",
     "ValueTypeDataTypeOptionalType",
     "ValueTypeDataTypeOptionalTypeDict",
-    "ValueTypeDataTypeReferencedType",
-    "ValueTypeDataTypeReferencedTypeDict",
     "ValueTypeDataTypeShortType",
     "ValueTypeDataTypeShortTypeDict",
     "ValueTypeDataTypeStringType",
@@ -284,6 +282,8 @@ __all__ = [
     "ValueTypeDataTypeTimestampTypeDict",
     "ValueTypeDataTypeUnionType",
     "ValueTypeDataTypeUnionTypeDict",
+    "ValueTypeDataTypeValueTypeReference",
+    "ValueTypeDataTypeValueTypeReferenceDict",
     "ValueTypeDescription",
     "ValueTypeDict",
     "ValueTypeReference",

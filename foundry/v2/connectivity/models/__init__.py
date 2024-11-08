@@ -18,7 +18,17 @@ from foundry.v2.connectivity.models._agent_proxy_runtime_dict import AgentProxyR
 from foundry.v2.connectivity.models._agent_rid import AgentRid
 from foundry.v2.connectivity.models._agent_worker_runtime import AgentWorkerRuntime
 from foundry.v2.connectivity.models._agent_worker_runtime_dict import AgentWorkerRuntimeDict  # NOQA
+from foundry.v2.connectivity.models._as_plaintext_value import AsPlaintextValue
+from foundry.v2.connectivity.models._as_plaintext_value_dict import AsPlaintextValueDict
+from foundry.v2.connectivity.models._as_secret_name import AsSecretName
+from foundry.v2.connectivity.models._as_secret_name_dict import AsSecretNameDict
+from foundry.v2.connectivity.models._aws_access_key import AwsAccessKey
+from foundry.v2.connectivity.models._aws_access_key_dict import AwsAccessKeyDict
 from foundry.v2.connectivity.models._connection import Connection
+from foundry.v2.connectivity.models._connection_configuration import ConnectionConfiguration  # NOQA
+from foundry.v2.connectivity.models._connection_configuration_dict import (
+    ConnectionConfigurationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._connection_dict import ConnectionDict
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
@@ -28,6 +38,8 @@ from foundry.v2.connectivity.models._direct_connection_runtime import (
 from foundry.v2.connectivity.models._direct_connection_runtime_dict import (
     DirectConnectionRuntimeDict,
 )  # NOQA
+from foundry.v2.connectivity.models._encrypted_property import EncryptedProperty
+from foundry.v2.connectivity.models._encrypted_property_dict import EncryptedPropertyDict  # NOQA
 from foundry.v2.connectivity.models._file_any_path_matches_filter import (
     FileAnyPathMatchesFilter,
 )  # NOQA
@@ -90,6 +102,16 @@ from foundry.v2.connectivity.models._network_egress_policy_rid import NetworkEgr
 from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
 from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
 from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
+from foundry.v2.connectivity.models._s3_authentication_mode import S3AuthenticationMode
+from foundry.v2.connectivity.models._s3_authentication_mode_dict import (
+    S3AuthenticationModeDict,
+)  # NOQA
+from foundry.v2.connectivity.models._s3_connection_configuration import (
+    S3ConnectionConfiguration,
+)  # NOQA
+from foundry.v2.connectivity.models._s3_connection_configuration_dict import (
+    S3ConnectionConfigurationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._secret_name import SecretName
 
 __all__ = [
@@ -98,12 +120,22 @@ __all__ = [
     "AgentRid",
     "AgentWorkerRuntime",
     "AgentWorkerRuntimeDict",
+    "AsPlaintextValue",
+    "AsPlaintextValueDict",
+    "AsSecretName",
+    "AsSecretNameDict",
+    "AwsAccessKey",
+    "AwsAccessKeyDict",
     "Connection",
+    "ConnectionConfiguration",
+    "ConnectionConfigurationDict",
     "ConnectionDict",
     "ConnectionDisplayName",
     "ConnectionRid",
     "DirectConnectionRuntime",
     "DirectConnectionRuntimeDict",
+    "EncryptedProperty",
+    "EncryptedPropertyDict",
     "FileAnyPathMatchesFilter",
     "FileAnyPathMatchesFilterDict",
     "FileAtLeastCountFilter",
@@ -136,5 +168,9 @@ __all__ = [
     "PlaintextValue",
     "RuntimePlatform",
     "RuntimePlatformDict",
+    "S3AuthenticationMode",
+    "S3AuthenticationModeDict",
+    "S3ConnectionConfiguration",
+    "S3ConnectionConfigurationDict",
     "SecretName",
 ]

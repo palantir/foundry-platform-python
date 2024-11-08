@@ -22,8 +22,8 @@ ValueTypeDataTypeFloatTypeDict | float
 ValueTypeDataTypeLongTypeDict | long
 ValueTypeDataTypeBooleanTypeDict | boolean
 ValueTypeDataTypeArrayTypeDict | array
-ValueTypeDataTypeReferencedTypeDict | referenced
 ValueTypeDataTypeBinaryTypeDict | binary
+ValueTypeDataTypeValueTypeReferenceDict | valueTypeReference
 ValueTypeDataTypeShortTypeDict | short
 ValueTypeDataTypeDecimalTypeDict | decimal
 ValueTypeDataTypeMapTypeDict | map

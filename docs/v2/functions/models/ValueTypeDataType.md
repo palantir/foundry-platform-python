@@ -22,8 +22,8 @@ ValueTypeDataTypeFloatType | float
 ValueTypeDataTypeLongType | long
 ValueTypeDataTypeBooleanType | boolean
 ValueTypeDataTypeArrayType | array
-ValueTypeDataTypeReferencedType | referenced
 ValueTypeDataTypeBinaryType | binary
+ValueTypeDataTypeValueTypeReference | valueTypeReference
 ValueTypeDataTypeShortType | short
 ValueTypeDataTypeDecimalType | decimal
 ValueTypeDataTypeMapType | map

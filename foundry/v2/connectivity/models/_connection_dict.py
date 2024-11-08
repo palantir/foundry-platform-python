@@ -17,6 +17,9 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
+from foundry.v2.connectivity.models._connection_configuration_dict import (
+    ConnectionConfigurationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
@@ -32,3 +35,5 @@ class ConnectionDict(TypedDict):
     displayName: ConnectionDisplayName
 
     runtimePlatform: RuntimePlatformDict
+
+    configuration: ConnectionConfigurationDict

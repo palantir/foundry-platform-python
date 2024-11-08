@@ -15,27 +15,27 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import Literal
 
-from typing_extensions import NotRequired
+import pydantic
 from typing_extensions import TypedDict
 
-from foundry.v2.aip_agents.models._session_dict import SessionDict
-from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.connectivity.models._encrypted_property_dict import EncryptedPropertyDict  # NOQA
 
 
-class AgentsSessionsPageDict(TypedDict):
+class AwsAccessKeyDict(TypedDict):
     """
-    A page of results for sessions across all accessible Agents for the calling user.
-    Sessions are returned in order of most recently updated first.
+    [Access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) are long-term
+    credentials for an IAM user or the AWS account root user.
+    Access keys consist of two parts: an access key ID (for example, AKIAIOSFODNN7EXAMPLE) and a secret access
+    key (for example, wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY). You must use both the access key ID and
+    secret access key together to authenticate your requests.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nextPageToken: NotRequired[PageToken]
-    """
-    The page token that should be used when requesting the next page of results.
-    Empty if there are no more results to retrieve.
-    """
+    accessKeyId: pydantic.StrictStr
 
-    data: List[SessionDict]
+    secretAccessKey: EncryptedPropertyDict
+
+    type: Literal["awsAccessKey"]

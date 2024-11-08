@@ -1,10 +1,10 @@
-# PageToken
+# S3AuthenticationModeDict
 
-The token to use to retrieve a page of results from.
+S3AuthenticationMode
 
 ## Type
 ```python
-pydantic.StrictStr
+AwsAccessKeyDict
 ```
 
 
