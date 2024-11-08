@@ -28,6 +28,6 @@ class ValueTypeDataTypeStructElementDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    identifier: ValueTypeDataTypeStructFieldIdentifier
+    name: ValueTypeDataTypeStructFieldIdentifier
 
-    baseType: ValueTypeDataTypeDict
+    fieldType: ValueTypeDataTypeDict

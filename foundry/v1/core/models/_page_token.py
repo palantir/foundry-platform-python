@@ -21,5 +21,5 @@ PageToken = pydantic.StrictStr
 """
 The page token indicates where to start paging. This should be omitted from the first page's request.
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and populate the next request's `pageToken` field with it.
+and use it to populate the `pageToken` field of the next request.
 """

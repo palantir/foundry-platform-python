@@ -885,7 +885,7 @@ def aip_agents_agent_all_sessions(
     preview: Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user across all accessible Agents that were created by this client.
+    List all conversation sessions between the calling user and all accessible Agents that were created by this client.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -908,7 +908,7 @@ def aip_agents_agent_all_sessions_page(
     preview: Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user across all accessible Agents that were created by this client.
+    List all conversation sessions between the calling user and all accessible Agents that were created by this client.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -1053,7 +1053,7 @@ def aip_agents_agent_session_cancel(
     "--agent_version",
     type=str,
     required=False,
-    help="""The version of the Agent that the session is with.
+    help="""The version of the Agent associated with the session.
 This can be set by clients on session creation.
 If not specified, defaults to use the latest published version of the Agent at session creation time.
 """,
@@ -1091,7 +1091,7 @@ def aip_agents_agent_session_get(
     preview: Optional[bool],
 ):
     """
-    Get details of a conversation session between the calling user and an Agent.
+    Get the details of a conversation session between the calling user and an Agent.
     """
     result = client.aip_agents.Agent.Session.get(
         agent_rid=agent_rid,
@@ -1113,7 +1113,7 @@ def aip_agents_agent_session_list(
     preview: Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user and an Agent that were created by this client.
+    List all conversation sessions between the calling user and an Agent that was created by this client.
     This does not list sessions for the user created by other clients.
     For example, any sessions created by the user in AIP Agent Studio will not be listed here.
     Sessions are returned in order of most recently updated first.
@@ -1141,7 +1141,7 @@ def aip_agents_agent_session_page(
     preview: Optional[bool],
 ):
     """
-    List all conversation sessions between the calling user and an Agent that were created by this client.
+    List all conversation sessions between the calling user and an Agent that was created by this client.
     This does not list sessions for the user created by other clients.
     For example, any sessions created by the user in AIP Agent Studio will not be listed here.
     Sessions are returned in order of most recently updated first.

@@ -88,9 +88,9 @@ from foundry.v2.functions.models._value_type_data_type_union_type_dict import (
 class ValueTypeDataTypeStructElement(pydantic.BaseModel):
     """ValueTypeDataTypeStructElement"""
 
-    identifier: ValueTypeDataTypeStructFieldIdentifier
+    name: ValueTypeDataTypeStructFieldIdentifier
 
-    base_type: ValueTypeDataType = pydantic.Field(alias="baseType")
+    field_type: ValueTypeDataType = pydantic.Field(alias="fieldType")
 
     model_config = {"extra": "allow"}
 

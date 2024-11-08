@@ -36,11 +36,11 @@ class Session(pydantic.BaseModel):
     """Metadata about the session."""
 
     agent_rid: AgentRid = pydantic.Field(alias="agentRid")
-    """The Resource Identifier (RID) of the Agent that the session is with."""
+    """The Resource Identifier (RID) of the Agent associated with the session."""
 
     agent_version: AgentVersionString = pydantic.Field(alias="agentVersion")
     """
-    The version of the Agent that the session is with.
+    The version of the Agent associated with the session.
     This can be set by clients on session creation.
     If not specified, defaults to use the latest published version of the Agent at session creation time.
     """

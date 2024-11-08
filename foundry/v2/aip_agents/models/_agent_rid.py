@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 AgentRid = RID
-"""A RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+"""An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""

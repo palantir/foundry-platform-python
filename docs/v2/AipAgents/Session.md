@@ -168,7 +168,7 @@ Use `blockingContinue` or `streamingContinue` to start adding exchanges to the s
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
-**agent_version** | Optional[AgentVersionString] | The version of the Agent that the session is with. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.  | [optional] |
+**agent_version** | Optional[AgentVersionString] | The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -187,7 +187,7 @@ foundry_client = FoundryClient(
 
 # AgentRid | agentRid
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# Optional[AgentVersionString] | The version of the Agent that the session is with. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
+# Optional[AgentVersionString] | The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
 agent_version = "1.0"
 # Optional[PreviewMode] | preview
 preview = None
@@ -220,7 +220,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-Get details of a conversation session between the calling user and an Agent.
+Get the details of a conversation session between the calling user and an Agent.
 
 ### Parameters
 
@@ -279,7 +279,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **list**
-List all conversation sessions between the calling user and an Agent that were created by this client.
+List all conversation sessions between the calling user and an Agent that was created by this client.
 This does not list sessions for the user created by other clients.
 For example, any sessions created by the user in AIP Agent Studio will not be listed here.
 Sessions are returned in order of most recently updated first.
@@ -341,7 +341,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **page**
-List all conversation sessions between the calling user and an Agent that were created by this client.
+List all conversation sessions between the calling user and an Agent that was created by this client.
 This does not list sessions for the user created by other clients.
 For example, any sessions created by the user in AIP Agent Studio will not be listed here.
 Sessions are returned in order of most recently updated first.
