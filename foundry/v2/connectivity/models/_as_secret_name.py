@@ -16,17 +16,23 @@
 from __future__ import annotations
 
 from typing import Literal
+from typing import cast
 
-from typing_extensions import TypedDict
+import pydantic
 
-from foundry.v2.functions.models._value_type_reference_dict import ValueTypeReferenceDict  # NOQA
+from foundry.v2.connectivity.models._as_secret_name_dict import AsSecretNameDict
+from foundry.v2.connectivity.models._secret_name import SecretName
 
 
-class ValueTypeDataTypeReferencedTypeDict(TypedDict):
-    """ValueTypeDataTypeReferencedType"""
+class AsSecretName(pydantic.BaseModel):
+    """AsSecretName"""
 
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+    value: SecretName
 
-    versionedReferencedType: ValueTypeReferenceDict
+    type: Literal["asSecretName"] = "asSecretName"
 
-    type: Literal["referenced"]
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> AsSecretNameDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(AsSecretNameDict, self.model_dump(by_alias=True, exclude_unset=True))

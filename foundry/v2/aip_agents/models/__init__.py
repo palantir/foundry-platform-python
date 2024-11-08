@@ -63,8 +63,6 @@ from foundry.v2.aip_agents.models._object_set_parameter_value_update import (
 from foundry.v2.aip_agents.models._object_set_parameter_value_update_dict import (
     ObjectSetParameterValueUpdateDict,
 )  # NOQA
-from foundry.v2.aip_agents.models._page_size import PageSize
-from foundry.v2.aip_agents.models._page_token import PageToken
 from foundry.v2.aip_agents.models._parameter import Parameter
 from foundry.v2.aip_agents.models._parameter_access_mode import ParameterAccessMode
 from foundry.v2.aip_agents.models._parameter_dict import ParameterDict
@@ -133,8 +131,6 @@ __all__ = [
     "ObjectSetParameterValueDict",
     "ObjectSetParameterValueUpdate",
     "ObjectSetParameterValueUpdateDict",
-    "PageSize",
-    "PageToken",
     "Parameter",
     "ParameterAccessMode",
     "ParameterDict",

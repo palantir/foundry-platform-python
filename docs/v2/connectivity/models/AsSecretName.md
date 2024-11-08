@@ -1,14 +1,12 @@
-# Connection
+# AsSecretName
 
-Connection
+AsSecretName
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | ConnectionRid | Yes |  |
-**display_name** | ConnectionDisplayName | Yes |  |
-**runtime_platform** | RuntimePlatform | Yes |  |
-**configuration** | ConnectionConfiguration | Yes |  |
+**value** | SecretName | Yes |  |
+**type** | Literal["asSecretName"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

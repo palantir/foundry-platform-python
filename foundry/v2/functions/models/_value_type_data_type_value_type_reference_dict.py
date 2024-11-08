@@ -15,7 +15,21 @@
 
 from __future__ import annotations
 
-import pydantic
+from typing import Literal
 
-PageSize = pydantic.StrictInt
-"""The maximum number of results to return in a single page."""
+from typing_extensions import TypedDict
+
+from foundry.v2.functions.models._value_type_rid import ValueTypeRid
+from foundry.v2.functions.models._value_type_version_id import ValueTypeVersionId
+
+
+class ValueTypeDataTypeValueTypeReferenceDict(TypedDict):
+    """ValueTypeDataTypeValueTypeReference"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    rid: ValueTypeRid
+
+    versionId: ValueTypeVersionId
+
+    type: Literal["valueTypeReference"]

@@ -32,10 +32,10 @@ from foundry.v2.aip_agents.models._agent import Agent
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
 from foundry.v2.aip_agents.models._agents_sessions_page import AgentsSessionsPage
-from foundry.v2.aip_agents.models._page_size import PageSize
-from foundry.v2.aip_agents.models._page_token import PageToken
 from foundry.v2.aip_agents.models._session import Session
 from foundry.v2.aip_agents.session import SessionClient
+from foundry.v2.core.models._page_size import PageSize
+from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
 
 

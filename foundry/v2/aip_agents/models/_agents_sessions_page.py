@@ -22,8 +22,8 @@ from typing import cast
 import pydantic
 
 from foundry.v2.aip_agents.models._agents_sessions_page_dict import AgentsSessionsPageDict  # NOQA
-from foundry.v2.aip_agents.models._page_token import PageToken
 from foundry.v2.aip_agents.models._session import Session
+from foundry.v2.core.models._page_token import PageToken
 
 
 class AgentsSessionsPage(pydantic.BaseModel):

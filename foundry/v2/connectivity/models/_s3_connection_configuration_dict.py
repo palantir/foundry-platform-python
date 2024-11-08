@@ -15,27 +15,32 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import Literal
 
+import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry.v2.aip_agents.models._session_dict import SessionDict
-from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.connectivity.models._s3_authentication_mode_dict import (
+    S3AuthenticationModeDict,
+)  # NOQA
 
 
-class AgentsSessionsPageDict(TypedDict):
+class S3ConnectionConfigurationDict(TypedDict):
     """
-    A page of results for sessions across all accessible Agents for the calling user.
-    Sessions are returned in order of most recently updated first.
+    The configuration needed to connect to an [AWS S3 external system (or any other S3-like external systems that
+    implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nextPageToken: NotRequired[PageToken]
+    bucketUrl: pydantic.StrictStr
+    """The URL of the S3 bucket. The URL should contain a trailing slash."""
+
+    authenticationMode: NotRequired[S3AuthenticationModeDict]
     """
-    The page token that should be used when requesting the next page of results.
-    Empty if there are no more results to retrieve.
+    The authentication mode to use to connect to the S3 external system. No authentication mode is required
+    to connect to publicly accessible AWS S3 buckets.
     """
 
-    data: List[SessionDict]
+    type: Literal["s3"]

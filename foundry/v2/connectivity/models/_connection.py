@@ -19,6 +19,7 @@ from typing import cast
 
 import pydantic
 
+from foundry.v2.connectivity.models._connection_configuration import ConnectionConfiguration  # NOQA
 from foundry.v2.connectivity.models._connection_dict import ConnectionDict
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
@@ -33,6 +34,8 @@ class Connection(pydantic.BaseModel):
     display_name: ConnectionDisplayName = pydantic.Field(alias="displayName")
 
     runtime_platform: RuntimePlatform = pydantic.Field(alias="runtimePlatform")
+
+    configuration: ConnectionConfiguration
 
     model_config = {"extra": "allow"}
 

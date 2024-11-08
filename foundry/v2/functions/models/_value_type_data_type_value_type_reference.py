@@ -20,23 +20,27 @@ from typing import cast
 
 import pydantic
 
-from foundry.v2.functions.models._value_type_data_type_referenced_type_dict import (
-    ValueTypeDataTypeReferencedTypeDict,
+from foundry.v2.functions.models._value_type_data_type_value_type_reference_dict import (
+    ValueTypeDataTypeValueTypeReferenceDict,
 )  # NOQA
-from foundry.v2.functions.models._value_type_reference import ValueTypeReference
+from foundry.v2.functions.models._value_type_rid import ValueTypeRid
+from foundry.v2.functions.models._value_type_version_id import ValueTypeVersionId
 
 
-class ValueTypeDataTypeReferencedType(pydantic.BaseModel):
-    """ValueTypeDataTypeReferencedType"""
+class ValueTypeDataTypeValueTypeReference(pydantic.BaseModel):
+    """ValueTypeDataTypeValueTypeReference"""
 
-    versioned_referenced_type: ValueTypeReference = pydantic.Field(alias="versionedReferencedType")
+    rid: ValueTypeRid
 
-    type: Literal["referenced"] = "referenced"
+    version_id: ValueTypeVersionId = pydantic.Field(alias="versionId")
+
+    type: Literal["valueTypeReference"] = "valueTypeReference"
 
     model_config = {"extra": "allow"}
 
-    def to_dict(self) -> ValueTypeDataTypeReferencedTypeDict:
+    def to_dict(self) -> ValueTypeDataTypeValueTypeReferenceDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeReferencedTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeValueTypeReferenceDict,
+            self.model_dump(by_alias=True, exclude_unset=True),
         )

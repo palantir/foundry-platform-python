@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
+from foundry.v2.connectivity.models._aws_access_key_dict import AwsAccessKeyDict
 
-PageToken = pydantic.StrictStr
-"""The token to use to retrieve a page of results from."""
+S3AuthenticationModeDict = AwsAccessKeyDict
+"""S3AuthenticationMode"""
