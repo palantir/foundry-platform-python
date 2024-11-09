@@ -22,6 +22,7 @@ import pydantic
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.ontologies.models._object_property_type import ObjectPropertyType
+from foundry.v2.ontologies.models._property_type_rid import PropertyTypeRid
 from foundry.v2.ontologies.models._property_v2_dict import PropertyV2Dict
 
 
@@ -33,6 +34,8 @@ class PropertyV2(pydantic.BaseModel):
     display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 
     data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
+
+    rid: PropertyTypeRid
 
     model_config = {"extra": "allow"}
 
