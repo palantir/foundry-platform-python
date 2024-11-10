@@ -21,6 +21,7 @@ from typing_extensions import TypedDict
 
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.ontologies.models._object_property_type_dict import ObjectPropertyTypeDict  # NOQA
+from foundry.v2.ontologies.models._property_type_rid import PropertyTypeRid
 
 
 class PropertyV2Dict(TypedDict):
@@ -33,3 +34,5 @@ class PropertyV2Dict(TypedDict):
     displayName: NotRequired[DisplayName]
 
     dataType: ObjectPropertyTypeDict
+
+    rid: PropertyTypeRid

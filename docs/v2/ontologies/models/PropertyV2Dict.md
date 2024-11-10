@@ -8,6 +8,7 @@ Details about some property of an object.
 **description** | NotRequired[pydantic.StrictStr] | No |  |
 **displayName** | NotRequired[DisplayName] | No |  |
 **dataType** | ObjectPropertyTypeDict | Yes |  |
+**rid** | PropertyTypeRid | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)
