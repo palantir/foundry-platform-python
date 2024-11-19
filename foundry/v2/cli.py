@@ -4009,6 +4009,26 @@ def ontologies_v2_attachment():
     pass
 
 
+@ontologies_v2_attachment.command("get")
+@click.argument("attachment_rid", type=str, required=True)
+@click.pass_obj
+def ontologies_v2_attachment_get(
+    client: foundry.v2.FoundryClient,
+    attachment_rid: str,
+):
+    """
+    Get the metadata of an attachment.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Attachment.get(
+        attachment_rid=attachment_rid,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_v2_attachment.command("read")
 @click.argument("attachment_rid", type=str, required=True)
 @click.pass_obj

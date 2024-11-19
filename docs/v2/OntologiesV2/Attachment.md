@@ -2,8 +2,64 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**get**](#get) | **GET** /v2/ontologies/attachments/{attachmentRid} |
 [**read**](#read) | **GET** /v2/ontologies/attachments/{attachmentRid}/content |
 [**upload**](#upload) | **POST** /v2/ontologies/attachments/upload |
+
+# **get**
+Get the metadata of an attachment.
+
+Third-party applications using this endpoint via OAuth2 must request the
+following operation scopes: `api:ontologies-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**attachment_rid** | AttachmentRid | attachmentRid |  |
+
+### Return type
+**AttachmentV2**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# AttachmentRid | attachmentRid
+attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
+
+
+try:
+    api_response = foundry_client.ontologies.Attachment.get(
+        attachment_rid,
+    )
+    print("The get response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Attachment.get: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | AttachmentV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **read**
 Get the content of an attachment.
