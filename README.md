@@ -377,6 +377,7 @@ Namespace | Resource | Operation | HTTP request |
 **OntologiesV2** | ActionTypeV2 | [**get**](docs/v2/OntologiesV2/ActionTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
 **OntologiesV2** | ActionTypeV2 | [**list**](docs/v2/OntologiesV2/ActionTypeV2.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
 **OntologiesV2** | ActionTypeV2 | [**page**](docs/v2/OntologiesV2/ActionTypeV2.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
+**OntologiesV2** | Attachment | [**get**](docs/v2/OntologiesV2/Attachment.md#get) | **GET** /v2/ontologies/attachments/{attachmentRid} |
 **OntologiesV2** | Attachment | [**read**](docs/v2/OntologiesV2/Attachment.md#read) | **GET** /v2/ontologies/attachments/{attachmentRid}/content |
 **OntologiesV2** | Attachment | [**upload**](docs/v2/OntologiesV2/Attachment.md#upload) | **POST** /v2/ontologies/attachments/upload |
 **OntologiesV2** | AttachmentPropertyV2 | [**get_attachment**](docs/v2/OntologiesV2/AttachmentPropertyV2.md#get_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property} |

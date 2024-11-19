@@ -39,6 +39,46 @@ class AttachmentClient:
 
     @pydantic.validate_call
     @handle_unexpected
+    def get(
+        self,
+        attachment_rid: AttachmentRid,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> AttachmentV2:
+        """
+        Get the metadata of an attachment.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param attachment_rid: attachmentRid
+        :type attachment_rid: AttachmentRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: AttachmentV2
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/attachments/{attachmentRid}",
+                query_params={},
+                path_params={
+                    "attachmentRid": attachment_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=AttachmentV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @pydantic.validate_call
+    @handle_unexpected
     def read(
         self,
         attachment_rid: AttachmentRid,

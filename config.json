@@ -89,7 +89,6 @@
         "getQueryType",
         "listQueryTypes",
         "pageQueryTypes",
-        "getAttachmentV2",
         "getTransaction",
         "createTransaction",
         "commitTransaction",
@@ -162,6 +161,7 @@
           "loadObjectSetV2",
           "aggregateObjectSetV2",
           "uploadAttachmentV2",
+          "getAttachmentV2",
           "getAttachmentContentV2"
         ],
         "Orchestration": true,
@@ -208,7 +208,6 @@
         "getActionTypeV2",
         "listActionTypesV2",
         "pageActionTypesV2",
-        "getAttachmentV2",
         "listPropertyAttachments",
         "getAttachmentPropertyByRidV2",
         "getLinkedObjectV2",
