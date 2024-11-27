@@ -125,6 +125,7 @@
         "Geo": true,
         "Ontologies": [],
         "Filesystem": true,
+        "Mediasets": true,
         "OntologiesV2": [
           "getOntologyV2",
           "getOntologyFullMetadata",
