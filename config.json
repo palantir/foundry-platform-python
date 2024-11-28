@@ -65,7 +65,8 @@
           "getLinkedObject",
           "searchObjects",
           "aggregateObjects"
-        ]
+        ],
+        "Mediasets": []
       },
       "skipTests": [
         "createDataset",
@@ -125,7 +126,7 @@
         "Geo": true,
         "Ontologies": [],
         "Filesystem": true,
-        "Mediasets": true,
+        "Mediasets": [],
         "OntologiesV2": [
           "getOntologyV2",
           "getOntologyFullMetadata",
@@ -166,7 +167,7 @@
           "getAttachmentContentV2"
         ],
         "Orchestration": true,
-        "Streams" :true,
+        "Streams": true,
         "ThirdPartyApplications": true
       },
       "namespaceRenames": {
