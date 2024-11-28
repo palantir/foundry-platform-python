@@ -25,6 +25,9 @@ from foundry.v2.ontologies.models._create_interface_object_rule_dict import (
 )  # NOQA
 from foundry.v2.ontologies.models._create_link_rule_dict import CreateLinkRuleDict
 from foundry.v2.ontologies.models._create_object_rule_dict import CreateObjectRuleDict
+from foundry.v2.ontologies.models._delete_interface_object_rule_dict import (
+    DeleteInterfaceObjectRuleDict,
+)  # NOQA
 from foundry.v2.ontologies.models._delete_link_rule_dict import DeleteLinkRuleDict
 from foundry.v2.ontologies.models._delete_object_rule_dict import DeleteObjectRuleDict
 from foundry.v2.ontologies.models._modify_interface_object_rule_dict import (
@@ -34,6 +37,7 @@ from foundry.v2.ontologies.models._modify_object_rule_dict import ModifyObjectRu
 
 LogicRuleDict = Annotated[
     Union[
+        DeleteInterfaceObjectRuleDict,
         ModifyInterfaceObjectRuleDict,
         ModifyObjectRuleDict,
         DeleteObjectRuleDict,

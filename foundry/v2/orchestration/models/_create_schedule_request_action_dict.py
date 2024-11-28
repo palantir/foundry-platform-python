@@ -20,8 +20,8 @@ from typing_extensions import TypedDict
 
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
-from foundry.v2.orchestration.models._create_schedule_request_action_build_target_dict import (
-    CreateScheduleRequestActionBuildTargetDict,
+from foundry.v2.orchestration.models._create_schedule_request_build_target_dict import (
+    CreateScheduleRequestBuildTargetDict,
 )  # NOQA
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._force_build import ForceBuild
@@ -52,4 +52,4 @@ class CreateScheduleRequestActionDict(TypedDict):
 
     notificationsEnabled: NotRequired[NotificationsEnabled]
 
-    target: CreateScheduleRequestActionBuildTargetDict
+    target: CreateScheduleRequestBuildTargetDict

@@ -23,6 +23,8 @@ import pydantic
 from foundry.v2.core.models._display_name import DisplayName
 from foundry.v2.ontologies.models._object_property_type import ObjectPropertyType
 from foundry.v2.ontologies.models._property_type_rid import PropertyTypeRid
+from foundry.v2.ontologies.models._property_type_status import PropertyTypeStatus
+from foundry.v2.ontologies.models._property_type_visibility import PropertyTypeVisibility  # NOQA
 from foundry.v2.ontologies.models._property_v2_dict import PropertyV2Dict
 
 
@@ -36,6 +38,10 @@ class PropertyV2(pydantic.BaseModel):
     data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
 
     rid: PropertyTypeRid
+
+    status: Optional[PropertyTypeStatus] = None
+
+    visibility: Optional[PropertyTypeVisibility] = None
 
     model_config = {"extra": "allow"}
 

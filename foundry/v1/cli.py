@@ -774,6 +774,11 @@ def geo():
     pass
 
 
+@cli.group("mediasets")
+def mediasets():
+    pass
+
+
 @cli.group("ontologies")
 def ontologies():
     pass

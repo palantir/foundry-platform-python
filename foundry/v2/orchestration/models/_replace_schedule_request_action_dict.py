@@ -23,8 +23,8 @@ from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._force_build import ForceBuild
 from foundry.v2.orchestration.models._notifications_enabled import NotificationsEnabled
-from foundry.v2.orchestration.models._replace_schedule_request_action_build_target_dict import (
-    ReplaceScheduleRequestActionBuildTargetDict,
+from foundry.v2.orchestration.models._replace_schedule_request_build_target_dict import (
+    ReplaceScheduleRequestBuildTargetDict,
 )  # NOQA
 from foundry.v2.orchestration.models._retry_backoff_duration_dict import (
     RetryBackoffDurationDict,
@@ -52,4 +52,4 @@ class ReplaceScheduleRequestActionDict(TypedDict):
 
     notificationsEnabled: NotRequired[NotificationsEnabled]
 
-    target: ReplaceScheduleRequestActionBuildTargetDict
+    target: ReplaceScheduleRequestBuildTargetDict

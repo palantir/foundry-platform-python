@@ -11,15 +11,17 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 DateTypeDict | date
-BooleanTypeDict | boolean
-MarkingTypeDict | marking
-AttachmentTypeDict | attachment
+OntologyInterfaceObjectTypeDict | interfaceObject
 StringTypeDict | string
-ActionParameterArrayTypeDict | array
-OntologyObjectSetTypeDict | objectSet
 DoubleTypeDict | double
 IntegerTypeDict | integer
 LongTypeDict | long
+OntologyObjectTypeReferenceTypeDict | objectType
+BooleanTypeDict | boolean
+MarkingTypeDict | marking
+AttachmentTypeDict | attachment
+ActionParameterArrayTypeDict | array
+OntologyObjectSetTypeDict | objectSet
 OntologyObjectTypeDict | object
 TimestampTypeDict | timestamp
 

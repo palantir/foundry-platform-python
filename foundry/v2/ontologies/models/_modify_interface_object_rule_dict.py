@@ -19,10 +19,14 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
+from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
+
 
 class ModifyInterfaceObjectRuleDict(TypedDict):
     """ModifyInterfaceObjectRule"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceTypeApiName: InterfaceTypeApiName
 
     type: Literal["modifyInterfaceObject"]

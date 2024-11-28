@@ -149,7 +149,7 @@ class DatasetClient:
         """
         Gets the content of a dataset as a table in the specified format.
 
-        This endpoint currently does not support views (Virtual datasets composed of other datasets).
+        This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid: datasetRid
         :type dataset_rid: DatasetRid

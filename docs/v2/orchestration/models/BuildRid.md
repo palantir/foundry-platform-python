@@ -1,6 +1,6 @@
 # BuildRid
 
-The RID of a build
+The RID of a build.
 
 ## Type
 ```python

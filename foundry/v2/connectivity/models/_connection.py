@@ -24,12 +24,15 @@ from foundry.v2.connectivity.models._connection_dict import ConnectionDict
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
+from foundry.v2.filesystem.models._folder_rid import FolderRid
 
 
 class Connection(pydantic.BaseModel):
     """Connection"""
 
     rid: ConnectionRid
+
+    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
 
     display_name: ConnectionDisplayName = pydantic.Field(alias="displayName")
 

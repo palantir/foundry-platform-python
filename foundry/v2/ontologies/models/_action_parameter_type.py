@@ -34,8 +34,14 @@ from foundry.v2.core.models._timestamp_type import TimestampType
 from foundry.v2.ontologies.models._action_parameter_array_type_dict import (
     ActionParameterArrayTypeDict,
 )  # NOQA
+from foundry.v2.ontologies.models._ontology_interface_object_type import (
+    OntologyInterfaceObjectType,
+)  # NOQA
 from foundry.v2.ontologies.models._ontology_object_set_type import OntologyObjectSetType
 from foundry.v2.ontologies.models._ontology_object_type import OntologyObjectType
+from foundry.v2.ontologies.models._ontology_object_type_reference_type import (
+    OntologyObjectTypeReferenceType,
+)  # NOQA
 
 
 class ActionParameterArrayType(pydantic.BaseModel):
@@ -57,15 +63,17 @@ class ActionParameterArrayType(pydantic.BaseModel):
 ActionParameterType = Annotated[
     Union[
         DateType,
-        BooleanType,
-        MarkingType,
-        AttachmentType,
+        OntologyInterfaceObjectType,
         StringType,
-        ActionParameterArrayType,
-        OntologyObjectSetType,
         DoubleType,
         IntegerType,
         LongType,
+        OntologyObjectTypeReferenceType,
+        BooleanType,
+        MarkingType,
+        AttachmentType,
+        ActionParameterArrayType,
+        OntologyObjectSetType,
         OntologyObjectType,
         TimestampType,
     ],

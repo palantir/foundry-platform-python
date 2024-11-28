@@ -36,7 +36,7 @@ class BuildDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: BuildRid
-    """The RID of a build"""
+    """The RID of a build."""
 
     branchName: BranchName
     """The branch that the build is running on."""

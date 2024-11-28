@@ -20,6 +20,7 @@ from typing import cast
 
 import pydantic
 
+from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v2.ontologies.models._modify_interface_object_rule_dict import (
     ModifyInterfaceObjectRuleDict,
 )  # NOQA
@@ -27,6 +28,8 @@ from foundry.v2.ontologies.models._modify_interface_object_rule_dict import (
 
 class ModifyInterfaceObjectRule(pydantic.BaseModel):
     """ModifyInterfaceObjectRule"""
+
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias="interfaceTypeApiName")
 
     type: Literal["modifyInterfaceObject"] = "modifyInterfaceObject"
 

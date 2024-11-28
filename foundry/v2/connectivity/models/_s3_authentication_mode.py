@@ -15,7 +15,16 @@
 
 from __future__ import annotations
 
-from foundry.v2.connectivity.models._aws_access_key import AwsAccessKey
+from typing import Union
 
-S3AuthenticationMode = AwsAccessKey
+import pydantic
+from typing_extensions import Annotated
+
+from foundry.v2.connectivity.models._aws_access_key import AwsAccessKey
+from foundry.v2.connectivity.models._cloud_identity import CloudIdentity
+from foundry.v2.connectivity.models._oidc import Oidc
+
+S3AuthenticationMode = Annotated[
+    Union[AwsAccessKey, CloudIdentity, Oidc], pydantic.Field(discriminator="type")
+]
 """S3AuthenticationMode"""

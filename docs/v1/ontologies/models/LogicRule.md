@@ -9,6 +9,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
+DeleteInterfaceObjectRule | deleteInterfaceObject
 ModifyInterfaceObjectRule | modifyInterfaceObject
 ModifyObjectRule | modifyObject
 DeleteObjectRule | deleteObject

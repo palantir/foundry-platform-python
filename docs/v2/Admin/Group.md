@@ -37,7 +37,17 @@ foundry_client = FoundryClient(
 )
 
 # Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
-attributes = None
+attributes = {
+    "multipass:givenName": ["John"],
+    "multipass:familyName": ["Smith"],
+    "multipass:email:primary": ["jsmith@example.com"],
+    "multipass:realm": ["eab0a251-ca1a-4a84-a482-200edfb8026f"],
+    "multipass:organization-rid": [
+        "ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"
+    ],
+    "department": ["Finance"],
+    "jobTitle": ["Accountant"],
+}
 # GroupName | The name of the Group.
 name = "Data Source Admins"
 # List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.

@@ -35,7 +35,7 @@ class Build(pydantic.BaseModel):
     """Build"""
 
     rid: BuildRid
-    """The RID of a build"""
+    """The RID of a build."""
 
     branch_name: BranchName = pydantic.Field(alias="branchName")
     """The branch that the build is running on."""

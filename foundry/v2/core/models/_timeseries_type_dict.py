@@ -17,6 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.v2.core.models._time_series_item_type_dict import TimeSeriesItemTypeDict
@@ -27,6 +28,6 @@ class TimeseriesTypeDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    itemType: TimeSeriesItemTypeDict
+    itemType: NotRequired[TimeSeriesItemTypeDict]
 
     type: Literal["timeseries"]

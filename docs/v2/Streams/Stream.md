@@ -2,7 +2,14 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**create**](#create) | **POST** /v2/streams/datasets/{datasetRid}/streams |
+[**get**](#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} |
+[**publish_binary_record**](#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord |
+[**publish_record**](#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord |
+[**publish_records**](#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords |
+[**reset**](#reset) | **POST** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset |
 
+# **create**
 Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
 
@@ -39,7 +46,7 @@ branch_name = "master"
 # CreateStreamRequestStreamSchemaDict | The Foundry schema for this stream.
 schema = None
 # Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.
-compressed = None
+compressed = False
 # Optional[PartitionsCount] | The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
 partitions_count = 1
 # Optional[PreviewMode] | preview
@@ -78,6 +85,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
 user does not have permission to access the stream, a 404 error will be returned.
 
@@ -138,6 +146,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **publish_binary_record**
 Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
 
@@ -205,6 +214,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **publish_record**
 Publish a single record to the stream. The record will be validated against the stream's schema, and
 rejected if it is invalid.
 
@@ -238,11 +248,11 @@ dataset_rid = None
 # BranchName | streamBranchName
 stream_branch_name = None
 # Record | The record to publish to the stream
-record = None
+record = {"timestamp": 1731426022784, "value": "Hello, World!"}
 # Optional[PreviewMode] | preview
 preview = None
 # Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-view_rid = None
+view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
 try:
@@ -273,6 +283,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **publish_records**
 Publish a batch of records to the stream. The records will be validated against the stream's schema, and
 the batch will be rejected if one or more of the records are invalid.
 
@@ -306,11 +317,11 @@ dataset_rid = None
 # BranchName | streamBranchName
 stream_branch_name = None
 # List[Record] | The records to publish to the stream
-records = None
+records = [{"timestamp": 1731426022784, "value": "Hello, World!"}]
 # Optional[PreviewMode] | preview
 preview = None
 # Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-view_rid = None
+view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
 try:
@@ -341,6 +352,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **reset**
 Reset the stream on the given dataset branch, clearing the existing records and allowing new configurations
 to be applied.
 
@@ -381,9 +393,9 @@ dataset_rid = None
 # BranchName | streamBranchName
 stream_branch_name = None
 # Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
-compressed = None
+compressed = False
 # Optional[PartitionsCount] | The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
-partitions_count = None
+partitions_count = 1
 # Optional[PreviewMode] | preview
 preview = None
 # Optional[StreamSchemaDict] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.

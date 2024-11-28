@@ -2,6 +2,7 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
 
 Get the Connection with the specified rid.
 
@@ -57,8 +58,18 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **update_secrets**
 Updates the secrets on the connection to the specified secret values.
 Secrets that are currently configured on the connection but are omitted in the request will remain unchanged.
+
+Secrets are transmitted over the network encrypted using TLS. Once the secrets reach Foundry's servers, 
+they will be temporarily decrypted and remain in plaintext in memory to be processed as needed. 
+They will stay in plaintext in memory until the garbage collection process cleans up the memory. 
+The secrets are always stored encrypted on our servers.
+
+By using this endpoint, you acknowledge and accept any potential risks associated with the temporary 
+in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should 
+use the Foundry UI instead.
 
 
 ### Parameters
@@ -86,7 +97,7 @@ foundry_client = FoundryClient(
 # ConnectionRid | connectionRid
 connection_rid = None
 # Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.
-secrets = None
+secrets = {"Password": "MySecretPassword"}
 # Optional[PreviewMode] | preview
 preview = None
 

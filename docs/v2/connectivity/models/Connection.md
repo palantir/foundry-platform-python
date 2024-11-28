@@ -6,6 +6,7 @@ Connection
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ConnectionRid | Yes |  |
+**parent_folder_rid** | FolderRid | Yes |  |
 **display_name** | ConnectionDisplayName | Yes |  |
 **runtime_platform** | RuntimePlatform | Yes |  |
 **configuration** | ConnectionConfiguration | Yes |  |

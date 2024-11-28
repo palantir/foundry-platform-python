@@ -82,6 +82,12 @@ from foundry.v1.ontologies.models._create_link_rule_dict import CreateLinkRuleDi
 from foundry.v1.ontologies.models._create_object_rule import CreateObjectRule
 from foundry.v1.ontologies.models._create_object_rule_dict import CreateObjectRuleDict
 from foundry.v1.ontologies.models._data_value import DataValue
+from foundry.v1.ontologies.models._delete_interface_object_rule import (
+    DeleteInterfaceObjectRule,
+)  # NOQA
+from foundry.v1.ontologies.models._delete_interface_object_rule_dict import (
+    DeleteInterfaceObjectRuleDict,
+)  # NOQA
 from foundry.v1.ontologies.models._delete_link_rule import DeleteLinkRule
 from foundry.v1.ontologies.models._delete_link_rule_dict import DeleteLinkRuleDict
 from foundry.v1.ontologies.models._delete_object_rule import DeleteObjectRule
@@ -101,6 +107,7 @@ from foundry.v1.ontologies.models._group_member_constraint_dict import (
 )  # NOQA
 from foundry.v1.ontologies.models._gt_query_dict import GtQueryDict
 from foundry.v1.ontologies.models._gte_query_dict import GteQueryDict
+from foundry.v1.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v1.ontologies.models._is_null_query_dict import IsNullQueryDict
 from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
 from foundry.v1.ontologies.models._link_type_side import LinkTypeSide
@@ -306,6 +313,8 @@ __all__ = [
     "CreateObjectRule",
     "CreateObjectRuleDict",
     "DataValue",
+    "DeleteInterfaceObjectRule",
+    "DeleteInterfaceObjectRuleDict",
     "DeleteLinkRule",
     "DeleteLinkRuleDict",
     "DeleteObjectRule",
@@ -321,6 +330,7 @@ __all__ = [
     "GroupMemberConstraintDict",
     "GtQueryDict",
     "GteQueryDict",
+    "InterfaceTypeApiName",
     "IsNullQueryDict",
     "LinkTypeApiName",
     "LinkTypeSide",

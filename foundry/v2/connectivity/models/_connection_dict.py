@@ -23,6 +23,7 @@ from foundry.v2.connectivity.models._connection_configuration_dict import (
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
+from foundry.v2.filesystem.models._folder_rid import FolderRid
 
 
 class ConnectionDict(TypedDict):
@@ -31,6 +32,8 @@ class ConnectionDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ConnectionRid
+
+    parentFolderRid: FolderRid
 
     displayName: ConnectionDisplayName
 
