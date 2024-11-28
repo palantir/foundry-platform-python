@@ -350,6 +350,13 @@ Namespace | Resource | Operation | HTTP request |
 **AipAgents** | Session | [**page**](docs/v2/AipAgents/Session.md#page) | **GET** /v2/aipAgents/agents/{agentRid}/sessions |
 **AipAgents** | Session | [**rag_context**](docs/v2/AipAgents/Session.md#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext |
 **AipAgents** | Session | [**streaming_continue**](docs/v2/AipAgents/Session.md#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue |
+**Connectivity** | Connection | [**update_secrets**](docs/v2/Connectivity/Connection.md#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
+**Connectivity** | FileImport | [**create**](docs/v2/Connectivity/FileImport.md#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports |
+**Connectivity** | FileImport | [**delete**](docs/v2/Connectivity/FileImport.md#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
+**Connectivity** | FileImport | [**execute**](docs/v2/Connectivity/FileImport.md#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute |
+**Connectivity** | FileImport | [**get**](docs/v2/Connectivity/FileImport.md#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
+**Connectivity** | FileImport | [**list**](docs/v2/Connectivity/FileImport.md#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports |
+**Connectivity** | FileImport | [**page**](docs/v2/Connectivity/FileImport.md#page) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports |
 **Datasets** | Branch | [**create**](docs/v2/Datasets/Branch.md#create) | **POST** /v2/datasets/{datasetRid}/branches |
 **Datasets** | Branch | [**delete**](docs/v2/Datasets/Branch.md#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchName} |
 **Datasets** | Branch | [**get**](docs/v2/Datasets/Branch.md#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchName} |
@@ -408,6 +415,7 @@ Namespace | Resource | Operation | HTTP request |
 **OntologiesV2** | TimeSeriesPropertyV2 | [**get_first_point**](docs/v2/OntologiesV2/TimeSeriesPropertyV2.md#get_first_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint |
 **OntologiesV2** | TimeSeriesPropertyV2 | [**get_last_point**](docs/v2/OntologiesV2/TimeSeriesPropertyV2.md#get_last_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint |
 **OntologiesV2** | TimeSeriesPropertyV2 | [**stream_points**](docs/v2/OntologiesV2/TimeSeriesPropertyV2.md#stream_points) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints |
+**Orchestration** | Build | [**cancel**](docs/v2/Orchestration/Build.md#cancel) | **POST** /v2/orchestration/builds/{buildRid}/cancel |
 **Orchestration** | Build | [**create**](docs/v2/Orchestration/Build.md#create) | **POST** /v2/orchestration/builds/create |
 **Orchestration** | Build | [**get**](docs/v2/Orchestration/Build.md#get) | **GET** /v2/orchestration/builds/{buildRid} |
 **Orchestration** | Schedule | [**create**](docs/v2/Orchestration/Schedule.md#create) | **POST** /v2/orchestration/schedules |
@@ -417,6 +425,13 @@ Namespace | Resource | Operation | HTTP request |
 **Orchestration** | Schedule | [**replace**](docs/v2/Orchestration/Schedule.md#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**run**](docs/v2/Orchestration/Schedule.md#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run |
 **Orchestration** | Schedule | [**unpause**](docs/v2/Orchestration/Schedule.md#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause |
+**Streams** | Dataset | [**create**](docs/v2/Streams/Dataset.md#create) | **POST** /v2/streams/datasets/create |
+**Streams** | Stream | [**create**](docs/v2/Streams/Stream.md#create) | **POST** /v2/streams/datasets/{datasetRid}/streams |
+**Streams** | Stream | [**get**](docs/v2/Streams/Stream.md#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} |
+**Streams** | Stream | [**publish_binary_record**](docs/v2/Streams/Stream.md#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord |
+**Streams** | Stream | [**publish_record**](docs/v2/Streams/Stream.md#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord |
+**Streams** | Stream | [**publish_records**](docs/v2/Streams/Stream.md#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords |
+**Streams** | Stream | [**reset**](docs/v2/Streams/Stream.md#reset) | **POST** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset |
 **ThirdPartyApplications** | Version | [**delete**](docs/v2/ThirdPartyApplications/Version.md#delete) | **DELETE** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} |
 **ThirdPartyApplications** | Version | [**get**](docs/v2/ThirdPartyApplications/Version.md#get) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} |
 **ThirdPartyApplications** | Version | [**list**](docs/v2/ThirdPartyApplications/Version.md#list) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions |
@@ -614,12 +629,21 @@ Namespace | Resource | Operation | HTTP request |
 - [AsSecretNameDict](docs/v2/models/AsSecretNameDict.md)
 - [AwsAccessKey](docs/v2/models/AwsAccessKey.md)
 - [AwsAccessKeyDict](docs/v2/models/AwsAccessKeyDict.md)
+- [CloudIdentity](docs/v2/models/CloudIdentity.md)
+- [CloudIdentityDict](docs/v2/models/CloudIdentityDict.md)
+- [CloudIdentityRid](docs/v2/models/CloudIdentityRid.md)
 - [Connection](docs/v2/models/Connection.md)
 - [ConnectionConfiguration](docs/v2/models/ConnectionConfiguration.md)
 - [ConnectionConfigurationDict](docs/v2/models/ConnectionConfigurationDict.md)
 - [ConnectionDict](docs/v2/models/ConnectionDict.md)
 - [ConnectionDisplayName](docs/v2/models/ConnectionDisplayName.md)
 - [ConnectionRid](docs/v2/models/ConnectionRid.md)
+- [CreateTableImportRequestJdbcImportConfigDict](docs/v2/models/CreateTableImportRequestJdbcImportConfigDict.md)
+- [CreateTableImportRequestMicrosoftAccessImportConfigDict](docs/v2/models/CreateTableImportRequestMicrosoftAccessImportConfigDict.md)
+- [CreateTableImportRequestMicrosoftSqlServerImportConfigDict](docs/v2/models/CreateTableImportRequestMicrosoftSqlServerImportConfigDict.md)
+- [CreateTableImportRequestOracleImportConfigDict](docs/v2/models/CreateTableImportRequestOracleImportConfigDict.md)
+- [CreateTableImportRequestPostgreSqlImportConfigDict](docs/v2/models/CreateTableImportRequestPostgreSqlImportConfigDict.md)
+- [CreateTableImportRequestTableImportConfigDict](docs/v2/models/CreateTableImportRequestTableImportConfigDict.md)
 - [DirectConnectionRuntime](docs/v2/models/DirectConnectionRuntime.md)
 - [DirectConnectionRuntimeDict](docs/v2/models/DirectConnectionRuntimeDict.md)
 - [EncryptedProperty](docs/v2/models/EncryptedProperty.md)
@@ -650,10 +674,22 @@ Namespace | Resource | Operation | HTTP request |
 - [FilesCountLimitFilterDict](docs/v2/models/FilesCountLimitFilterDict.md)
 - [FileSizeFilter](docs/v2/models/FileSizeFilter.md)
 - [FileSizeFilterDict](docs/v2/models/FileSizeFilterDict.md)
+- [JdbcImportConfig](docs/v2/models/JdbcImportConfig.md)
+- [JdbcImportConfigDict](docs/v2/models/JdbcImportConfigDict.md)
 - [ListFileImportsResponse](docs/v2/models/ListFileImportsResponse.md)
 - [ListFileImportsResponseDict](docs/v2/models/ListFileImportsResponseDict.md)
+- [MicrosoftAccessImportConfig](docs/v2/models/MicrosoftAccessImportConfig.md)
+- [MicrosoftAccessImportConfigDict](docs/v2/models/MicrosoftAccessImportConfigDict.md)
+- [MicrosoftSqlServerImportConfig](docs/v2/models/MicrosoftSqlServerImportConfig.md)
+- [MicrosoftSqlServerImportConfigDict](docs/v2/models/MicrosoftSqlServerImportConfigDict.md)
 - [NetworkEgressPolicyRid](docs/v2/models/NetworkEgressPolicyRid.md)
+- [Oidc](docs/v2/models/Oidc.md)
+- [OidcDict](docs/v2/models/OidcDict.md)
+- [OracleImportConfig](docs/v2/models/OracleImportConfig.md)
+- [OracleImportConfigDict](docs/v2/models/OracleImportConfigDict.md)
 - [PlaintextValue](docs/v2/models/PlaintextValue.md)
+- [PostgreSqlImportConfig](docs/v2/models/PostgreSqlImportConfig.md)
+- [PostgreSqlImportConfigDict](docs/v2/models/PostgreSqlImportConfigDict.md)
 - [RuntimePlatform](docs/v2/models/RuntimePlatform.md)
 - [RuntimePlatformDict](docs/v2/models/RuntimePlatformDict.md)
 - [S3AuthenticationMode](docs/v2/models/S3AuthenticationMode.md)
@@ -661,6 +697,13 @@ Namespace | Resource | Operation | HTTP request |
 - [S3ConnectionConfiguration](docs/v2/models/S3ConnectionConfiguration.md)
 - [S3ConnectionConfigurationDict](docs/v2/models/S3ConnectionConfigurationDict.md)
 - [SecretName](docs/v2/models/SecretName.md)
+- [TableImport](docs/v2/models/TableImport.md)
+- [TableImportConfig](docs/v2/models/TableImportConfig.md)
+- [TableImportConfigDict](docs/v2/models/TableImportConfigDict.md)
+- [TableImportDict](docs/v2/models/TableImportDict.md)
+- [TableImportDisplayName](docs/v2/models/TableImportDisplayName.md)
+- [TableImportMode](docs/v2/models/TableImportMode.md)
+- [TableImportRid](docs/v2/models/TableImportRid.md)
 - [ArrayFieldType](docs/v2/models/ArrayFieldType.md)
 - [ArrayFieldTypeDict](docs/v2/models/ArrayFieldTypeDict.md)
 - [AttachmentType](docs/v2/models/AttachmentType.md)
@@ -904,6 +947,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ActionTypeRid](docs/v2/models/ActionTypeRid.md)
 - [ActionTypeV2](docs/v2/models/ActionTypeV2.md)
 - [ActionTypeV2Dict](docs/v2/models/ActionTypeV2Dict.md)
+- [ActivePropertyTypeStatus](docs/v2/models/ActivePropertyTypeStatus.md)
+- [ActivePropertyTypeStatusDict](docs/v2/models/ActivePropertyTypeStatusDict.md)
 - [AddLink](docs/v2/models/AddLink.md)
 - [AddLinkDict](docs/v2/models/AddLinkDict.md)
 - [AddObject](docs/v2/models/AddObject.md)
@@ -975,10 +1020,14 @@ Namespace | Resource | Operation | HTTP request |
 - [CreateTemporaryObjectSetResponseV2](docs/v2/models/CreateTemporaryObjectSetResponseV2.md)
 - [CreateTemporaryObjectSetResponseV2Dict](docs/v2/models/CreateTemporaryObjectSetResponseV2Dict.md)
 - [DataValue](docs/v2/models/DataValue.md)
+- [DeleteInterfaceObjectRule](docs/v2/models/DeleteInterfaceObjectRule.md)
+- [DeleteInterfaceObjectRuleDict](docs/v2/models/DeleteInterfaceObjectRuleDict.md)
 - [DeleteLinkRule](docs/v2/models/DeleteLinkRule.md)
 - [DeleteLinkRuleDict](docs/v2/models/DeleteLinkRuleDict.md)
 - [DeleteObjectRule](docs/v2/models/DeleteObjectRule.md)
 - [DeleteObjectRuleDict](docs/v2/models/DeleteObjectRuleDict.md)
+- [DeprecatedPropertyTypeStatus](docs/v2/models/DeprecatedPropertyTypeStatus.md)
+- [DeprecatedPropertyTypeStatusDict](docs/v2/models/DeprecatedPropertyTypeStatusDict.md)
 - [DoesNotIntersectBoundingBoxQuery](docs/v2/models/DoesNotIntersectBoundingBoxQuery.md)
 - [DoesNotIntersectBoundingBoxQueryDict](docs/v2/models/DoesNotIntersectBoundingBoxQueryDict.md)
 - [DoesNotIntersectPolygonQuery](docs/v2/models/DoesNotIntersectPolygonQuery.md)
@@ -986,8 +1035,12 @@ Namespace | Resource | Operation | HTTP request |
 - [EqualsQueryV2](docs/v2/models/EqualsQueryV2.md)
 - [EqualsQueryV2Dict](docs/v2/models/EqualsQueryV2Dict.md)
 - [ExactDistinctAggregationV2Dict](docs/v2/models/ExactDistinctAggregationV2Dict.md)
+- [ExamplePropertyTypeStatus](docs/v2/models/ExamplePropertyTypeStatus.md)
+- [ExamplePropertyTypeStatusDict](docs/v2/models/ExamplePropertyTypeStatusDict.md)
 - [ExecuteQueryResponse](docs/v2/models/ExecuteQueryResponse.md)
 - [ExecuteQueryResponseDict](docs/v2/models/ExecuteQueryResponseDict.md)
+- [ExperimentalPropertyTypeStatus](docs/v2/models/ExperimentalPropertyTypeStatus.md)
+- [ExperimentalPropertyTypeStatusDict](docs/v2/models/ExperimentalPropertyTypeStatusDict.md)
 - [FunctionRid](docs/v2/models/FunctionRid.md)
 - [FunctionVersion](docs/v2/models/FunctionVersion.md)
 - [FuzzyV2](docs/v2/models/FuzzyV2.md)
@@ -1111,12 +1164,16 @@ Namespace | Resource | Operation | HTTP request |
 - [OntologyFullMetadata](docs/v2/models/OntologyFullMetadata.md)
 - [OntologyFullMetadataDict](docs/v2/models/OntologyFullMetadataDict.md)
 - [OntologyIdentifier](docs/v2/models/OntologyIdentifier.md)
+- [OntologyInterfaceObjectType](docs/v2/models/OntologyInterfaceObjectType.md)
+- [OntologyInterfaceObjectTypeDict](docs/v2/models/OntologyInterfaceObjectTypeDict.md)
 - [OntologyObjectArrayType](docs/v2/models/OntologyObjectArrayType.md)
 - [OntologyObjectArrayTypeDict](docs/v2/models/OntologyObjectArrayTypeDict.md)
 - [OntologyObjectSetType](docs/v2/models/OntologyObjectSetType.md)
 - [OntologyObjectSetTypeDict](docs/v2/models/OntologyObjectSetTypeDict.md)
 - [OntologyObjectType](docs/v2/models/OntologyObjectType.md)
 - [OntologyObjectTypeDict](docs/v2/models/OntologyObjectTypeDict.md)
+- [OntologyObjectTypeReferenceType](docs/v2/models/OntologyObjectTypeReferenceType.md)
+- [OntologyObjectTypeReferenceTypeDict](docs/v2/models/OntologyObjectTypeReferenceTypeDict.md)
 - [OntologyObjectV2](docs/v2/models/OntologyObjectV2.md)
 - [OntologyRid](docs/v2/models/OntologyRid.md)
 - [OntologyV2](docs/v2/models/OntologyV2.md)
@@ -1136,6 +1193,9 @@ Namespace | Resource | Operation | HTTP request |
 - [PolygonValueDict](docs/v2/models/PolygonValueDict.md)
 - [PropertyApiName](docs/v2/models/PropertyApiName.md)
 - [PropertyTypeRid](docs/v2/models/PropertyTypeRid.md)
+- [PropertyTypeStatus](docs/v2/models/PropertyTypeStatus.md)
+- [PropertyTypeStatusDict](docs/v2/models/PropertyTypeStatusDict.md)
+- [PropertyTypeVisibility](docs/v2/models/PropertyTypeVisibility.md)
 - [PropertyV2](docs/v2/models/PropertyV2.md)
 - [PropertyV2Dict](docs/v2/models/PropertyV2Dict.md)
 - [PropertyValue](docs/v2/models/PropertyValue.md)
@@ -1229,14 +1289,14 @@ Namespace | Resource | Operation | HTTP request |
 - [BuildTargetDict](docs/v2/models/BuildTargetDict.md)
 - [ConnectingTarget](docs/v2/models/ConnectingTarget.md)
 - [ConnectingTargetDict](docs/v2/models/ConnectingTargetDict.md)
-- [CreateScheduleRequestActionBuildTargetConnectingTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetConnectingTargetDict.md)
-- [CreateScheduleRequestActionBuildTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetDict.md)
-- [CreateScheduleRequestActionBuildTargetManualTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetManualTargetDict.md)
-- [CreateScheduleRequestActionBuildTargetUpstreamTargetDict](docs/v2/models/CreateScheduleRequestActionBuildTargetUpstreamTargetDict.md)
 - [CreateScheduleRequestActionDict](docs/v2/models/CreateScheduleRequestActionDict.md)
+- [CreateScheduleRequestBuildTargetDict](docs/v2/models/CreateScheduleRequestBuildTargetDict.md)
+- [CreateScheduleRequestConnectingTargetDict](docs/v2/models/CreateScheduleRequestConnectingTargetDict.md)
+- [CreateScheduleRequestManualTargetDict](docs/v2/models/CreateScheduleRequestManualTargetDict.md)
+- [CreateScheduleRequestProjectScopeDict](docs/v2/models/CreateScheduleRequestProjectScopeDict.md)
 - [CreateScheduleRequestScopeModeDict](docs/v2/models/CreateScheduleRequestScopeModeDict.md)
-- [CreateScheduleRequestScopeModeProjectScopeDict](docs/v2/models/CreateScheduleRequestScopeModeProjectScopeDict.md)
-- [CreateScheduleRequestScopeModeUserScopeDict](docs/v2/models/CreateScheduleRequestScopeModeUserScopeDict.md)
+- [CreateScheduleRequestUpstreamTargetDict](docs/v2/models/CreateScheduleRequestUpstreamTargetDict.md)
+- [CreateScheduleRequestUserScopeDict](docs/v2/models/CreateScheduleRequestUserScopeDict.md)
 - [CronExpression](docs/v2/models/CronExpression.md)
 - [DatasetUpdatedTrigger](docs/v2/models/DatasetUpdatedTrigger.md)
 - [DatasetUpdatedTriggerDict](docs/v2/models/DatasetUpdatedTriggerDict.md)
@@ -1255,14 +1315,14 @@ Namespace | Resource | Operation | HTTP request |
 - [OrTriggerDict](docs/v2/models/OrTriggerDict.md)
 - [ProjectScope](docs/v2/models/ProjectScope.md)
 - [ProjectScopeDict](docs/v2/models/ProjectScopeDict.md)
-- [ReplaceScheduleRequestActionBuildTargetConnectingTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetConnectingTargetDict.md)
-- [ReplaceScheduleRequestActionBuildTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetDict.md)
-- [ReplaceScheduleRequestActionBuildTargetManualTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetManualTargetDict.md)
-- [ReplaceScheduleRequestActionBuildTargetUpstreamTargetDict](docs/v2/models/ReplaceScheduleRequestActionBuildTargetUpstreamTargetDict.md)
 - [ReplaceScheduleRequestActionDict](docs/v2/models/ReplaceScheduleRequestActionDict.md)
+- [ReplaceScheduleRequestBuildTargetDict](docs/v2/models/ReplaceScheduleRequestBuildTargetDict.md)
+- [ReplaceScheduleRequestConnectingTargetDict](docs/v2/models/ReplaceScheduleRequestConnectingTargetDict.md)
+- [ReplaceScheduleRequestManualTargetDict](docs/v2/models/ReplaceScheduleRequestManualTargetDict.md)
+- [ReplaceScheduleRequestProjectScopeDict](docs/v2/models/ReplaceScheduleRequestProjectScopeDict.md)
 - [ReplaceScheduleRequestScopeModeDict](docs/v2/models/ReplaceScheduleRequestScopeModeDict.md)
-- [ReplaceScheduleRequestScopeModeProjectScopeDict](docs/v2/models/ReplaceScheduleRequestScopeModeProjectScopeDict.md)
-- [ReplaceScheduleRequestScopeModeUserScopeDict](docs/v2/models/ReplaceScheduleRequestScopeModeUserScopeDict.md)
+- [ReplaceScheduleRequestUpstreamTargetDict](docs/v2/models/ReplaceScheduleRequestUpstreamTargetDict.md)
+- [ReplaceScheduleRequestUserScopeDict](docs/v2/models/ReplaceScheduleRequestUserScopeDict.md)
 - [RetryBackoffDuration](docs/v2/models/RetryBackoffDuration.md)
 - [RetryBackoffDurationDict](docs/v2/models/RetryBackoffDurationDict.md)
 - [RetryCount](docs/v2/models/RetryCount.md)
@@ -1420,6 +1480,8 @@ Namespace | Resource | Operation | HTTP request |
 - [CreateObjectRule](docs/v1/models/CreateObjectRule.md)
 - [CreateObjectRuleDict](docs/v1/models/CreateObjectRuleDict.md)
 - [DataValue](docs/v1/models/DataValue.md)
+- [DeleteInterfaceObjectRule](docs/v1/models/DeleteInterfaceObjectRule.md)
+- [DeleteInterfaceObjectRuleDict](docs/v1/models/DeleteInterfaceObjectRuleDict.md)
 - [DeleteLinkRule](docs/v1/models/DeleteLinkRule.md)
 - [DeleteLinkRuleDict](docs/v1/models/DeleteLinkRuleDict.md)
 - [DeleteObjectRule](docs/v1/models/DeleteObjectRule.md)
@@ -1435,6 +1497,7 @@ Namespace | Resource | Operation | HTTP request |
 - [GroupMemberConstraintDict](docs/v1/models/GroupMemberConstraintDict.md)
 - [GteQueryDict](docs/v1/models/GteQueryDict.md)
 - [GtQueryDict](docs/v1/models/GtQueryDict.md)
+- [InterfaceTypeApiName](docs/v1/models/InterfaceTypeApiName.md)
 - [IsNullQueryDict](docs/v1/models/IsNullQueryDict.md)
 - [LinkTypeApiName](docs/v1/models/LinkTypeApiName.md)
 - [LinkTypeSide](docs/v1/models/LinkTypeSide.md)

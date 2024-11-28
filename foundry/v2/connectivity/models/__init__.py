@@ -24,6 +24,9 @@ from foundry.v2.connectivity.models._as_secret_name import AsSecretName
 from foundry.v2.connectivity.models._as_secret_name_dict import AsSecretNameDict
 from foundry.v2.connectivity.models._aws_access_key import AwsAccessKey
 from foundry.v2.connectivity.models._aws_access_key_dict import AwsAccessKeyDict
+from foundry.v2.connectivity.models._cloud_identity import CloudIdentity
+from foundry.v2.connectivity.models._cloud_identity_dict import CloudIdentityDict
+from foundry.v2.connectivity.models._cloud_identity_rid import CloudIdentityRid
 from foundry.v2.connectivity.models._connection import Connection
 from foundry.v2.connectivity.models._connection_configuration import ConnectionConfiguration  # NOQA
 from foundry.v2.connectivity.models._connection_configuration_dict import (
@@ -32,6 +35,24 @@ from foundry.v2.connectivity.models._connection_configuration_dict import (
 from foundry.v2.connectivity.models._connection_dict import ConnectionDict
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._create_table_import_request_jdbc_import_config_dict import (
+    CreateTableImportRequestJdbcImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_microsoft_access_import_config_dict import (
+    CreateTableImportRequestMicrosoftAccessImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_microsoft_sql_server_import_config_dict import (
+    CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_oracle_import_config_dict import (
+    CreateTableImportRequestOracleImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_postgre_sql_import_config_dict import (
+    CreateTableImportRequestPostgreSqlImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_table_import_config_dict import (
+    CreateTableImportRequestTableImportConfigDict,
+)  # NOQA
 from foundry.v2.connectivity.models._direct_connection_runtime import (
     DirectConnectionRuntime,
 )  # NOQA
@@ -92,14 +113,36 @@ from foundry.v2.connectivity.models._files_count_limit_filter import FilesCountL
 from foundry.v2.connectivity.models._files_count_limit_filter_dict import (
     FilesCountLimitFilterDict,
 )  # NOQA
+from foundry.v2.connectivity.models._jdbc_import_config import JdbcImportConfig
+from foundry.v2.connectivity.models._jdbc_import_config_dict import JdbcImportConfigDict
 from foundry.v2.connectivity.models._list_file_imports_response import (
     ListFileImportsResponse,
 )  # NOQA
 from foundry.v2.connectivity.models._list_file_imports_response_dict import (
     ListFileImportsResponseDict,
 )  # NOQA
+from foundry.v2.connectivity.models._microsoft_access_import_config import (
+    MicrosoftAccessImportConfig,
+)  # NOQA
+from foundry.v2.connectivity.models._microsoft_access_import_config_dict import (
+    MicrosoftAccessImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._microsoft_sql_server_import_config import (
+    MicrosoftSqlServerImportConfig,
+)  # NOQA
+from foundry.v2.connectivity.models._microsoft_sql_server_import_config_dict import (
+    MicrosoftSqlServerImportConfigDict,
+)  # NOQA
 from foundry.v2.connectivity.models._network_egress_policy_rid import NetworkEgressPolicyRid  # NOQA
+from foundry.v2.connectivity.models._oidc import Oidc
+from foundry.v2.connectivity.models._oidc_dict import OidcDict
+from foundry.v2.connectivity.models._oracle_import_config import OracleImportConfig
+from foundry.v2.connectivity.models._oracle_import_config_dict import OracleImportConfigDict  # NOQA
 from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
+from foundry.v2.connectivity.models._postgre_sql_import_config import PostgreSqlImportConfig  # NOQA
+from foundry.v2.connectivity.models._postgre_sql_import_config_dict import (
+    PostgreSqlImportConfigDict,
+)  # NOQA
 from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
 from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
 from foundry.v2.connectivity.models._s3_authentication_mode import S3AuthenticationMode
@@ -113,6 +156,13 @@ from foundry.v2.connectivity.models._s3_connection_configuration_dict import (
     S3ConnectionConfigurationDict,
 )  # NOQA
 from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry.v2.connectivity.models._table_import import TableImport
+from foundry.v2.connectivity.models._table_import_config import TableImportConfig
+from foundry.v2.connectivity.models._table_import_config_dict import TableImportConfigDict  # NOQA
+from foundry.v2.connectivity.models._table_import_dict import TableImportDict
+from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
+from foundry.v2.connectivity.models._table_import_mode import TableImportMode
+from foundry.v2.connectivity.models._table_import_rid import TableImportRid
 
 __all__ = [
     "AgentProxyRuntime",
@@ -126,12 +176,21 @@ __all__ = [
     "AsSecretNameDict",
     "AwsAccessKey",
     "AwsAccessKeyDict",
+    "CloudIdentity",
+    "CloudIdentityDict",
+    "CloudIdentityRid",
     "Connection",
     "ConnectionConfiguration",
     "ConnectionConfigurationDict",
     "ConnectionDict",
     "ConnectionDisplayName",
     "ConnectionRid",
+    "CreateTableImportRequestJdbcImportConfigDict",
+    "CreateTableImportRequestMicrosoftAccessImportConfigDict",
+    "CreateTableImportRequestMicrosoftSqlServerImportConfigDict",
+    "CreateTableImportRequestOracleImportConfigDict",
+    "CreateTableImportRequestPostgreSqlImportConfigDict",
+    "CreateTableImportRequestTableImportConfigDict",
     "DirectConnectionRuntime",
     "DirectConnectionRuntimeDict",
     "EncryptedProperty",
@@ -162,10 +221,22 @@ __all__ = [
     "FileSizeFilterDict",
     "FilesCountLimitFilter",
     "FilesCountLimitFilterDict",
+    "JdbcImportConfig",
+    "JdbcImportConfigDict",
     "ListFileImportsResponse",
     "ListFileImportsResponseDict",
+    "MicrosoftAccessImportConfig",
+    "MicrosoftAccessImportConfigDict",
+    "MicrosoftSqlServerImportConfig",
+    "MicrosoftSqlServerImportConfigDict",
     "NetworkEgressPolicyRid",
+    "Oidc",
+    "OidcDict",
+    "OracleImportConfig",
+    "OracleImportConfigDict",
     "PlaintextValue",
+    "PostgreSqlImportConfig",
+    "PostgreSqlImportConfigDict",
     "RuntimePlatform",
     "RuntimePlatformDict",
     "S3AuthenticationMode",
@@ -173,4 +244,11 @@ __all__ = [
     "S3ConnectionConfiguration",
     "S3ConnectionConfigurationDict",
     "SecretName",
+    "TableImport",
+    "TableImportConfig",
+    "TableImportConfigDict",
+    "TableImportDict",
+    "TableImportDisplayName",
+    "TableImportMode",
+    "TableImportRid",
 ]

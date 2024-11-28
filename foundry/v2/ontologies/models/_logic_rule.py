@@ -25,6 +25,9 @@ from foundry.v2.ontologies.models._create_interface_object_rule import (
 )  # NOQA
 from foundry.v2.ontologies.models._create_link_rule import CreateLinkRule
 from foundry.v2.ontologies.models._create_object_rule import CreateObjectRule
+from foundry.v2.ontologies.models._delete_interface_object_rule import (
+    DeleteInterfaceObjectRule,
+)  # NOQA
 from foundry.v2.ontologies.models._delete_link_rule import DeleteLinkRule
 from foundry.v2.ontologies.models._delete_object_rule import DeleteObjectRule
 from foundry.v2.ontologies.models._modify_interface_object_rule import (
@@ -34,6 +37,7 @@ from foundry.v2.ontologies.models._modify_object_rule import ModifyObjectRule
 
 LogicRule = Annotated[
     Union[
+        DeleteInterfaceObjectRule,
         ModifyInterfaceObjectRule,
         ModifyObjectRule,
         DeleteObjectRule,

@@ -48,6 +48,46 @@ class BuildClient:
 
     @pydantic.validate_call
     @handle_unexpected
+    def cancel(
+        self,
+        build_rid: BuildRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> None:
+        """
+        Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
+
+        :param build_rid: buildRid
+        :type build_rid: BuildRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/builds/{buildRid}/cancel",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "buildRid": build_rid,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @pydantic.validate_call
+    @handle_unexpected
     def create(
         self,
         *,
@@ -74,7 +114,7 @@ class BuildClient:
         :type branch_name: Optional[BranchName]
         :param force_build:
         :type force_build: Optional[ForceBuild]
-        :param notifications_enabled:
+        :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
         :type notifications_enabled: Optional[NotificationsEnabled]
         :param preview: preview
         :type preview: Optional[PreviewMode]

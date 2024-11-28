@@ -31,10 +31,16 @@ from foundry.v2.core.models._long_type_dict import LongTypeDict
 from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
 from foundry.v2.core.models._string_type_dict import StringTypeDict
 from foundry.v2.core.models._timestamp_type_dict import TimestampTypeDict
+from foundry.v2.ontologies.models._ontology_interface_object_type_dict import (
+    OntologyInterfaceObjectTypeDict,
+)  # NOQA
 from foundry.v2.ontologies.models._ontology_object_set_type_dict import (
     OntologyObjectSetTypeDict,
 )  # NOQA
 from foundry.v2.ontologies.models._ontology_object_type_dict import OntologyObjectTypeDict  # NOQA
+from foundry.v2.ontologies.models._ontology_object_type_reference_type_dict import (
+    OntologyObjectTypeReferenceTypeDict,
+)  # NOQA
 
 
 class ActionParameterArrayTypeDict(TypedDict):
@@ -50,15 +56,17 @@ class ActionParameterArrayTypeDict(TypedDict):
 ActionParameterTypeDict = Annotated[
     Union[
         DateTypeDict,
-        BooleanTypeDict,
-        MarkingTypeDict,
-        AttachmentTypeDict,
+        OntologyInterfaceObjectTypeDict,
         StringTypeDict,
-        ActionParameterArrayTypeDict,
-        OntologyObjectSetTypeDict,
         DoubleTypeDict,
         IntegerTypeDict,
         LongTypeDict,
+        OntologyObjectTypeReferenceTypeDict,
+        BooleanTypeDict,
+        MarkingTypeDict,
+        AttachmentTypeDict,
+        ActionParameterArrayTypeDict,
+        OntologyObjectSetTypeDict,
         OntologyObjectTypeDict,
         TimestampTypeDict,
     ],

@@ -5,7 +5,7 @@ TimeseriesType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**itemType** | TimeSeriesItemTypeDict | Yes |  |
+**itemType** | NotRequired[TimeSeriesItemTypeDict] | No |  |
 **type** | Literal["timeseries"] | Yes | None |
 
 

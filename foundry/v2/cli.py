@@ -1417,10 +1417,136 @@ def connectivity_connection_update_secrets(
     Updates the secrets on the connection to the specified secret values.
     Secrets that are currently configured on the connection but are omitted in the request will remain unchanged.
 
+    Secrets are transmitted over the network encrypted using TLS. Once the secrets reach Foundry's servers,
+    they will be temporarily decrypted and remain in plaintext in memory to be processed as needed.
+    They will stay in plaintext in memory until the garbage collection process cleans up the memory.
+    The secrets are always stored encrypted on our servers.
+
+    By using this endpoint, you acknowledge and accept any potential risks associated with the temporary
+    in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
+    use the Foundry UI instead.
+
     """
     result = client.connectivity.Connection.update_secrets(
         connection_rid=connection_rid,
         secrets=json.loads(secrets),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection.group("table_import")
+def connectivity_connection_table_import():
+    pass
+
+
+@connectivity_connection_table_import.command("create")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--config", type=str, required=True, help="""""")
+@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND"]), required=True, help=""""""
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_table_import_create(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    config: str,
+    dataset_rid: str,
+    display_name: str,
+    import_mode: Literal["SNAPSHOT", "APPEND"],
+    branch_name: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Creates a new TableImport.
+    """
+    result = client.connectivity.Connection.TableImport.create(
+        connection_rid=connection_rid,
+        config=json.loads(config),
+        dataset_rid=dataset_rid,
+        display_name=display_name,
+        import_mode=import_mode,
+        branch_name=branch_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_table_import.command("delete")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("table_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_table_import_delete(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    table_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Delete the TableImport with the specified RID.
+    Deleting the table import does not delete the destination dataset but the dataset will no longer
+    be updated by this import.
+
+    """
+    result = client.connectivity.Connection.TableImport.delete(
+        connection_rid=connection_rid,
+        table_import_rid=table_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_table_import.command("execute")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("table_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_table_import_execute(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    table_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+    The returned BuildRid can be used to check the status via the Orchestration API.
+
+    """
+    result = client.connectivity.Connection.TableImport.execute(
+        connection_rid=connection_rid,
+        table_import_rid=table_import_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_table_import.command("get")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("table_import_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_table_import_get(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    table_import_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the TableImport with the specified rid.
+    """
+    result = client.connectivity.Connection.TableImport.get(
+        connection_rid=connection_rid,
+        table_import_rid=table_import_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -1607,6 +1733,63 @@ def connectivity_connection_file_import_page(
     click.echo(repr(result))
 
 
+@connectivity_connection_file_import.command("replace")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("file_import_rid", type=str, required=True)
+@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--file_import_filters",
+    type=str,
+    required=True,
+    help="""Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)""",
+)
+@click.option(
+    "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--subfolder",
+    type=str,
+    required=False,
+    help="""A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.""",
+)
+@click.pass_obj
+def connectivity_connection_file_import_replace(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    file_import_rid: str,
+    dataset_rid: str,
+    display_name: str,
+    file_import_filters: str,
+    import_mode: Literal["SNAPSHOT", "APPEND", "UPDATE"],
+    branch_name: Optional[str],
+    preview: Optional[bool],
+    subfolder: Optional[str],
+):
+    """
+    Replace the FileImport with the specified rid.
+    """
+    result = client.connectivity.Connection.FileImport.replace(
+        connection_rid=connection_rid,
+        file_import_rid=file_import_rid,
+        dataset_rid=dataset_rid,
+        display_name=display_name,
+        file_import_filters=json.loads(file_import_filters),
+        import_mode=import_mode,
+        branch_name=branch_name,
+        preview=preview,
+        subfolder=subfolder,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("core")
 def core():
     pass
@@ -1680,7 +1863,7 @@ def datasets_dataset_read_table(
     """
     Gets the content of a dataset as a table in the specified format.
 
-    This endpoint currently does not support views (Virtual datasets composed of other datasets).
+    This endpoint currently does not support views (virtual datasets composed of other datasets).
 
     """
     result = client.datasets.Dataset.read_table(
@@ -2547,6 +2730,11 @@ def functions_query_get_by_rid(
 
 @cli.group("geo")
 def geo():
+    pass
+
+
+@cli.group("mediasets")
+def mediasets():
     pass
 
 
@@ -4351,6 +4539,26 @@ def orchestration_build():
     pass
 
 
+@orchestration_build.command("cancel")
+@click.argument("build_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_build_cancel(
+    client: foundry.v2.FoundryClient,
+    build_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
+
+    """
+    result = client.orchestration.Build.cancel(
+        build_rid=build_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @orchestration_build.command("create")
 @click.option("--fallback_branches", type=str, required=True, help="""""")
 @click.option("--target", type=str, required=True, help="""The targets of the schedule.""")
@@ -4359,7 +4567,13 @@ def orchestration_build():
     "--branch_name", type=str, required=False, help="""The target branch the build should run on."""
 )
 @click.option("--force_build", type=bool, required=False, help="""""")
-@click.option("--notifications_enabled", type=bool, required=False, help="""""")
+@click.option(
+    "--notifications_enabled",
+    type=bool,
+    required=False,
+    help="""The notification will be sent to the user that has most recently edited the schedule.
+No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.""",
+)
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--retry_backoff_duration", type=str, required=False, help="""""")
 @click.option(

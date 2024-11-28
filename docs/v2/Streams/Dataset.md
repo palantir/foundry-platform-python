@@ -2,7 +2,9 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**create**](#create) | **POST** /v2/streams/datasets/create |
 
+# **create**
 Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
 default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
 [streams](/docs/foundry/data-integration/streams/) user documentation.
@@ -44,9 +46,9 @@ schema = None
 # Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
 branch_name = "master"
 # Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.
-compressed = None
+compressed = False
 # Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
-partitions_count = None
+partitions_count = 1
 # Optional[PreviewMode] | preview
 preview = None
 # Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.

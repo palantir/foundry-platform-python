@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from typing import Literal
+from typing import Optional
 from typing import cast
 
 import pydantic
@@ -27,7 +28,7 @@ from foundry.v2.core.models._timeseries_type_dict import TimeseriesTypeDict
 class TimeseriesType(pydantic.BaseModel):
     """TimeseriesType"""
 
-    item_type: TimeSeriesItemType = pydantic.Field(alias="itemType")
+    item_type: Optional[TimeSeriesItemType] = pydantic.Field(alias="itemType", default=None)
 
     type: Literal["timeseries"] = "timeseries"
 

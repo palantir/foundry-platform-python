@@ -20,17 +20,15 @@ from typing import Union
 import pydantic
 from typing_extensions import Annotated
 
-from foundry.v2.orchestration.models._create_schedule_request_scope_mode_project_scope_dict import (
-    CreateScheduleRequestScopeModeProjectScopeDict,
+from foundry.v2.orchestration.models._create_schedule_request_project_scope_dict import (
+    CreateScheduleRequestProjectScopeDict,
 )  # NOQA
-from foundry.v2.orchestration.models._create_schedule_request_scope_mode_user_scope_dict import (
-    CreateScheduleRequestScopeModeUserScopeDict,
+from foundry.v2.orchestration.models._create_schedule_request_user_scope_dict import (
+    CreateScheduleRequestUserScopeDict,
 )  # NOQA
 
 CreateScheduleRequestScopeModeDict = Annotated[
-    Union[
-        CreateScheduleRequestScopeModeProjectScopeDict, CreateScheduleRequestScopeModeUserScopeDict
-    ],
+    Union[CreateScheduleRequestProjectScopeDict, CreateScheduleRequestUserScopeDict],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""

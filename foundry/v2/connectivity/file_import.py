@@ -362,3 +362,84 @@ class FileImportClient:
                 request_timeout=request_timeout,
             ),
         )
+
+    @pydantic.validate_call
+    @handle_unexpected
+    def replace(
+        self,
+        connection_rid: ConnectionRid,
+        file_import_rid: FileImportRid,
+        *,
+        dataset_rid: DatasetRid,
+        display_name: FileImportDisplayName,
+        file_import_filters: List[FileImportFilterDict],
+        import_mode: FileImportMode,
+        branch_name: Optional[BranchName] = None,
+        preview: Optional[PreviewMode] = None,
+        subfolder: Optional[pydantic.StrictStr] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> FileImport:
+        """
+        Replace the FileImport with the specified rid.
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
+        :param file_import_rid: fileImportRid
+        :type file_import_rid: FileImportRid
+        :param dataset_rid: The RID of the output dataset.
+        :type dataset_rid: DatasetRid
+        :param display_name:
+        :type display_name: FileImportDisplayName
+        :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+        :type file_import_filters: List[FileImportFilterDict]
+        :param import_mode:
+        :type import_mode: FileImportMode
+        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+        :type branch_name: Optional[BranchName]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
+        :type subfolder: Optional[pydantic.StrictStr]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: FileImport
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="PUT",
+                resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                    "fileImportRid": file_import_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "datasetRid": dataset_rid,
+                    "importMode": import_mode,
+                    "displayName": display_name,
+                    "branchName": branch_name,
+                    "subfolder": subfolder,
+                    "fileImportFilters": file_import_filters,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "datasetRid": DatasetRid,
+                        "importMode": FileImportMode,
+                        "displayName": FileImportDisplayName,
+                        "branchName": Optional[BranchName],
+                        "subfolder": Optional[pydantic.StrictStr],
+                        "fileImportFilters": List[FileImportFilterDict],
+                    },
+                ),
+                response_type=FileImport,
+                request_timeout=request_timeout,
+            ),
+        )

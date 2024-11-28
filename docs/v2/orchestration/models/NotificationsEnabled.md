@@ -1,6 +1,7 @@
 # NotificationsEnabled
 
-Whether to receive a notification at the end of scheduled builds.
+Whether to receive a notification at the end of the build.
+The notification will be sent to the user that has performed the request.
 
 ## Type
 ```python

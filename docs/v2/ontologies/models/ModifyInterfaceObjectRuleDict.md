@@ -5,6 +5,7 @@ ModifyInterfaceObjectRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**interfaceTypeApiName** | InterfaceTypeApiName | Yes |  |
 **type** | Literal["modifyInterfaceObject"] | Yes | None |
 
 

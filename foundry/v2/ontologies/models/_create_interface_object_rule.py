@@ -23,10 +23,13 @@ import pydantic
 from foundry.v2.ontologies.models._create_interface_object_rule_dict import (
     CreateInterfaceObjectRuleDict,
 )  # NOQA
+from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 
 
 class CreateInterfaceObjectRule(pydantic.BaseModel):
     """CreateInterfaceObjectRule"""
+
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias="interfaceTypeApiName")
 
     type: Literal["createInterfaceObject"] = "createInterfaceObject"
 
