@@ -25,6 +25,7 @@ from typing_extensions import Annotated
 from foundry.v2.core.models._attachment_type import AttachmentType
 from foundry.v2.core.models._boolean_type import BooleanType
 from foundry.v2.core.models._byte_type import ByteType
+from foundry.v2.core.models._cipher_text_type import CipherTextType
 from foundry.v2.core.models._date_type import DateType
 from foundry.v2.core.models._decimal_type import DecimalType
 from foundry.v2.core.models._double_type import DoubleType
@@ -72,6 +73,7 @@ ObjectPropertyType = Annotated[
         GeoShapeType,
         LongType,
         BooleanType,
+        CipherTextType,
         MarkingType,
         AttachmentType,
         MediaReferenceType,

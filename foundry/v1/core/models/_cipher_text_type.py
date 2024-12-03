@@ -13,8 +13,23 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1008.0"
+from typing import Literal
+from typing import cast
+
+import pydantic
+
+from foundry.v1.core.models._cipher_text_type_dict import CipherTextTypeDict
+
+
+class CipherTextType(pydantic.BaseModel):
+    """CipherTextType"""
+
+    type: Literal["cipherText"] = "cipherText"
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> CipherTextTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(CipherTextTypeDict, self.model_dump(by_alias=True, exclude_unset=True))

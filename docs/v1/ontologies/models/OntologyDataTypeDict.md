@@ -21,6 +21,7 @@ FloatTypeDict | float
 AnyTypeDict | any
 LongTypeDict | long
 BooleanTypeDict | boolean
+CipherTextTypeDict | cipherText
 MarkingTypeDict | marking
 UnsupportedTypeDict | unsupported
 OntologyArrayTypeDict | array

@@ -21,6 +21,7 @@ FloatType | float
 AnyType | any
 LongType | long
 BooleanType | boolean
+CipherTextType | cipherText
 MarkingType | marking
 UnsupportedType | unsupported
 OntologyArrayType | array

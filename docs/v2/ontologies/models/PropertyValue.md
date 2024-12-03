@@ -8,6 +8,7 @@ Represents the value of a property in the following format.
 | Attachment | JSON encoded `AttachmentProperty` object              | `{"rid":"ri.blobster.main.attachment.2f944bae-5851-4204-8615-920c969a9f2e"}`                       |
 | Boolean    | boolean                                               | `true`                                                                                             |
 | Byte       | number                                                | `31`                                                                                               |
+| CipherText | string                                                | `"CIPHER::ri.bellaso.main.cipher-channel.e414ab9e-b606-499a-a0e1-844fa296ba7e::unzjs3VifsTxuIpf1fH1CJ7OaPBr2bzMMdozPaZJtCii8vVG60yXIEmzoOJaEl9mfFFe::CIPHER"                                                                           |
 | Date       | ISO 8601 extended local date string                   | `"2021-05-01"`                                                                                     |
 | Decimal    | string                                                | `"2.718281828"`                                                                                    |
 | Double     | number                                                | `3.14159265`                                                                                       |

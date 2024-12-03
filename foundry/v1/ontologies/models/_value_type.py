@@ -28,6 +28,7 @@ structs.
 | Attachment          | `Attachment`                                                                                                      |
 | Boolean             | `Boolean`                                                                                                         |
 | Byte                | `Byte`                                                                                                            |
+| CipherText          | `CipherText`                                                                                                      |
 | Date                | `LocalDate`                                                                                                       |
 | Decimal             | `Decimal`                                                                                                         |
 | Double              | `Double`                                                                                                          |
