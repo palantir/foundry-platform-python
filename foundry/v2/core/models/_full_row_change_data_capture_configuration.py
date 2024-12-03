@@ -34,9 +34,11 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
     """
 
     deletion_field_name: FieldName = pydantic.Field(alias="deletionFieldName")
+
     """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
 
     ordering_field_name: FieldName = pydantic.Field(alias="orderingFieldName")
+
     """
     The name of an ordering field that determines the newest state for a row in the dataset. 
 

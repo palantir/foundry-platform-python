@@ -43,6 +43,7 @@ class Marking(pydantic.BaseModel):
     organization_rid: Optional[OrganizationRid] = pydantic.Field(
         alias="organizationRid", default=None
     )
+
     """If this marking is associated with an Organization, its RID will be populated here."""
 
     created_time: CreatedTime = pydantic.Field(alias="createdTime")

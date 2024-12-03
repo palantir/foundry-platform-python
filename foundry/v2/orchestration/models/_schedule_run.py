@@ -33,6 +33,7 @@ class ScheduleRun(pydantic.BaseModel):
     """ScheduleRun"""
 
     rid: ScheduleRunRid
+
     """The RID of a schedule run"""
 
     schedule_rid: ScheduleRid = pydantic.Field(alias="scheduleRid")
@@ -40,15 +41,18 @@ class ScheduleRun(pydantic.BaseModel):
     schedule_version_rid: ScheduleVersionRid = pydantic.Field(alias="scheduleVersionRid")
 
     created_time: CreatedTime = pydantic.Field(alias="createdTime")
+
     """The time at which the schedule run was created."""
 
     created_by: Optional[CreatedBy] = pydantic.Field(alias="createdBy", default=None)
+
     """
     The Foundry user who manually invoked this schedule run. Automatic trigger runs have this field set to
     empty.
     """
 
     result: Optional[ScheduleRunResult] = None
+
     """
     The result of triggering the schedule. If empty, it means the service
     is still working on triggering the schedule.

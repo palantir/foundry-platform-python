@@ -31,6 +31,7 @@ class ThirdPartyApplication(pydantic.BaseModel):
     """ThirdPartyApplication"""
 
     rid: ThirdPartyApplicationRid
+
     """An RID identifying a third-party application created in Developer Console."""
 
     model_config = {"extra": "allow"}

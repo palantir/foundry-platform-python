@@ -30,9 +30,11 @@ class ObjectContext(pydantic.BaseModel):
     """Details of relevant retrieved object instances for a user's message to include as additional context in the prompt to the Agent."""
 
     object_rids: List[ObjectRid] = pydantic.Field(alias="objectRids")
+
     """The RIDs of the relevant object instances to include in the prompt."""
 
     property_type_rids: List[PropertyTypeRid] = pydantic.Field(alias="propertyTypeRids")
+
     """The RIDs of the property types for the given objects to include in the prompt."""
 
     type: Literal["objectContext"] = "objectContext"

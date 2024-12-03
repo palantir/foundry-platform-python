@@ -47,6 +47,7 @@ class InterfaceLinkType(pydantic.BaseModel):
     display_name: DisplayName = pydantic.Field(alias="displayName")
 
     description: Optional[pydantic.StrictStr] = None
+
     """The description of the interface link type."""
 
     linked_entity_api_name: InterfaceLinkTypeLinkedEntityApiName = pydantic.Field(
@@ -56,6 +57,7 @@ class InterfaceLinkType(pydantic.BaseModel):
     cardinality: InterfaceLinkTypeCardinality
 
     required: pydantic.StrictBool
+
     """Whether each implementing object type must declare at least one implementation of this link."""
 
     model_config = {"extra": "allow"}

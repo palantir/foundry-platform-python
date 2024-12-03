@@ -38,12 +38,15 @@ class Project(pydantic.BaseModel):
     rid: ProjectRid
 
     display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
+
     """The display name of the Project. Must be unique and cannot contain a /"""
 
     description: Optional[pydantic.StrictStr] = None
+
     """The description associated with the Project."""
 
     documentation: Optional[pydantic.StrictStr] = None
+
     """The documentation associated with the Project."""
 
     path: ResourcePath
@@ -57,9 +60,11 @@ class Project(pydantic.BaseModel):
     updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
 
     trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
+
     """The trash status of the Project."""
 
     space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
+
     """The Space Resource Identifier (RID) that the Project lives in."""
 
     model_config = {"extra": "allow"}

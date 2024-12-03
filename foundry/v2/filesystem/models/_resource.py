@@ -41,51 +41,64 @@ class Resource(pydantic.BaseModel):
     rid: ResourceRid
 
     display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
+
     """The display name of the Resource"""
 
     description: Optional[pydantic.StrictStr] = None
+
     """The description of the Resource"""
 
     documentation: Optional[pydantic.StrictStr] = None
+
     """The documentation associated with the Resource"""
 
     path: ResourcePath
+
     """The full path to the resource, including the resource name itself"""
 
     type: ResourceType
+
     """The type of the Resource derived from the Resource Identifier (RID)."""
 
     created_by: CreatedBy = pydantic.Field(alias="createdBy")
+
     """The user that created the Resource."""
 
     updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
+
     """The user that last updated the Resource."""
 
     created_time: CreatedTime = pydantic.Field(alias="createdTime")
+
     """The timestamp that the Resource was last created."""
 
     updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
+
     """
     The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For
     top level folders (spaces and projects), this is not updated by child updates for performance reasons.
     """
 
     trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
+
     """
     The trash status of the Resource. If trashed, this could either be because the Resource itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
     parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
+
     """The parent folder Resource Identifier (RID). For projects, this will be the Space RID."""
 
     project_rid: ProjectRid = pydantic.Field(alias="projectRid")
+
     """
     The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a
     Project, this value will still be populated with the Project RID.
     """
 
     space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
+
     """The Space Resource Identifier (RID) that the Resource lives in."""
 
     model_config = {"extra": "allow"}

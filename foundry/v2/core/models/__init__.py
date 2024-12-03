@@ -81,6 +81,7 @@ from foundry.v2.core.models._map_field_type_dict import MapFieldTypeDict
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._marking_type import MarkingType
 from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
+from foundry.v2.core.models._media_item_rid import MediaItemRid
 from foundry.v2.core.models._media_reference_type import MediaReferenceType
 from foundry.v2.core.models._media_reference_type_dict import MediaReferenceTypeDict
 from foundry.v2.core.models._media_set_rid import MediaSetRid
@@ -179,6 +180,7 @@ __all__ = [
     "MarkingId",
     "MarkingType",
     "MarkingTypeDict",
+    "MediaItemRid",
     "MediaReferenceType",
     "MediaReferenceTypeDict",
     "MediaSetRid",

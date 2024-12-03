@@ -34,6 +34,7 @@ class ListOutgoingLinkTypesResponseV2(pydantic.BaseModel):
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[LinkTypeSideV2]
+
     """The list of link type sides in the current page."""
 
     model_config = {"extra": "allow"}

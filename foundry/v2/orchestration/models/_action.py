@@ -37,6 +37,7 @@ class Action(pydantic.BaseModel):
     target: BuildTarget
 
     branch_name: BranchName = pydantic.Field(alias="branchName")
+
     """The target branch the schedule should run on."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias="fallbackBranches")

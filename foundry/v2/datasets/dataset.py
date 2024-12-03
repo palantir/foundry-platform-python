@@ -27,6 +27,7 @@ from typing_extensions import TypedDict
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.datasets.branch import BranchClient
 from foundry.v2.datasets.file import FileClient
@@ -48,6 +49,7 @@ class DatasetClient:
         self.Transaction = TransactionClient(auth=auth, hostname=hostname)
         self.File = FileClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def create(
@@ -96,6 +98,7 @@ class DatasetClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -132,6 +135,7 @@ class DatasetClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def read_table(

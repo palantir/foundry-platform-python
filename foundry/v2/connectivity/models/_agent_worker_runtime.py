@@ -35,6 +35,7 @@ class AgentWorkerRuntime(pydantic.BaseModel):
     """
 
     agent_rids: List[AgentRid] = pydantic.Field(alias="agentRids")
+
     """
     The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
     These agents are used to provide network connectivity to the external systems or APIs configured on the

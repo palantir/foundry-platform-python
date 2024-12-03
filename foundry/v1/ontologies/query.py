@@ -26,6 +26,7 @@ from typing_extensions import TypedDict
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v1.ontologies.models._data_value import DataValue
 from foundry.v1.ontologies.models._execute_query_response import ExecuteQueryResponse
@@ -38,6 +39,7 @@ class QueryClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def execute(

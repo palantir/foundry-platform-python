@@ -13,7 +13,13 @@
 #  limitations under the License.
 
 
+import inspect
+import warnings
+from functools import wraps
+from typing import Any
+from typing import Callable
 from typing import List
+from typing import TypeVar
 
 import pydantic
 from typing_extensions import Annotated
@@ -39,3 +45,22 @@ def remove_prefixes(text: str, prefixes: List[str]):
         if text.startswith(prefix):
             text = text[len(prefix) :]
     return text
+
+
+F = TypeVar("F", bound=Callable[..., Any])
+
+
+def maybe_ignore_preview(func: F):
+    sig = inspect.signature(func)
+
+    @wraps(func)
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        if "preview" in kwargs and "preview" not in sig.parameters:
+            warnings.warn(
+                f'The "preview" argument is not required when calling {func.__name__}() since the endpoint is not in beta.',
+                UserWarning,
+            )
+            kwargs.pop("preview")
+        return func(*args, **kwargs)
+
+    return wrapper

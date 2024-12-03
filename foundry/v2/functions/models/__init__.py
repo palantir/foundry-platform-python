@@ -52,6 +52,9 @@ from foundry.v2.functions.models._query_array_type_dict import QueryArrayTypeDic
 from foundry.v2.functions.models._query_data_type import QueryDataType
 from foundry.v2.functions.models._query_data_type_dict import QueryDataTypeDict
 from foundry.v2.functions.models._query_dict import QueryDict
+from foundry.v2.functions.models._query_runtime_error_parameter import (
+    QueryRuntimeErrorParameter,
+)  # NOQA
 from foundry.v2.functions.models._query_set_type import QuerySetType
 from foundry.v2.functions.models._query_set_type_dict import QuerySetTypeDict
 from foundry.v2.functions.models._query_struct_field import QueryStructField
@@ -228,6 +231,7 @@ __all__ = [
     "QueryDataType",
     "QueryDataTypeDict",
     "QueryDict",
+    "QueryRuntimeErrorParameter",
     "QuerySetType",
     "QuerySetTypeDict",
     "QueryStructField",

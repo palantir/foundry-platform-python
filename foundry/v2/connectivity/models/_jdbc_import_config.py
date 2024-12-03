@@ -27,6 +27,7 @@ class JdbcImportConfig(pydantic.BaseModel):
     """The import configuration for a [custom JDBC connection](docs/foundry/available-connectors/custom-jdbc-sources)."""
 
     query: pydantic.StrictStr
+
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 

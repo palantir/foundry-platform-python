@@ -34,6 +34,7 @@ class ListObjectTypesResponse(pydantic.BaseModel):
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[ObjectType]
+
     """The list of object types in the current page."""
 
     model_config = {"extra": "allow"}

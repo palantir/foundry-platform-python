@@ -32,6 +32,7 @@ class ListBranchesResponse(pydantic.BaseModel):
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[Branch]
+
     """The list of branches in the current page."""
 
     model_config = {"extra": "allow"}

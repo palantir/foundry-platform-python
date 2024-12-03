@@ -30,9 +30,11 @@ class SessionExchange(pydantic.BaseModel):
     """Represents an individual exchange between a user and an Agent in a conversation session."""
 
     user_input: UserTextInput = pydantic.Field(alias="userInput")
+
     """The user message that initiated the exchange."""
 
     contexts: Optional[SessionExchangeContexts] = None
+
     """
     Additional retrieved context that was included in the prompt to the Agent.
     This may include context that was passed by the client with the user input, or relevant context that was automatically retrieved and added based on available data sources configured on the Agent.
@@ -40,6 +42,7 @@ class SessionExchange(pydantic.BaseModel):
     """
 
     result: SessionExchangeResult
+
     """The final result for the exchange."""
 
     model_config = {"extra": "allow"}

@@ -39,6 +39,7 @@ class ParameterEvaluationResult(pydantic.BaseModel):
     )
 
     required: pydantic.StrictBool
+
     """Represents whether the parameter is a required input to the action."""
 
     model_config = {"extra": "allow"}

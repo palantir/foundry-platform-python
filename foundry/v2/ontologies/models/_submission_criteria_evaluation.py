@@ -36,6 +36,7 @@ class SubmissionCriteriaEvaluation(pydantic.BaseModel):
     configured_failure_message: Optional[pydantic.StrictStr] = pydantic.Field(
         alias="configuredFailureMessage", default=None
     )
+
     """
     The message indicating one of the **submission criteria** was not satisfied.
     This is configured per **submission criteria** in the **Ontology Manager**.

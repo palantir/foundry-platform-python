@@ -30,6 +30,7 @@ class SessionExchangeContexts(pydantic.BaseModel):
     """Retrieved context which was passed to the Agent as input for the exchange."""
 
     object_contexts: List[ObjectContext] = pydantic.Field(alias="objectContexts")
+
     """Relevant object context for the user's message that was included in the prompt to the Agent."""
 
     model_config = {"extra": "allow"}

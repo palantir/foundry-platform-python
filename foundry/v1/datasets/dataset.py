@@ -27,6 +27,7 @@ from typing_extensions import TypedDict
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v1.core.models._folder_rid import FolderRid
 from foundry.v1.core.models._preview_mode import PreviewMode
@@ -49,6 +50,7 @@ class DatasetClient:
         self.File = FileClient(auth=auth, hostname=hostname)
         self.Transaction = TransactionClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def create(
@@ -99,6 +101,7 @@ class DatasetClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def delete_schema(
@@ -147,6 +150,7 @@ class DatasetClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -186,6 +190,7 @@ class DatasetClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_schema(
@@ -236,6 +241,7 @@ class DatasetClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def read(
@@ -302,6 +308,7 @@ class DatasetClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def replace_schema(

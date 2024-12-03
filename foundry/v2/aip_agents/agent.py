@@ -26,6 +26,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.aip_agents.agent_version import AgentVersionClient
 from foundry.v2.aip_agents.models._agent import Agent
@@ -46,6 +47,7 @@ class AgentClient:
         self.AgentVersion = AgentVersionClient(auth=auth, hostname=hostname)
         self.Session = SessionClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def all_sessions(
@@ -88,6 +90,7 @@ class AgentClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def all_sessions_page(
@@ -134,6 +137,7 @@ class AgentClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(

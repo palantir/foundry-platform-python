@@ -27,9 +27,11 @@ class DecimalType(pydantic.BaseModel):
     """DecimalType"""
 
     scale: pydantic.StrictInt
+
     """The number of digits to the right of the decimal point. The maximum value is 38."""
 
     precision: pydantic.StrictInt
+
     """The total number of digits of the Decimal type. The maximum value is 38."""
 
     type: Literal["decimal"] = "decimal"

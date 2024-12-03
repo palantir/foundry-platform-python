@@ -30,6 +30,7 @@ class GetUserMarkingsResponse(pydantic.BaseModel):
     """GetUserMarkingsResponse"""
 
     view: List[MarkingId]
+
     """
     The markings that the user has access to. The user will be able to access resources protected with these
     markings. This includes organization markings for organizations in which the user is a guest member.

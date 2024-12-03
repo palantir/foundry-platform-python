@@ -42,9 +42,11 @@ class ObjectTypeV2(pydantic.BaseModel):
     status: ReleaseStatus
 
     description: Optional[pydantic.StrictStr] = None
+
     """The description of the object type."""
 
     plural_display_name: pydantic.StrictStr = pydantic.Field(alias="pluralDisplayName")
+
     """The plural display name of the object type."""
 
     icon: Icon
@@ -52,6 +54,7 @@ class ObjectTypeV2(pydantic.BaseModel):
     primary_key: PropertyApiName = pydantic.Field(alias="primaryKey")
 
     properties: Dict[PropertyApiName, PropertyV2]
+
     """A map of the properties of the object type."""
 
     rid: ObjectTypeRid

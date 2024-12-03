@@ -31,6 +31,7 @@ class AggregationMetricResult(pydantic.BaseModel):
     name: pydantic.StrictStr
 
     value: Optional[pydantic.StrictFloat] = None
+
     """TBD"""
 
     model_config = {"extra": "allow"}

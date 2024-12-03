@@ -42,9 +42,11 @@ class Folder(pydantic.BaseModel):
     display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
 
     description: Optional[pydantic.StrictStr] = None
+
     """The description associated with the Folder."""
 
     documentation: Optional[pydantic.StrictStr] = None
+
     """The documentation associated with the Folder."""
 
     path: ResourcePath
@@ -60,24 +62,28 @@ class Folder(pydantic.BaseModel):
     updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
 
     trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
+
     """
     The trash status of the Folder. If trashed, this could either be because the Folder itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
     parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
+
     """
     The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
     this value will be the root folder (`ri.compass.main.folder.0`).
     """
 
     project_rid: Optional[ProjectRid] = pydantic.Field(alias="projectRid", default=None)
+
     """
     The Project Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     not be defined.
     """
 
     space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
+
     """
     The Space Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     be the same as the Folder RID.

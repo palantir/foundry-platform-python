@@ -32,12 +32,15 @@ class ConnectingTarget(pydantic.BaseModel):
     """
 
     input_rids: List[BuildableRid] = pydantic.Field(alias="inputRids")
+
     """The upstream input datasets (exclusive)."""
 
     target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
+
     """The downstream target datasets (inclusive)."""
 
     ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
+
     """The datasets between the input datasets and target datasets to exclude."""
 
     type: Literal["connecting"] = "connecting"

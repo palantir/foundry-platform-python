@@ -29,6 +29,7 @@ class FileAtLeastCountFilter(pydantic.BaseModel):
     """Import all filtered files only if there are at least the specified number of files remaining."""
 
     min_files_count: pydantic.StrictInt = pydantic.Field(alias="minFilesCount")
+
     """
     The minimum number of files remaining expected.
     The value specified must be greater than 0.

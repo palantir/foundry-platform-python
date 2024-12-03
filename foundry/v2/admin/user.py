@@ -29,6 +29,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.group_membership import GroupMembershipClient
 from foundry.v2.admin.models._get_user_markings_response import GetUserMarkingsResponse
@@ -52,6 +53,7 @@ class UserClient:
 
         self.GroupMembership = GroupMembershipClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def delete(
@@ -86,6 +88,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -122,6 +125,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_batch(
@@ -161,6 +165,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_current(
@@ -192,6 +197,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_markings(
@@ -233,6 +239,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def list(
@@ -271,6 +278,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def page(
@@ -313,6 +321,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def profile_picture(
@@ -349,6 +358,7 @@ class UserClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def search(

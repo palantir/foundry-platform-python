@@ -44,16 +44,19 @@ class ObjectTypeFullMetadata(pydantic.BaseModel):
     link_types: List[LinkTypeSideV2] = pydantic.Field(alias="linkTypes")
 
     implements_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias="implementsInterfaces")
+
     """A list of interfaces that this object type implements."""
 
     implements_interfaces2: Dict[InterfaceTypeApiName, ObjectTypeInterfaceImplementation] = (
         pydantic.Field(alias="implementsInterfaces2")
     )
+
     """A list of interfaces that this object type implements and how it implements them."""
 
     shared_property_type_mapping: Dict[SharedPropertyTypeApiName, PropertyApiName] = pydantic.Field(
         alias="sharedPropertyTypeMapping"
     )
+
     """
     A map from shared property type API name to backing local property API name for the shared property types 
     present on this object type.

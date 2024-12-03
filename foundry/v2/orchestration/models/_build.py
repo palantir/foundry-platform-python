@@ -35,15 +35,19 @@ class Build(pydantic.BaseModel):
     """Build"""
 
     rid: BuildRid
+
     """The RID of a build."""
 
     branch_name: BranchName = pydantic.Field(alias="branchName")
+
     """The branch that the build is running on."""
 
     created_time: CreatedTime = pydantic.Field(alias="createdTime")
+
     """The timestamp that the build was created."""
 
     created_by: CreatedBy = pydantic.Field(alias="createdBy")
+
     """The user who created the build."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias="fallbackBranches")

@@ -25,6 +25,7 @@ from typing_extensions import Annotated
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.ontologies.action_type import ActionTypeClient
 from foundry.v2.ontologies.models._ontology_full_metadata import OntologyFullMetadata
@@ -42,6 +43,7 @@ class OntologyClient:
         self.ObjectType = ObjectTypeClient(auth=auth, hostname=hostname)
         self.QueryType = QueryTypeClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -81,6 +83,7 @@ class OntologyClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_full_metadata(

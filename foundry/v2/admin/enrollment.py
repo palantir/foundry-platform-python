@@ -25,6 +25,7 @@ from typing_extensions import Annotated
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.host import HostClient
 from foundry.v2.admin.models._enrollment import Enrollment
@@ -38,6 +39,7 @@ class EnrollmentClient:
 
         self.Host = HostClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -79,6 +81,7 @@ class EnrollmentClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_current(

@@ -28,17 +28,21 @@ class AgentMetadata(pydantic.BaseModel):
     """Metadata for an Agent."""
 
     display_name: pydantic.StrictStr = pydantic.Field(alias="displayName")
+
     """The name of the Agent."""
 
     description: Optional[pydantic.StrictStr] = None
+
     """The description for the Agent."""
 
     input_placeholder: Optional[pydantic.StrictStr] = pydantic.Field(
         alias="inputPlaceholder", default=None
     )
+
     """The default text to show as the placeholder input for chats with the Agent."""
 
     suggested_prompts: List[pydantic.StrictStr] = pydantic.Field(alias="suggestedPrompts")
+
     """Prompts to show to the user as example messages to start a conversation with the Agent."""
 
     model_config = {"extra": "allow"}

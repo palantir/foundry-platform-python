@@ -31,6 +31,7 @@ class OntologyObject(pydantic.BaseModel):
     """Represents an object in the Ontology."""
 
     properties: Dict[PropertyApiName, Optional[PropertyValue]]
+
     """A map of the property values of the object."""
 
     rid: ObjectRid

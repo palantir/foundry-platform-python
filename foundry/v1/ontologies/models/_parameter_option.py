@@ -31,6 +31,7 @@ class ParameterOption(pydantic.BaseModel):
     display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 
     value: Optional[Any] = None
+
     """An allowed configured value for a parameter within an action."""
 
     model_config = {"extra": "allow"}

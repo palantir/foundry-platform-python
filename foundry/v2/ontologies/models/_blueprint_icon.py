@@ -27,9 +27,11 @@ class BlueprintIcon(pydantic.BaseModel):
     """BlueprintIcon"""
 
     color: pydantic.StrictStr
+
     """A hexadecimal color code."""
 
     name: pydantic.StrictStr
+
     """
     The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 
     Used to specify the Blueprint icon to represent the object type in a React app.

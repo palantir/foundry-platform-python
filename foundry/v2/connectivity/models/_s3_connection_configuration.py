@@ -34,11 +34,13 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     bucket_url: pydantic.StrictStr = pydantic.Field(alias="bucketUrl")
+
     """The URL of the S3 bucket. The URL should contain a trailing slash."""
 
     authentication_mode: Optional[S3AuthenticationMode] = pydantic.Field(
         alias="authenticationMode", default=None
     )
+
     """
     The authentication mode to use to connect to the S3 external system. No authentication mode is required
     to connect to publicly accessible AWS S3 buckets.

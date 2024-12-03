@@ -34,6 +34,7 @@ class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
     """
 
     file_properties: List[FileProperty] = pydantic.Field(alias="fileProperties")
+
     """
     The criteria on which to determine whether a file has been changed or not since the last import. 
     If any of the specified criteria have changed, the file is consider changed. The criteria include:

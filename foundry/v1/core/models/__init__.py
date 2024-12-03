@@ -15,6 +15,7 @@
 
 from foundry.v1.core.models._any_type import AnyType
 from foundry.v1.core.models._any_type_dict import AnyTypeDict
+from foundry.v1.core.models._attachment_type_dict import AttachmentTypeDict
 from foundry.v1.core.models._binary_type import BinaryType
 from foundry.v1.core.models._binary_type_dict import BinaryTypeDict
 from foundry.v1.core.models._boolean_type import BooleanType
@@ -26,6 +27,7 @@ from foundry.v1.core.models._date_type_dict import DateTypeDict
 from foundry.v1.core.models._decimal_type import DecimalType
 from foundry.v1.core.models._decimal_type_dict import DecimalTypeDict
 from foundry.v1.core.models._display_name import DisplayName
+from foundry.v1.core.models._distance_unit import DistanceUnit
 from foundry.v1.core.models._double_type import DoubleType
 from foundry.v1.core.models._double_type_dict import DoubleTypeDict
 from foundry.v1.core.models._duration import Duration
@@ -39,6 +41,9 @@ from foundry.v1.core.models._long_type import LongType
 from foundry.v1.core.models._long_type_dict import LongTypeDict
 from foundry.v1.core.models._marking_type import MarkingType
 from foundry.v1.core.models._marking_type_dict import MarkingTypeDict
+from foundry.v1.core.models._media_item_rid import MediaItemRid
+from foundry.v1.core.models._media_set_rid import MediaSetRid
+from foundry.v1.core.models._null_type_dict import NullTypeDict
 from foundry.v1.core.models._page_size import PageSize
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.core.models._preview_mode import PreviewMode
@@ -57,6 +62,7 @@ from foundry.v1.core.models._unsupported_type_dict import UnsupportedTypeDict
 __all__ = [
     "AnyType",
     "AnyTypeDict",
+    "AttachmentTypeDict",
     "BinaryType",
     "BinaryTypeDict",
     "BooleanType",
@@ -68,6 +74,7 @@ __all__ = [
     "DecimalType",
     "DecimalTypeDict",
     "DisplayName",
+    "DistanceUnit",
     "DoubleType",
     "DoubleTypeDict",
     "Duration",
@@ -81,6 +88,9 @@ __all__ = [
     "LongTypeDict",
     "MarkingType",
     "MarkingTypeDict",
+    "MediaItemRid",
+    "MediaSetRid",
+    "NullTypeDict",
     "PageSize",
     "PageToken",
     "PreviewMode",

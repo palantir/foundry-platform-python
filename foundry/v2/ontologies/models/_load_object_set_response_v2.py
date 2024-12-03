@@ -33,6 +33,7 @@ class LoadObjectSetResponseV2(pydantic.BaseModel):
     """Represents the API response when loading an `ObjectSet`."""
 
     data: List[OntologyObjectV2]
+
     """The list of objects in the current Page."""
 
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)

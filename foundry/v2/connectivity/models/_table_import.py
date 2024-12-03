@@ -36,12 +36,15 @@ class TableImport(pydantic.BaseModel):
     rid: TableImportRid
 
     connection_rid: ConnectionRid = pydantic.Field(alias="connectionRid")
+
     """The RID of the Connection (formerly known as a source) that the Table Import uses to import data."""
 
     dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
+
     """The RID of the output dataset."""
 
     branch_name: Optional[BranchName] = pydantic.Field(alias="branchName", default=None)
+
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
     display_name: TableImportDisplayName = pydantic.Field(alias="displayName")
