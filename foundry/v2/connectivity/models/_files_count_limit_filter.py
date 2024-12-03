@@ -33,6 +33,7 @@ class FilesCountLimitFilter(pydantic.BaseModel):
     """
 
     files_count: pydantic.StrictInt = pydantic.Field(alias="filesCount")
+
     """The number of files to import in the transaction. The value specified must be positive."""
 
     type: Literal["filesCountLimitFilter"] = "filesCountLimitFilter"

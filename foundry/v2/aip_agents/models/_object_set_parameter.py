@@ -29,6 +29,7 @@ class ObjectSetParameter(pydantic.BaseModel):
     """ObjectSetParameter"""
 
     expected_object_types: List[ObjectTypeId] = pydantic.Field(alias="expectedObjectTypes")
+
     """The types of objects that are expected in ObjectSet values passed for this parameter."""
 
     type: Literal["objectSet"] = "objectSet"

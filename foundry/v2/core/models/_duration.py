@@ -27,9 +27,11 @@ class Duration(pydantic.BaseModel):
     """A measurement of duration."""
 
     value: pydantic.StrictInt
+
     """The duration value."""
 
     unit: TimeUnit
+
     """The unit of duration."""
 
     model_config = {"extra": "allow"}

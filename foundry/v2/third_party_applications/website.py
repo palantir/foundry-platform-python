@@ -26,6 +26,7 @@ from typing_extensions import TypedDict
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.third_party_applications.models._third_party_application_rid import (
     ThirdPartyApplicationRid,
@@ -41,6 +42,7 @@ class WebsiteClient:
 
         self.Version = VersionClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def deploy(
@@ -88,6 +90,7 @@ class WebsiteClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -124,6 +127,7 @@ class WebsiteClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def undeploy(

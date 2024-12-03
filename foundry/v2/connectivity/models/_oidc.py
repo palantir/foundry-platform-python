@@ -31,12 +31,15 @@ class Oidc(pydantic.BaseModel):
     """
 
     audience: pydantic.StrictStr
+
     """The configured audience that identifies the external system."""
 
     issuer_url: pydantic.StrictStr = pydantic.Field(alias="issuerUrl")
+
     """The URL that identifies Foundry as an OIDC identity provider."""
 
     subject: ConnectionRid
+
     """The RID of the Connection that is connecting to the external system."""
 
     type: Literal["oidc"] = "oidc"

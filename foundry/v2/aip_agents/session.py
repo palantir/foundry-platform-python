@@ -28,6 +28,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.aip_agents.content import ContentClient
 from foundry.v2.aip_agents.models._agent_markdown_response import AgentMarkdownResponse
@@ -57,6 +58,7 @@ class SessionClient:
 
         self.Content = ContentClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def blocking_continue(
@@ -129,6 +131,7 @@ class SessionClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def cancel(
@@ -193,6 +196,7 @@ class SessionClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def create(
@@ -247,6 +251,7 @@ class SessionClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -292,6 +297,7 @@ class SessionClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def list(
@@ -341,6 +347,7 @@ class SessionClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def page(
@@ -394,6 +401,7 @@ class SessionClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def rag_context(
@@ -457,6 +465,7 @@ class SessionClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def streaming_continue(

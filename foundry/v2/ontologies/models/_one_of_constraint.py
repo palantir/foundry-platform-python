@@ -31,6 +31,7 @@ class OneOfConstraint(pydantic.BaseModel):
     options: List[ParameterOption]
 
     other_values_allowed: pydantic.StrictBool = pydantic.Field(alias="otherValuesAllowed")
+
     """A flag denoting whether custom, user provided values will be considered valid. This is configured via the **Allowed "Other" value** toggle in the **Ontology Manager**."""
 
     type: Literal["oneOf"] = "oneOf"

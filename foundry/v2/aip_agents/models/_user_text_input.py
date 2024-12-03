@@ -26,6 +26,7 @@ class UserTextInput(pydantic.BaseModel):
     """UserTextInput"""
 
     text: pydantic.StrictStr
+
     """The user message text."""
 
     model_config = {"extra": "allow"}

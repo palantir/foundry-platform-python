@@ -28,6 +28,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.marking_member import MarkingMemberClient
 from foundry.v2.admin.models._get_markings_batch_request_element_dict import (
@@ -48,6 +49,7 @@ class MarkingClient:
 
         self.MarkingMember = MarkingMemberClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -89,6 +91,7 @@ class MarkingClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_batch(
@@ -135,6 +138,7 @@ class MarkingClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def list(
@@ -175,6 +179,7 @@ class MarkingClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def page(

@@ -28,6 +28,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._file_import import FileImport
@@ -50,6 +51,7 @@ class FileImportClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def create(
@@ -127,6 +129,7 @@ class FileImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def delete(
@@ -173,6 +176,7 @@ class FileImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def execute(
@@ -220,6 +224,7 @@ class FileImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -265,6 +270,7 @@ class FileImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def list(
@@ -312,6 +318,7 @@ class FileImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def page(
@@ -363,6 +370,7 @@ class FileImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def replace(

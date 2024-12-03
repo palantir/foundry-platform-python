@@ -25,6 +25,7 @@ from typing_extensions import Annotated
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.third_party_applications.models._third_party_application import (
@@ -42,6 +43,7 @@ class ThirdPartyApplicationClient:
 
         self.Website = WebsiteClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(

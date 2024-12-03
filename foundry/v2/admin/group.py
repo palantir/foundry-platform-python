@@ -29,6 +29,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.group_member import GroupMemberClient
 from foundry.v2.admin.models._attribute_name import AttributeName
@@ -54,6 +55,7 @@ class GroupClient:
 
         self.GroupMember = GroupMemberClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def create(
@@ -111,6 +113,7 @@ class GroupClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def delete(
@@ -145,6 +148,7 @@ class GroupClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -181,6 +185,7 @@ class GroupClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get_batch(
@@ -220,6 +225,7 @@ class GroupClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def list(
@@ -258,6 +264,7 @@ class GroupClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def page(
@@ -300,6 +307,7 @@ class GroupClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def search(

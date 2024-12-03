@@ -39,6 +39,7 @@ class DirectConnectionRuntime(pydantic.BaseModel):
     network_egress_policy_rids: List[NetworkEgressPolicyRid] = pydantic.Field(
         alias="networkEgressPolicyRids"
     )
+
     """
     The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
     configured on the connection.

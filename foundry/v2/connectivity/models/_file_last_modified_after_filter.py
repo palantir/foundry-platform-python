@@ -31,6 +31,7 @@ class FileLastModifiedAfterFilter(pydantic.BaseModel):
     """Only import files that have been modified after a specified timestamp"""
 
     after_timestamp: Optional[datetime] = pydantic.Field(alias="afterTimestamp", default=None)
+
     """
     Timestamp threshold, specified in ISO-8601 format.
     If not specified, defaults to the timestamp the filter is added to the file import.

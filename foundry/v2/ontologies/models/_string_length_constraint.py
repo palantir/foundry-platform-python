@@ -34,15 +34,19 @@ class StringLengthConstraint(pydantic.BaseModel):
     """
 
     lt: Optional[Any] = None
+
     """Less than"""
 
     lte: Optional[Any] = None
+
     """Less than or equal"""
 
     gt: Optional[Any] = None
+
     """Greater than"""
 
     gte: Optional[Any] = None
+
     """Greater than or equal"""
 
     type: Literal["stringLength"] = "stringLength"

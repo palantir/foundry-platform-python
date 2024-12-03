@@ -26,6 +26,7 @@ from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.models._group_membership import GroupMembership
 from foundry.v2.admin.models._list_group_memberships_response import (
@@ -40,6 +41,7 @@ class GroupMembershipClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def list(
@@ -87,6 +89,7 @@ class GroupMembershipClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def page(

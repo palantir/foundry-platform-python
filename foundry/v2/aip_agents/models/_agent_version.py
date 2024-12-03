@@ -28,9 +28,11 @@ class AgentVersion(pydantic.BaseModel):
     """AgentVersion"""
 
     string: AgentVersionString
+
     """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
     version: AgentVersionDetails
+
     """Semantic version details of the Agent."""
 
     model_config = {"extra": "allow"}

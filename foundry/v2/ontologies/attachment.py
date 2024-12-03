@@ -25,6 +25,7 @@ from typing_extensions import Annotated
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._content_length import ContentLength
 from foundry.v2.core.models._content_type import ContentType
@@ -37,6 +38,7 @@ class AttachmentClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -77,6 +79,7 @@ class AttachmentClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def read(
@@ -117,6 +120,7 @@ class AttachmentClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def upload(

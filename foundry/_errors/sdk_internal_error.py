@@ -24,6 +24,7 @@ from pydantic import __version__ as __pydantic__version__
 from pydantic_core import __version__ as __pydantic_core_version__
 from requests import __version__ as __requests_version__
 from requests.exceptions import ConnectionError
+from requests.exceptions import HTTPError
 
 from foundry._errors.palantir_rpc_exception import PalantirRPCException
 from foundry._versions import __openapi_document_version__
@@ -42,6 +43,8 @@ def handle_unexpected(__func: AnyCallableT) -> AnyCallableT:
             SDKInternalError,
             pydantic.ValidationError,
             ConnectionError,
+            # We throw an HTTPError if there is a 401 status code response
+            HTTPError,
         ) as e:
             # pass through these exceptions
             raise e

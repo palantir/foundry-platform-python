@@ -34,12 +34,15 @@ class Stream(pydantic.BaseModel):
     branch_name: BranchName = pydantic.Field(alias="branchName")
 
     schema_: StreamSchema = pydantic.Field(alias="schema")
+
     """The Foundry schema for this stream."""
 
     view_rid: ViewRid = pydantic.Field(alias="viewRid")
+
     """The view that this stream corresponds to."""
 
     partitions_count: PartitionsCount = pydantic.Field(alias="partitionsCount")
+
     """
     The number of partitions for the Foundry stream. Defaults to 1.
 
@@ -48,12 +51,14 @@ class Stream(pydantic.BaseModel):
     """
 
     stream_type: StreamType = pydantic.Field(alias="streamType")
+
     """
     A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
     LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
     """
 
     compressed: Compressed
+
     """Whether or not compression is enabled for the stream. Defaults to false."""
 
     model_config = {"extra": "allow"}

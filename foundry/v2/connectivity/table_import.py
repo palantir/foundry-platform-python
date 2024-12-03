@@ -26,6 +26,7 @@ from typing_extensions import TypedDict
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._create_table_import_request_table_import_config_dict import (
@@ -45,6 +46,7 @@ class TableImportClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def create(
@@ -117,6 +119,7 @@ class TableImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def delete(
@@ -163,6 +166,7 @@ class TableImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def execute(
@@ -210,6 +214,7 @@ class TableImportClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(

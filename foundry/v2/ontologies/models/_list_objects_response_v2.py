@@ -35,6 +35,7 @@ class ListObjectsResponseV2(pydantic.BaseModel):
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 
     data: List[OntologyObjectV2]
+
     """The list of objects in the current page."""
 
     total_count: TotalCount = pydantic.Field(alias="totalCount")

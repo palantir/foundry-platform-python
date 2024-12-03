@@ -28,9 +28,11 @@ class TimeSeriesPoint(pydantic.BaseModel):
     """A time and value pair."""
 
     time: datetime
+
     """An ISO 8601 timestamp"""
 
     value: Any
+
     """An object which is either an enum String or a double number."""
 
     model_config = {"extra": "allow"}

@@ -37,22 +37,27 @@ class FileImport(pydantic.BaseModel):
     rid: FileImportRid
 
     connection_rid: ConnectionRid = pydantic.Field(alias="connectionRid")
+
     """The RID of the Connection (formerly known as a source) that the File Import uses to import data."""
 
     dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
+
     """The RID of the output dataset."""
 
     branch_name: Optional[BranchName] = pydantic.Field(alias="branchName", default=None)
+
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
     display_name: FileImportDisplayName = pydantic.Field(alias="displayName")
 
     file_import_filters: List[FileImportFilter] = pydantic.Field(alias="fileImportFilters")
+
     """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
 
     import_mode: FileImportMode = pydantic.Field(alias="importMode")
 
     subfolder: Optional[pydantic.StrictStr] = None
+
     """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
 
     model_config = {"extra": "allow"}

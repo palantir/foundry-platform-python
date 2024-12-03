@@ -29,9 +29,11 @@ class UpstreamTarget(pydantic.BaseModel):
     """Target the specified datasets along with all upstream datasets except the ignored datasets."""
 
     target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
+
     """The target datasets."""
 
     ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
+
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     type: Literal["upstream"] = "upstream"

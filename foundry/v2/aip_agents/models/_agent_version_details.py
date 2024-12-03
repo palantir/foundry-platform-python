@@ -26,9 +26,11 @@ class AgentVersionDetails(pydantic.BaseModel):
     """Semantic version details for an Agent."""
 
     major: pydantic.StrictInt
+
     """The major version of the Agent. Incremented every time the Agent is published."""
 
     minor: pydantic.StrictInt
+
     """The minor version of the Agent. Incremented every time the Agent is saved."""
 
     model_config = {"extra": "allow"}

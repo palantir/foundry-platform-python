@@ -26,6 +26,7 @@ from typing_extensions import TypedDict
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.orchestration.models._create_schedule_request_action_dict import (
@@ -50,6 +51,7 @@ class ScheduleClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def create(
@@ -117,6 +119,7 @@ class ScheduleClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def delete(
@@ -156,6 +159,7 @@ class ScheduleClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def get(
@@ -197,6 +201,7 @@ class ScheduleClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def pause(
@@ -236,6 +241,7 @@ class ScheduleClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def replace(
@@ -308,6 +314,7 @@ class ScheduleClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def run(
@@ -349,6 +356,7 @@ class ScheduleClient:
             ),
         )
 
+    @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
     def unpause(

@@ -30,6 +30,7 @@ class ListOntologiesResponse(pydantic.BaseModel):
     """ListOntologiesResponse"""
 
     data: List[Ontology]
+
     """The list of Ontologies the user has access to."""
 
     model_config = {"extra": "allow"}

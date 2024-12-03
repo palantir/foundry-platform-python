@@ -43,6 +43,7 @@ class Schedule(pydantic.BaseModel):
     description: Optional[pydantic.StrictStr] = None
 
     current_version_rid: ScheduleVersionRid = pydantic.Field(alias="currentVersionRid")
+
     """The RID of the current schedule version"""
 
     created_time: CreatedTime = pydantic.Field(alias="createdTime")
@@ -56,6 +57,7 @@ class Schedule(pydantic.BaseModel):
     paused: SchedulePaused
 
     trigger: Optional[Trigger] = None
+
     """
     The schedule trigger. If the requesting user does not have
     permission to see the trigger, this will be empty.

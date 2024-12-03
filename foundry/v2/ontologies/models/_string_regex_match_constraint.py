@@ -30,11 +30,13 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
     """The parameter value must match a predefined regular expression."""
 
     regex: pydantic.StrictStr
+
     """The regular expression configured in the **Ontology Manager**."""
 
     configured_failure_message: Optional[pydantic.StrictStr] = pydantic.Field(
         alias="configuredFailureMessage", default=None
     )
+
     """
     The message indicating that the regular expression was not matched.
     This is configured per parameter in the **Ontology Manager**.

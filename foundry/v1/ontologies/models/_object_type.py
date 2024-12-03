@@ -42,14 +42,17 @@ class ObjectType(pydantic.BaseModel):
     status: ReleaseStatus
 
     description: Optional[pydantic.StrictStr] = None
+
     """The description of the object type."""
 
     visibility: Optional[ObjectTypeVisibility] = None
 
     primary_key: List[PropertyApiName] = pydantic.Field(alias="primaryKey")
+
     """The primary key of the object. This is a list of properties that can be used to uniquely identify the object."""
 
     properties: Dict[PropertyApiName, Property]
+
     """A map of the properties of the object type."""
 
     rid: ObjectTypeRid

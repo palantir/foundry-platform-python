@@ -32,9 +32,11 @@ class Website(pydantic.BaseModel):
     deployed_version: Optional[VersionVersion] = pydantic.Field(
         alias="deployedVersion", default=None
     )
+
     """The version of the Website that is currently deployed."""
 
     subdomains: List[Subdomain]
+
     """The subdomains from which the Website is currently served."""
 
     model_config = {"extra": "allow"}

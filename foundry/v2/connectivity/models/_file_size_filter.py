@@ -33,12 +33,14 @@ class FileSizeFilter(pydantic.BaseModel):
     """
 
     gt: Optional[SizeBytes] = None
+
     """
     File size must be greater than this number for it to be imported.
     The value specified cannot be a negative number.
     """
 
     lt: Optional[SizeBytes] = None
+
     """
     File size must be less than this number for it to be imported.
     The value specified must be at least 1 byte.

@@ -28,6 +28,7 @@ class StringParameter(pydantic.BaseModel):
     """StringParameter"""
 
     default_value: Optional[pydantic.StrictStr] = pydantic.Field(alias="defaultValue", default=None)
+
     """The default value to use for this parameter."""
 
     type: Literal["string"] = "string"

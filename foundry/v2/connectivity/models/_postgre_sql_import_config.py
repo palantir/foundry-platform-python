@@ -29,6 +29,7 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
     """The import configuration for a [PostgreSQL connection](docs/foundry/available-connectors/postgresql)."""
 
     query: pydantic.StrictStr
+
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 

@@ -29,6 +29,7 @@ class FileAnyPathMatchesFilter(pydantic.BaseModel):
     """If any file has a relative path matching the regular expression, sync all files in the subfolder that are not otherwise filtered."""
 
     regex: pydantic.StrictStr
+
     """The regular expression for the relative path to match against."""
 
     type: Literal["anyPathMatchesFilter"] = "anyPathMatchesFilter"

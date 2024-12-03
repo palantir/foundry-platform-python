@@ -35,6 +35,7 @@ class StreamSchema(pydantic.BaseModel):
     fields: List[Field]
 
     key_field_names: Optional[List[FieldName]] = pydantic.Field(alias="keyFieldNames", default=None)
+
     """
     The names of the fields to be used as keys for partitioning records. These key fields are used to group
     all records with the same key into the same partition, to guarantee processing order of grouped records. These

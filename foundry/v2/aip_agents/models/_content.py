@@ -28,6 +28,7 @@ class Content(pydantic.BaseModel):
     """Content"""
 
     exchanges: List[SessionExchange]
+
     """
     The conversation history for the session, represented as a list of exchanges.
     Each exchange represents an initiating message from the user and the Agent's response.

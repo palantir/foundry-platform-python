@@ -29,6 +29,7 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft SQL Server connection](docs/foundry/available-connectors/microsoft-sql-server)."""
 
     query: pydantic.StrictStr
+
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 

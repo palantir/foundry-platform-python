@@ -33,6 +33,7 @@ class AgentsSessionsPage(pydantic.BaseModel):
     """
 
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
+
     """
     The page token that should be used when requesting the next page of results.
     Empty if there are no more results to retrieve.
