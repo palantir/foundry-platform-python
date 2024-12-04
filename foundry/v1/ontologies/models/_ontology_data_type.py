@@ -27,6 +27,7 @@ from foundry.v1.core.models._any_type import AnyType
 from foundry.v1.core.models._binary_type import BinaryType
 from foundry.v1.core.models._boolean_type import BooleanType
 from foundry.v1.core.models._byte_type import ByteType
+from foundry.v1.core.models._cipher_text_type import CipherTextType
 from foundry.v1.core.models._date_type import DateType
 from foundry.v1.core.models._decimal_type import DecimalType
 from foundry.v1.core.models._double_type import DoubleType
@@ -135,6 +136,7 @@ OntologyDataType = Annotated[
         AnyType,
         LongType,
         BooleanType,
+        CipherTextType,
         MarkingType,
         UnsupportedType,
         OntologyArrayType,

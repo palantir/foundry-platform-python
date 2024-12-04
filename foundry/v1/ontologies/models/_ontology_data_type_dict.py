@@ -27,6 +27,7 @@ from foundry.v1.core.models._any_type_dict import AnyTypeDict
 from foundry.v1.core.models._binary_type_dict import BinaryTypeDict
 from foundry.v1.core.models._boolean_type_dict import BooleanTypeDict
 from foundry.v1.core.models._byte_type_dict import ByteTypeDict
+from foundry.v1.core.models._cipher_text_type_dict import CipherTextTypeDict
 from foundry.v1.core.models._date_type_dict import DateTypeDict
 from foundry.v1.core.models._decimal_type_dict import DecimalTypeDict
 from foundry.v1.core.models._double_type_dict import DoubleTypeDict
@@ -112,6 +113,7 @@ OntologyDataTypeDict = Annotated[
         AnyTypeDict,
         LongTypeDict,
         BooleanTypeDict,
+        CipherTextTypeDict,
         MarkingTypeDict,
         UnsupportedTypeDict,
         OntologyArrayTypeDict,

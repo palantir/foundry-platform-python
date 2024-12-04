@@ -25,6 +25,7 @@ from typing_extensions import TypedDict
 from foundry.v2.core.models._attachment_type_dict import AttachmentTypeDict
 from foundry.v2.core.models._boolean_type_dict import BooleanTypeDict
 from foundry.v2.core.models._byte_type_dict import ByteTypeDict
+from foundry.v2.core.models._cipher_text_type_dict import CipherTextTypeDict
 from foundry.v2.core.models._date_type_dict import DateTypeDict
 from foundry.v2.core.models._decimal_type_dict import DecimalTypeDict
 from foundry.v2.core.models._double_type_dict import DoubleTypeDict
@@ -67,6 +68,7 @@ ObjectPropertyTypeDict = Annotated[
         GeoShapeTypeDict,
         LongTypeDict,
         BooleanTypeDict,
+        CipherTextTypeDict,
         MarkingTypeDict,
         AttachmentTypeDict,
         MediaReferenceTypeDict,

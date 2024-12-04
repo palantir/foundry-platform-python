@@ -29,6 +29,8 @@ from foundry.v2.core.models._change_data_capture_configuration import (
 from foundry.v2.core.models._change_data_capture_configuration_dict import (
     ChangeDataCaptureConfigurationDict,
 )  # NOQA
+from foundry.v2.core.models._cipher_text_type import CipherTextType
+from foundry.v2.core.models._cipher_text_type_dict import CipherTextTypeDict
 from foundry.v2.core.models._content_length import ContentLength
 from foundry.v2.core.models._content_type import ContentType
 from foundry.v2.core.models._created_by import CreatedBy
@@ -134,6 +136,8 @@ __all__ = [
     "ByteTypeDict",
     "ChangeDataCaptureConfiguration",
     "ChangeDataCaptureConfigurationDict",
+    "CipherTextType",
+    "CipherTextTypeDict",
     "ContentLength",
     "ContentType",
     "CreatedBy",

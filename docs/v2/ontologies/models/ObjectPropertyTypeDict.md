@@ -21,6 +21,7 @@ FloatTypeDict | float
 GeoShapeTypeDict | geoshape
 LongTypeDict | long
 BooleanTypeDict | boolean
+CipherTextTypeDict | cipherText
 MarkingTypeDict | marking
 AttachmentTypeDict | attachment
 MediaReferenceTypeDict | mediaReference

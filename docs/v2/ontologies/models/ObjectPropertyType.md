@@ -21,6 +21,7 @@ FloatType | float
 GeoShapeType | geoshape
 LongType | long
 BooleanType | boolean
+CipherTextType | cipherText
 MarkingType | marking
 AttachmentType | attachment
 MediaReferenceType | mediaReference
