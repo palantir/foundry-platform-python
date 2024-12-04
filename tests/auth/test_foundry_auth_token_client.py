@@ -14,6 +14,7 @@
 
 
 import os
+import warnings
 
 import pytest
 
@@ -56,27 +57,16 @@ def test_load_from_env_missing_host(temp_os_environ):
 
 @pytest.mark.skip
 def test_can_pass_config():
-    os.environ["PALANTIR_HOSTNAME"] = "host_test"
     os.environ["PALANTIR_TOKEN"] = "token_test"
-    config = UserTokenAuth(hostname="host_test2", token="token_test2")
-    assert config.hostname == "host_test2"  # type: ignore
+    config = UserTokenAuth(token="token_test2")
     assert config._token == "token_test2"
 
 
-def test_can_pass_config_missing_token():
-    assert pytest.raises(TypeError, lambda: UserTokenAuth(hostname="test"))  # type: ignore
+def test_missing_token_raises_type_error():
+    assert pytest.raises(TypeError, lambda: UserTokenAuth())  # type: ignore
 
 
-def test_can_pass_config_missing_host():
-    assert pytest.raises(TypeError, lambda: UserTokenAuth(token="test"))  # type: ignore
-
-
-@pytest.mark.skip
-def test_checks_host_type():
-    assert pytest.raises(ValueError, lambda: UserTokenAuth(hostname=1))  # type: ignore
-
-
-@pytest.mark.skip
-def test_checks_token_type():
-    assert pytest.raises(ValueError, lambda: UserTokenAuth(token=1))  # type: ignore
-    assert pytest.raises(ValueError, lambda: UserTokenAuth(token=1))  # type: ignore
+def test_warns_if_given_hostname():
+    with warnings.catch_warnings(record=True) as w:
+        UserTokenAuth(hostname="foo", token="bar")
+        assert len(w) == 1

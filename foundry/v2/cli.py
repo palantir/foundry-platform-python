@@ -46,10 +46,7 @@ def get_from_environ(key: str) -> str:
 def cli(ctx: _Context):
     "An experimental CLI for the Foundry API"
     ctx.obj = foundry.v2.FoundryClient(
-        auth=foundry.UserTokenAuth(
-            hostname=get_from_environ("FOUNDRY_HOSTNAME"),
-            token=get_from_environ("FOUNDRY_TOKEN"),
-        ),
+        auth=foundry.UserTokenAuth(token=get_from_environ("FOUNDRY_TOKEN")),
         hostname=get_from_environ("FOUNDRY_HOSTNAME"),
     )
 
