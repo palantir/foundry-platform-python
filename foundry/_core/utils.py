@@ -47,10 +47,10 @@ def remove_prefixes(text: str, prefixes: List[str]):
     return text
 
 
-F = TypeVar("F", bound=Callable[..., Any])
+AnyCallableT = TypeVar("AnyCallableT", bound=Callable[..., Any])
 
 
-def maybe_ignore_preview(func: F):
+def maybe_ignore_preview(func: AnyCallableT) -> AnyCallableT:
     sig = inspect.signature(func)
 
     @wraps(func)
@@ -63,4 +63,4 @@ def maybe_ignore_preview(func: F):
             kwargs.pop("preview")
         return func(*args, **kwargs)
 
-    return wrapper
+    return wrapper  # type: ignore
