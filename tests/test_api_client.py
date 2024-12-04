@@ -47,7 +47,7 @@ EXAMPLE_ERROR = json.dumps(
 
 def test_user_agent():
     """Test that the user agent is set correctly."""
-    client = ApiClient(auth=UserTokenAuth(hostname="foo", token="bar"), hostname="foo")
+    client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
     client.session.request = Mock(return_value=AttrDict(status_code=200, headers={}))
 
     client.call_api(
@@ -79,7 +79,7 @@ def test_user_agent():
 
 def test_path_encoding():
     """Test that the user agent is set correctly."""
-    client = ApiClient(auth=UserTokenAuth(hostname="foo", token="bar"), hostname="foo")
+    client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
     client.session.request = Mock(return_value=AttrDict(status_code=200, headers={}))
 
     client.call_api(
@@ -112,7 +112,7 @@ def call_api_helper(
     data: str,
     headers: Dict[str, str],
 ):
-    client = ApiClient(auth=UserTokenAuth(hostname="foo", token="bar"), hostname="foo")
+    client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
 
     client.session.request = Mock(
         return_value=AttrDict(

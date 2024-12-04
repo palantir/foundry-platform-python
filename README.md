@@ -84,10 +84,7 @@ initializing the `UserTokenAuth`:
 import foundry
 
 foundry_client = foundry.v2.FoundryClient(
-    auth=foundry.UserTokenAuth(
-        hostname="example.palantirfoundry.com",
-        token=os.environ["BEARER_TOKEN"],
-    ),
+    auth=foundry.UserTokenAuth(token=os.environ["BEARER_TOKEN"]),
     hostname="example.palantirfoundry.com",
 )
 ```
@@ -110,7 +107,7 @@ auth = foundry.ConfidentialClientAuth(
     client_id=os.environ["CLIENT_ID"],
     client_secret=os.environ["CLIENT_SECRET"],
     hostname="example.palantirfoundry.com",
-    scopes=["api:read-data"],
+    scopes=[...],  # optional list of scopes
 )
 
 auth.sign_in_as_service_user()

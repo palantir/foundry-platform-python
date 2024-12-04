@@ -52,7 +52,7 @@ class MockRequest(TypedDict):
 @pytest.fixture
 def client_v1():
     yield FoundryV1Client(
-        auth=foundry.UserTokenAuth(hostname="example.palantirfoundry.com", token="<TOKEN>"),
+        auth=foundry.UserTokenAuth(token="<TOKEN>"),
         hostname="example.palantirfoundry.com",
     )
 
@@ -60,7 +60,7 @@ def client_v1():
 @pytest.fixture
 def client_v2():
     yield FoundryV2Client(
-        auth=foundry.UserTokenAuth(hostname="example.palantirfoundry.com", token="<TOKEN>"),
+        auth=foundry.UserTokenAuth(token="<TOKEN>"),
         hostname="example.palantirfoundry.com",
     )
 
