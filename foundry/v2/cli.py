@@ -1374,6 +1374,42 @@ def connectivity_connection():
     pass
 
 
+@connectivity_connection.command("create")
+@click.option("--configuration", type=str, required=True, help="""""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option("--parent_folder_rid", type=str, required=True, help="""""")
+@click.option("--runtime_platform", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_create(
+    client: foundry.v2.FoundryClient,
+    configuration: str,
+    display_name: str,
+    parent_folder_rid: str,
+    runtime_platform: str,
+    preview: Optional[bool],
+):
+    """
+    Creates a new Connection.
+    Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
+    secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
+    be processed as needed. They will stay in plaintext in memory until the garbage collection process cleans
+    up the memory. The secrets are always stored encrypted on our servers.
+    By using this endpoint, you acknowledge and accept any potential risks associated with the temporary
+    in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
+    use the Foundry UI instead.
+
+    """
+    result = client.connectivity.Connection.create(
+        configuration=json.loads(configuration),
+        display_name=display_name,
+        parent_folder_rid=parent_folder_rid,
+        runtime_platform=json.loads(runtime_platform),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @connectivity_connection.command("get")
 @click.argument("connection_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
