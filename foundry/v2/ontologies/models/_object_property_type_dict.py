@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing import Literal
 from typing import Union
 
@@ -43,6 +44,27 @@ from foundry.v2.core.models._short_type_dict import ShortTypeDict
 from foundry.v2.core.models._string_type_dict import StringTypeDict
 from foundry.v2.core.models._timeseries_type_dict import TimeseriesTypeDict
 from foundry.v2.core.models._timestamp_type_dict import TimestampTypeDict
+from foundry.v2.ontologies.models._struct_field_api_name import StructFieldApiName
+
+
+class StructFieldTypeDict(TypedDict):
+    """StructFieldType"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    apiName: StructFieldApiName
+
+    dataType: ObjectPropertyTypeDict
+
+
+class StructTypeDict(TypedDict):
+    """StructType"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    structFieldTypes: List[StructFieldTypeDict]
+
+    type: Literal["struct"]
 
 
 class OntologyObjectArrayTypeDict(TypedDict):
@@ -58,6 +80,7 @@ class OntologyObjectArrayTypeDict(TypedDict):
 ObjectPropertyTypeDict = Annotated[
     Union[
         DateTypeDict,
+        StructTypeDict,
         StringTypeDict,
         ByteTypeDict,
         DoubleTypeDict,

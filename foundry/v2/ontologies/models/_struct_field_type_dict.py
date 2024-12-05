@@ -13,8 +13,19 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1014.0"
+from typing_extensions import TypedDict
+
+from foundry.v2.ontologies.models._object_property_type_dict import ObjectPropertyTypeDict  # NOQA
+from foundry.v2.ontologies.models._struct_field_api_name import StructFieldApiName
+
+
+class StructFieldTypeDict(TypedDict):
+    """StructFieldType"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    apiName: StructFieldApiName
+
+    dataType: ObjectPropertyTypeDict

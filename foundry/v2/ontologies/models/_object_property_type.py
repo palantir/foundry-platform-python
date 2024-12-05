@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing import Literal
 from typing import Union
 from typing import cast
@@ -44,6 +45,37 @@ from foundry.v2.core.models._timestamp_type import TimestampType
 from foundry.v2.ontologies.models._ontology_object_array_type_dict import (
     OntologyObjectArrayTypeDict,
 )  # NOQA
+from foundry.v2.ontologies.models._struct_field_api_name import StructFieldApiName
+from foundry.v2.ontologies.models._struct_field_type_dict import StructFieldTypeDict
+from foundry.v2.ontologies.models._struct_type_dict import StructTypeDict
+
+
+class StructFieldType(pydantic.BaseModel):
+    """StructFieldType"""
+
+    api_name: StructFieldApiName = pydantic.Field(alias="apiName")
+
+    data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> StructFieldTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(StructFieldTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+
+
+class StructType(pydantic.BaseModel):
+    """StructType"""
+
+    struct_field_types: List[StructFieldType] = pydantic.Field(alias="structFieldTypes")
+
+    type: Literal["struct"] = "struct"
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> StructTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(StructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 class OntologyObjectArrayType(pydantic.BaseModel):
@@ -63,6 +95,7 @@ class OntologyObjectArrayType(pydantic.BaseModel):
 ObjectPropertyType = Annotated[
     Union[
         DateType,
+        StructType,
         StringType,
         ByteType,
         DoubleType,
