@@ -11,6 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 DateType | date
+StructType | struct
 StringType | string
 ByteType | byte
 DoubleType | double

@@ -2364,6 +2364,28 @@ def filesystem_resource():
     pass
 
 
+@filesystem_resource.command("add_markings")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--marking_ids", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_add_markings(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    marking_ids: str,
+    preview: Optional[bool],
+):
+    """
+    Adds a list of Markings to a resource.
+    """
+    result = client.filesystem.Resource.add_markings(
+        resource_rid=resource_rid,
+        marking_ids=json.loads(marking_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.command("delete")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -2423,6 +2445,57 @@ def filesystem_resource_get_by_path(
     click.echo(repr(result))
 
 
+@filesystem_resource.command("markings")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_markings(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    List of Markings directly applied to a resource. The number of Markings on a resource is typically small
+    so the `pageSize` and `pageToken` parameters are not required.
+
+    """
+    result = client.filesystem.Resource.markings(
+        resource_rid=resource_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource.command("markings_page")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_markings_page(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List of Markings directly applied to a resource. The number of Markings on a resource is typically small
+    so the `pageSize` and `pageToken` parameters are not required.
+
+    """
+    result = client.filesystem.Resource.markings_page(
+        resource_rid=resource_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.command("permanently_delete")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -2439,6 +2512,28 @@ def filesystem_resource_permanently_delete(
     """
     result = client.filesystem.Resource.permanently_delete(
         resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource.command("remove_markings")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--marking_ids", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_remove_markings(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    marking_ids: str,
+    preview: Optional[bool],
+):
+    """
+    Removes Markings from a resource.
+    """
+    result = client.filesystem.Resource.remove_markings(
+        resource_rid=resource_rid,
+        marking_ids=json.loads(marking_ids),
         preview=preview,
     )
     click.echo(repr(result))
@@ -2465,9 +2560,57 @@ def filesystem_resource_restore(
     click.echo(repr(result))
 
 
+@filesystem_resource.group("access_requirements")
+def filesystem_resource_access_requirements():
+    pass
+
+
+@filesystem_resource_access_requirements.command("get")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_access_requirements_get(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Returns a list of access requirements a user needs in order to view a resource. Access requirements are
+    composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
+
+    """
+    result = client.filesystem.Resource.AccessRequirements.get(
+        resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem.group("project")
 def filesystem_project():
     pass
+
+
+@filesystem_project.command("add_organizations")
+@click.argument("project_rid", type=str, required=True)
+@click.option("--organization_rids", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_project_add_organizations(
+    client: foundry.v2.FoundryClient,
+    project_rid: str,
+    organization_rids: str,
+    preview: Optional[bool],
+):
+    """
+    Adds a list of Organizations to a Project.
+    """
+    result = client.filesystem.Project.add_organizations(
+        project_rid=project_rid,
+        organization_rids=json.loads(organization_rids),
+        preview=preview,
+    )
+    click.echo(repr(result))
 
 
 @filesystem_project.command("get")
@@ -2484,6 +2627,79 @@ def filesystem_project_get(
     """
     result = client.filesystem.Project.get(
         project_rid=project_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_project.command("organizations")
+@click.argument("project_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_project_organizations(
+    client: foundry.v2.FoundryClient,
+    project_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    List of Organizations directly applied to a Project. The number of Organizations on a Project is
+    typically small so the `pageSize` and `pageToken` parameters are not required.
+
+    """
+    result = client.filesystem.Project.organizations(
+        project_rid=project_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_project.command("organizations_page")
+@click.argument("project_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_project_organizations_page(
+    client: foundry.v2.FoundryClient,
+    project_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List of Organizations directly applied to a Project. The number of Organizations on a Project is
+    typically small so the `pageSize` and `pageToken` parameters are not required.
+
+    """
+    result = client.filesystem.Project.organizations_page(
+        project_rid=project_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_project.command("remove_organizations")
+@click.argument("project_rid", type=str, required=True)
+@click.option("--organization_rids", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_project_remove_organizations(
+    client: foundry.v2.FoundryClient,
+    project_rid: str,
+    organization_rids: str,
+    preview: Optional[bool],
+):
+    """
+    Removes Organizations from a Project.
+    """
+    result = client.filesystem.Project.remove_organizations(
+        project_rid=project_rid,
+        organization_rids=json.loads(organization_rids),
         preview=preview,
     )
     click.echo(repr(result))

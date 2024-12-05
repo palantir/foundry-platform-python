@@ -13,16 +13,35 @@
 #  limitations under the License.
 
 
+from foundry.v2.filesystem.models._access_requirements import AccessRequirements
+from foundry.v2.filesystem.models._access_requirements_dict import AccessRequirementsDict  # NOQA
 from foundry.v2.filesystem.models._folder import Folder
 from foundry.v2.filesystem.models._folder_dict import FolderDict
 from foundry.v2.filesystem.models._folder_rid import FolderRid
 from foundry.v2.filesystem.models._folder_type import FolderType
+from foundry.v2.filesystem.models._is_directly_applied import IsDirectlyApplied
 from foundry.v2.filesystem.models._list_children_of_folder_response import (
     ListChildrenOfFolderResponse,
 )  # NOQA
 from foundry.v2.filesystem.models._list_children_of_folder_response_dict import (
     ListChildrenOfFolderResponseDict,
 )  # NOQA
+from foundry.v2.filesystem.models._list_markings_of_resource_response import (
+    ListMarkingsOfResourceResponse,
+)  # NOQA
+from foundry.v2.filesystem.models._list_markings_of_resource_response_dict import (
+    ListMarkingsOfResourceResponseDict,
+)  # NOQA
+from foundry.v2.filesystem.models._list_organizations_of_project_response import (
+    ListOrganizationsOfProjectResponse,
+)  # NOQA
+from foundry.v2.filesystem.models._list_organizations_of_project_response_dict import (
+    ListOrganizationsOfProjectResponseDict,
+)  # NOQA
+from foundry.v2.filesystem.models._marking import Marking
+from foundry.v2.filesystem.models._marking_dict import MarkingDict
+from foundry.v2.filesystem.models._organization import Organization
+from foundry.v2.filesystem.models._organization_dict import OrganizationDict
 from foundry.v2.filesystem.models._project import Project
 from foundry.v2.filesystem.models._project_dict import ProjectDict
 from foundry.v2.filesystem.models._project_rid import ProjectRid
@@ -36,12 +55,23 @@ from foundry.v2.filesystem.models._space_rid import SpaceRid
 from foundry.v2.filesystem.models._trash_status import TrashStatus
 
 __all__ = [
+    "AccessRequirements",
+    "AccessRequirementsDict",
     "Folder",
     "FolderDict",
     "FolderRid",
     "FolderType",
+    "IsDirectlyApplied",
     "ListChildrenOfFolderResponse",
     "ListChildrenOfFolderResponseDict",
+    "ListMarkingsOfResourceResponse",
+    "ListMarkingsOfResourceResponseDict",
+    "ListOrganizationsOfProjectResponse",
+    "ListOrganizationsOfProjectResponseDict",
+    "Marking",
+    "MarkingDict",
+    "Organization",
+    "OrganizationDict",
     "Project",
     "ProjectDict",
     "ProjectRid",
