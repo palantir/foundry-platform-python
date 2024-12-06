@@ -62,6 +62,12 @@ from foundry.v2.orchestration.models._job_succeeded_trigger import JobSucceededT
 from foundry.v2.orchestration.models._job_succeeded_trigger_dict import (
     JobSucceededTriggerDict,
 )  # NOQA
+from foundry.v2.orchestration.models._list_runs_of_schedule_response import (
+    ListRunsOfScheduleResponse,
+)  # NOQA
+from foundry.v2.orchestration.models._list_runs_of_schedule_response_dict import (
+    ListRunsOfScheduleResponseDict,
+)  # NOQA
 from foundry.v2.orchestration.models._manual_target import ManualTarget
 from foundry.v2.orchestration.models._manual_target_dict import ManualTargetDict
 from foundry.v2.orchestration.models._media_set_updated_trigger import (
@@ -132,6 +138,8 @@ from foundry.v2.orchestration.models._schedule_succeeded_trigger import (
 from foundry.v2.orchestration.models._schedule_succeeded_trigger_dict import (
     ScheduleSucceededTriggerDict,
 )  # NOQA
+from foundry.v2.orchestration.models._schedule_version import ScheduleVersion
+from foundry.v2.orchestration.models._schedule_version_dict import ScheduleVersionDict
 from foundry.v2.orchestration.models._schedule_version_rid import ScheduleVersionRid
 from foundry.v2.orchestration.models._scope_mode import ScopeMode
 from foundry.v2.orchestration.models._scope_mode_dict import ScopeModeDict
@@ -174,6 +182,8 @@ __all__ = [
     "ForceBuild",
     "JobSucceededTrigger",
     "JobSucceededTriggerDict",
+    "ListRunsOfScheduleResponse",
+    "ListRunsOfScheduleResponseDict",
     "ManualTarget",
     "ManualTargetDict",
     "MediaSetUpdatedTrigger",
@@ -214,6 +224,8 @@ __all__ = [
     "ScheduleRunSubmittedDict",
     "ScheduleSucceededTrigger",
     "ScheduleSucceededTriggerDict",
+    "ScheduleVersion",
+    "ScheduleVersionDict",
     "ScheduleVersionRid",
     "ScopeMode",
     "ScopeModeDict",

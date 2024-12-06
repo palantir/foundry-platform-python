@@ -35,6 +35,9 @@ from foundry.v2.third_party_applications.errors._third_party_application_not_fou
 from foundry.v2.third_party_applications.errors._undeploy_website_permission_denied import (
     UndeployWebsitePermissionDenied,
 )  # NOQA
+from foundry.v2.third_party_applications.errors._upload_snapshot_version_permission_denied import (
+    UploadSnapshotVersionPermissionDenied,
+)  # NOQA
 from foundry.v2.third_party_applications.errors._upload_version_permission_denied import (
     UploadVersionPermissionDenied,
 )  # NOQA
@@ -56,6 +59,7 @@ __all__ = [
     "InvalidVersion",
     "ThirdPartyApplicationNotFound",
     "UndeployWebsitePermissionDenied",
+    "UploadSnapshotVersionPermissionDenied",
     "UploadVersionPermissionDenied",
     "VersionAlreadyExists",
     "VersionLimitExceeded",
