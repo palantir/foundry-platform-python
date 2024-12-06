@@ -4610,6 +4610,47 @@ def orchestration():
     pass
 
 
+@orchestration.group("schedule_version")
+def orchestration_schedule_version():
+    pass
+
+
+@orchestration_schedule_version.command("get")
+@click.argument("schedule_version_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_version_get(
+    client: foundry.v2.FoundryClient,
+    schedule_version_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the ScheduleVersion with the specified rid.
+    """
+    result = client.orchestration.ScheduleVersion.get(
+        schedule_version_rid=schedule_version_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule_version.command("schedule")
+@click.argument("schedule_version_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_version_schedule(
+    client: foundry.v2.FoundryClient,
+    schedule_version_rid: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.orchestration.ScheduleVersion.schedule(
+        schedule_version_rid=schedule_version_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @orchestration.group("schedule")
 def orchestration_schedule():
     pass
@@ -4761,6 +4802,55 @@ def orchestration_schedule_run(
     """ """
     result = client.orchestration.Schedule.run(
         schedule_rid=schedule_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule.command("runs")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_runs(
+    client: foundry.v2.FoundryClient,
+    schedule_rid: str,
+    page_size: Optional[int],
+    preview: Optional[bool],
+):
+    """
+    Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
+
+    """
+    result = client.orchestration.Schedule.runs(
+        schedule_rid=schedule_rid,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule.command("runs_page")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_schedule_runs_page(
+    client: foundry.v2.FoundryClient,
+    schedule_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
+
+    """
+    result = client.orchestration.Schedule.runs_page(
+        schedule_rid=schedule_rid,
+        page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -5443,6 +5533,35 @@ def third_party_applications_third_party_application_website_version_upload(
         third_party_application_rid=third_party_application_rid,
         body=body.read(),
         version=version,
+    )
+    click.echo(repr(result))
+
+
+@third_party_applications_third_party_application_website_version.command("upload_snapshot")
+@click.argument("third_party_application_rid", type=str, required=True)
+@click.argument("body", type=click.File("rb"), required=True)
+@click.option("--version", type=str, required=True, help="""version""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--snapshot_identifier", type=str, required=False, help="""snapshotIdentifier""")
+@click.pass_obj
+def third_party_applications_third_party_application_website_version_upload_snapshot(
+    client: foundry.v2.FoundryClient,
+    third_party_application_rid: str,
+    body: io.BufferedReader,
+    version: str,
+    preview: Optional[bool],
+    snapshot_identifier: Optional[str],
+):
+    """
+    Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
+
+    """
+    result = client.third_party_applications.ThirdPartyApplication.Website.Version.upload_snapshot(
+        third_party_application_rid=third_party_application_rid,
+        body=body.read(),
+        version=version,
+        preview=preview,
+        snapshot_identifier=snapshot_identifier,
     )
     click.echo(repr(result))
 

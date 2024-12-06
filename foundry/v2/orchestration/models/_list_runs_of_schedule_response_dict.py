@@ -15,14 +15,20 @@
 
 from __future__ import annotations
 
-from foundry._core import Auth
-from foundry.v2.orchestration.build import BuildClient
-from foundry.v2.orchestration.schedule import ScheduleClient
-from foundry.v2.orchestration.schedule_version import ScheduleVersionClient
+from typing import List
+
+from typing_extensions import NotRequired
+from typing_extensions import TypedDict
+
+from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.orchestration.models._schedule_run_dict import ScheduleRunDict
 
 
-class OrchestrationClient:
-    def __init__(self, auth: Auth, hostname: str):
-        self.Build = BuildClient(auth=auth, hostname=hostname)
-        self.Schedule = ScheduleClient(auth=auth, hostname=hostname)
-        self.ScheduleVersion = ScheduleVersionClient(auth=auth, hostname=hostname)
+class ListRunsOfScheduleResponseDict(TypedDict):
+    """ListRunsOfScheduleResponse"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: List[ScheduleRunDict]
+
+    nextPageToken: NotRequired[PageToken]

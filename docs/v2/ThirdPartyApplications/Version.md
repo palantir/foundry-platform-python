@@ -314,3 +314,74 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
+**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
+**version** | VersionVersion | version |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**snapshot_identifier** | Optional[pydantic.StrictStr] | snapshotIdentifier | [optional] |
+
+### Return type
+**Version**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ThirdPartyApplicationRid | thirdPartyApplicationRid
+third_party_application_rid = (
+    "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
+)
+# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+body = None
+# VersionVersion | version
+version = None
+# Optional[PreviewMode] | preview
+preview = None
+# Optional[pydantic.StrictStr] | snapshotIdentifier
+snapshot_identifier = (
+    "foundry.v1@ri.stemma.main.repository.a@ri.pull-request.main.pull-request.a@hash"
+)
+
+
+try:
+    api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.upload_snapshot(
+        third_party_application_rid,
+        body,
+        version=version,
+        preview=preview,
+        snapshot_identifier=snapshot_identifier,
+    )
+    print("The upload_snapshot response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Version.upload_snapshot: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Version  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+

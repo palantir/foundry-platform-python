@@ -421,7 +421,11 @@ Namespace | Resource | Operation | HTTP request |
 **Orchestration** | Schedule | [**pause**](docs/v2/Orchestration/Schedule.md#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause |
 **Orchestration** | Schedule | [**replace**](docs/v2/Orchestration/Schedule.md#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**run**](docs/v2/Orchestration/Schedule.md#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run |
+**Orchestration** | Schedule | [**runs**](docs/v2/Orchestration/Schedule.md#runs) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs |
+**Orchestration** | Schedule | [**runs_page**](docs/v2/Orchestration/Schedule.md#runs_page) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs |
 **Orchestration** | Schedule | [**unpause**](docs/v2/Orchestration/Schedule.md#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause |
+**Orchestration** | ScheduleVersion | [**get**](docs/v2/Orchestration/ScheduleVersion.md#get) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid} |
+**Orchestration** | ScheduleVersion | [**schedule**](docs/v2/Orchestration/ScheduleVersion.md#schedule) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule |
 **Streams** | Dataset | [**create**](docs/v2/Streams/Dataset.md#create) | **POST** /v2/streams/datasets/create |
 **Streams** | Stream | [**create**](docs/v2/Streams/Stream.md#create) | **POST** /v2/streams/datasets/{datasetRid}/streams |
 **Streams** | Stream | [**get**](docs/v2/Streams/Stream.md#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} |
@@ -1327,6 +1331,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ForceBuild](docs/v2/models/ForceBuild.md)
 - [JobSucceededTrigger](docs/v2/models/JobSucceededTrigger.md)
 - [JobSucceededTriggerDict](docs/v2/models/JobSucceededTriggerDict.md)
+- [ListRunsOfScheduleResponse](docs/v2/models/ListRunsOfScheduleResponse.md)
+- [ListRunsOfScheduleResponseDict](docs/v2/models/ListRunsOfScheduleResponseDict.md)
 - [ManualTarget](docs/v2/models/ManualTarget.md)
 - [ManualTargetDict](docs/v2/models/ManualTargetDict.md)
 - [MediaSetUpdatedTrigger](docs/v2/models/MediaSetUpdatedTrigger.md)
@@ -1367,6 +1373,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ScheduleRunSubmittedDict](docs/v2/models/ScheduleRunSubmittedDict.md)
 - [ScheduleSucceededTrigger](docs/v2/models/ScheduleSucceededTrigger.md)
 - [ScheduleSucceededTriggerDict](docs/v2/models/ScheduleSucceededTriggerDict.md)
+- [ScheduleVersion](docs/v2/models/ScheduleVersion.md)
+- [ScheduleVersionDict](docs/v2/models/ScheduleVersionDict.md)
 - [ScheduleVersionRid](docs/v2/models/ScheduleVersionRid.md)
 - [ScopeMode](docs/v2/models/ScopeMode.md)
 - [ScopeModeDict](docs/v2/models/ScopeModeDict.md)

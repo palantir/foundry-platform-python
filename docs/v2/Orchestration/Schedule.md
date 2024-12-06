@@ -8,6 +8,8 @@ Method | HTTP request |
 [**pause**](#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause |
 [**replace**](#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} |
 [**run**](#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run |
+[**runs**](#runs) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs |
+[**runs_page**](#runs_page) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs |
 [**unpause**](#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause |
 
 # **create**
@@ -403,6 +405,129 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ScheduleRun  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **runs**
+Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**schedule_rid** | ScheduleRid | scheduleRid |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ResourceIterator[ScheduleRun]**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ScheduleRid | scheduleRid
+schedule_rid = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    for schedule in foundry_client.orchestration.Schedule.runs(
+        schedule_rid,
+        page_size=page_size,
+        preview=preview,
+    ):
+        pprint(schedule)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Schedule.runs: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListRunsOfScheduleResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **runs_page**
+Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**schedule_rid** | ScheduleRid | scheduleRid |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ListRunsOfScheduleResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ScheduleRid | scheduleRid
+schedule_rid = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.orchestration.Schedule.runs_page(
+        schedule_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The runs_page response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Schedule.runs_page: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListRunsOfScheduleResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

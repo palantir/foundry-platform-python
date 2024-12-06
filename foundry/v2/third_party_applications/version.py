@@ -30,6 +30,7 @@ from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.third_party_applications.models._list_versions_response import (
     ListVersionsResponse,
 )  # NOQA
@@ -247,6 +248,61 @@ class VersionClient:
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/upload",
                 query_params={
                     "version": version,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Content-Type": "application/octet-stream",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=bytes,
+                response_type=Version,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def upload_snapshot(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        body: bytes,
+        *,
+        version: VersionVersion,
+        preview: Optional[PreviewMode] = None,
+        snapshot_identifier: Optional[pydantic.StrictStr] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Version:
+        """
+        Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
+
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+        :type body: bytes
+        :param version: version
+        :type version: VersionVersion
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param snapshot_identifier: snapshotIdentifier
+        :type snapshot_identifier: Optional[pydantic.StrictStr]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Version
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/uploadSnapshot",
+                query_params={
+                    "version": version,
+                    "preview": preview,
+                    "snapshotIdentifier": snapshot_identifier,
                 },
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
