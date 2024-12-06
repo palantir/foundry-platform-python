@@ -22,9 +22,15 @@ from foundry.v2.connectivity.errors._changing_output_dataset_not_supported_for_i
 from foundry.v2.connectivity.errors._connection_details_not_determined import (
     ConnectionDetailsNotDetermined,
 )  # NOQA
+from foundry.v2.connectivity.errors._connection_display_name_cannot_be_empty import (
+    ConnectionDisplayNameCannotBeEmpty,
+)  # NOQA
 from foundry.v2.connectivity.errors._connection_not_found import ConnectionNotFound
 from foundry.v2.connectivity.errors._connection_type_not_supported import (
     ConnectionTypeNotSupported,
+)  # NOQA
+from foundry.v2.connectivity.errors._create_connection_permission_denied import (
+    CreateConnectionPermissionDenied,
 )  # NOQA
 from foundry.v2.connectivity.errors._create_file_import_permission_denied import (
     CreateFileImportPermissionDenied,
@@ -91,8 +97,10 @@ __all__ = [
     "ChangingBranchNameNotSupportedForImports",
     "ChangingOutputDatasetNotSupportedForImports",
     "ConnectionDetailsNotDetermined",
+    "ConnectionDisplayNameCannotBeEmpty",
     "ConnectionNotFound",
     "ConnectionTypeNotSupported",
+    "CreateConnectionPermissionDenied",
     "CreateFileImportPermissionDenied",
     "CreateTableImportPermissionDenied",
     "DeleteFileImportPermissionDenied",

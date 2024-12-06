@@ -35,6 +35,24 @@ from foundry.v2.connectivity.models._connection_configuration_dict import (
 from foundry.v2.connectivity.models._connection_dict import ConnectionDict
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._create_connection_request_agent_proxy_runtime_dict import (
+    CreateConnectionRequestAgentProxyRuntimeDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_agent_worker_runtime_dict import (
+    CreateConnectionRequestAgentWorkerRuntimeDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_connection_configuration_dict import (
+    CreateConnectionRequestConnectionConfigurationDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_direct_connection_runtime_dict import (
+    CreateConnectionRequestDirectConnectionRuntimeDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_runtime_platform_dict import (
+    CreateConnectionRequestRuntimePlatformDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_s3_connection_configuration_dict import (
+    CreateConnectionRequestS3ConnectionConfigurationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_jdbc_import_config_dict import (
     CreateTableImportRequestJdbcImportConfigDict,
 )  # NOQA
@@ -185,6 +203,12 @@ __all__ = [
     "ConnectionDict",
     "ConnectionDisplayName",
     "ConnectionRid",
+    "CreateConnectionRequestAgentProxyRuntimeDict",
+    "CreateConnectionRequestAgentWorkerRuntimeDict",
+    "CreateConnectionRequestConnectionConfigurationDict",
+    "CreateConnectionRequestDirectConnectionRuntimeDict",
+    "CreateConnectionRequestRuntimePlatformDict",
+    "CreateConnectionRequestS3ConnectionConfigurationDict",
     "CreateTableImportRequestJdbcImportConfigDict",
     "CreateTableImportRequestMicrosoftAccessImportConfigDict",
     "CreateTableImportRequestMicrosoftSqlServerImportConfigDict",
