@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from foundry._core.utils import RID
+import pydantic
 
-ConnectionRid = RID
-"""The Resource Identifier (RID) of a Connection (also known as a source)."""
+TableImportAllowSchemaChanges = pydantic.StrictBool
+"""Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""

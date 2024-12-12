@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from foundry._core.utils import RID
+import pydantic
 
-ConnectionRid = RID
-"""The Resource Identifier (RID) of a Connection (also known as a source)."""
+DerivedPropertyApiName = pydantic.StrictStr
+"""The name of the derived property that will be returned."""

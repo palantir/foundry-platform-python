@@ -22,27 +22,19 @@ import pydantic
 from typing_extensions import TypedDict
 
 from foundry._errors import PalantirRPCException
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
 
 
-class RagContextSessionPermissionDeniedParameters(TypedDict):
-    """Could not ragContext the Session."""
+class ListSessionsForAgentsPermissionDeniedParameters(TypedDict):
+    """Could not allSessions the Agent."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
-
-    sessionRid: SessionRid
-    """The Resource Identifier (RID) of the conversation session."""
-
 
 @dataclass
-class RagContextSessionPermissionDenied(PalantirRPCException):
-    name: Literal["RagContextSessionPermissionDenied"]
-    parameters: RagContextSessionPermissionDeniedParameters
+class ListSessionsForAgentsPermissionDenied(PalantirRPCException):
+    name: Literal["ListSessionsForAgentsPermissionDenied"]
+    parameters: ListSessionsForAgentsPermissionDeniedParameters
     error_instance_id: str
 
 
-__all__ = ["RagContextSessionPermissionDenied"]
+__all__ = ["ListSessionsForAgentsPermissionDenied"]

@@ -33,6 +33,9 @@ from foundry.v2.connectivity.models._create_table_import_request_table_import_co
     CreateTableImportRequestTableImportConfigDict,
 )  # NOQA
 from foundry.v2.connectivity.models._table_import import TableImport
+from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
+    TableImportAllowSchemaChanges,
+)  # NOQA
 from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
 from foundry.v2.connectivity.models._table_import_mode import TableImportMode
 from foundry.v2.connectivity.models._table_import_rid import TableImportRid
@@ -57,6 +60,7 @@ class TableImportClient:
         dataset_rid: DatasetRid,
         display_name: TableImportDisplayName,
         import_mode: TableImportMode,
+        allow_schema_changes: Optional[TableImportAllowSchemaChanges] = None,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -73,6 +77,8 @@ class TableImportClient:
         :type display_name: TableImportDisplayName
         :param import_mode:
         :type import_mode: TableImportMode
+        :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
+        :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param preview: preview
@@ -101,6 +107,7 @@ class TableImportClient:
                     "datasetRid": dataset_rid,
                     "importMode": import_mode,
                     "displayName": display_name,
+                    "allowSchemaChanges": allow_schema_changes,
                     "branchName": branch_name,
                     "config": config,
                 },
@@ -110,6 +117,7 @@ class TableImportClient:
                         "datasetRid": DatasetRid,
                         "importMode": TableImportMode,
                         "displayName": TableImportDisplayName,
+                        "allowSchemaChanges": Optional[TableImportAllowSchemaChanges],
                         "branchName": Optional[BranchName],
                         "config": CreateTableImportRequestTableImportConfigDict,
                     },

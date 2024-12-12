@@ -19,6 +19,9 @@ from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
+    TableImportAllowSchemaChanges,
+)  # NOQA
 from foundry.v2.connectivity.models._table_import_config_dict import TableImportConfigDict  # NOQA
 from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
 from foundry.v2.connectivity.models._table_import_mode import TableImportMode
@@ -35,7 +38,7 @@ class TableImportDict(TypedDict):
     rid: TableImportRid
 
     connectionRid: ConnectionRid
-    """The RID of the Connection (formerly known as a source) that the Table Import uses to import data."""
+    """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
     datasetRid: DatasetRid
     """The RID of the output dataset."""
@@ -46,5 +49,8 @@ class TableImportDict(TypedDict):
     displayName: TableImportDisplayName
 
     importMode: TableImportMode
+
+    allowSchemaChanges: TableImportAllowSchemaChanges
+    """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
     config: TableImportConfigDict

@@ -175,6 +175,9 @@ from foundry.v2.connectivity.models._s3_connection_configuration_dict import (
 )  # NOQA
 from foundry.v2.connectivity.models._secret_name import SecretName
 from foundry.v2.connectivity.models._table_import import TableImport
+from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
+    TableImportAllowSchemaChanges,
+)  # NOQA
 from foundry.v2.connectivity.models._table_import_config import TableImportConfig
 from foundry.v2.connectivity.models._table_import_config_dict import TableImportConfigDict  # NOQA
 from foundry.v2.connectivity.models._table_import_dict import TableImportDict
@@ -269,6 +272,7 @@ __all__ = [
     "S3ConnectionConfigurationDict",
     "SecretName",
     "TableImport",
+    "TableImportAllowSchemaChanges",
     "TableImportConfig",
     "TableImportConfigDict",
     "TableImportDict",

@@ -38,7 +38,7 @@ class FileImport(pydantic.BaseModel):
 
     connection_rid: ConnectionRid = pydantic.Field(alias="connectionRid")
 
-    """The RID of the Connection (formerly known as a source) that the File Import uses to import data."""
+    """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
     dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
 

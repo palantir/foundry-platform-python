@@ -18,9 +18,6 @@ from foundry.v2.aip_agents.errors._agent_iterations_exceeded_limit import (
 )  # NOQA
 from foundry.v2.aip_agents.errors._agent_not_found import AgentNotFound
 from foundry.v2.aip_agents.errors._agent_version_not_found import AgentVersionNotFound
-from foundry.v2.aip_agents.errors._all_sessions_agents_permission_denied import (
-    AllSessionsAgentsPermissionDenied,
-)  # NOQA
 from foundry.v2.aip_agents.errors._blocking_continue_session_permission_denied import (
     BlockingContinueSessionPermissionDenied,
 )  # NOQA
@@ -41,15 +38,18 @@ from foundry.v2.aip_agents.errors._function_locator_not_found import FunctionLoc
 from foundry.v2.aip_agents.errors._get_all_sessions_agents_permission_denied import (
     GetAllSessionsAgentsPermissionDenied,
 )  # NOQA
+from foundry.v2.aip_agents.errors._get_rag_context_for_session_permission_denied import (
+    GetRagContextForSessionPermissionDenied,
+)  # NOQA
 from foundry.v2.aip_agents.errors._invalid_agent_version import InvalidAgentVersion
 from foundry.v2.aip_agents.errors._invalid_parameter import InvalidParameter
 from foundry.v2.aip_agents.errors._invalid_parameter_type import InvalidParameterType
+from foundry.v2.aip_agents.errors._list_sessions_for_agents_permission_denied import (
+    ListSessionsForAgentsPermissionDenied,
+)  # NOQA
 from foundry.v2.aip_agents.errors._no_published_agent_version import NoPublishedAgentVersion  # NOQA
 from foundry.v2.aip_agents.errors._object_type_ids_not_found import ObjectTypeIdsNotFound  # NOQA
 from foundry.v2.aip_agents.errors._object_type_rids_not_found import ObjectTypeRidsNotFound  # NOQA
-from foundry.v2.aip_agents.errors._rag_context_session_permission_denied import (
-    RagContextSessionPermissionDenied,
-)  # NOQA
 from foundry.v2.aip_agents.errors._rate_limit_exceeded import RateLimitExceeded
 from foundry.v2.aip_agents.errors._session_execution_failed import SessionExecutionFailed  # NOQA
 from foundry.v2.aip_agents.errors._session_not_found import SessionNotFound
@@ -61,7 +61,6 @@ __all__ = [
     "AgentIterationsExceededLimit",
     "AgentNotFound",
     "AgentVersionNotFound",
-    "AllSessionsAgentsPermissionDenied",
     "BlockingContinueSessionPermissionDenied",
     "CancelSessionFailedMessageNotInProgress",
     "CancelSessionPermissionDenied",
@@ -70,13 +69,14 @@ __all__ = [
     "CreateSessionPermissionDenied",
     "FunctionLocatorNotFound",
     "GetAllSessionsAgentsPermissionDenied",
+    "GetRagContextForSessionPermissionDenied",
     "InvalidAgentVersion",
     "InvalidParameter",
     "InvalidParameterType",
+    "ListSessionsForAgentsPermissionDenied",
     "NoPublishedAgentVersion",
     "ObjectTypeIdsNotFound",
     "ObjectTypeRidsNotFound",
-    "RagContextSessionPermissionDenied",
     "RateLimitExceeded",
     "SessionExecutionFailed",
     "SessionNotFound",

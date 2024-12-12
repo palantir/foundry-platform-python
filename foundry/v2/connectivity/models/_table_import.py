@@ -21,6 +21,9 @@ from typing import cast
 import pydantic
 
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
+    TableImportAllowSchemaChanges,
+)  # NOQA
 from foundry.v2.connectivity.models._table_import_config import TableImportConfig
 from foundry.v2.connectivity.models._table_import_dict import TableImportDict
 from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
@@ -37,7 +40,7 @@ class TableImport(pydantic.BaseModel):
 
     connection_rid: ConnectionRid = pydantic.Field(alias="connectionRid")
 
-    """The RID of the Connection (formerly known as a source) that the Table Import uses to import data."""
+    """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
     dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
 
@@ -50,6 +53,10 @@ class TableImport(pydantic.BaseModel):
     display_name: TableImportDisplayName = pydantic.Field(alias="displayName")
 
     import_mode: TableImportMode = pydantic.Field(alias="importMode")
+
+    allow_schema_changes: TableImportAllowSchemaChanges = pydantic.Field(alias="allowSchemaChanges")
+
+    """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
     config: TableImportConfig
 
