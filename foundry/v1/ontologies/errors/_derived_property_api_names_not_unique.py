@@ -16,25 +16,29 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import List
 from typing import Literal
 
 import pydantic
 from typing_extensions import TypedDict
 
 from foundry._errors import PalantirRPCException
+from foundry.v1.ontologies.models._derived_property_api_name import DerivedPropertyApiName  # NOQA
 
 
-class AllSessionsAgentsPermissionDeniedParameters(TypedDict):
-    """Could not allSessions the Agent."""
+class DerivedPropertyApiNamesNotUniqueParameters(TypedDict):
+    """At least one of the requested derived property API names already exist on the object set."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    derivedPropertyApiNames: List[DerivedPropertyApiName]
+
 
 @dataclass
-class AllSessionsAgentsPermissionDenied(PalantirRPCException):
-    name: Literal["AllSessionsAgentsPermissionDenied"]
-    parameters: AllSessionsAgentsPermissionDeniedParameters
+class DerivedPropertyApiNamesNotUnique(PalantirRPCException):
+    name: Literal["DerivedPropertyApiNamesNotUnique"]
+    parameters: DerivedPropertyApiNamesNotUniqueParameters
     error_instance_id: str
 
 
-__all__ = ["AllSessionsAgentsPermissionDenied"]
+__all__ = ["DerivedPropertyApiNamesNotUnique"]

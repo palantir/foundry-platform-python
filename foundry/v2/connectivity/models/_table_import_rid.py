@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 TableImportRid = RID
-"""The Resource Identifier (RID) of a TableImport (formerly known as a batch sync)."""
+"""The Resource Identifier (RID) of a TableImport (also known as a batch sync)."""

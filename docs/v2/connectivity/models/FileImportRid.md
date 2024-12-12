@@ -1,6 +1,6 @@
 # FileImportRid
 
-The Resource Identifier (RID) of a FileImport (formerly known as a batch sync).
+The Resource Identifier (RID) of a FileImport (also known as a batch sync).
 
 
 ## Type

@@ -1,6 +1,6 @@
 # TableImportRid
 
-The Resource Identifier (RID) of a TableImport (formerly known as a batch sync).
+The Resource Identifier (RID) of a TableImport (also known as a batch sync).
 
 
 ## Type

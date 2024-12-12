@@ -1482,6 +1482,12 @@ def connectivity_connection_table_import():
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND"]), required=True, help=""""""
 )
 @click.option(
+    "--allow_schema_changes",
+    type=bool,
+    required=False,
+    help="""Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.""",
+)
+@click.option(
     "--branch_name",
     type=str,
     required=False,
@@ -1496,6 +1502,7 @@ def connectivity_connection_table_import_create(
     dataset_rid: str,
     display_name: str,
     import_mode: Literal["SNAPSHOT", "APPEND"],
+    allow_schema_changes: Optional[bool],
     branch_name: Optional[str],
     preview: Optional[bool],
 ):
@@ -1508,6 +1515,7 @@ def connectivity_connection_table_import_create(
         dataset_rid=dataset_rid,
         display_name=display_name,
         import_mode=import_mode,
+        allow_schema_changes=allow_schema_changes,
         branch_name=branch_name,
         preview=preview,
     )

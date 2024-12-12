@@ -14,6 +14,7 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
+**allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
@@ -41,6 +42,8 @@ dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 display_name = None
 # TableImportMode |
 import_mode = "SNAPSHOT"
+# Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
+allow_schema_changes = None
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
 # Optional[PreviewMode] | preview
@@ -54,6 +57,7 @@ try:
         dataset_rid=dataset_rid,
         display_name=display_name,
         import_mode=import_mode,
+        allow_schema_changes=allow_schema_changes,
         branch_name=branch_name,
         preview=preview,
     )

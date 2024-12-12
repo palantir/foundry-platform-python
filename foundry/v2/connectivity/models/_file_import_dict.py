@@ -38,7 +38,7 @@ class FileImportDict(TypedDict):
     rid: FileImportRid
 
     connectionRid: ConnectionRid
-    """The RID of the Connection (formerly known as a source) that the File Import uses to import data."""
+    """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
     datasetRid: DatasetRid
     """The RID of the output dataset."""

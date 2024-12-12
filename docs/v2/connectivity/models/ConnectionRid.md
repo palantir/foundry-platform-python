@@ -1,6 +1,6 @@
 # ConnectionRid
 
-The Resource Identifier (RID) of a Connection (formerly known as a source).
+The Resource Identifier (RID) of a Connection (also known as a source).
 
 
 ## Type

@@ -102,6 +102,7 @@ from foundry.v1.ontologies.models._delete_link_rule import DeleteLinkRule
 from foundry.v1.ontologies.models._delete_link_rule_dict import DeleteLinkRuleDict
 from foundry.v1.ontologies.models._delete_object_rule import DeleteObjectRule
 from foundry.v1.ontologies.models._delete_object_rule_dict import DeleteObjectRuleDict
+from foundry.v1.ontologies.models._derived_property_api_name import DerivedPropertyApiName  # NOQA
 from foundry.v1.ontologies.models._equals_query_dict import EqualsQueryDict
 from foundry.v1.ontologies.models._execute_query_response import ExecuteQueryResponse
 from foundry.v1.ontologies.models._execute_query_response_dict import (
@@ -374,6 +375,7 @@ __all__ = [
     "DeleteLinkRuleDict",
     "DeleteObjectRule",
     "DeleteObjectRuleDict",
+    "DerivedPropertyApiName",
     "EqualsQueryDict",
     "ExecuteQueryResponse",
     "ExecuteQueryResponseDict",

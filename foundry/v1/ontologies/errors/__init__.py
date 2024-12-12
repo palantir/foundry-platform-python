@@ -51,6 +51,9 @@ from foundry.v1.ontologies.errors._attachment_size_exceeded_limit import (
 from foundry.v1.ontologies.errors._composite_primary_key_not_supported import (
     CompositePrimaryKeyNotSupported,
 )  # NOQA
+from foundry.v1.ontologies.errors._derived_property_api_names_not_unique import (
+    DerivedPropertyApiNamesNotUnique,
+)  # NOQA
 from foundry.v1.ontologies.errors._duplicate_order_by import DuplicateOrderBy
 from foundry.v1.ontologies.errors._edit_object_permission_denied import (
     EditObjectPermissionDenied,
@@ -252,6 +255,7 @@ __all__ = [
     "ObjectTypeNotSynced",
     "OntologyEditsExceededLimit",
     "AggregationGroupCountExceededLimit",
+    "DerivedPropertyApiNamesNotUnique",
     "InvalidContentType",
     "PropertiesNotFound",
     "FunctionInvalidInput",
@@ -271,8 +275,8 @@ __all__ = [
     "EditObjectPermissionDenied",
     "PropertiesHaveDifferentIds",
     "OntologyNotFound",
-    "MarketplaceInstallationNotFound",
     "InvalidPropertyType",
+    "MarketplaceInstallationNotFound",
     "ActionParameterObjectTypeNotFound",
     "UnknownParameter",
     "FunctionExecutionFailed",
