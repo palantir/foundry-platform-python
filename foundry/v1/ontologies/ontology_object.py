@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -250,6 +251,7 @@ class OntologyObjectClient:
         *,
         order_by: Optional[OrderBy] = None,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         properties: Optional[List[SelectedPropertyApiName]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OntologyObject]:
@@ -257,7 +259,7 @@ class OntologyObjectClient:
         Lists the objects for the given Ontology and object type.
 
         This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
         Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
         repeated objects in the response pages.
@@ -281,6 +283,8 @@ class OntologyObjectClient:
         :type order_by: Optional[OrderBy]
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param properties: properties
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -296,6 +300,7 @@ class OntologyObjectClient:
                 query_params={
                     "orderBy": order_by,
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "properties": properties,
                 },
                 path_params={
@@ -324,6 +329,7 @@ class OntologyObjectClient:
         *,
         order_by: Optional[OrderBy] = None,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         properties: Optional[List[SelectedPropertyApiName]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OntologyObject]:
@@ -331,7 +337,7 @@ class OntologyObjectClient:
         Lists the linked objects for a specific object and the given link type.
 
         This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
         Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
         repeated objects in the response pages.
@@ -359,6 +365,8 @@ class OntologyObjectClient:
         :type order_by: Optional[OrderBy]
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param properties: properties
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -374,6 +382,7 @@ class OntologyObjectClient:
                 query_params={
                     "orderBy": order_by,
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "properties": properties,
                 },
                 path_params={
@@ -410,7 +419,7 @@ class OntologyObjectClient:
         Lists the objects for the given Ontology and object type.
 
         This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
         Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
         repeated objects in the response pages.
@@ -443,6 +452,11 @@ class OntologyObjectClient:
         :return: Returns the result object.
         :rtype: ListObjectsResponse
         """
+
+        warnings.warn(
+            "The OntologyObjectClient.page(...) method has been deprecated. Please use OntologyObjectClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(
@@ -488,7 +502,7 @@ class OntologyObjectClient:
         Lists the linked objects for a specific object and the given link type.
 
         This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
         Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
         repeated objects in the response pages.
@@ -525,6 +539,11 @@ class OntologyObjectClient:
         :return: Returns the result object.
         :rtype: ListLinkedObjectsResponse
         """
+
+        warnings.warn(
+            "The OntologyObjectClient.pageLinkedObjects(...) method has been deprecated. Please use OntologyObjectClient.listLinkedObjects(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

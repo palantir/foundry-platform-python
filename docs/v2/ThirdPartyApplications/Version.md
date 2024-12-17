@@ -137,6 +137,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ResourceIterator[Version]**
@@ -158,6 +159,8 @@ third_party_application_rid = (
 )
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 
 
 try:
@@ -166,6 +169,7 @@ try:
     ) in foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.list(
         third_party_application_rid,
         page_size=page_size,
+        page_token=page_token,
     ):
         pprint(version)
 except foundry.PalantirRPCException as e:

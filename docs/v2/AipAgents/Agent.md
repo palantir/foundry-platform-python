@@ -16,6 +16,7 @@ Sessions are returned in order of most recently updated first.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -34,6 +35,8 @@ foundry_client = FoundryClient(
 
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -41,6 +44,7 @@ preview = None
 try:
     for agent in foundry_client.aip_agents.Agent.all_sessions(
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(agent)

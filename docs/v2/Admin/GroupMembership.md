@@ -6,9 +6,14 @@ Method | HTTP request |
 [**page**](#page) | **GET** /v2/admin/users/{userId}/groupMemberships |
 
 # **list**
-Lists all GroupMemberships.
+Lists all Groups a given User is a member of.
 
-This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, 
+it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. 
+To get the next page, make the same request again, but set the value of the `pageToken` query parameter 
+to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field 
+in the response, you are on the last page.
+
 
 ### Parameters
 
@@ -16,6 +21,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | PrincipalId | userId |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
 ### Return type
@@ -36,6 +42,8 @@ foundry_client = FoundryClient(
 user_id = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[pydantic.StrictBool] | transitive
 transitive = None
 
@@ -44,6 +52,7 @@ try:
     for group_membership in foundry_client.admin.User.GroupMembership.list(
         user_id,
         page_size=page_size,
+        page_token=page_token,
         transitive=transitive,
     ):
         pprint(group_membership)
@@ -66,9 +75,14 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **page**
-Lists all GroupMemberships.
+Lists all Groups a given User is a member of.
 
-This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, 
+it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. 
+To get the next page, make the same request again, but set the value of the `pageToken` query parameter 
+to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field 
+in the response, you are on the last page.
+
 
 ### Parameters
 

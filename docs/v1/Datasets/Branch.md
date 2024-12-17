@@ -198,6 +198,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ResourceIterator[Branch]**
@@ -217,12 +218,15 @@ foundry_client = FoundryClient(
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 
 
 try:
     for branch in foundry_client.datasets.Dataset.Branch.list(
         dataset_rid,
         page_size=page_size,
+        page_token=page_token,
     ):
         pprint(branch)
 except foundry.PalantirRPCException as e:

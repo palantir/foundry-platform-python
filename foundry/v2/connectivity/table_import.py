@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -26,11 +27,15 @@ from typing_extensions import TypedDict
 from foundry._core import ApiClient
 from foundry._core import Auth
 from foundry._core import RequestInfo
+from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._create_table_import_request_table_import_config_dict import (
     CreateTableImportRequestTableImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._list_table_imports_response import (
+    ListTableImportsResponse,
 )  # NOQA
 from foundry.v2.connectivity.models._table_import import TableImport
 from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
@@ -39,6 +44,8 @@ from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
 from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
 from foundry.v2.connectivity.models._table_import_mode import TableImportMode
 from foundry.v2.connectivity.models._table_import_rid import TableImportRid
+from foundry.v2.core.models._page_size import PageSize
+from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
@@ -264,6 +271,115 @@ class TableImportClient:
                 body=None,
                 body_type=None,
                 response_type=TableImport,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        connection_rid: ConnectionRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ResourceIterator[TableImport]:
+        """
+        Lists all table imports defined for this connection.
+        Only table imports that the user has permissions to view will be returned.
+
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ResourceIterator[TableImport]
+        """
+
+        return self._api_client.iterate_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListTableImportsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        connection_rid: ConnectionRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ListTableImportsResponse:
+        """
+        Lists all table imports defined for this connection.
+        Only table imports that the user has permissions to view will be returned.
+
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ListTableImportsResponse
+        """
+
+        warnings.warn(
+            "The TableImportClient.page(...) method has been deprecated. Please use TableImportClient.list(...) instead.",
+            DeprecationWarning,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListTableImportsResponse,
                 request_timeout=request_timeout,
             ),
         )

@@ -146,6 +146,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ResourceIterator[ObjectTypeV2]**
@@ -165,12 +166,15 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 
 
 try:
     for object_type in foundry_client.ontologies.Ontology.ObjectType.list(
         ontology,
         page_size=page_size,
+        page_token=page_token,
     ):
         pprint(object_type)
 except foundry.PalantirRPCException as e:
@@ -205,6 +209,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ResourceIterator[LinkTypeSideV2]**
@@ -226,6 +231,8 @@ ontology = "palantir"
 object_type = "Flight"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 
 
 try:
@@ -233,6 +240,7 @@ try:
         ontology,
         object_type,
         page_size=page_size,
+        page_token=page_token,
     ):
         pprint(object_type)
 except foundry.PalantirRPCException as e:

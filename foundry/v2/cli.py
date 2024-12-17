@@ -142,10 +142,12 @@ def admin_user_get_markings(
 
 @admin_user.command("list")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def admin_user_list(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists all Users.
@@ -154,6 +156,7 @@ def admin_user_list(
     """
     result = client.admin.User.list(
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -221,22 +224,30 @@ def admin_user_group_membership():
 @admin_user_group_membership.command("list")
 @click.argument("user_id", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_user_group_membership_list(
     client: foundry.v2.FoundryClient,
     user_id: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMemberships.
+    Lists all Groups a given User is a member of.
 
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
+    it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
+    To get the next page, make the same request again, but set the value of the `pageToken` query parameter
+    to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
+    in the response, you are on the last page.
+
     """
     result = client.admin.User.GroupMembership.list(
         user_id=user_id,
         page_size=page_size,
+        page_token=page_token,
         transitive=transitive,
     )
     click.echo(repr(result))
@@ -256,9 +267,14 @@ def admin_user_group_membership_page(
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMemberships.
+    Lists all Groups a given User is a member of.
 
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
+    it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
+    To get the next page, make the same request again, but set the value of the `pageToken` query parameter
+    to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
+    in the response, you are on the last page.
+
     """
     result = client.admin.User.GroupMembership.page(
         user_id=user_id,
@@ -295,11 +311,13 @@ def admin_marking_category_get(
 
 @admin_marking_category.command("list")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_marking_category_list(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -307,6 +325,7 @@ def admin_marking_category_list(
     """
     result = client.admin.MarkingCategory.list(
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -381,11 +400,13 @@ def admin_marking_get_batch(
 
 @admin_marking.command("list")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_marking_list(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -393,6 +414,7 @@ def admin_marking_list(
     """
     result = client.admin.Marking.list(
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -448,6 +470,7 @@ def admin_marking_marking_member_add(
 @admin_marking_marking_member.command("list")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
@@ -455,6 +478,7 @@ def admin_marking_marking_member_list(
     client: foundry.v2.FoundryClient,
     marking_id: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
     transitive: Optional[bool],
 ):
@@ -466,6 +490,7 @@ def admin_marking_marking_member_list(
     result = client.admin.Marking.MarkingMember.list(
         marking_id=marking_id,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
         transitive=transitive,
     )
@@ -615,10 +640,12 @@ def admin_group_get_batch(
 
 @admin_group.command("list")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def admin_group_list(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists all Groups.
@@ -627,6 +654,7 @@ def admin_group_list(
     """
     result = client.admin.Group.list(
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -700,22 +728,30 @@ def admin_group_group_member_add(
 @admin_group_group_member.command("list")
 @click.argument("group_id", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--transitive", type=bool, required=False, help="""transitive""")
 @click.pass_obj
 def admin_group_group_member_list(
     client: foundry.v2.FoundryClient,
     group_id: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMembers.
+    Lists all members (which can be a User or a Group) of a given Group.
 
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
+    it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
+    To get the next page, make the same request again, but set the value of the `pageToken` query parameter
+    to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
+    in the response, you are on the last page.
+
     """
     result = client.admin.Group.GroupMember.list(
         group_id=group_id,
         page_size=page_size,
+        page_token=page_token,
         transitive=transitive,
     )
     click.echo(repr(result))
@@ -735,9 +771,14 @@ def admin_group_group_member_page(
     transitive: Optional[bool],
 ):
     """
-    Lists all GroupMembers.
+    Lists all members (which can be a User or a Group) of a given Group.
 
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
+    it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
+    To get the next page, make the same request again, but set the value of the `pageToken` query parameter
+    to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
+    in the response, you are on the last page.
+
     """
     result = client.admin.Group.GroupMember.page(
         group_id=group_id,
@@ -814,12 +855,14 @@ def admin_enrollment_host():
 @admin_enrollment_host.command("list")
 @click.argument("enrollment_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def admin_enrollment_host_list(
     client: foundry.v2.FoundryClient,
     enrollment_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -830,6 +873,7 @@ def admin_enrollment_host_list(
     result = client.admin.Enrollment.Host.list(
         enrollment_rid=enrollment_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -874,11 +918,13 @@ def aip_agents_agent():
 
 @aip_agents_agent.command("all_sessions")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def aip_agents_agent_all_sessions(
     client: foundry.v2.FoundryClient,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -888,6 +934,7 @@ def aip_agents_agent_all_sessions(
     """
     result = client.aip_agents.Agent.all_sessions(
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -1101,12 +1148,14 @@ def aip_agents_agent_session_get(
 @aip_agents_agent_session.command("list")
 @click.argument("agent_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def aip_agents_agent_session_list(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -1119,6 +1168,7 @@ def aip_agents_agent_session_list(
     result = client.aip_agents.Agent.Session.list(
         agent_rid=agent_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -1316,12 +1366,14 @@ def aip_agents_agent_agent_version_get(
 @aip_agents_agent_agent_version.command("list")
 @click.argument("agent_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def aip_agents_agent_agent_version_list(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -1332,6 +1384,7 @@ def aip_agents_agent_agent_version_list(
     result = client.aip_agents.Agent.AgentVersion.list(
         agent_rid=agent_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -1593,6 +1646,60 @@ def connectivity_connection_table_import_get(
     click.echo(repr(result))
 
 
+@connectivity_connection_table_import.command("list")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_table_import_list(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Lists all table imports defined for this connection.
+    Only table imports that the user has permissions to view will be returned.
+
+    """
+    result = client.connectivity.Connection.TableImport.list(
+        connection_rid=connection_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection_table_import.command("page")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_table_import_page(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Lists all table imports defined for this connection.
+    Only table imports that the user has permissions to view will be returned.
+
+    """
+    result = client.connectivity.Connection.TableImport.page(
+        connection_rid=connection_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @connectivity_connection.group("file_import")
 def connectivity_connection_file_import():
     pass
@@ -1726,12 +1833,14 @@ def connectivity_connection_file_import_get(
 @connectivity_connection_file_import.command("list")
 @click.argument("connection_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def connectivity_connection_file_import_list(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -1742,6 +1851,7 @@ def connectivity_connection_file_import_list(
     result = client.connectivity.Connection.FileImport.list(
         connection_rid=connection_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -2053,6 +2163,7 @@ def datasets_dataset_file_get(
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
 @click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_list(
@@ -2061,6 +2172,7 @@ def datasets_dataset_file_list(
     branch_name: Optional[str],
     end_transaction_rid: Optional[str],
     page_size: Optional[int],
+    page_token: Optional[str],
     start_transaction_rid: Optional[str],
 ):
     """
@@ -2089,6 +2201,7 @@ def datasets_dataset_file_list(
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
+        page_token=page_token,
         start_transaction_rid=start_transaction_rid,
     )
     click.echo(repr(result))
@@ -2358,11 +2471,13 @@ def datasets_dataset_branch_get(
 @datasets_dataset_branch.command("list")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def datasets_dataset_branch_list(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the Branches of a Dataset.
@@ -2371,6 +2486,7 @@ def datasets_dataset_branch_list(
     result = client.datasets.Dataset.Branch.list(
         dataset_rid=dataset_rid,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -2492,12 +2608,14 @@ def filesystem_resource_get_by_path(
 @filesystem_resource.command("markings")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def filesystem_resource_markings(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -2508,6 +2626,7 @@ def filesystem_resource_markings(
     result = client.filesystem.Resource.markings(
         resource_rid=resource_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -2679,12 +2798,14 @@ def filesystem_project_get(
 @filesystem_project.command("organizations")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def filesystem_project_organizations(
     client: foundry.v2.FoundryClient,
     project_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -2695,6 +2816,7 @@ def filesystem_project_organizations(
     result = client.filesystem.Project.organizations(
         project_rid=project_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -2757,12 +2879,14 @@ def filesystem_folder():
 @filesystem_folder.command("children")
 @click.argument("folder_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def filesystem_folder_children(
     client: foundry.v2.FoundryClient,
     folder_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -2775,6 +2899,7 @@ def filesystem_folder_children(
     result = client.filesystem.Folder.children(
         folder_rid=folder_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -3228,11 +3353,13 @@ def ontologies_v2_ontology_v2_query_type_get(
 @ontologies_v2_ontology_v2_query_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_v2_ontology_v2_query_type_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the query types for the given Ontology.
@@ -3246,6 +3373,7 @@ def ontologies_v2_ontology_v2_query_type_list(
     result = client.ontologies.Ontology.QueryType.list(
         ontology=ontology,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -3334,11 +3462,13 @@ def ontologies_v2_ontology_v2_object_type_v2_get_outgoing_link_type(
 @ontologies_v2_ontology_v2_object_type_v2.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_v2_ontology_v2_object_type_v2_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the object types for the given Ontology.
@@ -3353,6 +3483,7 @@ def ontologies_v2_ontology_v2_object_type_v2_list(
     result = client.ontologies.Ontology.ObjectType.list(
         ontology=ontology,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -3361,12 +3492,14 @@ def ontologies_v2_ontology_v2_object_type_v2_list(
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_v2_ontology_v2_object_type_v2_list_outgoing_link_types(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     List the outgoing links for an object type.
@@ -3379,6 +3512,7 @@ def ontologies_v2_ontology_v2_object_type_v2_list_outgoing_link_types(
         ontology=ontology,
         object_type=object_type,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -3471,11 +3605,13 @@ def ontologies_v2_ontology_v2_action_type_v2_get(
 @ontologies_v2_ontology_v2_action_type_v2.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_v2_ontology_v2_action_type_v2_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the action types for the given Ontology.
@@ -3489,6 +3625,7 @@ def ontologies_v2_ontology_v2_action_type_v2_list(
     result = client.ontologies.Ontology.ActionType.list(
         ontology=ontology,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -3644,6 +3781,7 @@ def ontologies_v2_ontology_object_v2_get(
 @click.option("--order_by", type=str, required=False, help="""orderBy""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
 def ontologies_v2_ontology_object_v2_list(
@@ -3655,6 +3793,7 @@ def ontologies_v2_ontology_object_v2_list(
     order_by: Optional[str],
     package_name: Optional[str],
     page_size: Optional[int],
+    page_token: Optional[str],
     select: Optional[str],
 ):
     """
@@ -3683,6 +3822,7 @@ def ontologies_v2_ontology_object_v2_list(
         order_by=order_by,
         package_name=package_name,
         page_size=page_size,
+        page_token=page_token,
         select=None if select is None else json.loads(select),
     )
     click.echo(repr(result))
@@ -4061,12 +4201,14 @@ def ontologies_v2_ontology_interface_get(
 @ontologies_v2_ontology_interface.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def ontologies_v2_ontology_interface_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -4086,6 +4228,7 @@ def ontologies_v2_ontology_interface_list(
     result = client.ontologies.OntologyInterface.list(
         ontology=ontology,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -4187,6 +4330,7 @@ def ontologies_v2_linked_object_v2_get_linked_object(
 @click.option("--order_by", type=str, required=False, help="""orderBy""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
 def ontologies_v2_linked_object_v2_list_linked_objects(
@@ -4200,6 +4344,7 @@ def ontologies_v2_linked_object_v2_list_linked_objects(
     order_by: Optional[str],
     package_name: Optional[str],
     page_size: Optional[int],
+    page_token: Optional[str],
     select: Optional[str],
 ):
     """
@@ -4230,6 +4375,7 @@ def ontologies_v2_linked_object_v2_list_linked_objects(
         order_by=order_by,
         package_name=package_name,
         page_size=page_size,
+        page_token=page_token,
         select=None if select is None else json.loads(select),
     )
     click.echo(repr(result))
@@ -4818,12 +4964,14 @@ def orchestration_schedule_run(
 @orchestration_schedule.command("runs")
 @click.argument("schedule_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def orchestration_schedule_runs(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
@@ -4833,6 +4981,7 @@ def orchestration_schedule_runs(
     result = client.orchestration.Schedule.runs(
         schedule_rid=schedule_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))
@@ -5481,11 +5630,13 @@ def third_party_applications_third_party_application_website_version_get(
 @third_party_applications_third_party_application_website_version.command("list")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_list(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists all Versions.
@@ -5495,6 +5646,7 @@ def third_party_applications_third_party_application_website_version_list(
     result = client.third_party_applications.ThirdPartyApplication.Website.Version.list(
         third_party_application_rid=third_party_application_rid,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 

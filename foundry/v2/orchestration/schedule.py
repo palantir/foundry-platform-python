@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -370,6 +371,7 @@ class ScheduleClient:
         schedule_rid: ScheduleRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[ScheduleRun]:
@@ -380,6 +382,8 @@ class ScheduleClient:
         :type schedule_rid: ScheduleRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -394,6 +398,7 @@ class ScheduleClient:
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -437,6 +442,11 @@ class ScheduleClient:
         :return: Returns the result object.
         :rtype: ListRunsOfScheduleResponse
         """
+
+        warnings.warn(
+            "The ScheduleClient.runsPage(...) method has been deprecated. Please use ScheduleClient.runs(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

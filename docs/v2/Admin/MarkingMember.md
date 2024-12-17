@@ -77,6 +77,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **marking_id** | MarkingId | markingId |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 **transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
 
@@ -98,6 +99,8 @@ foundry_client = FoundryClient(
 marking_id = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 # Optional[pydantic.StrictBool] | transitive
@@ -108,6 +111,7 @@ try:
     for marking_member in foundry_client.admin.Marking.MarkingMember.list(
         marking_id,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
         transitive=transitive,
     ):

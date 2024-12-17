@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -278,6 +279,7 @@ class FileImportClient:
         connection_rid: ConnectionRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[FileImport]:
@@ -289,6 +291,8 @@ class FileImportClient:
         :type connection_rid: ConnectionRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -303,6 +307,7 @@ class FileImportClient:
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -347,6 +352,11 @@ class FileImportClient:
         :return: Returns the result object.
         :rtype: ListFileImportsResponse
         """
+
+        warnings.warn(
+            "The FileImportClient.page(...) method has been deprecated. Please use FileImportClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

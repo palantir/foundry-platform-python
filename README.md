@@ -82,6 +82,7 @@ initializing the `UserTokenAuth`:
 
 ```python
 import foundry
+import foundry.v2
 
 foundry_client = foundry.v2.FoundryClient(
     auth=foundry.UserTokenAuth(token=os.environ["BEARER_TOKEN"]),
@@ -165,6 +166,7 @@ Want to learn more about this Foundry SDK library? Review the following sections
 
 ↳ [Error handling](#errors): Learn more about HTTP & data validation error handling  
 ↳ [Pagination](#pagination): Learn how to work with paginated endpoints in the SDK  
+↳ [Streaming](#binary-streaming): Learn how to stream binary data from Foundry
 ↳ [Static type analysis](#static-types): Learn about the static type analysis capabilities of this library
 
 ## Error handling
@@ -234,17 +236,41 @@ for branch in foundry_client.datasets.Dataset.Branch.list(dataset_rid):
     print(branch)
 ```
 
-This will automatically fetch and iterate through all the pages of data from the specified API endpoint. For more granular control, you can manually fetch each page using the associated page methods.
+This will automatically fetch and iterate through all the pages of data from the specified API endpoint. For more granular control, you can manually fetch each page using the `next_page_token`.
 
 ```python
-page = foundry_client.datasets.Dataset.Branch.page(dataset_rid)
+page = foundry_client.datasets.Dataset.Branch.list(dataset_rid)
 while page.next_page_token:
     for branch in page.data:
         print(branch)
 
-    page = foundry_client.datasets.Dataset.Branch.page(dataset_rid, page_token=page.next_page_token)
+    page = foundry_client.datasets.Dataset.Branch.list(dataset_rid, page_token=page.next_page_token)
 ```
 
+
+<a id="binary-streaming"></a>
+## Streaming
+This SDK supports optionally streaming binary data using a flag in the method definition.
+
+```python
+# Non-streaming response
+with open("profile_picture.png", "rb") as f:
+    f.write(foundry_client.admin.User.profile_picture(user_id))
+
+# Streaming response
+with open("profile_picture.png", "rb") as f:
+    for chunk in foundry_client.admin.User.profile_picture(user_id, stream=True):
+        f.write(chunk)
+```
+
+This flag is available on all endpoints which return binary data. Additionally, you can set a desired `chunk_size` to read into memory before
+the next chunk is given to you. By default, this value is set to None and chunks will be returned to you as they are received from the host.
+
+```python
+with open("profile_picture.png", "rb") as f:
+    for chunk in foundry_client.admin.User.profile_picture(user_id, stream=True, chunk_size=1024):
+        f.write(chunk)
+```
 
 <a id="static-types"></a>
 ## Static type analysis
@@ -685,6 +711,8 @@ Namespace | Resource | Operation | HTTP request |
 - [JdbcImportConfigDict](docs/v2/models/JdbcImportConfigDict.md)
 - [ListFileImportsResponse](docs/v2/models/ListFileImportsResponse.md)
 - [ListFileImportsResponseDict](docs/v2/models/ListFileImportsResponseDict.md)
+- [ListTableImportsResponse](docs/v2/models/ListTableImportsResponse.md)
+- [ListTableImportsResponseDict](docs/v2/models/ListTableImportsResponseDict.md)
 - [MicrosoftAccessImportConfig](docs/v2/models/MicrosoftAccessImportConfig.md)
 - [MicrosoftAccessImportConfigDict](docs/v2/models/MicrosoftAccessImportConfigDict.md)
 - [MicrosoftSqlServerImportConfig](docs/v2/models/MicrosoftSqlServerImportConfig.md)

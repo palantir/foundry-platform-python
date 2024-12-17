@@ -125,6 +125,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid | projectRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -145,6 +146,8 @@ foundry_client = FoundryClient(
 project_rid = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -153,6 +156,7 @@ try:
     for project in foundry_client.filesystem.Project.organizations(
         project_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(project)

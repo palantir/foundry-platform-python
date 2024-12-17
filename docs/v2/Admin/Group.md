@@ -248,6 +248,7 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ResourceIterator[Group]**
@@ -265,11 +266,14 @@ foundry_client = FoundryClient(
 
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 
 
 try:
     for group in foundry_client.admin.Group.list(
         page_size=page_size,
+        page_token=page_token,
     ):
         pprint(group)
 except foundry.PalantirRPCException as e:

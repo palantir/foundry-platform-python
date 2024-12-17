@@ -13,8 +13,22 @@
 #  limitations under the License.
 
 
-from foundry._core.api_client import ApiClient
-from foundry._core.api_client import RequestInfo
-from foundry._core.auth_utils import Auth
-from foundry._core.binary_stream import BinaryStream
-from foundry._core.resource_iterator import ResourceIterator
+from __future__ import annotations
+
+from typing import List
+
+from typing_extensions import NotRequired
+from typing_extensions import TypedDict
+
+from foundry.v2.connectivity.models._table_import_dict import TableImportDict
+from foundry.v2.core.models._page_token import PageToken
+
+
+class ListTableImportsResponseDict(TypedDict):
+    """ListTableImportsResponse"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: List[TableImportDict]
+
+    nextPageToken: NotRequired[PageToken]

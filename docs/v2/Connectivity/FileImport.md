@@ -281,6 +281,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -301,6 +302,8 @@ foundry_client = FoundryClient(
 connection_rid = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -309,6 +312,7 @@ try:
     for file_import in foundry_client.connectivity.Connection.FileImport.list(
         connection_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(file_import)

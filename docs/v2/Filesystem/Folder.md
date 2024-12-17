@@ -20,6 +20,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **folder_rid** | FolderRid | folderRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -40,6 +41,8 @@ foundry_client = FoundryClient(
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -48,6 +51,7 @@ try:
     for folder in foundry_client.filesystem.Folder.children(
         folder_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(folder)

@@ -13,8 +13,21 @@
 #  limitations under the License.
 
 
-from foundry._core.api_client import ApiClient
-from foundry._core.api_client import RequestInfo
-from foundry._core.auth_utils import Auth
-from foundry._core.binary_stream import BinaryStream
-from foundry._core.resource_iterator import ResourceIterator
+from typing import Iterator
+
+
+class BinaryStream(Iterator[bytes]):
+    """A generic class for streaming binary data."""
+
+    def __init__(self, iterator: Iterator[bytes]):
+        self._iterator = iterator
+
+    def __next__(self) -> bytes:
+        return next(self._iterator)
+
+    def __iter__(self) -> Iterator[bytes]:
+        return self
+
+    def read_all(self) -> bytes:
+        """Read and concatenate all remaining chunks."""
+        return b"".join(self._iterator)

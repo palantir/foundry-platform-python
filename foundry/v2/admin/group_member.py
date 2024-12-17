@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -102,17 +103,25 @@ class GroupMemberClient:
         group_id: PrincipalId,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         transitive: Optional[pydantic.StrictBool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[GroupMember]:
         """
-        Lists all GroupMembers.
+        Lists all members (which can be a User or a Group) of a given Group.
 
-        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
+        it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
+        To get the next page, make the same request again, but set the value of the `pageToken` query parameter
+        to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
+        in the response, you are on the last page.
+
         :param group_id: groupId
         :type group_id: PrincipalId
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
         :type transitive: Optional[pydantic.StrictBool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -127,6 +136,7 @@ class GroupMemberClient:
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "transitive": transitive,
                 },
                 path_params={
@@ -155,9 +165,14 @@ class GroupMemberClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListGroupMembersResponse:
         """
-        Lists all GroupMembers.
+        Lists all members (which can be a User or a Group) of a given Group.
 
-        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
+        it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
+        To get the next page, make the same request again, but set the value of the `pageToken` query parameter
+        to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
+        in the response, you are on the last page.
+
         :param group_id: groupId
         :type group_id: PrincipalId
         :param page_size: pageSize
@@ -171,6 +186,11 @@ class GroupMemberClient:
         :return: Returns the result object.
         :rtype: ListGroupMembersResponse
         """
+
+        warnings.warn(
+            "The GroupMemberClient.page(...) method has been deprecated. Please use GroupMemberClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

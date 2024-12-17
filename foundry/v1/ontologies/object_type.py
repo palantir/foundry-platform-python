@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -146,6 +147,7 @@ class ObjectTypeClient:
         ontology_rid: OntologyRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[ObjectType]:
         """
@@ -161,6 +163,8 @@ class ObjectTypeClient:
         :type ontology_rid: OntologyRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -173,6 +177,7 @@ class ObjectTypeClient:
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                 },
                 path_params={
                     "ontologyRid": ontology_rid,
@@ -196,6 +201,7 @@ class ObjectTypeClient:
         object_type: ObjectTypeApiName,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[LinkTypeSide]:
         """
@@ -210,6 +216,8 @@ class ObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -222,6 +230,7 @@ class ObjectTypeClient:
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                 },
                 path_params={
                     "ontologyRid": ontology_rid,
@@ -268,6 +277,11 @@ class ObjectTypeClient:
         :return: Returns the result object.
         :rtype: ListObjectTypesResponse
         """
+
+        warnings.warn(
+            "The ObjectTypeClient.page(...) method has been deprecated. Please use ObjectTypeClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(
@@ -321,6 +335,11 @@ class ObjectTypeClient:
         :return: Returns the result object.
         :rtype: ListOutgoingLinkTypesResponse
         """
+
+        warnings.warn(
+            "The ObjectTypeClient.pageOutgoingLinkTypes(...) method has been deprecated. Please use ObjectTypeClient.listOutgoingLinkTypes(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

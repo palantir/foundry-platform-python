@@ -236,7 +236,7 @@ See [README](../../../README.md#authorization)
 Lists the objects for the given Ontology and object type.
 
 This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
 Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
 repeated objects in the response pages.
@@ -261,6 +261,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **order_by** | Optional[OrderBy] | orderBy | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
@@ -285,6 +286,8 @@ object_type = "employee"
 order_by = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[List[SelectedPropertyApiName]] | properties
 properties = None
 
@@ -295,6 +298,7 @@ try:
         object_type,
         order_by=order_by,
         page_size=page_size,
+        page_token=page_token,
         properties=properties,
     ):
         pprint(ontology_object)
@@ -320,7 +324,7 @@ See [README](../../../README.md#authorization)
 Lists the linked objects for a specific object and the given link type.
 
 This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
 Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
 repeated objects in the response pages.
@@ -347,6 +351,7 @@ Name | Type | Description  | Notes |
 **link_type** | LinkTypeApiName | linkType |  |
 **order_by** | Optional[OrderBy] | orderBy | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
@@ -375,6 +380,8 @@ link_type = "directReport"
 order_by = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[List[SelectedPropertyApiName]] | properties
 properties = None
 
@@ -387,6 +394,7 @@ try:
         link_type,
         order_by=order_by,
         page_size=page_size,
+        page_token=page_token,
         properties=properties,
     ):
         pprint(ontology_object)
@@ -412,7 +420,7 @@ See [README](../../../README.md#authorization)
 Lists the objects for the given Ontology and object type.
 
 This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
 Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
 repeated objects in the response pages.
@@ -501,7 +509,7 @@ See [README](../../../README.md#authorization)
 Lists the linked objects for a specific object and the given link type.
 
 This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
 Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
 repeated objects in the response pages.

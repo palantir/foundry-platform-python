@@ -15,15 +15,20 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
+from typing import Literal
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
+from typing_extensions import overload
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import BinaryStream
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
@@ -43,9 +48,60 @@ class FileClient:
     def __init__(self, auth: Auth, hostname: str) -> None:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
-    @maybe_ignore_preview
-    @pydantic.validate_call
-    @handle_unexpected
+    @overload
+    def content(
+        self,
+        dataset_rid: DatasetRid,
+        file_path: FilePath,
+        *,
+        stream: Literal[True],
+        branch_name: Optional[BranchName] = None,
+        end_transaction_rid: Optional[TransactionRid] = None,
+        start_transaction_rid: Optional[TransactionRid] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> BinaryStream:
+        """
+        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
+        view of the default branch - `master` for most enrollments.
+        #### Advanced Usage
+        See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+        To **get a file's content from a specific Branch** specify the Branch's name as `branchName`. This will
+        retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
+        earliest ancestor transaction of the branch if there are no snapshot transactions.
+        To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier
+        as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest
+        snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.
+        To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's
+        resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`.
+        This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the
+        `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior
+        is undefined when the start and end transactions do not belong to the same root-to-leaf path.
+        To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
+        `startTransactionRid` and `endTransactionRid`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param file_path: filePath
+        :type file_path: FilePath
+        :param branch_name: branchName
+        :type branch_name: Optional[BranchName]
+        :param end_transaction_rid: endTransactionRid
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param start_transaction_rid: startTransactionRid
+        :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: BinaryStream
+        """
+        ...
+
+    @overload
     def content(
         self,
         dataset_rid: DatasetRid,
@@ -54,6 +110,7 @@ class FileClient:
         branch_name: Optional[BranchName] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
+        stream: Literal[False] = False,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
@@ -85,10 +142,120 @@ class FileClient:
         :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+        """
+        ...
+
+    @overload
+    def content(
+        self,
+        dataset_rid: DatasetRid,
+        file_path: FilePath,
+        *,
+        stream: bool,
+        branch_name: Optional[BranchName] = None,
+        end_transaction_rid: Optional[TransactionRid] = None,
+        start_transaction_rid: Optional[TransactionRid] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
+        view of the default branch - `master` for most enrollments.
+        #### Advanced Usage
+        See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+        To **get a file's content from a specific Branch** specify the Branch's name as `branchName`. This will
+        retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
+        earliest ancestor transaction of the branch if there are no snapshot transactions.
+        To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier
+        as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest
+        snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.
+        To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's
+        resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`.
+        This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the
+        `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior
+        is undefined when the start and end transactions do not belong to the same root-to-leaf path.
+        To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
+        `startTransactionRid` and `endTransactionRid`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param file_path: filePath
+        :type file_path: FilePath
+        :param branch_name: branchName
+        :type branch_name: Optional[BranchName]
+        :param end_transaction_rid: endTransactionRid
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param start_transaction_rid: startTransactionRid
+        :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
+        """
+        ...
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def content(
+        self,
+        dataset_rid: DatasetRid,
+        file_path: FilePath,
+        *,
+        branch_name: Optional[BranchName] = None,
+        end_transaction_rid: Optional[TransactionRid] = None,
+        start_transaction_rid: Optional[TransactionRid] = None,
+        stream: bool = False,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
+        view of the default branch - `master` for most enrollments.
+        #### Advanced Usage
+        See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+        To **get a file's content from a specific Branch** specify the Branch's name as `branchName`. This will
+        retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
+        earliest ancestor transaction of the branch if there are no snapshot transactions.
+        To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier
+        as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest
+        snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.
+        To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's
+        resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`.
+        This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the
+        `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior
+        is undefined when the start and end transactions do not belong to the same root-to-leaf path.
+        To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
+        `startTransactionRid` and `endTransactionRid`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param file_path: filePath
+        :type file_path: FilePath
+        :param branch_name: branchName
+        :type branch_name: Optional[BranchName]
+        :param end_transaction_rid: endTransactionRid
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param start_transaction_rid: startTransactionRid
+        :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
         """
 
         return self._api_client.call_api(
@@ -110,6 +277,8 @@ class FileClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
+                stream=stream,
+                chunk_size=chunk_size,
                 request_timeout=request_timeout,
             ),
         )
@@ -252,6 +421,7 @@ class FileClient:
         branch_name: Optional[BranchName] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[File]:
@@ -283,6 +453,8 @@ class FileClient:
         :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -299,6 +471,7 @@ class FileClient:
                     "branchName": branch_name,
                     "endTransactionRid": end_transaction_rid,
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "startTransactionRid": start_transaction_rid,
                 },
                 path_params={
@@ -365,6 +538,11 @@ class FileClient:
         :return: Returns the result object.
         :rtype: ListFilesResponse
         """
+
+        warnings.warn(
+            "The FileClient.page(...) method has been deprecated. Please use FileClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

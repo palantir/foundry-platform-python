@@ -430,6 +430,7 @@ def datasets_dataset_file_get(
 @click.option("--branch_id", type=str, required=False, help="""branchId""")
 @click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
 @click.pass_obj
 def datasets_dataset_file_list(
@@ -438,6 +439,7 @@ def datasets_dataset_file_list(
     branch_id: Optional[str],
     end_transaction_rid: Optional[str],
     page_size: Optional[int],
+    page_token: Optional[str],
     start_transaction_rid: Optional[str],
 ):
     """
@@ -474,6 +476,7 @@ def datasets_dataset_file_list(
         branch_id=branch_id,
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
+        page_token=page_token,
         start_transaction_rid=start_transaction_rid,
     )
     click.echo(repr(result))
@@ -722,11 +725,13 @@ def datasets_dataset_branch_get(
 @datasets_dataset_branch.command("list")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def datasets_dataset_branch_list(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the Branches of a Dataset.
@@ -737,6 +742,7 @@ def datasets_dataset_branch_list(
     result = client.datasets.Dataset.Branch.list(
         dataset_rid=dataset_rid,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -915,6 +921,7 @@ def ontologies_ontology_object_get_linked_object(
 @click.argument("object_type", type=str, required=True)
 @click.option("--order_by", type=str, required=False, help="""orderBy""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_list(
@@ -923,13 +930,14 @@ def ontologies_ontology_object_list(
     object_type: str,
     order_by: Optional[str],
     page_size: Optional[int],
+    page_token: Optional[str],
     properties: Optional[str],
 ):
     """
     Lists the objects for the given Ontology and object type.
 
     This endpoint supports filtering objects.
-    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
     Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
     repeated objects in the response pages.
@@ -951,6 +959,7 @@ def ontologies_ontology_object_list(
         object_type=object_type,
         order_by=order_by,
         page_size=page_size,
+        page_token=page_token,
         properties=None if properties is None else json.loads(properties),
     )
     click.echo(repr(result))
@@ -963,6 +972,7 @@ def ontologies_ontology_object_list(
 @click.argument("link_type", type=str, required=True)
 @click.option("--order_by", type=str, required=False, help="""orderBy""")
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--properties", type=str, required=False, help="""properties""")
 @click.pass_obj
 def ontologies_ontology_object_list_linked_objects(
@@ -973,13 +983,14 @@ def ontologies_ontology_object_list_linked_objects(
     link_type: str,
     order_by: Optional[str],
     page_size: Optional[int],
+    page_token: Optional[str],
     properties: Optional[str],
 ):
     """
     Lists the linked objects for a specific object and the given link type.
 
     This endpoint supports filtering objects.
-    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
     Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
     repeated objects in the response pages.
@@ -1003,6 +1014,7 @@ def ontologies_ontology_object_list_linked_objects(
         link_type=link_type,
         order_by=order_by,
         page_size=page_size,
+        page_token=page_token,
         properties=None if properties is None else json.loads(properties),
     )
     click.echo(repr(result))
@@ -1029,7 +1041,7 @@ def ontologies_ontology_object_page(
     Lists the objects for the given Ontology and object type.
 
     This endpoint supports filtering objects.
-    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
     Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
     repeated objects in the response pages.
@@ -1082,7 +1094,7 @@ def ontologies_ontology_object_page_linked_objects(
     Lists the linked objects for a specific object and the given link type.
 
     This endpoint supports filtering objects.
-    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/object-basics/#filtering-objects) for details.
+    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
     Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
     repeated objects in the response pages.
@@ -1245,11 +1257,13 @@ def ontologies_ontology_query_type_get(
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_query_type_list(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the query types for the given Ontology.
@@ -1263,6 +1277,7 @@ def ontologies_ontology_query_type_list(
     result = client.ontologies.Ontology.QueryType.list(
         ontology_rid=ontology_rid,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -1351,11 +1366,13 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 @ontologies_ontology_object_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_object_type_list(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the object types for the given Ontology.
@@ -1370,6 +1387,7 @@ def ontologies_ontology_object_type_list(
     result = client.ontologies.Ontology.ObjectType.list(
         ontology_rid=ontology_rid,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -1378,12 +1396,14 @@ def ontologies_ontology_object_type_list(
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_object_type_list_outgoing_link_types(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     List the outgoing links for an object type.
@@ -1396,6 +1416,7 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
         ontology_rid=ontology_rid,
         object_type=object_type,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 
@@ -1488,11 +1509,13 @@ def ontologies_ontology_action_type_get(
 @ontologies_ontology_action_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
 def ontologies_ontology_action_type_list(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     page_size: Optional[int],
+    page_token: Optional[str],
 ):
     """
     Lists the action types for the given Ontology.
@@ -1506,6 +1529,7 @@ def ontologies_ontology_action_type_list(
     result = client.ontologies.Ontology.ActionType.list(
         ontology_rid=ontology_rid,
         page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 

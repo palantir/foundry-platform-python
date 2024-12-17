@@ -79,6 +79,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ResourceIterator[ActionType]**
@@ -98,12 +99,15 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 
 
 try:
     for action_type in foundry_client.ontologies.Ontology.ActionType.list(
         ontology_rid,
         page_size=page_size,
+        page_token=page_token,
     ):
         pprint(action_type)
 except foundry.PalantirRPCException as e:

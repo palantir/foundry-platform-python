@@ -17,13 +17,17 @@ from __future__ import annotations
 
 from typing import Any
 from typing import Dict
+from typing import Literal
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
+from typing_extensions import overload
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import BinaryStream
 from foundry._core import RequestInfo
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
@@ -79,13 +83,40 @@ class AttachmentClient:
             ),
         )
 
-    @maybe_ignore_preview
-    @pydantic.validate_call
-    @handle_unexpected
+    @overload
     def read(
         self,
         attachment_rid: AttachmentRid,
         *,
+        stream: Literal[True],
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> BinaryStream:
+        """
+        Get the content of an attachment.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param attachment_rid: attachmentRid
+        :type attachment_rid: AttachmentRid
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: BinaryStream
+        """
+        ...
+
+    @overload
+    def read(
+        self,
+        attachment_rid: AttachmentRid,
+        *,
+        stream: Literal[False] = False,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
@@ -96,10 +127,70 @@ class AttachmentClient:
 
         :param attachment_rid: attachmentRid
         :type attachment_rid: AttachmentRid
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+        """
+        ...
+
+    @overload
+    def read(
+        self,
+        attachment_rid: AttachmentRid,
+        *,
+        stream: bool,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Get the content of an attachment.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param attachment_rid: attachmentRid
+        :type attachment_rid: AttachmentRid
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
+        """
+        ...
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def read(
+        self,
+        attachment_rid: AttachmentRid,
+        *,
+        stream: bool = False,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Get the content of an attachment.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param attachment_rid: attachmentRid
+        :type attachment_rid: AttachmentRid
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
         """
 
         return self._api_client.call_api(
@@ -116,6 +207,8 @@ class AttachmentClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
+                stream=stream,
+                chunk_size=chunk_size,
                 request_timeout=request_timeout,
             ),
         )

@@ -139,6 +139,12 @@ from foundry.v2.connectivity.models._list_file_imports_response import (
 from foundry.v2.connectivity.models._list_file_imports_response_dict import (
     ListFileImportsResponseDict,
 )  # NOQA
+from foundry.v2.connectivity.models._list_table_imports_response import (
+    ListTableImportsResponse,
+)  # NOQA
+from foundry.v2.connectivity.models._list_table_imports_response_dict import (
+    ListTableImportsResponseDict,
+)  # NOQA
 from foundry.v2.connectivity.models._microsoft_access_import_config import (
     MicrosoftAccessImportConfig,
 )  # NOQA
@@ -252,6 +258,8 @@ __all__ = [
     "JdbcImportConfigDict",
     "ListFileImportsResponse",
     "ListFileImportsResponseDict",
+    "ListTableImportsResponse",
+    "ListTableImportsResponseDict",
     "MicrosoftAccessImportConfig",
     "MicrosoftAccessImportConfigDict",
     "MicrosoftSqlServerImportConfig",

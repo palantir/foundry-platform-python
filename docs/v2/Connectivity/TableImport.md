@@ -260,3 +260,130 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+Lists all table imports defined for this connection.
+Only table imports that the user has permissions to view will be returned.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ResourceIterator[TableImport]**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ConnectionRid | connectionRid
+connection_rid = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    for table_import in foundry_client.connectivity.Connection.TableImport.list(
+        connection_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    ):
+        pprint(table_import)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling TableImport.list: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListTableImportsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+Lists all table imports defined for this connection.
+Only table imports that the user has permissions to view will be returned.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ListTableImportsResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ConnectionRid | connectionRid
+connection_rid = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.connectivity.Connection.TableImport.page(
+        connection_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The page response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling TableImport.page: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListTableImportsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+

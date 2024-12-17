@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -232,6 +233,7 @@ class GroupClient:
         self,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Group]:
         """
@@ -240,6 +242,8 @@ class GroupClient:
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -252,6 +256,7 @@ class GroupClient:
                 resource_path="/v2/admin/groups",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                 },
                 path_params={},
                 header_params={
@@ -287,6 +292,11 @@ class GroupClient:
         :return: Returns the result object.
         :rtype: ListGroupsResponse
         """
+
+        warnings.warn(
+            "The GroupClient.page(...) method has been deprecated. Please use GroupClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

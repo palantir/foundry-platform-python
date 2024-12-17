@@ -15,17 +15,22 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
+from typing import Literal
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
+from typing_extensions import overload
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import BinaryStream
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
@@ -305,6 +310,7 @@ class SessionClient:
         agent_rid: AgentRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Session]:
@@ -318,6 +324,8 @@ class SessionClient:
         :type agent_rid: AgentRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -332,6 +340,7 @@ class SessionClient:
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -378,6 +387,11 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: ListSessionsResponse
         """
+
+        warnings.warn(
+            "The SessionClient.page(...) method has been deprecated. Please use SessionClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(
@@ -465,9 +479,56 @@ class SessionClient:
             ),
         )
 
-    @maybe_ignore_preview
-    @pydantic.validate_call
-    @handle_unexpected
+    @overload
+    def streaming_continue(
+        self,
+        agent_rid: AgentRid,
+        session_rid: SessionRid,
+        *,
+        stream: Literal[True],
+        parameter_inputs: Dict[ParameterId, ParameterValueDict],
+        user_input: UserTextInputDict,
+        contexts_override: Optional[List[InputContextDict]] = None,
+        message_id: Optional[MessageId] = None,
+        preview: Optional[PreviewMode] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> BinaryStream:
+        """
+        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
+        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+        On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
+        Streamed exchanges also support cancellation; see `cancel` for details.
+        Concurrent requests to continue the same session are not supported.
+        Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
+
+        :param agent_rid: agentRid
+        :type agent_rid: AgentRid
+        :param session_rid: sessionRid
+        :type session_rid: SessionRid
+        :param parameter_inputs: Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+        :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
+        :param user_input: The user message for the Agent to respond to.
+        :type user_input: UserTextInputDict
+        :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :type contexts_override: Optional[List[InputContextDict]]
+        :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
+        :type message_id: Optional[MessageId]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: BinaryStream
+        """
+        ...
+
+    @overload
     def streaming_continue(
         self,
         agent_rid: AgentRid,
@@ -478,6 +539,7 @@ class SessionClient:
         contexts_override: Optional[List[InputContextDict]] = None,
         message_id: Optional[MessageId] = None,
         preview: Optional[PreviewMode] = None,
+        stream: Literal[False] = False,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
@@ -503,10 +565,112 @@ class SessionClient:
         :type message_id: Optional[MessageId]
         :param preview: preview
         :type preview: Optional[PreviewMode]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+        """
+        ...
+
+    @overload
+    def streaming_continue(
+        self,
+        agent_rid: AgentRid,
+        session_rid: SessionRid,
+        *,
+        stream: bool,
+        parameter_inputs: Dict[ParameterId, ParameterValueDict],
+        user_input: UserTextInputDict,
+        contexts_override: Optional[List[InputContextDict]] = None,
+        message_id: Optional[MessageId] = None,
+        preview: Optional[PreviewMode] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
+        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+        On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
+        Streamed exchanges also support cancellation; see `cancel` for details.
+        Concurrent requests to continue the same session are not supported.
+        Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
+
+        :param agent_rid: agentRid
+        :type agent_rid: AgentRid
+        :param session_rid: sessionRid
+        :type session_rid: SessionRid
+        :param parameter_inputs: Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+        :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
+        :param user_input: The user message for the Agent to respond to.
+        :type user_input: UserTextInputDict
+        :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :type contexts_override: Optional[List[InputContextDict]]
+        :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
+        :type message_id: Optional[MessageId]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
+        """
+        ...
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def streaming_continue(
+        self,
+        agent_rid: AgentRid,
+        session_rid: SessionRid,
+        *,
+        parameter_inputs: Dict[ParameterId, ParameterValueDict],
+        user_input: UserTextInputDict,
+        contexts_override: Optional[List[InputContextDict]] = None,
+        message_id: Optional[MessageId] = None,
+        preview: Optional[PreviewMode] = None,
+        stream: bool = False,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
+        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
+        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
+        On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
+        Streamed exchanges also support cancellation; see `cancel` for details.
+        Concurrent requests to continue the same session are not supported.
+        Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
+
+        :param agent_rid: agentRid
+        :type agent_rid: AgentRid
+        :param session_rid: sessionRid
+        :type session_rid: SessionRid
+        :param parameter_inputs: Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+        :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
+        :param user_input: The user message for the Agent to respond to.
+        :type user_input: UserTextInputDict
+        :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :type contexts_override: Optional[List[InputContextDict]]
+        :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
+        :type message_id: Optional[MessageId]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
         """
 
         return self._api_client.call_api(
@@ -540,6 +704,8 @@ class SessionClient:
                     },
                 ),
                 response_type=bytes,
+                stream=stream,
+                chunk_size=chunk_size,
                 request_timeout=request_timeout,
             ),
         )

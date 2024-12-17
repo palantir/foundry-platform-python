@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -141,6 +142,7 @@ class LinkedObjectClient:
         order_by: Optional[OrderBy] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OntologyObjectV2]:
@@ -179,6 +181,8 @@ class LinkedObjectClient:
         :type package_name: Optional[SdkPackageName]
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param select: select
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -197,6 +201,7 @@ class LinkedObjectClient:
                     "orderBy": order_by,
                     "packageName": package_name,
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "select": select,
                 },
                 path_params={
@@ -278,6 +283,11 @@ class LinkedObjectClient:
         :return: Returns the result object.
         :rtype: ListLinkedObjectsResponseV2
         """
+
+        warnings.warn(
+            "The LinkedObjectClient.pageLinkedObjects(...) method has been deprecated. Please use LinkedObjectClient.listLinkedObjects(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

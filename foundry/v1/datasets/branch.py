@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -192,6 +193,7 @@ class BranchClient:
         dataset_rid: DatasetRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Branch]:
         """
@@ -203,6 +205,8 @@ class BranchClient:
         :type dataset_rid: DatasetRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -215,6 +219,7 @@ class BranchClient:
                 resource_path="/v1/datasets/{datasetRid}/branches",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -256,6 +261,11 @@ class BranchClient:
         :return: Returns the result object.
         :rtype: ListBranchesResponse
         """
+
+        warnings.warn(
+            "The BranchClient.page(...) method has been deprecated. Please use BranchClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

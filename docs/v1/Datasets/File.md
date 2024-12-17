@@ -216,6 +216,7 @@ Name | Type | Description  | Notes |
 **branch_id** | Optional[BranchId] | branchId | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
@@ -240,6 +241,8 @@ branch_id = None
 end_transaction_rid = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
@@ -250,6 +253,7 @@ try:
         branch_id=branch_id,
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
+        page_token=page_token,
         start_transaction_rid=start_transaction_rid,
     ):
         pprint(file)

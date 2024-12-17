@@ -235,6 +235,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -255,6 +256,8 @@ foundry_client = FoundryClient(
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -263,6 +266,7 @@ try:
     for resource in foundry_client.filesystem.Resource.markings(
         resource_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(resource)

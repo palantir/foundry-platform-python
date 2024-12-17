@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -94,6 +95,7 @@ class QueryTypeClient:
         ontology: OntologyIdentifier,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[QueryTypeV2]:
         """
@@ -108,6 +110,8 @@ class QueryTypeClient:
         :type ontology: OntologyIdentifier
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -120,6 +124,7 @@ class QueryTypeClient:
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                 },
                 path_params={
                     "ontology": ontology,
@@ -164,6 +169,11 @@ class QueryTypeClient:
         :return: Returns the result object.
         :rtype: ListQueryTypesResponseV2
         """
+
+        warnings.warn(
+            "The QueryTypeClient.page(...) method has been deprecated. Please use QueryTypeClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

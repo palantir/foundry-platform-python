@@ -185,6 +185,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -205,6 +206,8 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -213,6 +216,7 @@ try:
     for ontology_interface in foundry_client.ontologies.OntologyInterface.list(
         ontology,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(ontology_interface)

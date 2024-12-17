@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -91,6 +92,7 @@ class MarkingCategoryClient:
         self,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[MarkingCategory]:
@@ -98,6 +100,8 @@ class MarkingCategoryClient:
         Maximum page size 100.
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -112,6 +116,7 @@ class MarkingCategoryClient:
                 resource_path="/v2/admin/markingCategories",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={},
@@ -149,6 +154,11 @@ class MarkingCategoryClient:
         :return: Returns the result object.
         :rtype: ListMarkingCategoriesResponse
         """
+
+        warnings.warn(
+            "The MarkingCategoryClient.page(...) method has been deprecated. Please use MarkingCategoryClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

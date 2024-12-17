@@ -418,6 +418,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -438,6 +439,8 @@ foundry_client = FoundryClient(
 schedule_rid = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -446,6 +449,7 @@ try:
     for schedule in foundry_client.orchestration.Schedule.runs(
         schedule_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(schedule)

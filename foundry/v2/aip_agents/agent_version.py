@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -97,6 +98,7 @@ class AgentVersionClient:
         agent_rid: AgentRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[AgentVersion]:
@@ -108,6 +110,8 @@ class AgentVersionClient:
         :type agent_rid: AgentRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -122,6 +126,7 @@ class AgentVersionClient:
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -166,6 +171,11 @@ class AgentVersionClient:
         :return: Returns the result object.
         :rtype: ListAgentVersionsResponse
         """
+
+        warnings.warn(
+            "The AgentVersionClient.page(...) method has been deprecated. Please use AgentVersionClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(
