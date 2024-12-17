@@ -5,6 +5,7 @@ Method | HTTP request |
 [**cancel**](#cancel) | **POST** /v2/orchestration/builds/{buildRid}/cancel |
 [**create**](#create) | **POST** /v2/orchestration/builds/create |
 [**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} |
+[**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch |
 
 # **cancel**
 Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
@@ -197,6 +198,129 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Build  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_batch**
+Execute multiple get requests on Build.
+
+The maximum batch size for this endpoint is 100.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)] | Body of the request |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**GetBuildsBatchResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)] | Body of the request
+body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.orchestration.Build.get_batch(
+        body,
+        preview=preview,
+    )
+    print("The get_batch response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Build.get_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetBuildsBatchResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+Search for Builds.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**where** | SearchBuildsFilterDict |  |  |
+**order_by** | Optional[SearchBuildsOrderByDict] |  | [optional] |
+**page_size** | Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**SearchBuildsResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# SearchBuildsFilterDict |
+where = None
+# Optional[SearchBuildsOrderByDict] |
+order_by = {"fields": [{"field": "STARTED_TIME", "direction": "ASC"}]}
+# Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.
+page_size = 100
+# Optional[PageToken] |
+page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.orchestration.Build.search(
+        where=where,
+        order_by=order_by,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The search response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Build.search: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | SearchBuildsResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
