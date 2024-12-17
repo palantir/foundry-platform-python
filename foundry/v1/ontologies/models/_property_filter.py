@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-PropertyFilter = pydantic.StrictStr
+PropertyFilter = str
 """
 Represents a filter used on properties.
 

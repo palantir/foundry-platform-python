@@ -26,11 +26,11 @@ from foundry.v2.ontologies.models._blueprint_icon_dict import BlueprintIconDict
 class BlueprintIcon(pydantic.BaseModel):
     """BlueprintIcon"""
 
-    color: pydantic.StrictStr
+    color: str
 
     """A hexadecimal color code."""
 
-    name: pydantic.StrictStr
+    name: str
 
     """
     The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 

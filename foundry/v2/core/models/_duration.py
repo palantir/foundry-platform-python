@@ -26,7 +26,7 @@ from foundry.v2.core.models._time_unit import TimeUnit
 class Duration(pydantic.BaseModel):
     """A measurement of duration."""
 
-    value: pydantic.StrictInt
+    value: int
 
     """The duration value."""
 

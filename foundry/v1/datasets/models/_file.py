@@ -21,6 +21,7 @@ from typing import cast
 
 import pydantic
 
+from foundry._core.utils import Long
 from foundry.v1.core.models._file_path import FilePath
 from foundry.v1.datasets.models._file_dict import FileDict
 from foundry.v1.datasets.models._transaction_rid import TransactionRid
@@ -33,7 +34,7 @@ class File(pydantic.BaseModel):
 
     transaction_rid: TransactionRid = pydantic.Field(alias="transactionRid")
 
-    size_bytes: Optional[pydantic.StrictStr] = pydantic.Field(alias="sizeBytes", default=None)
+    size_bytes: Optional[Long] = pydantic.Field(alias="sizeBytes", default=None)
 
     updated_time: datetime = pydantic.Field(alias="updatedTime")
 

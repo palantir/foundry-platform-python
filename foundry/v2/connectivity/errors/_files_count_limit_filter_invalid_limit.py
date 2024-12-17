@@ -29,7 +29,7 @@ class FilesCountLimitFilterInvalidLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    filesCount: pydantic.StrictInt
+    filesCount: int
 
 
 @dataclass

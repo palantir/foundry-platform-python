@@ -7,7 +7,7 @@ and use it to populate the `pageToken` field of the next request.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-Duration = pydantic.StrictStr
+Duration = str
 """An ISO 8601 formatted duration."""

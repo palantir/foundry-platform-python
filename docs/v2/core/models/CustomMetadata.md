@@ -4,7 +4,7 @@ CustomMetadata
 
 ## Type
 ```python
-Dict[pydantic.StrictStr, Any]
+Dict[str, Any]
 ```
 
 

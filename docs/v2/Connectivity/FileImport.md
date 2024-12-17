@@ -23,7 +23,7 @@ Name | Type | Description  | Notes |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**subfolder** | Optional[pydantic.StrictStr] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
+**subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
 **FileImport**
@@ -53,7 +53,7 @@ import_mode = "SNAPSHOT"
 branch_name = "master"
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[pydantic.StrictStr] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
+# Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"
 
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**subfolder** | Optional[pydantic.StrictStr] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
+**subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
 **FileImport**
@@ -445,7 +445,7 @@ import_mode = "SNAPSHOT"
 branch_name = "master"
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[pydantic.StrictStr] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
+# Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"
 
 

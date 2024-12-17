@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.core.models._distance_unit import DistanceUnit
@@ -26,6 +25,6 @@ class DistanceDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: pydantic.StrictFloat
+    value: float
 
     unit: DistanceUnit

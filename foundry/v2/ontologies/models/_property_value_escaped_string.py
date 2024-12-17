@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-PropertyValueEscapedString = pydantic.StrictStr
+PropertyValueEscapedString = str
 """Represents the value of a property in string format. This is used in URL parameters."""

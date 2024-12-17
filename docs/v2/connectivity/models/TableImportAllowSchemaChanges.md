@@ -4,7 +4,7 @@ Allow the TableImport to succeed if the schema of imported rows does not match t
 
 ## Type
 ```python
-pydantic.StrictBool
+bool
 ```
 
 

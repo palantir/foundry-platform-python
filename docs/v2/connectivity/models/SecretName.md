@@ -4,7 +4,7 @@ SecretName
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

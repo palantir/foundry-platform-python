@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from datetime import datetime
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -26,7 +25,7 @@ class SessionMetadataDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    title: pydantic.StrictStr
+    title: str
     """The title of the session."""
 
     createdTime: datetime
@@ -35,7 +34,7 @@ class SessionMetadataDict(TypedDict):
     updatedTime: datetime
     """The time the session was last updated."""
 
-    messageCount: pydantic.StrictInt
+    messageCount: int
     """
     The count of messages in the session.
     Includes both user messages and Agent replies, so each complete exchange counts as two messages.

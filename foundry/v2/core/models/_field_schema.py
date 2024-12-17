@@ -28,7 +28,7 @@ from foundry.v2.core.models._field_schema_dict import FieldSchemaDict
 class FieldSchema(pydantic.BaseModel):
     """The specification of the type of a Foundry schema field."""
 
-    nullable: pydantic.StrictBool
+    nullable: bool
 
     custom_metadata: Optional[CustomMetadata] = pydantic.Field(alias="customMetadata", default=None)
 

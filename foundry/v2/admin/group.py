@@ -65,7 +65,7 @@ class GroupClient:
         attributes: Dict[AttributeName, AttributeValues],
         name: GroupName,
         organizations: List[OrganizationRid],
-        description: Optional[pydantic.StrictStr] = None,
+        description: Optional[str] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Group:
         """
@@ -77,7 +77,7 @@ class GroupClient:
         :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
         :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
-        :type description: Optional[pydantic.StrictStr]
+        :type description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -105,7 +105,7 @@ class GroupClient:
                     {  # type: ignore
                         "name": GroupName,
                         "organizations": List[OrganizationRid],
-                        "description": Optional[pydantic.StrictStr],
+                        "description": Optional[str],
                         "attributes": Dict[AttributeName, AttributeValues],
                     },
                 ),

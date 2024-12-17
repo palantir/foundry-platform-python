@@ -21,6 +21,7 @@ from typing import Literal
 import pydantic
 from typing_extensions import TypedDict
 
+from foundry._core.utils import Long
 from foundry._errors import PalantirRPCException
 
 
@@ -32,11 +33,11 @@ class FileSizeLimitExceededParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fileSizeBytesLimit: pydantic.StrictStr
+    fileSizeBytesLimit: Long
 
-    currentFileSizeBytes: pydantic.StrictStr
+    currentFileSizeBytes: Long
 
-    currentFilePath: pydantic.StrictStr
+    currentFilePath: str
 
 
 @dataclass

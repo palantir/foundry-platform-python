@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-FieldNameV1 = pydantic.StrictStr
+FieldNameV1 = str
 """A reference to an Ontology object property with the form `properties.{propertyApiName}`."""

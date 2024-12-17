@@ -4,7 +4,7 @@ TableImportDisplayName
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

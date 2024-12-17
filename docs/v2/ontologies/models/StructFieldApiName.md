@@ -4,7 +4,7 @@ The name of a struct field in the Ontology.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

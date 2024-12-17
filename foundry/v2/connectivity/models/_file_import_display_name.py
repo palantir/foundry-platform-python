@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-FileImportDisplayName = pydantic.StrictStr
+FileImportDisplayName = str
 """FileImportDisplayName"""

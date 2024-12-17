@@ -8,7 +8,7 @@ A property type that can be shared across object types.
 **rid** | SharedPropertyTypeRid | Yes |  |
 **apiName** | SharedPropertyTypeApiName | Yes |  |
 **displayName** | DisplayName | Yes |  |
-**description** | NotRequired[pydantic.StrictStr] | No | A short text that describes the SharedPropertyType. |
+**description** | NotRequired[str] | No | A short text that describes the SharedPropertyType. |
 **dataType** | ObjectPropertyTypeDict | Yes |  |
 
 

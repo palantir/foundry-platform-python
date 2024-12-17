@@ -29,7 +29,7 @@ class IsNullQueryV2(pydantic.BaseModel):
 
     field: PropertyApiName
 
-    value: pydantic.StrictBool
+    value: bool
 
     type: Literal["isNull"] = "isNull"
 

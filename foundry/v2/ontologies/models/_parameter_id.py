@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ParameterId = pydantic.StrictStr
+ParameterId = str
 """
 The unique identifier of the parameter. Parameters are used as inputs when an action or query is applied.
 Parameters can be viewed and managed in the **Ontology Manager**.

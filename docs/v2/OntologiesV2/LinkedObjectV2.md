@@ -24,7 +24,7 @@ Name | Type | Description  | Notes |
 **link_type** | LinkTypeApiName | linkType |  |
 **linked_object_primary_key** | PropertyValueEscapedString | linkedObjectPrimaryKey |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[pydantic.StrictBool] | excludeRid | [optional] |
+**exclude_rid** | Optional[bool] | excludeRid | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
 
@@ -54,7 +54,7 @@ link_type = "directReport"
 linked_object_primary_key = 80060
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[pydantic.StrictBool] | excludeRid
+# Optional[bool] | excludeRid
 exclude_rid = None
 # Optional[SdkPackageName] | packageName
 package_name = None
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[pydantic.StrictBool] | excludeRid | [optional] |
+**exclude_rid** | Optional[bool] | excludeRid | [optional] |
 **order_by** | Optional[OrderBy] | orderBy | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
@@ -152,7 +152,7 @@ primary_key = 50030
 link_type = "directReport"
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[pydantic.StrictBool] | excludeRid
+# Optional[bool] | excludeRid
 exclude_rid = None
 # Optional[OrderBy] | orderBy
 order_by = None
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[pydantic.StrictBool] | excludeRid | [optional] |
+**exclude_rid** | Optional[bool] | excludeRid | [optional] |
 **order_by** | Optional[OrderBy] | orderBy | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
@@ -257,7 +257,7 @@ primary_key = 50030
 link_type = "directReport"
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[pydantic.StrictBool] | excludeRid
+# Optional[bool] | excludeRid
 exclude_rid = None
 # Optional[OrderBy] | orderBy
 order_by = None

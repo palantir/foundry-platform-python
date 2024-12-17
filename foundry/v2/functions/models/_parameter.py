@@ -27,7 +27,7 @@ from foundry.v2.functions.models._query_data_type import QueryDataType
 class Parameter(pydantic.BaseModel):
     """Details about a parameter of a query."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     data_type: QueryDataType = pydantic.Field(alias="dataType")
 

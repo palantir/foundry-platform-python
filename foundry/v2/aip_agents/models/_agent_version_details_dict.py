@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -24,8 +23,8 @@ class AgentVersionDetailsDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    major: pydantic.StrictInt
+    major: int
     """The major version of the Agent. Incremented every time the Agent is published."""
 
-    minor: pydantic.StrictInt
+    minor: int
     """The minor version of the Agent. Incremented every time the Agent is saved."""

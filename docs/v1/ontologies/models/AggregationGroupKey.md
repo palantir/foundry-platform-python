@@ -4,7 +4,7 @@ AggregationGroupKey
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

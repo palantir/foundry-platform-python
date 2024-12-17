@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -26,7 +25,7 @@ class FileAtLeastCountFilterDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    minFilesCount: pydantic.StrictInt
+    minFilesCount: int
     """
     The minimum number of files remaining expected.
     The value specified must be greater than 0.

@@ -33,7 +33,7 @@ class SubmissionCriteriaEvaluation(pydantic.BaseModel):
     These are configured in the **Ontology Manager**.
     """
 
-    configured_failure_message: Optional[pydantic.StrictStr] = pydantic.Field(
+    configured_failure_message: Optional[str] = pydantic.Field(
         alias="configuredFailureMessage", default=None
     )
 

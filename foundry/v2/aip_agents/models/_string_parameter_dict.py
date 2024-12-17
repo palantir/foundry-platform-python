@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -27,7 +26,7 @@ class StringParameterDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    defaultValue: NotRequired[pydantic.StrictStr]
+    defaultValue: NotRequired[str]
     """The default value to use for this parameter."""
 
     type: Literal["string"]

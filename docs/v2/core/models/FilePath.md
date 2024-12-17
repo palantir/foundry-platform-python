@@ -5,7 +5,7 @@ The path to a File within Foundry.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

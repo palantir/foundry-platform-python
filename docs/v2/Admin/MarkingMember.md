@@ -79,7 +79,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
+**transitive** | Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ResourceIterator[MarkingMember]**
@@ -103,7 +103,7 @@ page_size = None
 page_token = None
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[pydantic.StrictBool] | transitive
+# Optional[bool] | transitive
 transitive = None
 
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
 **page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**transitive** | Optional[pydantic.StrictBool] | transitive | [optional] |
+**transitive** | Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ListMarkingMembersResponse**
@@ -171,7 +171,7 @@ page_size = None
 page_token = None
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[pydantic.StrictBool] | transitive
+# Optional[bool] | transitive
 transitive = None
 
 

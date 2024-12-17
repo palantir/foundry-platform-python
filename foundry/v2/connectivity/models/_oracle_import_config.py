@@ -26,7 +26,7 @@ from foundry.v2.connectivity.models._oracle_import_config_dict import OracleImpo
 class OracleImportConfig(pydantic.BaseModel):
     """The import configuration for an Oracle Database 21 connection."""
 
-    query: pydantic.StrictStr
+    query: str
 
     """
     A single SQL query can be executed per sync, which should output a data table 

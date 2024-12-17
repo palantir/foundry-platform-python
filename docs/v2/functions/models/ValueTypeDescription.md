@@ -5,7 +5,7 @@ A description of the value type.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

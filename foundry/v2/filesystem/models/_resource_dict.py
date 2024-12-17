@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -43,10 +42,10 @@ class ResourceDict(TypedDict):
     displayName: ResourceDisplayName
     """The display name of the Resource"""
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
     """The description of the Resource"""
 
-    documentation: NotRequired[pydantic.StrictStr]
+    documentation: NotRequired[str]
     """The documentation associated with the Resource"""
 
     path: ResourcePath

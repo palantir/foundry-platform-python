@@ -26,7 +26,7 @@ from foundry.v2.core.models._distance_unit import DistanceUnit
 class Distance(pydantic.BaseModel):
     """A measurement of distance."""
 
-    value: pydantic.StrictFloat
+    value: float
 
     unit: DistanceUnit
 

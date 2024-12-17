@@ -4642,14 +4642,14 @@ def ontologies_v2_attachment_read(
 
 @ontologies_v2_attachment.command("upload")
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--content_length", type=str, required=True, help="""Content-Length""")
+@click.option("--content_length", type=int, required=True, help="""Content-Length""")
 @click.option("--content_type", type=str, required=True, help="""Content-Type""")
 @click.option("--filename", type=str, required=True, help="""filename""")
 @click.pass_obj
 def ontologies_v2_attachment_upload(
     client: foundry.v2.FoundryClient,
     body: io.BufferedReader,
-    content_length: str,
+    content_length: int,
     content_type: str,
     filename: str,
 ):

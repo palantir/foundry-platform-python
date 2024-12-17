@@ -37,7 +37,7 @@ class ActionTypeV2(pydantic.BaseModel):
 
     api_name: ActionTypeApiName = pydantic.Field(alias="apiName")
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 

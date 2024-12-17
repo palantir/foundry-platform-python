@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Dict
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -37,7 +36,7 @@ class QueryTypeV2Dict(TypedDict):
 
     apiName: QueryApiName
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
 
     displayName: NotRequired[DisplayName]
 

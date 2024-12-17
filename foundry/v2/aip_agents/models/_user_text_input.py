@@ -25,7 +25,7 @@ from foundry.v2.aip_agents.models._user_text_input_dict import UserTextInputDict
 class UserTextInput(pydantic.BaseModel):
     """UserTextInput"""
 
-    text: pydantic.StrictStr
+    text: str
 
     """The user message text."""
 

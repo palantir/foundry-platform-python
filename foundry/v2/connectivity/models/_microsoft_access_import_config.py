@@ -28,7 +28,7 @@ from foundry.v2.connectivity.models._microsoft_access_import_config_dict import 
 class MicrosoftAccessImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft Access connection](docs/foundry/available-connectors/microsoft-access)."""
 
-    query: pydantic.StrictStr
+    query: str
 
     """
     A single SQL query can be executed per sync, which should output a data table 

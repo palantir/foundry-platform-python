@@ -29,7 +29,7 @@ class MalformedPropertyFiltersParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    malformedPropertyFilter: pydantic.StrictStr
+    malformedPropertyFilter: str
 
 
 @dataclass

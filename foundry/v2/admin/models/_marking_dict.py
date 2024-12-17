@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -38,7 +37,7 @@ class MarkingDict(TypedDict):
 
     displayName: MarkingDisplayName
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
 
     organizationRid: NotRequired[OrganizationRid]
     """If this marking is associated with an Organization, its RID will be populated here."""

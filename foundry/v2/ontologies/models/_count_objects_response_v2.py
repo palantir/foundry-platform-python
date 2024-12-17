@@ -28,7 +28,7 @@ from foundry.v2.ontologies.models._count_objects_response_v2_dict import (
 class CountObjectsResponseV2(pydantic.BaseModel):
     """CountObjectsResponseV2"""
 
-    count: Optional[pydantic.StrictInt] = None
+    count: Optional[int] = None
 
     model_config = {"extra": "allow"}
 

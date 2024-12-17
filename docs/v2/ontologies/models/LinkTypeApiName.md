@@ -5,7 +5,7 @@ The name of the link type in the API. To find the API name for your Link Type, c
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

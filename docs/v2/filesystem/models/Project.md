@@ -7,8 +7,8 @@ Project
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ProjectRid | Yes |  |
 **display_name** | ResourceDisplayName | Yes | The display name of the Project. Must be unique and cannot contain a / |
-**description** | Optional[pydantic.StrictStr] | No | The description associated with the Project. |
-**documentation** | Optional[pydantic.StrictStr] | No | The documentation associated with the Project. |
+**description** | Optional[str] | No | The description associated with the Project. |
+**documentation** | Optional[str] | No | The documentation associated with the Project. |
 **path** | ResourcePath | Yes |  |
 **created_by** | CreatedBy | Yes |  |
 **updated_by** | UpdatedBy | Yes |  |

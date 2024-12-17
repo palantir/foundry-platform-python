@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-FilterValue = pydantic.StrictStr
+FilterValue = str
 """
 Represents the value of a property filter. For instance, false is the FilterValue in
 `properties.{propertyApiName}.isNull=false`.

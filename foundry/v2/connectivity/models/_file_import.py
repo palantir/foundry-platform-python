@@ -56,7 +56,7 @@ class FileImport(pydantic.BaseModel):
 
     import_mode: FileImportMode = pydantic.Field(alias="importMode")
 
-    subfolder: Optional[pydantic.StrictStr] = None
+    subfolder: Optional[str] = None
 
     """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
 

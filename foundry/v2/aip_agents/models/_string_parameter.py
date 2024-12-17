@@ -27,7 +27,7 @@ from foundry.v2.aip_agents.models._string_parameter_dict import StringParameterD
 class StringParameter(pydantic.BaseModel):
     """StringParameter"""
 
-    default_value: Optional[pydantic.StrictStr] = pydantic.Field(alias="defaultValue", default=None)
+    default_value: Optional[str] = pydantic.Field(alias="defaultValue", default=None)
 
     """The default value to use for this parameter."""
 

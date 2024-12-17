@@ -33,7 +33,7 @@ class InvalidFieldsParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    properties: List[pydantic.StrictStr]
+    properties: List[str]
 
 
 @dataclass

@@ -28,13 +28,13 @@ from foundry.v1.ontologies.models._value_type import ValueType
 class Parameter(pydantic.BaseModel):
     """Details about a parameter of an action or query."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     base_type: ValueType = pydantic.Field(alias="baseType")
 
     data_type: Optional[OntologyDataType] = pydantic.Field(alias="dataType", default=None)
 
-    required: pydantic.StrictBool
+    required: bool
 
     model_config = {"extra": "allow"}
 

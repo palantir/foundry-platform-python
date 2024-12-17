@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -29,5 +28,5 @@ class SearchOrderingV2Dict(TypedDict):
 
     field: PropertyApiName
 
-    direction: NotRequired[pydantic.StrictStr]
+    direction: NotRequired[str]
     """Specifies the ordering direction (can be either `asc` or `desc`)"""

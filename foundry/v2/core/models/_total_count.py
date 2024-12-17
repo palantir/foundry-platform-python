@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
+from foundry._core.utils import Long
 
-TotalCount = pydantic.StrictStr
+TotalCount = Long
 """The total number of items across all pages."""

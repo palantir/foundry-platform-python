@@ -8,7 +8,7 @@ This option can increase the reliability of incremental syncs.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**filesCount** | pydantic.StrictInt | Yes | The number of files to import in the transaction. The value specified must be positive. |
+**filesCount** | int | Yes | The number of files to import in the transaction. The value specified must be positive. |
 **type** | Literal["filesCountLimitFilter"] | Yes | None |
 
 

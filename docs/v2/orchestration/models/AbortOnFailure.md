@@ -6,7 +6,7 @@ build by cancelling all other jobs.
 
 ## Type
 ```python
-pydantic.StrictBool
+bool
 ```
 
 

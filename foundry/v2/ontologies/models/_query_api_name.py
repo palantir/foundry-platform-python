@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-QueryApiName = pydantic.StrictStr
+QueryApiName = str
 """The name of the Query in the API."""

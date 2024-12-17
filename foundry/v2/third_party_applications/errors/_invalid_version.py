@@ -29,7 +29,7 @@ class InvalidVersionParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    version: pydantic.StrictStr
+    version: str
 
 
 @dataclass

@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-AggregationGroupKeyV2 = pydantic.StrictStr
+AggregationGroupKeyV2 = str
 """AggregationGroupKeyV2"""

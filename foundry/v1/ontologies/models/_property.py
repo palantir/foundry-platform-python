@@ -28,7 +28,7 @@ from foundry.v1.ontologies.models._value_type import ValueType
 class Property(pydantic.BaseModel):
     """Details about some property of an object."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 

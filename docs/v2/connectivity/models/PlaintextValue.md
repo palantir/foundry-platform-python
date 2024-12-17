@@ -4,7 +4,7 @@ PlaintextValue
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

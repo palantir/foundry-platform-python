@@ -6,7 +6,7 @@ Returns objects where the specified field starts with the provided value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**value** | pydantic.StrictStr | Yes |  |
+**value** | str | Yes |  |
 **type** | Literal["startsWith"] | Yes | None |
 
 

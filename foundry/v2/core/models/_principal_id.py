@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-PrincipalId = pydantic.StrictStr
+PrincipalId = str
 """The ID of a Foundry Group or User."""

@@ -6,8 +6,8 @@ The parameter value must match a predefined regular expression.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**regex** | pydantic.StrictStr | Yes | The regular expression configured in the **Ontology Manager**. |
-**configuredFailureMessage** | NotRequired[pydantic.StrictStr] | No | The message indicating that the regular expression was not matched. This is configured per parameter in the **Ontology Manager**.  |
+**regex** | str | Yes | The regular expression configured in the **Ontology Manager**. |
+**configuredFailureMessage** | NotRequired[str] | No | The message indicating that the regular expression was not matched. This is configured per parameter in the **Ontology Manager**.  |
 **type** | Literal["stringRegexMatch"] | Yes | None |
 
 

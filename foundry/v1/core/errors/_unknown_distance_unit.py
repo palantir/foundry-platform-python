@@ -31,7 +31,7 @@ class UnknownDistanceUnitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    unknownUnit: pydantic.StrictStr
+    unknownUnit: str
 
     knownUnits: List[DistanceUnit]
 

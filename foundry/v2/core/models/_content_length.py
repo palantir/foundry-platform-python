@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
+from foundry._core.utils import Long
 
-ContentLength = pydantic.StrictStr
+ContentLength = Long
 """ContentLength"""

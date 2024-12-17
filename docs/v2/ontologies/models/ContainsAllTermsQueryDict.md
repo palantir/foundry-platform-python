@@ -8,7 +8,7 @@ order in the provided value. This query supports fuzzy matching.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**value** | pydantic.StrictStr | Yes |  |
+**value** | str | Yes |  |
 **fuzzy** | NotRequired[FuzzyV2] | No |  |
 **type** | Literal["containsAllTerms"] | Yes | None |
 

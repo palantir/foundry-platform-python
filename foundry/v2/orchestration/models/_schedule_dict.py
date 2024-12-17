@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -38,9 +37,9 @@ class ScheduleDict(TypedDict):
 
     rid: ScheduleRid
 
-    displayName: NotRequired[pydantic.StrictStr]
+    displayName: NotRequired[str]
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
 
     currentVersionRid: ScheduleVersionRid
     """The RID of the current schedule version"""

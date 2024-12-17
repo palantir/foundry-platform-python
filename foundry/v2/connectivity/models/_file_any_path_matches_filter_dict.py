@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -26,7 +25,7 @@ class FileAnyPathMatchesFilterDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    regex: pydantic.StrictStr
+    regex: str
     """The regular expression for the relative path to match against."""
 
     type: Literal["anyPathMatchesFilter"]

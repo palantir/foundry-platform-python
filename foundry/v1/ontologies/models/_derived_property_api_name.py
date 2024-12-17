@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-DerivedPropertyApiName = pydantic.StrictStr
+DerivedPropertyApiName = str
 """The name of the derived property that will be returned."""

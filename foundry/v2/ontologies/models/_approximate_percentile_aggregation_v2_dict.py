@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -35,7 +34,7 @@ class ApproximatePercentileAggregationV2Dict(TypedDict):
 
     name: NotRequired[AggregationMetricName]
 
-    approximatePercentile: pydantic.StrictFloat
+    approximatePercentile: float
 
     direction: NotRequired[OrderByDirection]
 

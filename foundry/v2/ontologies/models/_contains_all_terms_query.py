@@ -36,7 +36,7 @@ class ContainsAllTermsQuery(pydantic.BaseModel):
 
     field: PropertyApiName
 
-    value: pydantic.StrictStr
+    value: str
 
     fuzzy: Optional[FuzzyV2] = None
 

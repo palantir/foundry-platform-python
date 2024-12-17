@@ -38,7 +38,7 @@ class Marking(pydantic.BaseModel):
 
     display_name: MarkingDisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     organization_rid: Optional[OrganizationRid] = pydantic.Field(
         alias="organizationRid", default=None

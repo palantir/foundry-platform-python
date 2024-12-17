@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ZoneId = pydantic.StrictStr
+ZoneId = str
 """A string representation of a java.time.ZoneId"""

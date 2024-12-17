@@ -5,7 +5,7 @@ A value passed for `StringParameter` parameter types.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**value** | pydantic.StrictStr | Yes |  |
+**value** | str | Yes |  |
 **type** | Literal["string"] | Yes | None |
 
 

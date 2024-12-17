@@ -36,7 +36,7 @@ class Parameter(pydantic.BaseModel):
 
     """The access mode controls how the Agent is able to interact with the parameter."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """
     A description to explain the use of this parameter.

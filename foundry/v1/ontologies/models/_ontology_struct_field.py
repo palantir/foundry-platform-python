@@ -31,7 +31,7 @@ class OntologyStructField(pydantic.BaseModel):
 
     field_type: OntologyDataType = pydantic.Field(alias="fieldType")
 
-    required: pydantic.StrictBool
+    required: bool
 
     model_config = {"extra": "allow"}
 

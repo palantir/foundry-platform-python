@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-PageToken = pydantic.StrictStr
+PageToken = str
 """
 The page token indicates where to start paging. This should be omitted from the first page's request.
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response

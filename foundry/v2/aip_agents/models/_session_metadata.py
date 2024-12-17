@@ -26,7 +26,7 @@ from foundry.v2.aip_agents.models._session_metadata_dict import SessionMetadataD
 class SessionMetadata(pydantic.BaseModel):
     """Metadata for a conversation session with an Agent."""
 
-    title: pydantic.StrictStr
+    title: str
 
     """The title of the session."""
 
@@ -38,7 +38,7 @@ class SessionMetadata(pydantic.BaseModel):
 
     """The time the session was last updated."""
 
-    message_count: pydantic.StrictInt = pydantic.Field(alias="messageCount")
+    message_count: int = pydantic.Field(alias="messageCount")
 
     """
     The count of messages in the session.

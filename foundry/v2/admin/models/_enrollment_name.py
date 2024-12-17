@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-EnrollmentName = pydantic.StrictStr
+EnrollmentName = str
 """EnrollmentName"""

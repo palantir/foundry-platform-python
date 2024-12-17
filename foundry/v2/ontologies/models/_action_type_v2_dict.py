@@ -18,7 +18,6 @@ from __future__ import annotations
 from typing import Dict
 from typing import List
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -38,7 +37,7 @@ class ActionTypeV2Dict(TypedDict):
 
     apiName: ActionTypeApiName
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
 
     displayName: NotRequired[DisplayName]
 

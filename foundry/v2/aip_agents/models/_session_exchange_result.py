@@ -45,13 +45,11 @@ class SessionExchangeResult(pydantic.BaseModel):
     Updates can only be generated for parameter values that were provided as input to the Agent and that are configured with `READ_WRITE` access on the Agent in AIP Agent Studio.
     """
 
-    total_tokens_used: Optional[pydantic.StrictInt] = pydantic.Field(
-        alias="totalTokensUsed", default=None
-    )
+    total_tokens_used: Optional[int] = pydantic.Field(alias="totalTokensUsed", default=None)
 
     """Total tokens used to compute the result. Omitted if token usage information is not supported by the model used for the session."""
 
-    interrupted_output: pydantic.StrictBool = pydantic.Field(alias="interruptedOutput")
+    interrupted_output: bool = pydantic.Field(alias="interruptedOutput")
 
     """
     True if the exchange was canceled.

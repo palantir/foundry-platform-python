@@ -7,7 +7,7 @@ A relative time, such as "3 days before" or "2 hours after" the current moment.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **when** | RelativeTimeRelation | Yes |  |
-**value** | pydantic.StrictInt | Yes |  |
+**value** | int | Yes |  |
 **unit** | RelativeTimeSeriesTimeUnit | Yes |  |
 
 

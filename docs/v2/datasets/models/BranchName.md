@@ -5,7 +5,7 @@ The name of a Branch.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

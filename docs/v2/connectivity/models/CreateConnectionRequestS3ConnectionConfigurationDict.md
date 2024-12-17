@@ -5,7 +5,7 @@ CreateConnectionRequestS3ConnectionConfiguration
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**bucketUrl** | pydantic.StrictStr | Yes | The URL of the S3 bucket. The URL should contain a trailing slash. |
+**bucketUrl** | str | Yes | The URL of the S3 bucket. The URL should contain a trailing slash. |
 **authenticationMode** | NotRequired[S3AuthenticationModeDict] | No | The authentication mode to use to connect to the S3 external system. No authentication mode is required to connect to publicly accessible AWS S3 buckets.  |
 **type** | Literal["s3"] | Yes | None |
 

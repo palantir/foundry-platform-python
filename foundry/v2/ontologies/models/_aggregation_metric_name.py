@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-AggregationMetricName = pydantic.StrictStr
+AggregationMetricName = str
 """A user-specified alias for an aggregation metric name."""

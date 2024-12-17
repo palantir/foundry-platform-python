@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Any
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -27,7 +26,7 @@ class AggregationMetricResultV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: pydantic.StrictStr
+    name: str
 
     value: NotRequired[Any]
     """

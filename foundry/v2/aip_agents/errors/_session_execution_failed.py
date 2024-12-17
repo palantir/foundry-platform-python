@@ -35,10 +35,10 @@ class SessionExecutionFailedParameters(TypedDict):
 
     sessionRid: SessionRid
 
-    message: pydantic.StrictStr
+    message: str
     """The error message."""
 
-    details: pydantic.StrictStr
+    details: str
     """Any additional details provided for the error."""
 
 

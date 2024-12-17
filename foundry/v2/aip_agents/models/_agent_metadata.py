@@ -27,21 +27,19 @@ from foundry.v2.aip_agents.models._agent_metadata_dict import AgentMetadataDict
 class AgentMetadata(pydantic.BaseModel):
     """Metadata for an Agent."""
 
-    display_name: pydantic.StrictStr = pydantic.Field(alias="displayName")
+    display_name: str = pydantic.Field(alias="displayName")
 
     """The name of the Agent."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """The description for the Agent."""
 
-    input_placeholder: Optional[pydantic.StrictStr] = pydantic.Field(
-        alias="inputPlaceholder", default=None
-    )
+    input_placeholder: Optional[str] = pydantic.Field(alias="inputPlaceholder", default=None)
 
     """The default text to show as the placeholder input for chats with the Agent."""
 
-    suggested_prompts: List[pydantic.StrictStr] = pydantic.Field(alias="suggestedPrompts")
+    suggested_prompts: List[str] = pydantic.Field(alias="suggestedPrompts")
 
     """Prompts to show to the user as example messages to start a conversation with the Agent."""
 

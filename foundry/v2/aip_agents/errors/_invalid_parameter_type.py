@@ -42,9 +42,9 @@ class InvalidParameterTypeParameters(TypedDict):
 
     parameter: ParameterId
 
-    expectedType: pydantic.StrictStr
+    expectedType: str
 
-    receivedType: pydantic.StrictStr
+    receivedType: str
 
 
 @dataclass

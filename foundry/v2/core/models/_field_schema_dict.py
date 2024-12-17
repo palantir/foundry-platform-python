@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -28,7 +27,7 @@ class FieldSchemaDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nullable: pydantic.StrictBool
+    nullable: bool
 
     customMetadata: NotRequired[CustomMetadata]
 

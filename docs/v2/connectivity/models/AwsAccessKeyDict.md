@@ -10,7 +10,7 @@ secret access key together to authenticate your requests.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**accessKeyId** | pydantic.StrictStr | Yes |  |
+**accessKeyId** | str | Yes |  |
 **secretAccessKey** | EncryptedPropertyDict | Yes |  |
 **type** | Literal["awsAccessKey"] | Yes | None |
 

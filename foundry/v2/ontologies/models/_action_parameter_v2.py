@@ -27,11 +27,11 @@ from foundry.v2.ontologies.models._action_parameter_v2_dict import ActionParamet
 class ActionParameterV2(pydantic.BaseModel):
     """Details about a parameter of an action."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     data_type: ActionParameterType = pydantic.Field(alias="dataType")
 
-    required: pydantic.StrictBool
+    required: bool
 
     model_config = {"extra": "allow"}
 

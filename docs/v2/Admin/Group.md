@@ -20,7 +20,7 @@ Name | Type | Description  | Notes |
 **attributes** | Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |  |
 **name** | GroupName | The name of the Group. |  |
 **organizations** | List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.  |  |
-**description** | Optional[pydantic.StrictStr] | A description of the Group. | [optional] |
+**description** | Optional[str] | A description of the Group. | [optional] |
 
 ### Return type
 **Group**
@@ -52,7 +52,7 @@ attributes = {
 name = "Data Source Admins"
 # List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
 organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[pydantic.StrictStr] | A description of the Group.
+# Optional[str] | A description of the Group.
 description = "Create and modify data sources in the platform"
 
 

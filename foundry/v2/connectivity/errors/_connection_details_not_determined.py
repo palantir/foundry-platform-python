@@ -32,7 +32,7 @@ class ConnectionDetailsNotDeterminedParameters(TypedDict):
 
     connectionRid: ConnectionRid
 
-    connectionType: pydantic.StrictStr
+    connectionType: str
 
 
 @dataclass

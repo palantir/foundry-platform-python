@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-AbortOnFailure = pydantic.StrictBool
+AbortOnFailure = bool
 """
 If any job in the build is unsuccessful, immediately finish the
 build by cancelling all other jobs.

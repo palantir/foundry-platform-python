@@ -4,7 +4,7 @@ ConnectionDisplayName
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

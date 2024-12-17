@@ -5,7 +5,7 @@ StringParameter
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**defaultValue** | NotRequired[pydantic.StrictStr] | No | The default value to use for this parameter. |
+**defaultValue** | NotRequired[str] | No | The default value to use for this parameter. |
 **type** | Literal["string"] | Yes | None |
 
 

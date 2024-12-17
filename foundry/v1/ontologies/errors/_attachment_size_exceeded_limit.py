@@ -32,9 +32,9 @@ class AttachmentSizeExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fileSizeBytes: pydantic.StrictStr
+    fileSizeBytes: str
 
-    fileLimitBytes: pydantic.StrictStr
+    fileLimitBytes: str
 
 
 @dataclass

@@ -48,7 +48,7 @@ from foundry.v2.core.models._timestamp_type import TimestampType
 class FieldSchema(pydantic.BaseModel):
     """The specification of the type of a Foundry schema field."""
 
-    nullable: pydantic.StrictBool
+    nullable: bool
 
     custom_metadata: Optional[CustomMetadata] = pydantic.Field(alias="customMetadata", default=None)
 

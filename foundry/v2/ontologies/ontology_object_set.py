@@ -242,7 +242,7 @@ class OntologyObjectSetClient:
         object_set: ObjectSetDict,
         select: List[SelectedPropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[pydantic.StrictBool] = None,
+        exclude_rid: Optional[bool] = None,
         order_by: Optional[SearchOrderByV2Dict] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
@@ -268,7 +268,7 @@ class OntologyObjectSetClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
-        :type exclude_rid: Optional[pydantic.StrictBool]
+        :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2Dict]
         :param package_name: packageName
@@ -314,7 +314,7 @@ class OntologyObjectSetClient:
                         "select": List[SelectedPropertyApiName],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],
-                        "excludeRid": Optional[pydantic.StrictBool],
+                        "excludeRid": Optional[bool],
                     },
                 ),
                 response_type=LoadObjectSetResponseV2,

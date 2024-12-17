@@ -40,7 +40,7 @@ class FilePathNotMatchesFilter(pydantic.BaseModel):
     and `relative/subfolder/exclude-file.txt` will be excluded from the import.
     """
 
-    regex: pydantic.StrictStr
+    regex: str
 
     """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
 

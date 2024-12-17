@@ -33,9 +33,7 @@ from foundry.v1.ontologies.models._aggregate_objects_response_item import (
 class AggregateObjectsResponse(pydantic.BaseModel):
     """AggregateObjectsResponse"""
 
-    excluded_items: Optional[pydantic.StrictInt] = pydantic.Field(
-        alias="excludedItems", default=None
-    )
+    excluded_items: Optional[int] = pydantic.Field(alias="excludedItems", default=None)
 
     next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
 

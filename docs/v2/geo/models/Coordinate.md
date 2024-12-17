@@ -4,7 +4,7 @@ Coordinate
 
 ## Type
 ```python
-pydantic.StrictFloat
+float
 ```
 
 

@@ -36,9 +36,9 @@ class AggregationGroupCountExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupsCount: NotRequired[pydantic.StrictInt]
+    groupsCount: NotRequired[int]
 
-    groupsLimit: NotRequired[pydantic.StrictInt]
+    groupsLimit: NotRequired[int]
 
 
 @dataclass

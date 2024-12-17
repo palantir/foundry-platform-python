@@ -38,7 +38,7 @@ class QueryEncounteredUserFacingErrorParameters(TypedDict):
 
     functionVersion: FunctionVersion
 
-    message: pydantic.StrictStr
+    message: str
 
 
 @dataclass

@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-FuzzyV2 = pydantic.StrictBool
+FuzzyV2 = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""

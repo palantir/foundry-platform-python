@@ -104,7 +104,7 @@ class GroupMemberClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        transitive: Optional[pydantic.StrictBool] = None,
+        transitive: Optional[bool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[GroupMember]:
         """
@@ -123,7 +123,7 @@ class GroupMemberClient:
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: Optional[pydantic.StrictBool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -161,7 +161,7 @@ class GroupMemberClient:
         *,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        transitive: Optional[pydantic.StrictBool] = None,
+        transitive: Optional[bool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListGroupMembersResponse:
         """
@@ -180,7 +180,7 @@ class GroupMemberClient:
         :param page_token: pageToken
         :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: Optional[pydantic.StrictBool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

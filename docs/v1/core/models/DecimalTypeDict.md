@@ -5,8 +5,8 @@ DecimalType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**precision** | NotRequired[pydantic.StrictInt] | No |  |
-**scale** | NotRequired[pydantic.StrictInt] | No |  |
+**precision** | NotRequired[int] | No |  |
+**scale** | NotRequired[int] | No |  |
 **type** | Literal["decimal"] | Yes | None |
 
 

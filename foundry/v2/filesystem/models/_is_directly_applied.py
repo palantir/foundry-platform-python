@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-IsDirectlyApplied = pydantic.StrictBool
+IsDirectlyApplied = bool
 """
 Boolean flag to indicate if the marking is directly applied to the resource, or if it's applied
 to a parent resource and inherited by the current resource.

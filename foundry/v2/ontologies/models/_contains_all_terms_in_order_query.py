@@ -34,7 +34,7 @@ class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
 
     field: PropertyApiName
 
-    value: pydantic.StrictStr
+    value: str
 
     type: Literal["containsAllTermsInOrder"] = "containsAllTermsInOrder"
 

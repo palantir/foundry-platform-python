@@ -55,7 +55,7 @@ class OntologyStructFieldDict(TypedDict):
 
     fieldType: OntologyDataTypeDict
 
-    required: pydantic.StrictBool
+    required: bool
 
 
 class OntologyStructTypeDict(TypedDict):

@@ -7,7 +7,7 @@ deadline specified.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**message** | pydantic.StrictStr | Yes |  |
+**message** | str | Yes |  |
 **deadline** | datetime | Yes |  |
 **replacedBy** | NotRequired[PropertyTypeRid] | No |  |
 **type** | Literal["deprecated"] | Yes | None |

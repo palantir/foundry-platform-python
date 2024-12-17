@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -41,10 +40,10 @@ class FolderDict(TypedDict):
 
     displayName: ResourceDisplayName
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
     """The description associated with the Folder."""
 
-    documentation: NotRequired[pydantic.StrictStr]
+    documentation: NotRequired[str]
     """The documentation associated with the Folder."""
 
     path: ResourcePath

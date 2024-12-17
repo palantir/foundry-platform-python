@@ -6,7 +6,7 @@ Examples: `application/json`, `application/pdf`, `application/octet-stream`, `im
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

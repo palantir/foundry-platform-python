@@ -43,7 +43,7 @@ class FunctionLocatorNotFoundParameters(TypedDict):
 
     functionRid: RID
 
-    functionVersion: pydantic.StrictStr
+    functionVersion: str
 
 
 @dataclass

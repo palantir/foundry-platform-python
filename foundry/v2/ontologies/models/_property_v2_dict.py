@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -31,7 +30,7 @@ class PropertyV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
 
     displayName: NotRequired[DisplayName]
 

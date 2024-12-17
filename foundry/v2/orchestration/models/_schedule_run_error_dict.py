@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.orchestration.models._schedule_run_error_name import ScheduleRunErrorName  # NOQA
@@ -30,6 +29,6 @@ class ScheduleRunErrorDict(TypedDict):
 
     errorName: ScheduleRunErrorName
 
-    description: pydantic.StrictStr
+    description: str
 
     type: Literal["error"]

@@ -5,7 +5,7 @@ A measurement of duration.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**value** | pydantic.StrictInt | Yes | The duration value. |
+**value** | int | Yes | The duration value. |
 **unit** | TimeUnit | Yes | The unit of duration. |
 
 

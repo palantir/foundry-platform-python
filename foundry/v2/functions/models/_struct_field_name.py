@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-StructFieldName = pydantic.StrictStr
+StructFieldName = str
 """The name of a field in a `Struct`."""

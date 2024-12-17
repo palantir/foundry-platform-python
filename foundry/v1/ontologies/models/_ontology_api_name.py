@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-OntologyApiName = pydantic.StrictStr
+OntologyApiName = str
 """OntologyApiName"""

@@ -33,9 +33,7 @@ from foundry.v2.ontologies.models._aggregation_accuracy import AggregationAccura
 class AggregateObjectsResponseV2(pydantic.BaseModel):
     """AggregateObjectsResponseV2"""
 
-    excluded_items: Optional[pydantic.StrictInt] = pydantic.Field(
-        alias="excludedItems", default=None
-    )
+    excluded_items: Optional[int] = pydantic.Field(alias="excludedItems", default=None)
 
     accuracy: AggregationAccuracy
 

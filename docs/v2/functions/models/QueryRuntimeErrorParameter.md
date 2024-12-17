@@ -4,7 +4,7 @@ QueryRuntimeErrorParameter
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

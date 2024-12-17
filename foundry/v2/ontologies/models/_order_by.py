@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-OrderBy = pydantic.StrictStr
+OrderBy = str
 """
 A command representing the list of properties to order by. Properties should be delimited by commas and
 prefixed by `p` or `properties`. The format expected format is

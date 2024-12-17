@@ -5,7 +5,7 @@ A measurement of distance.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**value** | pydantic.StrictFloat | Yes |  |
+**value** | float | Yes |  |
 **unit** | DistanceUnit | Yes |  |
 
 

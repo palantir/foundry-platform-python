@@ -65,7 +65,7 @@ class FileImportClient:
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
-        subfolder: Optional[pydantic.StrictStr] = None,
+        subfolder: Optional[str] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> FileImport:
         """
@@ -85,7 +85,7 @@ class FileImportClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[pydantic.StrictStr]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -121,7 +121,7 @@ class FileImportClient:
                         "importMode": FileImportMode,
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
-                        "subfolder": Optional[pydantic.StrictStr],
+                        "subfolder": Optional[str],
                         "fileImportFilters": List[FileImportFilterDict],
                     },
                 ),
@@ -394,7 +394,7 @@ class FileImportClient:
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
-        subfolder: Optional[pydantic.StrictStr] = None,
+        subfolder: Optional[str] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> FileImport:
         """
@@ -416,7 +416,7 @@ class FileImportClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[pydantic.StrictStr]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -453,7 +453,7 @@ class FileImportClient:
                         "importMode": FileImportMode,
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
-                        "subfolder": Optional[pydantic.StrictStr],
+                        "subfolder": Optional[str],
                         "fileImportFilters": List[FileImportFilterDict],
                     },
                 ),

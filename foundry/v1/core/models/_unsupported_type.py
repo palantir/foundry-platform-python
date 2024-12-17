@@ -26,7 +26,7 @@ from foundry.v1.core.models._unsupported_type_dict import UnsupportedTypeDict
 class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
-    unsupported_type: pydantic.StrictStr = pydantic.Field(alias="unsupportedType")
+    unsupported_type: str = pydantic.Field(alias="unsupportedType")
 
     type: Literal["unsupported"] = "unsupported"
 

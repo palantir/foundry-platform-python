@@ -25,11 +25,11 @@ from foundry.v2.aip_agents.models._agent_version_details_dict import AgentVersio
 class AgentVersionDetails(pydantic.BaseModel):
     """Semantic version details for an Agent."""
 
-    major: pydantic.StrictInt
+    major: int
 
     """The major version of the Agent. Incremented every time the Agent is published."""
 
-    minor: pydantic.StrictInt
+    minor: int
 
     """The minor version of the Agent. Incremented every time the Agent is saved."""
 

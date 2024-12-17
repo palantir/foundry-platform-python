@@ -5,7 +5,7 @@ Import all filtered files only if there are at least the specified number of fil
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**minFilesCount** | pydantic.StrictInt | Yes | The minimum number of files remaining expected. The value specified must be greater than 0.  |
+**minFilesCount** | int | Yes | The minimum number of files remaining expected. The value specified must be greater than 0.  |
 **type** | Literal["atLeastCountFilter"] | Yes | None |
 
 

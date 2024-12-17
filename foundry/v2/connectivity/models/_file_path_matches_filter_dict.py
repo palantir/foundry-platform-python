@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -37,7 +36,7 @@ class FilePathMatchesFilterDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    regex: pydantic.StrictStr
+    regex: str
     """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
 
     type: Literal["pathMatchesFilter"]

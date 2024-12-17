@@ -33,7 +33,7 @@ class AwsAccessKey(pydantic.BaseModel):
     secret access key together to authenticate your requests.
     """
 
-    access_key_id: pydantic.StrictStr = pydantic.Field(alias="accessKeyId")
+    access_key_id: str = pydantic.Field(alias="accessKeyId")
 
     secret_access_key: EncryptedProperty = pydantic.Field(alias="secretAccessKey")
 

@@ -46,7 +46,7 @@ class InterfaceType(pydantic.BaseModel):
 
     display_name: DisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """The description of the interface."""
 

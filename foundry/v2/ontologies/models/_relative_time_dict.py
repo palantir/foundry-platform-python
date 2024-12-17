@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._relative_time_relation import RelativeTimeRelation
@@ -31,6 +30,6 @@ class RelativeTimeDict(TypedDict):
 
     when: RelativeTimeRelation
 
-    value: pydantic.StrictInt
+    value: int
 
     unit: RelativeTimeSeriesTimeUnit

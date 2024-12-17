@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-MarkingCategoryDisplayName = pydantic.StrictStr
+MarkingCategoryDisplayName = str
 """MarkingCategoryDisplayName"""

@@ -18,7 +18,6 @@ from __future__ import annotations
 from typing import Dict
 from typing import List
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -42,7 +41,7 @@ class ObjectTypeDict(TypedDict):
 
     status: ReleaseStatus
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
     """The description of the object type."""
 
     visibility: NotRequired[ObjectTypeVisibility]

@@ -38,7 +38,7 @@ class ParameterEvaluationResult(pydantic.BaseModel):
         alias="evaluatedConstraints"
     )
 
-    required: pydantic.StrictBool
+    required: bool
 
     """Represents whether the parameter is a required input to the action."""
 

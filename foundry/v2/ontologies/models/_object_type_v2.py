@@ -41,11 +41,11 @@ class ObjectTypeV2(pydantic.BaseModel):
 
     status: ReleaseStatus
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """The description of the object type."""
 
-    plural_display_name: pydantic.StrictStr = pydantic.Field(alias="pluralDisplayName")
+    plural_display_name: str = pydantic.Field(alias="pluralDisplayName")
 
     """The plural display name of the object type."""
 

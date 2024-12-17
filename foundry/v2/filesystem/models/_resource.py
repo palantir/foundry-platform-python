@@ -44,11 +44,11 @@ class Resource(pydantic.BaseModel):
 
     """The display name of the Resource"""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """The description of the Resource"""
 
-    documentation: Optional[pydantic.StrictStr] = None
+    documentation: Optional[str] = None
 
     """The documentation associated with the Resource"""
 

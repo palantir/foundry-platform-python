@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-CronExpression = pydantic.StrictStr
+CronExpression = str
 """
 A standard CRON expression with minute, hour, day, month
 and day of week.

@@ -32,7 +32,7 @@ class VersionLimitExceededParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    versionLimit: pydantic.StrictInt
+    versionLimit: int
 
 
 @dataclass

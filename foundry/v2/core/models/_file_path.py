@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-FilePath = pydantic.StrictStr
+FilePath = str
 """The path to a File within Foundry."""

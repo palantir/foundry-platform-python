@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-Filename = pydantic.StrictStr
+Filename = str
 """The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""

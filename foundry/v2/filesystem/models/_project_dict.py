@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -40,10 +39,10 @@ class ProjectDict(TypedDict):
     displayName: ResourceDisplayName
     """The display name of the Project. Must be unique and cannot contain a /"""
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
     """The description associated with the Project."""
 
-    documentation: NotRequired[pydantic.StrictStr]
+    documentation: NotRequired[str]
     """The documentation associated with the Project."""
 
     path: ResourcePath

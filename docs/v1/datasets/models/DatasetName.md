@@ -4,7 +4,7 @@ DatasetName
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

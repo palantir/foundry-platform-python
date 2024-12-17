@@ -4,7 +4,7 @@ The final answer for an exchange. Responses are formatted using markdown.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

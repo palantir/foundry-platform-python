@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import List
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -53,5 +52,5 @@ class FileImportDict(TypedDict):
 
     importMode: FileImportMode
 
-    subfolder: NotRequired[pydantic.StrictStr]
+    subfolder: NotRequired[str]
     """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""

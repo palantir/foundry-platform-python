@@ -38,9 +38,9 @@ class Schedule(pydantic.BaseModel):
 
     rid: ScheduleRid
 
-    display_name: Optional[pydantic.StrictStr] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[str] = pydantic.Field(alias="displayName", default=None)
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     current_version_rid: ScheduleVersionRid = pydantic.Field(alias="currentVersionRid")
 

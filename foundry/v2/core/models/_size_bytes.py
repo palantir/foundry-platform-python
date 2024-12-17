@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
+from foundry._core.utils import Long
 
-SizeBytes = pydantic.StrictStr
+SizeBytes = Long
 """The size of the file or attachment in bytes."""
