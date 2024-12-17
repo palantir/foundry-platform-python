@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -234,6 +235,7 @@ class ResourceClient:
         resource_rid: ResourceRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[MarkingId]:
@@ -245,6 +247,8 @@ class ResourceClient:
         :type resource_rid: ResourceRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -259,6 +263,7 @@ class ResourceClient:
                 resource_path="/v2/filesystem/resources/{resourceRid}/markings",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -303,6 +308,11 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: ListMarkingsOfResourceResponse
         """
+
+        warnings.warn(
+            "The ResourceClient.markingsPage(...) method has been deprecated. Please use ResourceClient.markings(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

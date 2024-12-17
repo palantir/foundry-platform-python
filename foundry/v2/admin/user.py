@@ -15,18 +15,23 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
+from typing import Literal
 from typing import Optional
+from typing import Union
 
 import pydantic
 from annotated_types import Len
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
+from typing_extensions import overload
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import BinaryStream
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
@@ -246,6 +251,7 @@ class UserClient:
         self,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[User]:
         """
@@ -254,6 +260,8 @@ class UserClient:
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -266,6 +274,7 @@ class UserClient:
                 resource_path="/v2/admin/users",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                 },
                 path_params={},
                 header_params={
@@ -302,6 +311,11 @@ class UserClient:
         :rtype: ListUsersResponse
         """
 
+        warnings.warn(
+            "The UserClient.page(...) method has been deprecated. Please use UserClient.list(...) instead.",
+            DeprecationWarning,
+        )
+
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
@@ -321,6 +335,75 @@ class UserClient:
             ),
         )
 
+    @overload
+    def profile_picture(
+        self,
+        user_id: PrincipalId,
+        *,
+        stream: Literal[True],
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> BinaryStream:
+        """
+
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: BinaryStream
+        """
+        ...
+
+    @overload
+    def profile_picture(
+        self,
+        user_id: PrincipalId,
+        *,
+        stream: Literal[False] = False,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> bytes:
+        """
+
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: bytes
+        """
+        ...
+
+    @overload
+    def profile_picture(
+        self,
+        user_id: PrincipalId,
+        *,
+        stream: bool,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
+        """
+        ...
+
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
@@ -328,16 +411,22 @@ class UserClient:
         self,
         user_id: PrincipalId,
         *,
+        stream: bool = False,
+        chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> bytes:
+    ) -> Union[bytes, BinaryStream]:
         """
 
         :param user_id: userId
         :type user_id: PrincipalId
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: bytes
+        :rtype: Union[bytes, BinaryStream]
         """
 
         return self._api_client.call_api(
@@ -354,6 +443,8 @@ class UserClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
+                stream=stream,
+                chunk_size=chunk_size,
                 request_timeout=request_timeout,
             ),
         )

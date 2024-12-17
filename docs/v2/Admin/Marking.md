@@ -120,6 +120,7 @@ Maximum page size 100.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -138,6 +139,8 @@ foundry_client = FoundryClient(
 
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -145,6 +148,7 @@ preview = None
 try:
     for marking in foundry_client.admin.Marking.list(
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(marking)

@@ -291,6 +291,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -311,6 +312,8 @@ foundry_client = FoundryClient(
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -319,6 +322,7 @@ try:
     for session in foundry_client.aip_agents.Agent.Session.list(
         agent_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(session)
@@ -441,7 +445,7 @@ agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | sessionRid
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, ParameterValueDict] | Any parameter values to use for the context retrieval.
-parameter_inputs = None
+parameter_inputs = {"customerName": {"type": "string", "value": "Titan Technologies"}}
 # UserTextInputDict | The user message to retrieve relevant context for from the configured Agent data sources.
 user_input = {"text": "What is the status of my order?"}
 # Optional[PreviewMode] | preview
@@ -517,7 +521,17 @@ agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | sessionRid
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, ParameterValueDict] | Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
-parameter_inputs = None
+parameter_inputs = {
+    "currentCustomerOrders": {
+        "type": "objectSet",
+        "ontology": "example-ontology",
+        "objectSet": {
+            "type": "filter",
+            "objectSet": {"type": "base", "objectType": "customerOrder"},
+            "where": {"type": "eq", "field": "customerId", "value": "123abc"},
+        },
+    }
+}
 # UserTextInputDict | The user message for the Agent to respond to.
 user_input = {"text": "What is the status of my order?"}
 # Optional[List[InputContextDict]] | If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.

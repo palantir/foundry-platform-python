@@ -79,6 +79,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ResourceIterator[QueryTypeV2]**
@@ -98,12 +99,15 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 
 
 try:
     for query_type in foundry_client.ontologies.Ontology.QueryType.list(
         ontology,
         page_size=page_size,
+        page_token=page_token,
     ):
         pprint(query_type)
 except foundry.PalantirRPCException as e:

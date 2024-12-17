@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -147,6 +148,7 @@ class ProjectClient:
         project_rid: ProjectRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[OrganizationRid]:
@@ -158,6 +160,8 @@ class ProjectClient:
         :type project_rid: ProjectRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -172,6 +176,7 @@ class ProjectClient:
                 resource_path="/v2/filesystem/projects/{projectRid}/organizations",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -216,6 +221,11 @@ class ProjectClient:
         :return: Returns the result object.
         :rtype: ListOrganizationsOfProjectResponse
         """
+
+        warnings.warn(
+            "The ProjectClient.organizationsPage(...) method has been deprecated. Please use ProjectClient.organizations(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

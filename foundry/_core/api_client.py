@@ -31,6 +31,7 @@ import pydantic
 from requests import Response
 
 from foundry._core.auth_utils import Auth
+from foundry._core.binary_stream import BinaryStream
 from foundry._core.palantir_session import PalantirSession
 from foundry._core.resource_iterator import ResourceIterator
 from foundry._errors.palantir_rpc_exception import PalantirRPCException
@@ -54,6 +55,8 @@ class RequestInfo:
     body: Any
     body_type: Any
     request_timeout: Optional[int]
+    stream: bool = False
+    chunk_size: Optional[int] = None
 
     def update(
         self,
@@ -70,6 +73,7 @@ class RequestInfo:
             body=self.body,
             body_type=self.body_type,
             request_timeout=self.request_timeout,
+            stream=self.stream,
         )
 
 
@@ -128,7 +132,7 @@ class ApiClient:
             headers=headers,
             params=self._process_query_parameters(request_info.query_params),
             data=body,
-            stream=False,
+            stream=request_info.stream,
             timeout=request_info.request_timeout,
         )
 
@@ -138,7 +142,7 @@ class ApiClient:
             except json.JSONDecodeError:
                 raise SDKInternalError("Unable to decode JSON error response: " + res.text)
 
-        return self._deserialize(res, request_info.response_type)
+        return self._deserialize(res, request_info)
 
     def _process_query_parameters(self, query_params: QueryParameters):
         result: List[Tuple[str, Any]] = []
@@ -183,10 +187,13 @@ class ApiClient:
 
         return json_bytes
 
-    def _deserialize(self, res: Response, response_type: Any) -> Any:
-        if response_type is bytes:
-            return res.content
-        elif response_type is None:
+    def _deserialize(self, res: Response, request_info: RequestInfo) -> Any:
+        if request_info.response_type is bytes:
+            if request_info.stream:
+                return BinaryStream(res.iter_content(chunk_size=request_info.chunk_size))
+            else:
+                return res.content
+        elif request_info.response_type is None:
             return None
 
         content_type = res.headers.get("content-type")
@@ -200,10 +207,10 @@ class ApiClient:
 
         data = json.loads(response_text)
 
-        if response_type is Any:
+        if request_info.response_type is Any:
             return data
 
-        type_adapter = self._get_type_adapter(response_type)
+        type_adapter = self._get_type_adapter(request_info.response_type)
         return type_adapter.validate_python(data)
 
     @staticmethod

@@ -18,14 +18,18 @@ from __future__ import annotations
 from typing import Any
 from typing import Dict
 from typing import List
+from typing import Literal
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
+from typing_extensions import overload
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import BinaryStream
 from foundry._core import RequestInfo
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
@@ -241,9 +245,54 @@ class DatasetClient:
             ),
         )
 
-    @maybe_ignore_preview
-    @pydantic.validate_call
-    @handle_unexpected
+    @overload
+    def read(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        stream: Literal[True],
+        format: TableExportFormat,
+        branch_id: Optional[BranchId] = None,
+        columns: Optional[List[pydantic.StrictStr]] = None,
+        end_transaction_rid: Optional[TransactionRid] = None,
+        row_limit: Optional[pydantic.StrictInt] = None,
+        start_transaction_rid: Optional[TransactionRid] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> BinaryStream:
+        """
+        Gets the content of a dataset as a table in the specified format.
+
+        This endpoint currently does not support views (Virtual datasets composed of other datasets).
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param format: format
+        :type format: TableExportFormat
+        :param branch_id: branchId
+        :type branch_id: Optional[BranchId]
+        :param columns: columns
+        :type columns: Optional[List[pydantic.StrictStr]]
+        :param end_transaction_rid: endTransactionRid
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param row_limit: rowLimit
+        :type row_limit: Optional[pydantic.StrictInt]
+        :param start_transaction_rid: startTransactionRid
+        :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: BinaryStream
+        """
+        ...
+
+    @overload
     def read(
         self,
         dataset_rid: DatasetRid,
@@ -254,6 +303,7 @@ class DatasetClient:
         end_transaction_rid: Optional[TransactionRid] = None,
         row_limit: Optional[pydantic.StrictInt] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
+        stream: Literal[False] = False,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
         """
@@ -277,10 +327,108 @@ class DatasetClient:
         :type row_limit: Optional[pydantic.StrictInt]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+        """
+        ...
+
+    @overload
+    def read(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        stream: bool,
+        format: TableExportFormat,
+        branch_id: Optional[BranchId] = None,
+        columns: Optional[List[pydantic.StrictStr]] = None,
+        end_transaction_rid: Optional[TransactionRid] = None,
+        row_limit: Optional[pydantic.StrictInt] = None,
+        start_transaction_rid: Optional[TransactionRid] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Gets the content of a dataset as a table in the specified format.
+
+        This endpoint currently does not support views (Virtual datasets composed of other datasets).
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param format: format
+        :type format: TableExportFormat
+        :param branch_id: branchId
+        :type branch_id: Optional[BranchId]
+        :param columns: columns
+        :type columns: Optional[List[pydantic.StrictStr]]
+        :param end_transaction_rid: endTransactionRid
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param row_limit: rowLimit
+        :type row_limit: Optional[pydantic.StrictInt]
+        :param start_transaction_rid: startTransactionRid
+        :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
+        """
+        ...
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def read(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        format: TableExportFormat,
+        branch_id: Optional[BranchId] = None,
+        columns: Optional[List[pydantic.StrictStr]] = None,
+        end_transaction_rid: Optional[TransactionRid] = None,
+        row_limit: Optional[pydantic.StrictInt] = None,
+        start_transaction_rid: Optional[TransactionRid] = None,
+        stream: bool = False,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Gets the content of a dataset as a table in the specified format.
+
+        This endpoint currently does not support views (Virtual datasets composed of other datasets).
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param format: format
+        :type format: TableExportFormat
+        :param branch_id: branchId
+        :type branch_id: Optional[BranchId]
+        :param columns: columns
+        :type columns: Optional[List[pydantic.StrictStr]]
+        :param end_transaction_rid: endTransactionRid
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param row_limit: rowLimit
+        :type row_limit: Optional[pydantic.StrictInt]
+        :param start_transaction_rid: startTransactionRid
+        :type start_transaction_rid: Optional[TransactionRid]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
         """
 
         return self._api_client.call_api(
@@ -304,6 +452,8 @@ class DatasetClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
+                stream=stream,
+                chunk_size=chunk_size,
                 request_timeout=request_timeout,
             ),
         )

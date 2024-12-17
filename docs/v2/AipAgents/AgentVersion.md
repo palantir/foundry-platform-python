@@ -76,6 +76,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -96,6 +97,8 @@ foundry_client = FoundryClient(
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -104,6 +107,7 @@ try:
     for agent_version in foundry_client.aip_agents.Agent.AgentVersion.list(
         agent_rid,
         page_size=page_size,
+        page_token=page_token,
         preview=preview,
     ):
         pprint(agent_version)

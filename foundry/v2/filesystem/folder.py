@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -53,6 +54,7 @@ class FolderClient:
         folder_rid: FolderRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Resource]:
@@ -66,6 +68,8 @@ class FolderClient:
         :type folder_rid: FolderRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -80,6 +84,7 @@ class FolderClient:
                 resource_path="/v2/filesystem/folders/{folderRid}/children",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -126,6 +131,11 @@ class FolderClient:
         :return: Returns the result object.
         :rtype: ListChildrenOfFolderResponse
         """
+
+        warnings.warn(
+            "The FolderClient.childrenPage(...) method has been deprecated. Please use FolderClient.children(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

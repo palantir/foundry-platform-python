@@ -272,6 +272,7 @@ Name | Type | Description  | Notes |
 **order_by** | Optional[OrderBy] | orderBy | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 **select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
 
 ### Return type
@@ -302,6 +303,8 @@ order_by = None
 package_name = None
 # Optional[PageSize] | pageSize
 page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
 # Optional[List[SelectedPropertyApiName]] | select
 select = None
 
@@ -315,6 +318,7 @@ try:
         order_by=order_by,
         package_name=package_name,
         page_size=page_size,
+        page_token=page_token,
         select=select,
     ):
         pprint(ontology_object)

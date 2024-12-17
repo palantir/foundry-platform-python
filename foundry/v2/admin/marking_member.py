@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -105,6 +106,7 @@ class MarkingMemberClient:
         marking_id: MarkingId,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         transitive: Optional[pydantic.StrictBool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -117,6 +119,8 @@ class MarkingMemberClient:
         :type marking_id: MarkingId
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param transitive: transitive
@@ -133,6 +137,7 @@ class MarkingMemberClient:
                 resource_path="/v2/admin/markings/{markingId}/markingMembers",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                     "transitive": transitive,
                 },
@@ -181,6 +186,11 @@ class MarkingMemberClient:
         :return: Returns the result object.
         :rtype: ListMarkingMembersResponse
         """
+
+        warnings.warn(
+            "The MarkingMemberClient.page(...) method has been deprecated. Please use MarkingMemberClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

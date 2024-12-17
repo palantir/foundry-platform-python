@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -203,6 +204,7 @@ class OntologyInterfaceClient:
         ontology: OntologyIdentifier,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[InterfaceType]:
@@ -223,6 +225,8 @@ class OntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -237,6 +241,7 @@ class OntologyInterfaceClient:
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                     "preview": preview,
                 },
                 path_params={
@@ -290,6 +295,11 @@ class OntologyInterfaceClient:
         :return: Returns the result object.
         :rtype: ListInterfaceTypesResponse
         """
+
+        warnings.warn(
+            "The OntologyInterfaceClient.page(...) method has been deprecated. Please use OntologyInterfaceClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(

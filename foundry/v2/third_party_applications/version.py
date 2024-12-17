@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -133,6 +134,7 @@ class VersionClient:
         third_party_application_rid: ThirdPartyApplicationRid,
         *,
         page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[Version]:
         """
@@ -143,6 +145,8 @@ class VersionClient:
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
         :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -155,6 +159,7 @@ class VersionClient:
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions",
                 query_params={
                     "pageSize": page_size,
+                    "pageToken": page_token,
                 },
                 path_params={
                     "thirdPartyApplicationRid": third_party_application_rid,
@@ -195,6 +200,11 @@ class VersionClient:
         :return: Returns the result object.
         :rtype: ListVersionsResponse
         """
+
+        warnings.warn(
+            "The VersionClient.page(...) method has been deprecated. Please use VersionClient.list(...) instead.",
+            DeprecationWarning,
+        )
 
         return self._api_client.call_api(
             RequestInfo(
