@@ -13,8 +13,28 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1023.0"
+from dataclasses import dataclass
+from typing import Literal
+
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class InvalidAndFilterParameters(TypedDict):
+    """The provided AND filter should have at least one sub-filter."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidAndFilter(PalantirRPCException):
+    name: Literal["InvalidAndFilter"]
+    parameters: InvalidAndFilterParameters
+    error_instance_id: str
+
+
+__all__ = ["InvalidAndFilter"]

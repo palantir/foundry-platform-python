@@ -20,10 +20,13 @@ from foundry.v2.core.errors._get_root_folder_not_supported import GetRootFolderN
 from foundry.v2.core.errors._get_space_resource_not_supported import (
     GetSpaceResourceNotSupported,
 )  # NOQA
+from foundry.v2.core.errors._invalid_and_filter import InvalidAndFilter
 from foundry.v2.core.errors._invalid_change_data_capture_configuration import (
     InvalidChangeDataCaptureConfiguration,
 )  # NOQA
 from foundry.v2.core.errors._invalid_field_schema import InvalidFieldSchema
+from foundry.v2.core.errors._invalid_filter_value import InvalidFilterValue
+from foundry.v2.core.errors._invalid_or_filter import InvalidOrFilter
 from foundry.v2.core.errors._invalid_page_size import InvalidPageSize
 from foundry.v2.core.errors._invalid_page_token import InvalidPageToken
 from foundry.v2.core.errors._invalid_parameter_combination import (
@@ -39,8 +42,11 @@ __all__ = [
     "BatchRequestSizeExceededLimit",
     "GetRootFolderNotSupported",
     "GetSpaceResourceNotSupported",
+    "InvalidAndFilter",
     "InvalidChangeDataCaptureConfiguration",
     "InvalidFieldSchema",
+    "InvalidFilterValue",
+    "InvalidOrFilter",
     "InvalidPageSize",
     "InvalidPageToken",
     "InvalidParameterCombination",

@@ -13,8 +13,22 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1023.0"
+from typing import Literal
+
+from typing_extensions import TypedDict
+
+from foundry.v2.orchestration.models._search_builds_filter_dict import (
+    SearchBuildsFilterDict,
+)  # NOQA
+
+
+class SearchBuildsNotFilterDict(TypedDict):
+    """Returns the Builds where the filter is not satisfied."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: SearchBuildsFilterDict
+
+    type: Literal["not"]

@@ -5127,6 +5127,61 @@ def orchestration_build_get(
     click.echo(repr(result))
 
 
+@orchestration_build.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_build_get_batch(
+    client: foundry.v2.FoundryClient,
+    body: str,
+    preview: Optional[bool],
+):
+    """
+    Execute multiple get requests on Build.
+
+    The maximum batch size for this endpoint is 100.
+    """
+    result = client.orchestration.Build.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_build.command("search")
+@click.option("--where", type=str, required=True, help="""""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The page size for the search request. If no value is provided, a default of `100` will be used.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def orchestration_build_search(
+    client: foundry.v2.FoundryClient,
+    where: str,
+    order_by: Optional[str],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Search for Builds.
+    """
+    result = client.orchestration.Build.search(
+        where=json.loads(where),
+        order_by=None if order_by is None else json.loads(order_by),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("streams")
 def streams():
     pass

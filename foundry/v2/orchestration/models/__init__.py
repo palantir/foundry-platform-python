@@ -58,6 +58,15 @@ from foundry.v2.orchestration.models._dataset_updated_trigger_dict import (
 )  # NOQA
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._force_build import ForceBuild
+from foundry.v2.orchestration.models._get_builds_batch_request_element_dict import (
+    GetBuildsBatchRequestElementDict,
+)  # NOQA
+from foundry.v2.orchestration.models._get_builds_batch_response import (
+    GetBuildsBatchResponse,
+)  # NOQA
+from foundry.v2.orchestration.models._get_builds_batch_response_dict import (
+    GetBuildsBatchResponseDict,
+)  # NOQA
 from foundry.v2.orchestration.models._job_succeeded_trigger import JobSucceededTrigger
 from foundry.v2.orchestration.models._job_succeeded_trigger_dict import (
     JobSucceededTriggerDict,
@@ -143,6 +152,49 @@ from foundry.v2.orchestration.models._schedule_version_dict import ScheduleVersi
 from foundry.v2.orchestration.models._schedule_version_rid import ScheduleVersionRid
 from foundry.v2.orchestration.models._scope_mode import ScopeMode
 from foundry.v2.orchestration.models._scope_mode_dict import ScopeModeDict
+from foundry.v2.orchestration.models._search_builds_and_filter_dict import (
+    SearchBuildsAndFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_equals_filter_dict import (
+    SearchBuildsEqualsFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_equals_filter_field import (
+    SearchBuildsEqualsFilterField,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_filter_dict import (
+    SearchBuildsFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_gte_filter_dict import (
+    SearchBuildsGteFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_gte_filter_field import (
+    SearchBuildsGteFilterField,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_lt_filter_dict import (
+    SearchBuildsLtFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_lt_filter_field import (
+    SearchBuildsLtFilterField,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_not_filter_dict import (
+    SearchBuildsNotFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_or_filter_dict import (
+    SearchBuildsOrFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_order_by_dict import (
+    SearchBuildsOrderByDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_order_by_field import (
+    SearchBuildsOrderByField,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_order_by_item_dict import (
+    SearchBuildsOrderByItemDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_response import SearchBuildsResponse
+from foundry.v2.orchestration.models._search_builds_response_dict import (
+    SearchBuildsResponseDict,
+)  # NOQA
 from foundry.v2.orchestration.models._time_trigger import TimeTrigger
 from foundry.v2.orchestration.models._time_trigger_dict import TimeTriggerDict
 from foundry.v2.orchestration.models._trigger import Trigger
@@ -180,6 +232,9 @@ __all__ = [
     "DatasetUpdatedTriggerDict",
     "FallbackBranches",
     "ForceBuild",
+    "GetBuildsBatchRequestElementDict",
+    "GetBuildsBatchResponse",
+    "GetBuildsBatchResponseDict",
     "JobSucceededTrigger",
     "JobSucceededTriggerDict",
     "ListRunsOfScheduleResponse",
@@ -229,6 +284,21 @@ __all__ = [
     "ScheduleVersionRid",
     "ScopeMode",
     "ScopeModeDict",
+    "SearchBuildsAndFilterDict",
+    "SearchBuildsEqualsFilterDict",
+    "SearchBuildsEqualsFilterField",
+    "SearchBuildsFilterDict",
+    "SearchBuildsGteFilterDict",
+    "SearchBuildsGteFilterField",
+    "SearchBuildsLtFilterDict",
+    "SearchBuildsLtFilterField",
+    "SearchBuildsNotFilterDict",
+    "SearchBuildsOrFilterDict",
+    "SearchBuildsOrderByDict",
+    "SearchBuildsOrderByField",
+    "SearchBuildsOrderByItemDict",
+    "SearchBuildsResponse",
+    "SearchBuildsResponseDict",
     "TimeTrigger",
     "TimeTriggerDict",
     "Trigger",

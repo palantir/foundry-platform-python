@@ -13,8 +13,25 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1023.0"
+from typing import Any
+from typing import Literal
+
+from typing_extensions import TypedDict
+
+from foundry.v2.orchestration.models._search_builds_lt_filter_field import (
+    SearchBuildsLtFilterField,
+)  # NOQA
+
+
+class SearchBuildsLtFilterDict(TypedDict):
+    """SearchBuildsLtFilter"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    field: SearchBuildsLtFilterField
+
+    value: Any
+
+    type: Literal["lt"]

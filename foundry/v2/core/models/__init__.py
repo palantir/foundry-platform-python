@@ -58,6 +58,19 @@ from foundry.v2.core.models._field_schema import FieldSchema
 from foundry.v2.core.models._field_schema_dict import FieldSchemaDict
 from foundry.v2.core.models._file_path import FilePath
 from foundry.v2.core.models._filename import Filename
+from foundry.v2.core.models._filter_binary_type_dict import FilterBinaryTypeDict
+from foundry.v2.core.models._filter_boolean_type_dict import FilterBooleanTypeDict
+from foundry.v2.core.models._filter_date_time_type_dict import FilterDateTimeTypeDict
+from foundry.v2.core.models._filter_date_type_dict import FilterDateTypeDict
+from foundry.v2.core.models._filter_double_type_dict import FilterDoubleTypeDict
+from foundry.v2.core.models._filter_enum_type_dict import FilterEnumTypeDict
+from foundry.v2.core.models._filter_float_type_dict import FilterFloatTypeDict
+from foundry.v2.core.models._filter_integer_type_dict import FilterIntegerTypeDict
+from foundry.v2.core.models._filter_long_type_dict import FilterLongTypeDict
+from foundry.v2.core.models._filter_rid_type_dict import FilterRidTypeDict
+from foundry.v2.core.models._filter_string_type_dict import FilterStringTypeDict
+from foundry.v2.core.models._filter_type_dict import FilterTypeDict
+from foundry.v2.core.models._filter_uuid_type_dict import FilterUuidTypeDict
 from foundry.v2.core.models._float_type import FloatType
 from foundry.v2.core.models._float_type_dict import FloatTypeDict
 from foundry.v2.core.models._full_row_change_data_capture_configuration import (
@@ -90,6 +103,7 @@ from foundry.v2.core.models._media_set_rid import MediaSetRid
 from foundry.v2.core.models._media_type import MediaType
 from foundry.v2.core.models._null_type import NullType
 from foundry.v2.core.models._null_type_dict import NullTypeDict
+from foundry.v2.core.models._order_by_direction import OrderByDirection
 from foundry.v2.core.models._organization_rid import OrganizationRid
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
@@ -165,6 +179,19 @@ __all__ = [
     "FieldSchemaDict",
     "FilePath",
     "Filename",
+    "FilterBinaryTypeDict",
+    "FilterBooleanTypeDict",
+    "FilterDateTimeTypeDict",
+    "FilterDateTypeDict",
+    "FilterDoubleTypeDict",
+    "FilterEnumTypeDict",
+    "FilterFloatTypeDict",
+    "FilterIntegerTypeDict",
+    "FilterLongTypeDict",
+    "FilterRidTypeDict",
+    "FilterStringTypeDict",
+    "FilterTypeDict",
+    "FilterUuidTypeDict",
     "FloatType",
     "FloatTypeDict",
     "FullRowChangeDataCaptureConfiguration",
@@ -191,6 +218,7 @@ __all__ = [
     "MediaType",
     "NullType",
     "NullTypeDict",
+    "OrderByDirection",
     "OrganizationRid",
     "PageSize",
     "PageToken",

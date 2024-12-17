@@ -74,6 +74,9 @@ from foundry.v2.orchestration.errors._schedule_trigger_resources_permission_deni
 from foundry.v2.orchestration.errors._schedule_version_not_found import (
     ScheduleVersionNotFound,
 )  # NOQA
+from foundry.v2.orchestration.errors._search_builds_permission_denied import (
+    SearchBuildsPermissionDenied,
+)  # NOQA
 from foundry.v2.orchestration.errors._target_not_supported import TargetNotSupported
 from foundry.v2.orchestration.errors._unpause_schedule_permission_denied import (
     UnpauseSchedulePermissionDenied,
@@ -107,6 +110,7 @@ __all__ = [
     "ScheduleTriggerResourcesNotFound",
     "ScheduleTriggerResourcesPermissionDenied",
     "ScheduleVersionNotFound",
+    "SearchBuildsPermissionDenied",
     "TargetNotSupported",
     "UnpauseSchedulePermissionDenied",
 ]

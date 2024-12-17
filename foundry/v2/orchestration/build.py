@@ -17,9 +17,11 @@ from __future__ import annotations
 
 from typing import Any
 from typing import Dict
+from typing import List
 from typing import Optional
 
 import pydantic
+from annotated_types import Len
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
@@ -28,6 +30,8 @@ from foundry._core import Auth
 from foundry._core import RequestInfo
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.core.models._page_size import PageSize
+from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
@@ -36,11 +40,24 @@ from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._build_target_dict import BuildTargetDict
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._force_build import ForceBuild
+from foundry.v2.orchestration.models._get_builds_batch_request_element_dict import (
+    GetBuildsBatchRequestElementDict,
+)  # NOQA
+from foundry.v2.orchestration.models._get_builds_batch_response import (
+    GetBuildsBatchResponse,
+)  # NOQA
 from foundry.v2.orchestration.models._notifications_enabled import NotificationsEnabled
 from foundry.v2.orchestration.models._retry_backoff_duration_dict import (
     RetryBackoffDurationDict,
 )  # NOQA
 from foundry.v2.orchestration.models._retry_count import RetryCount
+from foundry.v2.orchestration.models._search_builds_filter_dict import (
+    SearchBuildsFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_order_by_dict import (
+    SearchBuildsOrderByDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_response import SearchBuildsResponse
 
 
 class BuildClient:
@@ -209,6 +226,114 @@ class BuildClient:
                 body=None,
                 body_type=None,
                 response_type=Build,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_batch(
+        self,
+        body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)],
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> GetBuildsBatchResponse:
+        """
+        Execute multiple get requests on Build.
+
+        The maximum batch size for this endpoint is 100.
+        :param body: Body of the request
+        :type body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: GetBuildsBatchResponse
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/builds/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=Annotated[
+                    List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)
+                ],
+                response_type=GetBuildsBatchResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def search(
+        self,
+        *,
+        where: SearchBuildsFilterDict,
+        order_by: Optional[SearchBuildsOrderByDict] = None,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> SearchBuildsResponse:
+        """
+        Search for Builds.
+        :param where:
+        :type where: SearchBuildsFilterDict
+        :param order_by:
+        :type order_by: Optional[SearchBuildsOrderByDict]
+        :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: SearchBuildsResponse
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/builds/search",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "where": where,
+                    "orderBy": order_by,
+                    "pageToken": page_token,
+                    "pageSize": page_size,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "where": SearchBuildsFilterDict,
+                        "orderBy": Optional[SearchBuildsOrderByDict],
+                        "pageToken": Optional[PageToken],
+                        "pageSize": Optional[PageSize],
+                    },
+                ),
+                response_type=SearchBuildsResponse,
                 request_timeout=request_timeout,
             ),
         )
