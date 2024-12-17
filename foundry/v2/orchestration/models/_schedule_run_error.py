@@ -29,7 +29,7 @@ class ScheduleRunError(pydantic.BaseModel):
 
     error_name: ScheduleRunErrorName = pydantic.Field(alias="errorName")
 
-    description: pydantic.StrictStr
+    description: str
 
     type: Literal["error"] = "error"
 

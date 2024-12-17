@@ -4,7 +4,7 @@ The semantic version of the Website.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

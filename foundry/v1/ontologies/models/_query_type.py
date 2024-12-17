@@ -36,7 +36,7 @@ class QueryType(pydantic.BaseModel):
 
     api_name: QueryApiName = pydantic.Field(alias="apiName")
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 

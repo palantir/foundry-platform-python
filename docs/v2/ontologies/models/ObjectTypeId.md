@@ -4,7 +4,7 @@ The unique identifier (ID) for an object type. This can be viewed in [Ontology M
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

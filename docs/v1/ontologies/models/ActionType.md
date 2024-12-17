@@ -6,7 +6,7 @@ Represents an action type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | ActionTypeApiName | Yes |  |
-**description** | Optional[pydantic.StrictStr] | No |  |
+**description** | Optional[str] | No |  |
 **display_name** | Optional[DisplayName] | No |  |
 **status** | ReleaseStatus | Yes |  |
 **parameters** | Dict[ParameterId, Parameter] | Yes |  |

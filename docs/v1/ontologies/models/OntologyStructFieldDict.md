@@ -7,7 +7,7 @@ OntologyStructField
 | ------------ | ------------- | ------------- | ------------- |
 **name** | StructFieldName | Yes |  |
 **fieldType** | OntologyDataTypeDict | Yes |  |
-**required** | pydantic.StrictBool | Yes |  |
+**required** | bool | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

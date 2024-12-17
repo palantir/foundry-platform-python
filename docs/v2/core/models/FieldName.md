@@ -4,7 +4,7 @@ FieldName
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

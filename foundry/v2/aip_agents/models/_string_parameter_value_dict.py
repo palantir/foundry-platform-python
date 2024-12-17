@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -26,6 +25,6 @@ class StringParameterValueDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: pydantic.StrictStr
+    value: str
 
     type: Literal["string"]

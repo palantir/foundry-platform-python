@@ -34,7 +34,7 @@ class DeprecatedPropertyTypeStatus(pydantic.BaseModel):
     deadline specified.
     """
 
-    message: pydantic.StrictStr
+    message: str
 
     deadline: datetime
 

@@ -26,7 +26,7 @@ from foundry.v2.ontologies.models._object_set_base_type_dict import ObjectSetBas
 class ObjectSetBaseType(pydantic.BaseModel):
     """ObjectSetBaseType"""
 
-    object_type: pydantic.StrictStr = pydantic.Field(alias="objectType")
+    object_type: str = pydantic.Field(alias="objectType")
 
     """The API name of the object type."""
 

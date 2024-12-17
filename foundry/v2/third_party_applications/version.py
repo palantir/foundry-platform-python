@@ -283,7 +283,7 @@ class VersionClient:
         *,
         version: VersionVersion,
         preview: Optional[PreviewMode] = None,
-        snapshot_identifier: Optional[pydantic.StrictStr] = None,
+        snapshot_identifier: Optional[str] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Version:
         """
@@ -298,7 +298,7 @@ class VersionClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param snapshot_identifier: snapshotIdentifier
-        :type snapshot_identifier: Optional[pydantic.StrictStr]
+        :type snapshot_identifier: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

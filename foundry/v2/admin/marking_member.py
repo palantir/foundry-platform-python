@@ -108,7 +108,7 @@ class MarkingMemberClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        transitive: Optional[pydantic.StrictBool] = None,
+        transitive: Optional[bool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ResourceIterator[MarkingMember]:
         """
@@ -124,7 +124,7 @@ class MarkingMemberClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[pydantic.StrictBool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -164,7 +164,7 @@ class MarkingMemberClient:
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        transitive: Optional[pydantic.StrictBool] = None,
+        transitive: Optional[bool] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ListMarkingMembersResponse:
         """
@@ -180,7 +180,7 @@ class MarkingMemberClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[pydantic.StrictBool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -6,7 +6,7 @@ to a parent resource and inherited by the current resource.
 
 ## Type
 ```python
-pydantic.StrictBool
+bool
 ```
 
 

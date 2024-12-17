@@ -29,9 +29,9 @@ class InvalidSchemaParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    errorType: pydantic.StrictStr
+    errorType: str
 
-    message: pydantic.StrictStr
+    message: str
 
 
 @dataclass

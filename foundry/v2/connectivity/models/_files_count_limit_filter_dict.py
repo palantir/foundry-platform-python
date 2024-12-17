@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -30,7 +29,7 @@ class FilesCountLimitFilterDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    filesCount: pydantic.StrictInt
+    filesCount: int
     """The number of files to import in the transaction. The value specified must be positive."""
 
     type: Literal["filesCountLimitFilter"]

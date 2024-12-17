@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-Coordinate = pydantic.StrictFloat
+Coordinate = float
 """Coordinate"""

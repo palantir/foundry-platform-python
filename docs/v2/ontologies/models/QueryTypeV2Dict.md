@@ -6,7 +6,7 @@ Represents a query type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | QueryApiName | Yes |  |
-**description** | NotRequired[pydantic.StrictStr] | No |  |
+**description** | NotRequired[str] | No |  |
 **displayName** | NotRequired[DisplayName] | No |  |
 **parameters** | Dict[ParameterId, QueryParameterV2Dict] | Yes |  |
 **output** | QueryDataTypeDict | Yes |  |

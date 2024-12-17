@@ -1,0 +1,426 @@
+# MediaSet
+
+Method | HTTP request |
+------------- | ------------- |
+
+Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**transaction_id** | TransactionId | transactionId |  |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry.v1 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# TransactionId | transactionId
+transaction_id = None
+
+
+try:
+    api_response = foundry_client.mediasets.MediaSet.abort(
+        media_set_rid,
+        transaction_id,
+    )
+    print("The abort response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.abort: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+
+Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**transaction_id** | TransactionId | transactionId |  |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry.v1 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# TransactionId | transactionId
+transaction_id = None
+
+
+try:
+    api_response = foundry_client.mediasets.MediaSet.commit(
+        media_set_rid,
+        transaction_id,
+    )
+    print("The commit response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.commit: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+
+Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**branch_name** | Optional[BranchName] | branchName | [optional] |
+
+### Return type
+**TransactionId**
+
+### Example
+
+```python
+from foundry.v1 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# Optional[BranchName] | branchName
+branch_name = None
+
+
+try:
+    api_response = foundry_client.mediasets.MediaSet.create(
+        media_set_rid,
+        branch_name=branch_name,
+    )
+    print("The create response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.create: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | TransactionId  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+
+Gets information about the media item.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**media_item_rid** | MediaItemRid | mediaItemRid |  |
+
+### Return type
+**GetMediaItemInfoResponse**
+
+### Example
+
+```python
+from foundry.v1 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# MediaItemRid | mediaItemRid
+media_item_rid = None
+
+
+try:
+    api_response = foundry_client.mediasets.MediaSet.info(
+        media_set_rid,
+        media_item_rid,
+    )
+    print("The info response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.info: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetMediaItemInfoResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+
+Gets the content of a media item.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**media_item_rid** | MediaItemRid | mediaItemRid |  |
+
+### Return type
+**bytes**
+
+### Example
+
+```python
+from foundry.v1 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# MediaItemRid | mediaItemRid
+media_item_rid = None
+
+
+try:
+    api_response = foundry_client.mediasets.MediaSet.read(
+        media_set_rid,
+        media_item_rid,
+    )
+    print("The read response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.read: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | bytes  | The content stream. | */* |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+
+Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**media_item_rid** | MediaItemRid | mediaItemRid |  |
+
+### Return type
+**MediaReference**
+
+### Example
+
+```python
+from foundry.v1 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# MediaItemRid | mediaItemRid
+media_item_rid = None
+
+
+try:
+    api_response = foundry_client.mediasets.MediaSet.reference(
+        media_set_rid,
+        media_item_rid,
+    )
+    print("The reference response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.reference: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | MediaReference  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+
+Uploads a media item to an existing media set.
+The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+A branch name, or branch rid, or view rid may optionally be specified.  If none is specified, the item will be uploaded to the default branch. If more than one is specified, an error is thrown.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**body** | bytes | Body of the request |  |
+**branch_name** | Optional[BranchName] | branchName | [optional] |
+**branch_rid** | Optional[BranchRid] | branchRid | [optional] |
+**media_item_path** | Optional[MediaItemPath] | mediaItemPath | [optional] |
+**transaction_id** | Optional[TransactionId] | transactionId | [optional] |
+**view_rid** | Optional[MediaSetViewRid] | viewRid | [optional] |
+
+### Return type
+**PutMediaItemResponse**
+
+### Example
+
+```python
+from foundry.v1 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# bytes | Body of the request
+body = None
+# Optional[BranchName] | branchName
+branch_name = None
+# Optional[BranchRid] | branchRid
+branch_rid = None
+# Optional[MediaItemPath] | mediaItemPath
+media_item_path = "q3-data%2fmy-file.png"
+# Optional[TransactionId] | transactionId
+transaction_id = None
+# Optional[MediaSetViewRid] | viewRid
+view_rid = None
+
+
+try:
+    api_response = foundry_client.mediasets.MediaSet.upload(
+        media_set_rid,
+        body,
+        branch_name=branch_name,
+        branch_rid=branch_rid,
+        media_item_path=media_item_path,
+        transaction_id=transaction_id,
+        view_rid=view_rid,
+    )
+    print("The upload response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.upload: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | PutMediaItemResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
+

@@ -5,7 +5,7 @@ AggregateObjectsResponseV2
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**excluded_items** | Optional[pydantic.StrictInt] | No |  |
+**excluded_items** | Optional[int] | No |  |
 **accuracy** | AggregationAccuracy | Yes |  |
 **data** | List[AggregateObjectsResponseItemV2] | Yes |  |
 

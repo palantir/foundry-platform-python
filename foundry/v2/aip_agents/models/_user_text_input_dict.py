@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -24,5 +23,5 @@ class UserTextInputDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    text: pydantic.StrictStr
+    text: str
     """The user message text."""

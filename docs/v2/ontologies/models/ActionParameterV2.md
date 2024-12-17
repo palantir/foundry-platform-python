@@ -5,9 +5,9 @@ Details about a parameter of an action.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | Optional[pydantic.StrictStr] | No |  |
+**description** | Optional[str] | No |  |
 **data_type** | ActionParameterType | Yes |  |
-**required** | pydantic.StrictBool | Yes |  |
+**required** | bool | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

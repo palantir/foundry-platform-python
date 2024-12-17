@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Dict
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -39,13 +38,13 @@ class UserDict(TypedDict):
     username: UserUsername
     """The Foundry username of the User. This is unique within the realm."""
 
-    givenName: NotRequired[pydantic.StrictStr]
+    givenName: NotRequired[str]
     """The given name of the User."""
 
-    familyName: NotRequired[pydantic.StrictStr]
+    familyName: NotRequired[str]
     """The family name (last name) of the User."""
 
-    email: NotRequired[pydantic.StrictStr]
+    email: NotRequired[str]
     """The email at which to contact a User. Multiple users may have the same email address."""
 
     realm: Realm

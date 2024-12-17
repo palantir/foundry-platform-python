@@ -5,7 +5,7 @@ Details about a parameter of a query.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | Optional[pydantic.StrictStr] | No |  |
+**description** | Optional[str] | No |  |
 **data_type** | QueryDataType | Yes |  |
 
 

@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-PageSize = pydantic.StrictInt
+PageSize = int
 """The page size to use for the endpoint."""

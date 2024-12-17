@@ -29,7 +29,7 @@ class InvalidGroupIdParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: pydantic.StrictStr
+    groupId: str
 
 
 @dataclass

@@ -29,7 +29,7 @@ class GroupNameAlreadyExistsParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupName: pydantic.StrictStr
+    groupName: str
 
 
 @dataclass

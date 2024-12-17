@@ -32,7 +32,7 @@ class TableImportNotSupportedForConnectionParameters(TypedDict):
 
     connectionRid: ConnectionRid
 
-    tableImportType: pydantic.StrictStr
+    tableImportType: str
 
 
 @dataclass

@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -31,7 +30,7 @@ class CreateConnectionRequestS3ConnectionConfigurationDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    bucketUrl: pydantic.StrictStr
+    bucketUrl: str
     """The URL of the S3 bucket. The URL should contain a trailing slash."""
 
     authenticationMode: NotRequired[S3AuthenticationModeDict]

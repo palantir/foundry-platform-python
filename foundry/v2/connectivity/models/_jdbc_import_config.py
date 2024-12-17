@@ -26,7 +26,7 @@ from foundry.v2.connectivity.models._jdbc_import_config_dict import JdbcImportCo
 class JdbcImportConfig(pydantic.BaseModel):
     """The import configuration for a [custom JDBC connection](docs/foundry/available-connectors/custom-jdbc-sources)."""
 
-    query: pydantic.StrictStr
+    query: str
 
     """
     A single SQL query can be executed per sync, which should output a data table 

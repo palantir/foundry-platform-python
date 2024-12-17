@@ -28,7 +28,7 @@ from foundry.v2.connectivity.models._postgre_sql_import_config_dict import (
 class PostgreSqlImportConfig(pydantic.BaseModel):
     """The import configuration for a [PostgreSQL connection](docs/foundry/available-connectors/postgresql)."""
 
-    query: pydantic.StrictStr
+    query: str
 
     """
     A single SQL query can be executed per sync, which should output a data table 

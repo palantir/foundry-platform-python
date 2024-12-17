@@ -18,7 +18,6 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -33,7 +32,7 @@ class DeprecatedPropertyTypeStatusDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    message: pydantic.StrictStr
+    message: str
 
     deadline: datetime
 

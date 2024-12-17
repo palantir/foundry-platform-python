@@ -29,7 +29,7 @@ class FileAtLeastCountFilterInvalidMinCountParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    minFilesCount: pydantic.StrictInt
+    minFilesCount: int
 
 
 @dataclass

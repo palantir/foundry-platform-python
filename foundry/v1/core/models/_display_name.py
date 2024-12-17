@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-DisplayName = pydantic.StrictStr
+DisplayName = str
 """The display name of the entity."""

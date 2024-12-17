@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v1.core.models._struct_field_name import StructFieldName
@@ -31,4 +30,4 @@ class OntologyStructFieldDict(TypedDict):
 
     fieldType: OntologyDataTypeDict
 
-    required: pydantic.StrictBool
+    required: bool

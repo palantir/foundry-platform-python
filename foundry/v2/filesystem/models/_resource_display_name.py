@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ResourceDisplayName = pydantic.StrictStr
+ResourceDisplayName = str
 """The display name of the Resource"""

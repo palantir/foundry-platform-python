@@ -35,9 +35,9 @@ class FunctionExecutionFailedParameters(TypedDict):
 
     functionVersion: FunctionVersion
 
-    message: NotRequired[pydantic.StrictStr]
+    message: NotRequired[str]
 
-    stacktrace: NotRequired[pydantic.StrictStr]
+    stacktrace: NotRequired[str]
 
 
 @dataclass

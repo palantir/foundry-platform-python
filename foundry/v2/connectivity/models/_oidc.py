@@ -30,11 +30,11 @@ class Oidc(pydantic.BaseModel):
     you to authenticate to external system resources without the use of static credentials.
     """
 
-    audience: pydantic.StrictStr
+    audience: str
 
     """The configured audience that identifies the external system."""
 
-    issuer_url: pydantic.StrictStr = pydantic.Field(alias="issuerUrl")
+    issuer_url: str = pydantic.Field(alias="issuerUrl")
 
     """The URL that identifies Foundry as an OIDC identity provider."""
 

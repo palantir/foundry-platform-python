@@ -30,7 +30,7 @@ class MultipleGroupByOnFieldNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    duplicateFields: List[pydantic.StrictStr]
+    duplicateFields: List[str]
 
 
 @dataclass

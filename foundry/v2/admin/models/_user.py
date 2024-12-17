@@ -39,15 +39,15 @@ class User(pydantic.BaseModel):
 
     """The Foundry username of the User. This is unique within the realm."""
 
-    given_name: Optional[pydantic.StrictStr] = pydantic.Field(alias="givenName", default=None)
+    given_name: Optional[str] = pydantic.Field(alias="givenName", default=None)
 
     """The given name of the User."""
 
-    family_name: Optional[pydantic.StrictStr] = pydantic.Field(alias="familyName", default=None)
+    family_name: Optional[str] = pydantic.Field(alias="familyName", default=None)
 
     """The family name (last name) of the User."""
 
-    email: Optional[pydantic.StrictStr] = None
+    email: Optional[str] = None
 
     """The email at which to contact a User. Multiple users may have the same email address."""
 

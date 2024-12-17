@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-SchedulePaused = pydantic.StrictBool
+SchedulePaused = bool
 """SchedulePaused"""

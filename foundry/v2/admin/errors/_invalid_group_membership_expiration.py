@@ -37,7 +37,7 @@ class InvalidGroupMembershipExpirationParameters(TypedDict):
 
     expirationProvided: NotRequired[GroupMembershipExpiration]
 
-    maximumDuration: NotRequired[pydantic.StrictStr]
+    maximumDuration: NotRequired[str]
 
     latestExpiration: NotRequired[datetime]
 

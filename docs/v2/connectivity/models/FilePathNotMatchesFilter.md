@@ -16,7 +16,7 @@ and `relative/subfolder/exclude-file.txt` will be excluded from the import.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**regex** | pydantic.StrictStr | Yes | Must be written to match the paths relative to the root of the source, even if a subfolder is specified.  |
+**regex** | str | Yes | Must be written to match the paths relative to the root of the source, even if a subfolder is specified.  |
 **type** | Literal["pathNotMatchesFilter"] | Yes | None |
 
 

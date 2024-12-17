@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-MarkingCategoryId = pydantic.StrictStr
+MarkingCategoryId = str
 """
 The ID of a marking category. For user-created categories, this will be a UUID. Markings associated with
 Organizations are placed in a category with ID "Organization".

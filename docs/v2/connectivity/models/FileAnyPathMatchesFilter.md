@@ -6,7 +6,7 @@ If any file has a relative path matching the regular expression, sync all files 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**regex** | pydantic.StrictStr | Yes | The regular expression for the relative path to match against.  |
+**regex** | str | Yes | The regular expression for the relative path to match against.  |
 **type** | Literal["anyPathMatchesFilter"] | Yes | None |
 
 

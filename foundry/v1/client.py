@@ -26,7 +26,9 @@ class FoundryClient:
 
     def __init__(self, auth: Auth, hostname: str):
         from foundry.v1.datasets.client import DatasetsClient
+        from foundry.v1.mediasets.client import MediasetsClient
         from foundry.v1.ontologies.client import OntologiesClient
 
         self.datasets = DatasetsClient(auth=auth, hostname=hostname)
+        self.mediasets = MediasetsClient(auth=auth, hostname=hostname)
         self.ontologies = OntologiesClient(auth=auth, hostname=hostname)

@@ -4,7 +4,7 @@ The registered API name for the value type.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

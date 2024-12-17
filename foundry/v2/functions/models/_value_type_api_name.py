@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ValueTypeApiName = pydantic.StrictStr
+ValueTypeApiName = str
 """The registered API name for the value type."""

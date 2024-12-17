@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-StructFieldApiName = pydantic.StrictStr
+StructFieldApiName = str
 """The name of a struct field in the Ontology."""

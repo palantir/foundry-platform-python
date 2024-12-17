@@ -5,7 +5,7 @@ The name of the derived property that will be returned.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

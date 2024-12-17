@@ -18,7 +18,6 @@ from __future__ import annotations
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._object_edit_dict import ObjectEditDict
@@ -31,14 +30,14 @@ class ObjectEditsDict(TypedDict):
 
     edits: List[ObjectEditDict]
 
-    addedObjectCount: pydantic.StrictInt
+    addedObjectCount: int
 
-    modifiedObjectsCount: pydantic.StrictInt
+    modifiedObjectsCount: int
 
-    deletedObjectsCount: pydantic.StrictInt
+    deletedObjectsCount: int
 
-    addedLinksCount: pydantic.StrictInt
+    addedLinksCount: int
 
-    deletedLinksCount: pydantic.StrictInt
+    deletedLinksCount: int
 
     type: Literal["edits"]

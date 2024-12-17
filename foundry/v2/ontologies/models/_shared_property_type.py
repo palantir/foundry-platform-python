@@ -38,7 +38,7 @@ class SharedPropertyType(pydantic.BaseModel):
 
     display_name: DisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """A short text that describes the SharedPropertyType."""
 

@@ -30,9 +30,9 @@ class InvalidParameterCombinationParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    validCombinations: List[List[pydantic.StrictStr]]
+    validCombinations: List[List[str]]
 
-    providedParameters: List[pydantic.StrictStr]
+    providedParameters: List[str]
 
 
 @dataclass

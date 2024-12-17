@@ -7,7 +7,7 @@ Computes the approximate percentile value for the provided field. Requires Objec
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
-**approximatePercentile** | pydantic.StrictFloat | Yes |  |
+**approximatePercentile** | float | Yes |  |
 **direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["approximatePercentile"] | Yes | None |
 

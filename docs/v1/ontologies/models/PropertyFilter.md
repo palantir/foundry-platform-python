@@ -29,7 +29,7 @@ The following are a list of supported property filters:
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

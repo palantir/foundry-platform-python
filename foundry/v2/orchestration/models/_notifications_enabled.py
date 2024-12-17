@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-NotificationsEnabled = pydantic.StrictBool
+NotificationsEnabled = bool
 """
 Whether to receive a notification at the end of the build.
 The notification will be sent to the user that has performed the request.

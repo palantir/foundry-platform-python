@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-AttributeValue = pydantic.StrictStr
+AttributeValue = str
 """AttributeValue"""

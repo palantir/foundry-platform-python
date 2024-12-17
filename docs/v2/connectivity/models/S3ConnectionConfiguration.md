@@ -7,7 +7,7 @@ implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazo
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**bucket_url** | pydantic.StrictStr | Yes | The URL of the S3 bucket. The URL should contain a trailing slash. |
+**bucket_url** | str | Yes | The URL of the S3 bucket. The URL should contain a trailing slash. |
 **authentication_mode** | Optional[S3AuthenticationMode] | No | The authentication mode to use to connect to the S3 external system. No authentication mode is required to connect to publicly accessible AWS S3 buckets.  |
 **type** | Literal["s3"] | Yes | None |
 

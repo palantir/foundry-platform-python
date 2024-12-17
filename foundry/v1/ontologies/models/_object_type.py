@@ -41,7 +41,7 @@ class ObjectType(pydantic.BaseModel):
 
     status: ReleaseStatus
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """The description of the object type."""
 

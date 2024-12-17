@@ -35,7 +35,7 @@ class RateLimitExceededParameters(TypedDict):
 
     sessionRid: SessionRid
 
-    details: pydantic.StrictStr
+    details: str
     """Any additional details provided for the error."""
 
 

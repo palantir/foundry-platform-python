@@ -43,7 +43,7 @@ class InvalidRangeQueryParameters(TypedDict):
     gte: NotRequired[Any]
     """Greater than or equal"""
 
-    field: pydantic.StrictStr
+    field: str
 
 
 @dataclass

@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ValueTypeDescription = pydantic.StrictStr
+ValueTypeDescription = str
 """A description of the value type."""

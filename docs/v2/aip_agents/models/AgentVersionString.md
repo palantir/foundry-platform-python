@@ -4,7 +4,7 @@ The semantic version of the Agent, formatted as "majorVersion.minorVersion".
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

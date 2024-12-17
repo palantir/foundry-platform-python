@@ -40,11 +40,11 @@ class QueryRuntimeErrorParameters(TypedDict):
 
     functionVersion: FunctionVersion
 
-    message: NotRequired[pydantic.StrictStr]
+    message: NotRequired[str]
 
-    stacktrace: NotRequired[pydantic.StrictStr]
+    stacktrace: NotRequired[str]
 
-    parameters: Dict[QueryRuntimeErrorParameter, pydantic.StrictStr]
+    parameters: Dict[QueryRuntimeErrorParameter, str]
 
 
 @dataclass

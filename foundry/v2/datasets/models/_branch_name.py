@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-BranchName = pydantic.StrictStr
+BranchName = str
 """The name of a Branch."""

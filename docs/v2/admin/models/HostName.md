@@ -4,7 +4,7 @@ HostName
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

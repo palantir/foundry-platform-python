@@ -30,15 +30,15 @@ class ObjectEdits(pydantic.BaseModel):
 
     edits: List[ObjectEdit]
 
-    added_object_count: pydantic.StrictInt = pydantic.Field(alias="addedObjectCount")
+    added_object_count: int = pydantic.Field(alias="addedObjectCount")
 
-    modified_objects_count: pydantic.StrictInt = pydantic.Field(alias="modifiedObjectsCount")
+    modified_objects_count: int = pydantic.Field(alias="modifiedObjectsCount")
 
-    deleted_objects_count: pydantic.StrictInt = pydantic.Field(alias="deletedObjectsCount")
+    deleted_objects_count: int = pydantic.Field(alias="deletedObjectsCount")
 
-    added_links_count: pydantic.StrictInt = pydantic.Field(alias="addedLinksCount")
+    added_links_count: int = pydantic.Field(alias="addedLinksCount")
 
-    deleted_links_count: pydantic.StrictInt = pydantic.Field(alias="deletedLinksCount")
+    deleted_links_count: int = pydantic.Field(alias="deletedLinksCount")
 
     type: Literal["edits"] = "edits"
 

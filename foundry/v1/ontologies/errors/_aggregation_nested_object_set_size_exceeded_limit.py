@@ -32,9 +32,9 @@ class AggregationNestedObjectSetSizeExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectsCount: pydantic.StrictInt
+    objectsCount: int
 
-    objectsLimit: pydantic.StrictInt
+    objectsLimit: int
 
 
 @dataclass

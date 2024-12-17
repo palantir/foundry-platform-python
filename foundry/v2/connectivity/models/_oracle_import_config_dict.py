@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 
@@ -26,7 +25,7 @@ class OracleImportConfigDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    query: pydantic.StrictStr
+    query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 

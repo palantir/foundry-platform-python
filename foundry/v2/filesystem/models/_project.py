@@ -41,11 +41,11 @@ class Project(pydantic.BaseModel):
 
     """The display name of the Project. Must be unique and cannot contain a /"""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """The description associated with the Project."""
 
-    documentation: Optional[pydantic.StrictStr] = None
+    documentation: Optional[str] = None
 
     """The documentation associated with the Project."""
 

@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-QueryRuntimeErrorParameter = pydantic.StrictStr
+QueryRuntimeErrorParameter = str
 """QueryRuntimeErrorParameter"""

@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._string_regex_match_constraint_dict import (
 class StringRegexMatchConstraint(pydantic.BaseModel):
     """The parameter value must match a predefined regular expression."""
 
-    regex: pydantic.StrictStr
+    regex: str
 
     """The regular expression configured in the **Ontology Manager**."""
 
-    configured_failure_message: Optional[pydantic.StrictStr] = pydantic.Field(
+    configured_failure_message: Optional[str] = pydantic.Field(
         alias="configuredFailureMessage", default=None
     )
 

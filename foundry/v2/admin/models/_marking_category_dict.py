@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import List
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -41,7 +40,7 @@ class MarkingCategoryDict(TypedDict):
 
     displayName: MarkingCategoryDisplayName
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
 
     categoryType: MarkingCategoryType
 

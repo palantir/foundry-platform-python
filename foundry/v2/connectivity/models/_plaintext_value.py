@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-PlaintextValue = pydantic.StrictStr
+PlaintextValue = str
 """PlaintextValue"""

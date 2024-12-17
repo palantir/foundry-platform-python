@@ -4,7 +4,7 @@ The unique identifier for a parameter, as configured in [AIP Agent Studio](/docs
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

@@ -6,7 +6,7 @@ endpoint or check the **Ontology Manager**.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

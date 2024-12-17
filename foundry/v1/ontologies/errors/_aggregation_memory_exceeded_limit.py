@@ -36,9 +36,9 @@ class AggregationMemoryExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    memoryUsedBytes: NotRequired[pydantic.StrictStr]
+    memoryUsedBytes: NotRequired[str]
 
-    memoryLimitBytes: pydantic.StrictStr
+    memoryLimitBytes: str
 
 
 @dataclass

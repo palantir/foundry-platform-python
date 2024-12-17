@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
@@ -31,10 +30,10 @@ class OidcDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    audience: pydantic.StrictStr
+    audience: str
     """The configured audience that identifies the external system."""
 
-    issuerUrl: pydantic.StrictStr
+    issuerUrl: str
     """The URL that identifies Foundry as an OIDC identity provider."""
 
     subject: ConnectionRid

@@ -32,7 +32,7 @@ class Ontology(pydantic.BaseModel):
 
     display_name: DisplayName = pydantic.Field(alias="displayName")
 
-    description: pydantic.StrictStr
+    description: str
 
     rid: OntologyRid
 

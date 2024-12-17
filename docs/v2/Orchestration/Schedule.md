@@ -20,8 +20,8 @@ Creates a new Schedule.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **action** | CreateScheduleRequestActionDict |  |  |
-**description** | Optional[pydantic.StrictStr] |  | [optional] |
-**display_name** | Optional[pydantic.StrictStr] |  | [optional] |
+**description** | Optional[str] |  | [optional] |
+**display_name** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 **scope_mode** | Optional[CreateScheduleRequestScopeModeDict] |  | [optional] |
 **trigger** | Optional[TriggerDict] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
@@ -57,9 +57,9 @@ action = {
         ],
     },
 }
-# Optional[pydantic.StrictStr] |
+# Optional[str] |
 description = "Run all the transforms at midnight"
-# Optional[pydantic.StrictStr] |
+# Optional[str] |
 display_name = "My Daily Schedule"
 # Optional[PreviewMode] | preview
 preview = None
@@ -272,8 +272,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
 **action** | ReplaceScheduleRequestActionDict |  |  |
-**description** | Optional[pydantic.StrictStr] |  | [optional] |
-**display_name** | Optional[pydantic.StrictStr] |  | [optional] |
+**description** | Optional[str] |  | [optional] |
+**display_name** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 **scope_mode** | Optional[ReplaceScheduleRequestScopeModeDict] |  | [optional] |
 **trigger** | Optional[TriggerDict] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
@@ -311,9 +311,9 @@ action = {
         ],
     },
 }
-# Optional[pydantic.StrictStr] |
+# Optional[str] |
 description = "Run all the transforms at midnight"
-# Optional[pydantic.StrictStr] |
+# Optional[str] |
 display_name = "My Daily Schedule"
 # Optional[PreviewMode] | preview
 preview = None

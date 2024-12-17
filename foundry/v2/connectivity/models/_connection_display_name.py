@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ConnectionDisplayName = pydantic.StrictStr
+ConnectionDisplayName = str
 """ConnectionDisplayName"""

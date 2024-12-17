@@ -33,7 +33,7 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
     """
 
-    bucket_url: pydantic.StrictStr = pydantic.Field(alias="bucketUrl")
+    bucket_url: str = pydantic.Field(alias="bucketUrl")
 
     """The URL of the S3 bucket. The URL should contain a trailing slash."""
 

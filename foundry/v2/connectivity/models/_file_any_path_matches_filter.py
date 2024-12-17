@@ -28,7 +28,7 @@ from foundry.v2.connectivity.models._file_any_path_matches_filter_dict import (
 class FileAnyPathMatchesFilter(pydantic.BaseModel):
     """If any file has a relative path matching the regular expression, sync all files in the subfolder that are not otherwise filtered."""
 
-    regex: pydantic.StrictStr
+    regex: str
 
     """The regular expression for the relative path to match against."""
 

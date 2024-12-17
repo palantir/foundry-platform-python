@@ -27,7 +27,7 @@ from foundry.v2.ontologies.models._query_parameter_v2_dict import QueryParameter
 class QueryParameterV2(pydantic.BaseModel):
     """Details about a parameter of a query."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     data_type: QueryDataType = pydantic.Field(alias="dataType")
 

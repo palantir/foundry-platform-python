@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v1.ontologies.models._field_name_v1 import FieldNameV1
@@ -30,6 +29,6 @@ class IsNullQueryDict(TypedDict):
 
     field: FieldNameV1
 
-    value: pydantic.StrictBool
+    value: bool
 
     type: Literal["isNull"]

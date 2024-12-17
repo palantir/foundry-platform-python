@@ -6,7 +6,7 @@ type, use the `List interface types` endpoint or check the **Ontology Manager**.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

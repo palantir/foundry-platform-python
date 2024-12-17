@@ -25,7 +25,7 @@ import pydantic
 from typing_extensions import Annotated
 
 RID = Annotated[
-    pydantic.StrictStr,
+    str,
     pydantic.StringConstraints(
         pattern=r"^ri\.[a-z][a-z0-9-]*\.([a-z0-9][a-z0-9\-]*)?\.[a-z][a-z0-9-]*\.[a-zA-Z0-9._-]+$",
     ),
@@ -33,9 +33,20 @@ RID = Annotated[
 
 
 UUID = Annotated[
-    pydantic.StrictStr,
+    str,
     pydantic.StringConstraints(
         pattern=r"^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$",
+    ),
+]
+
+Long = Annotated[
+    int,
+    pydantic.PlainSerializer(
+        lambda value: str(value),
+        return_type=str,
+        # Important: This ensures the value is not serialized when using to_dict()
+        # We only want to serialize when dumping to a JSON string
+        when_used="json",
     ),
 ]
 

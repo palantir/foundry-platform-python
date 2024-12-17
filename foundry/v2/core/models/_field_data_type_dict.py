@@ -45,7 +45,7 @@ class FieldSchemaDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    nullable: pydantic.StrictBool
+    nullable: bool
 
     customMetadata: NotRequired[CustomMetadata]
 

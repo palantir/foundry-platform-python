@@ -4,7 +4,7 @@ The full path to the resource, including the resource name itself
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-TableImportAllowSchemaChanges = pydantic.StrictBool
+TableImportAllowSchemaChanges = bool
 """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""

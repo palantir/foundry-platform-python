@@ -28,9 +28,9 @@ from foundry.v1.ontologies.models._aggregation_metric_result_dict import (
 class AggregationMetricResult(pydantic.BaseModel):
     """AggregationMetricResult"""
 
-    name: pydantic.StrictStr
+    name: str
 
-    value: Optional[pydantic.StrictFloat] = None
+    value: Optional[float] = None
 
     """TBD"""
 

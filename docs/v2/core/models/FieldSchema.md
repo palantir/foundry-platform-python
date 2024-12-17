@@ -6,7 +6,7 @@ The specification of the type of a Foundry schema field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nullable** | pydantic.StrictBool | Yes |  |
+**nullable** | bool | Yes |  |
 **custom_metadata** | Optional[CustomMetadata] | No |  |
 **data_type** | FieldDataType | Yes |  |
 

@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-InterfaceTypeApiName = pydantic.StrictStr
+InterfaceTypeApiName = str
 """
 The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
 type, use the `List interface types` endpoint or check the **Ontology Manager**.

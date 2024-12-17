@@ -6,7 +6,7 @@ application and assign them API names. In every other case, API names should be 
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

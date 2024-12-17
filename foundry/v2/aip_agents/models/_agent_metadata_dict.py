@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import List
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -27,14 +26,14 @@ class AgentMetadataDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    displayName: pydantic.StrictStr
+    displayName: str
     """The name of the Agent."""
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
     """The description for the Agent."""
 
-    inputPlaceholder: NotRequired[pydantic.StrictStr]
+    inputPlaceholder: NotRequired[str]
     """The default text to show as the placeholder input for chats with the Agent."""
 
-    suggestedPrompts: List[pydantic.StrictStr]
+    suggestedPrompts: List[str]
     """Prompts to show to the user as example messages to start a conversation with the Agent."""

@@ -33,9 +33,9 @@ class OntologyEditsExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    editsCount: pydantic.StrictInt
+    editsCount: int
 
-    editsLimit: pydantic.StrictInt
+    editsLimit: int
 
 
 @dataclass

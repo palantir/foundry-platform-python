@@ -39,7 +39,7 @@ class FilePathMatchesFilter(pydantic.BaseModel):
     With the `relative/subfolder/include-.*.txt` regex, only `relative/subfolder/include-file.txt` will be imported.
     """
 
-    regex: pydantic.StrictStr
+    regex: str
 
     """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
 

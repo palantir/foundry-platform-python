@@ -33,7 +33,7 @@ class InvalidFieldSchemaParameters(TypedDict):
 
     fieldName: NotRequired[FieldName]
 
-    message: pydantic.StrictStr
+    message: str
 
 
 @dataclass

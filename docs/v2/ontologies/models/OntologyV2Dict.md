@@ -7,7 +7,7 @@ Metadata about an Ontology.
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | OntologyApiName | Yes |  |
 **displayName** | DisplayName | Yes |  |
-**description** | pydantic.StrictStr | Yes |  |
+**description** | str | Yes |  |
 **rid** | OntologyRid | Yes |  |
 
 

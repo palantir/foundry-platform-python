@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from typing import Dict
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -42,10 +41,10 @@ class SessionExchangeResultDict(TypedDict):
     Updates can only be generated for parameter values that were provided as input to the Agent and that are configured with `READ_WRITE` access on the Agent in AIP Agent Studio.
     """
 
-    totalTokensUsed: NotRequired[pydantic.StrictInt]
+    totalTokensUsed: NotRequired[int]
     """Total tokens used to compute the result. Omitted if token usage information is not supported by the model used for the session."""
 
-    interruptedOutput: pydantic.StrictBool
+    interruptedOutput: bool
     """
     True if the exchange was canceled.
     In that case, the response (if any) was provided by the client as part of the cancellation request rather than by the Agent.

@@ -29,7 +29,7 @@ class InvalidUserIdParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: pydantic.StrictStr
+    userId: str
 
 
 @dataclass

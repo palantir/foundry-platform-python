@@ -64,7 +64,7 @@ class LinkedObjectClient:
         linked_object_primary_key: PropertyValueEscapedString,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[pydantic.StrictBool] = None,
+        exclude_rid: Optional[bool] = None,
         package_name: Optional[SdkPackageName] = None,
         select: Optional[List[SelectedPropertyApiName]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -89,7 +89,7 @@ class LinkedObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[pydantic.StrictBool]
+        :type exclude_rid: Optional[bool]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param select: select
@@ -138,7 +138,7 @@ class LinkedObjectClient:
         link_type: LinkTypeApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[pydantic.StrictBool] = None,
+        exclude_rid: Optional[bool] = None,
         order_by: Optional[OrderBy] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
@@ -174,7 +174,7 @@ class LinkedObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[pydantic.StrictBool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
         :type order_by: Optional[OrderBy]
         :param package_name: packageName
@@ -231,7 +231,7 @@ class LinkedObjectClient:
         link_type: LinkTypeApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[pydantic.StrictBool] = None,
+        exclude_rid: Optional[bool] = None,
         order_by: Optional[OrderBy] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
@@ -267,7 +267,7 @@ class LinkedObjectClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: Optional[pydantic.StrictBool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
         :type order_by: Optional[OrderBy]
         :param package_name: packageName

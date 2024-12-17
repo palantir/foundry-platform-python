@@ -5,7 +5,7 @@ The name of the Query in the API.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

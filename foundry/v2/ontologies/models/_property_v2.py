@@ -31,7 +31,7 @@ from foundry.v2.ontologies.models._property_v2_dict import PropertyV2Dict
 class PropertyV2(pydantic.BaseModel):
     """Details about some property of an object."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
 

@@ -5,7 +5,7 @@ The number of partitions for a Foundry stream.
 
 ## Type
 ```python
-pydantic.StrictInt
+int
 ```
 
 

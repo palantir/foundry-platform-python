@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-SelectedPropertyApiName = pydantic.StrictStr
+SelectedPropertyApiName = str
 """
 By default, anytime an object is requested, every property belonging to that object is returned.
 The response can be filtered to only include certain properties using the `properties` query parameter.

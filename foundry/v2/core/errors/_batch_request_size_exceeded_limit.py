@@ -29,10 +29,10 @@ class BatchRequestSizeExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    MaximumBatchSize: pydantic.StrictInt
+    MaximumBatchSize: int
     """The maximum size of batch requests that can be sent to this endpoint."""
 
-    ProvidedBatchSize: pydantic.StrictInt
+    ProvidedBatchSize: int
     """The size of the batch request that was sent to this endpoint."""
 
 

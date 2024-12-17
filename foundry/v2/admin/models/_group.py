@@ -40,7 +40,7 @@ class Group(pydantic.BaseModel):
 
     """The name of the Group."""
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """A description of the Group."""
 

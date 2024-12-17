@@ -29,7 +29,7 @@ class ConnectionTypeNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    connectionType: pydantic.StrictStr
+    connectionType: str
 
 
 @dataclass

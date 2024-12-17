@@ -28,7 +28,7 @@ from foundry.v2.connectivity.models._microsoft_sql_server_import_config_dict imp
 class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft SQL Server connection](docs/foundry/available-connectors/microsoft-sql-server)."""
 
-    query: pydantic.StrictStr
+    query: str
 
     """
     A single SQL query can be executed per sync, which should output a data table 

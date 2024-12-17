@@ -329,7 +329,7 @@ Name | Type | Description  | Notes |
 **body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
 **version** | VersionVersion | version |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**snapshot_identifier** | Optional[pydantic.StrictStr] | snapshotIdentifier | [optional] |
+**snapshot_identifier** | Optional[str] | snapshotIdentifier | [optional] |
 
 ### Return type
 **Version**
@@ -355,7 +355,7 @@ body = None
 version = None
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[pydantic.StrictStr] | snapshotIdentifier
+# Optional[str] | snapshotIdentifier
 snapshot_identifier = (
     "foundry.v1@ri.stemma.main.repository.a@ri.pull-request.main.pull-request.a@hash"
 )

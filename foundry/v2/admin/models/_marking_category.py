@@ -40,7 +40,7 @@ class MarkingCategory(pydantic.BaseModel):
 
     display_name: MarkingCategoryDisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     category_type: MarkingCategoryType = pydantic.Field(alias="categoryType")
 

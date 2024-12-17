@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-PropertyId = pydantic.StrictStr
+PropertyId = str
 """
 The immutable ID of a property. Property IDs are only used to identify properties in the **Ontology Manager**
 application and assign them API names. In every other case, API names should be used instead of property IDs.

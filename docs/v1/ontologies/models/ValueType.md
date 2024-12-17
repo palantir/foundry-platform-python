@@ -27,7 +27,7 @@ structs.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

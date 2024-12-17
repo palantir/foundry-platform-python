@@ -18,7 +18,5 @@ from __future__ import annotations
 from typing import Any
 from typing import Dict
 
-import pydantic
-
-CustomMetadata = Dict[pydantic.StrictStr, Any]
+CustomMetadata = Dict[str, Any]
 """CustomMetadata"""

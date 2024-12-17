@@ -4,7 +4,7 @@ MarkingCategoryDisplayName
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

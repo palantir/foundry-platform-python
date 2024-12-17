@@ -65,8 +65,8 @@ class ScheduleClient:
         self,
         *,
         action: CreateScheduleRequestActionDict,
-        description: Optional[pydantic.StrictStr] = None,
-        display_name: Optional[pydantic.StrictStr] = None,
+        description: Optional[str] = None,
+        display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
         scope_mode: Optional[CreateScheduleRequestScopeModeDict] = None,
         trigger: Optional[TriggerDict] = None,
@@ -77,9 +77,9 @@ class ScheduleClient:
         :param action:
         :type action: CreateScheduleRequestActionDict
         :param description:
-        :type description: Optional[pydantic.StrictStr]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: Optional[pydantic.StrictStr]
+        :type display_name: Optional[str]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
@@ -114,8 +114,8 @@ class ScheduleClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[pydantic.StrictStr],
-                        "description": Optional[pydantic.StrictStr],
+                        "displayName": Optional[str],
+                        "description": Optional[str],
                         "action": CreateScheduleRequestActionDict,
                         "trigger": Optional[TriggerDict],
                         "scopeMode": Optional[CreateScheduleRequestScopeModeDict],
@@ -256,8 +256,8 @@ class ScheduleClient:
         schedule_rid: ScheduleRid,
         *,
         action: ReplaceScheduleRequestActionDict,
-        description: Optional[pydantic.StrictStr] = None,
-        display_name: Optional[pydantic.StrictStr] = None,
+        description: Optional[str] = None,
+        display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
         scope_mode: Optional[ReplaceScheduleRequestScopeModeDict] = None,
         trigger: Optional[TriggerDict] = None,
@@ -270,9 +270,9 @@ class ScheduleClient:
         :param action:
         :type action: ReplaceScheduleRequestActionDict
         :param description:
-        :type description: Optional[pydantic.StrictStr]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: Optional[pydantic.StrictStr]
+        :type display_name: Optional[str]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
@@ -309,8 +309,8 @@ class ScheduleClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[pydantic.StrictStr],
-                        "description": Optional[pydantic.StrictStr],
+                        "displayName": Optional[str],
+                        "description": Optional[str],
                         "action": ReplaceScheduleRequestActionDict,
                         "trigger": Optional[TriggerDict],
                         "scopeMode": Optional[ReplaceScheduleRequestScopeModeDict],

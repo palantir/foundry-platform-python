@@ -8,7 +8,7 @@ Represents an interface type in the Ontology.
 **rid** | InterfaceTypeRid | Yes |  |
 **api_name** | InterfaceTypeApiName | Yes |  |
 **display_name** | DisplayName | Yes |  |
-**description** | Optional[pydantic.StrictStr] | No | The description of the interface. |
+**description** | Optional[str] | No | The description of the interface. |
 **properties** | Dict[SharedPropertyTypeApiName, SharedPropertyType] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has. A shared property type must be unique across all of the properties.  |
 **extends_interfaces** | List[InterfaceTypeApiName] | Yes | A list of interface API names that this interface extends. An interface can extend other interfaces to  inherit their properties.  |
 **implemented_by_object_types** | List[ObjectTypeApiName] | Yes | A list of object API names that implement this interface.  |

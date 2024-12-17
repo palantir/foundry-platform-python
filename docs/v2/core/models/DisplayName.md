@@ -4,7 +4,7 @@ The display name of the entity.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

@@ -29,7 +29,7 @@ class TableImportTypeNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    tableImportType: pydantic.StrictStr
+    tableImportType: str
 
 
 @dataclass

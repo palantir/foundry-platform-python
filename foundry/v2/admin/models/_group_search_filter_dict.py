@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry.v2.admin.models._principal_filter_type import PrincipalFilterType
@@ -28,4 +27,4 @@ class GroupSearchFilterDict(TypedDict):
 
     type: PrincipalFilterType
 
-    value: pydantic.StrictStr
+    value: str

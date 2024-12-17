@@ -4,7 +4,7 @@ ContentLength
 
 ## Type
 ```python
-pydantic.StrictStr
+Long
 ```
 
 

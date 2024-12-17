@@ -29,7 +29,7 @@ class InvalidSortTypeParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    invalidSortType: pydantic.StrictStr
+    invalidSortType: str
 
 
 @dataclass

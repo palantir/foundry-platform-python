@@ -6,7 +6,7 @@ endpoint or check the [Ontology Manager](/docs/foundry/ontology-manager/overview
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

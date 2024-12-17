@@ -289,7 +289,7 @@ models. For example, here is how `Group.search` method is defined in the `Admin`
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        request_timeout: Optional[Annotated[int, pydantic.Field(gt=0)]] = None,
     ) -> SearchGroupsResponse:
         ...
 ```
@@ -1470,12 +1470,21 @@ Namespace | Resource | Operation | HTTP request |
 - [LongTypeDict](docs/v1/models/LongTypeDict.md)
 - [MarkingType](docs/v1/models/MarkingType.md)
 - [MarkingTypeDict](docs/v1/models/MarkingTypeDict.md)
+- [MediaItemPath](docs/v1/models/MediaItemPath.md)
 - [MediaItemRid](docs/v1/models/MediaItemRid.md)
+- [MediaReference](docs/v1/models/MediaReference.md)
+- [MediaReferenceDict](docs/v1/models/MediaReferenceDict.md)
 - [MediaSetRid](docs/v1/models/MediaSetRid.md)
+- [MediaSetViewItem](docs/v1/models/MediaSetViewItem.md)
+- [MediaSetViewItemDict](docs/v1/models/MediaSetViewItemDict.md)
+- [MediaSetViewRid](docs/v1/models/MediaSetViewRid.md)
+- [MediaType](docs/v1/models/MediaType.md)
 - [NullTypeDict](docs/v1/models/NullTypeDict.md)
 - [PageSize](docs/v1/models/PageSize.md)
 - [PageToken](docs/v1/models/PageToken.md)
 - [PreviewMode](docs/v1/models/PreviewMode.md)
+- [Reference](docs/v1/models/Reference.md)
+- [ReferenceDict](docs/v1/models/ReferenceDict.md)
 - [ReleaseStatus](docs/v1/models/ReleaseStatus.md)
 - [ShortType](docs/v1/models/ShortType.md)
 - [ShortTypeDict](docs/v1/models/ShortTypeDict.md)
@@ -1487,6 +1496,7 @@ Namespace | Resource | Operation | HTTP request |
 - [TotalCount](docs/v1/models/TotalCount.md)
 - [UnsupportedType](docs/v1/models/UnsupportedType.md)
 - [UnsupportedTypeDict](docs/v1/models/UnsupportedTypeDict.md)
+- [UserId](docs/v1/models/UserId.md)
 - [Branch](docs/v1/models/Branch.md)
 - [BranchDict](docs/v1/models/BranchDict.md)
 - [BranchId](docs/v1/models/BranchId.md)
@@ -1506,6 +1516,16 @@ Namespace | Resource | Operation | HTTP request |
 - [TransactionRid](docs/v1/models/TransactionRid.md)
 - [TransactionStatus](docs/v1/models/TransactionStatus.md)
 - [TransactionType](docs/v1/models/TransactionType.md)
+- [BranchName](docs/v1/models/BranchName.md)
+- [BranchRid](docs/v1/models/BranchRid.md)
+- [GetMediaItemInfoResponse](docs/v1/models/GetMediaItemInfoResponse.md)
+- [GetMediaItemInfoResponseDict](docs/v1/models/GetMediaItemInfoResponseDict.md)
+- [LogicalTimestamp](docs/v1/models/LogicalTimestamp.md)
+- [MediaAttribution](docs/v1/models/MediaAttribution.md)
+- [MediaAttributionDict](docs/v1/models/MediaAttributionDict.md)
+- [PutMediaItemResponse](docs/v1/models/PutMediaItemResponse.md)
+- [PutMediaItemResponseDict](docs/v1/models/PutMediaItemResponseDict.md)
+- [TransactionId](docs/v1/models/TransactionId.md)
 - [ActionRid](docs/v1/models/ActionRid.md)
 - [ActionType](docs/v1/models/ActionType.md)
 - [ActionTypeApiName](docs/v1/models/ActionTypeApiName.md)

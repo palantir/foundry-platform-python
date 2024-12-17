@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ValueTypeDataTypeStructFieldIdentifier = pydantic.StrictStr
+ValueTypeDataTypeStructFieldIdentifier = str
 """ValueTypeDataTypeStructFieldIdentifier"""

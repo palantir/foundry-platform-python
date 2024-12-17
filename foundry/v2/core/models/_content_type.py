@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ContentType = pydantic.StrictStr
+ContentType = str
 """ContentType"""

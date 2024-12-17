@@ -4,7 +4,7 @@ ValueTypeDataTypeStructFieldIdentifier
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

@@ -15,9 +15,7 @@
 
 from __future__ import annotations
 
-import pydantic
-
-SharedPropertyTypeApiName = pydantic.StrictStr
+SharedPropertyTypeApiName = str
 """
 The name of the shared property type in the API in lowerCamelCase format. To find the API name for your
 shared property type, use the `List shared property types` endpoint or check the **Ontology Manager**.

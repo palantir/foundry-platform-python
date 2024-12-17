@@ -5,7 +5,7 @@ The notification will be sent to the user that has performed the request.
 
 ## Type
 ```python
-pydantic.StrictBool
+bool
 ```
 
 

@@ -15,10 +15,10 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
+from foundry._core.utils import Long
 from foundry.v2.core.models._file_path import FilePath
 from foundry.v2.datasets.models._file_updated_time import FileUpdatedTime
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
@@ -33,6 +33,6 @@ class FileDict(TypedDict):
 
     transactionRid: TransactionRid
 
-    sizeBytes: NotRequired[pydantic.StrictStr]
+    sizeBytes: NotRequired[Long]
 
     updatedTime: FileUpdatedTime

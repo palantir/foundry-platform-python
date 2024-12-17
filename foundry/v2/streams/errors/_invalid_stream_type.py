@@ -29,7 +29,7 @@ class InvalidStreamTypeParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    streamType: pydantic.StrictStr
+    streamType: str
 
 
 @dataclass

@@ -15,7 +15,6 @@
 
 from __future__ import annotations
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
@@ -34,7 +33,7 @@ class ParameterDict(TypedDict):
     access: ParameterAccessMode
     """The access mode controls how the Agent is able to interact with the parameter."""
 
-    description: NotRequired[pydantic.StrictStr]
+    description: NotRequired[str]
     """
     A description to explain the use of this parameter.
     This description is injected with the parameter value into the Agent's prompt, to provide context for when to use the parameter.

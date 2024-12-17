@@ -6,7 +6,7 @@ Query
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | QueryApiName | Yes |  |
-**description** | NotRequired[pydantic.StrictStr] | No |  |
+**description** | NotRequired[str] | No |  |
 **displayName** | NotRequired[DisplayName] | No |  |
 **parameters** | Dict[ParameterId, ParameterDict] | Yes |  |
 **output** | QueryDataTypeDict | Yes |  |

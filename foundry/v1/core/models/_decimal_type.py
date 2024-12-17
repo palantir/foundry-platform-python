@@ -27,9 +27,9 @@ from foundry.v1.core.models._decimal_type_dict import DecimalTypeDict
 class DecimalType(pydantic.BaseModel):
     """DecimalType"""
 
-    precision: Optional[pydantic.StrictInt] = None
+    precision: Optional[int] = None
 
-    scale: Optional[pydantic.StrictInt] = None
+    scale: Optional[int] = None
 
     type: Literal["decimal"] = "decimal"
 

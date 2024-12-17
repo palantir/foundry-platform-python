@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-AgentMarkdownResponse = pydantic.StrictStr
+AgentMarkdownResponse = str
 """The final answer for an exchange. Responses are formatted using markdown."""

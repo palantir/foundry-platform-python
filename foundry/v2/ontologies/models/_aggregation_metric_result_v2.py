@@ -29,7 +29,7 @@ from foundry.v2.ontologies.models._aggregation_metric_result_v2_dict import (
 class AggregationMetricResultV2(pydantic.BaseModel):
     """AggregationMetricResultV2"""
 
-    name: pydantic.StrictStr
+    name: str
 
     value: Optional[Any] = None
 

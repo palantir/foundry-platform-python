@@ -6,7 +6,7 @@ Represents the value of a property filter. For instance, false is the FilterValu
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 

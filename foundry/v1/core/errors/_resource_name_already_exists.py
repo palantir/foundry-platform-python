@@ -32,7 +32,7 @@ class ResourceNameAlreadyExistsParameters(TypedDict):
 
     parentFolderRid: FolderRid
 
-    resourceName: pydantic.StrictStr
+    resourceName: str
 
 
 @dataclass

@@ -253,9 +253,9 @@ class DatasetClient:
         stream: Literal[True],
         format: TableExportFormat,
         branch_id: Optional[BranchId] = None,
-        columns: Optional[List[pydantic.StrictStr]] = None,
+        columns: Optional[List[str]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[pydantic.StrictInt] = None,
+        row_limit: Optional[int] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -274,11 +274,11 @@ class DatasetClient:
         :param branch_id: branchId
         :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: Optional[List[pydantic.StrictStr]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: Optional[pydantic.StrictInt]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
@@ -299,9 +299,9 @@ class DatasetClient:
         *,
         format: TableExportFormat,
         branch_id: Optional[BranchId] = None,
-        columns: Optional[List[pydantic.StrictStr]] = None,
+        columns: Optional[List[str]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[pydantic.StrictInt] = None,
+        row_limit: Optional[int] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         stream: Literal[False] = False,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -320,11 +320,11 @@ class DatasetClient:
         :param branch_id: branchId
         :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: Optional[List[pydantic.StrictStr]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: Optional[pydantic.StrictInt]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
@@ -344,9 +344,9 @@ class DatasetClient:
         stream: bool,
         format: TableExportFormat,
         branch_id: Optional[BranchId] = None,
-        columns: Optional[List[pydantic.StrictStr]] = None,
+        columns: Optional[List[str]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[pydantic.StrictInt] = None,
+        row_limit: Optional[int] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -365,11 +365,11 @@ class DatasetClient:
         :param branch_id: branchId
         :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: Optional[List[pydantic.StrictStr]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: Optional[pydantic.StrictInt]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
@@ -392,9 +392,9 @@ class DatasetClient:
         *,
         format: TableExportFormat,
         branch_id: Optional[BranchId] = None,
-        columns: Optional[List[pydantic.StrictStr]] = None,
+        columns: Optional[List[str]] = None,
         end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[pydantic.StrictInt] = None,
+        row_limit: Optional[int] = None,
         start_transaction_rid: Optional[TransactionRid] = None,
         stream: bool = False,
         chunk_size: Optional[int] = None,
@@ -414,11 +414,11 @@ class DatasetClient:
         :param branch_id: branchId
         :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: Optional[List[pydantic.StrictStr]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
         :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: Optional[pydantic.StrictInt]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.

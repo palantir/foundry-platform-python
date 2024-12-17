@@ -32,7 +32,7 @@ class FilesCountLimitFilter(pydantic.BaseModel):
     This option can increase the reliability of incremental syncs.
     """
 
-    files_count: pydantic.StrictInt = pydantic.Field(alias="filesCount")
+    files_count: int = pydantic.Field(alias="filesCount")
 
     """The number of files to import in the transaction. The value specified must be positive."""
 

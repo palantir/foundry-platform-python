@@ -35,7 +35,7 @@ class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
 
     field: PropertyApiName
 
-    value: pydantic.StrictStr
+    value: str
 
     type: Literal["containsAllTermsInOrderPrefixLastTerm"] = "containsAllTermsInOrderPrefixLastTerm"
 

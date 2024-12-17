@@ -41,11 +41,11 @@ class Folder(pydantic.BaseModel):
 
     display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
 
-    description: Optional[pydantic.StrictStr] = None
+    description: Optional[str] = None
 
     """The description associated with the Folder."""
 
-    documentation: Optional[pydantic.StrictStr] = None
+    documentation: Optional[str] = None
 
     """The documentation associated with the Folder."""
 

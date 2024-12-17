@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-VersionVersion = pydantic.StrictStr
+VersionVersion = str
 """The semantic version of the Website."""

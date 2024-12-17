@@ -4,7 +4,7 @@ Enables the use of preview functionality.
 
 ## Type
 ```python
-pydantic.StrictBool
+bool
 ```
 
 

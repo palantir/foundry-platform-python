@@ -6,7 +6,7 @@ Returns objects based on the existence of the specified field.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**value** | pydantic.StrictBool | Yes |  |
+**value** | bool | Yes |  |
 **type** | Literal["isNull"] | Yes | None |
 
 

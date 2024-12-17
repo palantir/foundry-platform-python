@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-import pydantic
-
-ValueTypeVersion = pydantic.StrictStr
+ValueTypeVersion = str
 """The version of a value type that has been registered in the Ontology."""

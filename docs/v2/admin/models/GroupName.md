@@ -4,7 +4,7 @@ The name of the Group.
 
 ## Type
 ```python
-pydantic.StrictStr
+str
 ```
 
 
