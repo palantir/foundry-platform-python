@@ -13,8 +13,25 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1026.0"
+from typing import List
+from typing import Literal
+
+from typing_extensions import NotRequired
+from typing_extensions import TypedDict
+
+from foundry.v2.geo.models._b_box import BBox
+from foundry.v2.geo.models._line_string_coordinates import LineStringCoordinates
+
+
+class MultiLineStringDict(TypedDict):
+    """MultiLineString"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    coordinates: List[LineStringCoordinates]
+
+    bbox: NotRequired[BBox]
+
+    type: Literal["MultiLineString"]
