@@ -13,8 +13,14 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1026.0"
+from typing import List
+
+from annotated_types import Len
+from typing_extensions import Annotated
+
+from foundry.v2.geo.models._position import Position
+
+LineStringCoordinates = Annotated[List[Position], Len(min_length=2)]
+"""GeoJSon fundamental geometry construct, array of two or more positions."""
