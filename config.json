@@ -74,9 +74,14 @@
       "forceIncludeComponents": {
         "Geo": [
           "Feature",
+          "FeaturePropertyKey",
           "FeatureCollection",
+          "FeatureCollectionTypes",
+          "Geometry",
           "MultiPoint",
           "LineString",
+          "LineStringCoordinates",
+          "MultiLineString",
           "MultiPolygon",
           "GeometryCollection"
         ]
