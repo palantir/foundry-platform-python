@@ -13,8 +13,23 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1027.0"
+from typing import Literal
+
+from typing_extensions import TypedDict
+
+from foundry.v2.core.models._principal_id import PrincipalId
+from foundry.v2.core.models._principal_type import PrincipalType
+
+
+class PrincipalWithIdDict(TypedDict):
+    """Represents a user principal or group principal with an ID."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    principalId: PrincipalId
+
+    principalType: PrincipalType
+
+    type: Literal["principalWithId"]

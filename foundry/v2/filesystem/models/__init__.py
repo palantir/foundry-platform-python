@@ -15,6 +15,8 @@
 
 from foundry.v2.filesystem.models._access_requirements import AccessRequirements
 from foundry.v2.filesystem.models._access_requirements_dict import AccessRequirementsDict  # NOQA
+from foundry.v2.filesystem.models._everyone import Everyone
+from foundry.v2.filesystem.models._everyone_dict import EveryoneDict
 from foundry.v2.filesystem.models._folder import Folder
 from foundry.v2.filesystem.models._folder_dict import FolderDict
 from foundry.v2.filesystem.models._folder_rid import FolderRid
@@ -38,10 +40,18 @@ from foundry.v2.filesystem.models._list_organizations_of_project_response import
 from foundry.v2.filesystem.models._list_organizations_of_project_response_dict import (
     ListOrganizationsOfProjectResponseDict,
 )  # NOQA
+from foundry.v2.filesystem.models._list_resource_roles_response import (
+    ListResourceRolesResponse,
+)  # NOQA
+from foundry.v2.filesystem.models._list_resource_roles_response_dict import (
+    ListResourceRolesResponseDict,
+)  # NOQA
 from foundry.v2.filesystem.models._marking import Marking
 from foundry.v2.filesystem.models._marking_dict import MarkingDict
 from foundry.v2.filesystem.models._organization import Organization
 from foundry.v2.filesystem.models._organization_dict import OrganizationDict
+from foundry.v2.filesystem.models._principal_with_id import PrincipalWithId
+from foundry.v2.filesystem.models._principal_with_id_dict import PrincipalWithIdDict
 from foundry.v2.filesystem.models._project import Project
 from foundry.v2.filesystem.models._project_dict import ProjectDict
 from foundry.v2.filesystem.models._project_rid import ProjectRid
@@ -50,6 +60,12 @@ from foundry.v2.filesystem.models._resource_dict import ResourceDict
 from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
 from foundry.v2.filesystem.models._resource_path import ResourcePath
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry.v2.filesystem.models._resource_role import ResourceRole
+from foundry.v2.filesystem.models._resource_role_dict import ResourceRoleDict
+from foundry.v2.filesystem.models._resource_role_principal import ResourceRolePrincipal
+from foundry.v2.filesystem.models._resource_role_principal_dict import (
+    ResourceRolePrincipalDict,
+)  # NOQA
 from foundry.v2.filesystem.models._resource_type import ResourceType
 from foundry.v2.filesystem.models._space_rid import SpaceRid
 from foundry.v2.filesystem.models._trash_status import TrashStatus
@@ -57,6 +73,8 @@ from foundry.v2.filesystem.models._trash_status import TrashStatus
 __all__ = [
     "AccessRequirements",
     "AccessRequirementsDict",
+    "Everyone",
+    "EveryoneDict",
     "Folder",
     "FolderDict",
     "FolderRid",
@@ -68,10 +86,14 @@ __all__ = [
     "ListMarkingsOfResourceResponseDict",
     "ListOrganizationsOfProjectResponse",
     "ListOrganizationsOfProjectResponseDict",
+    "ListResourceRolesResponse",
+    "ListResourceRolesResponseDict",
     "Marking",
     "MarkingDict",
     "Organization",
     "OrganizationDict",
+    "PrincipalWithId",
+    "PrincipalWithIdDict",
     "Project",
     "ProjectDict",
     "ProjectRid",
@@ -80,6 +102,10 @@ __all__ = [
     "ResourceDisplayName",
     "ResourcePath",
     "ResourceRid",
+    "ResourceRole",
+    "ResourceRoleDict",
+    "ResourceRolePrincipal",
+    "ResourceRolePrincipalDict",
     "ResourceType",
     "SpaceRid",
     "TrashStatus",

@@ -13,8 +13,17 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1027.0"
+from typing import Union
+
+import pydantic
+from typing_extensions import Annotated
+
+from foundry.v2.filesystem.models._everyone_dict import EveryoneDict
+from foundry.v2.filesystem.models._principal_with_id_dict import PrincipalWithIdDict
+
+ResourceRolePrincipalDict = Annotated[
+    Union[PrincipalWithIdDict, EveryoneDict], pydantic.Field(discriminator="type")
+]
+"""ResourceRolePrincipal"""

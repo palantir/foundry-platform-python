@@ -13,8 +13,11 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1027.0"
+RoleId = str
+"""
+The unique ID for a Role. Roles are sets of permissions that grant different levels of access to resources.
+The default roles in Foundry are: Owner, Editor, Viewer, and Discoverer. See more about 
+[roles](/docs/foundry/security/projects-and-roles#roles) in the user documentation.
+"""
