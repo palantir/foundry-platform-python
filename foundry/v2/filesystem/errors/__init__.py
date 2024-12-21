@@ -22,6 +22,9 @@ from foundry.v2.filesystem.errors._add_markings_permission_denied import (
 from foundry.v2.filesystem.errors._add_organizations_permission_denied import (
     AddOrganizationsPermissionDenied,
 )  # NOQA
+from foundry.v2.filesystem.errors._add_resource_roles_permission_denied import (
+    AddResourceRolesPermissionDenied,
+)  # NOQA
 from foundry.v2.filesystem.errors._create_folder_outside_project_not_supported import (
     CreateFolderOutsideProjectNotSupported,
 )  # NOQA
@@ -61,6 +64,9 @@ from foundry.v2.filesystem.errors._remove_markings_permission_denied import (
 from foundry.v2.filesystem.errors._remove_organizations_permission_denied import (
     RemoveOrganizationsPermissionDenied,
 )  # NOQA
+from foundry.v2.filesystem.errors._remove_resource_roles_permission_denied import (
+    RemoveResourceRolesPermissionDenied,
+)  # NOQA
 from foundry.v2.filesystem.errors._resource_not_directly_trashed import (
     ResourceNotDirectlyTrashed,
 )  # NOQA
@@ -83,6 +89,7 @@ __all__ = [
     "AccessRequirementsNotFound",
     "AddMarkingsPermissionDenied",
     "AddOrganizationsPermissionDenied",
+    "AddResourceRolesPermissionDenied",
     "CreateFolderOutsideProjectNotSupported",
     "CreateFolderPermissionDenied",
     "DeleteResourcePermissionDenied",
@@ -102,6 +109,7 @@ __all__ = [
     "ProjectNotFound",
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
+    "RemoveResourceRolesPermissionDenied",
     "ResourceNotDirectlyTrashed",
     "ResourceNotFound",
     "ResourceNotTrashed",

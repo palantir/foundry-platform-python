@@ -2723,6 +2723,109 @@ def filesystem_resource_restore(
     click.echo(repr(result))
 
 
+@filesystem_resource.group("resource_role")
+def filesystem_resource_resource_role():
+    pass
+
+
+@filesystem_resource_resource_role.command("add")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--roles", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_resource_role_add(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    roles: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.filesystem.Resource.ResourceRole.add(
+        resource_rid=resource_rid,
+        roles=json.loads(roles),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource_resource_role.command("list")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--include_inherited", type=bool, required=False, help="""includeInherited""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_resource_role_list(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    include_inherited: Optional[bool],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List the roles on a resource.
+
+    """
+    result = client.filesystem.Resource.ResourceRole.list(
+        resource_rid=resource_rid,
+        include_inherited=include_inherited,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource_resource_role.command("page")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--include_inherited", type=bool, required=False, help="""includeInherited""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_resource_role_page(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    include_inherited: Optional[bool],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List the roles on a resource.
+
+    """
+    result = client.filesystem.Resource.ResourceRole.page(
+        resource_rid=resource_rid,
+        include_inherited=include_inherited,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource_resource_role.command("remove")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--roles", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_resource_role_remove(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    roles: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.filesystem.Resource.ResourceRole.remove(
+        resource_rid=resource_rid,
+        roles=json.loads(roles),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.group("access_requirements")
 def filesystem_resource_access_requirements():
     pass

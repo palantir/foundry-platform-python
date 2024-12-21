@@ -112,6 +112,7 @@ from foundry.v2.core.models._principal_id import PrincipalId
 from foundry.v2.core.models._principal_type import PrincipalType
 from foundry.v2.core.models._realm import Realm
 from foundry.v2.core.models._release_status import ReleaseStatus
+from foundry.v2.core.models._role_id import RoleId
 from foundry.v2.core.models._short_type import ShortType
 from foundry.v2.core.models._short_type_dict import ShortTypeDict
 from foundry.v2.core.models._size_bytes import SizeBytes
@@ -227,6 +228,7 @@ __all__ = [
     "PrincipalType",
     "Realm",
     "ReleaseStatus",
+    "RoleId",
     "ShortType",
     "ShortTypeDict",
     "SizeBytes",

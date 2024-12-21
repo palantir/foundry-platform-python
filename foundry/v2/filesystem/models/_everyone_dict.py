@@ -13,8 +13,16 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1027.0"
+from typing import Literal
+
+from typing_extensions import TypedDict
+
+
+class EveryoneDict(TypedDict):
+    """A principal representing all users of the platform."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    type: Literal["everyone"]

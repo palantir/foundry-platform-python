@@ -42,6 +42,7 @@ from foundry.v2.filesystem.models._list_markings_of_resource_response import (
 from foundry.v2.filesystem.models._resource import Resource
 from foundry.v2.filesystem.models._resource_path import ResourcePath
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry.v2.filesystem.resource_role import ResourceRoleClient
 
 
 class ResourceClient:
@@ -49,6 +50,7 @@ class ResourceClient:
         self._api_client = ApiClient(auth=auth, hostname=hostname)
 
         self.AccessRequirements = AccessRequirementsClient(auth=auth, hostname=hostname)
+        self.ResourceRole = ResourceRoleClient(auth=auth, hostname=hostname)
 
     @maybe_ignore_preview
     @pydantic.validate_call
