@@ -57,8 +57,9 @@ class PageIterator(Generic[T]):
         return self
 
     def __next__(self):
-        if self._data == []:
+        if self._data == [] or not self._has_next:
             raise StopIteration("End of iteration reached")
+
         data = self._data
         self._get_data()
         return data
