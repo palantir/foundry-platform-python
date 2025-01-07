@@ -89,7 +89,7 @@ class SessionClient:
         :type agent_rid: AgentRid
         :param session_rid: sessionRid
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied [parameter values](/docs/foundry/agent-studio/parameters/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInputDict
@@ -436,7 +436,7 @@ class SessionClient:
         :type agent_rid: AgentRid
         :param session_rid: sessionRid
         :type session_rid: SessionRid
-        :param parameter_inputs: Any parameter values to use for the context retrieval.
+        :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: UserTextInputDict
@@ -507,7 +507,7 @@ class SessionClient:
         :type agent_rid: AgentRid
         :param session_rid: sessionRid
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInputDict
@@ -555,7 +555,7 @@ class SessionClient:
         :type agent_rid: AgentRid
         :param session_rid: sessionRid
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInputDict
@@ -602,7 +602,7 @@ class SessionClient:
         :type agent_rid: AgentRid
         :param session_rid: sessionRid
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInputDict
@@ -653,7 +653,7 @@ class SessionClient:
         :type agent_rid: AgentRid
         :param session_rid: sessionRid
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValueDict]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInputDict

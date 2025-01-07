@@ -36,6 +36,7 @@ from foundry.v1.core.models._media_item_rid import MediaItemRid
 from foundry.v1.core.models._media_reference import MediaReference
 from foundry.v1.core.models._media_set_rid import MediaSetRid
 from foundry.v1.core.models._media_set_view_rid import MediaSetViewRid
+from foundry.v1.core.models._preview_mode import PreviewMode
 from foundry.v1.mediasets.models._branch_name import BranchName
 from foundry.v1.mediasets.models._branch_rid import BranchRid
 from foundry.v1.mediasets.models._get_media_item_info_response import (
@@ -57,6 +58,7 @@ class MediaSetClient:
         media_set_rid: MediaSetRid,
         transaction_id: TransactionId,
         *,
+        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
@@ -68,6 +70,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
         :type transaction_id: TransactionId
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -78,7 +82,9 @@ class MediaSetClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "transactionId": transaction_id,
@@ -99,6 +105,7 @@ class MediaSetClient:
         media_set_rid: MediaSetRid,
         transaction_id: TransactionId,
         *,
+        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
         """
@@ -110,6 +117,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
         :type transaction_id: TransactionId
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -120,7 +129,9 @@ class MediaSetClient:
             RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "transactionId": transaction_id,
@@ -141,6 +152,7 @@ class MediaSetClient:
         media_set_rid: MediaSetRid,
         *,
         branch_name: Optional[BranchName] = None,
+        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> TransactionId:
         """
@@ -152,6 +164,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param branch_name: branchName
         :type branch_name: Optional[BranchName]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -164,6 +178,7 @@ class MediaSetClient:
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions",
                 query_params={
                     "branchName": branch_name,
+                    "preview": preview,
                 },
                 path_params={
                     "mediaSetRid": media_set_rid,
@@ -186,6 +201,7 @@ class MediaSetClient:
         media_set_rid: MediaSetRid,
         media_item_rid: MediaItemRid,
         *,
+        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetMediaItemInfoResponse:
         """
@@ -197,6 +213,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
         :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -207,7 +225,9 @@ class MediaSetClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/info",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -229,6 +249,7 @@ class MediaSetClient:
         media_item_rid: MediaItemRid,
         *,
         stream: Literal[True],
+        preview: Optional[PreviewMode] = None,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> BinaryStream:
@@ -241,6 +262,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
         :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -258,6 +281,7 @@ class MediaSetClient:
         media_set_rid: MediaSetRid,
         media_item_rid: MediaItemRid,
         *,
+        preview: Optional[PreviewMode] = None,
         stream: Literal[False] = False,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
@@ -270,6 +294,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
         :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -286,6 +312,7 @@ class MediaSetClient:
         media_item_rid: MediaItemRid,
         *,
         stream: bool,
+        preview: Optional[PreviewMode] = None,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Union[bytes, BinaryStream]:
@@ -298,6 +325,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
         :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -317,6 +346,7 @@ class MediaSetClient:
         media_set_rid: MediaSetRid,
         media_item_rid: MediaItemRid,
         *,
+        preview: Optional[PreviewMode] = None,
         stream: bool = False,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -330,6 +360,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
         :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -344,7 +376,9 @@ class MediaSetClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -369,6 +403,7 @@ class MediaSetClient:
         media_set_rid: MediaSetRid,
         media_item_rid: MediaItemRid,
         *,
+        preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> MediaReference:
         """
@@ -380,6 +415,8 @@ class MediaSetClient:
         :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
         :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -390,7 +427,9 @@ class MediaSetClient:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "mediaSetRid": media_set_rid,
                     "mediaItemRid": media_item_rid,
@@ -416,6 +455,7 @@ class MediaSetClient:
         branch_name: Optional[BranchName] = None,
         branch_rid: Optional[BranchRid] = None,
         media_item_path: Optional[MediaItemPath] = None,
+        preview: Optional[PreviewMode] = None,
         transaction_id: Optional[TransactionId] = None,
         view_rid: Optional[MediaSetViewRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -437,6 +477,8 @@ class MediaSetClient:
         :type branch_rid: Optional[BranchRid]
         :param media_item_path: mediaItemPath
         :type media_item_path: Optional[MediaItemPath]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
         :param transaction_id: transactionId
         :type transaction_id: Optional[TransactionId]
         :param view_rid: viewRid
@@ -455,6 +497,7 @@ class MediaSetClient:
                     "branchName": branch_name,
                     "branchRid": branch_rid,
                     "mediaItemPath": media_item_path,
+                    "preview": preview,
                     "transactionId": transaction_id,
                     "viewRid": view_rid,
                 },

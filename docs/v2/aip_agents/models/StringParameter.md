@@ -5,7 +5,7 @@ StringParameter
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**default_value** | Optional[str] | No | The default value to use for this parameter. |
+**default_value** | Optional[str] | No | The default value to use for this variable. |
 **type** | Literal["string"] | Yes | None |
 
 

@@ -29,6 +29,6 @@ class ObjectSetParameterDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     expectedObjectTypes: List[ObjectTypeId]
-    """The types of objects that are expected in ObjectSet values passed for this parameter."""
+    """The types of objects that are expected in ObjectSet values passed for this variable."""
 
     type: Literal["objectSet"]

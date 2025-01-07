@@ -19,6 +19,6 @@ from typing import Literal
 
 ParameterAccessMode = Literal["READ_ONLY", "READ_WRITE"]
 """
-READ_ONLY: Allows the parameter to be read by the Agent, but the Agent cannot generate updates for it.
-READ_WRITE: Allows the parameter to be read and updated by the Agent.
+READ_ONLY: Allows the variable to be read by the Agent, but the Agent cannot generate updates for it.
+READ_WRITE: Allows the variable to be read and updated by the Agent.
 """

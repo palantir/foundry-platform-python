@@ -1,6 +1,6 @@
 # StringParameterValueDict
 
-A value passed for `StringParameter` parameter types.
+A value passed for `StringParameter` application variable types.
 
 ## Properties
 | Name | Type | Required | Description |

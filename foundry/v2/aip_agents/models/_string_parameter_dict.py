@@ -27,6 +27,6 @@ class StringParameterDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     defaultValue: NotRequired[str]
-    """The default value to use for this parameter."""
+    """The default value to use for this variable."""
 
     type: Literal["string"]

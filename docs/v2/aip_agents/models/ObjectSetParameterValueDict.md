@@ -1,6 +1,6 @@
 # ObjectSetParameterValueDict
 
-A value passed for `ObjectSetParameter` parameter types.
+A value passed for `ObjectSetParameter` application variable types.
 
 ## Properties
 | Name | Type | Required | Description |

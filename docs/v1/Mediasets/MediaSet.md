@@ -14,6 +14,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | mediaSetRid |  |
 **transaction_id** | TransactionId | transactionId |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -33,12 +34,15 @@ foundry_client = FoundryClient(
 media_set_rid = None
 # TransactionId | transactionId
 transaction_id = None
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.mediasets.MediaSet.abort(
         media_set_rid,
         transaction_id,
+        preview=preview,
     )
     print("The abort response:\n")
     pprint(api_response)
@@ -71,6 +75,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | mediaSetRid |  |
 **transaction_id** | TransactionId | transactionId |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -90,12 +95,15 @@ foundry_client = FoundryClient(
 media_set_rid = None
 # TransactionId | transactionId
 transaction_id = None
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.mediasets.MediaSet.commit(
         media_set_rid,
         transaction_id,
+        preview=preview,
     )
     print("The commit response:\n")
     pprint(api_response)
@@ -128,6 +136,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | mediaSetRid |  |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **TransactionId**
@@ -147,12 +156,15 @@ foundry_client = FoundryClient(
 media_set_rid = None
 # Optional[BranchName] | branchName
 branch_name = None
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.mediasets.MediaSet.create(
         media_set_rid,
         branch_name=branch_name,
+        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -185,6 +197,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | mediaSetRid |  |
 **media_item_rid** | MediaItemRid | mediaItemRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **GetMediaItemInfoResponse**
@@ -204,12 +217,15 @@ foundry_client = FoundryClient(
 media_set_rid = None
 # MediaItemRid | mediaItemRid
 media_item_rid = None
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.mediasets.MediaSet.info(
         media_set_rid,
         media_item_rid,
+        preview=preview,
     )
     print("The info response:\n")
     pprint(api_response)
@@ -242,6 +258,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | mediaSetRid |  |
 **media_item_rid** | MediaItemRid | mediaItemRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **bytes**
@@ -261,12 +278,15 @@ foundry_client = FoundryClient(
 media_set_rid = None
 # MediaItemRid | mediaItemRid
 media_item_rid = None
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.mediasets.MediaSet.read(
         media_set_rid,
         media_item_rid,
+        preview=preview,
     )
     print("The read response:\n")
     pprint(api_response)
@@ -299,6 +319,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **media_set_rid** | MediaSetRid | mediaSetRid |  |
 **media_item_rid** | MediaItemRid | mediaItemRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **MediaReference**
@@ -318,12 +339,15 @@ foundry_client = FoundryClient(
 media_set_rid = None
 # MediaItemRid | mediaItemRid
 media_item_rid = None
+# Optional[PreviewMode] | preview
+preview = None
 
 
 try:
     api_response = foundry_client.mediasets.MediaSet.reference(
         media_set_rid,
         media_item_rid,
+        preview=preview,
     )
     print("The reference response:\n")
     pprint(api_response)
@@ -361,6 +385,7 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] | branchName | [optional] |
 **branch_rid** | Optional[BranchRid] | branchRid | [optional] |
 **media_item_path** | Optional[MediaItemPath] | mediaItemPath | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 **transaction_id** | Optional[TransactionId] | transactionId | [optional] |
 **view_rid** | Optional[MediaSetViewRid] | viewRid | [optional] |
 
@@ -388,6 +413,8 @@ branch_name = None
 branch_rid = None
 # Optional[MediaItemPath] | mediaItemPath
 media_item_path = "q3-data%2fmy-file.png"
+# Optional[PreviewMode] | preview
+preview = None
 # Optional[TransactionId] | transactionId
 transaction_id = None
 # Optional[MediaSetViewRid] | viewRid
@@ -401,6 +428,7 @@ try:
         branch_name=branch_name,
         branch_rid=branch_rid,
         media_item_path=media_item_path,
+        preview=preview,
         transaction_id=transaction_id,
         view_rid=view_rid,
     )

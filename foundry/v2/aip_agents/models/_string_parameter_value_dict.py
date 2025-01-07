@@ -21,7 +21,7 @@ from typing_extensions import TypedDict
 
 
 class StringParameterValueDict(TypedDict):
-    """A value passed for `StringParameter` parameter types."""
+    """A value passed for `StringParameter` application variable types."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
