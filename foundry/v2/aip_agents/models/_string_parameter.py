@@ -29,7 +29,7 @@ class StringParameter(pydantic.BaseModel):
 
     default_value: Optional[str] = pydantic.Field(alias="defaultValue", default=None)
 
-    """The default value to use for this parameter."""
+    """The default value to use for this variable."""
 
     type: Literal["string"] = "string"
 

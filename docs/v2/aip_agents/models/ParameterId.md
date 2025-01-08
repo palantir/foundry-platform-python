@@ -1,6 +1,7 @@
 # ParameterId
 
-The unique identifier for a parameter, as configured in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+The unique identifier for a variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+
 
 ## Type
 ```python

@@ -31,4 +31,4 @@ ParameterValueDict = Annotated[
     Union[StringParameterValueDict, ObjectSetParameterValueDict],
     pydantic.Field(discriminator="type"),
 ]
-"""The value provided for a [parameter](/docs/foundry/agent-studio/parameters/) configured on an Agent."""
+"""The value provided for a variable configured in the [application state](/docs/foundry/agent-studio/application-state/) of an Agent."""

@@ -790,11 +790,13 @@ def mediasets_media_set():
 @mediasets_media_set.command("abort")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("transaction_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def mediasets_media_set_abort(
     client: foundry.v1.FoundryClient,
     media_set_rid: str,
     transaction_id: str,
+    preview: Optional[bool],
 ):
     """
     Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
@@ -805,6 +807,7 @@ def mediasets_media_set_abort(
     result = client.mediasets.MediaSet.abort(
         media_set_rid=media_set_rid,
         transaction_id=transaction_id,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -812,11 +815,13 @@ def mediasets_media_set_abort(
 @mediasets_media_set.command("commit")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("transaction_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def mediasets_media_set_commit(
     client: foundry.v1.FoundryClient,
     media_set_rid: str,
     transaction_id: str,
+    preview: Optional[bool],
 ):
     """
     Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
@@ -827,6 +832,7 @@ def mediasets_media_set_commit(
     result = client.mediasets.MediaSet.commit(
         media_set_rid=media_set_rid,
         transaction_id=transaction_id,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -834,11 +840,13 @@ def mediasets_media_set_commit(
 @mediasets_media_set.command("create")
 @click.argument("media_set_rid", type=str, required=True)
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def mediasets_media_set_create(
     client: foundry.v1.FoundryClient,
     media_set_rid: str,
     branch_name: Optional[str],
+    preview: Optional[bool],
 ):
     """
     Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
@@ -849,6 +857,7 @@ def mediasets_media_set_create(
     result = client.mediasets.MediaSet.create(
         media_set_rid=media_set_rid,
         branch_name=branch_name,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -856,11 +865,13 @@ def mediasets_media_set_create(
 @mediasets_media_set.command("info")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def mediasets_media_set_info(
     client: foundry.v1.FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
+    preview: Optional[bool],
 ):
     """
     Gets information about the media item.
@@ -871,6 +882,7 @@ def mediasets_media_set_info(
     result = client.mediasets.MediaSet.info(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -878,11 +890,13 @@ def mediasets_media_set_info(
 @mediasets_media_set.command("read")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def mediasets_media_set_read(
     client: foundry.v1.FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
+    preview: Optional[bool],
 ):
     """
     Gets the content of a media item.
@@ -893,6 +907,7 @@ def mediasets_media_set_read(
     result = client.mediasets.MediaSet.read(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
+        preview=preview,
     )
     click.echo(result)
 
@@ -900,11 +915,13 @@ def mediasets_media_set_read(
 @mediasets_media_set.command("reference")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def mediasets_media_set_reference(
     client: foundry.v1.FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
+    preview: Optional[bool],
 ):
     """
     Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
@@ -915,6 +932,7 @@ def mediasets_media_set_reference(
     result = client.mediasets.MediaSet.reference(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -925,6 +943,7 @@ def mediasets_media_set_reference(
 @click.option("--branch_name", type=str, required=False, help="""branchName""")
 @click.option("--branch_rid", type=str, required=False, help="""branchRid""")
 @click.option("--media_item_path", type=str, required=False, help="""mediaItemPath""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--transaction_id", type=str, required=False, help="""transactionId""")
 @click.option("--view_rid", type=str, required=False, help="""viewRid""")
 @click.pass_obj
@@ -935,6 +954,7 @@ def mediasets_media_set_upload(
     branch_name: Optional[str],
     branch_rid: Optional[str],
     media_item_path: Optional[str],
+    preview: Optional[bool],
     transaction_id: Optional[str],
     view_rid: Optional[str],
 ):
@@ -952,6 +972,7 @@ def mediasets_media_set_upload(
         branch_name=branch_name,
         branch_rid=branch_rid,
         media_item_path=media_item_path,
+        preview=preview,
         transaction_id=transaction_id,
         view_rid=view_rid,
     )

@@ -5,7 +5,7 @@ ObjectSetParameter
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**expected_object_types** | List[ObjectTypeId] | Yes | The types of objects that are expected in ObjectSet values passed for this parameter.  |
+**expected_object_types** | List[ObjectTypeId] | Yes | The types of objects that are expected in ObjectSet values passed for this variable.  |
 **type** | Literal["objectSet"] | Yes | None |
 
 

@@ -29,8 +29,8 @@ from foundry.v2.aip_agents.models._session_rid import SessionRid
 
 class InvalidParameterTypeParameters(TypedDict):
     """
-    The provided parameter type does not match the expected type for the parameter configured on the Agent for this session.
-    Check the available parameters and their expected types for the Agent and version through the API with `getAgent`, or in AIP Agent Studio.
+    The provided value does not match the expected type for the application variable configured on the Agent for this session.
+    Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio.
     The Agent version used for the session can be checked through the API with `getSession`.
     """
 

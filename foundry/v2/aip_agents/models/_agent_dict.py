@@ -41,6 +41,6 @@ class AgentDict(TypedDict):
 
     parameters: Dict[ParameterId, ParameterDict]
     """
-    The types and names of parameters configured for the Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-    Parameters are variables in the prompt sent to an Agent that can be used to customize and control the behavior of the Agent.
+    The types and names of variables configured for the Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/) in the [application state](/docs/foundry/agent-studio/application-state/).
+    These variables can be used to send custom values in prompts sent to an Agent to customize and control the Agent's behavior.
     """

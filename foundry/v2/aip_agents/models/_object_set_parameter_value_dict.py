@@ -24,7 +24,7 @@ from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
 
 
 class ObjectSetParameterValueDict(TypedDict):
-    """A value passed for `ObjectSetParameter` parameter types."""
+    """A value passed for `ObjectSetParameter` application variable types."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

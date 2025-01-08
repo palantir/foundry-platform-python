@@ -29,8 +29,8 @@ from foundry.v2.aip_agents.models._session_rid import SessionRid
 
 class InvalidParameterParameters(TypedDict):
     """
-    The provided parameter is not valid for the Agent for this session.
-    Check the available parameters for the Agent and version through the API with `getAgent`, or in AIP Agent Studio.
+    The provided application variable is not valid for the Agent for this session.
+    Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio.
     The Agent version used for the session can be checked through the API with `getSession`.
     """
 

@@ -998,7 +998,7 @@ def aip_agents_agent_session():
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied [parameter values](/docs/foundry/agent-studio/parameters/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -1210,7 +1210,7 @@ def aip_agents_agent_session_page(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any parameter values to use for the context retrieval.
+    help="""Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
 """,
 )
 @click.option(
@@ -1251,7 +1251,7 @@ def aip_agents_agent_session_rag_context(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied [parameter](/docs/foundry/agent-studio/parameters/) values to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(

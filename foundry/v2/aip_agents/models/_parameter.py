@@ -26,21 +26,21 @@ from foundry.v2.aip_agents.models._parameter_type import ParameterType
 
 
 class Parameter(pydantic.BaseModel):
-    """A parameter configured for an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """A variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
     parameter_type: ParameterType = pydantic.Field(alias="parameterType")
 
-    """Details of the types of values accepted and defaults for this parameter."""
+    """Details of the types of values accepted and defaults for this variable."""
 
     access: ParameterAccessMode
 
-    """The access mode controls how the Agent is able to interact with the parameter."""
+    """The access mode controls how the Agent is able to interact with the variable."""
 
     description: Optional[str] = None
 
     """
-    A description to explain the use of this parameter.
-    This description is injected with the parameter value into the Agent's prompt, to provide context for when to use the parameter.
+    A description to explain the use of this variable.
+    This description is injected into the Agent's prompt to provide context for when to use the variable.
     """
 
     model_config = {"extra": "allow"}

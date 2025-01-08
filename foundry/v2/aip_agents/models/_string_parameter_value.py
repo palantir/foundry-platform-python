@@ -26,7 +26,7 @@ from foundry.v2.aip_agents.models._string_parameter_value_dict import (
 
 
 class StringParameterValue(pydantic.BaseModel):
-    """A value passed for `StringParameter` parameter types."""
+    """A value passed for `StringParameter` application variable types."""
 
     value: str
 

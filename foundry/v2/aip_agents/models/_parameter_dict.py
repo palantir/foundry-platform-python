@@ -23,18 +23,18 @@ from foundry.v2.aip_agents.models._parameter_type_dict import ParameterTypeDict
 
 
 class ParameterDict(TypedDict):
-    """A parameter configured for an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """A variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     parameterType: ParameterTypeDict
-    """Details of the types of values accepted and defaults for this parameter."""
+    """Details of the types of values accepted and defaults for this variable."""
 
     access: ParameterAccessMode
-    """The access mode controls how the Agent is able to interact with the parameter."""
+    """The access mode controls how the Agent is able to interact with the variable."""
 
     description: NotRequired[str]
     """
-    A description to explain the use of this parameter.
-    This description is injected with the parameter value into the Agent's prompt, to provide context for when to use the parameter.
+    A description to explain the use of this variable.
+    This description is injected into the Agent's prompt to provide context for when to use the variable.
     """
