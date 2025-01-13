@@ -166,8 +166,9 @@ Want to learn more about this Foundry SDK library? Review the following sections
 
 ↳ [Error handling](#errors): Learn more about HTTP & data validation error handling  
 ↳ [Pagination](#pagination): Learn how to work with paginated endpoints in the SDK  
-↳ [Streaming](#binary-streaming): Learn how to stream binary data from Foundry
-↳ [Static type analysis](#static-types): Learn about the static type analysis capabilities of this library
+↳ [Streaming](#binary-streaming): Learn how to stream binary data from Foundry  
+↳ [Static type analysis](#static-types): Learn about the static type analysis capabilities of this library  
+↳ [HTTP Session Configuration](#session-config): Learn how to configure the HTTP session.  
 
 ## Error handling
 ### Data validation
@@ -315,6 +316,41 @@ branch = foundry_client.datasets.Dataset.Branch.create(
 print(branch.branchName)
 ```
 
+
+<a id="session-config"></a>
+## HTTP Session Configuration
+You can configure various parts of the HTTP session using the `Config` class.
+
+```python
+from foundry import Config
+from foundry import UserTokenAuth
+from foundry.v2 imoprt FoundryClient
+
+client = FoundryClient(
+    auth=UserTokenAuth(...),
+    hostname="example.palantirfoundry.com",
+    config=Config(
+        # Set the default headers for every request
+        default_headers={"Foo": "Bar"},
+        # Default to a 60 second timeout
+        timeout=60,
+        # Create a proxy for the https protocol
+        proxies={
+            "https": "https://10.10.1.10:1080"
+        },
+    )
+)
+```
+
+The full list of options can be found below.
+
+- `default_headers` (dict[str, str]): HTTP headers to include with all requests.
+- `proxies` (dict["http" | "https", str]): Proxies to use for HTTP and HTTPS requests.
+- `timeout` (int | float): The default timeout for all requests in seconds.
+- `verify` (bool | str): SSL verification, can be a boolean or a path to a CA bundle.
+- `default_params` (dict[str, Any]): URL query parameters to include with all requests.
+- `scheme` ("http" | "https"): URL scheme to use ('http' or 'https'). Defaults to 'https'.
+
 ## Common errors
 This section will document any user-related errors with information on how you may be able to resolve them.
 
@@ -350,6 +386,10 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | MarkingMember | [**list**](docs/v2/Admin/MarkingMember.md#list) | **GET** /v2/admin/markings/{markingId}/markingMembers |
 **Admin** | MarkingMember | [**page**](docs/v2/Admin/MarkingMember.md#page) | **GET** /v2/admin/markings/{markingId}/markingMembers |
 **Admin** | MarkingMember | [**remove**](docs/v2/Admin/MarkingMember.md#remove) | **POST** /v2/admin/markings/{markingId}/markingMembers/remove |
+**Admin** | MarkingRoleAssignment | [**add**](docs/v2/Admin/MarkingRoleAssignment.md#add) | **POST** /v2/admin/markings/{markingId}/roleAssignments/add |
+**Admin** | MarkingRoleAssignment | [**list**](docs/v2/Admin/MarkingRoleAssignment.md#list) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
+**Admin** | MarkingRoleAssignment | [**page**](docs/v2/Admin/MarkingRoleAssignment.md#page) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
+**Admin** | MarkingRoleAssignment | [**remove**](docs/v2/Admin/MarkingRoleAssignment.md#remove) | **POST** /v2/admin/markings/{markingId}/roleAssignments/remove |
 **Admin** | User | [**delete**](docs/v2/Admin/User.md#delete) | **DELETE** /v2/admin/users/{userId} |
 **Admin** | User | [**get**](docs/v2/Admin/User.md#get) | **GET** /v2/admin/users/{userId} |
 **Admin** | User | [**get_batch**](docs/v2/Admin/User.md#get_batch) | **POST** /v2/admin/users/getBatch |
@@ -564,6 +604,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ListMarkingCategoriesResponseDict](docs/v2/models/ListMarkingCategoriesResponseDict.md)
 - [ListMarkingMembersResponse](docs/v2/models/ListMarkingMembersResponse.md)
 - [ListMarkingMembersResponseDict](docs/v2/models/ListMarkingMembersResponseDict.md)
+- [ListMarkingRoleAssignmentsResponse](docs/v2/models/ListMarkingRoleAssignmentsResponse.md)
+- [ListMarkingRoleAssignmentsResponseDict](docs/v2/models/ListMarkingRoleAssignmentsResponseDict.md)
 - [ListMarkingsResponse](docs/v2/models/ListMarkingsResponse.md)
 - [ListMarkingsResponseDict](docs/v2/models/ListMarkingsResponseDict.md)
 - [ListUsersResponse](docs/v2/models/ListUsersResponse.md)
@@ -578,6 +620,10 @@ Namespace | Resource | Operation | HTTP request |
 - [MarkingDisplayName](docs/v2/models/MarkingDisplayName.md)
 - [MarkingMember](docs/v2/models/MarkingMember.md)
 - [MarkingMemberDict](docs/v2/models/MarkingMemberDict.md)
+- [MarkingRole](docs/v2/models/MarkingRole.md)
+- [MarkingRoleAssignment](docs/v2/models/MarkingRoleAssignment.md)
+- [MarkingRoleAssignmentDict](docs/v2/models/MarkingRoleAssignmentDict.md)
+- [MarkingRoleUpdateDict](docs/v2/models/MarkingRoleUpdateDict.md)
 - [MarkingType](docs/v2/models/MarkingType.md)
 - [PrincipalFilterType](docs/v2/models/PrincipalFilterType.md)
 - [SearchGroupsResponse](docs/v2/models/SearchGroupsResponse.md)
@@ -741,6 +787,8 @@ Namespace | Resource | Operation | HTTP request |
 - [TableImportDisplayName](docs/v2/models/TableImportDisplayName.md)
 - [TableImportMode](docs/v2/models/TableImportMode.md)
 - [TableImportRid](docs/v2/models/TableImportRid.md)
+- [AnyType](docs/v2/models/AnyType.md)
+- [AnyTypeDict](docs/v2/models/AnyTypeDict.md)
 - [ArrayFieldType](docs/v2/models/ArrayFieldType.md)
 - [ArrayFieldTypeDict](docs/v2/models/ArrayFieldTypeDict.md)
 - [AttachmentType](docs/v2/models/AttachmentType.md)
@@ -814,7 +862,6 @@ Namespace | Resource | Operation | HTTP request |
 - [MarkingId](docs/v2/models/MarkingId.md)
 - [MarkingType](docs/v2/models/MarkingType.md)
 - [MarkingTypeDict](docs/v2/models/MarkingTypeDict.md)
-- [MediaItemRid](docs/v2/models/MediaItemRid.md)
 - [MediaReferenceType](docs/v2/models/MediaReferenceType.md)
 - [MediaReferenceTypeDict](docs/v2/models/MediaReferenceTypeDict.md)
 - [MediaSetRid](docs/v2/models/MediaSetRid.md)
@@ -1258,11 +1305,17 @@ Namespace | Resource | Operation | HTTP request |
 - [OneOfConstraint](docs/v2/models/OneOfConstraint.md)
 - [OneOfConstraintDict](docs/v2/models/OneOfConstraintDict.md)
 - [OntologyApiName](docs/v2/models/OntologyApiName.md)
+- [OntologyArrayType](docs/v2/models/OntologyArrayType.md)
+- [OntologyArrayTypeDict](docs/v2/models/OntologyArrayTypeDict.md)
+- [OntologyDataType](docs/v2/models/OntologyDataType.md)
+- [OntologyDataTypeDict](docs/v2/models/OntologyDataTypeDict.md)
 - [OntologyFullMetadata](docs/v2/models/OntologyFullMetadata.md)
 - [OntologyFullMetadataDict](docs/v2/models/OntologyFullMetadataDict.md)
 - [OntologyIdentifier](docs/v2/models/OntologyIdentifier.md)
 - [OntologyInterfaceObjectType](docs/v2/models/OntologyInterfaceObjectType.md)
 - [OntologyInterfaceObjectTypeDict](docs/v2/models/OntologyInterfaceObjectTypeDict.md)
+- [OntologyMapType](docs/v2/models/OntologyMapType.md)
+- [OntologyMapTypeDict](docs/v2/models/OntologyMapTypeDict.md)
 - [OntologyObjectArrayType](docs/v2/models/OntologyObjectArrayType.md)
 - [OntologyObjectArrayTypeDict](docs/v2/models/OntologyObjectArrayTypeDict.md)
 - [OntologyObjectSetType](docs/v2/models/OntologyObjectSetType.md)
@@ -1273,6 +1326,12 @@ Namespace | Resource | Operation | HTTP request |
 - [OntologyObjectTypeReferenceTypeDict](docs/v2/models/OntologyObjectTypeReferenceTypeDict.md)
 - [OntologyObjectV2](docs/v2/models/OntologyObjectV2.md)
 - [OntologyRid](docs/v2/models/OntologyRid.md)
+- [OntologySetType](docs/v2/models/OntologySetType.md)
+- [OntologySetTypeDict](docs/v2/models/OntologySetTypeDict.md)
+- [OntologyStructField](docs/v2/models/OntologyStructField.md)
+- [OntologyStructFieldDict](docs/v2/models/OntologyStructFieldDict.md)
+- [OntologyStructType](docs/v2/models/OntologyStructType.md)
+- [OntologyStructTypeDict](docs/v2/models/OntologyStructTypeDict.md)
 - [OntologyV2](docs/v2/models/OntologyV2.md)
 - [OntologyV2Dict](docs/v2/models/OntologyV2Dict.md)
 - [OrderBy](docs/v2/models/OrderBy.md)
@@ -1534,21 +1593,10 @@ Namespace | Resource | Operation | HTTP request |
 - [LongTypeDict](docs/v1/models/LongTypeDict.md)
 - [MarkingType](docs/v1/models/MarkingType.md)
 - [MarkingTypeDict](docs/v1/models/MarkingTypeDict.md)
-- [MediaItemPath](docs/v1/models/MediaItemPath.md)
-- [MediaItemRid](docs/v1/models/MediaItemRid.md)
-- [MediaReference](docs/v1/models/MediaReference.md)
-- [MediaReferenceDict](docs/v1/models/MediaReferenceDict.md)
-- [MediaSetRid](docs/v1/models/MediaSetRid.md)
-- [MediaSetViewItem](docs/v1/models/MediaSetViewItem.md)
-- [MediaSetViewItemDict](docs/v1/models/MediaSetViewItemDict.md)
-- [MediaSetViewRid](docs/v1/models/MediaSetViewRid.md)
-- [MediaType](docs/v1/models/MediaType.md)
 - [NullTypeDict](docs/v1/models/NullTypeDict.md)
 - [PageSize](docs/v1/models/PageSize.md)
 - [PageToken](docs/v1/models/PageToken.md)
 - [PreviewMode](docs/v1/models/PreviewMode.md)
-- [Reference](docs/v1/models/Reference.md)
-- [ReferenceDict](docs/v1/models/ReferenceDict.md)
 - [ReleaseStatus](docs/v1/models/ReleaseStatus.md)
 - [ShortType](docs/v1/models/ShortType.md)
 - [ShortTypeDict](docs/v1/models/ShortTypeDict.md)
@@ -1560,7 +1608,6 @@ Namespace | Resource | Operation | HTTP request |
 - [TotalCount](docs/v1/models/TotalCount.md)
 - [UnsupportedType](docs/v1/models/UnsupportedType.md)
 - [UnsupportedTypeDict](docs/v1/models/UnsupportedTypeDict.md)
-- [UserId](docs/v1/models/UserId.md)
 - [Branch](docs/v1/models/Branch.md)
 - [BranchDict](docs/v1/models/BranchDict.md)
 - [BranchId](docs/v1/models/BranchId.md)
@@ -1580,16 +1627,6 @@ Namespace | Resource | Operation | HTTP request |
 - [TransactionRid](docs/v1/models/TransactionRid.md)
 - [TransactionStatus](docs/v1/models/TransactionStatus.md)
 - [TransactionType](docs/v1/models/TransactionType.md)
-- [BranchName](docs/v1/models/BranchName.md)
-- [BranchRid](docs/v1/models/BranchRid.md)
-- [GetMediaItemInfoResponse](docs/v1/models/GetMediaItemInfoResponse.md)
-- [GetMediaItemInfoResponseDict](docs/v1/models/GetMediaItemInfoResponseDict.md)
-- [LogicalTimestamp](docs/v1/models/LogicalTimestamp.md)
-- [MediaAttribution](docs/v1/models/MediaAttribution.md)
-- [MediaAttributionDict](docs/v1/models/MediaAttributionDict.md)
-- [PutMediaItemResponse](docs/v1/models/PutMediaItemResponse.md)
-- [PutMediaItemResponseDict](docs/v1/models/PutMediaItemResponseDict.md)
-- [TransactionId](docs/v1/models/TransactionId.md)
 - [ActionRid](docs/v1/models/ActionRid.md)
 - [ActionType](docs/v1/models/ActionType.md)
 - [ActionTypeApiName](docs/v1/models/ActionTypeApiName.md)

@@ -15,7 +15,10 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 from foundry._core import Auth
+from foundry._core import Config
 from foundry.v1.ontologies.action import ActionClient
 from foundry.v1.ontologies.ontology import OntologyClient
 from foundry.v1.ontologies.ontology_object import OntologyObjectClient
@@ -23,8 +26,21 @@ from foundry.v1.ontologies.query import QueryClient
 
 
 class OntologiesClient:
-    def __init__(self, auth: Auth, hostname: str):
-        self.Action = ActionClient(auth=auth, hostname=hostname)
-        self.Ontology = OntologyClient(auth=auth, hostname=hostname)
-        self.OntologyObject = OntologyObjectClient(auth=auth, hostname=hostname)
-        self.Query = QueryClient(auth=auth, hostname=hostname)
+    """
+    The API client for the Ontologies Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self.Action = ActionClient(auth=auth, hostname=hostname, config=config)
+        self.Ontology = OntologyClient(auth=auth, hostname=hostname, config=config)
+        self.OntologyObject = OntologyObjectClient(auth=auth, hostname=hostname, config=config)
+        self.Query = QueryClient(auth=auth, hostname=hostname, config=config)

@@ -13,11 +13,12 @@
 #  limitations under the License.
 
 
-from foundry._core.confidential_client_auth import ConfidentialClientAuth
-from foundry._core.foundry_token_auth_client import UserTokenAuth
-from foundry._errors.environment_not_configured import EnvironmentNotConfigured
-from foundry._errors.not_authenticated import NotAuthenticated
-from foundry._errors.palantir_rpc_exception import PalantirRPCException
+from foundry._core import ConfidentialClientAuth
+from foundry._core import Config
+from foundry._core import UserTokenAuth
+from foundry._errors import EnvironmentNotConfigured
+from foundry._errors import NotAuthenticated
+from foundry._errors import PalantirRPCException
 
 # The OpenAPI document version from the spec information
 # See https://swagger.io/specification/#info-object
@@ -34,6 +35,7 @@ __all__ = [
     "__openapi_document_version__",
     "ConfidentialClientAuth",
     "UserTokenAuth",
+    "Config",
     "NotAuthenticated",
     "EnvironmentNotConfigured",
     "PalantirRPCException",

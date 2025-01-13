@@ -57,12 +57,28 @@ class InterfaceType(pydantic.BaseModel):
     set of properties the interface has. A shared property type must be unique across all of the properties.
     """
 
+    all_properties: Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(
+        alias="allProperties"
+    )
+
+    """
+    A map from a shared property type API name to the corresponding shared property type. The map describes the 
+    set of properties the interface has, including properties from all directly and indirectly extended 
+    interfaces.
+    """
+
     extends_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias="extendsInterfaces")
 
     """
     A list of interface API names that this interface extends. An interface can extend other interfaces to 
     inherit their properties.
     """
+
+    all_extends_interfaces: List[InterfaceTypeApiName] = pydantic.Field(
+        alias="allExtendsInterfaces"
+    )
+
+    """A list of interface API names that this interface extends, both directly and indirectly."""
 
     implemented_by_object_types: List[ObjectTypeApiName] = pydantic.Field(
         alias="implementedByObjectTypes"
@@ -75,6 +91,13 @@ class InterfaceType(pydantic.BaseModel):
     """
     A map from an interface link type API name to the corresponding interface link type. The map describes the
     set of link types the interface has.
+    """
+
+    all_links: Dict[InterfaceLinkTypeApiName, InterfaceLinkType] = pydantic.Field(alias="allLinks")
+
+    """
+    A map from an interface link type API name to the corresponding interface link type. The map describes the
+    set of link types the interface has, including links from all directly and indirectly extended interfaces.
     """
 
     model_config = {"extra": "allow"}

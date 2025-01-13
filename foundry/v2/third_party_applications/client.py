@@ -15,12 +15,30 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 from foundry._core import Auth
+from foundry._core import Config
 from foundry.v2.third_party_applications.third_party_application import (
     ThirdPartyApplicationClient,
 )  # NOQA
 
 
 class ThirdPartyApplicationsClient:
-    def __init__(self, auth: Auth, hostname: str):
-        self.ThirdPartyApplication = ThirdPartyApplicationClient(auth=auth, hostname=hostname)
+    """
+    The API client for the ThirdPartyApplications Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self.ThirdPartyApplication = ThirdPartyApplicationClient(
+            auth=auth, hostname=hostname, config=config
+        )

@@ -13,7 +13,10 @@
 #  limitations under the License.
 
 
+from typing import Optional
+
 from foundry._core import Auth
+from foundry._core import Config
 
 
 class FoundryClient:
@@ -22,13 +25,17 @@ class FoundryClient:
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
     """
 
-    def __init__(self, auth: Auth, hostname: str):
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
         from foundry.v1.datasets.client import DatasetsClient
-        from foundry.v1.mediasets.client import MediasetsClient
         from foundry.v1.ontologies.client import OntologiesClient
 
-        self.datasets = DatasetsClient(auth=auth, hostname=hostname)
-        self.mediasets = MediasetsClient(auth=auth, hostname=hostname)
-        self.ontologies = OntologiesClient(auth=auth, hostname=hostname)
+        self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
+        self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)

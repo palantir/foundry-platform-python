@@ -15,18 +15,23 @@
 
 import json
 import sys
+import warnings
 from typing import Any
 from typing import Dict
+from typing import Optional
+from typing import cast
 from unittest.mock import ANY
 from unittest.mock import Mock
 
 import pytest
+import requests
 
 from foundry import PalantirRPCException
 from foundry import UserTokenAuth
 from foundry import __version__
 from foundry._core import ApiClient
 from foundry._core import RequestInfo
+from foundry._core.config import Config
 
 
 class AttrDict(Dict[str, Any]):
@@ -45,65 +50,133 @@ EXAMPLE_ERROR = json.dumps(
 )
 
 
-def test_user_agent():
+def assert_called_with(client: ApiClient, **kwargs):
+    request = cast(Mock, client._session.request)
+    request.assert_called_with(
+        **{
+            "method": ANY,
+            "url": ANY,
+            "headers": ANY,
+            "params": ANY,
+            "data": ANY,
+            "stream": ANY,
+            "timeout": ANY,
+            **kwargs,
+        }
+    )
+
+
+def create_client(config: Optional[Config] = None):
+    client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo", config=config)
+    client._session.request = Mock(return_value=AttrDict(status_code=200, headers={}))
+    return client
+
+
+def test_can_override_session_using_deprecated_method():
+    client = create_client()
+    assert isinstance(client.session._session, requests.Session)
+    client.session._session.headers["Foo"] = "Bar"
+
+
+def test_accessing_session_emits_warnings():
+    client = create_client()
+    with warnings.catch_warnings(record=True) as w:
+        client.session
+        assert len(w) == 1
+
+
+def test_default_headers():
     """Test that the user agent is set correctly."""
-    client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
-    client.session.request = Mock(return_value=AttrDict(status_code=200, headers={}))
+    client = create_client()
+    assert client._session.headers == {
+        "Accept-Encoding": "gzip, deflate",
+        "Accept": "*/*",
+        "Connection": "keep-alive",
+        "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}",
+    }
 
-    client.call_api(
-        RequestInfo(
-            method="POST",
-            resource_path="/abc",
-            query_params={},
-            header_params={},
-            path_params={},
-            body={},
-            body_type=Any,
-            response_type=None,
-            request_timeout=None,
-        )
-    )
+    """Test that additional headers can be added."""
+    client = create_client(Config(default_headers={"Foo": "Bar"}))
+    assert client._session.headers == {
+        "Accept-Encoding": "gzip, deflate",
+        "Accept": "*/*",
+        "Connection": "keep-alive",
+        "Foo": "Bar",
+        "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}",
+    }
 
-    client.session.request.assert_called_with(
-        method="POST",
-        url="https://foo/api/abc",
-        headers={
-            "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}"
-        },
-        params=ANY,
-        data=ANY,
-        stream=False,
-        timeout=None,
-    )
+
+def test_authorization_header():
+    client = create_client()
+    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar"))
+    # Ensure the bearer token gets added to the headers
+    assert_called_with(client, headers={"Authorization": "Bearer bar"})
+
+
+def test_proxies():
+    client = create_client(Config(proxies={"https": "https://foo.bar", "http": "http://foo.bar"}))
+    assert client._session.proxies == {"https": "https://foo.bar", "http": "http://foo.bar"}
+
+
+def test_timeout():
+    client = create_client(config=Config(timeout=60))
+
+    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=None))
+    assert_called_with(client, timeout=60)
+
+    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=30))
+    assert_called_with(client, timeout=30)
+
+
+def test_verify():
+    client = create_client()
+    assert client._session.verify == True
+
+    client = create_client(Config(verify=False))
+    assert client._session.verify == False
+
+
+def test_default_params():
+    client = create_client(Config(default_params={"foo": "bar"}))
+    assert client._session.params == {"foo": "bar"}
+
+
+def test_scheme():
+    client = create_client()
+    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=30))
+    assert_called_with(client, url="https://foo/api/foo/bar")
+
+    client = create_client(Config(scheme="http"))
+    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=30))
+    assert_called_with(client, url="http://foo/api/foo/bar")
 
 
 def test_path_encoding():
-    """Test that the user agent is set correctly."""
-    client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
-    client.session.request = Mock(return_value=AttrDict(status_code=200, headers={}))
+    client = create_client()
 
     client.call_api(
-        RequestInfo(
-            method="GET",
-            resource_path="/files/{path}",
-            query_params={},
-            header_params={},
+        RequestInfo.with_defaults(
+            "GET",
+            "/files/{path}",
             path_params={"path": "/my/file.txt"},
-            body={},
-            body_type=Any,
-            response_type=None,
-            request_timeout=None,
         )
     )
 
-    client.session.request.assert_called_with(
-        method="GET",
-        url="https://foo/api/files/%2Fmy%2Ffile.txt",
-        headers=ANY,
-        params=ANY,
-        data=ANY,
-        stream=False,
-        timeout=None,
+    assert_called_with(client, url="https://foo/api/files/%2Fmy%2Ffile.txt")
+
+
+def test_shared_connection_pool():
+    client1 = create_client()
+    client2 = create_client()
+    session1 = client1._session
+    session2 = client2._session
+
+    assert (
+        session1.get_adapter("http://").poolmanager == session2.get_adapter("http://").poolmanager  # type: ignore
+    )
+
+    assert (
+        session1.get_adapter("https://").poolmanager == session2.get_adapter("https://").poolmanager  # type: ignore
     )
 
 
@@ -114,7 +187,7 @@ def call_api_helper(
 ):
     client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
 
-    client.session.request = Mock(
+    client._session.request = Mock(
         return_value=AttrDict(
             status_code=status_code,
             headers=headers,
@@ -146,11 +219,6 @@ def test_call_api_400():
     assert info.value.name == "ERROR_NAME"
     assert info.value.error_instance_id == "123"
     assert info.value.parameters == {}
-
-
-def test_call_api_401():
-    with pytest.raises(PalantirRPCException):
-        call_api_helper(status_code=401, data=EXAMPLE_ERROR, headers={"Header": "A"})
 
 
 def test_call_api_403():

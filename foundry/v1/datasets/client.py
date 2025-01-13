@@ -15,10 +15,26 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 from foundry._core import Auth
+from foundry._core import Config
 from foundry.v1.datasets.dataset import DatasetClient
 
 
 class DatasetsClient:
-    def __init__(self, auth: Auth, hostname: str):
-        self.Dataset = DatasetClient(auth=auth, hostname=hostname)
+    """
+    The API client for the Datasets Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self.Dataset = DatasetClient(auth=auth, hostname=hostname, config=config)

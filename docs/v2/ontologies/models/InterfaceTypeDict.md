@@ -10,9 +10,12 @@ Represents an interface type in the Ontology.
 **displayName** | DisplayName | Yes |  |
 **description** | NotRequired[str] | No | The description of the interface. |
 **properties** | Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has. A shared property type must be unique across all of the properties.  |
+**allProperties** | Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has, including properties from all directly and indirectly extended  interfaces.  |
 **extendsInterfaces** | List[InterfaceTypeApiName] | Yes | A list of interface API names that this interface extends. An interface can extend other interfaces to  inherit their properties.  |
+**allExtendsInterfaces** | List[InterfaceTypeApiName] | Yes | A list of interface API names that this interface extends, both directly and indirectly.  |
 **implementedByObjectTypes** | List[ObjectTypeApiName] | Yes | A list of object API names that implement this interface.  |
 **links** | Dict[InterfaceLinkTypeApiName, InterfaceLinkTypeDict] | Yes | A map from an interface link type API name to the corresponding interface link type. The map describes the set of link types the interface has.  |
+**allLinks** | Dict[InterfaceLinkTypeApiName, InterfaceLinkTypeDict] | Yes | A map from an interface link type API name to the corresponding interface link type. The map describes the set of link types the interface has, including links from all directly and indirectly extended interfaces.  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

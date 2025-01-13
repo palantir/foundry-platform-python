@@ -25,18 +25,25 @@ from typing import Optional
 from typing import Tuple
 from typing import Type
 from typing import Union
+from typing import cast
 from urllib.parse import quote
 
 import pydantic
-from requests import Response
+import requests
+import requests.adapters
+from typing_extensions import deprecated
 
 from foundry._core.auth_utils import Auth
 from foundry._core.binary_stream import BinaryStream
-from foundry._core.palantir_session import PalantirSession
+from foundry._core.config import Config
 from foundry._core.resource_iterator import ResourceIterator
+from foundry._core.utils import remove_prefixes
 from foundry._errors.palantir_rpc_exception import PalantirRPCException
 from foundry._errors.sdk_internal_error import SDKInternalError
 from foundry._versions import __version__
+
+_GLOBAL_ADAPTER = requests.adapters.HTTPAdapter()
+
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
 
@@ -76,6 +83,35 @@ class RequestInfo:
             stream=self.stream,
         )
 
+    @classmethod
+    def with_defaults(
+        cls,
+        method: str,
+        resource_path: str,
+        response_type: Any = None,
+        query_params: QueryParameters = {},
+        path_params: Dict[str, Any] = {},
+        header_params: Dict[str, Any] = {},
+        body: Any = None,
+        body_type: Any = None,
+        request_timeout: Optional[int] = None,
+        stream: bool = False,
+        chunk_size: Optional[int] = None,
+    ):
+        return cls(
+            method=method,
+            resource_path=resource_path,
+            response_type=response_type,
+            query_params=query_params,
+            path_params=path_params,
+            header_params=header_params,
+            body=body,
+            body_type=body_type,
+            request_timeout=request_timeout,
+            stream=stream,
+            chunk_size=chunk_size,
+        )
+
 
 class _BaseModelTypeAdapter:
     def __init__(self, _type: Type[pydantic.BaseModel]) -> None:
@@ -90,12 +126,55 @@ class _BaseModelTypeAdapter:
 
 
 class ApiClient:
-    def __init__(self, auth: Auth, hostname: str):
-        self.session = PalantirSession(auth=auth, hostname=hostname)
+    """
+    The API client.
 
-        self.default_headers = {
-            "User-Agent": f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}",
-        }
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._config = config = config or Config()
+        self._auth = auth
+        self._hostname = remove_prefixes(hostname, ["https://", "http://"])
+
+        self._session = requests.Session()
+        self._session.mount("http://", _GLOBAL_ADAPTER)
+        self._session.mount("https://", _GLOBAL_ADAPTER)
+
+        self._session.headers["User-Agent"] = (
+            f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}"
+        )
+        if config.default_headers:
+            self._session.headers.update(config.default_headers)
+
+        if config.proxies:
+            # Need to cast here since Dict[Literal[...], str] is not assignable to to Dict[str, str]
+            self._session.proxies.update(cast(Dict[str, str], config.proxies))
+
+        self._session.verify = config.verify
+
+        if config.default_params:
+            self._session.params.update(config.default_params)  # type: ignore
+
+    @property
+    @deprecated(
+        "Accessing the session directly is deprecated. Please configure the session using the new Config class."
+    )
+    def session(self):
+        # DEPRECATED: This ensures that users who were previously accessing the PalantirSession
+        # will have code that continues to work (now we just return the ApiClient)
+        return self
+
+    @property
+    def hostname(self) -> str:
+        return self._hostname
 
     def iterate_api(self, request_info: RequestInfo) -> ResourceIterator[Any]:
         def fetch_page(
@@ -115,26 +194,25 @@ class ApiClient:
 
     def call_api(self, request_info: RequestInfo) -> Any:
         """Makes the HTTP request (synchronous)"""
-        headers = request_info.header_params or {}
-        headers.update(self.default_headers)
-
-        # The body could be a pydantic model
-        # We need to serialize these to dictionaries to be passed to the
-        # the API endpoint
-        body = self._serialize(request_info.body, request_info.body_type)
-        path = self._create_path(request_info)
-
-        url = f"https://{self.session.hostname}/api{path}"
-
-        res = self.session.request(
+        res = self._session.request(
             method=request_info.method,
-            url=url,
-            headers=headers,
+            url=self._create_url(request_info),
             params=self._process_query_parameters(request_info.query_params),
-            data=body,
+            data=self._serialize(request_info.body, request_info.body_type),
+            headers={
+                "Authorization": "Bearer " + self._auth.get_token().access_token,
+                **request_info.header_params,
+            },
             stream=request_info.stream,
-            timeout=request_info.request_timeout,
+            timeout=(
+                request_info.request_timeout
+                if request_info.request_timeout is not None
+                else self._config.timeout
+            ),
         )
+
+        if res.status_code == 401:
+            res.raise_for_status()
 
         if not 200 <= res.status_code <= 299:
             try:
@@ -158,7 +236,7 @@ class ApiClient:
 
         return result
 
-    def _create_path(self, request_info: RequestInfo) -> str:
+    def _create_url(self, request_info: RequestInfo) -> str:
         resource_path = request_info.resource_path
         path_params = request_info.path_params
 
@@ -167,9 +245,12 @@ class ApiClient:
             # this does not work with the backend which expects "/" characters to be encoded
             resource_path = resource_path.replace(f"{{{k}}}", quote(v, safe=""))
 
-        return resource_path
+        return f"{self._config.scheme}://{self._hostname}/api{resource_path}"
 
     def _serialize(self, value: Any, value_type: Any) -> Optional[bytes]:
+        """
+        Serialize the data passed in to JSON bytes.
+        """
         if value_type is bytes:
             return value
         elif value_type is None:
@@ -187,7 +268,7 @@ class ApiClient:
 
         return json_bytes
 
-    def _deserialize(self, res: Response, request_info: RequestInfo) -> Any:
+    def _deserialize(self, res: requests.Response, request_info: RequestInfo) -> Any:
         if request_info.response_type is bytes:
             if request_info.stream:
                 return BinaryStream(res.iter_content(chunk_size=request_info.chunk_size))

@@ -442,6 +442,103 @@ def admin_marking_page(
     click.echo(repr(result))
 
 
+@admin_marking.group("marking_role_assignment")
+def admin_marking_marking_role_assignment():
+    pass
+
+
+@admin_marking_marking_role_assignment.command("add")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--role_assignments", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_marking_role_assignment_add(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    role_assignments: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.Marking.MarkingRoleAssignment.add(
+        marking_id=marking_id,
+        role_assignments=json.loads(role_assignments),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_marking_marking_role_assignment.command("list")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_marking_role_assignment_list(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
+
+    """
+    result = client.admin.Marking.MarkingRoleAssignment.list(
+        marking_id=marking_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_marking_marking_role_assignment.command("page")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_marking_role_assignment_page(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
+
+    """
+    result = client.admin.Marking.MarkingRoleAssignment.page(
+        marking_id=marking_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_marking_marking_role_assignment.command("remove")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--role_assignments", type=str, required=True, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_marking_role_assignment_remove(
+    client: foundry.v2.FoundryClient,
+    marking_id: str,
+    role_assignments: str,
+    preview: Optional[bool],
+):
+    """ """
+    result = client.admin.Marking.MarkingRoleAssignment.remove(
+        marking_id=marking_id,
+        role_assignments=json.loads(role_assignments),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_marking.group("marking_member")
 def admin_marking_marking_member():
     pass
@@ -3218,11 +3315,6 @@ def geo():
     pass
 
 
-@cli.group("mediasets")
-def mediasets():
-    pass
-
-
 @cli.group("ontologies")
 def ontologies():
     pass
@@ -4288,7 +4380,7 @@ def ontologies_v2_ontology_interface_get(
       To use this endpoint, add `preview=true` to the request query parameters.
     :::
 
-    Gets a specific object type with the given API name.
+    Gets a specific interface type with the given API name.
 
     Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 

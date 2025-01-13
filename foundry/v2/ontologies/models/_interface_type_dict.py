@@ -55,11 +55,21 @@ class InterfaceTypeDict(TypedDict):
     set of properties the interface has. A shared property type must be unique across all of the properties.
     """
 
+    allProperties: Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]
+    """
+    A map from a shared property type API name to the corresponding shared property type. The map describes the 
+    set of properties the interface has, including properties from all directly and indirectly extended 
+    interfaces.
+    """
+
     extendsInterfaces: List[InterfaceTypeApiName]
     """
     A list of interface API names that this interface extends. An interface can extend other interfaces to 
     inherit their properties.
     """
+
+    allExtendsInterfaces: List[InterfaceTypeApiName]
+    """A list of interface API names that this interface extends, both directly and indirectly."""
 
     implementedByObjectTypes: List[ObjectTypeApiName]
     """A list of object API names that implement this interface."""
@@ -68,4 +78,10 @@ class InterfaceTypeDict(TypedDict):
     """
     A map from an interface link type API name to the corresponding interface link type. The map describes the
     set of link types the interface has.
+    """
+
+    allLinks: Dict[InterfaceLinkTypeApiName, InterfaceLinkTypeDict]
+    """
+    A map from an interface link type API name to the corresponding interface link type. The map describes the
+    set of link types the interface has, including links from all directly and indirectly extended interfaces.
     """

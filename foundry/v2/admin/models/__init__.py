@@ -80,6 +80,12 @@ from foundry.v2.admin.models._list_marking_members_response import (
 from foundry.v2.admin.models._list_marking_members_response_dict import (
     ListMarkingMembersResponseDict,
 )  # NOQA
+from foundry.v2.admin.models._list_marking_role_assignments_response import (
+    ListMarkingRoleAssignmentsResponse,
+)  # NOQA
+from foundry.v2.admin.models._list_marking_role_assignments_response_dict import (
+    ListMarkingRoleAssignmentsResponseDict,
+)  # NOQA
 from foundry.v2.admin.models._list_markings_response import ListMarkingsResponse
 from foundry.v2.admin.models._list_markings_response_dict import ListMarkingsResponseDict  # NOQA
 from foundry.v2.admin.models._list_users_response import ListUsersResponse
@@ -96,6 +102,10 @@ from foundry.v2.admin.models._marking_dict import MarkingDict
 from foundry.v2.admin.models._marking_display_name import MarkingDisplayName
 from foundry.v2.admin.models._marking_member import MarkingMember
 from foundry.v2.admin.models._marking_member_dict import MarkingMemberDict
+from foundry.v2.admin.models._marking_role import MarkingRole
+from foundry.v2.admin.models._marking_role_assignment import MarkingRoleAssignment
+from foundry.v2.admin.models._marking_role_assignment_dict import MarkingRoleAssignmentDict  # NOQA
+from foundry.v2.admin.models._marking_role_update_dict import MarkingRoleUpdateDict
 from foundry.v2.admin.models._marking_type import MarkingType
 from foundry.v2.admin.models._principal_filter_type import PrincipalFilterType
 from foundry.v2.admin.models._search_groups_response import SearchGroupsResponse
@@ -149,6 +159,8 @@ __all__ = [
     "ListMarkingCategoriesResponseDict",
     "ListMarkingMembersResponse",
     "ListMarkingMembersResponseDict",
+    "ListMarkingRoleAssignmentsResponse",
+    "ListMarkingRoleAssignmentsResponseDict",
     "ListMarkingsResponse",
     "ListMarkingsResponseDict",
     "ListUsersResponse",
@@ -163,6 +175,10 @@ __all__ = [
     "MarkingDisplayName",
     "MarkingMember",
     "MarkingMemberDict",
+    "MarkingRole",
+    "MarkingRoleAssignment",
+    "MarkingRoleAssignmentDict",
+    "MarkingRoleUpdateDict",
     "MarkingType",
     "PrincipalFilterType",
     "SearchGroupsResponse",

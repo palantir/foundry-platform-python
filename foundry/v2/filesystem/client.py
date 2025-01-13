@@ -15,14 +15,30 @@
 
 from __future__ import annotations
 
+from typing import Optional
+
 from foundry._core import Auth
+from foundry._core import Config
 from foundry.v2.filesystem.folder import FolderClient
 from foundry.v2.filesystem.project import ProjectClient
 from foundry.v2.filesystem.resource import ResourceClient
 
 
 class FilesystemClient:
-    def __init__(self, auth: Auth, hostname: str):
-        self.Folder = FolderClient(auth=auth, hostname=hostname)
-        self.Project = ProjectClient(auth=auth, hostname=hostname)
-        self.Resource = ResourceClient(auth=auth, hostname=hostname)
+    """
+    The API client for the Filesystem Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self.Folder = FolderClient(auth=auth, hostname=hostname, config=config)
+        self.Project = ProjectClient(auth=auth, hostname=hostname, config=config)
+        self.Resource = ResourceClient(auth=auth, hostname=hostname, config=config)

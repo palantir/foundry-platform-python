@@ -27,6 +27,7 @@ from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
@@ -54,8 +55,21 @@ from foundry.v2.ontologies.models._search_json_query_v2_dict import SearchJsonQu
 
 
 class OntologyInterfaceClient:
-    def __init__(self, auth: Auth, hostname: str) -> None:
-        self._api_client = ApiClient(auth=auth, hostname=hostname)
+    """
+    The API client for the OntologyInterface Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -159,7 +173,7 @@ class OntologyInterfaceClient:
           To use this endpoint, add `preview=true` to the request query parameters.
         :::
 
-        Gets a specific object type with the given API name.
+        Gets a specific interface type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
