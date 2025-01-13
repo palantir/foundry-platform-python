@@ -12,6 +12,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | ------------ | -------------
 DateTypeDict | date
 OntologyInterfaceObjectTypeDict | interfaceObject
+OntologyStructTypeDict | struct
 StringTypeDict | string
 DoubleTypeDict | double
 IntegerTypeDict | integer
@@ -20,6 +21,7 @@ OntologyObjectTypeReferenceTypeDict | objectType
 BooleanTypeDict | boolean
 MarkingTypeDict | marking
 AttachmentTypeDict | attachment
+MediaReferenceTypeDict | mediaReference
 ActionParameterArrayTypeDict | array
 OntologyObjectSetTypeDict | objectSet
 OntologyObjectTypeDict | object

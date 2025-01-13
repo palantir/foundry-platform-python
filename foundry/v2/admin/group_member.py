@@ -27,6 +27,7 @@ from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
@@ -40,8 +41,21 @@ from foundry.v2.core.models._principal_id import PrincipalId
 
 
 class GroupMemberClient:
-    def __init__(self, auth: Auth, hostname: str) -> None:
-        self._api_client = ApiClient(auth=auth, hostname=hostname)
+    """
+    The API client for the GroupMember Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call

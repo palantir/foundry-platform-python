@@ -19,6 +19,12 @@ from foundry.v2.admin.errors._add_group_members_permission_denied import (
 from foundry.v2.admin.errors._add_marking_members_permission_denied import (
     AddMarkingMembersPermissionDenied,
 )  # NOQA
+from foundry.v2.admin.errors._add_marking_role_assignments_permission_denied import (
+    AddMarkingRoleAssignmentsPermissionDenied,
+)  # NOQA
+from foundry.v2.admin.errors._cannot_remove_all_marking_administrators import (
+    CannotRemoveAllMarkingAdministrators,
+)  # NOQA
 from foundry.v2.admin.errors._create_group_permission_denied import (
     CreateGroupPermissionDenied,
 )  # NOQA
@@ -58,6 +64,9 @@ from foundry.v2.admin.errors._list_hosts_permission_denied import ListHostsPermi
 from foundry.v2.admin.errors._list_marking_members_permission_denied import (
     ListMarkingMembersPermissionDenied,
 )  # NOQA
+from foundry.v2.admin.errors._list_marking_role_assignments_permission_denied import (
+    ListMarkingRoleAssignmentsPermissionDenied,
+)  # NOQA
 from foundry.v2.admin.errors._marking_category_not_found import MarkingCategoryNotFound
 from foundry.v2.admin.errors._marking_not_found import MarkingNotFound
 from foundry.v2.admin.errors._organization_not_found import OrganizationNotFound
@@ -68,6 +77,9 @@ from foundry.v2.admin.errors._remove_group_members_permission_denied import (
 )  # NOQA
 from foundry.v2.admin.errors._remove_marking_members_permission_denied import (
     RemoveMarkingMembersPermissionDenied,
+)  # NOQA
+from foundry.v2.admin.errors._remove_marking_role_assignments_permission_denied import (
+    RemoveMarkingRoleAssignmentsPermissionDenied,
 )  # NOQA
 from foundry.v2.admin.errors._search_groups_permission_denied import (
     SearchGroupsPermissionDenied,
@@ -80,6 +92,8 @@ from foundry.v2.admin.errors._user_not_found import UserNotFound
 __all__ = [
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
+    "AddMarkingRoleAssignmentsPermissionDenied",
+    "CannotRemoveAllMarkingAdministrators",
     "CreateGroupPermissionDenied",
     "DeleteGroupPermissionDenied",
     "DeleteUserPermissionDenied",
@@ -97,6 +111,7 @@ __all__ = [
     "InvalidProfilePicture",
     "ListHostsPermissionDenied",
     "ListMarkingMembersPermissionDenied",
+    "ListMarkingRoleAssignmentsPermissionDenied",
     "MarkingCategoryNotFound",
     "MarkingNotFound",
     "OrganizationNotFound",
@@ -104,6 +119,7 @@ __all__ = [
     "ProfilePictureNotFound",
     "RemoveGroupMembersPermissionDenied",
     "RemoveMarkingMembersPermissionDenied",
+    "RemoveMarkingRoleAssignmentsPermissionDenied",
     "SearchGroupsPermissionDenied",
     "SearchUsersPermissionDenied",
     "UserNotFound",

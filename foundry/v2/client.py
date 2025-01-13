@@ -13,7 +13,10 @@
 #  limitations under the License.
 
 
+from typing import Optional
+
 from foundry._core import Auth
+from foundry._core import Config
 
 
 class FoundryClient:
@@ -22,9 +25,15 @@ class FoundryClient:
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
     """
 
-    def __init__(self, auth: Auth, hostname: str):
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
         from foundry.v2.admin.client import AdminClient
         from foundry.v2.aip_agents.client import AipAgentsClient
         from foundry.v2.connectivity.client import ConnectivityClient
@@ -36,13 +45,15 @@ class FoundryClient:
         from foundry.v2.streams.client import StreamsClient
         from foundry.v2.third_party_applications.client import ThirdPartyApplicationsClient  # NOQA
 
-        self.admin = AdminClient(auth=auth, hostname=hostname)
-        self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname)
-        self.connectivity = ConnectivityClient(auth=auth, hostname=hostname)
-        self.datasets = DatasetsClient(auth=auth, hostname=hostname)
-        self.filesystem = FilesystemClient(auth=auth, hostname=hostname)
-        self.functions = FunctionsClient(auth=auth, hostname=hostname)
-        self.ontologies = OntologiesClient(auth=auth, hostname=hostname)
-        self.orchestration = OrchestrationClient(auth=auth, hostname=hostname)
-        self.streams = StreamsClient(auth=auth, hostname=hostname)
-        self.third_party_applications = ThirdPartyApplicationsClient(auth=auth, hostname=hostname)
+        self.admin = AdminClient(auth=auth, hostname=hostname, config=config)
+        self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname, config=config)
+        self.connectivity = ConnectivityClient(auth=auth, hostname=hostname, config=config)
+        self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
+        self.filesystem = FilesystemClient(auth=auth, hostname=hostname, config=config)
+        self.functions = FunctionsClient(auth=auth, hostname=hostname, config=config)
+        self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)
+        self.orchestration = OrchestrationClient(auth=auth, hostname=hostname, config=config)
+        self.streams = StreamsClient(auth=auth, hostname=hostname, config=config)
+        self.third_party_applications = ThirdPartyApplicationsClient(
+            auth=auth, hostname=hostname, config=config
+        )

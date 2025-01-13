@@ -17,4 +17,7 @@ from foundry._core.api_client import ApiClient
 from foundry._core.api_client import RequestInfo
 from foundry._core.auth_utils import Auth
 from foundry._core.binary_stream import BinaryStream
+from foundry._core.confidential_client_auth import ConfidentialClientAuth
+from foundry._core.config import Config
+from foundry._core.foundry_token_auth_client import UserTokenAuth
 from foundry._core.resource_iterator import ResourceIterator

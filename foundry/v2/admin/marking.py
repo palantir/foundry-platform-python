@@ -27,11 +27,13 @@ from typing_extensions import Annotated
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.marking_member import MarkingMemberClient
+from foundry.v2.admin.marking_role_assignment import MarkingRoleAssignmentClient
 from foundry.v2.admin.models._get_markings_batch_request_element_dict import (
     GetMarkingsBatchRequestElementDict,
 )  # NOQA
@@ -45,10 +47,25 @@ from foundry.v2.core.models._preview_mode import PreviewMode
 
 
 class MarkingClient:
-    def __init__(self, auth: Auth, hostname: str) -> None:
-        self._api_client = ApiClient(auth=auth, hostname=hostname)
+    """
+    The API client for the Marking Resource.
 
-        self.MarkingMember = MarkingMemberClient(auth=auth, hostname=hostname)
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.MarkingMember = MarkingMemberClient(auth=auth, hostname=hostname, config=config)
+        self.MarkingRoleAssignment = MarkingRoleAssignmentClient(
+            auth=auth, hostname=hostname, config=config
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call

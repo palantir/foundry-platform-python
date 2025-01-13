@@ -19,7 +19,6 @@ import pytest
 from foundry.v1.core import models as models_core_v1
 from foundry.v1.datasets import models as models_datasets_v1
 from foundry.v1.geo import models as models_geo_v1
-from foundry.v1.mediasets import models as models_mediasets_v1
 from foundry.v1.ontologies import models as models_ontologies_v1
 from foundry.v2.admin import models as models_admin_v2
 from foundry.v2.aip_agents import models as models_aip_agents_v2
@@ -29,7 +28,6 @@ from foundry.v2.datasets import models as models_datasets_v2
 from foundry.v2.filesystem import models as models_filesystem_v2
 from foundry.v2.functions import models as models_functions_v2
 from foundry.v2.geo import models as models_geo_v2
-from foundry.v2.mediasets import models as models_mediasets_v2
 from foundry.v2.ontologies import models as models_ontologies_v2
 from foundry.v2.orchestration import models as models_orchestration_v2
 from foundry.v2.streams import models as models_streams_v2
@@ -46,7 +44,6 @@ def test_can_validate_types():
         *[(models_core_v1, model_name) for model_name in dir(models_core_v1)],
         *[(models_datasets_v1, model_name) for model_name in dir(models_datasets_v1)],
         *[(models_geo_v1, model_name) for model_name in dir(models_geo_v1)],
-        *[(models_mediasets_v1, model_name) for model_name in dir(models_mediasets_v1)],
         *[(models_ontologies_v1, model_name) for model_name in dir(models_ontologies_v1)],
         *[(models_admin_v2, model_name) for model_name in dir(models_admin_v2)],
         *[(models_aip_agents_v2, model_name) for model_name in dir(models_aip_agents_v2)],
@@ -56,7 +53,6 @@ def test_can_validate_types():
         *[(models_filesystem_v2, model_name) for model_name in dir(models_filesystem_v2)],
         *[(models_functions_v2, model_name) for model_name in dir(models_functions_v2)],
         *[(models_geo_v2, model_name) for model_name in dir(models_geo_v2)],
-        *[(models_mediasets_v2, model_name) for model_name in dir(models_mediasets_v2)],
         *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
         *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
         *[(models_orchestration_v2, model_name) for model_name in dir(models_orchestration_v2)],

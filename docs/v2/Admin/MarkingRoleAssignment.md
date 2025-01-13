@@ -1,0 +1,254 @@
+# MarkingRoleAssignment
+
+Method | HTTP request |
+------------- | ------------- |
+[**add**](#add) | **POST** /v2/admin/markings/{markingId}/roleAssignments/add |
+[**list**](#list) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
+[**page**](#page) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
+[**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/roleAssignments/remove |
+
+# **add**
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**marking_id** | MarkingId | markingId |  |
+**role_assignments** | List[MarkingRoleUpdateDict] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MarkingId | markingId
+marking_id = None
+# List[MarkingRoleUpdateDict] |
+role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Marking.MarkingRoleAssignment.add(
+        marking_id,
+        role_assignments=role_assignments,
+        preview=preview,
+    )
+    print("The add response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MarkingRoleAssignment.add: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **list**
+List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**marking_id** | MarkingId | markingId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ResourceIterator[MarkingRoleAssignment]**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MarkingId | markingId
+marking_id = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    for marking_role_assignment in foundry_client.admin.Marking.MarkingRoleAssignment.list(
+        marking_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    ):
+        pprint(marking_role_assignment)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MarkingRoleAssignment.list: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListMarkingRoleAssignmentsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **page**
+List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**marking_id** | MarkingId | markingId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ListMarkingRoleAssignmentsResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MarkingId | markingId
+marking_id = None
+# Optional[PageSize] | pageSize
+page_size = None
+# Optional[PageToken] | pageToken
+page_token = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Marking.MarkingRoleAssignment.page(
+        marking_id,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The page response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MarkingRoleAssignment.page: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListMarkingRoleAssignmentsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **remove**
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**marking_id** | MarkingId | markingId |  |
+**role_assignments** | List[MarkingRoleUpdateDict] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MarkingId | markingId
+marking_id = None
+# List[MarkingRoleUpdateDict] |
+role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Marking.MarkingRoleAssignment.remove(
+        marking_id,
+        role_assignments=role_assignments,
+        preview=preview,
+    )
+    print("The remove response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MarkingRoleAssignment.remove: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+

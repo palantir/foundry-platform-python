@@ -25,6 +25,7 @@ from typing_extensions import Annotated
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
 from foundry._core.utils import maybe_ignore_preview
@@ -45,8 +46,21 @@ from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
 
 
 class ObjectTypeClient:
-    def __init__(self, auth: Auth, hostname: str) -> None:
-        self._api_client = ApiClient(auth=auth, hostname=hostname)
+    """
+    The API client for the ObjectTypeV2 Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call

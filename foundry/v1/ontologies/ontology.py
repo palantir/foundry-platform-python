@@ -24,6 +24,7 @@ from typing_extensions import Annotated
 
 from foundry._core import ApiClient
 from foundry._core import Auth
+from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
@@ -36,12 +37,24 @@ from foundry.v1.ontologies.query_type import QueryTypeClient
 
 
 class OntologyClient:
-    def __init__(self, auth: Auth, hostname: str) -> None:
-        self._api_client = ApiClient(auth=auth, hostname=hostname)
+    """
+    The API client for the Ontology Resource.
 
-        self.ActionType = ActionTypeClient(auth=auth, hostname=hostname)
-        self.ObjectType = ObjectTypeClient(auth=auth, hostname=hostname)
-        self.QueryType = QueryTypeClient(auth=auth, hostname=hostname)
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.ActionType = ActionTypeClient(auth=auth, hostname=hostname, config=config)
+        self.ObjectType = ObjectTypeClient(auth=auth, hostname=hostname, config=config)
+        self.QueryType = QueryTypeClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
