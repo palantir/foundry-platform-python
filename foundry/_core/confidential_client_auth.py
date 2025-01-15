@@ -104,7 +104,7 @@ class ConfidentialClientAuth(Auth):
 
     @property
     def url(self) -> str:
-        return remove_prefixes(self._hostname, ["https://", "http://"])
+        return remove_prefixes(self._hostname.strip("/"), ["https://", "http://"])
 
     def _refresh_token(self) -> None:
         self._token = self._server_oauth_flow_provider.get_token()
