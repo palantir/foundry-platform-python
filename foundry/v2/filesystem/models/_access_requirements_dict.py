@@ -24,7 +24,10 @@ from foundry.v2.filesystem.models._organization_dict import OrganizationDict
 
 
 class AccessRequirementsDict(TypedDict):
-    """AccessRequirements"""
+    """
+    Access requirements for a resource are composed of Markings and Organizations. Organizations are disjunctive,
+    while Markings are conjunctive.
+    """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

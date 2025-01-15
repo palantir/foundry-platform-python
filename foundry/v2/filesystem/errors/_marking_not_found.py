@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import List
 from typing import Literal
 
 import pydantic
@@ -30,7 +31,7 @@ class MarkingNotFoundParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    markingId: MarkingId
+    markingIds: List[MarkingId]
 
 
 @dataclass

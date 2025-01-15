@@ -27,7 +27,7 @@ from foundry.v2.core.models._size_bytes import SizeBytes
 
 class FileSizeFilterInvalidGreaterThanAndLessThanRangeParameters(TypedDict):
     """
-    The provided `gt` and `lt` fields in the FileSizeFilter are invalid. No files will ever
+    The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever
     satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
     """
 

@@ -26,8 +26,8 @@ from foundry._errors import PalantirRPCException
 
 class FileSizeFilterMissingGreaterThanAndLessThanParameters(TypedDict):
     """
-    Both the `gt` and `lt` fields are missing from the FileSizeFilter. At least one of these
-    fields must be present
+    Both the `gt` and `lt` properties are missing from the FileSizeFilter. At least one of these
+    properties must be present
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore

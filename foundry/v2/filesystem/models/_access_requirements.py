@@ -26,7 +26,10 @@ from foundry.v2.filesystem.models._organization import Organization
 
 
 class AccessRequirements(pydantic.BaseModel):
-    """AccessRequirements"""
+    """
+    Access requirements for a resource are composed of Markings and Organizations. Organizations are disjunctive,
+    while Markings are conjunctive.
+    """
 
     organizations: List[Organization]
 

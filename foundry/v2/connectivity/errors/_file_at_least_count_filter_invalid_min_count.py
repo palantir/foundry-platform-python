@@ -25,7 +25,7 @@ from foundry._errors import PalantirRPCException
 
 
 class FileAtLeastCountFilterInvalidMinCountParameters(TypedDict):
-    """The provided `minFilesCount` field in the FileAtLeastCountFilter must be strictly greater than 0."""
+    """The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

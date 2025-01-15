@@ -420,6 +420,12 @@ Namespace | Resource | Operation | HTTP request |
 **Connectivity** | FileImport | [**get**](docs/v2/Connectivity/FileImport.md#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
 **Connectivity** | FileImport | [**list**](docs/v2/Connectivity/FileImport.md#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports |
 **Connectivity** | FileImport | [**page**](docs/v2/Connectivity/FileImport.md#page) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports |
+**Connectivity** | TableImport | [**create**](docs/v2/Connectivity/TableImport.md#create) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports |
+**Connectivity** | TableImport | [**delete**](docs/v2/Connectivity/TableImport.md#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
+**Connectivity** | TableImport | [**execute**](docs/v2/Connectivity/TableImport.md#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute |
+**Connectivity** | TableImport | [**get**](docs/v2/Connectivity/TableImport.md#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
+**Connectivity** | TableImport | [**list**](docs/v2/Connectivity/TableImport.md#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports |
+**Connectivity** | TableImport | [**page**](docs/v2/Connectivity/TableImport.md#page) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports |
 **Datasets** | Branch | [**create**](docs/v2/Datasets/Branch.md#create) | **POST** /v2/datasets/{datasetRid}/branches |
 **Datasets** | Branch | [**delete**](docs/v2/Datasets/Branch.md#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchName} |
 **Datasets** | Branch | [**get**](docs/v2/Datasets/Branch.md#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchName} |

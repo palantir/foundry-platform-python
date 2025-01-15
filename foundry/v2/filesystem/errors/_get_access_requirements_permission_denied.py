@@ -22,21 +22,22 @@ import pydantic
 from typing_extensions import TypedDict
 
 from foundry._errors import PalantirRPCException
+from foundry.v2.filesystem.models._resource_rid import ResourceRid
 
 
-class FilesCountLimitFilterInvalidLimitParameters(TypedDict):
-    """The `filesCount` property in the FilesCountLimitFilter must be strictly greater than 0."""
+class GetAccessRequirementsPermissionDeniedParameters(TypedDict):
+    """Could not getAccessRequirements the Resource."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    filesCount: int
+    resourceRid: ResourceRid
 
 
 @dataclass
-class FilesCountLimitFilterInvalidLimit(PalantirRPCException):
-    name: Literal["FilesCountLimitFilterInvalidLimit"]
-    parameters: FilesCountLimitFilterInvalidLimitParameters
+class GetAccessRequirementsPermissionDenied(PalantirRPCException):
+    name: Literal["GetAccessRequirementsPermissionDenied"]
+    parameters: GetAccessRequirementsPermissionDeniedParameters
     error_instance_id: str
 
 
-__all__ = ["FilesCountLimitFilterInvalidLimit"]
+__all__ = ["GetAccessRequirementsPermissionDenied"]

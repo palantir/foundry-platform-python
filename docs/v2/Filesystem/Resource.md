@@ -171,6 +171,62 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+Returns a list of access requirements a user needs in order to view a resource. Access requirements are
+composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**resource_rid** | ResourceRid | resourceRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**AccessRequirements**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ResourceRid | resourceRid
+resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.filesystem.Resource.get_access_requirements(
+        resource_rid,
+        preview=preview,
+    )
+    print("The get_access_requirements response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Resource.get_access_requirements: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | AccessRequirements  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 Get a Resource by its absolute path.
 
 ### Parameters

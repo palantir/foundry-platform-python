@@ -19,7 +19,7 @@ use the Foundry UI instead.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **configuration** | CreateConnectionRequestConnectionConfigurationDict |  |  |
-**display_name** | ConnectionDisplayName |  |  |
+**display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
 **parent_folder_rid** | FolderRid |  |  |
 **runtime_platform** | CreateConnectionRequestRuntimePlatformDict |  |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
@@ -40,7 +40,7 @@ foundry_client = FoundryClient(
 
 # CreateConnectionRequestConnectionConfigurationDict |
 configuration = None
-# ConnectionDisplayName |
+# ConnectionDisplayName | The display name of the Connection. The display name must not be blank.
 display_name = "Connection to my external system"
 # FolderRid |
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"

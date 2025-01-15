@@ -22,22 +22,21 @@ import pydantic
 from typing_extensions import TypedDict
 
 from foundry._errors import PalantirRPCException
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
 
 
-class AccessRequirementsNotFoundParameters(TypedDict):
-    """The given AccessRequirements could not be found."""
+class EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters(TypedDict):
+    """The encrypted property must be specified as a plaintext value."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRid: ResourceRid
+    propertyName: str
 
 
 @dataclass
-class AccessRequirementsNotFound(PalantirRPCException):
-    name: Literal["AccessRequirementsNotFound"]
-    parameters: AccessRequirementsNotFoundParameters
+class EncryptedPropertyMustBeSpecifiedAsPlaintextValue(PalantirRPCException):
+    name: Literal["EncryptedPropertyMustBeSpecifiedAsPlaintextValue"]
+    parameters: EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters
     error_instance_id: str
 
 
-__all__ = ["AccessRequirementsNotFound"]
+__all__ = ["EncryptedPropertyMustBeSpecifiedAsPlaintextValue"]

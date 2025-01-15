@@ -273,8 +273,6 @@ class PublicClientOAuthFlowProvider:
         revoke_token_response.raise_for_status()
 
     def get_scopes(self) -> List[str]:
-        scopes = []
-        if self.scopes:
-            scopes.extend(self.scopes)
-        scopes.append("offline_access")
-        return scopes
+        if not self.scopes:
+            return []
+        return [*self.scopes, "offline_access"]

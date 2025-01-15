@@ -7,7 +7,7 @@ Connection
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ConnectionRid | Yes |  |
 **parent_folder_rid** | FolderRid | Yes |  |
-**display_name** | ConnectionDisplayName | Yes |  |
+**display_name** | ConnectionDisplayName | Yes | The display name of the Connection. The display name must not be blank. |
 **runtime_platform** | RuntimePlatform | Yes |  |
 **configuration** | ConnectionConfiguration | Yes |  |
 

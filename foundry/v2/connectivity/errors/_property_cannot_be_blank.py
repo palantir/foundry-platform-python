@@ -24,17 +24,19 @@ from typing_extensions import TypedDict
 from foundry._errors import PalantirRPCException
 
 
-class ConnectionDisplayNameCannotBeEmptyParameters(TypedDict):
-    """The display name for a connection cannot be empty."""
+class PropertyCannotBeBlankParameters(TypedDict):
+    """The specified property cannot be blank."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    propertyName: str
+
 
 @dataclass
-class ConnectionDisplayNameCannotBeEmpty(PalantirRPCException):
-    name: Literal["ConnectionDisplayNameCannotBeEmpty"]
-    parameters: ConnectionDisplayNameCannotBeEmptyParameters
+class PropertyCannotBeBlank(PalantirRPCException):
+    name: Literal["PropertyCannotBeBlank"]
+    parameters: PropertyCannotBeBlankParameters
     error_instance_id: str
 
 
-__all__ = ["ConnectionDisplayNameCannotBeEmpty"]
+__all__ = ["PropertyCannotBeBlank"]
