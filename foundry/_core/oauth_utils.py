@@ -164,7 +164,7 @@ class ConfidentialClientOAuthFlowProvider:
     def get_scopes(self) -> List[str]:
         if not self.scopes:
             return []
-        return ["offline_access", *self.scopes]
+        return [*self.scopes, "offline_access"]
 
 
 def generate_random_string(min_length: int = 43, max_length: int = 128) -> str:
