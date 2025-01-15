@@ -162,11 +162,9 @@ class ConfidentialClientOAuthFlowProvider:
         revoke_token_response.raise_for_status()
 
     def get_scopes(self) -> List[str]:
-        scopes = []
-        if self.scopes:
-            scopes.extend(self.scopes)
-        scopes.append("offline_access")
-        return scopes
+        if not self.scopes:
+            return []
+        return ["offline_access", *self.scopes]
 
 
 def generate_random_string(min_length: int = 43, max_length: int = 128) -> str:
