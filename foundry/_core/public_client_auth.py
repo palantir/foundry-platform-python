@@ -110,7 +110,7 @@ class PublicClientAuth(Auth):
 
     @property
     def url(self) -> str:
-        return remove_prefixes(self._hostname, ["https://", "http://"])
+        return remove_prefixes(self._hostname.strip("/"), ["https://", "http://"])
 
     def sign_in(self) -> str:
         self._auth_request = self._server_oauth_flow_provider.generate_auth_request()
