@@ -36,7 +36,7 @@ from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.filesystem.access_requirements import AccessRequirementsClient
+from foundry.v2.filesystem.models._access_requirements import AccessRequirements
 from foundry.v2.filesystem.models._list_markings_of_resource_response import (
     ListMarkingsOfResourceResponse,
 )  # NOQA
@@ -62,9 +62,6 @@ class ResourceClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
-        self.AccessRequirements = AccessRequirementsClient(
-            auth=auth, hostname=hostname, config=config
-        )
         self.ResourceRole = ResourceRoleClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -199,6 +196,50 @@ class ResourceClient:
                 body=None,
                 body_type=None,
                 response_type=Resource,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_access_requirements(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> AccessRequirements:
+        """
+        Returns a list of access requirements a user needs in order to view a resource. Access requirements are
+        composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: AccessRequirements
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/{resourceRid}/getAccessRequirements",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=AccessRequirements,
                 request_timeout=request_timeout,
             ),
         )

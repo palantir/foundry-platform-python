@@ -26,7 +26,7 @@ from foundry.v2.core.models._size_bytes import SizeBytes
 
 
 class FileSizeFilterLessThanMustBeOneByteOrLargerParameters(TypedDict):
-    """The `lt` field in the FileSizeFilter must be at least 1 byte."""
+    """The `lt` property in the FileSizeFilter must be at least 1 byte."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

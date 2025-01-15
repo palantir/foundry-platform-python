@@ -26,7 +26,7 @@ from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 
 
 class UpdateSecretsForConnectionPermissionDeniedParameters(TypedDict):
-    """Could not updateSecrets the Connection."""
+    """Could not update secrets for the Connection."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

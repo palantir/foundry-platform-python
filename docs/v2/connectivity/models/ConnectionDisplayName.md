@@ -1,6 +1,6 @@
 # ConnectionDisplayName
 
-ConnectionDisplayName
+The display name of the Connection. The display name must not be blank.
 
 ## Type
 ```python

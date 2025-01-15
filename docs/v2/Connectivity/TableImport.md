@@ -2,7 +2,14 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports |
+[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
+[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
+[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports |
+[**page**](#page) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports |
 
+# **create**
 Creates a new TableImport.
 
 ### Parameters
@@ -39,11 +46,11 @@ config = None
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # TableImportDisplayName |
-display_name = None
+display_name = "My table import"
 # TableImportMode |
 import_mode = "SNAPSHOT"
 # Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
-allow_schema_changes = None
+allow_schema_changes = True
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
 # Optional[PreviewMode] | preview
@@ -81,6 +88,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **delete**
 Delete the TableImport with the specified RID.
 Deleting the table import does not delete the destination dataset but the dataset will no longer
 be updated by this import.
@@ -142,6 +150,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **execute**
 Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
 The returned BuildRid can be used to check the status via the Orchestration API.
 
@@ -202,6 +211,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Get the TableImport with the specified rid.
 
 ### Parameters
@@ -260,6 +270,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **list**
 Lists all table imports defined for this connection.
 Only table imports that the user has permissions to view will be returned.
 
@@ -323,6 +334,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **page**
 Lists all table imports defined for this connection.
 Only table imports that the user has permissions to view will be returned.
 

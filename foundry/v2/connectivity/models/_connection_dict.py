@@ -36,6 +36,7 @@ class ConnectionDict(TypedDict):
     parentFolderRid: FolderRid
 
     displayName: ConnectionDisplayName
+    """The display name of the Connection. The display name must not be blank."""
 
     runtimePlatform: RuntimePlatformDict
 

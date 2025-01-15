@@ -18,9 +18,11 @@ from expects import expect
 from mockito import unstub
 from mockito import when
 
+from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.oauth_utils import OAuthTokenResponse
 from foundry._core.oauth_utils import OAuthUtils
+from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
 
 
 def test_get_token_uri():
@@ -46,6 +48,34 @@ def test_create_uri():
     expect(OAuthUtils.create_uri("https://a.b.c", "/api/v2/datasets", "/abc")).to(
         equal("https://a.b.c/api/v2/datasets/abc")
     )
+
+
+def test_confidential_client_no_scopes():
+    provider = ConfidentialClientOAuthFlowProvider("CLIENT_ID", "CLIENT_SECRET", "URL", scopes=None)
+    assert provider.get_scopes() == []
+
+    provider.scopes = []
+    assert provider.get_scopes() == []
+
+
+def test_confidential_client_with_scopes():
+    provider = ConfidentialClientOAuthFlowProvider(
+        "CLIENT_ID", "CLIENT_SECRET", "URL", scopes=["test"]
+    )
+    assert provider.get_scopes() == ["test", "offline_access"]
+
+
+def test_public_client_no_scopes():
+    provider = PublicClientOAuthFlowProvider("CLIENT_ID", "REDIRECT_URL", "URL", scopes=None)
+    assert provider.get_scopes() == []
+
+    provider.scopes = []
+    assert provider.get_scopes() == []
+
+
+def test_public_client_with_scopes():
+    provider = PublicClientOAuthFlowProvider("CLIENT_ID", "REDIRECT_URL", "URL", scopes=["test"])
+    assert provider.get_scopes() == ["test", "offline_access"]
 
 
 def test_token_from_dict():

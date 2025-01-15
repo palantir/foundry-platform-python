@@ -1526,7 +1526,12 @@ def connectivity_connection():
 
 @connectivity_connection.command("create")
 @click.option("--configuration", type=str, required=True, help="""""")
-@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--display_name",
+    type=str,
+    required=True,
+    help="""The display name of the Connection. The display name must not be blank.""",
+)
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.option("--runtime_platform", type=str, required=True, help="""""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -2683,6 +2688,27 @@ def filesystem_resource_get(
     click.echo(repr(result))
 
 
+@filesystem_resource.command("get_access_requirements")
+@click.argument("resource_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_resource_get_access_requirements(
+    client: foundry.v2.FoundryClient,
+    resource_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Returns a list of access requirements a user needs in order to view a resource. Access requirements are
+    composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
+
+    """
+    result = client.filesystem.Resource.get_access_requirements(
+        resource_rid=resource_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.command("get_by_path")
 @click.option("--path", type=str, required=True, help="""path""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
@@ -2918,32 +2944,6 @@ def filesystem_resource_resource_role_remove(
     result = client.filesystem.Resource.ResourceRole.remove(
         resource_rid=resource_rid,
         roles=json.loads(roles),
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@filesystem_resource.group("access_requirements")
-def filesystem_resource_access_requirements():
-    pass
-
-
-@filesystem_resource_access_requirements.command("get")
-@click.argument("resource_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.pass_obj
-def filesystem_resource_access_requirements_get(
-    client: foundry.v2.FoundryClient,
-    resource_rid: str,
-    preview: Optional[bool],
-):
-    """
-    Returns a list of access requirements a user needs in order to view a resource. Access requirements are
-    composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
-
-    """
-    result = client.filesystem.Resource.AccessRequirements.get(
-        resource_rid=resource_rid,
         preview=preview,
     )
     click.echo(repr(result))

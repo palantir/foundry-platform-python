@@ -26,7 +26,7 @@ from foundry.v2.core.models._size_bytes import SizeBytes
 
 
 class FileSizeFilterGreaterThanCannotBeNegativeParameters(TypedDict):
-    """The `gt` field in the FileSizeFilter cannot be a negative number."""
+    """The `gt` property in the FileSizeFilter cannot be a negative number."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

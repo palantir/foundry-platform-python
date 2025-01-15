@@ -13,9 +13,6 @@
 #  limitations under the License.
 
 
-from foundry.v2.filesystem.errors._access_requirements_not_found import (
-    AccessRequirementsNotFound,
-)  # NOQA
 from foundry.v2.filesystem.errors._add_markings_permission_denied import (
     AddMarkingsPermissionDenied,
 )  # NOQA
@@ -40,6 +37,9 @@ from foundry.v2.filesystem.errors._forbidden_operation_on_autosaved_resource imp
 )  # NOQA
 from foundry.v2.filesystem.errors._forbidden_operation_on_hidden_resource import (
     ForbiddenOperationOnHiddenResource,
+)  # NOQA
+from foundry.v2.filesystem.errors._get_access_requirements_permission_denied import (
+    GetAccessRequirementsPermissionDenied,
 )  # NOQA
 from foundry.v2.filesystem.errors._get_by_path_permission_denied import (
     GetByPathPermissionDenied,
@@ -86,7 +86,6 @@ from foundry.v2.filesystem.errors._trashing_space_not_supported import (
 )  # NOQA
 
 __all__ = [
-    "AccessRequirementsNotFound",
     "AddMarkingsPermissionDenied",
     "AddOrganizationsPermissionDenied",
     "AddResourceRolesPermissionDenied",
@@ -96,6 +95,7 @@ __all__ = [
     "FolderNotFound",
     "ForbiddenOperationOnAutosavedResource",
     "ForbiddenOperationOnHiddenResource",
+    "GetAccessRequirementsPermissionDenied",
     "GetByPathPermissionDenied",
     "InvalidDisplayName",
     "InvalidFolder",

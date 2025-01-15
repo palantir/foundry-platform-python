@@ -1,6 +1,8 @@
 # AccessRequirements
 
-AccessRequirements
+Access requirements for a resource are composed of Markings and Organizations. Organizations are disjunctive, 
+while Markings are conjunctive.
+
 
 ## Properties
 | Name | Type | Required | Description |

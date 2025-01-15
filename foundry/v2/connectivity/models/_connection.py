@@ -36,6 +36,8 @@ class Connection(pydantic.BaseModel):
 
     display_name: ConnectionDisplayName = pydantic.Field(alias="displayName")
 
+    """The display name of the Connection. The display name must not be blank."""
+
     runtime_platform: RuntimePlatform = pydantic.Field(alias="runtimePlatform")
 
     configuration: ConnectionConfiguration

@@ -90,7 +90,7 @@ class ConnectionClient:
 
         :param configuration:
         :type configuration: CreateConnectionRequestConnectionConfigurationDict
-        :param display_name:
+        :param display_name: The display name of the Connection. The display name must not be blank.
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid

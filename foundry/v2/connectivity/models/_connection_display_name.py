@@ -16,4 +16,4 @@
 from __future__ import annotations
 
 ConnectionDisplayName = str
-"""ConnectionDisplayName"""
+"""The display name of the Connection. The display name must not be blank."""
