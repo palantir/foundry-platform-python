@@ -66,7 +66,7 @@ artifact_repository = None
 # Optional[SdkPackageName] | packageName
 package_name = None
 # Optional[SearchJsonQueryV2Dict] |
-where = None
+where = {"type": "eq", "field": "name", "value": "john"}
 
 
 try:

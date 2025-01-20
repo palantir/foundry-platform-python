@@ -22,7 +22,7 @@ import pydantic
 
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
 from foundry.v2.admin.models._marking_dict import MarkingDict
-from foundry.v2.admin.models._marking_display_name import MarkingDisplayName
+from foundry.v2.admin.models._marking_name import MarkingName
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
 from foundry.v2.core.models._marking_id import MarkingId
@@ -36,13 +36,11 @@ class Marking(pydantic.BaseModel):
 
     category_id: MarkingCategoryId = pydantic.Field(alias="categoryId")
 
-    display_name: MarkingDisplayName = pydantic.Field(alias="displayName")
+    name: MarkingName
 
     description: Optional[str] = None
 
-    organization_rid: Optional[OrganizationRid] = pydantic.Field(
-        alias="organizationRid", default=None
-    )
+    organization: Optional[OrganizationRid] = None
 
     """If this marking is associated with an Organization, its RID will be populated here."""
 

@@ -22,9 +22,6 @@ from foundry.v2.admin.errors._add_marking_members_permission_denied import (
 from foundry.v2.admin.errors._add_marking_role_assignments_permission_denied import (
     AddMarkingRoleAssignmentsPermissionDenied,
 )  # NOQA
-from foundry.v2.admin.errors._cannot_remove_all_marking_administrators import (
-    CannotRemoveAllMarkingAdministrators,
-)  # NOQA
 from foundry.v2.admin.errors._create_group_permission_denied import (
     CreateGroupPermissionDenied,
 )  # NOQA
@@ -81,6 +78,9 @@ from foundry.v2.admin.errors._remove_marking_members_permission_denied import (
 from foundry.v2.admin.errors._remove_marking_role_assignments_permission_denied import (
     RemoveMarkingRoleAssignmentsPermissionDenied,
 )  # NOQA
+from foundry.v2.admin.errors._remove_marking_role_assignments_remove_all_administrators_not_allowed import (
+    RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed,
+)  # NOQA
 from foundry.v2.admin.errors._search_groups_permission_denied import (
     SearchGroupsPermissionDenied,
 )  # NOQA
@@ -93,7 +93,6 @@ __all__ = [
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
-    "CannotRemoveAllMarkingAdministrators",
     "CreateGroupPermissionDenied",
     "DeleteGroupPermissionDenied",
     "DeleteUserPermissionDenied",
@@ -120,6 +119,7 @@ __all__ = [
     "RemoveGroupMembersPermissionDenied",
     "RemoveMarkingMembersPermissionDenied",
     "RemoveMarkingRoleAssignmentsPermissionDenied",
+    "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed",
     "SearchGroupsPermissionDenied",
     "SearchUsersPermissionDenied",
     "UserNotFound",

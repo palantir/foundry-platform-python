@@ -15,5 +15,5 @@
 
 from __future__ import annotations
 
-MarkingCategoryDisplayName = str
-"""MarkingCategoryDisplayName"""
+MarkingCategoryName = str
+"""MarkingCategoryName"""

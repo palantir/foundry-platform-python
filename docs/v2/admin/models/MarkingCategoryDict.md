@@ -6,7 +6,7 @@ MarkingCategory
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **id** | MarkingCategoryId | Yes |  |
-**displayName** | MarkingCategoryDisplayName | Yes |  |
+**name** | MarkingCategoryName | Yes |  |
 **description** | NotRequired[str] | No |  |
 **categoryType** | MarkingCategoryType | Yes |  |
 **markingType** | MarkingType | Yes |  |

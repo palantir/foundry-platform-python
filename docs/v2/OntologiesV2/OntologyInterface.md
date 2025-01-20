@@ -67,7 +67,7 @@ accuracy = None
 # Optional[PreviewMode] | preview
 preview = None
 # Optional[SearchJsonQueryV2Dict] |
-where = None
+where = {"type": "eq", "field": "name", "value": "john"}
 
 
 try:
