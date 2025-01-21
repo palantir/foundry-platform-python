@@ -19,7 +19,7 @@ from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
-from foundry.v2.admin.models._marking_display_name import MarkingDisplayName
+from foundry.v2.admin.models._marking_name import MarkingName
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
 from foundry.v2.core.models._marking_id import MarkingId
@@ -35,11 +35,11 @@ class MarkingDict(TypedDict):
 
     categoryId: MarkingCategoryId
 
-    displayName: MarkingDisplayName
+    name: MarkingName
 
     description: NotRequired[str]
 
-    organizationRid: NotRequired[OrganizationRid]
+    organization: NotRequired[OrganizationRid]
     """If this marking is associated with an Organization, its RID will be populated here."""
 
     createdTime: CreatedTime

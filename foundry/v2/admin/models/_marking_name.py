@@ -15,5 +15,5 @@
 
 from __future__ import annotations
 
-MarkingDisplayName = str
-"""MarkingDisplayName"""
+MarkingName = str
+"""MarkingName"""

@@ -22,10 +22,8 @@ from typing import cast
 import pydantic
 
 from foundry.v2.admin.models._marking_category_dict import MarkingCategoryDict
-from foundry.v2.admin.models._marking_category_display_name import (
-    MarkingCategoryDisplayName,
-)  # NOQA
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
+from foundry.v2.admin.models._marking_category_name import MarkingCategoryName
 from foundry.v2.admin.models._marking_category_type import MarkingCategoryType
 from foundry.v2.admin.models._marking_type import MarkingType
 from foundry.v2.core.models._created_by import CreatedBy
@@ -38,7 +36,7 @@ class MarkingCategory(pydantic.BaseModel):
 
     id: MarkingCategoryId
 
-    display_name: MarkingCategoryDisplayName = pydantic.Field(alias="displayName")
+    name: MarkingCategoryName
 
     description: Optional[str] = None
 

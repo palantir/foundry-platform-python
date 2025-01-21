@@ -93,15 +93,13 @@ from foundry.v2.admin.models._list_users_response_dict import ListUsersResponseD
 from foundry.v2.admin.models._marking import Marking
 from foundry.v2.admin.models._marking_category import MarkingCategory
 from foundry.v2.admin.models._marking_category_dict import MarkingCategoryDict
-from foundry.v2.admin.models._marking_category_display_name import (
-    MarkingCategoryDisplayName,
-)  # NOQA
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
+from foundry.v2.admin.models._marking_category_name import MarkingCategoryName
 from foundry.v2.admin.models._marking_category_type import MarkingCategoryType
 from foundry.v2.admin.models._marking_dict import MarkingDict
-from foundry.v2.admin.models._marking_display_name import MarkingDisplayName
 from foundry.v2.admin.models._marking_member import MarkingMember
 from foundry.v2.admin.models._marking_member_dict import MarkingMemberDict
+from foundry.v2.admin.models._marking_name import MarkingName
 from foundry.v2.admin.models._marking_role import MarkingRole
 from foundry.v2.admin.models._marking_role_assignment import MarkingRoleAssignment
 from foundry.v2.admin.models._marking_role_assignment_dict import MarkingRoleAssignmentDict  # NOQA
@@ -168,13 +166,13 @@ __all__ = [
     "Marking",
     "MarkingCategory",
     "MarkingCategoryDict",
-    "MarkingCategoryDisplayName",
     "MarkingCategoryId",
+    "MarkingCategoryName",
     "MarkingCategoryType",
     "MarkingDict",
-    "MarkingDisplayName",
     "MarkingMember",
     "MarkingMemberDict",
+    "MarkingName",
     "MarkingRole",
     "MarkingRoleAssignment",
     "MarkingRoleAssignmentDict",

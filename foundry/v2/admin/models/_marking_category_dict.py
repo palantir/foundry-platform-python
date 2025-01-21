@@ -20,10 +20,8 @@ from typing import List
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry.v2.admin.models._marking_category_display_name import (
-    MarkingCategoryDisplayName,
-)  # NOQA
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
+from foundry.v2.admin.models._marking_category_name import MarkingCategoryName
 from foundry.v2.admin.models._marking_category_type import MarkingCategoryType
 from foundry.v2.admin.models._marking_type import MarkingType
 from foundry.v2.core.models._created_by import CreatedBy
@@ -38,7 +36,7 @@ class MarkingCategoryDict(TypedDict):
 
     id: MarkingCategoryId
 
-    displayName: MarkingCategoryDisplayName
+    name: MarkingCategoryName
 
     description: NotRequired[str]
 

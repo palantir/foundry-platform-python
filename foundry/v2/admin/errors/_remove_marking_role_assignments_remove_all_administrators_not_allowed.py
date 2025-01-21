@@ -27,7 +27,7 @@ from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
-class CannotRemoveAllMarkingAdministratorsParameters(TypedDict):
+class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters(TypedDict):
     """You cannot remove all administrators from a marking."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -38,10 +38,10 @@ class CannotRemoveAllMarkingAdministratorsParameters(TypedDict):
 
 
 @dataclass
-class CannotRemoveAllMarkingAdministrators(PalantirRPCException):
-    name: Literal["CannotRemoveAllMarkingAdministrators"]
-    parameters: CannotRemoveAllMarkingAdministratorsParameters
+class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(PalantirRPCException):
+    name: Literal["RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed"]
+    parameters: RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters
     error_instance_id: str
 
 
-__all__ = ["CannotRemoveAllMarkingAdministrators"]
+__all__ = ["RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed"]

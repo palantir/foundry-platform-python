@@ -1,6 +1,6 @@
-# MarkingCategoryDisplayName
+# MarkingName
 
-MarkingCategoryDisplayName
+MarkingName
 
 ## Type
 ```python

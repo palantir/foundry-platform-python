@@ -30,7 +30,7 @@ class OrganizationNotFoundParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organizationRid: OrganizationRid
+    organization: OrganizationRid
 
 
 @dataclass

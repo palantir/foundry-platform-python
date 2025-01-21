@@ -7,9 +7,9 @@ Marking
 | ------------ | ------------- | ------------- | ------------- |
 **id** | MarkingId | Yes |  |
 **categoryId** | MarkingCategoryId | Yes |  |
-**displayName** | MarkingDisplayName | Yes |  |
+**name** | MarkingName | Yes |  |
 **description** | NotRequired[str] | No |  |
-**organizationRid** | NotRequired[OrganizationRid] | No | If this marking is associated with an Organization, its RID will be populated here.  |
+**organization** | NotRequired[OrganizationRid] | No | If this marking is associated with an Organization, its RID will be populated here.  |
 **createdTime** | CreatedTime | Yes |  |
 **createdBy** | NotRequired[CreatedBy] | No |  |
 
