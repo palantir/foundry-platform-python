@@ -32,6 +32,8 @@ class Branch(pydantic.BaseModel):
 
     transaction_rid: Optional[TransactionRid] = pydantic.Field(alias="transactionRid", default=None)
 
+    """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
+
     model_config = {"extra": "allow"}
 
     def to_dict(self) -> BranchDict:

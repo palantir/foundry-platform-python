@@ -18,7 +18,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **name** | BranchName |  |  |
-**transaction_rid** | Optional[TransactionRid] |  | [optional] |
+**transaction_rid** | Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction. | [optional] |
 
 ### Return type
 **Branch**
@@ -38,7 +38,7 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # BranchName |
 name = "master"
-# Optional[TransactionRid] |
+# Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
 transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"
 
 

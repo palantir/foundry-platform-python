@@ -75,7 +75,7 @@ class BranchClient:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
-        :param transaction_rid:
+        :param transaction_rid: The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

@@ -38,6 +38,12 @@ from foundry.v2.aip_agents.models._cancel_session_response_dict import (
 )  # NOQA
 from foundry.v2.aip_agents.models._content import Content
 from foundry.v2.aip_agents.models._content_dict import ContentDict
+from foundry.v2.aip_agents.models._function_retrieved_context import (
+    FunctionRetrievedContext,
+)  # NOQA
+from foundry.v2.aip_agents.models._function_retrieved_context_dict import (
+    FunctionRetrievedContextDict,
+)  # NOQA
 from foundry.v2.aip_agents.models._input_context_dict import InputContextDict
 from foundry.v2.aip_agents.models._list_agent_versions_response import (
     ListAgentVersionsResponse,
@@ -118,6 +124,8 @@ __all__ = [
     "CancelSessionResponseDict",
     "Content",
     "ContentDict",
+    "FunctionRetrievedContext",
+    "FunctionRetrievedContextDict",
     "InputContextDict",
     "ListAgentVersionsResponse",
     "ListAgentVersionsResponseDict",

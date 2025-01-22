@@ -659,6 +659,8 @@ Namespace | Resource | Operation | HTTP request |
 - [CancelSessionResponseDict](docs/v2/models/CancelSessionResponseDict.md)
 - [Content](docs/v2/models/Content.md)
 - [ContentDict](docs/v2/models/ContentDict.md)
+- [FunctionRetrievedContext](docs/v2/models/FunctionRetrievedContext.md)
+- [FunctionRetrievedContextDict](docs/v2/models/FunctionRetrievedContextDict.md)
 - [InputContextDict](docs/v2/models/InputContextDict.md)
 - [ListAgentVersionsResponse](docs/v2/models/ListAgentVersionsResponse.md)
 - [ListAgentVersionsResponseDict](docs/v2/models/ListAgentVersionsResponseDict.md)

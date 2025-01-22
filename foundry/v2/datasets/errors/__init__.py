@@ -62,9 +62,6 @@ from foundry.v2.datasets.errors._put_schema_permission_denied import (
 from foundry.v2.datasets.errors._read_table_dataset_permission_denied import (
     ReadTableDatasetPermissionDenied,
 )  # NOQA
-from foundry.v2.datasets.errors._read_table_permission_denied import (
-    ReadTablePermissionDenied,
-)  # NOQA
 from foundry.v2.datasets.errors._schema_not_found import SchemaNotFound
 from foundry.v2.datasets.errors._transaction_not_committed import TransactionNotCommitted  # NOQA
 from foundry.v2.datasets.errors._transaction_not_found import TransactionNotFound
@@ -97,7 +94,6 @@ __all__ = [
     "OpenTransactionAlreadyExists",
     "PutSchemaPermissionDenied",
     "ReadTableDatasetPermissionDenied",
-    "ReadTablePermissionDenied",
     "SchemaNotFound",
     "TransactionNotCommitted",
     "TransactionNotFound",

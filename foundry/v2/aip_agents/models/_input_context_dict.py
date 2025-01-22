@@ -15,7 +15,17 @@
 
 from __future__ import annotations
 
+from typing import Union
+
+import pydantic
+from typing_extensions import Annotated
+
+from foundry.v2.aip_agents.models._function_retrieved_context_dict import (
+    FunctionRetrievedContextDict,
+)  # NOQA
 from foundry.v2.aip_agents.models._object_context_dict import ObjectContextDict
 
-InputContextDict = ObjectContextDict
+InputContextDict = Annotated[
+    Union[FunctionRetrievedContextDict, ObjectContextDict], pydantic.Field(discriminator="type")
+]
 """Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""

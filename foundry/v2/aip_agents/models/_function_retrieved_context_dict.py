@@ -15,29 +15,24 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.functions.models._function_rid import FunctionRid
+from foundry.v2.functions.models._function_version import FunctionVersion
 
 
-class ReadTablePermissionDeniedParameters(TypedDict):
-    """The provided token does not have permission to read the given dataset as a table."""
+class FunctionRetrievedContextDict(TypedDict):
+    """Context retrieved from running a function to include as additional context in the prompt to the Agent."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    functionRid: FunctionRid
 
+    functionVersion: FunctionVersion
 
-@dataclass
-class ReadTablePermissionDenied(PalantirRPCException):
-    name: Literal["ReadTablePermissionDenied"]
-    parameters: ReadTablePermissionDeniedParameters
-    error_instance_id: str
+    retrievedPrompt: str
+    """String content returned from a context retrieval function."""
 
-
-__all__ = ["ReadTablePermissionDenied"]
+    type: Literal["functionRetrievedContext"]
