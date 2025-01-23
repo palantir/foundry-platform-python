@@ -26,7 +26,7 @@ from foundry.v2.datasets.models._dataset_rid import DatasetRid
 
 
 class ReadTableDatasetPermissionDeniedParameters(TypedDict):
-    """Could not readTable the Dataset."""
+    """The provided token does not have permission to read the given dataset as a table."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

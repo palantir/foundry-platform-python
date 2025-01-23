@@ -2510,7 +2510,12 @@ def datasets_dataset_branch():
 @datasets_dataset_branch.command("create")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option("--name", type=str, required=True, help="""""")
-@click.option("--transaction_rid", type=str, required=False, help="""""")
+@click.option(
+    "--transaction_rid",
+    type=str,
+    required=False,
+    help="""The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.""",
+)
 @click.pass_obj
 def datasets_dataset_branch_create(
     client: foundry.v2.FoundryClient,

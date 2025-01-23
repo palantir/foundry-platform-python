@@ -19,6 +19,9 @@ from typing import List
 
 from typing_extensions import TypedDict
 
+from foundry.v2.aip_agents.models._function_retrieved_context_dict import (
+    FunctionRetrievedContextDict,
+)  # NOQA
 from foundry.v2.aip_agents.models._object_context_dict import ObjectContextDict
 
 
@@ -28,3 +31,5 @@ class AgentSessionRagContextResponseDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectContexts: List[ObjectContextDict]
+
+    functionRetrievedContexts: List[FunctionRetrievedContextDict]

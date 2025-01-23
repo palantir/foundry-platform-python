@@ -23,6 +23,9 @@ import pydantic
 from foundry.v2.aip_agents.models._agent_session_rag_context_response_dict import (
     AgentSessionRagContextResponseDict,
 )  # NOQA
+from foundry.v2.aip_agents.models._function_retrieved_context import (
+    FunctionRetrievedContext,
+)  # NOQA
 from foundry.v2.aip_agents.models._object_context import ObjectContext
 
 
@@ -30,6 +33,10 @@ class AgentSessionRagContextResponse(pydantic.BaseModel):
     """Context retrieved from an Agent's configured context data sources which was relevant to the supplied user message."""
 
     object_contexts: List[ObjectContext] = pydantic.Field(alias="objectContexts")
+
+    function_retrieved_contexts: List[FunctionRetrievedContext] = pydantic.Field(
+        alias="functionRetrievedContexts"
+    )
 
     model_config = {"extra": "allow"}
 

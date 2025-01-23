@@ -30,3 +30,4 @@ class BranchDict(TypedDict):
     name: BranchName
 
     transactionRid: NotRequired[TransactionRid]
+    """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
