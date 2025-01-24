@@ -36,11 +36,15 @@ from foundry.v2.core.models._organization_rid import OrganizationRid
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.core.models._role_id import RoleId
 from foundry.v2.filesystem.models._list_organizations_of_project_response import (
     ListOrganizationsOfProjectResponse,
 )  # NOQA
+from foundry.v2.filesystem.models._principal_with_id_dict import PrincipalWithIdDict
 from foundry.v2.filesystem.models._project import Project
 from foundry.v2.filesystem.models._project_rid import ProjectRid
+from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
+from foundry.v2.filesystem.models._space_rid import SpaceRid
 
 
 class ProjectClient:
@@ -108,6 +112,79 @@ class ProjectClient:
                     },
                 ),
                 response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        *,
+        default_roles: List[RoleId],
+        display_name: ResourceDisplayName,
+        organization_rids: List[OrganizationRid],
+        role_grants: Dict[RoleId, List[PrincipalWithIdDict]],
+        space_rid: SpaceRid,
+        description: Optional[str] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Project:
+        """
+        Creates a project.
+        :param default_roles:
+        :type default_roles: List[RoleId]
+        :param display_name:
+        :type display_name: ResourceDisplayName
+        :param organization_rids:
+        :type organization_rids: List[OrganizationRid]
+        :param role_grants:
+        :type role_grants: Dict[RoleId, List[PrincipalWithIdDict]]
+        :param space_rid:
+        :type space_rid: SpaceRid
+        :param description:
+        :type description: Optional[str]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Project
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/projects/create",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "displayName": display_name,
+                    "description": description,
+                    "spaceRid": space_rid,
+                    "roleGrants": role_grants,
+                    "defaultRoles": default_roles,
+                    "organizationRids": organization_rids,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "displayName": ResourceDisplayName,
+                        "description": Optional[str],
+                        "spaceRid": SpaceRid,
+                        "roleGrants": Dict[RoleId, List[PrincipalWithIdDict]],
+                        "defaultRoles": List[RoleId],
+                        "organizationRids": List[OrganizationRid],
+                    },
+                ),
+                response_type=Project,
                 request_timeout=request_timeout,
             ),
         )

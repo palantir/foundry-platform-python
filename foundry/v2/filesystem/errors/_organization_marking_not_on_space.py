@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import List
 from typing import Literal
 
 import pydantic
@@ -23,21 +24,24 @@ from typing_extensions import TypedDict
 
 from foundry._errors import PalantirRPCException
 from foundry.v2.core.models._organization_rid import OrganizationRid
+from foundry.v2.filesystem.models._space_rid import SpaceRid
 
 
-class OrganizationNotFoundParameters(TypedDict):
-    """The provided organization RID cannot be found."""
+class OrganizationMarkingNotOnSpaceParameters(TypedDict):
+    """At least one of the organization markings associated with a passed organization is not applied on the requested space."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organizationRid: OrganizationRid
+    spaceRid: SpaceRid
+
+    organizationRids: List[OrganizationRid]
 
 
 @dataclass
-class OrganizationNotFound(PalantirRPCException):
-    name: Literal["OrganizationNotFound"]
-    parameters: OrganizationNotFoundParameters
+class OrganizationMarkingNotOnSpace(PalantirRPCException):
+    name: Literal["OrganizationMarkingNotOnSpace"]
+    parameters: OrganizationMarkingNotOnSpaceParameters
     error_instance_id: str
 
 
-__all__ = ["OrganizationNotFound"]
+__all__ = ["OrganizationMarkingNotOnSpace"]

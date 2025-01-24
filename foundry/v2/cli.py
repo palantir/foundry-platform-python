@@ -2981,6 +2981,40 @@ def filesystem_project_add_organizations(
     click.echo(repr(result))
 
 
+@filesystem_project.command("create")
+@click.option("--default_roles", type=str, required=True, help="""""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option("--organization_rids", type=str, required=True, help="""""")
+@click.option("--role_grants", type=str, required=True, help="""""")
+@click.option("--space_rid", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_project_create(
+    client: foundry.v2.FoundryClient,
+    default_roles: str,
+    display_name: str,
+    organization_rids: str,
+    role_grants: str,
+    space_rid: str,
+    description: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Creates a project.
+    """
+    result = client.filesystem.Project.create(
+        default_roles=json.loads(default_roles),
+        display_name=display_name,
+        organization_rids=json.loads(organization_rids),
+        role_grants=json.loads(role_grants),
+        space_rid=space_rid,
+        description=description,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_project.command("get")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
