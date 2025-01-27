@@ -24,10 +24,12 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v1.core.models._page_size import PageSize
@@ -43,7 +45,7 @@ class ActionTypeClient:
     The API client for the ActionType Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -54,6 +56,10 @@ class ActionTypeClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _ActionTypeClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _ActionTypeClientRaw(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -97,7 +103,7 @@ class ActionTypeClient:
                 response_type=ActionType,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -183,11 +189,356 @@ class ActionTypeClient:
         """
 
         warnings.warn(
-            "The ActionTypeClient.page(...) method has been deprecated. Please use ActionTypeClient.list(...) instead.",
+            "The client.ontologies.ActionType.page(...) method has been deprecated. Please use client.ontologies.ActionType.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies/{ontologyRid}/actionTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontologyRid": ontology_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListActionTypesResponse,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _ActionTypeClientRaw:
+    """
+    The API client for the ActionType Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        ontology_rid: OntologyRid,
+        action_type_api_name: ActionTypeApiName,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ActionType]:
+        """
+        Gets a specific action type with the given API name.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology_rid: ontologyRid
+        :type ontology_rid: OntologyRid
+        :param action_type_api_name: actionTypeApiName
+        :type action_type_api_name: ActionTypeApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ActionType]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName}",
+                query_params={},
+                path_params={
+                    "ontologyRid": ontology_rid,
+                    "actionTypeApiName": action_type_api_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ActionType,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        ontology_rid: OntologyRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListActionTypesResponse]:
+        """
+        Lists the action types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology_rid: ontologyRid
+        :type ontology_rid: OntologyRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListActionTypesResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies/{ontologyRid}/actionTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontologyRid": ontology_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListActionTypesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        ontology_rid: OntologyRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListActionTypesResponse]:
+        """
+        Lists the action types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology_rid: ontologyRid
+        :type ontology_rid: OntologyRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListActionTypesResponse]
+        """
+
+        warnings.warn(
+            "The client.ontologies.ActionType.page(...) method has been deprecated. Please use client.ontologies.ActionType.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies/{ontologyRid}/actionTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontologyRid": ontology_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListActionTypesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _ActionTypeClientStreaming:
+    """
+    The API client for the ActionType Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        ontology_rid: OntologyRid,
+        action_type_api_name: ActionTypeApiName,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ActionType]:
+        """
+        Gets a specific action type with the given API name.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology_rid: ontologyRid
+        :type ontology_rid: OntologyRid
+        :param action_type_api_name: actionTypeApiName
+        :type action_type_api_name: ActionTypeApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ActionType]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName}",
+                query_params={},
+                path_params={
+                    "ontologyRid": ontology_rid,
+                    "actionTypeApiName": action_type_api_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ActionType,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        ontology_rid: OntologyRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListActionTypesResponse]:
+        """
+        Lists the action types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology_rid: ontologyRid
+        :type ontology_rid: OntologyRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListActionTypesResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/ontologies/{ontologyRid}/actionTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontologyRid": ontology_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListActionTypesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        ontology_rid: OntologyRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListActionTypesResponse]:
+        """
+        Lists the action types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology_rid: ontologyRid
+        :type ontology_rid: OntologyRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListActionTypesResponse]
+        """
+
+        warnings.warn(
+            "The client.ontologies.ActionType.page(...) method has been deprecated. Please use client.ontologies.ActionType.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/actionTypes",

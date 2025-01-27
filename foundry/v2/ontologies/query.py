@@ -24,9 +24,11 @@ from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
@@ -43,7 +45,7 @@ class QueryClient:
     The API client for the Query Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -54,6 +56,10 @@ class QueryClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _QueryClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _QueryClientRaw(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -93,6 +99,176 @@ class QueryClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/queries/{queryApiName}/execute",
+                query_params={
+                    "artifactRepository": artifact_repository,
+                    "packageName": package_name,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "parameters": parameters,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                    },
+                ),
+                response_type=ExecuteQueryResponse,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _QueryClientRaw:
+    """
+    The API client for the Query Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def execute(
+        self,
+        ontology: OntologyIdentifier,
+        query_api_name: QueryApiName,
+        *,
+        parameters: Dict[ParameterId, Optional[DataValue]],
+        artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        package_name: Optional[SdkPackageName] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ExecuteQueryResponse]:
+        """
+        Executes a Query using the given parameters.
+
+        Optional parameters do not need to be supplied.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param query_api_name: queryApiName
+        :type query_api_name: QueryApiName
+        :param parameters:
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param artifact_repository: artifactRepository
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param package_name: packageName
+        :type package_name: Optional[SdkPackageName]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ExecuteQueryResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/queries/{queryApiName}/execute",
+                query_params={
+                    "artifactRepository": artifact_repository,
+                    "packageName": package_name,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "parameters": parameters,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                    },
+                ),
+                response_type=ExecuteQueryResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _QueryClientStreaming:
+    """
+    The API client for the Query Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def execute(
+        self,
+        ontology: OntologyIdentifier,
+        query_api_name: QueryApiName,
+        *,
+        parameters: Dict[ParameterId, Optional[DataValue]],
+        artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        package_name: Optional[SdkPackageName] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ExecuteQueryResponse]:
+        """
+        Executes a Query using the given parameters.
+
+        Optional parameters do not need to be supplied.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param query_api_name: queryApiName
+        :type query_api_name: QueryApiName
+        :param parameters:
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param artifact_repository: artifactRepository
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param package_name: packageName
+        :type package_name: Optional[SdkPackageName]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ExecuteQueryResponse]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/queries/{queryApiName}/execute",

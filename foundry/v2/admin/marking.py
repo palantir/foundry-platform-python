@@ -26,10 +26,12 @@ from annotated_types import Len
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.marking_member import MarkingMemberClient
@@ -51,7 +53,7 @@ class MarkingClient:
     The API client for the Marking Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -62,6 +64,10 @@ class MarkingClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _MarkingClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _MarkingClientRaw(auth=auth, hostname=hostname, config=config)
         self.MarkingMember = MarkingMemberClient(auth=auth, hostname=hostname, config=config)
         self.MarkingRoleAssignment = MarkingRoleAssignmentClient(
             auth=auth, hostname=hostname, config=config
@@ -107,7 +113,7 @@ class MarkingClient:
                 response_type=Marking,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -154,7 +160,7 @@ class MarkingClient:
                 response_type=GetMarkingsBatchResponse,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -227,11 +233,418 @@ class MarkingClient:
         """
 
         warnings.warn(
-            "The MarkingClient.page(...) method has been deprecated. Please use MarkingClient.list(...) instead.",
+            "The client.admin.Marking.page(...) method has been deprecated. Please use client.admin.Marking.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingsResponse,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _MarkingClientRaw:
+    """
+    The API client for the Marking Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        marking_id: MarkingId,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Marking]:
+        """
+        Get the Marking with the specified id.
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Marking]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings/{markingId}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Marking,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_batch(
+        self,
+        body: Annotated[
+            List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)
+        ],
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[GetMarkingsBatchResponse]:
+        """
+        Execute multiple get requests on Marking.
+
+        The maximum batch size for this endpoint is 500.
+        :param body: Body of the request
+        :type body: Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[GetMarkingsBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=Annotated[
+                    List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)
+                ],
+                response_type=GetMarkingsBatchResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListMarkingsResponse]:
+        """
+        Maximum page size 100.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListMarkingsResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListMarkingsResponse]:
+        """
+        Maximum page size 100.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListMarkingsResponse]
+        """
+
+        warnings.warn(
+            "The client.admin.Marking.page(...) method has been deprecated. Please use client.admin.Marking.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _MarkingClientStreaming:
+    """
+    The API client for the Marking Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        marking_id: MarkingId,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Marking]:
+        """
+        Get the Marking with the specified id.
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Marking]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings/{markingId}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Marking,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_batch(
+        self,
+        body: Annotated[
+            List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)
+        ],
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[GetMarkingsBatchResponse]:
+        """
+        Execute multiple get requests on Marking.
+
+        The maximum batch size for this endpoint is 500.
+        :param body: Body of the request
+        :type body: Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[GetMarkingsBatchResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=Annotated[
+                    List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)
+                ],
+                response_type=GetMarkingsBatchResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListMarkingsResponse]:
+        """
+        Maximum page size 100.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListMarkingsResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListMarkingsResponse]:
+        """
+        Maximum page size 100.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListMarkingsResponse]
+        """
+
+        warnings.warn(
+            "The client.admin.Marking.page(...) method has been deprecated. Please use client.admin.Marking.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings",

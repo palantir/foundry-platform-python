@@ -26,10 +26,12 @@ from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.models._list_marking_members_response import (
@@ -48,7 +50,7 @@ class MarkingMemberClient:
     The API client for the MarkingMember Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -59,6 +61,12 @@ class MarkingMemberClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _MarkingMemberClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _MarkingMemberClientRaw(
+            auth=auth, hostname=hostname, config=config
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -110,7 +118,7 @@ class MarkingMemberClient:
                 response_type=None,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -202,8 +210,249 @@ class MarkingMemberClient:
         """
 
         warnings.warn(
-            "The MarkingMemberClient.page(...) method has been deprecated. Please use MarkingMemberClient.list(...) instead.",
+            "The client.admin.MarkingMember.page(...) method has been deprecated. Please use client.admin.MarkingMember.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                    "transitive": transitive,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingMembersResponse,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def remove(
+        self,
+        marking_id: MarkingId,
+        *,
+        principal_ids: List[PrincipalId],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> None:
+        """
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "principalIds": principal_ids,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "principalIds": List[PrincipalId],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _MarkingMemberClientRaw:
+    """
+    The API client for the MarkingMember Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def add(
+        self,
+        marking_id: MarkingId,
+        *,
+        principal_ids: List[PrincipalId],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[None]:
+        """
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[None]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "principalIds": principal_ids,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "principalIds": List[PrincipalId],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        marking_id: MarkingId,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        transitive: Optional[bool] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListMarkingMembersResponse]:
+        """
+        Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
+        Requires `api:admin-write` because only marking administrators can view marking members.
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param transitive: transitive
+        :type transitive: Optional[bool]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListMarkingMembersResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                    "transitive": transitive,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingMembersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        marking_id: MarkingId,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        transitive: Optional[bool] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListMarkingMembersResponse]:
+        """
+        Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
+        Requires `api:admin-write` because only marking administrators can view marking members.
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param transitive: transitive
+        :type transitive: Optional[bool]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListMarkingMembersResponse]
+        """
+
+        warnings.warn(
+            "The client.admin.MarkingMember.page(...) method has been deprecated. Please use client.admin.MarkingMember.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
@@ -239,7 +488,7 @@ class MarkingMemberClient:
         principal_ids: List[PrincipalId],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """
 
         :param marking_id: markingId
@@ -251,10 +500,250 @@ class MarkingMemberClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: None
+        :rtype: ApiResponse[None]
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "principalIds": principal_ids,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "principalIds": List[PrincipalId],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _MarkingMemberClientStreaming:
+    """
+    The API client for the MarkingMember Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def add(
+        self,
+        marking_id: MarkingId,
+        *,
+        principal_ids: List[PrincipalId],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[None]:
+        """
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[None]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "principalIds": principal_ids,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "principalIds": List[PrincipalId],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        marking_id: MarkingId,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        transitive: Optional[bool] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListMarkingMembersResponse]:
+        """
+        Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
+        Requires `api:admin-write` because only marking administrators can view marking members.
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param transitive: transitive
+        :type transitive: Optional[bool]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListMarkingMembersResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                    "transitive": transitive,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingMembersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        marking_id: MarkingId,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        transitive: Optional[bool] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListMarkingMembersResponse]:
+        """
+        Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
+        Requires `api:admin-write` because only marking administrators can view marking members.
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param transitive: transitive
+        :type transitive: Optional[bool]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListMarkingMembersResponse]
+        """
+
+        warnings.warn(
+            "The client.admin.MarkingMember.page(...) method has been deprecated. Please use client.admin.MarkingMember.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                    "transitive": transitive,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListMarkingMembersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def remove(
+        self,
+        marking_id: MarkingId,
+        *,
+        principal_ids: List[PrincipalId],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[None]:
+        """
+
+        :param marking_id: markingId
+        :type marking_id: MarkingId
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[None]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",

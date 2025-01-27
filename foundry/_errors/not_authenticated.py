@@ -13,5 +13,8 @@
 #  limitations under the License.
 
 
-class NotAuthenticated(Exception):
+from foundry._errors.palantir_exception import PalantirException
+
+
+class NotAuthenticated(PalantirException):
     pass
