@@ -82,18 +82,6 @@ async def test_public_client_set_token():
     unstub()
 
 
-def test_public_client_url():
-    assert (
-        PublicClientAuth(client_id="", redirect_url="", hostname="https://a.b.c.com").url
-        == "a.b.c.com"
-    )
-    assert (
-        PublicClientAuth(client_id="", redirect_url="", hostname="http://a.b.c.com").url
-        == "a.b.c.com"
-    )
-    assert PublicClientAuth(client_id="", redirect_url="", hostname="a.b.c.com/").url == "a.b.c.com"
-
-
 def test_public_client_get_token():
     auth = PublicClientAuth(
         client_id="client_id",

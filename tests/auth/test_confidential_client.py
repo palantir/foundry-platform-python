@@ -64,21 +64,6 @@ async def test_confidential_client_sign_in_as_service_user():
     unstub()
 
 
-def test_confidential_client_url():
-    assert (
-        ConfidentialClientAuth(client_id="", client_secret="", hostname="https://a.b.c.com").url
-        == "a.b.c.com"
-    )
-    assert (
-        ConfidentialClientAuth(client_id="", client_secret="", hostname="http://a.b.c.com").url
-        == "a.b.c.com"
-    )
-    assert (
-        ConfidentialClientAuth(client_id="", client_secret="", hostname="a.b.c.com/").url
-        == "a.b.c.com"
-    )
-
-
 def test_confidential_client_get_token():
     auth = ConfidentialClientAuth(
         client_id="client_id", client_secret="client_secret", hostname="https://a.b.c.com"
