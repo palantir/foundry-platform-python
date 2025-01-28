@@ -24,10 +24,12 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
@@ -45,7 +47,7 @@ class QueryTypeClient:
     The API client for the QueryType Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -56,6 +58,10 @@ class QueryTypeClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _QueryTypeClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _QueryTypeClientRaw(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -99,7 +105,7 @@ class QueryTypeClient:
                 response_type=QueryTypeV2,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -185,11 +191,356 @@ class QueryTypeClient:
         """
 
         warnings.warn(
-            "The QueryTypeClient.page(...) method has been deprecated. Please use QueryTypeClient.list(...) instead.",
+            "The client.ontologies.QueryType.page(...) method has been deprecated. Please use client.ontologies.QueryType.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/queryTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListQueryTypesResponseV2,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _QueryTypeClientRaw:
+    """
+    The API client for the QueryType Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        ontology: OntologyIdentifier,
+        query_api_name: QueryApiName,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[QueryTypeV2]:
+        """
+        Gets a specific query type with the given API name.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param query_api_name: queryApiName
+        :type query_api_name: QueryApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[QueryTypeV2]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=QueryTypeV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListQueryTypesResponseV2]:
+        """
+        Lists the query types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListQueryTypesResponseV2]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/queryTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListQueryTypesResponseV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListQueryTypesResponseV2]:
+        """
+        Lists the query types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListQueryTypesResponseV2]
+        """
+
+        warnings.warn(
+            "The client.ontologies.QueryType.page(...) method has been deprecated. Please use client.ontologies.QueryType.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/queryTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListQueryTypesResponseV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _QueryTypeClientStreaming:
+    """
+    The API client for the QueryType Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        ontology: OntologyIdentifier,
+        query_api_name: QueryApiName,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[QueryTypeV2]:
+        """
+        Gets a specific query type with the given API name.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param query_api_name: queryApiName
+        :type query_api_name: QueryApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[QueryTypeV2]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=QueryTypeV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListQueryTypesResponseV2]:
+        """
+        Lists the query types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListQueryTypesResponseV2]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/queryTypes",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListQueryTypesResponseV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListQueryTypesResponseV2]:
+        """
+        Lists the query types for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListQueryTypesResponseV2]
+        """
+
+        warnings.warn(
+            "The client.ontologies.QueryType.page(...) method has been deprecated. Please use client.ontologies.QueryType.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",

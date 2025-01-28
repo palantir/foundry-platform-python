@@ -58,6 +58,10 @@ def remove_prefixes(text: str, prefixes: List[str]):
     return text
 
 
+def clean_hostname(hostname: str) -> str:
+    return remove_prefixes(hostname.strip("/"), ["https://", "http://"])
+
+
 AnyCallableT = TypeVar("AnyCallableT", bound=Callable[..., Any])
 
 

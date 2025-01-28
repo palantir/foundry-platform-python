@@ -7,6 +7,7 @@ from pydantic import ValidationError
 from foundry._core.utils import RID
 from foundry._core.utils import UUID
 from foundry._core.utils import Long
+from foundry._core.utils import clean_hostname
 from foundry._core.utils import maybe_ignore_preview
 from foundry._core.utils import remove_prefixes
 
@@ -15,6 +16,13 @@ def test_remove_prefixes():
     assert remove_prefixes("http://example.com", ["https://", "http://"]) == "example.com"
     assert remove_prefixes("https://example.com", ["https://", "http://"]) == "example.com"
     assert remove_prefixes("example.com", ["https://", "http://"]) == "example.com"
+
+
+def test_clean_hostname():
+    assert clean_hostname("http://example.com") == "example.com"
+    assert clean_hostname("https://example.com") == "example.com"
+    assert clean_hostname("example.com/") == "example.com"
+    assert clean_hostname("example.com") == "example.com"
 
 
 def test_no_warning_when_preview_not_passed():

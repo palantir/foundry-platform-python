@@ -25,10 +25,12 @@ from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v1.core.models._page_size import PageSize
@@ -45,7 +47,7 @@ class BranchClient:
     The API client for the Branch Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -56,6 +58,10 @@ class BranchClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _BranchClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _BranchClientRaw(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -111,7 +117,7 @@ class BranchClient:
                 response_type=Branch,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -153,7 +159,7 @@ class BranchClient:
                 response_type=None,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -197,7 +203,7 @@ class BranchClient:
                 response_type=Branch,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -277,11 +283,540 @@ class BranchClient:
         """
 
         warnings.warn(
-            "The BranchClient.page(...) method has been deprecated. Please use BranchClient.list(...) instead.",
+            "The client.datasets.Branch.page(...) method has been deprecated. Please use client.datasets.Branch.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/datasets/{datasetRid}/branches",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListBranchesResponse,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _BranchClientRaw:
+    """
+    The API client for the Branch Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        branch_id: BranchId,
+        transaction_rid: Optional[TransactionRid] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Branch]:
+        """
+        Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param branch_id:
+        :type branch_id: BranchId
+        :param transaction_rid:
+        :type transaction_rid: Optional[TransactionRid]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Branch]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v1/datasets/{datasetRid}/branches",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "branchId": branch_id,
+                    "transactionRid": transaction_rid,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "branchId": BranchId,
+                        "transactionRid": Optional[TransactionRid],
+                    },
+                ),
+                response_type=Branch,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def delete(
+        self,
+        dataset_rid: DatasetRid,
+        branch_id: BranchId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[None]:
+        """
+        Deletes the Branch with the given BranchId.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param branch_id: branchId
+        :type branch_id: BranchId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[None]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="DELETE",
+                resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "branchId": branch_id,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        dataset_rid: DatasetRid,
+        branch_id: BranchId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Branch]:
+        """
+        Get a Branch of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param branch_id: branchId
+        :type branch_id: BranchId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Branch]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "branchId": branch_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Branch,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListBranchesResponse]:
+        """
+        Lists the Branches of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListBranchesResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/datasets/{datasetRid}/branches",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListBranchesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListBranchesResponse]:
+        """
+        Lists the Branches of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListBranchesResponse]
+        """
+
+        warnings.warn(
+            "The client.datasets.Branch.page(...) method has been deprecated. Please use client.datasets.Branch.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/datasets/{datasetRid}/branches",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListBranchesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _BranchClientStreaming:
+    """
+    The API client for the Branch Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        branch_id: BranchId,
+        transaction_rid: Optional[TransactionRid] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Branch]:
+        """
+        Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param branch_id:
+        :type branch_id: BranchId
+        :param transaction_rid:
+        :type transaction_rid: Optional[TransactionRid]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Branch]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v1/datasets/{datasetRid}/branches",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "branchId": branch_id,
+                    "transactionRid": transaction_rid,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "branchId": BranchId,
+                        "transactionRid": Optional[TransactionRid],
+                    },
+                ),
+                response_type=Branch,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def delete(
+        self,
+        dataset_rid: DatasetRid,
+        branch_id: BranchId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[None]:
+        """
+        Deletes the Branch with the given BranchId.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param branch_id: branchId
+        :type branch_id: BranchId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[None]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="DELETE",
+                resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "branchId": branch_id,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        dataset_rid: DatasetRid,
+        branch_id: BranchId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Branch]:
+        """
+        Get a Branch of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param branch_id: branchId
+        :type branch_id: BranchId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Branch]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/datasets/{datasetRid}/branches/{branchId}",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "branchId": branch_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Branch,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListBranchesResponse]:
+        """
+        Lists the Branches of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListBranchesResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v1/datasets/{datasetRid}/branches",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListBranchesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListBranchesResponse]:
+        """
+        Lists the Branches of a Dataset.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListBranchesResponse]
+        """
+
+        warnings.warn(
+            "The client.datasets.Branch.page(...) method has been deprecated. Please use client.datasets.Branch.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/branches",

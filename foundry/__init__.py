@@ -13,12 +13,32 @@
 #  limitations under the License.
 
 
+from foundry._core import ApiResponse
 from foundry._core import ConfidentialClientAuth
 from foundry._core import Config
+from foundry._core import ResourceIterator
+from foundry._core import StreamedApiResponse
+from foundry._core import StreamingContextManager
 from foundry._core import UserTokenAuth
+from foundry._errors import BadRequestError
+from foundry._errors import ConnectionError
+from foundry._errors import ConnectTimeout
 from foundry._errors import EnvironmentNotConfigured
+from foundry._errors import InternalServerError
 from foundry._errors import NotAuthenticated
+from foundry._errors import NotFoundError
+from foundry._errors import PalantirException
 from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
+from foundry._errors import ProxyError
+from foundry._errors import RateLimitError
+from foundry._errors import ReadTimeout
+from foundry._errors import SDKInternalError
+from foundry._errors import SSLError
+from foundry._errors import StreamConsumedError
+from foundry._errors import TimeoutError
+from foundry._errors import UnauthorizedError
+from foundry._errors import UnprocessableEntityError
 
 # The OpenAPI document version from the spec information
 # See https://swagger.io/specification/#info-object
@@ -36,7 +56,20 @@ __all__ = [
     "ConfidentialClientAuth",
     "UserTokenAuth",
     "Config",
-    "NotAuthenticated",
+    "PalantirException",
     "EnvironmentNotConfigured",
+    "NotAuthenticated",
+    "ConnectionError",
+    "ProxyError",
+    "SSLError",
     "PalantirRPCException",
+    "BadRequestError",
+    "UnauthorizedError",
+    "PermissionDeniedError",
+    "NotFoundError",
+    "UnprocessableEntityError",
+    "RateLimitError",
+    "InternalServerError",
+    "SDKInternalError",
+    "StreamConsumedError",
 ]

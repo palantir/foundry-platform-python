@@ -24,10 +24,12 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.aip_agents.agent_version import AgentVersionClient
@@ -47,7 +49,7 @@ class AgentClient:
     The API client for the Agent Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -58,6 +60,10 @@ class AgentClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _AgentClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _AgentClientRaw(auth=auth, hostname=hostname, config=config)
         self.AgentVersion = AgentVersionClient(auth=auth, hostname=hostname, config=config)
         self.Session = SessionClient(auth=auth, hostname=hostname, config=config)
 
@@ -136,8 +142,173 @@ class AgentClient:
         """
 
         warnings.warn(
-            "The AgentClient.allSessionsPage(...) method has been deprecated. Please use AgentClient.allSessions(...) instead.",
+            "The client.aip_agents.Agent.all_sessions_page(...) method has been deprecated. Please use client.aip_agents.Agent.all_sessions(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/aipAgents/agents/allSessions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=AgentsSessionsPage,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        agent_rid: AgentRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        version: Optional[AgentVersionString] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Agent:
+        """
+        Get details for an AIP Agent.
+        :param agent_rid: agentRid
+        :type agent_rid: AgentRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param version: version
+        :type version: Optional[AgentVersionString]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Agent
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/aipAgents/agents/{agentRid}",
+                query_params={
+                    "preview": preview,
+                    "version": version,
+                },
+                path_params={
+                    "agentRid": agent_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Agent,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _AgentClientRaw:
+    """
+    The API client for the Agent Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def all_sessions(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[AgentsSessionsPage]:
+        """
+        List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+        Sessions are returned in order of most recently updated first.
+
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[AgentsSessionsPage]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/aipAgents/agents/allSessions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=AgentsSessionsPage,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def all_sessions_page(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[AgentsSessionsPage]:
+        """
+        List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+        Sessions are returned in order of most recently updated first.
+
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[AgentsSessionsPage]
+        """
+
+        warnings.warn(
+            "The client.aip_agents.Agent.all_sessions_page(...) method has been deprecated. Please use client.aip_agents.Agent.all_sessions(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
@@ -170,7 +341,7 @@ class AgentClient:
         preview: Optional[PreviewMode] = None,
         version: Optional[AgentVersionString] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Agent:
+    ) -> ApiResponse[Agent]:
         """
         Get details for an AIP Agent.
         :param agent_rid: agentRid
@@ -182,10 +353,174 @@ class AgentClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Agent
+        :rtype: ApiResponse[Agent]
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/aipAgents/agents/{agentRid}",
+                query_params={
+                    "preview": preview,
+                    "version": version,
+                },
+                path_params={
+                    "agentRid": agent_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Agent,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _AgentClientStreaming:
+    """
+    The API client for the Agent Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def all_sessions(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[AgentsSessionsPage]:
+        """
+        List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+        Sessions are returned in order of most recently updated first.
+
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[AgentsSessionsPage]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/aipAgents/agents/allSessions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=AgentsSessionsPage,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def all_sessions_page(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[AgentsSessionsPage]:
+        """
+        List all conversation sessions between the calling user and all accessible Agents that were created by this client.
+        Sessions are returned in order of most recently updated first.
+
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[AgentsSessionsPage]
+        """
+
+        warnings.warn(
+            "The client.aip_agents.Agent.all_sessions_page(...) method has been deprecated. Please use client.aip_agents.Agent.all_sessions(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/aipAgents/agents/allSessions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=AgentsSessionsPage,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        agent_rid: AgentRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        version: Optional[AgentVersionString] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Agent]:
+        """
+        Get details for an AIP Agent.
+        :param agent_rid: agentRid
+        :type agent_rid: AgentRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param version: version
+        :type version: Optional[AgentVersionString]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Agent]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}",

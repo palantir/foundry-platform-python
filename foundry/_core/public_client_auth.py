@@ -27,7 +27,7 @@ from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import AuthorizeRequest
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
-from foundry._core.utils import remove_prefixes
+from foundry._core.utils import clean_hostname
 from foundry._errors.not_authenticated import NotAuthenticated
 from foundry._errors.sdk_internal_error import SDKInternalError
 
@@ -110,7 +110,7 @@ class PublicClientAuth(Auth):
 
     @property
     def url(self) -> str:
-        return remove_prefixes(self._hostname, ["https://", "http://"])
+        return clean_hostname(self._hostname)
 
     def sign_in(self) -> str:
         self._auth_request = self._server_oauth_flow_provider.generate_auth_request()

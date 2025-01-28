@@ -14,7 +14,10 @@
 
 
 from foundry._core.api_client import ApiClient
+from foundry._core.api_client import ApiResponse
 from foundry._core.api_client import RequestInfo
+from foundry._core.api_client import StreamedApiResponse
+from foundry._core.api_client import StreamingContextManager
 from foundry._core.auth_utils import Auth
 from foundry._core.binary_stream import BinaryStream
 from foundry._core.confidential_client_auth import ConfidentialClientAuth

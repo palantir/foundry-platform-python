@@ -281,6 +281,7 @@ from foundry.v1.ontologies.models._search_objects_response_dict import (
     SearchObjectsResponseDict,
 )  # NOQA
 from foundry.v1.ontologies.models._search_order_by_dict import SearchOrderByDict
+from foundry.v1.ontologies.models._search_order_by_type import SearchOrderByType
 from foundry.v1.ontologies.models._search_ordering_dict import SearchOrderingDict
 from foundry.v1.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
 from foundry.v1.ontologies.models._shared_property_type_api_name import (
@@ -498,6 +499,7 @@ __all__ = [
     "SearchObjectsResponse",
     "SearchObjectsResponseDict",
     "SearchOrderByDict",
+    "SearchOrderByType",
     "SearchOrderingDict",
     "SelectedPropertyApiName",
     "SharedPropertyTypeApiName",

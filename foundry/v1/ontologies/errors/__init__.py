@@ -91,6 +91,7 @@ from foundry.v1.ontologies.errors._invalid_duration_group_by_value import (
 )  # NOQA
 from foundry.v1.ontologies.errors._invalid_fields import InvalidFields
 from foundry.v1.ontologies.errors._invalid_group_id import InvalidGroupId
+from foundry.v1.ontologies.errors._invalid_order_type import InvalidOrderType
 from foundry.v1.ontologies.errors._invalid_parameter_value import InvalidParameterValue
 from foundry.v1.ontologies.errors._invalid_property_filter_value import (
     InvalidPropertyFilterValue,
@@ -182,6 +183,10 @@ from foundry.v1.ontologies.errors._property_filters_not_supported import (
     PropertyFiltersNotSupported,
 )  # NOQA
 from foundry.v1.ontologies.errors._property_not_found import PropertyNotFound
+from foundry.v1.ontologies.errors._property_type_does_not_support_nearest_neighbors import (
+    PropertyTypeDoesNotSupportNearestNeighbors,
+)  # NOQA
+from foundry.v1.ontologies.errors._property_type_not_found import PropertyTypeNotFound
 from foundry.v1.ontologies.errors._property_types_search_not_supported import (
     PropertyTypesSearchNotSupported,
 )  # NOQA
@@ -194,11 +199,17 @@ from foundry.v1.ontologies.errors._query_memory_exceeded_limit import (
 from foundry.v1.ontologies.errors._query_not_found import QueryNotFound
 from foundry.v1.ontologies.errors._query_runtime_error import QueryRuntimeError
 from foundry.v1.ontologies.errors._query_time_exceeded_limit import QueryTimeExceededLimit  # NOQA
+from foundry.v1.ontologies.errors._search_vector_dimensions_differ import (
+    SearchVectorDimensionsDiffer,
+)  # NOQA
 from foundry.v1.ontologies.errors._shared_properties_not_found import (
     SharedPropertiesNotFound,
 )  # NOQA
 from foundry.v1.ontologies.errors._shared_property_type_not_found import (
     SharedPropertyTypeNotFound,
+)  # NOQA
+from foundry.v1.ontologies.errors._too_many_nearest_neighbors_requested import (
+    TooManyNearestNeighborsRequested,
 )  # NOQA
 from foundry.v1.ontologies.errors._unknown_parameter import UnknownParameter
 from foundry.v1.ontologies.errors._unsupported_object_set import UnsupportedObjectSet
@@ -207,8 +218,8 @@ from foundry.v1.ontologies.errors._view_object_permission_denied import (
 )  # NOQA
 
 __all__ = [
-    "InvalidAggregationRangeValue",
     "MalformedPropertyFilters",
+    "InvalidAggregationRangeValue",
     "ActionParameterInterfaceTypeNotFound",
     "MarketplaceObjectMappingNotFound",
     "InvalidDurationGroupByValue",
@@ -248,6 +259,7 @@ __all__ = [
     "InvalidApplyActionOptionCombination",
     "InterfaceTypesNotFound",
     "MarketplaceActionMappingNotFound",
+    "PropertyTypeDoesNotSupportNearestNeighbors",
     "InvalidFields",
     "InvalidQueryParameterValue",
     "ActionTypeNotFound",
@@ -275,6 +287,7 @@ __all__ = [
     "EditObjectPermissionDenied",
     "PropertiesHaveDifferentIds",
     "OntologyNotFound",
+    "PropertyTypeNotFound",
     "InvalidPropertyType",
     "MarketplaceInstallationNotFound",
     "ActionParameterObjectTypeNotFound",
@@ -298,8 +311,11 @@ __all__ = [
     "SharedPropertiesNotFound",
     "InterfaceTypeNotFound",
     "AttachmentSizeExceededLimit",
+    "SearchVectorDimensionsDiffer",
     "ObjectNotFound",
+    "InvalidOrderType",
     "PropertyApiNameNotFound",
+    "TooManyNearestNeighborsRequested",
     "ParameterTypeNotSupported",
     "InvalidAggregationRangePropertyType",
     "MissingParameter",

@@ -26,7 +26,7 @@ from foundry._core.oauth import SignInResponse
 from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthToken
-from foundry._core.utils import remove_prefixes
+from foundry._core.utils import clean_hostname
 from foundry._errors.not_authenticated import NotAuthenticated
 
 
@@ -104,7 +104,7 @@ class ConfidentialClientAuth(Auth):
 
     @property
     def url(self) -> str:
-        return remove_prefixes(self._hostname, ["https://", "http://"])
+        return clean_hostname(self._hostname)
 
     def _refresh_token(self) -> None:
         self._token = self._server_oauth_flow_provider.get_token()

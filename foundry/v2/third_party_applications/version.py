@@ -24,10 +24,12 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
@@ -48,7 +50,7 @@ class VersionClient:
     The API client for the Version Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -59,6 +61,10 @@ class VersionClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _VersionClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _VersionClientRaw(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -97,7 +103,7 @@ class VersionClient:
                 response_type=None,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -138,7 +144,7 @@ class VersionClient:
                 response_type=Version,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -216,8 +222,9 @@ class VersionClient:
         """
 
         warnings.warn(
-            "The VersionClient.page(...) method has been deprecated. Please use VersionClient.list(...) instead.",
+            "The client.third_party_applications.Version.page(...) method has been deprecated. Please use client.third_party_applications.Version.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
@@ -239,7 +246,7 @@ class VersionClient:
                 response_type=ListVersionsResponse,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -285,7 +292,7 @@ class VersionClient:
                 response_type=Version,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -320,6 +327,608 @@ class VersionClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/uploadSnapshot",
+                query_params={
+                    "version": version,
+                    "preview": preview,
+                    "snapshotIdentifier": snapshot_identifier,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Content-Type": "application/octet-stream",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=bytes,
+                response_type=Version,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _VersionClientRaw:
+    """
+    The API client for the Version Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def delete(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        version_version: VersionVersion,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[None]:
+        """
+        Delete the Version with the specified version.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param version_version: versionVersion
+        :type version_version: VersionVersion
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[None]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="DELETE",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion}",
+                query_params={},
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                    "versionVersion": version_version,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        version_version: VersionVersion,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Version]:
+        """
+        Get the Version with the specified version.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param version_version: versionVersion
+        :type version_version: VersionVersion
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Version]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion}",
+                query_params={},
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                    "versionVersion": version_version,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Version,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListVersionsResponse]:
+        """
+        Lists all Versions.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListVersionsResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListVersionsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListVersionsResponse]:
+        """
+        Lists all Versions.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListVersionsResponse]
+        """
+
+        warnings.warn(
+            "The client.third_party_applications.Version.page(...) method has been deprecated. Please use client.third_party_applications.Version.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListVersionsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def upload(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        body: bytes,
+        *,
+        version: VersionVersion,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Version]:
+        """
+        Upload a new version of the Website.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+        :type body: bytes
+        :param version: version
+        :type version: VersionVersion
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Version]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/upload",
+                query_params={
+                    "version": version,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Content-Type": "application/octet-stream",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=bytes,
+                response_type=Version,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def upload_snapshot(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        body: bytes,
+        *,
+        version: VersionVersion,
+        preview: Optional[PreviewMode] = None,
+        snapshot_identifier: Optional[str] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Version]:
+        """
+        Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
+
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+        :type body: bytes
+        :param version: version
+        :type version: VersionVersion
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param snapshot_identifier: snapshotIdentifier
+        :type snapshot_identifier: Optional[str]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Version]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/uploadSnapshot",
+                query_params={
+                    "version": version,
+                    "preview": preview,
+                    "snapshotIdentifier": snapshot_identifier,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Content-Type": "application/octet-stream",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=bytes,
+                response_type=Version,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _VersionClientStreaming:
+    """
+    The API client for the Version Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def delete(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        version_version: VersionVersion,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[None]:
+        """
+        Delete the Version with the specified version.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param version_version: versionVersion
+        :type version_version: VersionVersion
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[None]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="DELETE",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion}",
+                query_params={},
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                    "versionVersion": version_version,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        version_version: VersionVersion,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Version]:
+        """
+        Get the Version with the specified version.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param version_version: versionVersion
+        :type version_version: VersionVersion
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Version]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion}",
+                query_params={},
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                    "versionVersion": version_version,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Version,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListVersionsResponse]:
+        """
+        Lists all Versions.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListVersionsResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListVersionsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListVersionsResponse]:
+        """
+        Lists all Versions.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListVersionsResponse]
+        """
+
+        warnings.warn(
+            "The client.third_party_applications.Version.page(...) method has been deprecated. Please use client.third_party_applications.Version.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListVersionsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def upload(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        body: bytes,
+        *,
+        version: VersionVersion,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Version]:
+        """
+        Upload a new version of the Website.
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+        :type body: bytes
+        :param version: version
+        :type version: VersionVersion
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Version]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/upload",
+                query_params={
+                    "version": version,
+                },
+                path_params={
+                    "thirdPartyApplicationRid": third_party_application_rid,
+                },
+                header_params={
+                    "Content-Type": "application/octet-stream",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=bytes,
+                response_type=Version,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def upload_snapshot(
+        self,
+        third_party_application_rid: ThirdPartyApplicationRid,
+        body: bytes,
+        *,
+        version: VersionVersion,
+        preview: Optional[PreviewMode] = None,
+        snapshot_identifier: Optional[str] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Version]:
+        """
+        Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
+
+        :param third_party_application_rid: thirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
+        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+        :type body: bytes
+        :param version: version
+        :type version: VersionVersion
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param snapshot_identifier: snapshotIdentifier
+        :type snapshot_identifier: Optional[str]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Version]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/uploadSnapshot",

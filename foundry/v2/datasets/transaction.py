@@ -24,9 +24,11 @@ from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.datasets.models._branch_name import BranchName
@@ -41,7 +43,7 @@ class TransactionClient:
     The API client for the Transaction Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -52,6 +54,10 @@ class TransactionClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _TransactionClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _TransactionClientRaw(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -94,7 +100,7 @@ class TransactionClient:
                 response_type=Transaction,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -137,7 +143,7 @@ class TransactionClient:
                 response_type=Transaction,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -191,7 +197,7 @@ class TransactionClient:
                 response_type=Transaction,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -217,6 +223,406 @@ class TransactionClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _TransactionClientRaw:
+    """
+    The API client for the Transaction Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def abort(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Transaction]:
+        """
+        Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
+        not updated.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Transaction]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/abort",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def commit(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Transaction]:
+        """
+        Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
+        updated to point to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Transaction]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/commit",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        transaction_type: TransactionType,
+        branch_name: Optional[BranchName] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Transaction]:
+        """
+        Creates a Transaction on a Branch of a Dataset.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_type:
+        :type transaction_type: TransactionType
+        :param branch_name: branchName
+        :type branch_name: Optional[BranchName]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Transaction]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/transactions",
+                query_params={
+                    "branchName": branch_name,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "transactionType": transaction_type,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "transactionType": TransactionType,
+                    },
+                ),
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Transaction]:
+        """
+        Gets a Transaction of a Dataset.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Transaction]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _TransactionClientStreaming:
+    """
+    The API client for the Transaction Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def abort(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Transaction]:
+        """
+        Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
+        not updated.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Transaction]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/abort",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def commit(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Transaction]:
+        """
+        Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
+        updated to point to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Transaction]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/commit",
+                query_params={},
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        dataset_rid: DatasetRid,
+        *,
+        transaction_type: TransactionType,
+        branch_name: Optional[BranchName] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Transaction]:
+        """
+        Creates a Transaction on a Branch of a Dataset.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_type:
+        :type transaction_type: TransactionType
+        :param branch_name: branchName
+        :type branch_name: Optional[BranchName]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Transaction]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/transactions",
+                query_params={
+                    "branchName": branch_name,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "transactionType": transaction_type,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "transactionType": TransactionType,
+                    },
+                ),
+                response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Transaction]:
+        """
+        Gets a Transaction of a Dataset.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Transaction]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",

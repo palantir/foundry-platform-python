@@ -27,14 +27,17 @@ import pydantic
 from annotated_types import Len
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
+from typing_extensions import deprecated
 from typing_extensions import overload
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import BinaryStream
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.group_membership import GroupMembershipClient
@@ -58,7 +61,7 @@ class UserClient:
     The API client for the User Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -69,6 +72,10 @@ class UserClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _UserClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _UserClientRaw(auth=auth, hostname=hostname, config=config)
         self.GroupMembership = GroupMembershipClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -104,7 +111,7 @@ class UserClient:
                 response_type=None,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -141,7 +148,7 @@ class UserClient:
                 response_type=User,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -181,7 +188,7 @@ class UserClient:
                 response_type=GetUsersBatchResponse,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -213,7 +220,7 @@ class UserClient:
                 response_type=User,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -255,7 +262,7 @@ class UserClient:
                 response_type=GetUserMarkingsResponse,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -325,8 +332,9 @@ class UserClient:
         """
 
         warnings.warn(
-            "The UserClient.page(...) method has been deprecated. Please use UserClient.list(...) instead.",
+            "The client.admin.User.page(...) method has been deprecated. Please use client.admin.User.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
@@ -346,9 +354,12 @@ class UserClient:
                 response_type=ListUsersResponse,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @overload
+    @deprecated(
+        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
+    )
     def profile_picture(
         self,
         user_id: PrincipalId,
@@ -394,6 +405,9 @@ class UserClient:
         ...
 
     @overload
+    @deprecated(
+        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
+    )
     def profile_picture(
         self,
         user_id: PrincipalId,
@@ -442,6 +456,13 @@ class UserClient:
         :rtype: Union[bytes, BinaryStream]
         """
 
+        if stream:
+            warnings.warn(
+                f"client.admin.User.profile_picture(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.admin.User.with_streaming_response.profile_picture(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
         return self._api_client.call_api(
             RequestInfo(
                 method="GET",
@@ -460,7 +481,7 @@ class UserClient:
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -488,6 +509,778 @@ class UserClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/users/search",
+                query_params={},
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "where": where,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "where": UserSearchFilterDict,
+                        "pageSize": Optional[PageSize],
+                        "pageToken": Optional[PageToken],
+                    },
+                ),
+                response_type=SearchUsersResponse,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _UserClientRaw:
+    """
+    The API client for the User Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def delete(
+        self,
+        user_id: PrincipalId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[None]:
+        """
+        Delete the User with the specified id.
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[None]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="DELETE",
+                resource_path="/v2/admin/users/{userId}",
+                query_params={},
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        user_id: PrincipalId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[User]:
+        """
+        Get the User with the specified id.
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[User]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/{userId}",
+                query_params={},
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=User,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_batch(
+        self,
+        body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[GetUsersBatchResponse]:
+        """
+        Execute multiple get requests on User.
+
+        The maximum batch size for this endpoint is 500.
+        :param body: Body of the request
+        :type body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[GetUsersBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/users/getBatch",
+                query_params={},
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=Annotated[
+                    List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)
+                ],
+                response_type=GetUsersBatchResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_current(
+        self,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[User]:
+        """
+
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[User]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/getCurrent",
+                query_params={},
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=User,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_markings(
+        self,
+        user_id: PrincipalId,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[GetUserMarkingsResponse]:
+        """
+        Retrieve Markings that the user is currently a member of.
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[GetUserMarkingsResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/{userId}/getMarkings",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=GetUserMarkingsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListUsersResponse]:
+        """
+        Lists all Users.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListUsersResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListUsersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListUsersResponse]:
+        """
+        Lists all Users.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListUsersResponse]
+        """
+
+        warnings.warn(
+            "The client.admin.User.page(...) method has been deprecated. Please use client.admin.User.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListUsersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def profile_picture(
+        self,
+        user_id: PrincipalId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[bytes]:
+        """
+
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[bytes]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/{userId}/profilePicture",
+                query_params={},
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Accept": "application/octet-stream",
+                },
+                body=None,
+                body_type=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def search(
+        self,
+        *,
+        where: UserSearchFilterDict,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[SearchUsersResponse]:
+        """
+
+        :param where:
+        :type where: UserSearchFilterDict
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[SearchUsersResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/users/search",
+                query_params={},
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "where": where,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "where": UserSearchFilterDict,
+                        "pageSize": Optional[PageSize],
+                        "pageToken": Optional[PageToken],
+                    },
+                ),
+                response_type=SearchUsersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _UserClientStreaming:
+    """
+    The API client for the User Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def delete(
+        self,
+        user_id: PrincipalId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[None]:
+        """
+        Delete the User with the specified id.
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[None]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="DELETE",
+                resource_path="/v2/admin/users/{userId}",
+                query_params={},
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        user_id: PrincipalId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[User]:
+        """
+        Get the User with the specified id.
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[User]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/{userId}",
+                query_params={},
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=User,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_batch(
+        self,
+        body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[GetUsersBatchResponse]:
+        """
+        Execute multiple get requests on User.
+
+        The maximum batch size for this endpoint is 500.
+        :param body: Body of the request
+        :type body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[GetUsersBatchResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/users/getBatch",
+                query_params={},
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=Annotated[
+                    List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)
+                ],
+                response_type=GetUsersBatchResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_current(
+        self,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[User]:
+        """
+
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[User]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/getCurrent",
+                query_params={},
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=User,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_markings(
+        self,
+        user_id: PrincipalId,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[GetUserMarkingsResponse]:
+        """
+        Retrieve Markings that the user is currently a member of.
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[GetUserMarkingsResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/{userId}/getMarkings",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=GetUserMarkingsResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListUsersResponse]:
+        """
+        Lists all Users.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListUsersResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListUsersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        *,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListUsersResponse]:
+        """
+        Lists all Users.
+
+        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListUsersResponse]
+        """
+
+        warnings.warn(
+            "The client.admin.User.page(...) method has been deprecated. Please use client.admin.User.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListUsersResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def profile_picture(
+        self,
+        user_id: PrincipalId,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[bytes]:
+        """
+
+        :param user_id: userId
+        :type user_id: PrincipalId
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[bytes]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/{userId}/profilePicture",
+                query_params={},
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Accept": "application/octet-stream",
+                },
+                body=None,
+                body_type=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def search(
+        self,
+        *,
+        where: UserSearchFilterDict,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[SearchUsersResponse]:
+        """
+
+        :param where:
+        :type where: UserSearchFilterDict
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[SearchUsersResponse]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/search",

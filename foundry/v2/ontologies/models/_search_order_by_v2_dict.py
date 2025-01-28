@@ -17,14 +17,18 @@ from __future__ import annotations
 
 from typing import List
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
+from foundry.v2.ontologies.models._search_order_by_type import SearchOrderByType
 from foundry.v2.ontologies.models._search_ordering_v2_dict import SearchOrderingV2Dict
 
 
 class SearchOrderByV2Dict(TypedDict):
-    """Specifies the ordering of search results by a field and an ordering direction."""
+    """Specifies the ordering of search results by a field and an ordering direction or by relevance if scores are required in a nearestNeighbors query. By default `orderType` is set to `fields`."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    orderType: NotRequired[SearchOrderByType]
 
     fields: List[SearchOrderingV2Dict]
