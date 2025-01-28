@@ -17,12 +17,8 @@ from foundry._errors.palantir_exception import PalantirException
 
 
 class ConnectionError(PalantirException):
-    """An issue occurred when connecting to the server. This catches both ProxyError and SSLError."""
+    """An issue occurred when connecting to the server. This also catches both ProxyError."""
 
 
 class ProxyError(ConnectionError):
     """An issue occurred when connecting to or authenticating with a proxy server."""
-
-
-class SSLError(ConnectionError):
-    """An SSL error occurred when connecting to the server."""

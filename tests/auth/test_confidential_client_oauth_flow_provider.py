@@ -13,15 +13,14 @@
 #  limitations under the License.
 
 
+import httpx
 import pytest
-import requests
 from expects import equal
 from expects import expect
 from expects import raise_error
 from mockito import mock
 from mockito import unstub
 from mockito import when
-from requests import HTTPError
 
 from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthUtils
@@ -43,13 +42,12 @@ def test_get_token(client):
 
     when(ConfidentialClientOAuthFlowProvider).get_scopes().thenReturn(["scope1", "scope2"])
     when(OAuthUtils).get_token_uri("https://a.b.c", "/multipass").thenReturn("token_url")
-    response = mock(requests.Response)
-    response.ok = True
+    response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
     when(response).json().thenReturn(
         {"access_token": "example_token", "expires_in": 42, "token_type": "Bearer"}
     )
-    when(module_under_test.requests).post(
+    when(module_under_test.httpx).post(
         "token_url",
         data={
             "client_id": "client_id",
@@ -72,9 +70,15 @@ def test_get_token_throws_when_unsuccessful(client):
         ["scope1", "scope2", "offline_access"]
     )
     when(OAuthUtils).get_token_uri("https://a.b.c", "/multipass").thenReturn("token_url")
-    response = mock(requests.Response)
-    when(response).raise_for_status().thenRaise(HTTPError)
-    when(module_under_test.requests).post(
+    response = mock(httpx.Response)
+    when(response).raise_for_status().thenRaise(
+        httpx.HTTPStatusError(
+            "Foo",
+            request=httpx.Request("GET", "/foo/bar"),
+            response=httpx.Response(200),
+        ),
+    )
+    when(module_under_test.httpx).post(
         "token_url",
         data={
             "client_id": "client_id",
@@ -83,7 +87,10 @@ def test_get_token_throws_when_unsuccessful(client):
             "scope": "scope1 scope2 offline_access",
         },
     ).thenReturn(response)
-    expect(lambda: client.get_token()).to(raise_error(HTTPError))
+
+    with pytest.raises(httpx.HTTPStatusError):
+        client.get_token()
+
     unstub()
 
 
@@ -91,9 +98,9 @@ def test_revoke_token(client):
     import foundry._core.oauth_utils as module_under_test
 
     when(OAuthUtils).get_revoke_uri("https://a.b.c", "/multipass").thenReturn("revoke_url")
-    response = mock(requests.Response)
+    response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
-    when(module_under_test.requests).post(
+    when(module_under_test.httpx).post(
         "revoke_url",
         data={
             "client_id": "client_id",

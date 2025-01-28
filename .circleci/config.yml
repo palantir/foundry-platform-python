@@ -14,7 +14,7 @@ jobs:
         type: string
       pydantic_version:
         type: string
-      requests_version:
+      httpx_version:
         type: string
     docker:
       - image: cimg/python:<< parameters.python_version >>
@@ -22,7 +22,10 @@ jobs:
       - checkout
       - run: pip install --user tox
       - run: poetry --no-ansi install --no-root --sync
-      - run: poetry --no-ansi run tox -v -e py<< parameters.python_version >>-pydantic<< parameters.pydantic_version >>-requests<< parameters.requests_version >> --recreate
+      - run: |
+        PYDANTIC_VERSION=<< parameters.pydantic_version >>.* \
+          HTTPX_VERSION=<< parameters.httpx_version >>.* \
+          poetry --no-ansi run tox -v -e py<< parameters.python_version >> --recreate
 
   pyright:
     docker:
@@ -65,24 +68,24 @@ workflows:
           matrix:
             parameters:
               python_version: ["3.9", "3.10", "3.11", "3.12"]
-              pydantic_version: ["2.4"]
-              requests_version: ["2.31"]
+              pydantic_version: ["2.10"]
+              httpx_version: ["0.28"]
       - test:
           <<: *always-run
           name: pydantic-<< matrix.pydantic_version >>
           matrix:
             parameters:
               python_version: ["3.12"]
-              pydantic_version: ["2.1.0", "2.1", "2.2", "2.3", "2.4", "2.5"]
-              requests_version: ["2.31"]
+              pydantic_version: ["2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "2.10"]
+              httpx_version: ["0.28"]
       - test:
           <<: *always-run
-          name: requests-<< matrix.requests_version >>
+          name: httpx-<< matrix.httpx_version >>
           matrix:
             parameters:
               python_version: ["3.12"]
-              pydantic_version: ["2.4"]
-              requests_version: ["2.25", "2.26", "2.31"]
+              pydantic_version: ["2.10"]
+              httpx_version: ["0.24", "0.25", "0.26", "0.27", "0.28"]
       - pyright:
         <<: *always-run
       - black:
@@ -95,16 +98,22 @@ workflows:
             - python-3.11
             - python-3.12
 
-            - pydantic-2.1.0
             - pydantic-2.1
             - pydantic-2.2
             - pydantic-2.3
             - pydantic-2.4
             - pydantic-2.5
+            - pydantic-2.6
+            - pydantic-2.7
+            - pydantic-2.8
+            - pydantic-2.9
+            - pydantic-2.10
 
-            - requests-2.25
-            - requests-2.26
-            - requests-2.31
+            - httpx-0.24
+            - httpx-0.25
+            - httpx-0.26
+            - httpx-0.27
+            - httpx-0.28
 
             - pyright
             - black

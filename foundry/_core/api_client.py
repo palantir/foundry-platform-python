@@ -33,13 +33,12 @@ from typing import Union
 from typing import cast
 from urllib.parse import quote
 
+import httpx
 import pydantic
-import requests
-import requests.adapters
-from requests import Response
 from typing_extensions import deprecated
 
 from foundry._core.auth_utils import Auth
+from foundry._core.auth_utils import Token
 from foundry._core.binary_stream import BinaryStream
 from foundry._core.config import Config
 from foundry._core.resource_iterator import ResourceIterator
@@ -55,16 +54,21 @@ from foundry._errors import ProxyError
 from foundry._errors import RateLimitError
 from foundry._errors import ReadTimeout
 from foundry._errors import SDKInternalError
-from foundry._errors import SSLError
 from foundry._errors import StreamConsumedError
 from foundry._errors import UnauthorizedError
 from foundry._errors import UnprocessableEntityError
+from foundry._errors import WriteTimeout
 from foundry._versions import __version__
 
-_GLOBAL_ADAPTER = requests.adapters.HTTPAdapter()
-
-
 QueryParameters = Dict[str, Union[Any, List[Any]]]
+
+
+@functools.cache
+def _get_transport(verify: Union[bool, str], proxy: Optional[str]) -> httpx.BaseTransport:
+    """Create a shared transport. Because verify is at the transport level, we have to create a
+    transport for each different configuration.
+    """
+    return httpx.HTTPTransport(verify=verify, proxy=proxy)
 
 
 @functools.cache
@@ -105,6 +109,7 @@ class RequestInfo:
         self,
         query_params: Optional[Dict[str, Any]] = None,
         header_params: Optional[Dict[str, Any]] = None,
+        stream: Optional[bool] = None,
     ):
         return RequestInfo(
             method=self.method,
@@ -116,7 +121,7 @@ class RequestInfo:
             body=self.body,
             body_type=self.body_type,
             request_timeout=self.request_timeout,
-            stream=self.stream,
+            stream=stream if stream is not None else self.stream,
         )
 
     @classmethod
@@ -165,7 +170,7 @@ T = TypeVar("T")
 
 
 class ApiResponse(Generic[T]):
-    def __init__(self, request_info: RequestInfo, response: Response):
+    def __init__(self, request_info: RequestInfo, response: httpx.Response):
         self._response = response
         self._request_info = request_info
 
@@ -191,7 +196,7 @@ class ApiResponse(Generic[T]):
                 return cast(
                     T,
                     BinaryStream(
-                        self._response.iter_content(chunk_size=self._request_info.chunk_size)
+                        self._response.iter_bytes(chunk_size=self._request_info.chunk_size)
                     ),
                 )
             else:
@@ -207,9 +212,15 @@ class ApiResponse(Generic[T]):
         type_adapter = _get_type_adapter(self._request_info.response_type)
         return type_adapter.validate_python(data)
 
+    def close(self):
+        """Close the response and release the connection. Automatically called if the response
+        body is read to completion.
+        """
+        self._response.close()
+
 
 class StreamedApiResponse(Generic[T], ApiResponse[T]):
-    def __init__(self, request_info: RequestInfo, response: Response):
+    def __init__(self, request_info: RequestInfo, response: httpx.Response):
         super().__init__(request_info, response)
 
     def iter_bytes(self, chunk_size: Optional[int] = None) -> Iterator[bytes]:
@@ -218,18 +229,19 @@ class StreamedApiResponse(Generic[T], ApiResponse[T]):
         :type chunk_size: Optional[int]
         """
         try:
-            return self._response.iter_content(chunk_size=chunk_size)
-        except requests.exceptions.StreamConsumedError as e:
+            for raw_bytes in self._response.iter_bytes(chunk_size=chunk_size):
+                yield raw_bytes
+        except httpx.StreamConsumed as e:
             raise StreamConsumedError(str(e)) from e
 
 
 class StreamingContextManager(Generic[T]):
-    def __init__(self, request_info: RequestInfo, response: Response):
+    def __init__(self, request_info: RequestInfo, response: ApiResponse):
         self._request_info = request_info
         self._response = response
 
     def __enter__(self) -> StreamedApiResponse[T]:
-        return StreamedApiResponse[T](self._request_info, self._response)
+        return StreamedApiResponse[T](self._request_info, self._response._response)
 
     def __exit__(
         self,
@@ -238,23 +250,6 @@ class StreamingContextManager(Generic[T]):
         traceback: Optional[Any],
     ) -> None:
         self._response.close()
-
-
-@contextmanager
-def error_wrapping():
-    """Use this to wrap errors from requests with our own errors."""
-    try:
-        yield
-    except requests.exceptions.ProxyError as e:
-        raise ProxyError(str(e)) from e
-    except requests.exceptions.SSLError as e:
-        raise SSLError(str(e)) from e
-    except requests.exceptions.ConnectTimeout as e:
-        raise ConnectTimeout(str(e)) from e
-    except requests.exceptions.ConnectionError as e:
-        raise ConnectionError(str(e)) from e
-    except requests.exceptions.ReadTimeout as e:
-        raise ReadTimeout(str(e)) from e
 
 
 class ApiClient:
@@ -276,24 +271,24 @@ class ApiClient:
         self._auth = auth
         self._hostname = clean_hostname(hostname)
 
-        self._session = requests.Session()
-        self._session.mount("http://", _GLOBAL_ADAPTER)
-        self._session.mount("https://", _GLOBAL_ADAPTER)
-
-        self._session.headers["User-Agent"] = (
-            f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}"
+        self._session = httpx.Client(
+            headers={
+                "User-Agent": f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}",
+                **(config.default_headers or {}),
+            },
+            params=config.default_params,
+            transport=_get_transport(verify=config.verify, proxy=None),
+            mounts={
+                scheme
+                + "://": _get_transport(verify=config.verify, proxy=httpx.Proxy(url=proxy_url))
+                for scheme, proxy_url in (config.proxies or {}).items()
+            },
+            # Unlike requests, HTTPX does not follow redirects by default
+            # If you access an endpoint with a missing trailing slash, the server could redirect
+            # the user to the URL with the trailing slash. For example, accessing `/example` might
+            # redirect to `/example/`.
+            follow_redirects=True,
         )
-        if config.default_headers:
-            self._session.headers.update(config.default_headers)
-
-        if config.proxies:
-            # Need to cast here since Dict[Literal[...], str] is not assignable to to Dict[str, str]
-            self._session.proxies.update(cast(Dict[str, str], config.proxies))
-
-        self._session.verify = config.verify
-
-        if config.default_params:
-            self._session.params.update(config.default_params)  # type: ignore
 
     @property
     @deprecated(
@@ -326,36 +321,40 @@ class ApiClient:
 
     def call_api(self, request_info: RequestInfo) -> ApiResponse[Any]:
         """Makes the HTTP request (synchronous)"""
-        with error_wrapping():
-            res = self._session.request(
-                method=request_info.method,
-                url=self._create_url(request_info),
-                params=self._process_query_parameters(request_info.query_params),
-                data=self._serialize(request_info.body, request_info.body_type),
-                headers=self._create_headers(request_info),
-                # DEPRECATED
-                stream=request_info.stream,
-                timeout=self._get_timeout(request_info),
-            )
+        try:
+
+            def make_request(token: Token):
+                request = self._session.build_request(
+                    method=request_info.method,
+                    url=self._create_url(request_info),
+                    params=self._process_query_parameters(request_info.query_params),
+                    content=self._serialize(request_info.body, request_info.body_type),
+                    headers=self._create_headers(request_info, token),
+                    timeout=self._get_timeout(request_info),
+                )
+
+                return self._session.send(request=request, stream=request_info.stream)
+
+            res = self._auth.execute_with_token(make_request)
+        except httpx.ProxyError as e:
+            raise ProxyError(str(e)) from e
+        except httpx.ConnectTimeout as e:
+            raise ConnectTimeout(str(e)) from e
+        except httpx.ConnectError as e:
+            raise ConnectionError(str(e)) from e
+        except httpx.ReadTimeout as e:
+            raise ReadTimeout(str(e)) from e
+        except httpx.WriteTimeout as e:
+            raise WriteTimeout(str(e)) from e
 
         self._check_for_errors(res)
         return ApiResponse(request_info, res)
 
     def stream_api(self, request_info: RequestInfo) -> StreamingContextManager[Any]:
         """Makes the HTTP request (synchronous) and returns a streamed result"""
-        with error_wrapping():
-            res = self._session.request(
-                method=request_info.method,
-                url=self._create_url(request_info),
-                params=self._process_query_parameters(request_info.query_params),
-                data=self._serialize(request_info.body, request_info.body_type),
-                headers=self._create_headers(request_info),
-                stream=True,
-                timeout=self._get_timeout(request_info),
-            )
-
-        self._check_for_errors(res)
-        return StreamingContextManager(request_info, res)
+        return StreamingContextManager(
+            request_info, self.call_api(request_info.update(stream=True))
+        )
 
     def _process_query_parameters(self, query_params: QueryParameters):
         result: List[Tuple[str, Any]] = []
@@ -389,13 +388,17 @@ class ApiClient:
 
         return f"{self._config.scheme}://{self._hostname}/api{resource_path}"
 
-    def _create_headers(self, request_info: RequestInfo) -> Dict[str, Any]:
+    def _create_headers(self, request_info: RequestInfo, token: Token) -> Dict[str, Any]:
         return {
-            "Authorization": "Bearer " + self._auth.get_token().access_token,
-            **request_info.header_params,
+            "Authorization": "Bearer " + token.access_token,
+            # Passing in None leads to this
+            # Header value must be str or bytes, not <class 'NoneType'>
+            **{
+                key: value for key, value in request_info.header_params.items() if value is not None
+            },
         }
 
-    def _check_for_errors(self, res: Response):
+    def _check_for_errors(self, res: httpx.Response):
         if 200 <= res.status_code <= 299:
             return
 

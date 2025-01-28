@@ -20,7 +20,7 @@ from typing import Optional
 from typing import Tuple
 from typing import TypeVar
 
-import requests
+import httpx
 
 from foundry._core.auth_utils import Auth
 from foundry._core.auth_utils import Token
@@ -62,8 +62,8 @@ class UserTokenAuth(Auth):
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def execute_with_token(self, func: Callable[[Token], requests.Response]) -> requests.Response:
+    def execute_with_token(self, func: Callable[[Token], httpx.Response]) -> httpx.Response:
         return func(self.get_token())
 
-    def run_with_token(self, func: Callable[[Token], requests.Response]) -> None:
+    def run_with_token(self, func: Callable[[Token], httpx.Response]) -> None:
         func(self.get_token())

@@ -13,8 +13,8 @@
 #  limitations under the License.
 
 
+import httpx
 import pytest
-import requests
 from expects import equal
 from expects import expect
 from expects import raise_error
@@ -164,13 +164,15 @@ def test_confidential_client_execute_with_token_method_raises_401():
     when(auth)._refresh_token().thenReturn(token)
 
     def raise_401():
-        e = requests.HTTPError()
-        e.response = requests.Response()
-        e.response.status_code = 401
+        e = httpx.HTTPStatusError(
+            "foo",
+            request=httpx.Request("foo", url="foo"),
+            response=httpx.Response(status_code=401),
+        )
         raise e
 
     expect(lambda: auth.execute_with_token(lambda _: raise_401())).to(
-        raise_error(requests.HTTPError)
+        raise_error(httpx.HTTPStatusError)
     )
     verify(auth, times=1)._refresh_token()
     verify(auth, times=1).sign_out()

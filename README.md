@@ -249,12 +249,12 @@ There are a handful of other exception classes that could be thrown when instant
 | ErrorClass               | Thrown Directly | Description                                                                                                                       |
 | ------------------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |     
 | NotAuthenticated         | Yes             | You used either `ConfidentialClientAuth` or `PublicClientAuth` to make an API call without going through the OAuth process first. |           
-| ConnectionError          | Yes             | An issue occurred when connecting to the server. This also catches both `ProxyError` and `SSLError`.                              |
+| ConnectionError          | Yes             | An issue occurred when connecting to the server. This also catches `ProxyError`.                                                  |
 | ProxyError               | Yes             | An issue occurred when connecting to or authenticating with a proxy server.                                                       |
-| SSLError                 | Yes             | An SSL error occurred when connecting to the server.                                                                              |
-| TimeoutError             | No              | The request timed out. This catches both `ConnectTimeout` and `ReadTimeout`.                                                      |
+| TimeoutError             | No              | The request timed out. This catches both `ConnectTimeout`, `ReadTimeout` and `WriteTimeout`.                                                      |
 | ConnectTimeout           | Yes             | The request timed out when attempting to connect to the server.                                                                   |
 | ReadTimeout              | Yes             | The server did not send any data in the allotted amount of time.                                                                  |
+| WriteTimeout             | Yes             | There was a timeout when writing data to the server.                                                                              |
 | StreamConsumedError      | Yes             | The content of the given stream has already been consumed.                                                                        |
 | SDKInternalError         | Yes             | An unexpected issue occurred and should be reported.                                                                              |
 
@@ -375,7 +375,7 @@ The full list of options can be found below.
 - `default_headers` (dict[str, str]): HTTP headers to include with all requests.
 - `proxies` (dict["http" | "https", str]): Proxies to use for HTTP and HTTPS requests.
 - `timeout` (int | float): The default timeout for all requests in seconds.
-- `verify` (bool | str): SSL verification, can be a boolean or a path to a CA bundle.
+- `verify` (bool | str): SSL verification, can be a boolean or a path to a CA bundle. Defaults to `True`.
 - `default_params` (dict[str, Any]): URL query parameters to include with all requests.
 - `scheme` ("http" | "https"): URL scheme to use ('http' or 'https'). Defaults to 'https'.
 

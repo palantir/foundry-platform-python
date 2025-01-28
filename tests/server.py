@@ -17,6 +17,8 @@ import time
 
 from fastapi import APIRouter
 from fastapi import FastAPI
+from fastapi import HTTPException
+from fastapi import Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
@@ -51,6 +53,11 @@ def stream() -> StreamingResponse:
             yield line if is_final_line else line + "\n"
 
     return StreamingResponse(generate_data(), media_type="text/plain")
+
+
+@app.api_route("/proxy/error", methods=["CONNECT"])
+def proxy_error(full_path: str):
+    raise HTTPException(status_code=400, detail="Bad Request")
 
 
 app.include_router(router, prefix="/api")

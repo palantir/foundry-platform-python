@@ -17,7 +17,7 @@ from abc import ABC
 from abc import abstractmethod
 from typing import Callable
 
-import requests
+import httpx
 
 
 class Token(ABC):
@@ -35,9 +35,9 @@ class Auth(ABC):
         pass
 
     @abstractmethod
-    def execute_with_token(self, func: Callable[["Token"], requests.Response]) -> requests.Response:
+    def execute_with_token(self, func: Callable[["Token"], httpx.Response]) -> httpx.Response:
         pass
 
     @abstractmethod
-    def run_with_token(self, func: Callable[["Token"], requests.Response]) -> None:
+    def run_with_token(self, func: Callable[["Token"], httpx.Response]) -> None:
         pass

@@ -19,7 +19,7 @@ from typing import Callable
 from typing import List
 from typing import Optional
 
-import requests
+import httpx
 
 from foundry._core.auth_utils import Auth
 from foundry._core.oauth import SignInResponse
@@ -64,22 +64,20 @@ class ConfidentialClientAuth(Auth):
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def execute_with_token(
-        self, func: Callable[[OAuthToken], requests.Response]
-    ) -> requests.Response:
+    def execute_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> httpx.Response:
         try:
             return self._run_with_attempted_refresh(func)
-        except requests.HTTPError as http_e:
+        except httpx.HTTPStatusError as http_e:
             if http_e.response.status_code == 401:
                 self.sign_out()
             raise http_e
         except Exception as e:
             raise e
 
-    def run_with_token(self, func: Callable[[OAuthToken], requests.Response]) -> None:
+    def run_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> None:
         try:
             self._run_with_attempted_refresh(func)
-        except requests.HTTPError as http_e:
+        except httpx.HTTPStatusError as http_e:
             if http_e.response.status_code == 401:
                 self.sign_out()
             raise http_e
@@ -87,15 +85,15 @@ class ConfidentialClientAuth(Auth):
             raise e
 
     def _run_with_attempted_refresh(
-        self, func: Callable[[OAuthToken], requests.Response]
-    ) -> requests.Response:
+        self, func: Callable[[OAuthToken], httpx.Response]
+    ) -> httpx.Response:
         """
         Attempt to run func, and if it fails with a 401, refresh the token and try again.
         If it fails with a 401 again, raise the exception.
         """
         try:
             return func(self.get_token())
-        except requests.HTTPError as e:
+        except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
                 self._refresh_token()
                 return func(self.get_token())
