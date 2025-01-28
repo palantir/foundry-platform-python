@@ -26,10 +26,12 @@ from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
@@ -48,7 +50,7 @@ class ResourceRoleClient:
     The API client for the ResourceRole Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -59,6 +61,10 @@ class ResourceRoleClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _ResourceRoleClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _ResourceRoleClientRaw(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -110,7 +116,7 @@ class ResourceRoleClient:
                 response_type=None,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -200,8 +206,247 @@ class ResourceRoleClient:
         """
 
         warnings.warn(
-            "The ResourceRoleClient.page(...) method has been deprecated. Please use ResourceRoleClient.list(...) instead.",
+            "The client.filesystem.ResourceRole.page(...) method has been deprecated. Please use client.filesystem.ResourceRole.list(...) instead.",
             DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles",
+                query_params={
+                    "includeInherited": include_inherited,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListResourceRolesResponse,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def remove(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        roles: List[ResourceRoleDict],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> None:
+        """
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param roles:
+        :type roles: List[ResourceRoleDict]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "roles": roles,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "roles": List[ResourceRoleDict],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _ResourceRoleClientRaw:
+    """
+    The API client for the ResourceRole Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def add(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        roles: List[ResourceRoleDict],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[None]:
+        """
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param roles:
+        :type roles: List[ResourceRoleDict]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[None]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles/add",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "roles": roles,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "roles": List[ResourceRoleDict],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        include_inherited: Optional[bool] = None,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListResourceRolesResponse]:
+        """
+        List the roles on a resource.
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param include_inherited: includeInherited
+        :type include_inherited: Optional[bool]
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListResourceRolesResponse]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles",
+                query_params={
+                    "includeInherited": include_inherited,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListResourceRolesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        include_inherited: Optional[bool] = None,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ListResourceRolesResponse]:
+        """
+        List the roles on a resource.
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param include_inherited: includeInherited
+        :type include_inherited: Optional[bool]
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ListResourceRolesResponse]
+        """
+
+        warnings.warn(
+            "The client.filesystem.ResourceRole.page(...) method has been deprecated. Please use client.filesystem.ResourceRole.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
         )
 
         return self._api_client.call_api(
@@ -237,7 +482,7 @@ class ResourceRoleClient:
         roles: List[ResourceRoleDict],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> None:
+    ) -> ApiResponse[None]:
         """
 
         :param resource_rid: resourceRid
@@ -249,10 +494,248 @@ class ResourceRoleClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: None
+        :rtype: ApiResponse[None]
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "roles": roles,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "roles": List[ResourceRoleDict],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _ResourceRoleClientStreaming:
+    """
+    The API client for the ResourceRole Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def add(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        roles: List[ResourceRoleDict],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[None]:
+        """
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param roles:
+        :type roles: List[ResourceRoleDict]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[None]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles/add",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "roles": roles,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "roles": List[ResourceRoleDict],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def list(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        include_inherited: Optional[bool] = None,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListResourceRolesResponse]:
+        """
+        List the roles on a resource.
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param include_inherited: includeInherited
+        :type include_inherited: Optional[bool]
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListResourceRolesResponse]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles",
+                query_params={
+                    "includeInherited": include_inherited,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListResourceRolesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def page(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        include_inherited: Optional[bool] = None,
+        page_size: Optional[PageSize] = None,
+        page_token: Optional[PageToken] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ListResourceRolesResponse]:
+        """
+        List the roles on a resource.
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param include_inherited: includeInherited
+        :type include_inherited: Optional[bool]
+        :param page_size: pageSize
+        :type page_size: Optional[PageSize]
+        :param page_token: pageToken
+        :type page_token: Optional[PageToken]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ListResourceRolesResponse]
+        """
+
+        warnings.warn(
+            "The client.filesystem.ResourceRole.page(...) method has been deprecated. Please use client.filesystem.ResourceRole.list(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/filesystem/resources/{resourceRid}/roles",
+                query_params={
+                    "includeInherited": include_inherited,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "resourceRid": resource_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ListResourceRolesResponse,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def remove(
+        self,
+        resource_rid: ResourceRid,
+        *,
+        roles: List[ResourceRoleDict],
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[None]:
+        """
+
+        :param resource_rid: resourceRid
+        :type resource_rid: ResourceRid
+        :param roles:
+        :type roles: List[ResourceRoleDict]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[None]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",

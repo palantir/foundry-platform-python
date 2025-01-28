@@ -23,9 +23,11 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -39,7 +41,7 @@ class ScheduleVersionClient:
     The API client for the ScheduleVersion Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -50,6 +52,12 @@ class ScheduleVersionClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _ScheduleVersionClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _ScheduleVersionClientRaw(
+            auth=auth, hostname=hostname, config=config
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -91,7 +99,7 @@ class ScheduleVersionClient:
                 response_type=ScheduleVersion,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -116,6 +124,210 @@ class ScheduleVersionClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "scheduleVersionRid": schedule_version_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Schedule,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _ScheduleVersionClientRaw:
+    """
+    The API client for the ScheduleVersion Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        schedule_version_rid: ScheduleVersionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ScheduleVersion]:
+        """
+        Get the ScheduleVersion with the specified rid.
+        :param schedule_version_rid: scheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ScheduleVersion]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/orchestration/scheduleVersions/{scheduleVersionRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "scheduleVersionRid": schedule_version_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ScheduleVersion,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def schedule(
+        self,
+        schedule_version_rid: ScheduleVersionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Schedule]:
+        """
+
+        :param schedule_version_rid: scheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Schedule]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "scheduleVersionRid": schedule_version_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Schedule,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _ScheduleVersionClientStreaming:
+    """
+    The API client for the ScheduleVersion Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        schedule_version_rid: ScheduleVersionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ScheduleVersion]:
+        """
+        Get the ScheduleVersion with the specified rid.
+        :param schedule_version_rid: scheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ScheduleVersion]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/orchestration/scheduleVersions/{scheduleVersionRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "scheduleVersionRid": schedule_version_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ScheduleVersion,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def schedule(
+        self,
+        schedule_version_rid: ScheduleVersionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Schedule]:
+        """
+
+        :param schedule_version_rid: scheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Schedule]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule",

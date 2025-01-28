@@ -13,6 +13,9 @@
 #  limitations under the License.
 
 
-class EnvironmentNotConfigured(Exception):
+from foundry._errors.palantir_exception import PalantirException
+
+
+class EnvironmentNotConfigured(PalantirException):
     def __init__(self, message: str) -> None:
         super().__init__(message)

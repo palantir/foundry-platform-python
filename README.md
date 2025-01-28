@@ -202,20 +202,40 @@ the [Pydantic error documentation](https://docs.pydantic.dev/latest/errors/error
 experience. See [Static Type Analysis](#static-types) below for more information.
 
 ### HTTP exceptions
-When an HTTP error status is returned, a `PalantirRPCException` is thrown.
+When an HTTP error status is returned, a `PalantirRPCException` is thrown. There are several
+subclasses that be caught for more specific conditions, all of which inherit from
+`PalantirRPCException`.
+
+
+| Status Code | Error Class                |
+| ----------- | -------------------------- |
+| 400         | `BadRequestError`          |
+| 401         | `UnauthorizedError`        |
+| 403         | `PermissionDeniedError`    |
+| 404         | `NotFoundError`            |
+| 422         | `UnprocessableEntityError` |
+| 429         | `RateLimitError`           |
+| >=500,<600  | `InternalServerError`      |
+| Other       | `PalantirRPCException`     |
 
 ```python
 from foundry import PalantirRPCException
+from foundry import NotFoundError
+from foundry import RateLimitError
 
 
 try:
     api_response = foundry_client.datasets.Transaction.abort(dataset_rid, transaction_rid)
     ...
+except NotFoundError as e:
+    print("Dataset or Transaction not found", e)
+except RateLimitError as e:
+    print("We are aborting too many Transactions", e)
 except PalantirRPCException as e:
-    print("Another HTTP exception occurred: " + str(e))
+    print("Another HTTP exception occurred", e)
 ```
 
-This exception will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
+All HTTP exceptions will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
 
 | Property          | Type                   | Description                                                                                                                    |
 | ----------------- | -----------------------| ------------------------------------------------------------------------------------------------------------------------------ |
@@ -223,6 +243,20 @@ This exception will have the following properties. See the [Foundry API docs](ht
 | error_instance_id | str                    | The Palantir error instance ID. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors). |
 | parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).  |
 
+### Other exceptions
+There are a handful of other exception classes that could be thrown when instantiating or using a client.
+
+| ErrorClass               | Thrown Directly | Description                                                                                                                       |
+| ------------------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |     
+| NotAuthenticated         | Yes             | You used either `ConfidentialClientAuth` or `PublicClientAuth` to make an API call without going through the OAuth process first. |           
+| ConnectionError          | Yes             | An issue occurred when connecting to the server. This also catches both `ProxyError` and `SSLError`.                              |
+| ProxyError               | Yes             | An issue occurred when connecting to or authenticating with a proxy server.                                                       |
+| SSLError                 | Yes             | An SSL error occurred when connecting to the server.                                                                              |
+| TimeoutError             | No              | The request timed out. This catches both `ConnectTimeout` and `ReadTimeout`.                                                      |
+| ConnectTimeout           | Yes             | The request timed out when attempting to connect to the server.                                                                   |
+| ReadTimeout              | Yes             | The server did not send any data in the allotted amount of time.                                                                  |
+| StreamConsumedError      | Yes             | The content of the given stream has already been consumed.                                                                        |
+| SDKInternalError         | Yes             | An unexpected issue occurred and should be reported.                                                                              |
 
 <a id="pagination"></a>
 ## Pagination
@@ -251,26 +285,20 @@ while page.next_page_token:
 
 <a id="binary-streaming"></a>
 ## Streaming
-This SDK supports optionally streaming binary data using a flag in the method definition.
+This SDK supports streaming binary data using a separate streaming client accessible under
+`with_streaming_response` on each Resource. To ensure the stream is closed, you need to use a context
+manager when making a request with this client.
 
 ```python
 # Non-streaming response
-with open("profile_picture.png", "rb") as f:
+with open("profile_picture.png", "wb") as f:
     f.write(foundry_client.admin.User.profile_picture(user_id))
 
 # Streaming response
-with open("profile_picture.png", "rb") as f:
-    for chunk in foundry_client.admin.User.profile_picture(user_id, stream=True):
-        f.write(chunk)
-```
-
-This flag is available on all endpoints which return binary data. Additionally, you can set a desired `chunk_size` to read into memory before
-the next chunk is given to you. By default, this value is set to None and chunks will be returned to you as they are received from the host.
-
-```python
-with open("profile_picture.png", "rb") as f:
-    for chunk in foundry_client.admin.User.profile_picture(user_id, stream=True, chunk_size=1024):
-        f.write(chunk)
+with open("profile_picture.png", "wb") as f:
+    with foundry_client.admin.User.with_streaming_response.profile_picture(user_id) as response:
+        for chunk in response.iter_bytes():
+            f.write(chunk)
 ```
 
 <a id="static-types"></a>
@@ -1401,6 +1429,7 @@ Namespace | Resource | Operation | HTTP request |
 - [SearchJsonQueryV2Dict](docs/v2/models/SearchJsonQueryV2Dict.md)
 - [SearchObjectsResponseV2](docs/v2/models/SearchObjectsResponseV2.md)
 - [SearchObjectsResponseV2Dict](docs/v2/models/SearchObjectsResponseV2Dict.md)
+- [SearchOrderByType](docs/v2/models/SearchOrderByType.md)
 - [SearchOrderByV2Dict](docs/v2/models/SearchOrderByV2Dict.md)
 - [SearchOrderingV2Dict](docs/v2/models/SearchOrderingV2Dict.md)
 - [SelectedPropertyApiName](docs/v2/models/SelectedPropertyApiName.md)
@@ -1811,6 +1840,7 @@ Namespace | Resource | Operation | HTTP request |
 - [SearchObjectsResponse](docs/v1/models/SearchObjectsResponse.md)
 - [SearchObjectsResponseDict](docs/v1/models/SearchObjectsResponseDict.md)
 - [SearchOrderByDict](docs/v1/models/SearchOrderByDict.md)
+- [SearchOrderByType](docs/v1/models/SearchOrderByType.md)
 - [SearchOrderingDict](docs/v1/models/SearchOrderingDict.md)
 - [SelectedPropertyApiName](docs/v1/models/SelectedPropertyApiName.md)
 - [SharedPropertyTypeApiName](docs/v1/models/SharedPropertyTypeApiName.md)

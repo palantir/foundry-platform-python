@@ -23,9 +23,11 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.ontologies.action_type import ActionTypeClient
@@ -41,7 +43,7 @@ class OntologyClient:
     The API client for the OntologyV2 Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -52,6 +54,10 @@ class OntologyClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _OntologyClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _OntologyClientRaw(auth=auth, hostname=hostname, config=config)
         self.ActionType = ActionTypeClient(auth=auth, hostname=hostname, config=config)
         self.ObjectType = ObjectTypeClient(auth=auth, hostname=hostname, config=config)
         self.QueryType = QueryTypeClient(auth=auth, hostname=hostname, config=config)
@@ -94,7 +100,7 @@ class OntologyClient:
                 response_type=OntologyV2,
                 request_timeout=request_timeout,
             ),
-        )
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -117,6 +123,198 @@ class OntologyClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/fullMetadata",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=OntologyFullMetadata,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _OntologyClientRaw:
+    """
+    The API client for the OntologyV2 Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[OntologyV2]:
+        """
+        Gets a specific ontology with the given Ontology RID.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[OntologyV2]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=OntologyV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_full_metadata(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[OntologyFullMetadata]:
+        """
+        Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[OntologyFullMetadata]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/fullMetadata",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=OntologyFullMetadata,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _OntologyClientStreaming:
+    """
+    The API client for the OntologyV2 Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[OntologyV2]:
+        """
+        Gets a specific ontology with the given Ontology RID.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[OntologyV2]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=OntologyV2,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_full_metadata(
+        self,
+        ontology: OntologyIdentifier,
+        *,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[OntologyFullMetadata]:
+        """
+        Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
+
+        :param ontology: ontology
+        :type ontology: OntologyIdentifier
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[OntologyFullMetadata]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",

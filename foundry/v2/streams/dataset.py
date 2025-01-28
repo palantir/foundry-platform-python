@@ -24,9 +24,11 @@ from typing_extensions import Annotated
 from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -46,7 +48,7 @@ class DatasetClient:
     The API client for the Dataset Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -57,6 +59,10 @@ class DatasetClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _DatasetClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _DatasetClientRaw(auth=auth, hostname=hostname, config=config)
         self.Stream = StreamClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -103,6 +109,204 @@ class DatasetClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/streams/datasets/create",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "name": name,
+                    "parentFolderRid": parent_folder_rid,
+                    "schema": schema,
+                    "branchName": branch_name,
+                    "partitionsCount": partitions_count,
+                    "streamType": stream_type,
+                    "compressed": compressed,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "name": DatasetName,
+                        "parentFolderRid": FolderRid,
+                        "schema": StreamSchemaDict,
+                        "branchName": Optional[BranchName],
+                        "partitionsCount": Optional[PartitionsCount],
+                        "streamType": Optional[StreamType],
+                        "compressed": Optional[Compressed],
+                    },
+                ),
+                response_type=Dataset,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _DatasetClientRaw:
+    """
+    The API client for the Dataset Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        *,
+        name: DatasetName,
+        parent_folder_rid: FolderRid,
+        schema: StreamSchemaDict,
+        branch_name: Optional[BranchName] = None,
+        compressed: Optional[Compressed] = None,
+        partitions_count: Optional[PartitionsCount] = None,
+        preview: Optional[PreviewMode] = None,
+        stream_type: Optional[StreamType] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Dataset]:
+        """
+        Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
+        default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
+        [streams](/docs/foundry/data-integration/streams/) user documentation.
+
+        :param name:
+        :type name: DatasetName
+        :param parent_folder_rid:
+        :type parent_folder_rid: FolderRid
+        :param schema: The Foundry schema to apply to the new stream.
+        :type schema: StreamSchemaDict
+        :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
+        :type branch_name: Optional[BranchName]
+        :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
+        :type compressed: Optional[Compressed]
+        :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
+        :type partitions_count: Optional[PartitionsCount]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+        :type stream_type: Optional[StreamType]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Dataset]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/streams/datasets/create",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "name": name,
+                    "parentFolderRid": parent_folder_rid,
+                    "schema": schema,
+                    "branchName": branch_name,
+                    "partitionsCount": partitions_count,
+                    "streamType": stream_type,
+                    "compressed": compressed,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "name": DatasetName,
+                        "parentFolderRid": FolderRid,
+                        "schema": StreamSchemaDict,
+                        "branchName": Optional[BranchName],
+                        "partitionsCount": Optional[PartitionsCount],
+                        "streamType": Optional[StreamType],
+                        "compressed": Optional[Compressed],
+                    },
+                ),
+                response_type=Dataset,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _DatasetClientStreaming:
+    """
+    The API client for the Dataset Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        *,
+        name: DatasetName,
+        parent_folder_rid: FolderRid,
+        schema: StreamSchemaDict,
+        branch_name: Optional[BranchName] = None,
+        compressed: Optional[Compressed] = None,
+        partitions_count: Optional[PartitionsCount] = None,
+        preview: Optional[PreviewMode] = None,
+        stream_type: Optional[StreamType] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Dataset]:
+        """
+        Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
+        default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
+        [streams](/docs/foundry/data-integration/streams/) user documentation.
+
+        :param name:
+        :type name: DatasetName
+        :param parent_folder_rid:
+        :type parent_folder_rid: FolderRid
+        :param schema: The Foundry schema to apply to the new stream.
+        :type schema: StreamSchemaDict
+        :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
+        :type branch_name: Optional[BranchName]
+        :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
+        :type compressed: Optional[Compressed]
+        :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
+        :type partitions_count: Optional[PartitionsCount]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+        :type stream_type: Optional[StreamType]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Dataset]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/create",

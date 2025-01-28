@@ -23,9 +23,11 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry._core import ApiClient
+from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import Config
 from foundry._core import RequestInfo
+from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -39,7 +41,7 @@ class ValueTypeClient:
     The API client for the ValueType Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com").
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
@@ -50,6 +52,10 @@ class ValueTypeClient:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self.with_streaming_response = _ValueTypeClientStreaming(
+            auth=auth, hostname=hostname, config=config
+        )
+        self.with_raw_response = _ValueTypeClientRaw(auth=auth, hostname=hostname, config=config)
         self.VersionId = VersionIdClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -76,6 +82,128 @@ class ValueTypeClient:
         """
 
         return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/functions/valueTypes/{valueTypeRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "valueTypeRid": value_type_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ValueType,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+
+class _ValueTypeClientRaw:
+    """
+    The API client for the ValueType Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        value_type_rid: ValueTypeRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ValueType]:
+        """
+        Gets a specific value type with the given RID. The latest version is returned.
+
+        :param value_type_rid: valueTypeRid
+        :type value_type_rid: ValueTypeRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ValueType]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/functions/valueTypes/{valueTypeRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "valueTypeRid": value_type_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ValueType,
+                request_timeout=request_timeout,
+            ),
+        )
+
+
+class _ValueTypeClientStreaming:
+    """
+    The API client for the ValueType Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: Auth,
+        hostname: str,
+        config: Optional[Config] = None,
+    ):
+        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get(
+        self,
+        value_type_rid: ValueTypeRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ValueType]:
+        """
+        Gets a specific value type with the given RID. The latest version is returned.
+
+        :param value_type_rid: valueTypeRid
+        :type value_type_rid: ValueTypeRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ValueType]
+        """
+
+        return self._api_client.stream_api(
             RequestInfo(
                 method="GET",
                 resource_path="/v2/functions/valueTypes/{valueTypeRid}",
