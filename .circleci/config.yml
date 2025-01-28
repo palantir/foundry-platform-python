@@ -23,7 +23,7 @@ jobs:
       - run: pip install --user tox
       - run: poetry --no-ansi install --no-root --sync
       - run: |
-        PYDANTIC_VERSION=<< parameters.pydantic_version >>.* \
+          PYDANTIC_VERSION=<< parameters.pydantic_version >>.* \
           HTTPX_VERSION=<< parameters.httpx_version >>.* \
           poetry --no-ansi run tox -v -e py<< parameters.python_version >> --recreate
 
