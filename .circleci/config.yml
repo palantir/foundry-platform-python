@@ -74,9 +74,6 @@ workflows:
       - circle-all:
           <<: *always-run
           requires:
-            - python-3.9
-            - python-3.10
-            - python-3.11
             - python-3.12
 
 
