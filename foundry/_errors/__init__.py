@@ -15,7 +15,6 @@
 
 from foundry._errors.connection_error import ConnectionError
 from foundry._errors.connection_error import ProxyError
-from foundry._errors.connection_error import SSLError
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry._errors.not_authenticated import NotAuthenticated
 from foundry._errors.palantir_exception import PalantirException
@@ -33,3 +32,4 @@ from foundry._errors.stream_error import StreamConsumedError
 from foundry._errors.timeout_error import ConnectTimeout
 from foundry._errors.timeout_error import ReadTimeout
 from foundry._errors.timeout_error import TimeoutError
+from foundry._errors.timeout_error import WriteTimeout

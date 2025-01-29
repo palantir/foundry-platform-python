@@ -18,7 +18,7 @@ from foundry._errors.palantir_exception import PalantirException
 
 
 class TimeoutError(PalantirException):
-    """The request timed out. This error will catch both ConnectTimeout and ReadTimeout."""
+    """The request timed out. This error will catch both ConnectTimeout, ReadTimeout and WriteTimeout."""
 
 
 class ConnectTimeout(ConnectionError, TimeoutError):
@@ -27,3 +27,7 @@ class ConnectTimeout(ConnectionError, TimeoutError):
 
 class ReadTimeout(TimeoutError):
     """The server did not send any data in the allotted amount of time."""
+
+
+class WriteTimeout(TimeoutError):
+    """There was a timeout when writing data to the server."""
