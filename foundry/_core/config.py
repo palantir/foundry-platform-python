@@ -36,8 +36,8 @@ class Config:
     timeout: Optional[Union[int, float]] = None
     """The default timeout for all requests in seconds."""
 
-    verify: Optional[Union[bool, str]] = True
-    """SSL verification, can be a boolean or a path to a CA bundle."""
+    verify: Union[bool, str] = True
+    """SSL verification, can be a boolean or a path to a CA bundle. Defaults to `True`."""
 
     default_params: Optional[Dict[str, Any]] = None
     """URL query parameters to include with all requests."""

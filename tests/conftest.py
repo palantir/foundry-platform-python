@@ -33,4 +33,3 @@ def fastapi_server():
 
     # Teardown: Stop the server
     process.terminate()
-    process.wait()

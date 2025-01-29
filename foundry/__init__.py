@@ -34,11 +34,11 @@ from foundry._errors import ProxyError
 from foundry._errors import RateLimitError
 from foundry._errors import ReadTimeout
 from foundry._errors import SDKInternalError
-from foundry._errors import SSLError
 from foundry._errors import StreamConsumedError
 from foundry._errors import TimeoutError
 from foundry._errors import UnauthorizedError
 from foundry._errors import UnprocessableEntityError
+from foundry._errors import WriteTimeout
 
 # The OpenAPI document version from the spec information
 # See https://swagger.io/specification/#info-object
@@ -61,7 +61,6 @@ __all__ = [
     "NotAuthenticated",
     "ConnectionError",
     "ProxyError",
-    "SSLError",
     "PalantirRPCException",
     "BadRequestError",
     "UnauthorizedError",
@@ -72,4 +71,8 @@ __all__ = [
     "InternalServerError",
     "SDKInternalError",
     "StreamConsumedError",
+    "ConnectTimeout",
+    "ReadTimeout",
+    "WriteTimeout",
+    "TimeoutError",
 ]

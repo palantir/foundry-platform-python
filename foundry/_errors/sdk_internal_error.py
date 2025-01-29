@@ -20,9 +20,9 @@ from typing import Callable
 from typing import TypeVar
 
 import pydantic
+from httpx import __version__ as __httpx_version__
 from pydantic import __version__ as __pydantic__version__
 from pydantic_core import __version__ as __pydantic_core_version__
-from requests import __version__ as __requests_version__
 
 from foundry._errors.palantir_exception import PalantirException
 from foundry._versions import __openapi_document_version__
@@ -66,7 +66,7 @@ class SDKInternalError(PalantirException):
             f"OpenAPI Document Version: {__openapi_document_version__}\n"
             f"Pydantic Version: {__pydantic__version__}\n"
             f"Pydantic Core Version: {__pydantic_core_version__}\n"
-            f"Requests Version: {__requests_version__}\n"
+            f"Httpx Version: {__httpx_version__}\n"
         )
 
         return message

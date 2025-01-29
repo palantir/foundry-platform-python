@@ -61,7 +61,7 @@ SDK Version: \d+\.\d+\.\d+
 OpenAPI Document Version: \d+\.\d+\.\d+
 Pydantic Version: \d+\.\d+\.\d+
 Pydantic Core Version: \d+\.\d+\.\d+
-Requests Version: \d+\.\d+\.\d+
+Httpx Version: \d+\.\d+\.\d+
 $""",
             str(error.value),
         )
