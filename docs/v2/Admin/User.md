@@ -6,6 +6,7 @@ Method | HTTP request |
 [**get**](#get) | **GET** /v2/admin/users/{userId} |
 [**get_batch**](#get_batch) | **POST** /v2/admin/users/getBatch |
 [**get_current**](#get_current) | **GET** /v2/admin/users/getCurrent |
+[**get_markings**](#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings |
 [**list**](#list) | **GET** /v2/admin/users |
 [**page**](#page) | **GET** /v2/admin/users |
 [**profile_picture**](#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture |
@@ -211,6 +212,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_markings**
 Retrieve Markings that the user is currently a member of.
 
 ### Parameters

@@ -24,6 +24,7 @@ from typing import Optional
 import pydantic
 from annotated_types import Len
 from typing_extensions import Annotated
+from typing_extensions import TypedDict
 
 from foundry._core import ApiClient
 from foundry._core import ApiResponse
@@ -42,10 +43,14 @@ from foundry.v2.admin.models._get_markings_batch_request_element_dict import (
 from foundry.v2.admin.models._get_markings_batch_response import GetMarkingsBatchResponse  # NOQA
 from foundry.v2.admin.models._list_markings_response import ListMarkingsResponse
 from foundry.v2.admin.models._marking import Marking
+from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
+from foundry.v2.admin.models._marking_name import MarkingName
+from foundry.v2.admin.models._marking_role_update_dict import MarkingRoleUpdateDict
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.core.models._principal_id import PrincipalId
 
 
 class MarkingClient:
@@ -72,6 +77,74 @@ class MarkingClient:
         self.MarkingRoleAssignment = MarkingRoleAssignmentClient(
             auth=auth, hostname=hostname, config=config
         )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        *,
+        category_id: MarkingCategoryId,
+        initial_members: List[PrincipalId],
+        initial_role_assignments: List[MarkingRoleUpdateDict],
+        name: MarkingName,
+        description: Optional[str] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Marking:
+        """
+        Creates a new Marking.
+        :param category_id:
+        :type category_id: MarkingCategoryId
+        :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
+        :type initial_members: List[PrincipalId]
+        :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+        :type initial_role_assignments: List[MarkingRoleUpdateDict]
+        :param name:
+        :type name: MarkingName
+        :param description:
+        :type description: Optional[str]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Marking
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "initialRoleAssignments": initial_role_assignments,
+                    "initialMembers": initial_members,
+                    "name": name,
+                    "description": description,
+                    "categoryId": category_id,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "initialRoleAssignments": List[MarkingRoleUpdateDict],
+                        "initialMembers": List[PrincipalId],
+                        "name": MarkingName,
+                        "description": Optional[str],
+                        "categoryId": MarkingCategoryId,
+                    },
+                ),
+                response_type=Marking,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -279,6 +352,74 @@ class _MarkingClientRaw:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
+    def create(
+        self,
+        *,
+        category_id: MarkingCategoryId,
+        initial_members: List[PrincipalId],
+        initial_role_assignments: List[MarkingRoleUpdateDict],
+        name: MarkingName,
+        description: Optional[str] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Marking]:
+        """
+        Creates a new Marking.
+        :param category_id:
+        :type category_id: MarkingCategoryId
+        :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
+        :type initial_members: List[PrincipalId]
+        :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+        :type initial_role_assignments: List[MarkingRoleUpdateDict]
+        :param name:
+        :type name: MarkingName
+        :param description:
+        :type description: Optional[str]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Marking]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "initialRoleAssignments": initial_role_assignments,
+                    "initialMembers": initial_members,
+                    "name": name,
+                    "description": description,
+                    "categoryId": category_id,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "initialRoleAssignments": List[MarkingRoleUpdateDict],
+                        "initialMembers": List[PrincipalId],
+                        "name": MarkingName,
+                        "description": Optional[str],
+                        "categoryId": MarkingCategoryId,
+                    },
+                ),
+                response_type=Marking,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
     def get(
         self,
         marking_id: MarkingId,
@@ -478,6 +619,74 @@ class _MarkingClientStreaming:
         config: Optional[Config] = None,
     ):
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create(
+        self,
+        *,
+        category_id: MarkingCategoryId,
+        initial_members: List[PrincipalId],
+        initial_role_assignments: List[MarkingRoleUpdateDict],
+        name: MarkingName,
+        description: Optional[str] = None,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Marking]:
+        """
+        Creates a new Marking.
+        :param category_id:
+        :type category_id: MarkingCategoryId
+        :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
+        :type initial_members: List[PrincipalId]
+        :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+        :type initial_role_assignments: List[MarkingRoleUpdateDict]
+        :param name:
+        :type name: MarkingName
+        :param description:
+        :type description: Optional[str]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Marking]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "initialRoleAssignments": initial_role_assignments,
+                    "initialMembers": initial_members,
+                    "name": name,
+                    "description": description,
+                    "categoryId": category_id,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "initialRoleAssignments": List[MarkingRoleUpdateDict],
+                        "initialMembers": List[PrincipalId],
+                        "name": MarkingName,
+                        "description": Optional[str],
+                        "categoryId": MarkingCategoryId,
+                    },
+                ),
+                response_type=Marking,
+                request_timeout=request_timeout,
+            ),
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
