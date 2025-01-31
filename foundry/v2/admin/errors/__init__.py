@@ -25,6 +25,15 @@ from foundry.v2.admin.errors._add_marking_role_assignments_permission_denied imp
 from foundry.v2.admin.errors._create_group_permission_denied import (
     CreateGroupPermissionDenied,
 )  # NOQA
+from foundry.v2.admin.errors._create_marking_missing_initial_admin_role import (
+    CreateMarkingMissingInitialAdminRole,
+)  # NOQA
+from foundry.v2.admin.errors._create_marking_name_in_category_already_exists import (
+    CreateMarkingNameInCategoryAlreadyExists,
+)  # NOQA
+from foundry.v2.admin.errors._create_marking_permission_denied import (
+    CreateMarkingPermissionDenied,
+)  # NOQA
 from foundry.v2.admin.errors._delete_group_permission_denied import (
     DeleteGroupPermissionDenied,
 )  # NOQA
@@ -94,6 +103,9 @@ __all__ = [
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
     "CreateGroupPermissionDenied",
+    "CreateMarkingMissingInitialAdminRole",
+    "CreateMarkingNameInCategoryAlreadyExists",
+    "CreateMarkingPermissionDenied",
     "DeleteGroupPermissionDenied",
     "DeleteUserPermissionDenied",
     "EnrollmentNotFound",

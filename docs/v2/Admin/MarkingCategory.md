@@ -2,7 +2,11 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**get**](#get) | **GET** /v2/admin/markingCategories/{markingCategoryId} |
+[**list**](#list) | **GET** /v2/admin/markingCategories |
+[**page**](#page) | **GET** /v2/admin/markingCategories |
 
+# **get**
 Get the MarkingCategory with the specified id.
 
 ### Parameters
@@ -57,6 +61,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **list**
 Maximum page size 100.
 
 ### Parameters
@@ -114,6 +119,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **page**
 Maximum page size 100.
 
 ### Parameters

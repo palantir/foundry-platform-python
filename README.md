@@ -410,6 +410,14 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | GroupMember | [**remove**](docs/v2/Admin/GroupMember.md#remove) | **POST** /v2/admin/groups/{groupId}/groupMembers/remove |
 **Admin** | GroupMembership | [**list**](docs/v2/Admin/GroupMembership.md#list) | **GET** /v2/admin/users/{userId}/groupMemberships |
 **Admin** | GroupMembership | [**page**](docs/v2/Admin/GroupMembership.md#page) | **GET** /v2/admin/users/{userId}/groupMemberships |
+**Admin** | Marking | [**create**](docs/v2/Admin/Marking.md#create) | **POST** /v2/admin/markings |
+**Admin** | Marking | [**get**](docs/v2/Admin/Marking.md#get) | **GET** /v2/admin/markings/{markingId} |
+**Admin** | Marking | [**get_batch**](docs/v2/Admin/Marking.md#get_batch) | **POST** /v2/admin/markings/getBatch |
+**Admin** | Marking | [**list**](docs/v2/Admin/Marking.md#list) | **GET** /v2/admin/markings |
+**Admin** | Marking | [**page**](docs/v2/Admin/Marking.md#page) | **GET** /v2/admin/markings |
+**Admin** | MarkingCategory | [**get**](docs/v2/Admin/MarkingCategory.md#get) | **GET** /v2/admin/markingCategories/{markingCategoryId} |
+**Admin** | MarkingCategory | [**list**](docs/v2/Admin/MarkingCategory.md#list) | **GET** /v2/admin/markingCategories |
+**Admin** | MarkingCategory | [**page**](docs/v2/Admin/MarkingCategory.md#page) | **GET** /v2/admin/markingCategories |
 **Admin** | MarkingMember | [**add**](docs/v2/Admin/MarkingMember.md#add) | **POST** /v2/admin/markings/{markingId}/markingMembers/add |
 **Admin** | MarkingMember | [**list**](docs/v2/Admin/MarkingMember.md#list) | **GET** /v2/admin/markings/{markingId}/markingMembers |
 **Admin** | MarkingMember | [**page**](docs/v2/Admin/MarkingMember.md#page) | **GET** /v2/admin/markings/{markingId}/markingMembers |
@@ -422,6 +430,7 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | User | [**get**](docs/v2/Admin/User.md#get) | **GET** /v2/admin/users/{userId} |
 **Admin** | User | [**get_batch**](docs/v2/Admin/User.md#get_batch) | **POST** /v2/admin/users/getBatch |
 **Admin** | User | [**get_current**](docs/v2/Admin/User.md#get_current) | **GET** /v2/admin/users/getCurrent |
+**Admin** | User | [**get_markings**](docs/v2/Admin/User.md#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings |
 **Admin** | User | [**list**](docs/v2/Admin/User.md#list) | **GET** /v2/admin/users |
 **Admin** | User | [**page**](docs/v2/Admin/User.md#page) | **GET** /v2/admin/users |
 **Admin** | User | [**profile_picture**](docs/v2/Admin/User.md#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture |
@@ -739,6 +748,8 @@ Namespace | Resource | Operation | HTTP request |
 - [AsSecretNameDict](docs/v2/models/AsSecretNameDict.md)
 - [AwsAccessKey](docs/v2/models/AwsAccessKey.md)
 - [AwsAccessKeyDict](docs/v2/models/AwsAccessKeyDict.md)
+- [BasicCredentials](docs/v2/models/BasicCredentials.md)
+- [BasicCredentialsDict](docs/v2/models/BasicCredentialsDict.md)
 - [CloudIdentity](docs/v2/models/CloudIdentity.md)
 - [CloudIdentityDict](docs/v2/models/CloudIdentityDict.md)
 - [CloudIdentityRid](docs/v2/models/CloudIdentityRid.md)
@@ -808,13 +819,21 @@ Namespace | Resource | Operation | HTTP request |
 - [PlaintextValue](docs/v2/models/PlaintextValue.md)
 - [PostgreSqlImportConfig](docs/v2/models/PostgreSqlImportConfig.md)
 - [PostgreSqlImportConfigDict](docs/v2/models/PostgreSqlImportConfigDict.md)
+- [Protocol](docs/v2/models/Protocol.md)
+- [Region](docs/v2/models/Region.md)
 - [RuntimePlatform](docs/v2/models/RuntimePlatform.md)
 - [RuntimePlatformDict](docs/v2/models/RuntimePlatformDict.md)
 - [S3AuthenticationMode](docs/v2/models/S3AuthenticationMode.md)
 - [S3AuthenticationModeDict](docs/v2/models/S3AuthenticationModeDict.md)
 - [S3ConnectionConfiguration](docs/v2/models/S3ConnectionConfiguration.md)
 - [S3ConnectionConfigurationDict](docs/v2/models/S3ConnectionConfigurationDict.md)
+- [S3KmsConfiguration](docs/v2/models/S3KmsConfiguration.md)
+- [S3KmsConfigurationDict](docs/v2/models/S3KmsConfigurationDict.md)
+- [S3ProxyConfiguration](docs/v2/models/S3ProxyConfiguration.md)
+- [S3ProxyConfigurationDict](docs/v2/models/S3ProxyConfigurationDict.md)
 - [SecretName](docs/v2/models/SecretName.md)
+- [StsRoleConfiguration](docs/v2/models/StsRoleConfiguration.md)
+- [StsRoleConfigurationDict](docs/v2/models/StsRoleConfigurationDict.md)
 - [TableImport](docs/v2/models/TableImport.md)
 - [TableImportAllowSchemaChanges](docs/v2/models/TableImportAllowSchemaChanges.md)
 - [TableImportConfig](docs/v2/models/TableImportConfig.md)

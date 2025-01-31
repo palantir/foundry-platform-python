@@ -24,6 +24,8 @@ from foundry.v2.connectivity.models._as_secret_name import AsSecretName
 from foundry.v2.connectivity.models._as_secret_name_dict import AsSecretNameDict
 from foundry.v2.connectivity.models._aws_access_key import AwsAccessKey
 from foundry.v2.connectivity.models._aws_access_key_dict import AwsAccessKeyDict
+from foundry.v2.connectivity.models._basic_credentials import BasicCredentials
+from foundry.v2.connectivity.models._basic_credentials_dict import BasicCredentialsDict
 from foundry.v2.connectivity.models._cloud_identity import CloudIdentity
 from foundry.v2.connectivity.models._cloud_identity_dict import CloudIdentityDict
 from foundry.v2.connectivity.models._cloud_identity_rid import CloudIdentityRid
@@ -167,6 +169,8 @@ from foundry.v2.connectivity.models._postgre_sql_import_config import PostgreSql
 from foundry.v2.connectivity.models._postgre_sql_import_config_dict import (
     PostgreSqlImportConfigDict,
 )  # NOQA
+from foundry.v2.connectivity.models._protocol import Protocol
+from foundry.v2.connectivity.models._region import Region
 from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
 from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
 from foundry.v2.connectivity.models._s3_authentication_mode import S3AuthenticationMode
@@ -179,7 +183,17 @@ from foundry.v2.connectivity.models._s3_connection_configuration import (
 from foundry.v2.connectivity.models._s3_connection_configuration_dict import (
     S3ConnectionConfigurationDict,
 )  # NOQA
+from foundry.v2.connectivity.models._s3_kms_configuration import S3KmsConfiguration
+from foundry.v2.connectivity.models._s3_kms_configuration_dict import S3KmsConfigurationDict  # NOQA
+from foundry.v2.connectivity.models._s3_proxy_configuration import S3ProxyConfiguration
+from foundry.v2.connectivity.models._s3_proxy_configuration_dict import (
+    S3ProxyConfigurationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry.v2.connectivity.models._sts_role_configuration import StsRoleConfiguration
+from foundry.v2.connectivity.models._sts_role_configuration_dict import (
+    StsRoleConfigurationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._table_import import TableImport
 from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
     TableImportAllowSchemaChanges,
@@ -203,6 +217,8 @@ __all__ = [
     "AsSecretNameDict",
     "AwsAccessKey",
     "AwsAccessKeyDict",
+    "BasicCredentials",
+    "BasicCredentialsDict",
     "CloudIdentity",
     "CloudIdentityDict",
     "CloudIdentityRid",
@@ -272,13 +288,21 @@ __all__ = [
     "PlaintextValue",
     "PostgreSqlImportConfig",
     "PostgreSqlImportConfigDict",
+    "Protocol",
+    "Region",
     "RuntimePlatform",
     "RuntimePlatformDict",
     "S3AuthenticationMode",
     "S3AuthenticationModeDict",
     "S3ConnectionConfiguration",
     "S3ConnectionConfigurationDict",
+    "S3KmsConfiguration",
+    "S3KmsConfigurationDict",
+    "S3ProxyConfiguration",
+    "S3ProxyConfigurationDict",
     "SecretName",
+    "StsRoleConfiguration",
+    "StsRoleConfigurationDict",
     "TableImport",
     "TableImportAllowSchemaChanges",
     "TableImportConfig",

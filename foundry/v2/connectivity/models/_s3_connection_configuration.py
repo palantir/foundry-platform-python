@@ -21,10 +21,15 @@ from typing import cast
 
 import pydantic
 
+from foundry._core.utils import Long
+from foundry.v2.connectivity.models._region import Region
 from foundry.v2.connectivity.models._s3_authentication_mode import S3AuthenticationMode
 from foundry.v2.connectivity.models._s3_connection_configuration_dict import (
     S3ConnectionConfigurationDict,
 )  # NOQA
+from foundry.v2.connectivity.models._s3_kms_configuration import S3KmsConfiguration
+from foundry.v2.connectivity.models._s3_proxy_configuration import S3ProxyConfiguration
+from foundry.v2.connectivity.models._sts_role_configuration import StsRoleConfiguration
 
 
 class S3ConnectionConfiguration(pydantic.BaseModel):
@@ -37,6 +42,21 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
 
     """The URL of the S3 bucket. The URL should contain a trailing slash."""
 
+    s3_endpoint: Optional[str] = pydantic.Field(alias="s3Endpoint", default=None)
+
+    """
+    The endpoint of the S3 service. This is used to connect to a custom S3 service that is not AWS S3.
+    If not specified, defaults to the [AWS S3 endpoint](https://docs.aws.amazon.com/general/latest/gr/s3.html).
+    Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
+    """
+
+    region: Optional[Region] = None
+
+    """
+    The region representing the location of the S3 bucket.
+    Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
+    """
+
     authentication_mode: Optional[S3AuthenticationMode] = pydantic.Field(
         alias="authenticationMode", default=None
     )
@@ -44,6 +64,89 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     """
     The authentication mode to use to connect to the S3 external system. No authentication mode is required
     to connect to publicly accessible AWS S3 buckets.
+    """
+
+    s3_endpoint_signing_region: Optional[Region] = pydantic.Field(
+        alias="s3EndpointSigningRegion", default=None
+    )
+
+    """
+    The region used when constructing the S3 client using a custom endpoint.
+    This is often not required and would only be needed if you are using the S3 connector with an S3-compliant third-party API,
+    and are also setting a custom endpoint that requires a non-default region.
+    """
+
+    client_kms_configuration: Optional[S3KmsConfiguration] = pydantic.Field(
+        alias="clientKmsConfiguration", default=None
+    )
+
+    """
+    The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
+    If not specified, the default KMS key for the bucket is used.
+    """
+
+    sts_role_configuration: Optional[StsRoleConfiguration] = pydantic.Field(
+        alias="stsRoleConfiguration", default=None
+    )
+
+    """The configuration needed to assume a role to connect to the S3 external system."""
+
+    proxy_configuration: Optional[S3ProxyConfiguration] = pydantic.Field(
+        alias="proxyConfiguration", default=None
+    )
+
+    """The configuration needed to connect to the S3 external system through a proxy."""
+
+    max_connections: Optional[int] = pydantic.Field(alias="maxConnections", default=None)
+
+    """
+    The maximum number of HTTP connections to the S3 service per sync.
+    If not specified, defaults to 50 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_MAX_CONNECTIONS).
+    """
+
+    connection_timeout_millis: Optional[Long] = pydantic.Field(
+        alias="connectionTimeoutMillis", default=None
+    )
+
+    """
+    The amount of time (in milliseconds) to wait when initially establishing a connection before giving up and timing out.
+    If not specified, defaults to 10000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_CONNECTION_TIMEOUT).
+    """
+
+    socket_timeout_millis: Optional[Long] = pydantic.Field(
+        alias="socketTimeoutMillis", default=None
+    )
+
+    """
+    The amount of time (in milliseconds) to wait for data to be transferred over an established, open connection.
+    If not specified, defaults to 50000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_SOCKET_TIMEOUT).
+    """
+
+    max_error_retry: Optional[int] = pydantic.Field(alias="maxErrorRetry", default=None)
+
+    """
+    The maximum number of retry attempts for failed requests to the S3 service.
+    If not specified, defaults to 3 as defined by the [AWS SDK default](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/retry-strategy.html#retry-strategies).
+    """
+
+    match_subfolder_exactly: Optional[bool] = pydantic.Field(
+        alias="matchSubfolderExactly", default=None
+    )
+
+    """
+    If true, only files in the subfolder specified in the bucket URL will be synced.
+    If false, all files in the bucket will be synced.
+    If not specified, defaults to false.
+    """
+
+    enable_requester_pays: Optional[bool] = pydantic.Field(
+        alias="enableRequesterPays", default=None
+    )
+
+    """
+    Defaults to false, unless set and overwritten.
+    If true, includes the [requester pays header](https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html)
+    in requests, allowing reads from requester pays buckets.
     """
 
     type: Literal["s3"] = "s3"

@@ -358,6 +358,53 @@ def admin_marking():
     pass
 
 
+@admin_marking.command("create")
+@click.option("--category_id", type=str, required=True, help="""""")
+@click.option(
+    "--initial_members",
+    type=str,
+    required=True,
+    help="""Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
+""",
+)
+@click.option(
+    "--initial_role_assignments",
+    type=str,
+    required=True,
+    help="""The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be
+provided. This can be changed later through the MarkingRoleAssignment operations.
+
+WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of,
+you will create a Marking that you cannot administer.
+""",
+)
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_marking_create(
+    client: foundry.v2.FoundryClient,
+    category_id: str,
+    initial_members: str,
+    initial_role_assignments: str,
+    name: str,
+    description: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Creates a new Marking.
+    """
+    result = client.admin.Marking.create(
+        category_id=category_id,
+        initial_members=json.loads(initial_members),
+        initial_role_assignments=json.loads(initial_role_assignments),
+        name=name,
+        description=description,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_marking.command("get")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")

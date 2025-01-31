@@ -2,7 +2,86 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**create**](#create) | **POST** /v2/admin/markings |
+[**get**](#get) | **GET** /v2/admin/markings/{markingId} |
+[**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch |
+[**list**](#list) | **GET** /v2/admin/markings |
+[**page**](#page) | **GET** /v2/admin/markings |
 
+# **create**
+Creates a new Marking.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**category_id** | MarkingCategoryId |  |  |
+**initial_members** | List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.  |  |
+**initial_role_assignments** | List[MarkingRoleUpdateDict] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
+**name** | MarkingName |  |  |
+**description** | Optional[str] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**Marking**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MarkingCategoryId |
+category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
+# List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
+initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
+# List[MarkingRoleUpdateDict] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+initial_role_assignments = [
+    {"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
+]
+# MarkingName |
+name = "PII"
+# Optional[str] |
+description = "Contains personally identifiable information about our customers"
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Marking.create(
+        category_id=category_id,
+        initial_members=initial_members,
+        initial_role_assignments=initial_role_assignments,
+        name=name,
+        description=description,
+        preview=preview,
+    )
+    print("The create response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Marking.create: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Marking  | The created Marking | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get**
 Get the Marking with the specified id.
 
 ### Parameters
@@ -57,6 +136,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_batch**
 Execute multiple get requests on Marking.
 
 The maximum batch size for this endpoint is 500.
@@ -113,6 +193,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **list**
 Maximum page size 100.
 
 ### Parameters
@@ -170,6 +251,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **page**
 Maximum page size 100.
 
 ### Parameters
