@@ -366,6 +366,9 @@ class ApiClient:
         result: List[Tuple[str, Any]] = []
 
         for key, value in query_params.items():
+            if value is None:
+                continue
+
             if not isinstance(value, list):
                 result.append((key, value))
                 continue
