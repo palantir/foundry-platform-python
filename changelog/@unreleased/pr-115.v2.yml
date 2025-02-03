@@ -1,0 +1,5 @@
+type: fix
+fix:
+  description: Remove Nulls in Query Param Serialization
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/115
