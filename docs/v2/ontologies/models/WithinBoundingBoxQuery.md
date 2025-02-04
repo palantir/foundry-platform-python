@@ -6,7 +6,8 @@ Returns objects where the specified field contains a point within the bounding b
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | Optional[PropertyApiName] | No |  |
+**property_identifier** | Optional[PropertyIdentifier] | No |  |
 **value** | BoundingBoxValue | Yes |  |
 **type** | Literal["withinBoundingBox"] | Yes | None |
 

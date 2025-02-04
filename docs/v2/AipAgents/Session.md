@@ -50,7 +50,17 @@ agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | sessionRid
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, ParameterValueDict] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-parameter_inputs = None
+parameter_inputs = {
+    "currentCustomerOrders": {
+        "type": "objectSet",
+        "ontology": "example-ontology",
+        "objectSet": {
+            "type": "filter",
+            "objectSet": {"type": "base", "objectType": "customerOrder"},
+            "where": {"type": "eq", "field": "customerId", "value": "123abc"},
+        },
+    }
+}
 # UserTextInputDict | The user message for the Agent to respond to.
 user_input = {"text": "What is the status of my order?"}
 # Optional[List[InputContextDict]] | If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.

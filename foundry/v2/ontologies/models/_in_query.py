@@ -17,19 +17,25 @@ from __future__ import annotations
 
 from typing import List
 from typing import Literal
+from typing import Optional
 from typing import cast
 
 import pydantic
 
 from foundry.v2.ontologies.models._in_query_dict import InQueryDict
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._property_identifier import PropertyIdentifier
 from foundry.v2.ontologies.models._property_value import PropertyValue
 
 
 class InQuery(pydantic.BaseModel):
     """Returns objects where the specified field equals any of the provided values."""
 
-    field: PropertyApiName
+    field: Optional[PropertyApiName] = None
+
+    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(
+        alias="propertyIdentifier", default=None
+    )
 
     value: List[PropertyValue]
 

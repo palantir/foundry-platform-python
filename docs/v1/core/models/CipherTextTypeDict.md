@@ -5,6 +5,7 @@ CipherTextType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**defaultCipherChannel** | NotRequired[str] | No | An optional Cipher Channel RID which can be used for encryption updates to empty values.  |
 **type** | Literal["cipherText"] | Yes | None |
 
 

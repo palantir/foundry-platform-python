@@ -5,7 +5,8 @@ Returns objects where the specified field is equal to a value.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | Optional[PropertyApiName] | No |  |
+**property_identifier** | Optional[PropertyIdentifier] | No |  |
 **value** | PropertyValue | Yes |  |
 **type** | Literal["eq"] | Yes | None |
 

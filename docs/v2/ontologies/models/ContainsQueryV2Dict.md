@@ -5,7 +5,8 @@ Returns objects where the specified array contains a value.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | PropertyValue | Yes |  |
 **type** | Literal["contains"] | Yes | None |
 

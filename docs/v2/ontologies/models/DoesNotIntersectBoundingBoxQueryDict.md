@@ -6,7 +6,8 @@ Returns objects where the specified field does not intersect the bounding box pr
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | BoundingBoxValueDict | Yes |  |
 **type** | Literal["doesNotIntersectBoundingBox"] | Yes | None |
 

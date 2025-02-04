@@ -19,7 +19,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry.v1.core.models._duration import Duration
+from foundry.v1.ontologies.models._duration import Duration
 from foundry.v1.ontologies.models._field_name_v1 import FieldNameV1
 
 

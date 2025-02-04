@@ -6,7 +6,8 @@ Returns objects where the specified field contains a point within the polygon pr
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | PolygonValueDict | Yes |  |
 **type** | Literal["withinPolygon"] | Yes | None |
 

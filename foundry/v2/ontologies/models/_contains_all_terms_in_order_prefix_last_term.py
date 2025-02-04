@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from typing import Literal
+from typing import Optional
 from typing import cast
 
 import pydantic
@@ -24,6 +25,7 @@ from foundry.v2.ontologies.models._contains_all_terms_in_order_prefix_last_term_
     ContainsAllTermsInOrderPrefixLastTermDict,
 )  # NOQA
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._property_identifier import PropertyIdentifier
 
 
 class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
@@ -33,7 +35,11 @@ class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
     The last term can be a partial prefix match.
     """
 
-    field: PropertyApiName
+    field: Optional[PropertyApiName] = None
+
+    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(
+        alias="propertyIdentifier", default=None
+    )
 
     value: str
 

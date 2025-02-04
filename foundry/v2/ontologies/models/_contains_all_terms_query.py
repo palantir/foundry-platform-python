@@ -26,6 +26,7 @@ from foundry.v2.ontologies.models._contains_all_terms_query_dict import (
 )  # NOQA
 from foundry.v2.ontologies.models._fuzzy_v2 import FuzzyV2
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._property_identifier import PropertyIdentifier
 
 
 class ContainsAllTermsQuery(pydantic.BaseModel):
@@ -34,7 +35,11 @@ class ContainsAllTermsQuery(pydantic.BaseModel):
     order in the provided value. This query supports fuzzy matching.
     """
 
-    field: PropertyApiName
+    field: Optional[PropertyApiName] = None
+
+    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(
+        alias="propertyIdentifier", default=None
+    )
 
     value: str
 

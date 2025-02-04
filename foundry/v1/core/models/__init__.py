@@ -32,7 +32,6 @@ from foundry.v1.core.models._display_name import DisplayName
 from foundry.v1.core.models._distance_unit import DistanceUnit
 from foundry.v1.core.models._double_type import DoubleType
 from foundry.v1.core.models._double_type_dict import DoubleTypeDict
-from foundry.v1.core.models._duration import Duration
 from foundry.v1.core.models._file_path import FilePath
 from foundry.v1.core.models._float_type import FloatType
 from foundry.v1.core.models._float_type_dict import FloatTypeDict
@@ -79,7 +78,6 @@ __all__ = [
     "DistanceUnit",
     "DoubleType",
     "DoubleTypeDict",
-    "Duration",
     "FilePath",
     "FloatType",
     "FloatTypeDict",

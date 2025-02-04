@@ -8,7 +8,8 @@ The last term can be a partial prefix match.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | str | Yes |  |
 **type** | Literal["containsAllTermsInOrderPrefixLastTerm"] | Yes | None |
 

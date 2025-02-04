@@ -5,7 +5,8 @@ Returns objects where the specified field starts with the provided value.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | str | Yes |  |
 **type** | Literal["startsWith"] | Yes | None |
 

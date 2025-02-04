@@ -5,7 +5,8 @@ Returns objects where the specified field equals any of the provided values.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | List[PropertyValue] | Yes |  |
 **type** | Literal["in"] | Yes | None |
 

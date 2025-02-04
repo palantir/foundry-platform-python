@@ -6,7 +6,8 @@ Returns objects where the specified field intersects the bounding box provided.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | BoundingBoxValueDict | Yes |  |
 **type** | Literal["intersectsBoundingBox"] | Yes | None |
 

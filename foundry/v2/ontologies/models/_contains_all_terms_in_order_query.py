@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from typing import Literal
+from typing import Optional
 from typing import cast
 
 import pydantic
@@ -24,6 +25,7 @@ from foundry.v2.ontologies.models._contains_all_terms_in_order_query_dict import
     ContainsAllTermsInOrderQueryDict,
 )  # NOQA
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._property_identifier import PropertyIdentifier
 
 
 class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
@@ -32,7 +34,11 @@ class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
     but they do have to be adjacent to each other.
     """
 
-    field: PropertyApiName
+    field: Optional[PropertyApiName] = None
+
+    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(
+        alias="propertyIdentifier", default=None
+    )
 
     value: str
 

@@ -5,7 +5,8 @@ Returns objects based on the existence of the specified field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | bool | Yes |  |
 **type** | Literal["isNull"] | Yes | None |
 

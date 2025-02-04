@@ -15,14 +15,14 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from typing_extensions import TypedDict
 
 
 class ObjectSetMethodInputTypeDict(TypedDict):
-    """
-    ObjectSet which is the root of a MethodObjectSet definition.
-
-    This feature is experimental and not yet generally available.
-    """
+    """ObjectSetMethodInputType"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    type: Literal["methodInput"]

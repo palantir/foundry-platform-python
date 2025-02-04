@@ -6,7 +6,8 @@ Returns objects where the specified field does not intersect the polygon provide
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | PolygonValueDict | Yes |  |
 **type** | Literal["doesNotIntersectPolygon"] | Yes | None |
 

@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from typing import Literal
 from typing import cast
 
 import pydantic
@@ -25,11 +26,9 @@ from foundry.v2.ontologies.models._object_set_method_input_type_dict import (
 
 
 class ObjectSetMethodInputType(pydantic.BaseModel):
-    """
-    ObjectSet which is the root of a MethodObjectSet definition.
+    """ObjectSetMethodInputType"""
 
-    This feature is experimental and not yet generally available.
-    """
+    type: Literal["methodInput"] = "methodInput"
 
     model_config = {"extra": "allow"}
 

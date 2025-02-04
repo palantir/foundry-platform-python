@@ -7,7 +7,8 @@ order in the provided value. This query supports fuzzy matching.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | str | Yes |  |
 **fuzzy** | NotRequired[FuzzyV2] | No |  |
 **type** | Literal["containsAllTerms"] | Yes | None |

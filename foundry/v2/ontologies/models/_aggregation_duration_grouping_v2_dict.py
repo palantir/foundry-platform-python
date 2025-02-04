@@ -19,8 +19,8 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry.v2.core.models._time_unit import TimeUnit
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._time_unit import TimeUnit
 
 
 class AggregationDurationGroupingV2Dict(TypedDict):
