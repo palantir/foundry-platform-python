@@ -206,7 +206,7 @@ class ResourceRoleClient:
         """
 
         warnings.warn(
-            "The client.filesystem.ResourceRole.page(...) method has been deprecated. Please use client.filesystem.ResourceRole.list(...) instead.",
+            "The client.filesystem.Role.page(...) method has been deprecated. Please use client.filesystem.Role.list(...) instead.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -444,7 +444,7 @@ class _ResourceRoleClientRaw:
         """
 
         warnings.warn(
-            "The client.filesystem.ResourceRole.page(...) method has been deprecated. Please use client.filesystem.ResourceRole.list(...) instead.",
+            "The client.filesystem.Role.page(...) method has been deprecated. Please use client.filesystem.Role.list(...) instead.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -682,7 +682,7 @@ class _ResourceRoleClientStreaming:
         """
 
         warnings.warn(
-            "The client.filesystem.ResourceRole.page(...) method has been deprecated. Please use client.filesystem.ResourceRole.list(...) instead.",
+            "The client.filesystem.Role.page(...) method has been deprecated. Please use client.filesystem.Role.list(...) instead.",
             DeprecationWarning,
             stacklevel=2,
         )

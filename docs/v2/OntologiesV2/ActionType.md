@@ -1,4 +1,4 @@
-# ActionTypeV2
+# ActionType
 
 Method | HTTP request |
 ------------- | ------------- |

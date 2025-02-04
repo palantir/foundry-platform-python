@@ -1,4 +1,4 @@
-# ObjectTypeV2
+# ObjectType
 
 Method | HTTP request |
 ------------- | ------------- |

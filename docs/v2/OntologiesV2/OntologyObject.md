@@ -1,4 +1,4 @@
-# OntologyObjectV2
+# OntologyObject
 
 Method | HTTP request |
 ------------- | ------------- |

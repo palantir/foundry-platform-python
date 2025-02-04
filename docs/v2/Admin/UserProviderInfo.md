@@ -36,14 +36,14 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.User.UserProviderInfo.get(
+    api_response = foundry_client.admin.User.ProviderInfo.get(
         user_id,
         preview=preview,
     )
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling UserProviderInfo.get: %s\n" % e)
+    print("HTTP error when calling ProviderInfo.get: %s\n" % e)
 
 ```
 
@@ -94,7 +94,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.User.UserProviderInfo.replace(
+    api_response = foundry_client.admin.User.ProviderInfo.replace(
         user_id,
         provider_id=provider_id,
         preview=preview,
@@ -102,7 +102,7 @@ try:
     print("The replace response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling UserProviderInfo.replace: %s\n" % e)
+    print("HTTP error when calling ProviderInfo.replace: %s\n" % e)
 
 ```
 

@@ -53,7 +53,7 @@ from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
 
 class AttachmentPropertyClient:
     """
-    The API client for the AttachmentPropertyV2 Resource.
+    The API client for the AttachmentProperty Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -644,7 +644,7 @@ class AttachmentPropertyClient:
 
 class _AttachmentPropertyClientRaw:
     """
-    The API client for the AttachmentPropertyV2 Resource.
+    The API client for the AttachmentProperty Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -920,7 +920,7 @@ class _AttachmentPropertyClientRaw:
 
 class _AttachmentPropertyClientStreaming:
     """
-    The API client for the AttachmentPropertyV2 Resource.
+    The API client for the AttachmentProperty Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.

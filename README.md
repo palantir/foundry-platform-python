@@ -493,33 +493,33 @@ Namespace | Resource | Operation | HTTP request |
 **Filesystem** | Folder | [**get**](docs/v2/Filesystem/Folder.md#get) | **GET** /v2/filesystem/folders/{folderRid} |
 **OntologiesV2** | Action | [**apply**](docs/v2/OntologiesV2/Action.md#apply) | **POST** /v2/ontologies/{ontology}/actions/{action}/apply |
 **OntologiesV2** | Action | [**apply_batch**](docs/v2/OntologiesV2/Action.md#apply_batch) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyBatch |
-**OntologiesV2** | ActionTypeV2 | [**get**](docs/v2/OntologiesV2/ActionTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
-**OntologiesV2** | ActionTypeV2 | [**list**](docs/v2/OntologiesV2/ActionTypeV2.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
-**OntologiesV2** | ActionTypeV2 | [**page**](docs/v2/OntologiesV2/ActionTypeV2.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
+**OntologiesV2** | ActionType | [**get**](docs/v2/OntologiesV2/ActionType.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
+**OntologiesV2** | ActionType | [**list**](docs/v2/OntologiesV2/ActionType.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
+**OntologiesV2** | ActionType | [**page**](docs/v2/OntologiesV2/ActionType.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
 **OntologiesV2** | Attachment | [**get**](docs/v2/OntologiesV2/Attachment.md#get) | **GET** /v2/ontologies/attachments/{attachmentRid} |
 **OntologiesV2** | Attachment | [**read**](docs/v2/OntologiesV2/Attachment.md#read) | **GET** /v2/ontologies/attachments/{attachmentRid}/content |
 **OntologiesV2** | Attachment | [**upload**](docs/v2/OntologiesV2/Attachment.md#upload) | **POST** /v2/ontologies/attachments/upload |
-**OntologiesV2** | AttachmentPropertyV2 | [**get_attachment**](docs/v2/OntologiesV2/AttachmentPropertyV2.md#get_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property} |
-**OntologiesV2** | AttachmentPropertyV2 | [**get_attachment_by_rid**](docs/v2/OntologiesV2/AttachmentPropertyV2.md#get_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid} |
-**OntologiesV2** | AttachmentPropertyV2 | [**read_attachment**](docs/v2/OntologiesV2/AttachmentPropertyV2.md#read_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content |
-**OntologiesV2** | AttachmentPropertyV2 | [**read_attachment_by_rid**](docs/v2/OntologiesV2/AttachmentPropertyV2.md#read_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content |
-**OntologiesV2** | LinkedObjectV2 | [**get_linked_object**](docs/v2/OntologiesV2/LinkedObjectV2.md#get_linked_object) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} |
-**OntologiesV2** | LinkedObjectV2 | [**list_linked_objects**](docs/v2/OntologiesV2/LinkedObjectV2.md#list_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
-**OntologiesV2** | LinkedObjectV2 | [**page_linked_objects**](docs/v2/OntologiesV2/LinkedObjectV2.md#page_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
-**OntologiesV2** | ObjectTypeV2 | [**get**](docs/v2/OntologiesV2/ObjectTypeV2.md#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
-**OntologiesV2** | ObjectTypeV2 | [**get_outgoing_link_type**](docs/v2/OntologiesV2/ObjectTypeV2.md#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
-**OntologiesV2** | ObjectTypeV2 | [**list**](docs/v2/OntologiesV2/ObjectTypeV2.md#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
-**OntologiesV2** | ObjectTypeV2 | [**list_outgoing_link_types**](docs/v2/OntologiesV2/ObjectTypeV2.md#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
-**OntologiesV2** | ObjectTypeV2 | [**page**](docs/v2/OntologiesV2/ObjectTypeV2.md#page) | **GET** /v2/ontologies/{ontology}/objectTypes |
-**OntologiesV2** | ObjectTypeV2 | [**page_outgoing_link_types**](docs/v2/OntologiesV2/ObjectTypeV2.md#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+**OntologiesV2** | AttachmentProperty | [**get_attachment**](docs/v2/OntologiesV2/AttachmentProperty.md#get_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property} |
+**OntologiesV2** | AttachmentProperty | [**get_attachment_by_rid**](docs/v2/OntologiesV2/AttachmentProperty.md#get_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid} |
+**OntologiesV2** | AttachmentProperty | [**read_attachment**](docs/v2/OntologiesV2/AttachmentProperty.md#read_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content |
+**OntologiesV2** | AttachmentProperty | [**read_attachment_by_rid**](docs/v2/OntologiesV2/AttachmentProperty.md#read_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content |
+**OntologiesV2** | LinkedObject | [**get_linked_object**](docs/v2/OntologiesV2/LinkedObject.md#get_linked_object) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} |
+**OntologiesV2** | LinkedObject | [**list_linked_objects**](docs/v2/OntologiesV2/LinkedObject.md#list_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
+**OntologiesV2** | LinkedObject | [**page_linked_objects**](docs/v2/OntologiesV2/LinkedObject.md#page_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
+**OntologiesV2** | ObjectType | [**get**](docs/v2/OntologiesV2/ObjectType.md#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
+**OntologiesV2** | ObjectType | [**get_outgoing_link_type**](docs/v2/OntologiesV2/ObjectType.md#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
+**OntologiesV2** | ObjectType | [**list**](docs/v2/OntologiesV2/ObjectType.md#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
+**OntologiesV2** | ObjectType | [**list_outgoing_link_types**](docs/v2/OntologiesV2/ObjectType.md#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+**OntologiesV2** | ObjectType | [**page**](docs/v2/OntologiesV2/ObjectType.md#page) | **GET** /v2/ontologies/{ontology}/objectTypes |
+**OntologiesV2** | ObjectType | [**page_outgoing_link_types**](docs/v2/OntologiesV2/ObjectType.md#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+**OntologiesV2** | Ontology | [**get**](docs/v2/OntologiesV2/Ontology.md#get) | **GET** /v2/ontologies/{ontology} |
+**OntologiesV2** | OntologyObject | [**aggregate**](docs/v2/OntologiesV2/OntologyObject.md#aggregate) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/aggregate |
+**OntologiesV2** | OntologyObject | [**get**](docs/v2/OntologiesV2/OntologyObject.md#get) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey} |
+**OntologiesV2** | OntologyObject | [**list**](docs/v2/OntologiesV2/OntologyObject.md#list) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
+**OntologiesV2** | OntologyObject | [**page**](docs/v2/OntologiesV2/OntologyObject.md#page) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
+**OntologiesV2** | OntologyObject | [**search**](docs/v2/OntologiesV2/OntologyObject.md#search) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/search |
 **OntologiesV2** | OntologyObjectSet | [**aggregate**](docs/v2/OntologiesV2/OntologyObjectSet.md#aggregate) | **POST** /v2/ontologies/{ontology}/objectSets/aggregate |
 **OntologiesV2** | OntologyObjectSet | [**load**](docs/v2/OntologiesV2/OntologyObjectSet.md#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects |
-**OntologiesV2** | OntologyObjectV2 | [**aggregate**](docs/v2/OntologiesV2/OntologyObjectV2.md#aggregate) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/aggregate |
-**OntologiesV2** | OntologyObjectV2 | [**get**](docs/v2/OntologiesV2/OntologyObjectV2.md#get) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey} |
-**OntologiesV2** | OntologyObjectV2 | [**list**](docs/v2/OntologiesV2/OntologyObjectV2.md#list) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
-**OntologiesV2** | OntologyObjectV2 | [**page**](docs/v2/OntologiesV2/OntologyObjectV2.md#page) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
-**OntologiesV2** | OntologyObjectV2 | [**search**](docs/v2/OntologiesV2/OntologyObjectV2.md#search) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/search |
-**OntologiesV2** | OntologyV2 | [**get**](docs/v2/OntologiesV2/OntologyV2.md#get) | **GET** /v2/ontologies/{ontology} |
 **OntologiesV2** | Query | [**execute**](docs/v2/OntologiesV2/Query.md#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute |
 **OntologiesV2** | QueryType | [**get**](docs/v2/OntologiesV2/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
 **OntologiesV2** | QueryType | [**list**](docs/v2/OntologiesV2/QueryType.md#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
@@ -1253,6 +1253,9 @@ Namespace | Resource | Operation | HTTP request |
 - [DeleteObjectRuleDict](docs/v2/models/DeleteObjectRuleDict.md)
 - [DeprecatedPropertyTypeStatus](docs/v2/models/DeprecatedPropertyTypeStatus.md)
 - [DeprecatedPropertyTypeStatusDict](docs/v2/models/DeprecatedPropertyTypeStatusDict.md)
+- [DerivedPropertyApiName](docs/v2/models/DerivedPropertyApiName.md)
+- [DerivedPropertyDefinition](docs/v2/models/DerivedPropertyDefinition.md)
+- [DerivedPropertyDefinitionDict](docs/v2/models/DerivedPropertyDefinitionDict.md)
 - [DoesNotIntersectBoundingBoxQuery](docs/v2/models/DoesNotIntersectBoundingBoxQuery.md)
 - [DoesNotIntersectBoundingBoxQueryDict](docs/v2/models/DoesNotIntersectBoundingBoxQueryDict.md)
 - [DoesNotIntersectPolygonQuery](docs/v2/models/DoesNotIntersectPolygonQuery.md)
@@ -1269,6 +1272,8 @@ Namespace | Resource | Operation | HTTP request |
 - [FunctionRid](docs/v2/models/FunctionRid.md)
 - [FunctionVersion](docs/v2/models/FunctionVersion.md)
 - [FuzzyV2](docs/v2/models/FuzzyV2.md)
+- [GetSelectedPropertyOperation](docs/v2/models/GetSelectedPropertyOperation.md)
+- [GetSelectedPropertyOperationDict](docs/v2/models/GetSelectedPropertyOperationDict.md)
 - [GroupMemberConstraint](docs/v2/models/GroupMemberConstraint.md)
 - [GroupMemberConstraintDict](docs/v2/models/GroupMemberConstraintDict.md)
 - [GteQueryV2](docs/v2/models/GteQueryV2.md)
@@ -1332,6 +1337,8 @@ Namespace | Resource | Operation | HTTP request |
 - [LtQueryV2](docs/v2/models/LtQueryV2.md)
 - [LtQueryV2Dict](docs/v2/models/LtQueryV2Dict.md)
 - [MaxAggregationV2Dict](docs/v2/models/MaxAggregationV2Dict.md)
+- [MethodObjectSet](docs/v2/models/MethodObjectSet.md)
+- [MethodObjectSetDict](docs/v2/models/MethodObjectSetDict.md)
 - [MinAggregationV2Dict](docs/v2/models/MinAggregationV2Dict.md)
 - [ModifyInterfaceObjectRule](docs/v2/models/ModifyInterfaceObjectRule.md)
 - [ModifyInterfaceObjectRuleDict](docs/v2/models/ModifyInterfaceObjectRuleDict.md)
@@ -1360,6 +1367,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ObjectSetFilterTypeDict](docs/v2/models/ObjectSetFilterTypeDict.md)
 - [ObjectSetIntersectionType](docs/v2/models/ObjectSetIntersectionType.md)
 - [ObjectSetIntersectionTypeDict](docs/v2/models/ObjectSetIntersectionTypeDict.md)
+- [ObjectSetMethodInputType](docs/v2/models/ObjectSetMethodInputType.md)
+- [ObjectSetMethodInputTypeDict](docs/v2/models/ObjectSetMethodInputTypeDict.md)
 - [ObjectSetReferenceType](docs/v2/models/ObjectSetReferenceType.md)
 - [ObjectSetReferenceTypeDict](docs/v2/models/ObjectSetReferenceTypeDict.md)
 - [ObjectSetRid](docs/v2/models/ObjectSetRid.md)
@@ -1371,6 +1380,8 @@ Namespace | Resource | Operation | HTTP request |
 - [ObjectSetSubtractTypeDict](docs/v2/models/ObjectSetSubtractTypeDict.md)
 - [ObjectSetUnionType](docs/v2/models/ObjectSetUnionType.md)
 - [ObjectSetUnionTypeDict](docs/v2/models/ObjectSetUnionTypeDict.md)
+- [ObjectSetWithPropertiesType](docs/v2/models/ObjectSetWithPropertiesType.md)
+- [ObjectSetWithPropertiesTypeDict](docs/v2/models/ObjectSetWithPropertiesTypeDict.md)
 - [ObjectTypeApiName](docs/v2/models/ObjectTypeApiName.md)
 - [ObjectTypeEdits](docs/v2/models/ObjectTypeEdits.md)
 - [ObjectTypeEditsDict](docs/v2/models/ObjectTypeEditsDict.md)
@@ -1478,6 +1489,30 @@ Namespace | Resource | Operation | HTTP request |
 - [SearchOrderByV2Dict](docs/v2/models/SearchOrderByV2Dict.md)
 - [SearchOrderingV2Dict](docs/v2/models/SearchOrderingV2Dict.md)
 - [SelectedPropertyApiName](docs/v2/models/SelectedPropertyApiName.md)
+- [SelectedPropertyApproximateDistinctAggregation](docs/v2/models/SelectedPropertyApproximateDistinctAggregation.md)
+- [SelectedPropertyApproximateDistinctAggregationDict](docs/v2/models/SelectedPropertyApproximateDistinctAggregationDict.md)
+- [SelectedPropertyApproximatePercentileAggregation](docs/v2/models/SelectedPropertyApproximatePercentileAggregation.md)
+- [SelectedPropertyApproximatePercentileAggregationDict](docs/v2/models/SelectedPropertyApproximatePercentileAggregationDict.md)
+- [SelectedPropertyAvgAggregation](docs/v2/models/SelectedPropertyAvgAggregation.md)
+- [SelectedPropertyAvgAggregationDict](docs/v2/models/SelectedPropertyAvgAggregationDict.md)
+- [SelectedPropertyCollectListAggregation](docs/v2/models/SelectedPropertyCollectListAggregation.md)
+- [SelectedPropertyCollectListAggregationDict](docs/v2/models/SelectedPropertyCollectListAggregationDict.md)
+- [SelectedPropertyCollectSetAggregation](docs/v2/models/SelectedPropertyCollectSetAggregation.md)
+- [SelectedPropertyCollectSetAggregationDict](docs/v2/models/SelectedPropertyCollectSetAggregationDict.md)
+- [SelectedPropertyCountAggregation](docs/v2/models/SelectedPropertyCountAggregation.md)
+- [SelectedPropertyCountAggregationDict](docs/v2/models/SelectedPropertyCountAggregationDict.md)
+- [SelectedPropertyDefinition](docs/v2/models/SelectedPropertyDefinition.md)
+- [SelectedPropertyDefinitionDict](docs/v2/models/SelectedPropertyDefinitionDict.md)
+- [SelectedPropertyExactDistinctAggregation](docs/v2/models/SelectedPropertyExactDistinctAggregation.md)
+- [SelectedPropertyExactDistinctAggregationDict](docs/v2/models/SelectedPropertyExactDistinctAggregationDict.md)
+- [SelectedPropertyMaxAggregation](docs/v2/models/SelectedPropertyMaxAggregation.md)
+- [SelectedPropertyMaxAggregationDict](docs/v2/models/SelectedPropertyMaxAggregationDict.md)
+- [SelectedPropertyMinAggregation](docs/v2/models/SelectedPropertyMinAggregation.md)
+- [SelectedPropertyMinAggregationDict](docs/v2/models/SelectedPropertyMinAggregationDict.md)
+- [SelectedPropertyOperation](docs/v2/models/SelectedPropertyOperation.md)
+- [SelectedPropertyOperationDict](docs/v2/models/SelectedPropertyOperationDict.md)
+- [SelectedPropertySumAggregation](docs/v2/models/SelectedPropertySumAggregation.md)
+- [SelectedPropertySumAggregationDict](docs/v2/models/SelectedPropertySumAggregationDict.md)
 - [SharedPropertyType](docs/v2/models/SharedPropertyType.md)
 - [SharedPropertyTypeApiName](docs/v2/models/SharedPropertyTypeApiName.md)
 - [SharedPropertyTypeDict](docs/v2/models/SharedPropertyTypeDict.md)

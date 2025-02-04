@@ -1,4 +1,4 @@
-# OntologyV2
+# Ontology
 
 Method | HTTP request |
 ------------- | ------------- |

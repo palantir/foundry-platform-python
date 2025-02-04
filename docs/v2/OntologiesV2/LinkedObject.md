@@ -1,4 +1,4 @@
-# LinkedObjectV2
+# LinkedObject
 
 Method | HTTP request |
 ------------- | ------------- |

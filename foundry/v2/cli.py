@@ -302,7 +302,7 @@ def admin_user_user_provider_info_get(
     """
     Get the UserProviderInfo.
     """
-    result = client.admin.User.UserProviderInfo.get(
+    result = client.admin.User.ProviderInfo.get(
         user_id=user_id,
         preview=preview,
     )
@@ -330,7 +330,7 @@ def admin_user_user_provider_info_replace(
     """
     Replace the UserProviderInfo.
     """
-    result = client.admin.User.UserProviderInfo.replace(
+    result = client.admin.User.ProviderInfo.replace(
         user_id=user_id,
         provider_id=provider_id,
         preview=preview,
@@ -1079,7 +1079,7 @@ def admin_group_group_provider_info_get(
     """
     Get the GroupProviderInfo.
     """
-    result = client.admin.Group.GroupProviderInfo.get(
+    result = client.admin.Group.ProviderInfo.get(
         group_id=group_id,
         preview=preview,
     )
@@ -1107,7 +1107,7 @@ def admin_group_group_provider_info_replace(
     """
     Replace the GroupProviderInfo.
     """
-    result = client.admin.Group.GroupProviderInfo.replace(
+    result = client.admin.Group.ProviderInfo.replace(
         group_id=group_id,
         provider_id=provider_id,
         preview=preview,
@@ -3080,7 +3080,7 @@ def filesystem_resource_resource_role_add(
     preview: Optional[bool],
 ):
     """ """
-    result = client.filesystem.Resource.ResourceRole.add(
+    result = client.filesystem.Resource.Role.add(
         resource_rid=resource_rid,
         roles=json.loads(roles),
         preview=preview,
@@ -3107,7 +3107,7 @@ def filesystem_resource_resource_role_list(
     List the roles on a resource.
 
     """
-    result = client.filesystem.Resource.ResourceRole.list(
+    result = client.filesystem.Resource.Role.list(
         resource_rid=resource_rid,
         include_inherited=include_inherited,
         page_size=page_size,
@@ -3136,7 +3136,7 @@ def filesystem_resource_resource_role_page(
     List the roles on a resource.
 
     """
-    result = client.filesystem.Resource.ResourceRole.page(
+    result = client.filesystem.Resource.Role.page(
         resource_rid=resource_rid,
         include_inherited=include_inherited,
         page_size=page_size,
@@ -3158,7 +3158,7 @@ def filesystem_resource_resource_role_remove(
     preview: Optional[bool],
 ):
     """ """
-    result = client.filesystem.Resource.ResourceRole.remove(
+    result = client.filesystem.Resource.Role.remove(
         resource_rid=resource_rid,
         roles=json.loads(roles),
         preview=preview,
@@ -3731,688 +3731,6 @@ def ontologies_v2_query_execute(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("ontology_v2")
-def ontologies_v2_ontology_v2():
-    pass
-
-
-@ontologies_v2_ontology_v2.command("get")
-@click.argument("ontology", type=str, required=True)
-@click.pass_obj
-def ontologies_v2_ontology_v2_get(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-):
-    """
-    Gets a specific ontology with the given Ontology RID.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.get(
-        ontology=ontology,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2.command("get_full_metadata")
-@click.argument("ontology", type=str, required=True)
-@click.pass_obj
-def ontologies_v2_ontology_v2_get_full_metadata(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-):
-    """
-    Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
-
-    """
-    result = client.ontologies.Ontology.get_full_metadata(
-        ontology=ontology,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2.group("query_type")
-def ontologies_v2_ontology_v2_query_type():
-    pass
-
-
-@ontologies_v2_ontology_v2_query_type.command("get")
-@click.argument("ontology", type=str, required=True)
-@click.argument("query_api_name", type=str, required=True)
-@click.pass_obj
-def ontologies_v2_ontology_v2_query_type_get(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    query_api_name: str,
-):
-    """
-    Gets a specific query type with the given API name.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.QueryType.get(
-        ontology=ontology,
-        query_api_name=query_api_name,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_query_type.command("list")
-@click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_query_type_list(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    Lists the query types for the given Ontology.
-
-    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-    results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.QueryType.list(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_query_type.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_query_type_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    Lists the query types for the given Ontology.
-
-    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-    results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.QueryType.page(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2.group("object_type_v2")
-def ontologies_v2_ontology_v2_object_type_v2():
-    pass
-
-
-@ontologies_v2_ontology_v2_object_type_v2.command("get")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.pass_obj
-def ontologies_v2_ontology_v2_object_type_v2_get(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-):
-    """
-    Gets a specific object type with the given API name.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.get(
-        ontology=ontology,
-        object_type=object_type,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_object_type_v2.command("get_outgoing_link_type")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.argument("link_type", type=str, required=True)
-@click.pass_obj
-def ontologies_v2_ontology_v2_object_type_v2_get_outgoing_link_type(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    link_type: str,
-):
-    """
-    Get an outgoing link for an object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
-        ontology=ontology,
-        object_type=object_type,
-        link_type=link_type,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_object_type_v2.command("list")
-@click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_object_type_v2_list(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    Lists the object types for the given Ontology.
-
-    Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are
-    more results available, at least one result will be present in the
-    response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.list(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_object_type_v2.command("list_outgoing_link_types")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_object_type_v2_list_outgoing_link_types(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    List the outgoing links for an object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
-        ontology=ontology,
-        object_type=object_type,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_object_type_v2.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_object_type_v2_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    Lists the object types for the given Ontology.
-
-    Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are
-    more results available, at least one result will be present in the
-    response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.page(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_object_type_v2.command("page_outgoing_link_types")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_object_type_v2_page_outgoing_link_types(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    List the outgoing links for an object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.page_outgoing_link_types(
-        ontology=ontology,
-        object_type=object_type,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2.group("action_type_v2")
-def ontologies_v2_ontology_v2_action_type_v2():
-    pass
-
-
-@ontologies_v2_ontology_v2_action_type_v2.command("get")
-@click.argument("ontology", type=str, required=True)
-@click.argument("action_type", type=str, required=True)
-@click.pass_obj
-def ontologies_v2_ontology_v2_action_type_v2_get(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    action_type: str,
-):
-    """
-    Gets a specific action type with the given API name.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ActionType.get(
-        ontology=ontology,
-        action_type=action_type,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_action_type_v2.command("list")
-@click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_action_type_v2_list(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    Lists the action types for the given Ontology.
-
-    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-    results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ActionType.list(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_v2_action_type_v2.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.pass_obj
-def ontologies_v2_ontology_v2_action_type_v2_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-):
-    """
-    Lists the action types for the given Ontology.
-
-    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-    results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ActionType.page(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2.group("ontology_object_v2")
-def ontologies_v2_ontology_object_v2():
-    pass
-
-
-@ontologies_v2_ontology_object_v2.command("aggregate")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option("--aggregation", type=str, required=True, help="""""")
-@click.option("--group_by", type=str, required=True, help="""""")
-@click.option(
-    "--accuracy",
-    type=click.Choice(["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]),
-    required=False,
-    help="""""",
-)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--where", type=str, required=False, help="""""")
-@click.pass_obj
-def ontologies_v2_ontology_object_v2_aggregate(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    aggregation: str,
-    group_by: str,
-    accuracy: Optional[Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
-    where: Optional[str],
-):
-    """
-    Perform functions on object fields in the specified ontology and object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyObject.aggregate(
-        ontology=ontology,
-        object_type=object_type,
-        aggregation=json.loads(aggregation),
-        group_by=json.loads(group_by),
-        accuracy=accuracy,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
-        where=None if where is None else json.loads(where),
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_object_v2.command("count")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.pass_obj
-def ontologies_v2_ontology_object_v2_count(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
-):
-    """
-    Returns a count of the objects of the given object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyObject.count(
-        ontology=ontology,
-        object_type=object_type,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_object_v2.command("get")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.argument("primary_key", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--select", type=str, required=False, help="""select""")
-@click.pass_obj
-def ontologies_v2_ontology_object_v2_get(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    primary_key: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    package_name: Optional[str],
-    select: Optional[str],
-):
-    """
-    Gets a specific object with the given primary key.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyObject.get(
-        ontology=ontology,
-        object_type=object_type,
-        primary_key=primary_key,
-        artifact_repository=artifact_repository,
-        exclude_rid=exclude_rid,
-        package_name=package_name,
-        select=None if select is None else json.loads(select),
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_object_v2.command("list")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--select", type=str, required=False, help="""select""")
-@click.pass_obj
-def ontologies_v2_ontology_object_v2_list(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    select: Optional[str],
-):
-    """
-    Lists the objects for the given Ontology and object type.
-
-    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-    repeated objects in the response pages.
-
-    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-    Each page may be smaller or larger than the requested page size. However, it
-    is guaranteed that if there are more results available, at least one result will be present
-    in the response.
-
-    Note that null value properties will not be returned.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyObject.list(
-        ontology=ontology,
-        object_type=object_type,
-        artifact_repository=artifact_repository,
-        exclude_rid=exclude_rid,
-        order_by=order_by,
-        package_name=package_name,
-        page_size=page_size,
-        page_token=page_token,
-        select=None if select is None else json.loads(select),
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_object_v2.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--select", type=str, required=False, help="""select""")
-@click.pass_obj
-def ontologies_v2_ontology_object_v2_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    select: Optional[str],
-):
-    """
-    Lists the objects for the given Ontology and object type.
-
-    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-    repeated objects in the response pages.
-
-    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-    Each page may be smaller or larger than the requested page size. However, it
-    is guaranteed that if there are more results available, at least one result will be present
-    in the response.
-
-    Note that null value properties will not be returned.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyObject.page(
-        ontology=ontology,
-        object_type=object_type,
-        artifact_repository=artifact_repository,
-        exclude_rid=exclude_rid,
-        order_by=order_by,
-        package_name=package_name,
-        page_size=page_size,
-        page_token=page_token,
-        select=None if select is None else json.loads(select),
-    )
-    click.echo(repr(result))
-
-
-@ontologies_v2_ontology_object_v2.command("search")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option(
-    "--select",
-    type=str,
-    required=True,
-    help="""The API names of the object type properties to include in the response.
-""",
-)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option(
-    "--exclude_rid",
-    type=bool,
-    required=False,
-    help="""A flag to exclude the retrieval of the `__rid` property.
-Setting this to true may improve performance of this endpoint for object types in OSV2.
-""",
-)
-@click.option("--order_by", type=str, required=False, help="""""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--page_size", type=int, required=False, help="""""")
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.option("--where", type=str, required=False, help="""""")
-@click.pass_obj
-def ontologies_v2_ontology_object_v2_search(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    select: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    where: Optional[str],
-):
-    """
-    Search for objects in the specified ontology and object type. The request body is used
-    to filter objects based on the specified query. The supported queries are:
-
-    | Query type                              | Description                                                                                                       | Supported Types                 |
-    |-----------------------------------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|
-    | lt                                      | The provided property is less than the provided value.                                                            | number, string, date, timestamp |
-    | gt                                      | The provided property is greater than the provided value.                                                         | number, string, date, timestamp |
-    | lte                                     | The provided property is less than or equal to the provided value.                                                | number, string, date, timestamp |
-    | gte                                     | The provided property is greater than or equal to the provided value.                                             | number, string, date, timestamp |
-    | eq                                      | The provided property is exactly equal to the provided value.                                                     | number, string, date, timestamp |
-    | isNull                                  | The provided property is (or is not) null.                                                                        | all                             |
-    | contains                                | The provided property contains the provided value.                                                                | array                           |
-    | not                                     | The sub-query does not match.                                                                                     | N/A (applied on a query)        |
-    | and                                     | All the sub-queries match.                                                                                        | N/A (applied on queries)        |
-    | or                                      | At least one of the sub-queries match.                                                                            | N/A (applied on queries)        |
-    | startsWith                              | The provided property starts with the provided term.                                                              | string                          |
-    | containsAllTermsInOrderPrefixLastTerm   | The provided property contains all the terms provided in order. The last term can be a partial prefix match.      | string                          |
-    | containsAllTermsInOrder                 | The provided property contains the provided term as a substring.                                                  | string                          |
-    | containsAnyTerm                         | The provided property contains at least one of the terms separated by whitespace.                                 | string                          |
-    | containsAllTerms                        | The provided property contains all the terms separated by whitespace.                                             | string                          |
-
-    Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
-    Partial terms are not matched by terms filters except where explicitly noted.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyObject.search(
-        ontology=ontology,
-        object_type=object_type,
-        select=json.loads(select),
-        artifact_repository=artifact_repository,
-        exclude_rid=exclude_rid,
-        order_by=None if order_by is None else json.loads(order_by),
-        package_name=package_name,
-        page_size=page_size,
-        page_token=page_token,
-        where=None if where is None else json.loads(where),
-    )
-    click.echo(repr(result))
-
-
 @ontologies_v2.group("ontology_object_set")
 def ontologies_v2_ontology_object_set():
     pass
@@ -4556,6 +3874,312 @@ def ontologies_v2_ontology_object_set_load(
         package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2.group("ontology_object")
+def ontologies_v2_ontology_object():
+    pass
+
+
+@ontologies_v2_ontology_object.command("aggregate")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--aggregation", type=str, required=True, help="""""")
+@click.option("--group_by", type=str, required=True, help="""""")
+@click.option(
+    "--accuracy",
+    type=click.Choice(["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]),
+    required=False,
+    help="""""",
+)
+@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option("--where", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_v2_ontology_object_aggregate(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    aggregation: str,
+    group_by: str,
+    accuracy: Optional[Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
+    artifact_repository: Optional[str],
+    package_name: Optional[str],
+    where: Optional[str],
+):
+    """
+    Perform functions on object fields in the specified ontology and object type.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.aggregate(
+        ontology=ontology,
+        object_type=object_type,
+        aggregation=json.loads(aggregation),
+        group_by=json.loads(group_by),
+        accuracy=accuracy,
+        artifact_repository=artifact_repository,
+        package_name=package_name,
+        where=None if where is None else json.loads(where),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object.command("count")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.pass_obj
+def ontologies_v2_ontology_object_count(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    artifact_repository: Optional[str],
+    package_name: Optional[str],
+):
+    """
+    Returns a count of the objects of the given object type.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.count(
+        ontology=ontology,
+        object_type=object_type,
+        artifact_repository=artifact_repository,
+        package_name=package_name,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object.command("get")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
+@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option("--select", type=str, required=False, help="""select""")
+@click.pass_obj
+def ontologies_v2_ontology_object_get(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    artifact_repository: Optional[str],
+    exclude_rid: Optional[bool],
+    package_name: Optional[str],
+    select: Optional[str],
+):
+    """
+    Gets a specific object with the given primary key.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.get(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        package_name=package_name,
+        select=None if select is None else json.loads(select),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object.command("list")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
+@click.option("--order_by", type=str, required=False, help="""orderBy""")
+@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--select", type=str, required=False, help="""select""")
+@click.pass_obj
+def ontologies_v2_ontology_object_list(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    artifact_repository: Optional[str],
+    exclude_rid: Optional[bool],
+    order_by: Optional[str],
+    package_name: Optional[str],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    select: Optional[str],
+):
+    """
+    Lists the objects for the given Ontology and object type.
+
+    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.list(
+        ontology=ontology,
+        object_type=object_type,
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        order_by=order_by,
+        package_name=package_name,
+        page_size=page_size,
+        page_token=page_token,
+        select=None if select is None else json.loads(select),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object.command("page")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
+@click.option("--order_by", type=str, required=False, help="""orderBy""")
+@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--select", type=str, required=False, help="""select""")
+@click.pass_obj
+def ontologies_v2_ontology_object_page(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    artifact_repository: Optional[str],
+    exclude_rid: Optional[bool],
+    order_by: Optional[str],
+    package_name: Optional[str],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    select: Optional[str],
+):
+    """
+    Lists the objects for the given Ontology and object type.
+
+    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.page(
+        ontology=ontology,
+        object_type=object_type,
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        order_by=order_by,
+        package_name=package_name,
+        page_size=page_size,
+        page_token=page_token,
+        select=None if select is None else json.loads(select),
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object.command("search")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option(
+    "--select",
+    type=str,
+    required=True,
+    help="""The API names of the object type properties to include in the response.
+""",
+)
+@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property.
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option("--where", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_v2_ontology_object_search(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    select: str,
+    artifact_repository: Optional[str],
+    exclude_rid: Optional[bool],
+    order_by: Optional[str],
+    package_name: Optional[str],
+    page_size: Optional[int],
+    page_token: Optional[str],
+    where: Optional[str],
+):
+    """
+    Search for objects in the specified ontology and object type. The request body is used
+    to filter objects based on the specified query. The supported queries are:
+
+    | Query type                              | Description                                                                                                       | Supported Types                 |
+    |-----------------------------------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|
+    | lt                                      | The provided property is less than the provided value.                                                            | number, string, date, timestamp |
+    | gt                                      | The provided property is greater than the provided value.                                                         | number, string, date, timestamp |
+    | lte                                     | The provided property is less than or equal to the provided value.                                                | number, string, date, timestamp |
+    | gte                                     | The provided property is greater than or equal to the provided value.                                             | number, string, date, timestamp |
+    | eq                                      | The provided property is exactly equal to the provided value.                                                     | number, string, date, timestamp |
+    | isNull                                  | The provided property is (or is not) null.                                                                        | all                             |
+    | contains                                | The provided property contains the provided value.                                                                | array                           |
+    | not                                     | The sub-query does not match.                                                                                     | N/A (applied on a query)        |
+    | and                                     | All the sub-queries match.                                                                                        | N/A (applied on queries)        |
+    | or                                      | At least one of the sub-queries match.                                                                            | N/A (applied on queries)        |
+    | startsWith                              | The provided property starts with the provided term.                                                              | string                          |
+    | containsAllTermsInOrderPrefixLastTerm   | The provided property contains all the terms provided in order. The last term can be a partial prefix match.      | string                          |
+    | containsAllTermsInOrder                 | The provided property contains the provided term as a substring.                                                  | string                          |
+    | containsAnyTerm                         | The provided property contains at least one of the terms separated by whitespace.                                 | string                          |
+    | containsAllTerms                        | The provided property contains all the terms separated by whitespace.                                             | string                          |
+
+    Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
+    Partial terms are not matched by terms filters except where explicitly noted.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObject.search(
+        ontology=ontology,
+        object_type=object_type,
+        select=json.loads(select),
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        order_by=None if order_by is None else json.loads(order_by),
+        package_name=package_name,
+        page_size=page_size,
+        page_token=page_token,
+        where=None if where is None else json.loads(where),
     )
     click.echo(repr(result))
 
@@ -4719,12 +4343,388 @@ def ontologies_v2_ontology_interface_page(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("linked_object_v2")
-def ontologies_v2_linked_object_v2():
+@ontologies_v2.group("ontology")
+def ontologies_v2_ontology():
     pass
 
 
-@ontologies_v2_linked_object_v2.command("get_linked_object")
+@ontologies_v2_ontology.command("get")
+@click.argument("ontology", type=str, required=True)
+@click.pass_obj
+def ontologies_v2_ontology_get(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+):
+    """
+    Gets a specific ontology with the given Ontology RID.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.get(
+        ontology=ontology,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology.command("get_full_metadata")
+@click.argument("ontology", type=str, required=True)
+@click.pass_obj
+def ontologies_v2_ontology_get_full_metadata(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+):
+    """
+    Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
+
+    """
+    result = client.ontologies.Ontology.get_full_metadata(
+        ontology=ontology,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology.group("query_type")
+def ontologies_v2_ontology_query_type():
+    pass
+
+
+@ontologies_v2_ontology_query_type.command("get")
+@click.argument("ontology", type=str, required=True)
+@click.argument("query_api_name", type=str, required=True)
+@click.pass_obj
+def ontologies_v2_ontology_query_type_get(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    query_api_name: str,
+):
+    """
+    Gets a specific query type with the given API name.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.QueryType.get(
+        ontology=ontology,
+        query_api_name=query_api_name,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_query_type.command("list")
+@click.argument("ontology", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_query_type_list(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    Lists the query types for the given Ontology.
+
+    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+    results available, at least one result will be present in the response.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.QueryType.list(
+        ontology=ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_query_type.command("page")
+@click.argument("ontology", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_query_type_page(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    Lists the query types for the given Ontology.
+
+    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+    results available, at least one result will be present in the response.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.QueryType.page(
+        ontology=ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology.group("object_type")
+def ontologies_v2_ontology_object_type():
+    pass
+
+
+@ontologies_v2_ontology_object_type.command("get")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.pass_obj
+def ontologies_v2_ontology_object_type_get(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+):
+    """
+    Gets a specific object type with the given API name.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get(
+        ontology=ontology,
+        object_type=object_type,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object_type.command("get_outgoing_link_type")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("link_type", type=str, required=True)
+@click.pass_obj
+def ontologies_v2_ontology_object_type_get_outgoing_link_type(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    link_type: str,
+):
+    """
+    Get an outgoing link for an object type.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
+        ontology=ontology,
+        object_type=object_type,
+        link_type=link_type,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object_type.command("list")
+@click.argument("ontology", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_object_type_list(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    Lists the object types for the given Ontology.
+
+    Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are
+    more results available, at least one result will be present in the
+    response.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.list(
+        ontology=ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object_type.command("list_outgoing_link_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_object_type_list_outgoing_link_types(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    List the outgoing links for an object type.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
+        ontology=ontology,
+        object_type=object_type,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object_type.command("page")
+@click.argument("ontology", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_object_type_page(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    Lists the object types for the given Ontology.
+
+    Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are
+    more results available, at least one result will be present in the
+    response.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.page(
+        ontology=ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_object_type.command("page_outgoing_link_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_object_type_page_outgoing_link_types(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    List the outgoing links for an object type.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.page_outgoing_link_types(
+        ontology=ontology,
+        object_type=object_type,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology.group("action_type")
+def ontologies_v2_ontology_action_type():
+    pass
+
+
+@ontologies_v2_ontology_action_type.command("get")
+@click.argument("ontology", type=str, required=True)
+@click.argument("action_type", type=str, required=True)
+@click.pass_obj
+def ontologies_v2_ontology_action_type_get(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    action_type: str,
+):
+    """
+    Gets a specific action type with the given API name.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ActionType.get(
+        ontology=ontology,
+        action_type=action_type,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_action_type.command("list")
+@click.argument("ontology", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_action_type_list(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    Lists the action types for the given Ontology.
+
+    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+    results available, at least one result will be present in the response.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ActionType.list(
+        ontology=ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2_ontology_action_type.command("page")
+@click.argument("ontology", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.pass_obj
+def ontologies_v2_ontology_action_type_page(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    page_size: Optional[int],
+    page_token: Optional[str],
+):
+    """
+    Lists the action types for the given Ontology.
+
+    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+    results available, at least one result will be present in the response.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ActionType.page(
+        ontology=ontology,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_v2.group("linked_object")
+def ontologies_v2_linked_object():
+    pass
+
+
+@ontologies_v2_linked_object.command("get_linked_object")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4735,7 +4735,7 @@ def ontologies_v2_linked_object_v2():
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_linked_object_v2_get_linked_object(
+def ontologies_v2_linked_object_get_linked_object(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4769,7 +4769,7 @@ def ontologies_v2_linked_object_v2_get_linked_object(
     click.echo(repr(result))
 
 
-@ontologies_v2_linked_object_v2.command("list_linked_objects")
+@ontologies_v2_linked_object.command("list_linked_objects")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4782,7 +4782,7 @@ def ontologies_v2_linked_object_v2_get_linked_object(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_linked_object_v2_list_linked_objects(
+def ontologies_v2_linked_object_list_linked_objects(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4830,7 +4830,7 @@ def ontologies_v2_linked_object_v2_list_linked_objects(
     click.echo(repr(result))
 
 
-@ontologies_v2_linked_object_v2.command("page_linked_objects")
+@ontologies_v2_linked_object.command("page_linked_objects")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4843,7 +4843,7 @@ def ontologies_v2_linked_object_v2_list_linked_objects(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_linked_object_v2_page_linked_objects(
+def ontologies_v2_linked_object_page_linked_objects(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4891,12 +4891,12 @@ def ontologies_v2_linked_object_v2_page_linked_objects(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("attachment_property_v2")
-def ontologies_v2_attachment_property_v2():
+@ontologies_v2.group("attachment_property")
+def ontologies_v2_attachment_property():
     pass
 
 
-@ontologies_v2_attachment_property_v2.command("get_attachment")
+@ontologies_v2_attachment_property.command("get_attachment")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4904,7 +4904,7 @@ def ontologies_v2_attachment_property_v2():
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_v2_get_attachment(
+def ontologies_v2_attachment_property_get_attachment(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4931,7 +4931,7 @@ def ontologies_v2_attachment_property_v2_get_attachment(
     click.echo(repr(result))
 
 
-@ontologies_v2_attachment_property_v2.command("get_attachment_by_rid")
+@ontologies_v2_attachment_property.command("get_attachment_by_rid")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4940,7 +4940,7 @@ def ontologies_v2_attachment_property_v2_get_attachment(
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_v2_get_attachment_by_rid(
+def ontologies_v2_attachment_property_get_attachment_by_rid(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4969,7 +4969,7 @@ def ontologies_v2_attachment_property_v2_get_attachment_by_rid(
     click.echo(repr(result))
 
 
-@ontologies_v2_attachment_property_v2.command("read_attachment")
+@ontologies_v2_attachment_property.command("read_attachment")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4977,7 +4977,7 @@ def ontologies_v2_attachment_property_v2_get_attachment_by_rid(
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_v2_read_attachment(
+def ontologies_v2_attachment_property_read_attachment(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -5004,7 +5004,7 @@ def ontologies_v2_attachment_property_v2_read_attachment(
     click.echo(result)
 
 
-@ontologies_v2_attachment_property_v2.command("read_attachment_by_rid")
+@ontologies_v2_attachment_property.command("read_attachment_by_rid")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -5013,7 +5013,7 @@ def ontologies_v2_attachment_property_v2_read_attachment(
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_v2_read_attachment_by_rid(
+def ontologies_v2_attachment_property_read_attachment_by_rid(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,

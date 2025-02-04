@@ -66,7 +66,7 @@ from foundry.v2.ontologies.models._selected_property_api_name import SelectedPro
 
 class OntologyObjectClient:
     """
-    The API client for the OntologyObjectV2 Resource.
+    The API client for the OntologyObject Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -574,7 +574,7 @@ class OntologyObjectClient:
 
 class _OntologyObjectClientRaw:
     """
-    The API client for the OntologyObjectV2 Resource.
+    The API client for the OntologyObject Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -1076,7 +1076,7 @@ class _OntologyObjectClientRaw:
 
 class _OntologyObjectClientStreaming:
     """
-    The API client for the OntologyObjectV2 Resource.
+    The API client for the OntologyObject Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.

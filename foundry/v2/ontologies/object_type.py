@@ -49,7 +49,7 @@ from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
 
 class ObjectTypeClient:
     """
-    The API client for the ObjectTypeV2 Resource.
+    The API client for the ObjectType Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -390,7 +390,7 @@ class ObjectTypeClient:
 
 class _ObjectTypeClientRaw:
     """
-    The API client for the ObjectTypeV2 Resource.
+    The API client for the ObjectType Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -727,7 +727,7 @@ class _ObjectTypeClientRaw:
 
 class _ObjectTypeClientStreaming:
     """
-    The API client for the ObjectTypeV2 Resource.
+    The API client for the ObjectType Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.

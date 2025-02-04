@@ -53,7 +53,7 @@ from foundry.v2.ontologies.models._selected_property_api_name import SelectedPro
 
 class LinkedObjectClient:
     """
-    The API client for the LinkedObjectV2 Resource.
+    The API client for the LinkedObject Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -342,7 +342,7 @@ class LinkedObjectClient:
 
 class _LinkedObjectClientRaw:
     """
-    The API client for the LinkedObjectV2 Resource.
+    The API client for the LinkedObject Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -627,7 +627,7 @@ class _LinkedObjectClientRaw:
 
 class _LinkedObjectClientStreaming:
     """
-    The API client for the LinkedObjectV2 Resource.
+    The API client for the LinkedObject Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
