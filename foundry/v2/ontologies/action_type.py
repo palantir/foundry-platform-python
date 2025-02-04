@@ -44,7 +44,7 @@ from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
 
 class ActionTypeClient:
     """
-    The API client for the ActionTypeV2 Resource.
+    The API client for the ActionType Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -220,7 +220,7 @@ class ActionTypeClient:
 
 class _ActionTypeClientRaw:
     """
-    The API client for the ActionTypeV2 Resource.
+    The API client for the ActionType Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -392,7 +392,7 @@ class _ActionTypeClientRaw:
 
 class _ActionTypeClientStreaming:
     """
-    The API client for the ActionTypeV2 Resource.
+    The API client for the ActionType Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.

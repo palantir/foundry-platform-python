@@ -77,7 +77,7 @@ class UserClient:
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _UserClientRaw(auth=auth, hostname=hostname, config=config)
-        self.UserProviderInfo = UserProviderInfoClient(auth=auth, hostname=hostname, config=config)
+        self.ProviderInfo = UserProviderInfoClient(auth=auth, hostname=hostname, config=config)
         self.GroupMembership = GroupMembershipClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

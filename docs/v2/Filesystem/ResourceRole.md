@@ -36,7 +36,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.ResourceRole.add(
+    api_response = foundry_client.filesystem.Resource.Role.add(
         resource_rid,
         roles=roles,
         preview=preview,
@@ -44,7 +44,7 @@ try:
     print("The add response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling ResourceRole.add: %s\n" % e)
+    print("HTTP error when calling Role.add: %s\n" % e)
 
 ```
 
@@ -101,7 +101,7 @@ preview = None
 
 
 try:
-    for resource_role in foundry_client.filesystem.Resource.ResourceRole.list(
+    for resource_role in foundry_client.filesystem.Resource.Role.list(
         resource_rid,
         include_inherited=include_inherited,
         page_size=page_size,
@@ -110,7 +110,7 @@ try:
     ):
         pprint(resource_role)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling ResourceRole.list: %s\n" % e)
+    print("HTTP error when calling Role.list: %s\n" % e)
 
 ```
 
@@ -167,7 +167,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.ResourceRole.page(
+    api_response = foundry_client.filesystem.Resource.Role.page(
         resource_rid,
         include_inherited=include_inherited,
         page_size=page_size,
@@ -177,7 +177,7 @@ try:
     print("The page response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling ResourceRole.page: %s\n" % e)
+    print("HTTP error when calling Role.page: %s\n" % e)
 
 ```
 
@@ -227,7 +227,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.ResourceRole.remove(
+    api_response = foundry_client.filesystem.Resource.Role.remove(
         resource_rid,
         roles=roles,
         preview=preview,
@@ -235,7 +235,7 @@ try:
     print("The remove response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling ResourceRole.remove: %s\n" % e)
+    print("HTTP error when calling Role.remove: %s\n" % e)
 
 ```
 

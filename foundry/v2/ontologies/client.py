@@ -52,14 +52,14 @@ class OntologiesClient:
             auth=auth, hostname=hostname, config=config
         )
         self.LinkedObject = LinkedObjectClient(auth=auth, hostname=hostname, config=config)
+        self.Ontology = OntologyClient(auth=auth, hostname=hostname, config=config)
         self.OntologyInterface = OntologyInterfaceClient(
             auth=auth, hostname=hostname, config=config
         )
+        self.OntologyObject = OntologyObjectClient(auth=auth, hostname=hostname, config=config)
         self.OntologyObjectSet = OntologyObjectSetClient(
             auth=auth, hostname=hostname, config=config
         )
-        self.OntologyObject = OntologyObjectClient(auth=auth, hostname=hostname, config=config)
-        self.Ontology = OntologyClient(auth=auth, hostname=hostname, config=config)
         self.Query = QueryClient(auth=auth, hostname=hostname, config=config)
         self.TimeSeriesPropertyV2 = TimeSeriesPropertyV2Client(
             auth=auth, hostname=hostname, config=config

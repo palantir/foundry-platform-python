@@ -68,7 +68,7 @@ class ResourceClient:
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ResourceClientRaw(auth=auth, hostname=hostname, config=config)
-        self.ResourceRole = ResourceRoleClient(auth=auth, hostname=hostname, config=config)
+        self.Role = ResourceRoleClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
     @pydantic.validate_call

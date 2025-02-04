@@ -74,9 +74,7 @@ class GroupClient:
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _GroupClientRaw(auth=auth, hostname=hostname, config=config)
-        self.GroupProviderInfo = GroupProviderInfoClient(
-            auth=auth, hostname=hostname, config=config
-        )
+        self.ProviderInfo = GroupProviderInfoClient(auth=auth, hostname=hostname, config=config)
         self.GroupMember = GroupMemberClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

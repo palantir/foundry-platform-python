@@ -40,7 +40,7 @@ from foundry.v2.ontologies.query_type import QueryTypeClient
 
 class OntologyClient:
     """
-    The API client for the OntologyV2 Resource.
+    The API client for the Ontology Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -143,7 +143,7 @@ class OntologyClient:
 
 class _OntologyClientRaw:
     """
-    The API client for the OntologyV2 Resource.
+    The API client for the Ontology Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -239,7 +239,7 @@ class _OntologyClientRaw:
 
 class _OntologyClientStreaming:
     """
-    The API client for the OntologyV2 Resource.
+    The API client for the Ontology Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
