@@ -9,13 +9,19 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-ObjectSetReferenceTypeDict | reference
-ObjectSetFilterTypeDict | filter
 ObjectSetSearchAroundTypeDict | searchAround
 ObjectSetStaticTypeDict | static
 ObjectSetIntersectionTypeDict | intersect
+ObjectSetWithPropertiesTypeDict | withProperties
 ObjectSetSubtractTypeDict | subtract
+ObjectSetNearestNeighborsTypeDict | nearestNeighbors
 ObjectSetUnionTypeDict | union
+ObjectSetAsTypeTypeDict | asType
+ObjectSetMethodInputTypeDict | methodInput
+ObjectSetReferenceTypeDict | reference
+ObjectSetFilterTypeDict | filter
+ObjectSetInterfaceBaseTypeDict | interfaceBase
+ObjectSetAsBaseObjectTypesTypeDict | asBaseObjectTypes
 ObjectSetBaseTypeDict | base
 
 

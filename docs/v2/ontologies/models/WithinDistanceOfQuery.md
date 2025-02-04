@@ -6,7 +6,8 @@ Returns objects where the specified field contains a point within the distance p
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | Optional[PropertyApiName] | No |  |
+**property_identifier** | Optional[PropertyIdentifier] | No |  |
 **value** | CenterPoint | Yes |  |
 **type** | Literal["withinDistanceOf"] | Yes | None |
 

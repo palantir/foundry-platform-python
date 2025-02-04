@@ -17,10 +17,12 @@ from __future__ import annotations
 
 from typing import Literal
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._bounding_box_value_dict import BoundingBoxValueDict
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._property_identifier_dict import PropertyIdentifierDict  # NOQA
 
 
 class DoesNotIntersectBoundingBoxQueryDict(TypedDict):
@@ -28,7 +30,9 @@ class DoesNotIntersectBoundingBoxQueryDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: PropertyApiName
+    field: NotRequired[PropertyApiName]
+
+    propertyIdentifier: NotRequired[PropertyIdentifierDict]
 
     value: BoundingBoxValueDict
 

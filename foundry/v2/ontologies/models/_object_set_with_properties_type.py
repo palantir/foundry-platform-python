@@ -15,35 +15,20 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Literal
 from typing import cast
 
 import pydantic
 
-from foundry.v2.ontologies.models._derived_property_api_name import DerivedPropertyApiName  # NOQA
-from foundry.v2.ontologies.models._derived_property_definition import (
-    DerivedPropertyDefinition,
-)  # NOQA
-from foundry.v2.ontologies.models._object_set import ObjectSet
 from foundry.v2.ontologies.models._object_set_with_properties_type_dict import (
     ObjectSetWithPropertiesTypeDict,
 )  # NOQA
 
 
 class ObjectSetWithPropertiesType(pydantic.BaseModel):
-    """
-    ObjectSet which returns objects with additional derived properties.
+    """ObjectSetWithPropertiesType"""
 
-    This feature is experimental and not yet generally available.
-    """
-
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
-
-    derived_properties: Dict[DerivedPropertyApiName, DerivedPropertyDefinition] = pydantic.Field(
-        alias="derivedProperties"
-    )
-
-    """Map of the name of the derived property to return and its definition"""
+    type: Literal["withProperties"] = "withProperties"
 
     model_config = {"extra": "allow"}
 

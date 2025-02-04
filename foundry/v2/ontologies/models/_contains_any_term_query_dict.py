@@ -22,6 +22,7 @@ from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._fuzzy_v2 import FuzzyV2
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._property_identifier_dict import PropertyIdentifierDict  # NOQA
 
 
 class ContainsAnyTermQueryDict(TypedDict):
@@ -32,7 +33,9 @@ class ContainsAnyTermQueryDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: PropertyApiName
+    field: NotRequired[PropertyApiName]
+
+    propertyIdentifier: NotRequired[PropertyIdentifierDict]
 
     value: str
 

@@ -5,8 +5,8 @@ DecimalType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**precision** | NotRequired[int] | No |  |
-**scale** | NotRequired[int] | No |  |
+**precision** | NotRequired[int] | No | The total number of digits of the Decimal type. The maximum value is 38.  |
+**scale** | NotRequired[int] | No | The number of digits to the right of the decimal point. The maximum value is 38.  |
 **type** | Literal["decimal"] | Yes | None |
 
 

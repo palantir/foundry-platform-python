@@ -17,6 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 
@@ -24,5 +25,8 @@ class CipherTextTypeDict(TypedDict):
     """CipherTextType"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    defaultCipherChannel: NotRequired[str]
+    """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: Literal["cipherText"]

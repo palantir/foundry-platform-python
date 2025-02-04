@@ -25,25 +25,25 @@ from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
 from foundry.v2.ontologies.models._object_set_base_type_dict import ObjectSetBaseTypeDict  # NOQA
+from foundry.v2.ontologies.models._object_set_interface_base_type_dict import (
+    ObjectSetInterfaceBaseTypeDict,
+)  # NOQA
+from foundry.v2.ontologies.models._object_set_method_input_type_dict import (
+    ObjectSetMethodInputTypeDict,
+)  # NOQA
+from foundry.v2.ontologies.models._object_set_nearest_neighbors_type_dict import (
+    ObjectSetNearestNeighborsTypeDict,
+)  # NOQA
 from foundry.v2.ontologies.models._object_set_reference_type_dict import (
     ObjectSetReferenceTypeDict,
 )  # NOQA
 from foundry.v2.ontologies.models._object_set_static_type_dict import (
     ObjectSetStaticTypeDict,
 )  # NOQA
+from foundry.v2.ontologies.models._object_set_with_properties_type_dict import (
+    ObjectSetWithPropertiesTypeDict,
+)  # NOQA
 from foundry.v2.ontologies.models._search_json_query_v2_dict import SearchJsonQueryV2Dict  # NOQA
-
-
-class ObjectSetFilterTypeDict(TypedDict):
-    """ObjectSetFilterType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: ObjectSetDict
-
-    where: SearchJsonQueryV2Dict
-
-    type: Literal["filter"]
 
 
 class ObjectSetSearchAroundTypeDict(TypedDict):
@@ -88,15 +88,60 @@ class ObjectSetUnionTypeDict(TypedDict):
     type: Literal["union"]
 
 
+class ObjectSetAsTypeTypeDict(TypedDict):
+    """
+    Casts an object set to a specified object type or interface type API name. Any object whose object type does
+    not match the object type provided or implement the interface type provided will be dropped from the resulting
+    object set. This is currently unsupported and an exception will be thrown if used.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    entityType: str
+    """An object type or interface type API name."""
+
+    objectSet: ObjectSetDict
+
+    type: Literal["asType"]
+
+
+class ObjectSetFilterTypeDict(TypedDict):
+    """ObjectSetFilterType"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectSet: ObjectSetDict
+
+    where: SearchJsonQueryV2Dict
+
+    type: Literal["filter"]
+
+
+class ObjectSetAsBaseObjectTypesTypeDict(TypedDict):
+    """ObjectSetAsBaseObjectTypesType"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectSet: ObjectSetDict
+
+    type: Literal["asBaseObjectTypes"]
+
+
 ObjectSetDict = Annotated[
     Union[
-        ObjectSetReferenceTypeDict,
-        ObjectSetFilterTypeDict,
         ObjectSetSearchAroundTypeDict,
         ObjectSetStaticTypeDict,
         ObjectSetIntersectionTypeDict,
+        ObjectSetWithPropertiesTypeDict,
         ObjectSetSubtractTypeDict,
+        ObjectSetNearestNeighborsTypeDict,
         ObjectSetUnionTypeDict,
+        ObjectSetAsTypeTypeDict,
+        ObjectSetMethodInputTypeDict,
+        ObjectSetReferenceTypeDict,
+        ObjectSetFilterTypeDict,
+        ObjectSetInterfaceBaseTypeDict,
+        ObjectSetAsBaseObjectTypesTypeDict,
         ObjectSetBaseTypeDict,
     ],
     pydantic.Field(discriminator="type"),

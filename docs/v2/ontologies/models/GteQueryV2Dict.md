@@ -5,7 +5,8 @@ Returns objects where the specified field is greater than or equal to a value.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | PropertyValue | Yes |  |
 **type** | Literal["gte"] | Yes | None |
 

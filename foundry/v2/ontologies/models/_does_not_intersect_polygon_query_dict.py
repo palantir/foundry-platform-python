@@ -17,10 +17,12 @@ from __future__ import annotations
 
 from typing import Literal
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry.v2.ontologies.models._polygon_value_dict import PolygonValueDict
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry.v2.ontologies.models._property_identifier_dict import PropertyIdentifierDict  # NOQA
 
 
 class DoesNotIntersectPolygonQueryDict(TypedDict):
@@ -28,7 +30,9 @@ class DoesNotIntersectPolygonQueryDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: PropertyApiName
+    field: NotRequired[PropertyApiName]
+
+    propertyIdentifier: NotRequired[PropertyIdentifierDict]
 
     value: PolygonValueDict
 

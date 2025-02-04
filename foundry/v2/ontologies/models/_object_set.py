@@ -24,12 +24,27 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
+from foundry.v2.ontologies.models._object_set_as_base_object_types_type_dict import (
+    ObjectSetAsBaseObjectTypesTypeDict,
+)  # NOQA
+from foundry.v2.ontologies.models._object_set_as_type_type_dict import (
+    ObjectSetAsTypeTypeDict,
+)  # NOQA
 from foundry.v2.ontologies.models._object_set_base_type import ObjectSetBaseType
 from foundry.v2.ontologies.models._object_set_filter_type_dict import (
     ObjectSetFilterTypeDict,
 )  # NOQA
+from foundry.v2.ontologies.models._object_set_interface_base_type import (
+    ObjectSetInterfaceBaseType,
+)  # NOQA
 from foundry.v2.ontologies.models._object_set_intersection_type_dict import (
     ObjectSetIntersectionTypeDict,
+)  # NOQA
+from foundry.v2.ontologies.models._object_set_method_input_type import (
+    ObjectSetMethodInputType,
+)  # NOQA
+from foundry.v2.ontologies.models._object_set_nearest_neighbors_type import (
+    ObjectSetNearestNeighborsType,
 )  # NOQA
 from foundry.v2.ontologies.models._object_set_reference_type import ObjectSetReferenceType  # NOQA
 from foundry.v2.ontologies.models._object_set_search_around_type_dict import (
@@ -40,23 +55,10 @@ from foundry.v2.ontologies.models._object_set_subtract_type_dict import (
     ObjectSetSubtractTypeDict,
 )  # NOQA
 from foundry.v2.ontologies.models._object_set_union_type_dict import ObjectSetUnionTypeDict  # NOQA
+from foundry.v2.ontologies.models._object_set_with_properties_type import (
+    ObjectSetWithPropertiesType,
+)  # NOQA
 from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
-
-
-class ObjectSetFilterType(pydantic.BaseModel):
-    """ObjectSetFilterType"""
-
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
-
-    where: SearchJsonQueryV2
-
-    type: Literal["filter"] = "filter"
-
-    model_config = {"extra": "allow"}
-
-    def to_dict(self) -> ObjectSetFilterTypeDict:
-        """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
 class ObjectSetSearchAroundType(pydantic.BaseModel):
@@ -121,15 +123,75 @@ class ObjectSetUnionType(pydantic.BaseModel):
         return cast(ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
 
 
+class ObjectSetAsTypeType(pydantic.BaseModel):
+    """
+    Casts an object set to a specified object type or interface type API name. Any object whose object type does
+    not match the object type provided or implement the interface type provided will be dropped from the resulting
+    object set. This is currently unsupported and an exception will be thrown if used.
+    """
+
+    entity_type: str = pydantic.Field(alias="entityType")
+
+    """An object type or interface type API name."""
+
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+
+    type: Literal["asType"] = "asType"
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> ObjectSetAsTypeTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(ObjectSetAsTypeTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+
+
+class ObjectSetFilterType(pydantic.BaseModel):
+    """ObjectSetFilterType"""
+
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+
+    where: SearchJsonQueryV2
+
+    type: Literal["filter"] = "filter"
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> ObjectSetFilterTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+
+
+class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
+    """ObjectSetAsBaseObjectTypesType"""
+
+    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+
+    type: Literal["asBaseObjectTypes"] = "asBaseObjectTypes"
+
+    model_config = {"extra": "allow"}
+
+    def to_dict(self) -> ObjectSetAsBaseObjectTypesTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            ObjectSetAsBaseObjectTypesTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+        )
+
+
 ObjectSet = Annotated[
     Union[
-        ObjectSetReferenceType,
-        ObjectSetFilterType,
         ObjectSetSearchAroundType,
         ObjectSetStaticType,
         ObjectSetIntersectionType,
+        ObjectSetWithPropertiesType,
         ObjectSetSubtractType,
+        ObjectSetNearestNeighborsType,
         ObjectSetUnionType,
+        ObjectSetAsTypeType,
+        ObjectSetMethodInputType,
+        ObjectSetReferenceType,
+        ObjectSetFilterType,
+        ObjectSetInterfaceBaseType,
+        ObjectSetAsBaseObjectTypesType,
         ObjectSetBaseType,
     ],
     pydantic.Field(discriminator="type"),

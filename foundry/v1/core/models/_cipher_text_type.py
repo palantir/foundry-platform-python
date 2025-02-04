@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from typing import Literal
+from typing import Optional
 from typing import cast
 
 import pydantic
@@ -25,6 +26,12 @@ from foundry.v1.core.models._cipher_text_type_dict import CipherTextTypeDict
 
 class CipherTextType(pydantic.BaseModel):
     """CipherTextType"""
+
+    default_cipher_channel: Optional[str] = pydantic.Field(
+        alias="defaultCipherChannel", default=None
+    )
+
+    """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: Literal["cipherText"] = "cipherText"
 
