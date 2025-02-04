@@ -31,17 +31,13 @@ def instantiate_server_oauth_flow_provider():
     return PublicClientOAuthFlowProvider(
         client_id="client_id",
         redirect_url="redirect_url",
-        url="https://a.b.c",
+        hostname="https://a.b.c",
         multipass_context_path="/multipass",
         scopes=["scope1", "scope2"],
     )
 
 
 def test_get_token(client):
-    import foundry._core.oauth_utils as module_under_test
-
-    when(PublicClientOAuthFlowProvider).get_scopes().thenReturn(["scope1", "scope2"])
-    when(OAuthUtils).get_token_uri("https://a.b.c", "/multipass").thenReturn("token_url")
     response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
     when(response).json().thenReturn(
@@ -55,12 +51,12 @@ def test_get_token(client):
         "redirect_uri": "redirect_url",
         "client_id": "client_id",
         "code_verifier": "code_verifier",
-        "scope": "scope1 scope2",
+        "scope": "scope1 scope2 offline_access",
     }
 
-    when(module_under_test.httpx).post("token_url", data=params, headers=headers).thenReturn(
-        response
-    )
+    when(client._client).post(
+        "/multipass/api/oauth2/token", data=params, headers=headers
+    ).thenReturn(response)
     token = client.get_token(code="code", code_verifier="code_verifier")
     expect(token.access_token).to(equal("example_token"))
     expect(token.token_type).to(equal("Bearer"))
@@ -68,13 +64,6 @@ def test_get_token(client):
 
 
 def test_get_token_throws_when_unsuccessful(client):
-    # pylint: disable=unnecessary-lambda
-    import foundry._core.oauth_utils as module_under_test
-
-    when(PublicClientOAuthFlowProvider).get_scopes().thenReturn(
-        ["scope1", "scope2", "offline_access"]
-    )
-    when(OAuthUtils).get_token_uri("https://a.b.c", "/multipass").thenReturn("token_url")
     response = mock(httpx.Response)
     when(response).raise_for_status().thenRaise(
         httpx.HTTPStatusError(
@@ -94,9 +83,9 @@ def test_get_token_throws_when_unsuccessful(client):
         "scope": "scope1 scope2 offline_access",
     }
 
-    when(module_under_test.httpx).post("token_url", data=params, headers=headers).thenReturn(
-        response
-    )
+    when(client._client).post(
+        "/multipass/api/oauth2/token", data=params, headers=headers
+    ).thenReturn(response)
 
     with pytest.raises(httpx.HTTPStatusError):
         client.get_token(code="code", code_verifier="code_verifier")
@@ -105,9 +94,6 @@ def test_get_token_throws_when_unsuccessful(client):
 
 
 def test_refresh_token(client):
-    import foundry._core.oauth_utils as module_under_test
-
-    when(OAuthUtils).get_token_uri("https://a.b.c", "/multipass").thenReturn("token_url")
     response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
     when(response).json().thenReturn(
@@ -121,9 +107,9 @@ def test_refresh_token(client):
         "refresh_token": "refresh_token",
     }
 
-    when(module_under_test.httpx).post("token_url", data=params, headers=headers).thenReturn(
-        response
-    )
+    when(client._client).post(
+        "/multipass/api/oauth2/token", data=params, headers=headers
+    ).thenReturn(response)
     token = client.refresh_token(refresh_token="refresh_token")
     expect(token.access_token).to(equal("example_token"))
     expect(token.token_type).to(equal("Bearer"))
@@ -131,13 +117,11 @@ def test_refresh_token(client):
 
 
 def test_revoke_token(client):
-    import foundry._core.oauth_utils as module_under_test
-
-    when(OAuthUtils).get_revoke_uri("https://a.b.c", "/multipass").thenReturn("revoke_url")
     response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
-    when(module_under_test.httpx).post(
-        "revoke_url", data={"client_id": "client_id", "token": "token_to_be_revoked"}
+    when(client._client).post(
+        "/multipass/api/oauth2/revoke_token",
+        data={"client_id": "client_id", "token": "token_to_be_revoked"},
     ).thenReturn(response)
     client.revoke_token("token_to_be_revoked")
     unstub()

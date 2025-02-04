@@ -13,53 +13,11 @@
 #  limitations under the License.
 
 
-import os
 import warnings
 
 import pytest
 
 from foundry import UserTokenAuth
-
-
-@pytest.fixture
-def temp_os_environ():
-    old_environ = os.environ.copy()
-
-    # Make sure to start with a clean slate
-    for key in ["PALANTIR_HOSTNAME", "PALANTIR_TOKEN"]:
-        if key in os.environ:
-            os.environ.pop(key)
-
-    yield
-    os.environ = old_environ
-
-
-@pytest.mark.skip
-def test_load_from_env(temp_os_environ):
-    os.environ["PALANTIR_HOSTNAME"] = "host_test"
-    os.environ["PALANTIR_TOKEN"] = "token_test"
-    config = UserTokenAuth()  # type: ignore
-    assert config._hostname == "host_test"
-    assert config._token == "token_test"
-
-
-@pytest.mark.skip
-def test_load_from_env_missing_token(temp_os_environ):
-    os.environ["PALANTIR_HOSTNAME"] = "host_test"
-    assert pytest.raises(ValueError, lambda: UserTokenAuth())  # type: ignore
-
-
-@pytest.mark.skip
-def test_load_from_env_missing_host(temp_os_environ):
-    os.environ["PALANTIR_TOKEN"] = "token_test"
-    assert pytest.raises(ValueError, lambda: UserTokenAuth())  # type: ignore
-
-
-@pytest.mark.skip
-def test_can_pass_config():
-    os.environ["PALANTIR_TOKEN"] = "token_test"
-    config = UserTokenAuth(token="token_test2")
-    assert config._token == "token_test2"
 
 
 def test_missing_token_raises_type_error():

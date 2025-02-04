@@ -14,26 +14,21 @@
 
 
 import json
-import ssl
-import sys
 import warnings
 from typing import Any
 from typing import Dict
 from typing import Literal
 from typing import Optional
-from typing import Type
-from typing import TypeVar
 from typing import cast
 from unittest.mock import ANY
 from unittest.mock import Mock
 from unittest.mock import patch
 
-import httpcore
 import httpx
 import pytest
-from httpx._utils import URLPattern
 
 from foundry import BadRequestError
+from foundry import Config
 from foundry import ConnectionError
 from foundry import InternalServerError
 from foundry import NotFoundError
@@ -50,7 +45,6 @@ from foundry import WriteTimeout
 from foundry import __version__
 from foundry._core import ApiClient
 from foundry._core import RequestInfo
-from foundry._core.config import Config
 
 HOSTNAME = "localhost:8123"
 
@@ -86,62 +80,11 @@ def assert_called_with(client: ApiClient, **kwargs):
     )
 
 
-def assert_http_transport(transport: Optional[httpx.BaseTransport]) -> httpx.HTTPTransport:
-    return assert_isinstance(transport, httpx.HTTPTransport)
-
-
-def assert_http_proxy(pool: Optional[httpcore.ConnectionPool]) -> httpcore.HTTPProxy:
-    return assert_isinstance(pool, httpcore.HTTPProxy)
-
-
-T = TypeVar("T")
-
-
-def assert_isinstance(instance: Any, type: Type[T]) -> T:
-    if not isinstance(instance, type):
-        raise Exception(f"Not an instance of {type}", instance)
-
-    return instance
-
-
 def _throw(exception: Exception):
     def wrapper(*_args, **_kwargs):
         raise exception
 
     return wrapper
-
-
-def url_to_str(url: httpcore.URL) -> str:
-    """
-    Convert an httpcore.URL object to a string without including the default port.
-
-    Args:
-    url (httpcore.URL): The URL object to be converted.
-
-    Returns:
-    str: The URL as a string without the default port.
-    """
-    # Default ports for common schemes
-    default_ports = {
-        "http": 80,
-        "https": 443,
-    }
-
-    # Extract components of the URL
-    scheme = url.scheme.decode("utf-8")
-    host = url.host.decode("utf-8")
-    port = url.port
-    target = url.target.decode("utf-8")
-
-    # Construct the URL without the default port
-    if port and port == default_ports.get(scheme):
-        port = None
-
-    # Reconstruct the URL
-    netloc = f"{host}:{port}" if port else host
-    url_str = f"{scheme}://{netloc}{target}"
-
-    return url_str
 
 
 def create_mock_client(config: Optional[Config] = None, hostname=HOSTNAME):
@@ -161,57 +104,15 @@ def create_client(
     return ApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
 
 
-def test_client_hostname():
-    assert (
-        ApiClient(
-            auth=UserTokenAuth(token="bar"), hostname="https://a.b.c.com", config=None
-        )._hostname
-        == "a.b.c.com"
-    )
-    assert (
-        ApiClient(
-            auth=UserTokenAuth(token="bar"), hostname="http://a.b.c.com", config=None
-        )._hostname
-        == "a.b.c.com"
-    )
-    assert (
-        ApiClient(auth=UserTokenAuth(token="bar"), hostname="a.b.c.com/", config=None)._hostname
-        == "a.b.c.com"
-    )
-
-
 def test_can_override_session_using_deprecated_method():
     client = create_mock_client()
-    assert isinstance(client.session._session, httpx.Client)
-    client.session._session.headers["Foo"] = "Bar"
 
-
-def test_accessing_session_emits_warnings():
-    client = create_mock_client()
     with warnings.catch_warnings(record=True) as w:
-        client.session
+        assert isinstance(client.session._session, httpx.Client)
+        # Ensure the warning is emitted when accessing the session
         assert len(w) == 1
 
-
-def test_default_headers():
-    """Test that the user agent is set correctly."""
-    client = create_mock_client()
-    assert client._session.headers == {
-        "Accept-Encoding": "gzip, deflate",
-        "Accept": "*/*",
-        "Connection": "keep-alive",
-        "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}",
-    }
-
-    """Test that additional headers can be added."""
-    client = create_mock_client(Config(default_headers={"Foo": "Bar"}))
-    assert client._session.headers == {
-        "Accept-Encoding": "gzip, deflate",
-        "Accept": "*/*",
-        "Connection": "keep-alive",
-        "Foo": "Bar",
-        "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}",
-    }
+        client.session._session.headers["Foo"] = "Bar"
 
 
 def test_authorization_header():
@@ -221,59 +122,17 @@ def test_authorization_header():
     assert_called_with(client, headers={"Authorization": "Bearer bar"})
 
 
-def test_proxies():
-    client = create_mock_client(
-        Config(proxies={"https": "https://foo.bar", "http": "http://foo.bar"})
-    )
-
-    transport = assert_http_transport(client._session._mounts[URLPattern("https://")])
-    proxy = assert_http_proxy(transport._pool)
-    assert url_to_str(proxy._proxy_url) == "https://foo.bar/"
-
-    transport = assert_http_transport(client._session._mounts[URLPattern("http://")])
-    proxy = assert_http_proxy(transport._pool)
-    assert url_to_str(proxy._proxy_url) == "http://foo.bar/"
-
-
 def test_timeout():
     client = create_mock_client(config=Config(timeout=60))
-
-    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=None))
-    assert_called_with(client, timeout=60)
-
     client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=30))
     assert_called_with(client, timeout=30)
 
 
-def test_verify():
-    client = create_mock_client()
-    transport = assert_http_transport(client._session._transport)
-    pool = assert_isinstance(transport._pool, httpcore.ConnectionPool)
-
-    assert pool._ssl_context is not None
-    assert pool._ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
-
-    client = create_mock_client(Config(verify=False))
-    transport = assert_http_transport(client._session._transport)
-    pool = assert_isinstance(transport._pool, httpcore.ConnectionPool)
-
-    assert pool._ssl_context is not None
-    assert pool._ssl_context.verify_mode == ssl.VerifyMode.CERT_NONE
-
-
-def test_default_params():
-    client = create_mock_client(Config(default_params={"foo": "bar"}))
-    assert client._session.params._dict == {"foo": ["bar"]}
-
-
-def test_scheme():
-    client = create_mock_client()
-    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=30))
-    assert_called_with(client, url="https://localhost:8123/api/foo/bar")
-
-    client = create_mock_client(Config(scheme="http"))
-    client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=30))
-    assert_called_with(client, url="http://localhost:8123/api/foo/bar")
+def test_config_passed_to_http_client():
+    # Just check that at least one config var was set correctly to ensure
+    # the config is being passed to the http client
+    client = create_client(config=Config(timeout=60))
+    assert client._session.timeout == httpx.Timeout(60)
 
 
 def test_path_encoding():
@@ -287,7 +146,7 @@ def test_path_encoding():
         )
     )
 
-    assert_called_with(client, url="https://localhost:8123/api/files/%2Fmy%2Ffile.txt")
+    assert_called_with(client, url="/api/files/%2Fmy%2Ffile.txt")
 
 
 def test_null_query_params():
@@ -295,7 +154,7 @@ def test_null_query_params():
     client.call_api(
         RequestInfo.with_defaults("GET", "/foo/bar", query_params={"foo": "foo", "bar": None})
     )
-    assert_called_with(client, url="https://localhost:8123/api/foo/bar", params=[("foo", "foo")])
+    assert_called_with(client, url="/api/foo/bar", params=[("foo", "foo")])
 
 
 def test_shared_transport():

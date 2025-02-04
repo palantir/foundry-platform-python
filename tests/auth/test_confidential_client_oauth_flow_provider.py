@@ -31,29 +31,25 @@ def instantiate_server_oauth_flow_provider():
     return ConfidentialClientOAuthFlowProvider(
         client_id="client_id",
         client_secret="client_secret",
-        url="https://a.b.c",
+        hostname="a.b.c",
         multipass_context_path="/multipass",
         scopes=["scope1", "scope2"],
     )
 
 
 def test_get_token(client):
-    import foundry._core.oauth_utils as module_under_test
-
-    when(ConfidentialClientOAuthFlowProvider).get_scopes().thenReturn(["scope1", "scope2"])
-    when(OAuthUtils).get_token_uri("https://a.b.c", "/multipass").thenReturn("token_url")
     response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
     when(response).json().thenReturn(
         {"access_token": "example_token", "expires_in": 42, "token_type": "Bearer"}
     )
-    when(module_under_test.httpx).post(
-        "token_url",
+    when(client._client).post(
+        "/multipass/api/oauth2/token",
         data={
             "client_id": "client_id",
             "client_secret": "client_secret",
             "grant_type": "client_credentials",
-            "scope": "scope1 scope2",
+            "scope": "scope1 scope2 offline_access",
         },
     ).thenReturn(response)
     token = client.get_token()
@@ -63,13 +59,6 @@ def test_get_token(client):
 
 
 def test_get_token_throws_when_unsuccessful(client):
-    # pylint: disable=unnecessary-lambda
-    import foundry._core.oauth_utils as module_under_test
-
-    when(ConfidentialClientOAuthFlowProvider).get_scopes().thenReturn(
-        ["scope1", "scope2", "offline_access"]
-    )
-    when(OAuthUtils).get_token_uri("https://a.b.c", "/multipass").thenReturn("token_url")
     response = mock(httpx.Response)
     when(response).raise_for_status().thenRaise(
         httpx.HTTPStatusError(
@@ -78,8 +67,8 @@ def test_get_token_throws_when_unsuccessful(client):
             response=httpx.Response(200),
         ),
     )
-    when(module_under_test.httpx).post(
-        "token_url",
+    when(client._client).post(
+        "/multipass/api/oauth2/token",
         data={
             "client_id": "client_id",
             "client_secret": "client_secret",
@@ -95,13 +84,10 @@ def test_get_token_throws_when_unsuccessful(client):
 
 
 def test_revoke_token(client):
-    import foundry._core.oauth_utils as module_under_test
-
-    when(OAuthUtils).get_revoke_uri("https://a.b.c", "/multipass").thenReturn("revoke_url")
     response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
-    when(module_under_test.httpx).post(
-        "revoke_url",
+    when(client._client).post(
+        "/multipass/api/oauth2/revoke_token",
         data={
             "client_id": "client_id",
             "client_secret": "client_secret",

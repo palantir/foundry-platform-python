@@ -41,9 +41,8 @@ from foundry._core.auth_utils import Auth
 from foundry._core.auth_utils import Token
 from foundry._core.binary_stream import BinaryStream
 from foundry._core.config import Config
+from foundry._core.http_client import HttpClient
 from foundry._core.resource_iterator import ResourceIterator
-from foundry._core.utils import AnyCallableT
-from foundry._core.utils import clean_hostname
 from foundry._errors import BadRequestError
 from foundry._errors import ConnectionError
 from foundry._errors import ConnectTimeout
@@ -62,19 +61,6 @@ from foundry._errors import WriteTimeout
 from foundry._versions import __version__
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
-
-
-def type_safe_cache(func: AnyCallableT) -> AnyCallableT:
-    """A type safe version of @functools.cache"""
-    return functools.cache(func)  # type: ignore
-
-
-@type_safe_cache
-def _get_transport(verify: Union[bool, str], proxy: Optional[httpx.Proxy]) -> httpx.BaseTransport:
-    """Create a shared transport. Because verify is at the transport level, we have to create a
-    transport for each different configuration.
-    """
-    return httpx.HTTPTransport(verify=verify, proxy=proxy)
 
 
 @functools.cache
@@ -273,28 +259,8 @@ class ApiClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
-        self._config = config = config or Config()
         self._auth = auth
-        self._hostname = clean_hostname(hostname)
-
-        self._session = httpx.Client(
-            headers={
-                "User-Agent": f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}",
-                **(config.default_headers or {}),
-            },
-            params=config.default_params,
-            transport=_get_transport(verify=config.verify, proxy=None),
-            mounts={
-                scheme
-                + "://": _get_transport(verify=config.verify, proxy=httpx.Proxy(url=proxy_url))
-                for scheme, proxy_url in (config.proxies or {}).items()
-            },
-            # Unlike requests, HTTPX does not follow redirects by default
-            # If you access an endpoint with a missing trailing slash, the server could redirect
-            # the user to the URL with the trailing slash. For example, accessing `/example` might
-            # redirect to `/example/`.
-            follow_redirects=True,
-        )
+        self._session = HttpClient(hostname, config)
 
     @property
     @deprecated(
@@ -304,10 +270,6 @@ class ApiClient:
         # DEPRECATED: This ensures that users who were previously accessing the PalantirSession
         # will have code that continues to work (now we just return the ApiClient)
         return self
-
-    @property
-    def hostname(self) -> str:
-        return self._hostname
 
     def iterate_api(self, request_info: RequestInfo) -> ResourceIterator[Any]:
         def fetch_page(
@@ -336,7 +298,11 @@ class ApiClient:
                     params=self._process_query_parameters(request_info.query_params),
                     content=self._serialize(request_info.body, request_info.body_type),
                     headers=self._create_headers(request_info, token),
-                    timeout=self._get_timeout(request_info),
+                    timeout=(
+                        httpx.USE_CLIENT_DEFAULT
+                        if request_info.request_timeout is None
+                        else request_info.request_timeout
+                    ),
                 )
 
                 return self._session.send(request=request, stream=request_info.stream)
@@ -379,13 +345,6 @@ class ApiClient:
 
         return result
 
-    def _get_timeout(self, request_info: RequestInfo) -> Union[int, float, None]:
-        return (
-            request_info.request_timeout
-            if request_info.request_timeout is not None
-            else self._config.timeout
-        )
-
     def _create_url(self, request_info: RequestInfo) -> str:
         resource_path = request_info.resource_path
         path_params = request_info.path_params
@@ -395,7 +354,7 @@ class ApiClient:
             # this does not work with the backend which expects "/" characters to be encoded
             resource_path = resource_path.replace(f"{{{k}}}", quote(v, safe=""))
 
-        return f"{self._config.scheme}://{self._hostname}/api{resource_path}"
+        return f"/api{resource_path}"
 
     def _create_headers(self, request_info: RequestInfo, token: Token) -> Dict[str, Any]:
         return {

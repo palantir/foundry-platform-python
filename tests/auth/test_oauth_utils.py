@@ -26,28 +26,20 @@ from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
 
 
 def test_get_token_uri():
-    expect(OAuthUtils.get_token_uri("a.b.c")).to(equal("https://a.b.c/multipass/api/oauth2/token"))
+    expect(OAuthUtils.get_token_uri()).to(equal("/multipass/api/oauth2/token"))
 
 
 def test_get_authorize_uri():
-    expect(OAuthUtils.get_authorize_uri("a.b.c")).to(
-        equal("https://a.b.c/multipass/api/oauth2/authorize")
-    )
+    expect(OAuthUtils.get_authorize_uri()).to(equal("/multipass/api/oauth2/authorize"))
 
 
 def test_get_revoke_uri():
-    expect(OAuthUtils.get_revoke_uri("a.b.c")).to(
-        equal("https://a.b.c/multipass/api/oauth2/revoke_token")
-    )
+    expect(OAuthUtils.get_revoke_uri()).to(equal("/multipass/api/oauth2/revoke_token"))
 
 
 def test_create_uri():
-    expect(OAuthUtils.create_uri("a.b.c", "/api/v2/datasets", "/abc")).to(
-        equal("https://a.b.c/api/v2/datasets/abc")
-    )
-    expect(OAuthUtils.create_uri("https://a.b.c", "/api/v2/datasets", "/abc")).to(
-        equal("https://a.b.c/api/v2/datasets/abc")
-    )
+    expect(OAuthUtils.create_uri("/api/v2/datasets", "/abc")).to(equal("/api/v2/datasets/abc"))
+    expect(OAuthUtils.create_uri("/api/v2/datasets", "/abc")).to(equal("/api/v2/datasets/abc"))
 
 
 def test_confidential_client_no_scopes():
