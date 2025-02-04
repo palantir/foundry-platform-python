@@ -84,6 +84,26 @@
           "MultiLineString",
           "MultiPolygon",
           "GeometryCollection"
+        ],
+        "Ontologies": [
+          "DerivedPropertyDefinition",
+          "DerivedPropertyApiName",
+          "MethodObjectSet",
+          "SelectedPropertyDefinition",
+          "SelectedPropertyOperation",
+          "SelectedPropertyMaxAggregation",
+          "SelectedPropertyMinAggregation",
+          "SelectedPropertyAvgAggregation",
+          "SelectedPropertySumAggregation",
+          "SelectedPropertyCountAggregation",
+          "SelectedPropertyApproximateDistinctAggregation",
+          "SelectedPropertyExactDistinctAggregation",
+          "SelectedPropertyApproximatePercentileAggregation",
+          "SelectedPropertyCollectListAggregation",
+          "SelectedPropertyCollectSetAggregation",
+          "GetSelectedPropertyOperation",
+          "ObjectSetWithPropertiesType",
+          "ObjectSetMethodInputType"
         ]
       },
       "additionalRelationships": [
