@@ -45,6 +45,7 @@ from foundry.v2.ontologies.models._property_value_escaped_string import (
     PropertyValueEscapedString,
 )  # NOQA
 from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
+from foundry.v2.ontologies.models._streaming_output_format import StreamingOutputFormat
 from foundry.v2.ontologies.models._time_range_dict import TimeRangeDict
 from foundry.v2.ontologies.models._time_series_point import TimeSeriesPoint
 
@@ -209,6 +210,7 @@ class TimeSeriesPropertyV2Client:
         *,
         stream: Literal[True],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
         range: Optional[TimeRangeDict] = None,
         chunk_size: Optional[int] = None,
@@ -230,6 +232,8 @@ class TimeSeriesPropertyV2Client:
         :type property: PropertyApiName
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param format: format
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
@@ -254,6 +258,7 @@ class TimeSeriesPropertyV2Client:
         property: PropertyApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
         range: Optional[TimeRangeDict] = None,
         stream: Literal[False] = False,
@@ -275,6 +280,8 @@ class TimeSeriesPropertyV2Client:
         :type property: PropertyApiName
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param format: format
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
@@ -301,6 +308,7 @@ class TimeSeriesPropertyV2Client:
         *,
         stream: bool,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
         range: Optional[TimeRangeDict] = None,
         chunk_size: Optional[int] = None,
@@ -322,6 +330,8 @@ class TimeSeriesPropertyV2Client:
         :type property: PropertyApiName
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param format: format
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
@@ -348,6 +358,7 @@ class TimeSeriesPropertyV2Client:
         property: PropertyApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
         range: Optional[TimeRangeDict] = None,
         stream: bool = False,
@@ -370,6 +381,8 @@ class TimeSeriesPropertyV2Client:
         :type property: PropertyApiName
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param format: format
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
@@ -397,6 +410,7 @@ class TimeSeriesPropertyV2Client:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "format": format,
                     "packageName": package_name,
                 },
                 path_params={
@@ -578,6 +592,7 @@ class _TimeSeriesPropertyV2ClientRaw:
         property: PropertyApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
         range: Optional[TimeRangeDict] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -598,6 +613,8 @@ class _TimeSeriesPropertyV2ClientRaw:
         :type property: PropertyApiName
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param format: format
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
@@ -614,6 +631,7 @@ class _TimeSeriesPropertyV2ClientRaw:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "format": format,
                     "packageName": package_name,
                 },
                 path_params={
@@ -793,6 +811,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
         property: PropertyApiName,
         *,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
+        format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
         range: Optional[TimeRangeDict] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -813,6 +832,8 @@ class _TimeSeriesPropertyV2ClientStreaming:
         :type property: PropertyApiName
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param format: format
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
@@ -829,6 +850,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "format": format,
                     "packageName": package_name,
                 },
                 path_params={

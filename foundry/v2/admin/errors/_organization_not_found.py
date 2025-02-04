@@ -26,11 +26,11 @@ from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
 class OrganizationNotFoundParameters(TypedDict):
-    """An Organization with the given Organization RID could not be found"""
+    """The given Organization could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organization: OrganizationRid
+    organizationRid: OrganizationRid
 
 
 @dataclass

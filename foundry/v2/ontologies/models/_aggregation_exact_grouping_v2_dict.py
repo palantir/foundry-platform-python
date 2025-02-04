@@ -32,4 +32,6 @@ class AggregationExactGroupingV2Dict(TypedDict):
 
     maxGroupCount: NotRequired[int]
 
+    defaultValue: NotRequired[str]
+
     type: Literal["exact"]

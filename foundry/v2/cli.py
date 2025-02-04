@@ -285,6 +285,118 @@ def admin_user_group_membership_page(
     click.echo(repr(result))
 
 
+@admin_user.group("user_provider_info")
+def admin_user_user_provider_info():
+    pass
+
+
+@admin_user_user_provider_info.command("get")
+@click.argument("user_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_user_user_provider_info_get(
+    client: foundry.v2.FoundryClient,
+    user_id: str,
+    preview: Optional[bool],
+):
+    """
+    Get the UserProviderInfo.
+    """
+    result = client.admin.User.UserProviderInfo.get(
+        user_id=user_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_user_user_provider_info.command("replace")
+@click.argument("user_id", type=str, required=True)
+@click.option(
+    "--provider_id",
+    type=str,
+    required=True,
+    help="""The ID of the User in the external authentication provider. This value is determined by the authentication provider.
+At most one User can have a given provider ID in a given Realm.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_user_user_provider_info_replace(
+    client: foundry.v2.FoundryClient,
+    user_id: str,
+    provider_id: str,
+    preview: Optional[bool],
+):
+    """
+    Replace the UserProviderInfo.
+    """
+    result = client.admin.User.UserProviderInfo.replace(
+        user_id=user_id,
+        provider_id=provider_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin.group("organization")
+def admin_organization():
+    pass
+
+
+@admin_organization.command("get")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_organization_get(
+    client: foundry.v2.FoundryClient,
+    organization_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the Organization with the specified rid.
+    """
+    result = client.admin.Organization.get(
+        organization_rid=organization_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization.command("replace")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option(
+    "--host",
+    type=str,
+    required=False,
+    help="""The primary host name of the Organization. This should be used when constructing URLs for users of this
+Organization.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_organization_replace(
+    client: foundry.v2.FoundryClient,
+    organization_rid: str,
+    name: str,
+    description: Optional[str],
+    host: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Replace the Organization with the specified rid.
+    """
+    result = client.admin.Organization.replace(
+        organization_rid=organization_rid,
+        name=name,
+        description=description,
+        host=host,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin.group("marking_category")
 def admin_marking_category():
     pass
@@ -946,6 +1058,59 @@ def admin_group_group_member_remove(
     result = client.admin.Group.GroupMember.remove(
         group_id=group_id,
         principal_ids=json.loads(principal_ids),
+    )
+    click.echo(repr(result))
+
+
+@admin_group.group("group_provider_info")
+def admin_group_group_provider_info():
+    pass
+
+
+@admin_group_group_provider_info.command("get")
+@click.argument("group_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_group_group_provider_info_get(
+    client: foundry.v2.FoundryClient,
+    group_id: str,
+    preview: Optional[bool],
+):
+    """
+    Get the GroupProviderInfo.
+    """
+    result = client.admin.Group.GroupProviderInfo.get(
+        group_id=group_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group_group_provider_info.command("replace")
+@click.argument("group_id", type=str, required=True)
+@click.option(
+    "--provider_id",
+    type=str,
+    required=True,
+    help="""The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
+At most one Group can have a given provider ID in a given Realm.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_group_group_provider_info_replace(
+    client: foundry.v2.FoundryClient,
+    group_id: str,
+    provider_id: str,
+    preview: Optional[bool],
+):
+    """
+    Replace the GroupProviderInfo.
+    """
+    result = client.admin.Group.GroupProviderInfo.replace(
+        group_id=group_id,
+        provider_id=provider_id,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3492,6 +3657,7 @@ def ontologies_v2_time_series_property_v2_get_last_point(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option("--format", type=click.Choice(["JSON", "ARROW"]), required=False, help="""format""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--range", type=str, required=False, help="""""")
 @click.pass_obj
@@ -3502,6 +3668,7 @@ def ontologies_v2_time_series_property_v2_stream_points(
     primary_key: str,
     property: str,
     artifact_repository: Optional[str],
+    format: Optional[Literal["JSON", "ARROW"]],
     package_name: Optional[str],
     range: Optional[str],
 ):
@@ -3518,6 +3685,7 @@ def ontologies_v2_time_series_property_v2_stream_points(
         primary_key=primary_key,
         property=property,
         artifact_repository=artifact_repository,
+        format=format,
         package_name=package_name,
         range=None if range is None else json.loads(range),
     )

@@ -28,6 +28,9 @@ from foundry.v2.filesystem.errors._create_folder_outside_project_not_supported i
 from foundry.v2.filesystem.errors._create_folder_permission_denied import (
     CreateFolderPermissionDenied,
 )  # NOQA
+from foundry.v2.filesystem.errors._create_project_no_owner_like_role_grant import (
+    CreateProjectNoOwnerLikeRoleGrant,
+)  # NOQA
 from foundry.v2.filesystem.errors._create_project_permission_denied import (
     CreateProjectPermissionDenied,
 )  # NOQA
@@ -105,6 +108,7 @@ __all__ = [
     "AddResourceRolesPermissionDenied",
     "CreateFolderOutsideProjectNotSupported",
     "CreateFolderPermissionDenied",
+    "CreateProjectNoOwnerLikeRoleGrant",
     "CreateProjectPermissionDenied",
     "DeleteResourcePermissionDenied",
     "FolderNotFound",

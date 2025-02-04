@@ -50,6 +50,8 @@ from foundry.v2.core.models._double_type import DoubleType
 from foundry.v2.core.models._double_type_dict import DoubleTypeDict
 from foundry.v2.core.models._duration import Duration
 from foundry.v2.core.models._duration_dict import DurationDict
+from foundry.v2.core.models._embedding_model import EmbeddingModel
+from foundry.v2.core.models._embedding_model_dict import EmbeddingModelDict
 from foundry.v2.core.models._enrollment_rid import EnrollmentRid
 from foundry.v2.core.models._field import Field
 from foundry.v2.core.models._field_data_type import FieldDataType
@@ -75,6 +77,8 @@ from foundry.v2.core.models._filter_type_dict import FilterTypeDict
 from foundry.v2.core.models._filter_uuid_type_dict import FilterUuidTypeDict
 from foundry.v2.core.models._float_type import FloatType
 from foundry.v2.core.models._float_type_dict import FloatTypeDict
+from foundry.v2.core.models._foundry_live_deployment import FoundryLiveDeployment
+from foundry.v2.core.models._foundry_live_deployment_dict import FoundryLiveDeploymentDict  # NOQA
 from foundry.v2.core.models._full_row_change_data_capture_configuration import (
     FullRowChangeDataCaptureConfiguration,
 )  # NOQA
@@ -91,6 +95,9 @@ from foundry.v2.core.models._geotime_series_reference_type_dict import (
 )  # NOQA
 from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._integer_type_dict import IntegerTypeDict
+from foundry.v2.core.models._lms_embedding_model import LmsEmbeddingModel
+from foundry.v2.core.models._lms_embedding_model_dict import LmsEmbeddingModelDict
+from foundry.v2.core.models._lms_embedding_model_value import LmsEmbeddingModelValue
 from foundry.v2.core.models._long_type import LongType
 from foundry.v2.core.models._long_type_dict import LongTypeDict
 from foundry.v2.core.models._map_field_type import MapFieldType
@@ -137,6 +144,15 @@ from foundry.v2.core.models._unsupported_type_dict import UnsupportedTypeDict
 from foundry.v2.core.models._updated_by import UpdatedBy
 from foundry.v2.core.models._updated_time import UpdatedTime
 from foundry.v2.core.models._user_id import UserId
+from foundry.v2.core.models._vector_similarity_function import VectorSimilarityFunction
+from foundry.v2.core.models._vector_similarity_function_dict import (
+    VectorSimilarityFunctionDict,
+)  # NOQA
+from foundry.v2.core.models._vector_similarity_function_value import (
+    VectorSimilarityFunctionValue,
+)  # NOQA
+from foundry.v2.core.models._vector_type import VectorType
+from foundry.v2.core.models._vector_type_dict import VectorTypeDict
 from foundry.v2.core.models._zone_id import ZoneId
 
 __all__ = [
@@ -173,6 +189,8 @@ __all__ = [
     "DoubleTypeDict",
     "Duration",
     "DurationDict",
+    "EmbeddingModel",
+    "EmbeddingModelDict",
     "EnrollmentRid",
     "Field",
     "FieldDataType",
@@ -198,6 +216,8 @@ __all__ = [
     "FilterUuidTypeDict",
     "FloatType",
     "FloatTypeDict",
+    "FoundryLiveDeployment",
+    "FoundryLiveDeploymentDict",
     "FullRowChangeDataCaptureConfiguration",
     "FullRowChangeDataCaptureConfigurationDict",
     "GeoPointType",
@@ -208,6 +228,9 @@ __all__ = [
     "GeotimeSeriesReferenceTypeDict",
     "IntegerType",
     "IntegerTypeDict",
+    "LmsEmbeddingModel",
+    "LmsEmbeddingModelDict",
+    "LmsEmbeddingModelValue",
     "LongType",
     "LongTypeDict",
     "MapFieldType",
@@ -254,5 +277,10 @@ __all__ = [
     "UpdatedBy",
     "UpdatedTime",
     "UserId",
+    "VectorSimilarityFunction",
+    "VectorSimilarityFunctionDict",
+    "VectorSimilarityFunctionValue",
+    "VectorType",
+    "VectorTypeDict",
     "ZoneId",
 ]

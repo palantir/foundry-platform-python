@@ -1,0 +1,121 @@
+# GroupProviderInfo
+
+Method | HTTP request |
+------------- | ------------- |
+[**get**](#get) | **GET** /v2/admin/groups/{groupId}/providerInfo |
+[**replace**](#replace) | **PUT** /v2/admin/groups/{groupId}/providerInfo |
+
+# **get**
+Get the GroupProviderInfo.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**group_id** | PrincipalId | groupId |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**GroupProviderInfo**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# PrincipalId | groupId
+group_id = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Group.GroupProviderInfo.get(
+        group_id,
+        preview=preview,
+    )
+    print("The get response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling GroupProviderInfo.get: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GroupProviderInfo  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+Replace the GroupProviderInfo.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**group_id** | PrincipalId | groupId |  |
+**provider_id** | ProviderId | The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**GroupProviderInfo**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# PrincipalId | groupId
+group_id = None
+# ProviderId | The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
+provider_id = "2838c8f3-d76a-4e99-acf1-1dee537e4c48"
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.admin.Group.GroupProviderInfo.replace(
+        group_id,
+        provider_id=provider_id,
+        preview=preview,
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling GroupProviderInfo.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GroupProviderInfo  | The replaced GroupProviderInfo | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+

@@ -42,6 +42,7 @@ from foundry.v2.core.models._short_type import ShortType
 from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._timeseries_type import TimeseriesType
 from foundry.v2.core.models._timestamp_type import TimestampType
+from foundry.v2.core.models._vector_type import VectorType
 from foundry.v2.ontologies.models._ontology_object_array_type_dict import (
     OntologyObjectArrayTypeDict,
 )  # NOQA
@@ -113,6 +114,7 @@ ObjectPropertyType = Annotated[
         TimeseriesType,
         OntologyObjectArrayType,
         ShortType,
+        VectorType,
         DecimalType,
         TimestampType,
     ],

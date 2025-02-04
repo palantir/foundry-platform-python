@@ -36,6 +36,7 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.group_member import GroupMemberClient
+from foundry.v2.admin.group_provider_info import GroupProviderInfoClient
 from foundry.v2.admin.models._attribute_name import AttributeName
 from foundry.v2.admin.models._attribute_values import AttributeValues
 from foundry.v2.admin.models._get_groups_batch_request_element_dict import (
@@ -73,6 +74,9 @@ class GroupClient:
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _GroupClientRaw(auth=auth, hostname=hostname, config=config)
+        self.GroupProviderInfo = GroupProviderInfoClient(
+            auth=auth, hostname=hostname, config=config
+        )
         self.GroupMember = GroupMemberClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
