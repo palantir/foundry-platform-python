@@ -109,17 +109,17 @@
       "additionalRelationships": [
         [
           "OntologiesV2",
-          "OntologyV2",
-          "ActionTypeV2"
+          "Ontology",
+          "ActionType"
         ],
         [
           "OntologiesV2",
-          "OntologyV2",
-          "ObjectTypeV2"
+          "Ontology",
+          "ObjectType"
         ],
         [
           "OntologiesV2",
-          "OntologyV2",
+          "Ontology",
           "QueryType"
         ]
       ],
