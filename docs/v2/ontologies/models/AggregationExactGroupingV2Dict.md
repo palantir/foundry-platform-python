@@ -7,6 +7,7 @@ Divides objects into groups according to an exact value.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
 **maxGroupCount** | NotRequired[int] | No |  |
+**defaultValue** | NotRequired[str] | No |  |
 **type** | Literal["exact"] | Yes | None |
 
 

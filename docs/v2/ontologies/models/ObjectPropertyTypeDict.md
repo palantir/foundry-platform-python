@@ -29,6 +29,7 @@ MediaReferenceTypeDict | mediaReference
 TimeseriesTypeDict | timeseries
 OntologyObjectArrayTypeDict | array
 ShortTypeDict | short
+VectorTypeDict | vector
 DecimalTypeDict | decimal
 TimestampTypeDict | timestamp
 

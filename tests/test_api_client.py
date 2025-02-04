@@ -290,6 +290,14 @@ def test_path_encoding():
     assert_called_with(client, url="https://localhost:8123/api/files/%2Fmy%2Ffile.txt")
 
 
+def test_null_query_params():
+    client = create_mock_client()
+    client.call_api(
+        RequestInfo.with_defaults("GET", "/foo/bar", query_params={"foo": "foo", "bar": None})
+    )
+    assert_called_with(client, url="https://localhost:8123/api/foo/bar", params=[("foo", "foo")])
+
+
 def test_shared_transport():
     client1 = create_mock_client()
     client2 = create_mock_client()

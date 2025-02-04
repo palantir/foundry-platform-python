@@ -50,6 +50,7 @@ from foundry.v2.admin.models._list_users_response import ListUsersResponse
 from foundry.v2.admin.models._search_users_response import SearchUsersResponse
 from foundry.v2.admin.models._user import User
 from foundry.v2.admin.models._user_search_filter_dict import UserSearchFilterDict
+from foundry.v2.admin.user_provider_info import UserProviderInfoClient
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -76,6 +77,7 @@ class UserClient:
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _UserClientRaw(auth=auth, hostname=hostname, config=config)
+        self.UserProviderInfo = UserProviderInfoClient(auth=auth, hostname=hostname, config=config)
         self.GroupMembership = GroupMembershipClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

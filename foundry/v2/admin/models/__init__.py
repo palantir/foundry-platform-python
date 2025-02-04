@@ -50,6 +50,8 @@ from foundry.v2.admin.models._group_membership import GroupMembership
 from foundry.v2.admin.models._group_membership_dict import GroupMembershipDict
 from foundry.v2.admin.models._group_membership_expiration import GroupMembershipExpiration  # NOQA
 from foundry.v2.admin.models._group_name import GroupName
+from foundry.v2.admin.models._group_provider_info import GroupProviderInfo
+from foundry.v2.admin.models._group_provider_info_dict import GroupProviderInfoDict
 from foundry.v2.admin.models._group_search_filter_dict import GroupSearchFilterDict
 from foundry.v2.admin.models._host import Host
 from foundry.v2.admin.models._host_dict import HostDict
@@ -105,13 +107,19 @@ from foundry.v2.admin.models._marking_role_assignment import MarkingRoleAssignme
 from foundry.v2.admin.models._marking_role_assignment_dict import MarkingRoleAssignmentDict  # NOQA
 from foundry.v2.admin.models._marking_role_update_dict import MarkingRoleUpdateDict
 from foundry.v2.admin.models._marking_type import MarkingType
+from foundry.v2.admin.models._organization import Organization
+from foundry.v2.admin.models._organization_dict import OrganizationDict
+from foundry.v2.admin.models._organization_name import OrganizationName
 from foundry.v2.admin.models._principal_filter_type import PrincipalFilterType
+from foundry.v2.admin.models._provider_id import ProviderId
 from foundry.v2.admin.models._search_groups_response import SearchGroupsResponse
 from foundry.v2.admin.models._search_groups_response_dict import SearchGroupsResponseDict  # NOQA
 from foundry.v2.admin.models._search_users_response import SearchUsersResponse
 from foundry.v2.admin.models._search_users_response_dict import SearchUsersResponseDict
 from foundry.v2.admin.models._user import User
 from foundry.v2.admin.models._user_dict import UserDict
+from foundry.v2.admin.models._user_provider_info import UserProviderInfo
+from foundry.v2.admin.models._user_provider_info_dict import UserProviderInfoDict
 from foundry.v2.admin.models._user_search_filter_dict import UserSearchFilterDict
 from foundry.v2.admin.models._user_username import UserUsername
 
@@ -141,6 +149,8 @@ __all__ = [
     "GroupMembershipDict",
     "GroupMembershipExpiration",
     "GroupName",
+    "GroupProviderInfo",
+    "GroupProviderInfoDict",
     "GroupSearchFilterDict",
     "Host",
     "HostDict",
@@ -178,13 +188,19 @@ __all__ = [
     "MarkingRoleAssignmentDict",
     "MarkingRoleUpdateDict",
     "MarkingType",
+    "Organization",
+    "OrganizationDict",
+    "OrganizationName",
     "PrincipalFilterType",
+    "ProviderId",
     "SearchGroupsResponse",
     "SearchGroupsResponseDict",
     "SearchUsersResponse",
     "SearchUsersResponseDict",
     "User",
     "UserDict",
+    "UserProviderInfo",
+    "UserProviderInfoDict",
     "UserSearchFilterDict",
     "UserUsername",
 ]

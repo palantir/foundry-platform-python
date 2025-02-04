@@ -23,6 +23,7 @@ from foundry.v2.admin.enrollment import EnrollmentClient
 from foundry.v2.admin.group import GroupClient
 from foundry.v2.admin.marking import MarkingClient
 from foundry.v2.admin.marking_category import MarkingCategoryClient
+from foundry.v2.admin.organization import OrganizationClient
 from foundry.v2.admin.user import UserClient
 
 
@@ -45,4 +46,5 @@ class AdminClient:
         self.Group = GroupClient(auth=auth, hostname=hostname, config=config)
         self.Marking = MarkingClient(auth=auth, hostname=hostname, config=config)
         self.MarkingCategory = MarkingCategoryClient(auth=auth, hostname=hostname, config=config)
+        self.Organization = OrganizationClient(auth=auth, hostname=hostname, config=config)
         self.User = UserClient(auth=auth, hostname=hostname, config=config)

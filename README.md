@@ -410,6 +410,8 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | GroupMember | [**remove**](docs/v2/Admin/GroupMember.md#remove) | **POST** /v2/admin/groups/{groupId}/groupMembers/remove |
 **Admin** | GroupMembership | [**list**](docs/v2/Admin/GroupMembership.md#list) | **GET** /v2/admin/users/{userId}/groupMemberships |
 **Admin** | GroupMembership | [**page**](docs/v2/Admin/GroupMembership.md#page) | **GET** /v2/admin/users/{userId}/groupMemberships |
+**Admin** | GroupProviderInfo | [**get**](docs/v2/Admin/GroupProviderInfo.md#get) | **GET** /v2/admin/groups/{groupId}/providerInfo |
+**Admin** | GroupProviderInfo | [**replace**](docs/v2/Admin/GroupProviderInfo.md#replace) | **PUT** /v2/admin/groups/{groupId}/providerInfo |
 **Admin** | Marking | [**create**](docs/v2/Admin/Marking.md#create) | **POST** /v2/admin/markings |
 **Admin** | Marking | [**get**](docs/v2/Admin/Marking.md#get) | **GET** /v2/admin/markings/{markingId} |
 **Admin** | Marking | [**get_batch**](docs/v2/Admin/Marking.md#get_batch) | **POST** /v2/admin/markings/getBatch |
@@ -426,6 +428,8 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | MarkingRoleAssignment | [**list**](docs/v2/Admin/MarkingRoleAssignment.md#list) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
 **Admin** | MarkingRoleAssignment | [**page**](docs/v2/Admin/MarkingRoleAssignment.md#page) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
 **Admin** | MarkingRoleAssignment | [**remove**](docs/v2/Admin/MarkingRoleAssignment.md#remove) | **POST** /v2/admin/markings/{markingId}/roleAssignments/remove |
+**Admin** | Organization | [**get**](docs/v2/Admin/Organization.md#get) | **GET** /v2/admin/organizations/{organizationRid} |
+**Admin** | Organization | [**replace**](docs/v2/Admin/Organization.md#replace) | **PUT** /v2/admin/organizations/{organizationRid} |
 **Admin** | User | [**delete**](docs/v2/Admin/User.md#delete) | **DELETE** /v2/admin/users/{userId} |
 **Admin** | User | [**get**](docs/v2/Admin/User.md#get) | **GET** /v2/admin/users/{userId} |
 **Admin** | User | [**get_batch**](docs/v2/Admin/User.md#get_batch) | **POST** /v2/admin/users/getBatch |
@@ -435,6 +439,8 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | User | [**page**](docs/v2/Admin/User.md#page) | **GET** /v2/admin/users |
 **Admin** | User | [**profile_picture**](docs/v2/Admin/User.md#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture |
 **Admin** | User | [**search**](docs/v2/Admin/User.md#search) | **POST** /v2/admin/users/search |
+**Admin** | UserProviderInfo | [**get**](docs/v2/Admin/UserProviderInfo.md#get) | **GET** /v2/admin/users/{userId}/providerInfo |
+**Admin** | UserProviderInfo | [**replace**](docs/v2/Admin/UserProviderInfo.md#replace) | **PUT** /v2/admin/users/{userId}/providerInfo |
 **AipAgents** | Agent | [**all_sessions**](docs/v2/AipAgents/Agent.md#all_sessions) | **GET** /v2/aipAgents/agents/allSessions |
 **AipAgents** | Agent | [**all_sessions_page**](docs/v2/AipAgents/Agent.md#all_sessions_page) | **GET** /v2/aipAgents/agents/allSessions |
 **AipAgents** | Agent | [**get**](docs/v2/AipAgents/Agent.md#get) | **GET** /v2/aipAgents/agents/{agentRid} |
@@ -631,6 +637,8 @@ Namespace | Resource | Operation | HTTP request |
 - [GroupMembershipDict](docs/v2/models/GroupMembershipDict.md)
 - [GroupMembershipExpiration](docs/v2/models/GroupMembershipExpiration.md)
 - [GroupName](docs/v2/models/GroupName.md)
+- [GroupProviderInfo](docs/v2/models/GroupProviderInfo.md)
+- [GroupProviderInfoDict](docs/v2/models/GroupProviderInfoDict.md)
 - [GroupSearchFilterDict](docs/v2/models/GroupSearchFilterDict.md)
 - [Host](docs/v2/models/Host.md)
 - [HostDict](docs/v2/models/HostDict.md)
@@ -668,13 +676,19 @@ Namespace | Resource | Operation | HTTP request |
 - [MarkingRoleAssignmentDict](docs/v2/models/MarkingRoleAssignmentDict.md)
 - [MarkingRoleUpdateDict](docs/v2/models/MarkingRoleUpdateDict.md)
 - [MarkingType](docs/v2/models/MarkingType.md)
+- [Organization](docs/v2/models/Organization.md)
+- [OrganizationDict](docs/v2/models/OrganizationDict.md)
+- [OrganizationName](docs/v2/models/OrganizationName.md)
 - [PrincipalFilterType](docs/v2/models/PrincipalFilterType.md)
+- [ProviderId](docs/v2/models/ProviderId.md)
 - [SearchGroupsResponse](docs/v2/models/SearchGroupsResponse.md)
 - [SearchGroupsResponseDict](docs/v2/models/SearchGroupsResponseDict.md)
 - [SearchUsersResponse](docs/v2/models/SearchUsersResponse.md)
 - [SearchUsersResponseDict](docs/v2/models/SearchUsersResponseDict.md)
 - [User](docs/v2/models/User.md)
 - [UserDict](docs/v2/models/UserDict.md)
+- [UserProviderInfo](docs/v2/models/UserProviderInfo.md)
+- [UserProviderInfoDict](docs/v2/models/UserProviderInfoDict.md)
 - [UserSearchFilterDict](docs/v2/models/UserSearchFilterDict.md)
 - [UserUsername](docs/v2/models/UserUsername.md)
 - [Agent](docs/v2/models/Agent.md)
@@ -875,6 +889,8 @@ Namespace | Resource | Operation | HTTP request |
 - [DoubleTypeDict](docs/v2/models/DoubleTypeDict.md)
 - [Duration](docs/v2/models/Duration.md)
 - [DurationDict](docs/v2/models/DurationDict.md)
+- [EmbeddingModel](docs/v2/models/EmbeddingModel.md)
+- [EmbeddingModelDict](docs/v2/models/EmbeddingModelDict.md)
 - [EnrollmentRid](docs/v2/models/EnrollmentRid.md)
 - [Field](docs/v2/models/Field.md)
 - [FieldDataType](docs/v2/models/FieldDataType.md)
@@ -900,6 +916,8 @@ Namespace | Resource | Operation | HTTP request |
 - [FilterUuidTypeDict](docs/v2/models/FilterUuidTypeDict.md)
 - [FloatType](docs/v2/models/FloatType.md)
 - [FloatTypeDict](docs/v2/models/FloatTypeDict.md)
+- [FoundryLiveDeployment](docs/v2/models/FoundryLiveDeployment.md)
+- [FoundryLiveDeploymentDict](docs/v2/models/FoundryLiveDeploymentDict.md)
 - [FullRowChangeDataCaptureConfiguration](docs/v2/models/FullRowChangeDataCaptureConfiguration.md)
 - [FullRowChangeDataCaptureConfigurationDict](docs/v2/models/FullRowChangeDataCaptureConfigurationDict.md)
 - [GeoPointType](docs/v2/models/GeoPointType.md)
@@ -910,6 +928,9 @@ Namespace | Resource | Operation | HTTP request |
 - [GeotimeSeriesReferenceTypeDict](docs/v2/models/GeotimeSeriesReferenceTypeDict.md)
 - [IntegerType](docs/v2/models/IntegerType.md)
 - [IntegerTypeDict](docs/v2/models/IntegerTypeDict.md)
+- [LmsEmbeddingModel](docs/v2/models/LmsEmbeddingModel.md)
+- [LmsEmbeddingModelDict](docs/v2/models/LmsEmbeddingModelDict.md)
+- [LmsEmbeddingModelValue](docs/v2/models/LmsEmbeddingModelValue.md)
 - [LongType](docs/v2/models/LongType.md)
 - [LongTypeDict](docs/v2/models/LongTypeDict.md)
 - [MapFieldType](docs/v2/models/MapFieldType.md)
@@ -956,6 +977,11 @@ Namespace | Resource | Operation | HTTP request |
 - [UpdatedBy](docs/v2/models/UpdatedBy.md)
 - [UpdatedTime](docs/v2/models/UpdatedTime.md)
 - [UserId](docs/v2/models/UserId.md)
+- [VectorSimilarityFunction](docs/v2/models/VectorSimilarityFunction.md)
+- [VectorSimilarityFunctionDict](docs/v2/models/VectorSimilarityFunctionDict.md)
+- [VectorSimilarityFunctionValue](docs/v2/models/VectorSimilarityFunctionValue.md)
+- [VectorType](docs/v2/models/VectorType.md)
+- [VectorTypeDict](docs/v2/models/VectorTypeDict.md)
 - [ZoneId](docs/v2/models/ZoneId.md)
 - [Branch](docs/v2/models/Branch.md)
 - [BranchDict](docs/v2/models/BranchDict.md)
@@ -1458,6 +1484,7 @@ Namespace | Resource | Operation | HTTP request |
 - [SharedPropertyTypeRid](docs/v2/models/SharedPropertyTypeRid.md)
 - [StartsWithQuery](docs/v2/models/StartsWithQuery.md)
 - [StartsWithQueryDict](docs/v2/models/StartsWithQueryDict.md)
+- [StreamingOutputFormat](docs/v2/models/StreamingOutputFormat.md)
 - [StringLengthConstraint](docs/v2/models/StringLengthConstraint.md)
 - [StringLengthConstraintDict](docs/v2/models/StringLengthConstraintDict.md)
 - [StringRegexMatchConstraint](docs/v2/models/StringRegexMatchConstraint.md)

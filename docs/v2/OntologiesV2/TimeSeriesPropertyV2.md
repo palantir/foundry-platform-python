@@ -172,6 +172,7 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**format** | Optional[StreamingOutputFormat] | format | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **range** | Optional[TimeRangeDict] |  | [optional] |
 
@@ -199,6 +200,8 @@ primary_key = 50030
 property = None
 # Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
+# Optional[StreamingOutputFormat] | format
+format = None
 # Optional[SdkPackageName] | packageName
 package_name = None
 # Optional[TimeRangeDict] |
@@ -216,6 +219,7 @@ try:
         primary_key,
         property,
         artifact_repository=artifact_repository,
+        format=format,
         package_name=package_name,
         range=range,
     )

@@ -29,6 +29,7 @@ MediaReferenceType | mediaReference
 TimeseriesType | timeseries
 OntologyObjectArrayType | array
 ShortType | short
+VectorType | vector
 DecimalType | decimal
 TimestampType | timestamp
 

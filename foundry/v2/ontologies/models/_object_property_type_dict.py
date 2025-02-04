@@ -44,6 +44,7 @@ from foundry.v2.core.models._short_type_dict import ShortTypeDict
 from foundry.v2.core.models._string_type_dict import StringTypeDict
 from foundry.v2.core.models._timeseries_type_dict import TimeseriesTypeDict
 from foundry.v2.core.models._timestamp_type_dict import TimestampTypeDict
+from foundry.v2.core.models._vector_type_dict import VectorTypeDict
 from foundry.v2.ontologies.models._struct_field_api_name import StructFieldApiName
 
 
@@ -98,6 +99,7 @@ ObjectPropertyTypeDict = Annotated[
         TimeseriesTypeDict,
         OntologyObjectArrayTypeDict,
         ShortTypeDict,
+        VectorTypeDict,
         DecimalTypeDict,
         TimestampTypeDict,
     ],
