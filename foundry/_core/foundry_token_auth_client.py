@@ -56,6 +56,7 @@ class UserTokenAuth(Auth):
 
         self._hostname = hostname
         self._token = _UserToken(token)
+        super().__init__()
 
     def get_token(self) -> Token:
         if self._token is None:

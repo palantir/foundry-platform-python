@@ -26,7 +26,6 @@ from foundry._core.oauth import SignInResponse
 from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthToken
-from foundry._core.utils import clean_hostname
 from foundry._errors.not_authenticated import NotAuthenticated
 
 
@@ -56,7 +55,10 @@ class ConfidentialClientAuth(Auth):
         self._stop_refresh_event = threading.Event()
         self._hostname = hostname
         self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
-            client_id, client_secret, self.url, scopes=scopes
+            client_id,
+            client_secret,
+            hostname=hostname,
+            scopes=scopes,
         )
 
     def get_token(self) -> OAuthToken:
@@ -102,7 +104,7 @@ class ConfidentialClientAuth(Auth):
 
     @property
     def url(self) -> str:
-        return clean_hostname(self._hostname)
+        return self._server_oauth_flow_provider._client.base_url.host
 
     def _refresh_token(self) -> None:
         self._token = self._server_oauth_flow_provider.get_token()
@@ -127,6 +129,7 @@ class ConfidentialClientAuth(Auth):
 
         if self._should_refresh:
             self._start_auto_refresh()
+
         return SignInResponse(
             session={"accessToken": token.access_token, "expiresIn": token.expires_in}
         )

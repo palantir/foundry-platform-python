@@ -28,6 +28,7 @@ import httpx
 import pydantic
 
 from foundry._core.auth_utils import Token
+from foundry._core.http_client import HttpClient
 
 
 class OAuthUtils:
@@ -37,31 +38,20 @@ class OAuthUtils:
     revoke_request_path = "/api/oauth2/revoke_token"
 
     @staticmethod
-    def get_token_uri(base_uri: str, context_path: Optional[str] = None) -> str:
-        return OAuthUtils.create_uri(
-            base_uri, context_path or OAuthUtils.base_context_path, OAuthUtils.token_request_path
-        )
+    def get_token_uri(context_path: Optional[str] = None) -> str:
+        return OAuthUtils.create_uri(context_path, OAuthUtils.token_request_path)
 
     @staticmethod
-    def get_authorize_uri(base_uri: str, context_path: Optional[str] = None) -> str:
-        return OAuthUtils.create_uri(
-            base_uri,
-            context_path or OAuthUtils.base_context_path,
-            OAuthUtils.authorize_request_path,
-        )
+    def get_authorize_uri(context_path: Optional[str] = None) -> str:
+        return OAuthUtils.create_uri(context_path, OAuthUtils.authorize_request_path)
 
     @staticmethod
-    def get_revoke_uri(base_uri: str, context_path: Optional[str] = None) -> str:
-        return OAuthUtils.create_uri(
-            base_uri, context_path or OAuthUtils.base_context_path, OAuthUtils.revoke_request_path
-        )
+    def get_revoke_uri(context_path: Optional[str] = None) -> str:
+        return OAuthUtils.create_uri(context_path, OAuthUtils.revoke_request_path)
 
     @staticmethod
-    def create_uri(base_uri: str, context_path: str, request_path: str) -> str:
-        if base_uri.startswith("https://"):
-            return base_uri + context_path + request_path
-        else:
-            return "https://" + base_uri + context_path + request_path
+    def create_uri(context_path: Optional[str], request_path: str) -> str:
+        return (context_path or OAuthUtils.base_context_path) + request_path
 
 
 class OAuthTokenResponse(pydantic.BaseModel):
@@ -117,15 +107,15 @@ class ConfidentialClientOAuthFlowProvider:
         self,
         client_id: str,
         client_secret: str,
-        url: str,
+        hostname: str,
         multipass_context_path: Optional[str] = None,
         scopes: Optional[List[str]] = None,
     ):
         self._client_id = client_id
         self._client_secret = client_secret
-        self.url = url
         self.multipass_context_path = multipass_context_path
         self.scopes = scopes
+        self._client = HttpClient(hostname)
 
     @property
     def client_id(self) -> str:
@@ -145,8 +135,8 @@ class ConfidentialClientOAuthFlowProvider:
         if len(scopes) > 0:
             params["scope"] = " ".join(scopes)
 
-        token_url = OAuthUtils.get_token_uri(self.url, self.multipass_context_path)
-        response = httpx.post(token_url, data=params)
+        token_url = OAuthUtils.get_token_uri(self.multipass_context_path)
+        response = self._client.post(token_url, data=params)
         response.raise_for_status()
         return OAuthToken(token=OAuthTokenResponse(token_response=response.json()))
 
@@ -157,8 +147,8 @@ class ConfidentialClientOAuthFlowProvider:
             "token": access_token,
         }
 
-        token_url = OAuthUtils.get_revoke_uri(self.url, self.multipass_context_path)
-        revoke_token_response = httpx.post(token_url, data=body)
+        token_url = OAuthUtils.get_revoke_uri(self.multipass_context_path)
+        revoke_token_response = self._client.post(token_url, data=body)
         revoke_token_response.raise_for_status()
 
     def get_scopes(self) -> List[str]:
@@ -188,15 +178,15 @@ class PublicClientOAuthFlowProvider:
         self,
         client_id: str,
         redirect_url: str,
-        url: str,
+        hostname: str,
         multipass_context_path: Optional[str] = None,
         scopes: Optional[List[str]] = None,
     ):
         self._client_id = client_id
         self._redirect_url = redirect_url
-        self.url = url
         self.multipass_context_path = multipass_context_path
         self.scopes = scopes
+        self._client = HttpClient(hostname)
 
     @property
     def client_id(self) -> str:
@@ -223,10 +213,10 @@ class PublicClientOAuthFlowProvider:
         if len(scopes) > 0:
             params["scope"] = " ".join(scopes)
 
-        authorize_url = OAuthUtils.get_authorize_uri(self.url, self.multipass_context_path)
+        authorize_url = OAuthUtils.get_authorize_uri(self.multipass_context_path)
 
         return AuthorizeRequest(
-            url=f"{authorize_url}?{urlencode(params, doseq=True)}",
+            url=f"{self._client.base_url}{authorize_url}?{urlencode(params, doseq=True)}",
             state=state,
             code_verifier=code_verifier,
         )
@@ -244,8 +234,8 @@ class PublicClientOAuthFlowProvider:
         if len(scopes) > 0:
             params["scope"] = " ".join(scopes)
 
-        token_url = OAuthUtils.get_token_uri(self.url, self.multipass_context_path)
-        response = httpx.post(token_url, data=params, headers=headers)
+        token_url = OAuthUtils.get_token_uri(self.multipass_context_path)
+        response = self._client.post(token_url, data=params, headers=headers)
         response.raise_for_status()
         return OAuthToken(token=OAuthTokenResponse(token_response=response.json()))
 
@@ -257,8 +247,8 @@ class PublicClientOAuthFlowProvider:
             "refresh_token": refresh_token,
         }
 
-        token_url = OAuthUtils.get_token_uri(self.url, self.multipass_context_path)
-        response = httpx.post(token_url, data=params, headers=headers)
+        token_url = OAuthUtils.get_token_uri(self.multipass_context_path)
+        response = self._client.post(token_url, data=params, headers=headers)
         response.raise_for_status()
         return OAuthToken(token=OAuthTokenResponse(token_response=response.json()))
 
@@ -268,8 +258,8 @@ class PublicClientOAuthFlowProvider:
             "token": access_token,
         }
 
-        token_url = OAuthUtils.get_revoke_uri(self.url, self.multipass_context_path)
-        revoke_token_response = httpx.post(token_url, data=body)
+        token_url = OAuthUtils.get_revoke_uri(self.multipass_context_path)
+        revoke_token_response = self._client.post(token_url, data=body)
         revoke_token_response.raise_for_status()
 
     def get_scopes(self) -> List[str]:

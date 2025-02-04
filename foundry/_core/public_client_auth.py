@@ -27,7 +27,6 @@ from foundry._core.oauth import SignOutResponse
 from foundry._core.oauth_utils import AuthorizeRequest
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
-from foundry._core.utils import clean_hostname
 from foundry._errors.not_authenticated import NotAuthenticated
 from foundry._errors.sdk_internal_error import SDKInternalError
 
@@ -55,9 +54,11 @@ class PublicClientAuth(Auth):
         self._token: Optional[OAuthToken] = None
         self._should_refresh = should_refresh
         self._stop_refresh_event = threading.Event()
-        self._hostname = hostname
         self._server_oauth_flow_provider = PublicClientOAuthFlowProvider(
-            client_id=client_id, redirect_url=redirect_url, url=self.url, scopes=scopes
+            client_id=client_id,
+            redirect_url=redirect_url,
+            hostname=hostname,
+            scopes=scopes,
         )
         self._auth_request: Optional[AuthorizeRequest] = None
 
@@ -108,7 +109,7 @@ class PublicClientAuth(Auth):
 
     @property
     def url(self) -> str:
-        return clean_hostname(self._hostname)
+        return self._server_oauth_flow_provider._client.base_url.host
 
     def sign_in(self) -> str:
         self._auth_request = self._server_oauth_flow_provider.generate_auth_request()
