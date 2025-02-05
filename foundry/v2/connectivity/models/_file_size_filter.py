@@ -52,4 +52,4 @@ class FileSizeFilter(pydantic.BaseModel):
 
     def to_dict(self) -> FileSizeFilterDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FileSizeFilterDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FileSizeFilterDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -51,4 +51,4 @@ class ValueType(pydantic.BaseModel):
 
     def to_dict(self) -> ValueTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ValueTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ValueTypeDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -37,4 +37,4 @@ class PropertyApiNameSelector(pydantic.BaseModel):
 
     def to_dict(self) -> PropertyApiNameSelectorDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(PropertyApiNameSelectorDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(PropertyApiNameSelectorDict, self.model_dump(by_alias=True, exclude_none=True))

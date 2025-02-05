@@ -47,5 +47,5 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
     def to_dict(self) -> StringRegexMatchConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            StringRegexMatchConstraintDict, self.model_dump(by_alias=True, exclude_unset=True)
+            StringRegexMatchConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
         )

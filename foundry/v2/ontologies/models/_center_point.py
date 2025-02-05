@@ -35,4 +35,4 @@ class CenterPoint(pydantic.BaseModel):
 
     def to_dict(self) -> CenterPointDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(CenterPointDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(CenterPointDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -35,5 +35,5 @@ class ObjectQueryResultConstraint(pydantic.BaseModel):
     def to_dict(self) -> ObjectQueryResultConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectQueryResultConstraintDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ObjectQueryResultConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
         )

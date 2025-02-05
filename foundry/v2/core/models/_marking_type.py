@@ -32,4 +32,4 @@ class MarkingType(pydantic.BaseModel):
 
     def to_dict(self) -> MarkingTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MarkingTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MarkingTypeDict, self.model_dump(by_alias=True, exclude_none=True))

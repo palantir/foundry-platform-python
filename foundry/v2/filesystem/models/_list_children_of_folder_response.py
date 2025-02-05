@@ -40,5 +40,5 @@ class ListChildrenOfFolderResponse(pydantic.BaseModel):
     def to_dict(self) -> ListChildrenOfFolderResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ListChildrenOfFolderResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ListChildrenOfFolderResponseDict, self.model_dump(by_alias=True, exclude_none=True)
         )

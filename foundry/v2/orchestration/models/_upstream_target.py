@@ -42,4 +42,4 @@ class UpstreamTarget(pydantic.BaseModel):
 
     def to_dict(self) -> UpstreamTargetDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(UpstreamTargetDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(UpstreamTargetDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -43,4 +43,4 @@ class BlueprintIcon(pydantic.BaseModel):
 
     def to_dict(self) -> BlueprintIconDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(BlueprintIconDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(BlueprintIconDict, self.model_dump(by_alias=True, exclude_none=True))

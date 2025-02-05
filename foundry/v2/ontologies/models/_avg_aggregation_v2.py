@@ -42,4 +42,4 @@ class AvgAggregationV2(pydantic.BaseModel):
 
     def to_dict(self) -> AvgAggregationV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AvgAggregationV2Dict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AvgAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True))

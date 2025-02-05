@@ -46,4 +46,4 @@ class FoundryLiveDeployment(pydantic.BaseModel):
 
     def to_dict(self) -> FoundryLiveDeploymentDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FoundryLiveDeploymentDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FoundryLiveDeploymentDict, self.model_dump(by_alias=True, exclude_none=True))

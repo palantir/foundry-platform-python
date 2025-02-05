@@ -41,5 +41,5 @@ class AggregateObjectsResponseItem(pydantic.BaseModel):
     def to_dict(self) -> AggregateObjectsResponseItemDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            AggregateObjectsResponseItemDict, self.model_dump(by_alias=True, exclude_unset=True)
+            AggregateObjectsResponseItemDict, self.model_dump(by_alias=True, exclude_none=True)
         )

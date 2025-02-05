@@ -57,9 +57,7 @@ class ActionParameterArrayType(pydantic.BaseModel):
 
     def to_dict(self) -> ActionParameterArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ActionParameterArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ActionParameterArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 ActionParameterType = Annotated[

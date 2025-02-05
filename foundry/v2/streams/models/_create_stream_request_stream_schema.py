@@ -66,5 +66,5 @@ class CreateStreamRequestStreamSchema(pydantic.BaseModel):
     def to_dict(self) -> CreateStreamRequestStreamSchemaDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            CreateStreamRequestStreamSchemaDict, self.model_dump(by_alias=True, exclude_unset=True)
+            CreateStreamRequestStreamSchemaDict, self.model_dump(by_alias=True, exclude_none=True)
         )

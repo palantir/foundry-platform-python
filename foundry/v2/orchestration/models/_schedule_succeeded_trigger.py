@@ -40,6 +40,4 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
 
     def to_dict(self) -> ScheduleSucceededTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ScheduleSucceededTriggerDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ScheduleSucceededTriggerDict, self.model_dump(by_alias=True, exclude_none=True))

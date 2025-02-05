@@ -40,6 +40,4 @@ class AggregationExactGrouping(pydantic.BaseModel):
 
     def to_dict(self) -> AggregationExactGroupingDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            AggregationExactGroupingDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(AggregationExactGroupingDict, self.model_dump(by_alias=True, exclude_none=True))

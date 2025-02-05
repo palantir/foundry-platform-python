@@ -41,5 +41,5 @@ class ObjectSetSearchAroundType(pydantic.BaseModel):
     def to_dict(self) -> ObjectSetSearchAroundTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectSetSearchAroundTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ObjectSetSearchAroundTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )

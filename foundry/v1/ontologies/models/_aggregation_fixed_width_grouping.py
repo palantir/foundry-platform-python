@@ -40,5 +40,5 @@ class AggregationFixedWidthGrouping(pydantic.BaseModel):
     def to_dict(self) -> AggregationFixedWidthGroupingDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            AggregationFixedWidthGroupingDict, self.model_dump(by_alias=True, exclude_unset=True)
+            AggregationFixedWidthGroupingDict, self.model_dump(by_alias=True, exclude_none=True)
         )

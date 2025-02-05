@@ -38,4 +38,4 @@ class Branch(pydantic.BaseModel):
 
     def to_dict(self) -> BranchDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(BranchDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(BranchDict, self.model_dump(by_alias=True, exclude_none=True))

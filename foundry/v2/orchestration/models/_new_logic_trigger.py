@@ -41,4 +41,4 @@ class NewLogicTrigger(pydantic.BaseModel):
 
     def to_dict(self) -> NewLogicTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(NewLogicTriggerDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(NewLogicTriggerDict, self.model_dump(by_alias=True, exclude_none=True))

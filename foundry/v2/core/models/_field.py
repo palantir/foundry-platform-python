@@ -38,4 +38,4 @@ class Field(pydantic.BaseModel):
 
     def to_dict(self) -> FieldDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FieldDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FieldDict, self.model_dump(by_alias=True, exclude_none=True))

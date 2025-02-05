@@ -36,4 +36,4 @@ class QueryStructType(pydantic.BaseModel):
 
     def to_dict(self) -> QueryStructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(QueryStructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(QueryStructTypeDict, self.model_dump(by_alias=True, exclude_none=True))

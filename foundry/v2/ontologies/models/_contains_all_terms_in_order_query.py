@@ -47,5 +47,5 @@ class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
     def to_dict(self) -> ContainsAllTermsInOrderQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ContainsAllTermsInOrderQueryDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ContainsAllTermsInOrderQueryDict, self.model_dump(by_alias=True, exclude_none=True)
         )

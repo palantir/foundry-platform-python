@@ -39,6 +39,4 @@ class ListQueryTypesResponseV2(pydantic.BaseModel):
 
     def to_dict(self) -> ListQueryTypesResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ListQueryTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ListQueryTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True))

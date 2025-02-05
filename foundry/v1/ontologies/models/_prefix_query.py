@@ -37,4 +37,4 @@ class PrefixQuery(pydantic.BaseModel):
 
     def to_dict(self) -> PrefixQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(PrefixQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(PrefixQueryDict, self.model_dump(by_alias=True, exclude_none=True))

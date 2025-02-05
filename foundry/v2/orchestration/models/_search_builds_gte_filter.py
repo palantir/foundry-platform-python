@@ -42,4 +42,4 @@ class SearchBuildsGteFilter(pydantic.BaseModel):
 
     def to_dict(self) -> SearchBuildsGteFilterDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(SearchBuildsGteFilterDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(SearchBuildsGteFilterDict, self.model_dump(by_alias=True, exclude_none=True))

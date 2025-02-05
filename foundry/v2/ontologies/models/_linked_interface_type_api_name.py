@@ -38,5 +38,5 @@ class LinkedInterfaceTypeApiName(pydantic.BaseModel):
     def to_dict(self) -> LinkedInterfaceTypeApiNameDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            LinkedInterfaceTypeApiNameDict, self.model_dump(by_alias=True, exclude_unset=True)
+            LinkedInterfaceTypeApiNameDict, self.model_dump(by_alias=True, exclude_none=True)
         )

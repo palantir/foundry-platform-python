@@ -49,4 +49,4 @@ class FilePathMatchesFilter(pydantic.BaseModel):
 
     def to_dict(self) -> FilePathMatchesFilterDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FilePathMatchesFilterDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FilePathMatchesFilterDict, self.model_dump(by_alias=True, exclude_none=True))

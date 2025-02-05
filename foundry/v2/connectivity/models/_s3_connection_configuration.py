@@ -138,5 +138,5 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     def to_dict(self) -> S3ConnectionConfigurationDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            S3ConnectionConfigurationDict, self.model_dump(by_alias=True, exclude_unset=True)
+            S3ConnectionConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
         )

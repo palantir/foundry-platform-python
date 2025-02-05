@@ -52,4 +52,4 @@ class QueryTypeV2(pydantic.BaseModel):
 
     def to_dict(self) -> QueryTypeV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(QueryTypeV2Dict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(QueryTypeV2Dict, self.model_dump(by_alias=True, exclude_none=True))

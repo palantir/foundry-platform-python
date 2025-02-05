@@ -35,4 +35,4 @@ class LinkSideObject(pydantic.BaseModel):
 
     def to_dict(self) -> LinkSideObjectDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(LinkSideObjectDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(LinkSideObjectDict, self.model_dump(by_alias=True, exclude_none=True))

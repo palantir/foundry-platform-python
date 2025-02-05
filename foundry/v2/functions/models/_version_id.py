@@ -51,4 +51,4 @@ class VersionId(pydantic.BaseModel):
 
     def to_dict(self) -> VersionIdDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(VersionIdDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(VersionIdDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -32,4 +32,4 @@ class MediaReferenceType(pydantic.BaseModel):
 
     def to_dict(self) -> MediaReferenceTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MediaReferenceTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MediaReferenceTypeDict, self.model_dump(by_alias=True, exclude_none=True))

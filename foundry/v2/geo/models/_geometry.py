@@ -54,7 +54,7 @@ class GeometryCollection(pydantic.BaseModel):
 
     def to_dict(self) -> GeometryCollectionDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(GeometryCollectionDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(GeometryCollectionDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 Geometry = Annotated[

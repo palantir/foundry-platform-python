@@ -38,4 +38,4 @@ class ObjectSetStaticType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetStaticTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetStaticTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetStaticTypeDict, self.model_dump(by_alias=True, exclude_none=True))

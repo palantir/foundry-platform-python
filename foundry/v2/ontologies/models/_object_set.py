@@ -75,7 +75,7 @@ class ObjectSetSearchAroundType(pydantic.BaseModel):
     def to_dict(self) -> ObjectSetSearchAroundTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectSetSearchAroundTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ObjectSetSearchAroundTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 
@@ -91,7 +91,7 @@ class ObjectSetIntersectionType(pydantic.BaseModel):
     def to_dict(self) -> ObjectSetIntersectionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectSetIntersectionTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ObjectSetIntersectionTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 
@@ -106,7 +106,7 @@ class ObjectSetSubtractType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetSubtractTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetSubtractTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetSubtractTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class ObjectSetUnionType(pydantic.BaseModel):
@@ -120,7 +120,7 @@ class ObjectSetUnionType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class ObjectSetAsTypeType(pydantic.BaseModel):
@@ -142,7 +142,7 @@ class ObjectSetAsTypeType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetAsTypeTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetAsTypeTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetAsTypeTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class ObjectSetFilterType(pydantic.BaseModel):
@@ -158,7 +158,7 @@ class ObjectSetFilterType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetFilterTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
@@ -173,7 +173,7 @@ class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
     def to_dict(self) -> ObjectSetAsBaseObjectTypesTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectSetAsBaseObjectTypesTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ObjectSetAsBaseObjectTypesTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 

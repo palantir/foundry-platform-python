@@ -42,5 +42,5 @@ class AggregationRangesGrouping(pydantic.BaseModel):
     def to_dict(self) -> AggregationRangesGroupingDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            AggregationRangesGroupingDict, self.model_dump(by_alias=True, exclude_unset=True)
+            AggregationRangesGroupingDict, self.model_dump(by_alias=True, exclude_none=True)
         )

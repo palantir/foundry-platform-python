@@ -35,5 +35,5 @@ class ObjectPropertyValueConstraint(pydantic.BaseModel):
     def to_dict(self) -> ObjectPropertyValueConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectPropertyValueConstraintDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ObjectPropertyValueConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
         )

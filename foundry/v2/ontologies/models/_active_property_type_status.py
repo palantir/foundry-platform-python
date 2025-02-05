@@ -37,6 +37,4 @@ class ActivePropertyTypeStatus(pydantic.BaseModel):
 
     def to_dict(self) -> ActivePropertyTypeStatusDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ActivePropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ActivePropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_none=True))

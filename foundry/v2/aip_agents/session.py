@@ -94,9 +94,7 @@ class SessionClient:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         preview: Optional[PreviewMode] = None,
@@ -115,7 +113,7 @@ class SessionClient:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -153,8 +151,7 @@ class SessionClient:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                         "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
                     },
@@ -452,9 +449,7 @@ class SessionClient:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -468,7 +463,7 @@ class SessionClient:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param preview: preview
@@ -503,8 +498,7 @@ class SessionClient:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                     },
                 ),
@@ -523,9 +517,7 @@ class SessionClient:
         session_rid: SessionRid,
         *,
         stream: Literal[True],
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         message_id: Optional[MessageId] = None,
@@ -547,7 +539,7 @@ class SessionClient:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -573,9 +565,7 @@ class SessionClient:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         message_id: Optional[MessageId] = None,
@@ -597,7 +587,7 @@ class SessionClient:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -625,9 +615,7 @@ class SessionClient:
         session_rid: SessionRid,
         *,
         stream: bool,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         message_id: Optional[MessageId] = None,
@@ -649,7 +637,7 @@ class SessionClient:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -677,9 +665,7 @@ class SessionClient:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         message_id: Optional[MessageId] = None,
@@ -702,7 +688,7 @@ class SessionClient:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -754,8 +740,7 @@ class SessionClient:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                         "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
                         "messageId": Optional[MessageId],
@@ -794,9 +779,7 @@ class _SessionClientRaw:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         preview: Optional[PreviewMode] = None,
@@ -815,7 +798,7 @@ class _SessionClientRaw:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -853,8 +836,7 @@ class _SessionClientRaw:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                         "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
                     },
@@ -1152,9 +1134,7 @@ class _SessionClientRaw:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -1168,7 +1148,7 @@ class _SessionClientRaw:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param preview: preview
@@ -1203,8 +1183,7 @@ class _SessionClientRaw:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                     },
                 ),
@@ -1221,9 +1200,7 @@ class _SessionClientRaw:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         message_id: Optional[MessageId] = None,
@@ -1244,7 +1221,7 @@ class _SessionClientRaw:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -1285,8 +1262,7 @@ class _SessionClientRaw:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                         "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
                         "messageId": Optional[MessageId],
@@ -1323,9 +1299,7 @@ class _SessionClientStreaming:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         preview: Optional[PreviewMode] = None,
@@ -1344,7 +1318,7 @@ class _SessionClientStreaming:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -1382,8 +1356,7 @@ class _SessionClientStreaming:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                         "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
                     },
@@ -1681,9 +1654,7 @@ class _SessionClientStreaming:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -1697,7 +1668,7 @@ class _SessionClientStreaming:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param preview: preview
@@ -1732,8 +1703,7 @@ class _SessionClientStreaming:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                     },
                 ),
@@ -1750,9 +1720,7 @@ class _SessionClientStreaming:
         agent_rid: AgentRid,
         session_rid: SessionRid,
         *,
-        parameter_inputs: Dict[
-            Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]
-        ],
+        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
         user_input: Union[UserTextInput, UserTextInputDict],
         contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
         message_id: Optional[MessageId] = None,
@@ -1773,7 +1741,7 @@ class _SessionClientStreaming:
         :param session_rid: sessionRid
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
@@ -1814,8 +1782,7 @@ class _SessionClientStreaming:
                     {  # type: ignore
                         "userInput": Union[UserTextInput, UserTextInputDict],
                         "parameterInputs": Dict[
-                            Union[ParameterId, ParameterId],
-                            Union[ParameterValue, ParameterValueDict],
+                            ParameterId, Union[ParameterValue, ParameterValueDict]
                         ],
                         "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
                         "messageId": Optional[MessageId],

@@ -38,5 +38,5 @@ class DeleteInterfaceObjectRule(pydantic.BaseModel):
     def to_dict(self) -> DeleteInterfaceObjectRuleDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            DeleteInterfaceObjectRuleDict, self.model_dump(by_alias=True, exclude_unset=True)
+            DeleteInterfaceObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True)
         )

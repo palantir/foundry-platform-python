@@ -39,4 +39,4 @@ class AgentVersion(pydantic.BaseModel):
 
     def to_dict(self) -> AgentVersionDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AgentVersionDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AgentVersionDict, self.model_dump(by_alias=True, exclude_none=True))

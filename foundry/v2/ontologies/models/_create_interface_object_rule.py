@@ -38,5 +38,5 @@ class CreateInterfaceObjectRule(pydantic.BaseModel):
     def to_dict(self) -> CreateInterfaceObjectRuleDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            CreateInterfaceObjectRuleDict, self.model_dump(by_alias=True, exclude_unset=True)
+            CreateInterfaceObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True)
         )

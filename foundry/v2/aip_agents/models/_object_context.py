@@ -43,4 +43,4 @@ class ObjectContext(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectContextDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectContextDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectContextDict, self.model_dump(by_alias=True, exclude_none=True))

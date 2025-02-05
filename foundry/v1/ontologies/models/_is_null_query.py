@@ -37,4 +37,4 @@ class IsNullQuery(pydantic.BaseModel):
 
     def to_dict(self) -> IsNullQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(IsNullQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(IsNullQueryDict, self.model_dump(by_alias=True, exclude_none=True))

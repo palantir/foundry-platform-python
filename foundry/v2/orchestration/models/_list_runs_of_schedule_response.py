@@ -40,5 +40,5 @@ class ListRunsOfScheduleResponse(pydantic.BaseModel):
     def to_dict(self) -> ListRunsOfScheduleResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ListRunsOfScheduleResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ListRunsOfScheduleResponseDict, self.model_dump(by_alias=True, exclude_none=True)
         )

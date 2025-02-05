@@ -34,4 +34,4 @@ class Distance(pydantic.BaseModel):
 
     def to_dict(self) -> DistanceDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(DistanceDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(DistanceDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -42,4 +42,4 @@ class DeleteLinkRule(pydantic.BaseModel):
 
     def to_dict(self) -> DeleteLinkRuleDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(DeleteLinkRuleDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(DeleteLinkRuleDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -47,4 +47,4 @@ class AgentMetadata(pydantic.BaseModel):
 
     def to_dict(self) -> AgentMetadataDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AgentMetadataDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AgentMetadataDict, self.model_dump(by_alias=True, exclude_none=True))

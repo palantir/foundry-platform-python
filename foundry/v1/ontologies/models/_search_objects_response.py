@@ -42,4 +42,4 @@ class SearchObjectsResponse(pydantic.BaseModel):
 
     def to_dict(self) -> SearchObjectsResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(SearchObjectsResponseDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(SearchObjectsResponseDict, self.model_dump(by_alias=True, exclude_none=True))

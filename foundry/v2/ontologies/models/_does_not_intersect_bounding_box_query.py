@@ -45,5 +45,5 @@ class DoesNotIntersectBoundingBoxQuery(pydantic.BaseModel):
     def to_dict(self) -> DoesNotIntersectBoundingBoxQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            DoesNotIntersectBoundingBoxQueryDict, self.model_dump(by_alias=True, exclude_unset=True)
+            DoesNotIntersectBoundingBoxQueryDict, self.model_dump(by_alias=True, exclude_none=True)
         )

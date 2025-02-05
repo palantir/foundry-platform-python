@@ -45,4 +45,4 @@ class S3KmsConfiguration(pydantic.BaseModel):
 
     def to_dict(self) -> S3KmsConfigurationDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(S3KmsConfigurationDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(S3KmsConfigurationDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -53,4 +53,4 @@ class ActionType(pydantic.BaseModel):
 
     def to_dict(self) -> ActionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ActionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ActionTypeDict, self.model_dump(by_alias=True, exclude_none=True))

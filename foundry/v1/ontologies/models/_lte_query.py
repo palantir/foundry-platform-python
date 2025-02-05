@@ -38,4 +38,4 @@ class LteQuery(pydantic.BaseModel):
 
     def to_dict(self) -> LteQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(LteQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(LteQueryDict, self.model_dump(by_alias=True, exclude_none=True))

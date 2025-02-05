@@ -34,4 +34,4 @@ class ExecuteQueryResponse(pydantic.BaseModel):
 
     def to_dict(self) -> ExecuteQueryResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ExecuteQueryResponseDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ExecuteQueryResponseDict, self.model_dump(by_alias=True, exclude_none=True))

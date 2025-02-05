@@ -38,4 +38,4 @@ class AddObject(pydantic.BaseModel):
 
     def to_dict(self) -> AddObjectDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AddObjectDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AddObjectDict, self.model_dump(by_alias=True, exclude_none=True))

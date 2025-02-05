@@ -40,4 +40,4 @@ class CancelSessionResponse(pydantic.BaseModel):
 
     def to_dict(self) -> CancelSessionResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(CancelSessionResponseDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(CancelSessionResponseDict, self.model_dump(by_alias=True, exclude_none=True))

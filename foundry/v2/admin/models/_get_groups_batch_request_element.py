@@ -35,5 +35,5 @@ class GetGroupsBatchRequestElement(pydantic.BaseModel):
     def to_dict(self) -> GetGroupsBatchRequestElementDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            GetGroupsBatchRequestElementDict, self.model_dump(by_alias=True, exclude_unset=True)
+            GetGroupsBatchRequestElementDict, self.model_dump(by_alias=True, exclude_none=True)
         )

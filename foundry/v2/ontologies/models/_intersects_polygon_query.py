@@ -44,4 +44,4 @@ class IntersectsPolygonQuery(pydantic.BaseModel):
 
     def to_dict(self) -> IntersectsPolygonQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(IntersectsPolygonQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(IntersectsPolygonQueryDict, self.model_dump(by_alias=True, exclude_none=True))

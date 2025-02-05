@@ -41,4 +41,4 @@ class Website(pydantic.BaseModel):
 
     def to_dict(self) -> WebsiteDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(WebsiteDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(WebsiteDict, self.model_dump(by_alias=True, exclude_none=True))

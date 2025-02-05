@@ -407,8 +407,8 @@ class ApiClient:
         else:
             type_adapter = _get_type_adapter(value_type)
 
-            # Use "exclude_unset" to remove optional inputs that weren't explicitely set
+            # Use "exclude_none" to remove optional inputs that weren't explicitely set
             # Use "by_alias" to use the expected field name rather than the class property name
-            json_bytes = type_adapter.dump_json(value, exclude_unset=True, by_alias=True)
+            json_bytes = type_adapter.dump_json(value, exclude_none=True, by_alias=True)
 
         return json_bytes

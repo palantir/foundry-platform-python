@@ -40,5 +40,5 @@ class ListActionTypesResponseV2(pydantic.BaseModel):
     def to_dict(self) -> ListActionTypesResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ListActionTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_unset=True)
+            ListActionTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
         )

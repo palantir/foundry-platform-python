@@ -37,4 +37,4 @@ class OntologyObjectType(pydantic.BaseModel):
 
     def to_dict(self) -> OntologyObjectTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OntologyObjectTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OntologyObjectTypeDict, self.model_dump(by_alias=True, exclude_none=True))

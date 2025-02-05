@@ -93,4 +93,4 @@ class Folder(pydantic.BaseModel):
 
     def to_dict(self) -> FolderDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FolderDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FolderDict, self.model_dump(by_alias=True, exclude_none=True))

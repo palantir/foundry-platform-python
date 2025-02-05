@@ -39,4 +39,4 @@ class SearchBuildsOrderByItem(pydantic.BaseModel):
 
     def to_dict(self) -> SearchBuildsOrderByItemDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(SearchBuildsOrderByItemDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(SearchBuildsOrderByItemDict, self.model_dump(by_alias=True, exclude_none=True))

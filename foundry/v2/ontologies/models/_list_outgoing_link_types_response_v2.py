@@ -42,5 +42,5 @@ class ListOutgoingLinkTypesResponseV2(pydantic.BaseModel):
     def to_dict(self) -> ListOutgoingLinkTypesResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ListOutgoingLinkTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_unset=True)
+            ListOutgoingLinkTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
         )

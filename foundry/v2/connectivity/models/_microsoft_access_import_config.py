@@ -43,5 +43,5 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
     def to_dict(self) -> MicrosoftAccessImportConfigDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            MicrosoftAccessImportConfigDict, self.model_dump(by_alias=True, exclude_unset=True)
+            MicrosoftAccessImportConfigDict, self.model_dump(by_alias=True, exclude_none=True)
         )

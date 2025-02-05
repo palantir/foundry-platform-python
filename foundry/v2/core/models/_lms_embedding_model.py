@@ -35,4 +35,4 @@ class LmsEmbeddingModel(pydantic.BaseModel):
 
     def to_dict(self) -> LmsEmbeddingModelDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(LmsEmbeddingModelDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(LmsEmbeddingModelDict, self.model_dump(by_alias=True, exclude_none=True))

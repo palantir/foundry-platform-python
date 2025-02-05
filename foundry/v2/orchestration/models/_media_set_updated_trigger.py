@@ -45,4 +45,4 @@ class MediaSetUpdatedTrigger(pydantic.BaseModel):
 
     def to_dict(self) -> MediaSetUpdatedTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MediaSetUpdatedTriggerDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MediaSetUpdatedTriggerDict, self.model_dump(by_alias=True, exclude_none=True))

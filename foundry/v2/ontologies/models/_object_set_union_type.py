@@ -36,4 +36,4 @@ class ObjectSetUnionType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_none=True))

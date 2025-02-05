@@ -36,4 +36,4 @@ class StructType(pydantic.BaseModel):
 
     def to_dict(self) -> StructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(StructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(StructTypeDict, self.model_dump(by_alias=True, exclude_none=True))

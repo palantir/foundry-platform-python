@@ -37,4 +37,4 @@ class ScheduleRunError(pydantic.BaseModel):
 
     def to_dict(self) -> ScheduleRunErrorDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ScheduleRunErrorDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ScheduleRunErrorDict, self.model_dump(by_alias=True, exclude_none=True))

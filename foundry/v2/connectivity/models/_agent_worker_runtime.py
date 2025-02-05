@@ -48,4 +48,4 @@ class AgentWorkerRuntime(pydantic.BaseModel):
 
     def to_dict(self) -> AgentWorkerRuntimeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AgentWorkerRuntimeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AgentWorkerRuntimeDict, self.model_dump(by_alias=True, exclude_none=True))

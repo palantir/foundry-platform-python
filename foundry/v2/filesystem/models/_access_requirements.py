@@ -39,4 +39,4 @@ class AccessRequirements(pydantic.BaseModel):
 
     def to_dict(self) -> AccessRequirementsDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AccessRequirementsDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AccessRequirementsDict, self.model_dump(by_alias=True, exclude_none=True))

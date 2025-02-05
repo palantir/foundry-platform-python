@@ -62,7 +62,7 @@ class StructFieldType(pydantic.BaseModel):
 
     def to_dict(self) -> StructFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(StructFieldTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(StructFieldTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class StructType(pydantic.BaseModel):
@@ -76,7 +76,7 @@ class StructType(pydantic.BaseModel):
 
     def to_dict(self) -> StructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(StructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(StructTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class OntologyObjectArrayType(pydantic.BaseModel):
@@ -90,7 +90,7 @@ class OntologyObjectArrayType(pydantic.BaseModel):
 
     def to_dict(self) -> OntologyObjectArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OntologyObjectArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OntologyObjectArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 ObjectPropertyType = Annotated[

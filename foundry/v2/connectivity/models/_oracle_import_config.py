@@ -40,4 +40,4 @@ class OracleImportConfig(pydantic.BaseModel):
 
     def to_dict(self) -> OracleImportConfigDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OracleImportConfigDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OracleImportConfigDict, self.model_dump(by_alias=True, exclude_none=True))

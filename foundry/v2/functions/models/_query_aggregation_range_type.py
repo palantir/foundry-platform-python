@@ -40,5 +40,5 @@ class QueryAggregationRangeType(pydantic.BaseModel):
     def to_dict(self) -> QueryAggregationRangeTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            QueryAggregationRangeTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            QueryAggregationRangeTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )

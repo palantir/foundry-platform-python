@@ -61,7 +61,7 @@ class QueryStructField(pydantic.BaseModel):
 
     def to_dict(self) -> QueryStructFieldDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(QueryStructFieldDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(QueryStructFieldDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class QueryStructType(pydantic.BaseModel):
@@ -75,7 +75,7 @@ class QueryStructType(pydantic.BaseModel):
 
     def to_dict(self) -> QueryStructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(QueryStructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(QueryStructTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class QuerySetType(pydantic.BaseModel):
@@ -89,7 +89,7 @@ class QuerySetType(pydantic.BaseModel):
 
     def to_dict(self) -> QuerySetTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(QuerySetTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(QuerySetTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class QueryUnionType(pydantic.BaseModel):
@@ -103,7 +103,7 @@ class QueryUnionType(pydantic.BaseModel):
 
     def to_dict(self) -> QueryUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(QueryUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(QueryUnionTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class QueryArrayType(pydantic.BaseModel):
@@ -117,7 +117,7 @@ class QueryArrayType(pydantic.BaseModel):
 
     def to_dict(self) -> QueryArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(QueryArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(QueryArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 QueryDataType = Annotated[
