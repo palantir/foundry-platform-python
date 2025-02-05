@@ -28,13 +28,13 @@ from foundry.v2.orchestration.models._time_trigger_dict import TimeTriggerDict
 class TimeTrigger(pydantic.BaseModel):
     """Trigger on a time based schedule."""
 
-    cron_expression: CronExpression = pydantic.Field(alias="cronExpression")
+    cron_expression: CronExpression = pydantic.Field(alias=str("cronExpression"))  # type: ignore[literal-required]
 
-    time_zone: ZoneId = pydantic.Field(alias="timeZone")
+    time_zone: ZoneId = pydantic.Field(alias=str("timeZone"))  # type: ignore[literal-required]
 
     type: Literal["time"] = "time"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> TimeTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""

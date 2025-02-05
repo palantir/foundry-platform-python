@@ -34,13 +34,13 @@ class AttachmentV2(pydantic.BaseModel):
 
     filename: Filename
 
-    size_bytes: SizeBytes = pydantic.Field(alias="sizeBytes")
+    size_bytes: SizeBytes = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
 
-    media_type: MediaType = pydantic.Field(alias="mediaType")
+    media_type: MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
 
     type: Literal["single"] = "single"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AttachmentV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

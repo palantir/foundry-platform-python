@@ -27,11 +27,11 @@ from foundry.v1.ontologies.models._ontology_set_type_dict import OntologySetType
 class OntologySetType(pydantic.BaseModel):
     """OntologySetType"""
 
-    item_type: OntologyDataType = pydantic.Field(alias="itemType")
+    item_type: OntologyDataType = pydantic.Field(alias=str("itemType"))  # type: ignore[literal-required]
 
     type: Literal["set"] = "set"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologySetTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

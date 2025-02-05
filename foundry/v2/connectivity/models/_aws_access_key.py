@@ -33,13 +33,13 @@ class AwsAccessKey(pydantic.BaseModel):
     secret access key together to authenticate your requests.
     """
 
-    access_key_id: str = pydantic.Field(alias="accessKeyId")
+    access_key_id: str = pydantic.Field(alias=str("accessKeyId"))  # type: ignore[literal-required]
 
-    secret_access_key: EncryptedProperty = pydantic.Field(alias="secretAccessKey")
+    secret_access_key: EncryptedProperty = pydantic.Field(alias=str("secretAccessKey"))  # type: ignore[literal-required]
 
     type: Literal["awsAccessKey"] = "awsAccessKey"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AwsAccessKeyDict:
         """Return the dictionary representation of the model using the field aliases."""

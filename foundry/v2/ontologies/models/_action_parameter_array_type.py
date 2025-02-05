@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._action_parameter_type import ActionParameterT
 class ActionParameterArrayType(pydantic.BaseModel):
     """ActionParameterArrayType"""
 
-    sub_type: ActionParameterType = pydantic.Field(alias="subType")
+    sub_type: ActionParameterType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ActionParameterArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

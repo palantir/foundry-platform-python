@@ -32,11 +32,11 @@ class Marking(pydantic.BaseModel):
     Markings applied to a resource to access it.
     """
 
-    marking_id: MarkingId = pydantic.Field(alias="markingId")
+    marking_id: MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
 
-    is_directly_applied: IsDirectlyApplied = pydantic.Field(alias="isDirectlyApplied")
+    is_directly_applied: IsDirectlyApplied = pydantic.Field(alias=str("isDirectlyApplied"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MarkingDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from annotated_types import Len
@@ -37,6 +38,9 @@ from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.marking_member import MarkingMemberClient
 from foundry.v2.admin.marking_role_assignment import MarkingRoleAssignmentClient
+from foundry.v2.admin.models._get_markings_batch_request_element import (
+    GetMarkingsBatchRequestElement,
+)  # NOQA
 from foundry.v2.admin.models._get_markings_batch_request_element_dict import (
     GetMarkingsBatchRequestElementDict,
 )  # NOQA
@@ -45,6 +49,7 @@ from foundry.v2.admin.models._list_markings_response import ListMarkingsResponse
 from foundry.v2.admin.models._marking import Marking
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
 from foundry.v2.admin.models._marking_name import MarkingName
+from foundry.v2.admin.models._marking_role_update import MarkingRoleUpdate
 from foundry.v2.admin.models._marking_role_update_dict import MarkingRoleUpdateDict
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._page_size import PageSize
@@ -86,7 +91,7 @@ class MarkingClient:
         *,
         category_id: MarkingCategoryId,
         initial_members: List[PrincipalId],
-        initial_role_assignments: List[MarkingRoleUpdateDict],
+        initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         name: MarkingName,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -99,7 +104,7 @@ class MarkingClient:
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
         :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
-        :type initial_role_assignments: List[MarkingRoleUpdateDict]
+        :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param name:
         :type name: MarkingName
         :param description:
@@ -134,7 +139,9 @@ class MarkingClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "initialRoleAssignments": List[MarkingRoleUpdateDict],
+                        "initialRoleAssignments": List[
+                            Union[MarkingRoleUpdate, MarkingRoleUpdateDict]
+                        ],
                         "initialMembers": List[PrincipalId],
                         "name": MarkingName,
                         "description": Optional[str],
@@ -194,7 +201,8 @@ class MarkingClient:
     def get_batch(
         self,
         body: Annotated[
-            List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)
+            List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
         ],
         *,
         preview: Optional[PreviewMode] = None,
@@ -205,7 +213,7 @@ class MarkingClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -357,7 +365,7 @@ class _MarkingClientRaw:
         *,
         category_id: MarkingCategoryId,
         initial_members: List[PrincipalId],
-        initial_role_assignments: List[MarkingRoleUpdateDict],
+        initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         name: MarkingName,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -370,7 +378,7 @@ class _MarkingClientRaw:
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
         :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
-        :type initial_role_assignments: List[MarkingRoleUpdateDict]
+        :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param name:
         :type name: MarkingName
         :param description:
@@ -405,7 +413,9 @@ class _MarkingClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "initialRoleAssignments": List[MarkingRoleUpdateDict],
+                        "initialRoleAssignments": List[
+                            Union[MarkingRoleUpdate, MarkingRoleUpdateDict]
+                        ],
                         "initialMembers": List[PrincipalId],
                         "name": MarkingName,
                         "description": Optional[str],
@@ -465,7 +475,8 @@ class _MarkingClientRaw:
     def get_batch(
         self,
         body: Annotated[
-            List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)
+            List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
         ],
         *,
         preview: Optional[PreviewMode] = None,
@@ -476,7 +487,7 @@ class _MarkingClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -628,7 +639,7 @@ class _MarkingClientStreaming:
         *,
         category_id: MarkingCategoryId,
         initial_members: List[PrincipalId],
-        initial_role_assignments: List[MarkingRoleUpdateDict],
+        initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         name: MarkingName,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -641,7 +652,7 @@ class _MarkingClientStreaming:
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
         :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
-        :type initial_role_assignments: List[MarkingRoleUpdateDict]
+        :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param name:
         :type name: MarkingName
         :param description:
@@ -676,7 +687,9 @@ class _MarkingClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "initialRoleAssignments": List[MarkingRoleUpdateDict],
+                        "initialRoleAssignments": List[
+                            Union[MarkingRoleUpdate, MarkingRoleUpdateDict]
+                        ],
                         "initialMembers": List[PrincipalId],
                         "name": MarkingName,
                         "description": Optional[str],
@@ -736,7 +749,8 @@ class _MarkingClientStreaming:
     def get_batch(
         self,
         body: Annotated[
-            List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)
+            List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
         ],
         *,
         preview: Optional[PreviewMode] = None,
@@ -747,7 +761,7 @@ class _MarkingClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

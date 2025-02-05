@@ -19,6 +19,7 @@ import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -34,6 +35,9 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._create_table_import_request_table_import_config import (
+    CreateTableImportRequestTableImportConfig,
+)  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_table_import_config_dict import (
     CreateTableImportRequestTableImportConfigDict,
 )  # NOQA
@@ -83,7 +87,9 @@ class TableImportClient:
         self,
         connection_rid: ConnectionRid,
         *,
-        config: CreateTableImportRequestTableImportConfigDict,
+        config: Union[
+            CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict
+        ],
         dataset_rid: DatasetRid,
         display_name: TableImportDisplayName,
         import_mode: TableImportMode,
@@ -97,7 +103,7 @@ class TableImportClient:
         :param connection_rid: connectionRid
         :type connection_rid: ConnectionRid
         :param config:
-        :type config: CreateTableImportRequestTableImportConfigDict
+        :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
         :param display_name:
@@ -146,7 +152,10 @@ class TableImportClient:
                         "displayName": TableImportDisplayName,
                         "allowSchemaChanges": Optional[TableImportAllowSchemaChanges],
                         "branchName": Optional[BranchName],
-                        "config": CreateTableImportRequestTableImportConfigDict,
+                        "config": Union[
+                            CreateTableImportRequestTableImportConfig,
+                            CreateTableImportRequestTableImportConfigDict,
+                        ],
                     },
                 ),
                 response_type=TableImport,
@@ -430,7 +439,9 @@ class _TableImportClientRaw:
         self,
         connection_rid: ConnectionRid,
         *,
-        config: CreateTableImportRequestTableImportConfigDict,
+        config: Union[
+            CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict
+        ],
         dataset_rid: DatasetRid,
         display_name: TableImportDisplayName,
         import_mode: TableImportMode,
@@ -444,7 +455,7 @@ class _TableImportClientRaw:
         :param connection_rid: connectionRid
         :type connection_rid: ConnectionRid
         :param config:
-        :type config: CreateTableImportRequestTableImportConfigDict
+        :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
         :param display_name:
@@ -493,7 +504,10 @@ class _TableImportClientRaw:
                         "displayName": TableImportDisplayName,
                         "allowSchemaChanges": Optional[TableImportAllowSchemaChanges],
                         "branchName": Optional[BranchName],
-                        "config": CreateTableImportRequestTableImportConfigDict,
+                        "config": Union[
+                            CreateTableImportRequestTableImportConfig,
+                            CreateTableImportRequestTableImportConfigDict,
+                        ],
                     },
                 ),
                 response_type=TableImport,
@@ -777,7 +791,9 @@ class _TableImportClientStreaming:
         self,
         connection_rid: ConnectionRid,
         *,
-        config: CreateTableImportRequestTableImportConfigDict,
+        config: Union[
+            CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict
+        ],
         dataset_rid: DatasetRid,
         display_name: TableImportDisplayName,
         import_mode: TableImportMode,
@@ -791,7 +807,7 @@ class _TableImportClientStreaming:
         :param connection_rid: connectionRid
         :type connection_rid: ConnectionRid
         :param config:
-        :type config: CreateTableImportRequestTableImportConfigDict
+        :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
         :param display_name:
@@ -840,7 +856,10 @@ class _TableImportClientStreaming:
                         "displayName": TableImportDisplayName,
                         "allowSchemaChanges": Optional[TableImportAllowSchemaChanges],
                         "branchName": Optional[BranchName],
-                        "config": CreateTableImportRequestTableImportConfigDict,
+                        "config": Union[
+                            CreateTableImportRequestTableImportConfig,
+                            CreateTableImportRequestTableImportConfigDict,
+                        ],
                     },
                 ),
                 response_type=TableImport,

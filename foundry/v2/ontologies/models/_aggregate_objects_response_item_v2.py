@@ -38,7 +38,7 @@ class AggregateObjectsResponseItemV2(pydantic.BaseModel):
 
     metrics: List[AggregationMetricResultV2]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AggregateObjectsResponseItemV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -70,7 +70,7 @@ Name | Type | Description  | Notes |
 **default_roles** | List[RoleId] |  |  |
 **display_name** | ResourceDisplayName |  |  |
 **organization_rids** | List[OrganizationRid] |  |  |
-**role_grants** | Dict[RoleId, List[PrincipalWithIdDict]] |  |  |
+**role_grants** | Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]] |  |  |
 **space_rid** | SpaceRid |  |  |
 **description** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
@@ -95,7 +95,7 @@ default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
 display_name = "My Important Project"
 # List[OrganizationRid] |
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Dict[RoleId, List[PrincipalWithIdDict]] |
+# Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]] |
 role_grants = {
     "8bf49052-dc37-4528-8bf0-b551cfb71268": [
         {"principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de", "principalType": "USER"}
@@ -123,6 +123,76 @@ try:
     pprint(api_response)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling Project.create: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Project  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+Creates a project from a project template.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**template_rid** | ProjectTemplateRid |  |  |
+**variable_values** | Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |  |  |
+**default_roles** | Optional[List[RoleId]] |  | [optional] |
+**organization_rids** | Optional[List[OrganizationRid]] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**project_description** | Optional[str] |  | [optional] |
+
+### Return type
+**Project**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ProjectTemplateRid |
+template_rid = "ri.compass.main.template.c410f510-2937-420e-8ea3-8c9bcb3c1791"
+# Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |
+variable_values = {"name": "my project name"}
+# Optional[List[RoleId]] |
+default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
+# Optional[List[OrganizationRid]] |
+organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
+# Optional[PreviewMode] | preview
+preview = None
+# Optional[str] |
+project_description = None
+
+
+try:
+    api_response = foundry_client.filesystem.Project.create_from_template(
+        template_rid=template_rid,
+        variable_values=variable_values,
+        default_roles=default_roles,
+        organization_rids=organization_rids,
+        preview=preview,
+        project_description=project_description,
+    )
+    print("The create_from_template response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Project.create_from_template: %s\n" % e)
 
 ```
 

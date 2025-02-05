@@ -39,30 +39,26 @@ from foundry.v2.ontologies.models._shared_property_type_api_name import (
 class ObjectTypeFullMetadata(pydantic.BaseModel):
     """ObjectTypeFullMetadata"""
 
-    object_type: ObjectTypeV2 = pydantic.Field(alias="objectType")
+    object_type: ObjectTypeV2 = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
 
-    link_types: List[LinkTypeSideV2] = pydantic.Field(alias="linkTypes")
+    link_types: List[LinkTypeSideV2] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
 
-    implements_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias="implementsInterfaces")
+    implements_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias=str("implementsInterfaces"))  # type: ignore[literal-required]
 
     """A list of interfaces that this object type implements."""
 
-    implements_interfaces2: Dict[InterfaceTypeApiName, ObjectTypeInterfaceImplementation] = (
-        pydantic.Field(alias="implementsInterfaces2")
-    )
+    implements_interfaces2: Dict[InterfaceTypeApiName, ObjectTypeInterfaceImplementation] = pydantic.Field(alias=str("implementsInterfaces2"))  # type: ignore[literal-required]
 
     """A list of interfaces that this object type implements and how it implements them."""
 
-    shared_property_type_mapping: Dict[SharedPropertyTypeApiName, PropertyApiName] = pydantic.Field(
-        alias="sharedPropertyTypeMapping"
-    )
+    shared_property_type_mapping: Dict[SharedPropertyTypeApiName, PropertyApiName] = pydantic.Field(alias=str("sharedPropertyTypeMapping"))  # type: ignore[literal-required]
 
     """
     A map from shared property type API name to backing local property API name for the shared property types 
     present on this object type.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectTypeFullMetadataDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -23,9 +23,9 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**aggregation** | List[AggregationDict] |  |  |
-**group_by** | List[AggregationGroupByDict] |  |  |
-**query** | Optional[SearchJsonQueryDict] |  | [optional] |
+**aggregation** | List[Union[Aggregation, AggregationDict]] |  |  |
+**group_by** | List[Union[AggregationGroupBy, AggregationGroupByDict]] |  |  |
+**query** | Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponse**
@@ -45,12 +45,12 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# List[AggregationDict] |
+# List[Union[Aggregation, AggregationDict]] |
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[AggregationGroupByDict] |
+# List[Union[AggregationGroupBy, AggregationGroupByDict]] |
 group_by = [
     {
         "field": "properties.startDate",
@@ -59,7 +59,7 @@ group_by = [
     },
     {"field": "properties.city", "type": "exact"},
 ]
-# Optional[SearchJsonQueryDict] |
+# Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] |
 query = {"not": {"field": "properties.name", "eq": "john"}}
 
 
@@ -636,8 +636,8 @@ Name | Type | Description  | Notes |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **fields** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
-**query** | SearchJsonQueryDict |  |  |
-**order_by** | Optional[SearchOrderByDict] |  | [optional] |
+**query** | Union[SearchJsonQuery, SearchJsonQueryDict] |  |  |
+**order_by** | Optional[Union[SearchOrderBy, SearchOrderByDict]] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -661,9 +661,9 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 object_type = "employee"
 # List[PropertyApiName] | The API names of the object type properties to include in the response.
 fields = None
-# SearchJsonQueryDict |
+# Union[SearchJsonQuery, SearchJsonQueryDict] |
 query = {"not": {"field": "properties.age", "eq": 21}}
-# Optional[SearchOrderByDict] |
+# Optional[Union[SearchOrderBy, SearchOrderByDict]] |
 order_by = None
 # Optional[PageSize] |
 page_size = None

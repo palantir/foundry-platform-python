@@ -26,14 +26,14 @@ from foundry.v2.admin.models._provider_id import ProviderId
 class GroupProviderInfo(pydantic.BaseModel):
     """GroupProviderInfo"""
 
-    provider_id: ProviderId = pydantic.Field(alias="providerId")
+    provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
 
     """
     The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
     At most one Group can have a given provider ID in a given Realm.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> GroupProviderInfoDict:
         """Return the dictionary representation of the model using the field aliases."""

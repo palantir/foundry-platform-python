@@ -19,6 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -33,12 +34,21 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.ontologies.models._action_type_api_name import ActionTypeApiName
+from foundry.v2.ontologies.models._apply_action_request_options import (
+    ApplyActionRequestOptions,
+)  # NOQA
 from foundry.v2.ontologies.models._apply_action_request_options_dict import (
     ApplyActionRequestOptionsDict,
 )  # NOQA
 from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
+from foundry.v2.ontologies.models._batch_apply_action_request_item import (
+    BatchApplyActionRequestItem,
+)  # NOQA
 from foundry.v2.ontologies.models._batch_apply_action_request_item_dict import (
     BatchApplyActionRequestItemDict,
+)  # NOQA
+from foundry.v2.ontologies.models._batch_apply_action_request_options import (
+    BatchApplyActionRequestOptions,
 )  # NOQA
 from foundry.v2.ontologies.models._batch_apply_action_request_options_dict import (
     BatchApplyActionRequestOptionsDict,
@@ -86,7 +96,7 @@ class ActionClient:
         *,
         parameters: Dict[ParameterId, Optional[DataValue]],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[ApplyActionRequestOptionsDict] = None,
+        options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SyncApplyActionResponseV2:
@@ -110,7 +120,7 @@ class ActionClient:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[ApplyActionRequestOptionsDict]
+        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -142,7 +152,9 @@ class ActionClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[ApplyActionRequestOptionsDict],
+                        "options": Optional[
+                            Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]
+                        ],
                         "parameters": Dict[ParameterId, Optional[DataValue]],
                     },
                 ),
@@ -159,9 +171,11 @@ class ActionClient:
         ontology: OntologyIdentifier,
         action: ActionTypeApiName,
         *,
-        requests: List[BatchApplyActionRequestItemDict],
+        requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[BatchApplyActionRequestOptionsDict] = None,
+        options: Optional[
+            Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]
+        ] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> BatchApplyActionResponseV2:
@@ -182,11 +196,11 @@ class ActionClient:
         :param action: action
         :type action: ActionTypeApiName
         :param requests:
-        :type requests: List[BatchApplyActionRequestItemDict]
+        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[BatchApplyActionRequestOptionsDict]
+        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -218,8 +232,14 @@ class ActionClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[BatchApplyActionRequestOptionsDict],
-                        "requests": List[BatchApplyActionRequestItemDict],
+                        "options": Optional[
+                            Union[
+                                BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict
+                            ]
+                        ],
+                        "requests": List[
+                            Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]
+                        ],
                     },
                 ),
                 response_type=BatchApplyActionResponseV2,
@@ -255,7 +275,7 @@ class _ActionClientRaw:
         *,
         parameters: Dict[ParameterId, Optional[DataValue]],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[ApplyActionRequestOptionsDict] = None,
+        options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[SyncApplyActionResponseV2]:
@@ -279,7 +299,7 @@ class _ActionClientRaw:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[ApplyActionRequestOptionsDict]
+        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -311,7 +331,9 @@ class _ActionClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[ApplyActionRequestOptionsDict],
+                        "options": Optional[
+                            Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]
+                        ],
                         "parameters": Dict[ParameterId, Optional[DataValue]],
                     },
                 ),
@@ -328,9 +350,11 @@ class _ActionClientRaw:
         ontology: OntologyIdentifier,
         action: ActionTypeApiName,
         *,
-        requests: List[BatchApplyActionRequestItemDict],
+        requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[BatchApplyActionRequestOptionsDict] = None,
+        options: Optional[
+            Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]
+        ] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[BatchApplyActionResponseV2]:
@@ -351,11 +375,11 @@ class _ActionClientRaw:
         :param action: action
         :type action: ActionTypeApiName
         :param requests:
-        :type requests: List[BatchApplyActionRequestItemDict]
+        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[BatchApplyActionRequestOptionsDict]
+        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -387,8 +411,14 @@ class _ActionClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[BatchApplyActionRequestOptionsDict],
-                        "requests": List[BatchApplyActionRequestItemDict],
+                        "options": Optional[
+                            Union[
+                                BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict
+                            ]
+                        ],
+                        "requests": List[
+                            Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]
+                        ],
                     },
                 ),
                 response_type=BatchApplyActionResponseV2,
@@ -424,7 +454,7 @@ class _ActionClientStreaming:
         *,
         parameters: Dict[ParameterId, Optional[DataValue]],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[ApplyActionRequestOptionsDict] = None,
+        options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[SyncApplyActionResponseV2]:
@@ -448,7 +478,7 @@ class _ActionClientStreaming:
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[ApplyActionRequestOptionsDict]
+        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -480,7 +510,9 @@ class _ActionClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[ApplyActionRequestOptionsDict],
+                        "options": Optional[
+                            Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]
+                        ],
                         "parameters": Dict[ParameterId, Optional[DataValue]],
                     },
                 ),
@@ -497,9 +529,11 @@ class _ActionClientStreaming:
         ontology: OntologyIdentifier,
         action: ActionTypeApiName,
         *,
-        requests: List[BatchApplyActionRequestItemDict],
+        requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[BatchApplyActionRequestOptionsDict] = None,
+        options: Optional[
+            Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]
+        ] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[BatchApplyActionResponseV2]:
@@ -520,11 +554,11 @@ class _ActionClientStreaming:
         :param action: action
         :type action: ActionTypeApiName
         :param requests:
-        :type requests: List[BatchApplyActionRequestItemDict]
+        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[BatchApplyActionRequestOptionsDict]
+        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -556,8 +590,14 @@ class _ActionClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[BatchApplyActionRequestOptionsDict],
-                        "requests": List[BatchApplyActionRequestItemDict],
+                        "options": Optional[
+                            Union[
+                                BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict
+                            ]
+                        ],
+                        "requests": List[
+                            Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]
+                        ],
                     },
                 ),
                 response_type=BatchApplyActionResponseV2,

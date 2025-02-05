@@ -19,12 +19,12 @@ Creates a new Schedule.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**action** | CreateScheduleRequestActionDict |  |  |
+**action** | Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |  |  |
 **description** | Optional[str] |  | [optional] |
 **display_name** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**scope_mode** | Optional[CreateScheduleRequestScopeModeDict] |  | [optional] |
-**trigger** | Optional[TriggerDict] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
+**scope_mode** | Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |  | [optional] |
+**trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
 ### Return type
 **Schedule**
@@ -40,7 +40,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# CreateScheduleRequestActionDict |
+# Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -63,9 +63,9 @@ description = "Run all the transforms at midnight"
 display_name = "My Daily Schedule"
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[CreateScheduleRequestScopeModeDict] |
+# Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |
 scope_mode = {"type": "user"}
-# Optional[TriggerDict] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
+# Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 
@@ -271,12 +271,12 @@ Replace the Schedule with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**action** | ReplaceScheduleRequestActionDict |  |  |
+**action** | Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |  |  |
 **description** | Optional[str] |  | [optional] |
 **display_name** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**scope_mode** | Optional[ReplaceScheduleRequestScopeModeDict] |  | [optional] |
-**trigger** | Optional[TriggerDict] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
+**scope_mode** | Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |  | [optional] |
+**trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
 ### Return type
 **Schedule**
@@ -294,7 +294,7 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# ReplaceScheduleRequestActionDict |
+# Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -317,9 +317,9 @@ description = "Run all the transforms at midnight"
 display_name = "My Daily Schedule"
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[ReplaceScheduleRequestScopeModeDict] |
+# Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |
 scope_mode = {"type": "user"}
-# Optional[TriggerDict] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
+# Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 

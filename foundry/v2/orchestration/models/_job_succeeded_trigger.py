@@ -33,13 +33,13 @@ class JobSucceededTrigger(pydantic.BaseModel):
     branch.
     """
 
-    dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
+    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
 
-    branch_name: BranchName = pydantic.Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
 
     type: Literal["jobSucceeded"] = "jobSucceeded"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> JobSucceededTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""

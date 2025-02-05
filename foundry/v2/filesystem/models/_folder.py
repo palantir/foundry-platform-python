@@ -39,7 +39,7 @@ class Folder(pydantic.BaseModel):
 
     rid: FolderRid
 
-    display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     description: Optional[str] = None
 
@@ -53,43 +53,43 @@ class Folder(pydantic.BaseModel):
 
     type: FolderType
 
-    created_by: CreatedBy = pydantic.Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
 
-    updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
+    updated_by: UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
-    updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
+    updated_time: UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
 
-    trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
+    trash_status: TrashStatus = pydantic.Field(alias=str("trashStatus"))  # type: ignore[literal-required]
 
     """
     The trash status of the Folder. If trashed, this could either be because the Folder itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
-    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
+    parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
     """
     The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
     this value will be the root folder (`ri.compass.main.folder.0`).
     """
 
-    project_rid: Optional[ProjectRid] = pydantic.Field(alias="projectRid", default=None)
+    project_rid: Optional[ProjectRid] = pydantic.Field(alias=str("projectRid"), default=None)  # type: ignore[literal-required]
 
     """
     The Project Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     not be defined.
     """
 
-    space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
+    space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
 
     """
     The Space Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     be the same as the Folder RID.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FolderDict:
         """Return the dictionary representation of the model using the field aliases."""

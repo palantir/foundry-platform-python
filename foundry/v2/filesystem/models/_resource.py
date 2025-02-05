@@ -40,7 +40,7 @@ class Resource(pydantic.BaseModel):
 
     rid: ResourceRid
 
-    display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     """The display name of the Resource"""
 
@@ -60,48 +60,48 @@ class Resource(pydantic.BaseModel):
 
     """The type of the Resource derived from the Resource Identifier (RID)."""
 
-    created_by: CreatedBy = pydantic.Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
 
     """The user that created the Resource."""
 
-    updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
+    updated_by: UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
 
     """The user that last updated the Resource."""
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
     """The timestamp that the Resource was last created."""
 
-    updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
+    updated_time: UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
 
     """
     The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For
     top level folders (spaces and projects), this is not updated by child updates for performance reasons.
     """
 
-    trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
+    trash_status: TrashStatus = pydantic.Field(alias=str("trashStatus"))  # type: ignore[literal-required]
 
     """
     The trash status of the Resource. If trashed, this could either be because the Resource itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
-    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
+    parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
     """The parent folder Resource Identifier (RID). For projects, this will be the Space RID."""
 
-    project_rid: ProjectRid = pydantic.Field(alias="projectRid")
+    project_rid: ProjectRid = pydantic.Field(alias=str("projectRid"))  # type: ignore[literal-required]
 
     """
     The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a
     Project, this value will still be populated with the Project RID.
     """
 
-    space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
+    space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
 
     """The Space Resource Identifier (RID) that the Resource lives in."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ResourceDict:
         """Return the dictionary representation of the model using the field aliases."""

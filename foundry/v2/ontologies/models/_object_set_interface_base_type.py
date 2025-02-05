@@ -28,7 +28,7 @@ from foundry.v2.ontologies.models._object_set_interface_base_type_dict import (
 class ObjectSetInterfaceBaseType(pydantic.BaseModel):
     """ObjectSetInterfaceBaseType"""
 
-    interface_type: str = pydantic.Field(alias="interfaceType")
+    interface_type: str = pydantic.Field(alias=str("interfaceType"))  # type: ignore[literal-required]
 
     """
     An object set with objects that implement the interface with the given interface API name. The objects in 
@@ -38,7 +38,7 @@ class ObjectSetInterfaceBaseType(pydantic.BaseModel):
 
     type: Literal["interfaceBase"] = "interfaceBase"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetInterfaceBaseTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

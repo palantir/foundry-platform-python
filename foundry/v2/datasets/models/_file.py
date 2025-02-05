@@ -32,13 +32,13 @@ class File(pydantic.BaseModel):
 
     path: FilePath
 
-    transaction_rid: TransactionRid = pydantic.Field(alias="transactionRid")
+    transaction_rid: TransactionRid = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
 
-    size_bytes: Optional[Long] = pydantic.Field(alias="sizeBytes", default=None)
+    size_bytes: Optional[Long] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
 
-    updated_time: FileUpdatedTime = pydantic.Field(alias="updatedTime")
+    updated_time: FileUpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FileDict:
         """Return the dictionary representation of the model using the field aliases."""

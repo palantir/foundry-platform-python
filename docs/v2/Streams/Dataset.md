@@ -16,7 +16,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **name** | DatasetName |  |  |
 **parent_folder_rid** | FolderRid |  |  |
-**schema** | StreamSchemaDict | The Foundry schema to apply to the new stream.  |  |
+**schema** | Union[StreamSchema, StreamSchemaDict] | The Foundry schema to apply to the new stream.  |  |
 **branch_name** | Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).  | [optional] |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
 **partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.  | [optional] |
@@ -41,7 +41,7 @@ foundry_client = FoundryClient(
 name = "My Dataset"
 # FolderRid |
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
-# StreamSchemaDict | The Foundry schema to apply to the new stream.
+# Union[StreamSchema, StreamSchemaDict] | The Foundry schema to apply to the new stream.
 schema = None
 # Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
 branch_name = "master"

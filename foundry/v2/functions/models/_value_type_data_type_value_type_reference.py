@@ -32,11 +32,11 @@ class ValueTypeDataTypeValueTypeReference(pydantic.BaseModel):
 
     rid: ValueTypeRid
 
-    version_id: ValueTypeVersionId = pydantic.Field(alias="versionId")
+    version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
 
     type: Literal["valueTypeReference"] = "valueTypeReference"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeValueTypeReferenceDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -28,13 +28,13 @@ from foundry.v2.filesystem.models._principal_with_id_dict import PrincipalWithId
 class PrincipalWithId(pydantic.BaseModel):
     """Represents a user principal or group principal with an ID."""
 
-    principal_id: PrincipalId = pydantic.Field(alias="principalId")
+    principal_id: PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
-    principal_type: PrincipalType = pydantic.Field(alias="principalType")
+    principal_type: PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
 
     type: Literal["principalWithId"] = "principalWithId"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> PrincipalWithIdDict:
         """Return the dictionary representation of the model using the field aliases."""

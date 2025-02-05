@@ -28,11 +28,11 @@ from foundry.v2.core.models._timeseries_type_dict import TimeseriesTypeDict
 class TimeseriesType(pydantic.BaseModel):
     """TimeseriesType"""
 
-    item_type: Optional[TimeSeriesItemType] = pydantic.Field(alias="itemType", default=None)
+    item_type: Optional[TimeSeriesItemType] = pydantic.Field(alias=str("itemType"), default=None)  # type: ignore[literal-required]
 
     type: Literal["timeseries"] = "timeseries"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> TimeseriesTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

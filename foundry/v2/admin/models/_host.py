@@ -26,9 +26,9 @@ from foundry.v2.admin.models._host_name import HostName
 class Host(pydantic.BaseModel):
     """Host"""
 
-    host_name: HostName = pydantic.Field(alias="hostName")
+    host_name: HostName = pydantic.Field(alias=str("hostName"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> HostDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -29,11 +29,11 @@ class ActionParameterV2(pydantic.BaseModel):
 
     description: Optional[str] = None
 
-    data_type: ActionParameterType = pydantic.Field(alias="dataType")
+    data_type: ActionParameterType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
     required: bool
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ActionParameterV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

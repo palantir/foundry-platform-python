@@ -34,7 +34,7 @@ class ThirdPartyApplication(pydantic.BaseModel):
 
     """An RID identifying a third-party application created in Developer Console."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ThirdPartyApplicationDict:
         """Return the dictionary representation of the model using the field aliases."""

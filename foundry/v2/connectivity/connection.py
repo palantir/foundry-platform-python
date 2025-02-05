@@ -18,6 +18,7 @@ from __future__ import annotations
 from typing import Any
 from typing import Dict
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -35,8 +36,14 @@ from foundry.v2.connectivity.file_import import FileImportClient
 from foundry.v2.connectivity.models._connection import Connection
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._create_connection_request_connection_configuration import (
+    CreateConnectionRequestConnectionConfiguration,
+)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_connection_configuration_dict import (
     CreateConnectionRequestConnectionConfigurationDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_runtime_platform import (
+    CreateConnectionRequestRuntimePlatform,
 )  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_runtime_platform_dict import (
     CreateConnectionRequestRuntimePlatformDict,
@@ -77,10 +84,15 @@ class ConnectionClient:
     def create(
         self,
         *,
-        configuration: CreateConnectionRequestConnectionConfigurationDict,
+        configuration: Union[
+            CreateConnectionRequestConnectionConfiguration,
+            CreateConnectionRequestConnectionConfigurationDict,
+        ],
         display_name: ConnectionDisplayName,
         parent_folder_rid: FolderRid,
-        runtime_platform: CreateConnectionRequestRuntimePlatformDict,
+        runtime_platform: Union[
+            CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict
+        ],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Connection:
@@ -95,13 +107,13 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: CreateConnectionRequestConnectionConfigurationDict
+        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
         :param runtime_platform:
-        :type runtime_platform: CreateConnectionRequestRuntimePlatformDict
+        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -132,8 +144,14 @@ class ConnectionClient:
                     "Body",
                     {  # type: ignore
                         "parentFolderRid": FolderRid,
-                        "runtimePlatform": CreateConnectionRequestRuntimePlatformDict,
-                        "configuration": CreateConnectionRequestConnectionConfigurationDict,
+                        "runtimePlatform": Union[
+                            CreateConnectionRequestRuntimePlatform,
+                            CreateConnectionRequestRuntimePlatformDict,
+                        ],
+                        "configuration": Union[
+                            CreateConnectionRequestConnectionConfiguration,
+                            CreateConnectionRequestConnectionConfigurationDict,
+                        ],
                         "displayName": ConnectionDisplayName,
                     },
                 ),
@@ -271,10 +289,15 @@ class _ConnectionClientRaw:
     def create(
         self,
         *,
-        configuration: CreateConnectionRequestConnectionConfigurationDict,
+        configuration: Union[
+            CreateConnectionRequestConnectionConfiguration,
+            CreateConnectionRequestConnectionConfigurationDict,
+        ],
         display_name: ConnectionDisplayName,
         parent_folder_rid: FolderRid,
-        runtime_platform: CreateConnectionRequestRuntimePlatformDict,
+        runtime_platform: Union[
+            CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict
+        ],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[Connection]:
@@ -289,13 +312,13 @@ class _ConnectionClientRaw:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: CreateConnectionRequestConnectionConfigurationDict
+        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
         :param runtime_platform:
-        :type runtime_platform: CreateConnectionRequestRuntimePlatformDict
+        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -326,8 +349,14 @@ class _ConnectionClientRaw:
                     "Body",
                     {  # type: ignore
                         "parentFolderRid": FolderRid,
-                        "runtimePlatform": CreateConnectionRequestRuntimePlatformDict,
-                        "configuration": CreateConnectionRequestConnectionConfigurationDict,
+                        "runtimePlatform": Union[
+                            CreateConnectionRequestRuntimePlatform,
+                            CreateConnectionRequestRuntimePlatformDict,
+                        ],
+                        "configuration": Union[
+                            CreateConnectionRequestConnectionConfiguration,
+                            CreateConnectionRequestConnectionConfigurationDict,
+                        ],
                         "displayName": ConnectionDisplayName,
                     },
                 ),
@@ -465,10 +494,15 @@ class _ConnectionClientStreaming:
     def create(
         self,
         *,
-        configuration: CreateConnectionRequestConnectionConfigurationDict,
+        configuration: Union[
+            CreateConnectionRequestConnectionConfiguration,
+            CreateConnectionRequestConnectionConfigurationDict,
+        ],
         display_name: ConnectionDisplayName,
         parent_folder_rid: FolderRid,
-        runtime_platform: CreateConnectionRequestRuntimePlatformDict,
+        runtime_platform: Union[
+            CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict
+        ],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[Connection]:
@@ -483,13 +517,13 @@ class _ConnectionClientStreaming:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: CreateConnectionRequestConnectionConfigurationDict
+        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
         :param runtime_platform:
-        :type runtime_platform: CreateConnectionRequestRuntimePlatformDict
+        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -520,8 +554,14 @@ class _ConnectionClientStreaming:
                     "Body",
                     {  # type: ignore
                         "parentFolderRid": FolderRid,
-                        "runtimePlatform": CreateConnectionRequestRuntimePlatformDict,
-                        "configuration": CreateConnectionRequestConnectionConfigurationDict,
+                        "runtimePlatform": Union[
+                            CreateConnectionRequestRuntimePlatform,
+                            CreateConnectionRequestRuntimePlatformDict,
+                        ],
+                        "configuration": Union[
+                            CreateConnectionRequestConnectionConfiguration,
+                            CreateConnectionRequestConnectionConfigurationDict,
+                        ],
                         "displayName": ConnectionDisplayName,
                     },
                 ),

@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -37,6 +38,7 @@ from foundry._errors import handle_unexpected
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._file_import import FileImport
 from foundry.v2.connectivity.models._file_import_display_name import FileImportDisplayName  # NOQA
+from foundry.v2.connectivity.models._file_import_filter import FileImportFilter
 from foundry.v2.connectivity.models._file_import_filter_dict import FileImportFilterDict
 from foundry.v2.connectivity.models._file_import_mode import FileImportMode
 from foundry.v2.connectivity.models._file_import_rid import FileImportRid
@@ -81,7 +83,7 @@ class FileImportClient:
         *,
         dataset_rid: DatasetRid,
         display_name: FileImportDisplayName,
-        file_import_filters: List[FileImportFilterDict],
+        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
@@ -97,7 +99,7 @@ class FileImportClient:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[FileImportFilterDict]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -142,7 +144,7 @@ class FileImportClient:
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
                         "subfolder": Optional[str],
-                        "fileImportFilters": List[FileImportFilterDict],
+                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
                     },
                 ),
                 response_type=FileImport,
@@ -411,7 +413,7 @@ class FileImportClient:
         *,
         dataset_rid: DatasetRid,
         display_name: FileImportDisplayName,
-        file_import_filters: List[FileImportFilterDict],
+        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
@@ -429,7 +431,7 @@ class FileImportClient:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[FileImportFilterDict]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -475,7 +477,7 @@ class FileImportClient:
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
                         "subfolder": Optional[str],
-                        "fileImportFilters": List[FileImportFilterDict],
+                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
                     },
                 ),
                 response_type=FileImport,
@@ -510,7 +512,7 @@ class _FileImportClientRaw:
         *,
         dataset_rid: DatasetRid,
         display_name: FileImportDisplayName,
-        file_import_filters: List[FileImportFilterDict],
+        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
@@ -526,7 +528,7 @@ class _FileImportClientRaw:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[FileImportFilterDict]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -571,7 +573,7 @@ class _FileImportClientRaw:
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
                         "subfolder": Optional[str],
-                        "fileImportFilters": List[FileImportFilterDict],
+                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
                     },
                 ),
                 response_type=FileImport,
@@ -840,7 +842,7 @@ class _FileImportClientRaw:
         *,
         dataset_rid: DatasetRid,
         display_name: FileImportDisplayName,
-        file_import_filters: List[FileImportFilterDict],
+        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
@@ -858,7 +860,7 @@ class _FileImportClientRaw:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[FileImportFilterDict]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -904,7 +906,7 @@ class _FileImportClientRaw:
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
                         "subfolder": Optional[str],
-                        "fileImportFilters": List[FileImportFilterDict],
+                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
                     },
                 ),
                 response_type=FileImport,
@@ -939,7 +941,7 @@ class _FileImportClientStreaming:
         *,
         dataset_rid: DatasetRid,
         display_name: FileImportDisplayName,
-        file_import_filters: List[FileImportFilterDict],
+        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
@@ -955,7 +957,7 @@ class _FileImportClientStreaming:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[FileImportFilterDict]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -1000,7 +1002,7 @@ class _FileImportClientStreaming:
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
                         "subfolder": Optional[str],
-                        "fileImportFilters": List[FileImportFilterDict],
+                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
                     },
                 ),
                 response_type=FileImport,
@@ -1269,7 +1271,7 @@ class _FileImportClientStreaming:
         *,
         dataset_rid: DatasetRid,
         display_name: FileImportDisplayName,
-        file_import_filters: List[FileImportFilterDict],
+        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
         import_mode: FileImportMode,
         branch_name: Optional[BranchName] = None,
         preview: Optional[PreviewMode] = None,
@@ -1287,7 +1289,7 @@ class _FileImportClientStreaming:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[FileImportFilterDict]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -1333,7 +1335,7 @@ class _FileImportClientStreaming:
                         "displayName": FileImportDisplayName,
                         "branchName": Optional[BranchName],
                         "subfolder": Optional[str],
-                        "fileImportFilters": List[FileImportFilterDict],
+                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
                     },
                 ),
                 response_type=FileImport,

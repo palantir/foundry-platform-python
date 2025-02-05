@@ -32,13 +32,11 @@ from foundry.v2.aip_agents.models._object_context import ObjectContext
 class AgentSessionRagContextResponse(pydantic.BaseModel):
     """Context retrieved from an Agent's configured context data sources which was relevant to the supplied user message."""
 
-    object_contexts: List[ObjectContext] = pydantic.Field(alias="objectContexts")
+    object_contexts: List[ObjectContext] = pydantic.Field(alias=str("objectContexts"))  # type: ignore[literal-required]
 
-    function_retrieved_contexts: List[FunctionRetrievedContext] = pydantic.Field(
-        alias="functionRetrievedContexts"
-    )
+    function_retrieved_contexts: List[FunctionRetrievedContext] = pydantic.Field(alias=str("functionRetrievedContexts"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentSessionRagContextResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

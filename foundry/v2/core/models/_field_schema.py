@@ -30,11 +30,11 @@ class FieldSchema(pydantic.BaseModel):
 
     nullable: bool
 
-    custom_metadata: Optional[CustomMetadata] = pydantic.Field(alias="customMetadata", default=None)
+    custom_metadata: Optional[CustomMetadata] = pydantic.Field(alias=str("customMetadata"), default=None)  # type: ignore[literal-required]
 
-    data_type: FieldDataType = pydantic.Field(alias="dataType")
+    data_type: FieldDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FieldSchemaDict:
         """Return the dictionary representation of the model using the field aliases."""

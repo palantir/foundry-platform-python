@@ -35,9 +35,9 @@ from foundry.v2.ontologies.models._property_v2 import PropertyV2
 class ObjectTypeV2(pydantic.BaseModel):
     """Represents an object type in the Ontology."""
 
-    api_name: ObjectTypeApiName = pydantic.Field(alias="apiName")
+    api_name: ObjectTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: DisplayName = pydantic.Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     status: ReleaseStatus
 
@@ -45,13 +45,13 @@ class ObjectTypeV2(pydantic.BaseModel):
 
     """The description of the object type."""
 
-    plural_display_name: str = pydantic.Field(alias="pluralDisplayName")
+    plural_display_name: str = pydantic.Field(alias=str("pluralDisplayName"))  # type: ignore[literal-required]
 
     """The plural display name of the object type."""
 
     icon: Icon
 
-    primary_key: PropertyApiName = pydantic.Field(alias="primaryKey")
+    primary_key: PropertyApiName = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
 
     properties: Dict[PropertyApiName, PropertyV2]
 
@@ -59,11 +59,11 @@ class ObjectTypeV2(pydantic.BaseModel):
 
     rid: ObjectTypeRid
 
-    title_property: PropertyApiName = pydantic.Field(alias="titleProperty")
+    title_property: PropertyApiName = pydantic.Field(alias=str("titleProperty"))  # type: ignore[literal-required]
 
     visibility: Optional[ObjectTypeVisibility] = None
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectTypeV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

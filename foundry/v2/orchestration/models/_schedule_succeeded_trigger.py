@@ -32,11 +32,11 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
     successfully.
     """
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias="scheduleRid")
+    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
 
     type: Literal["scheduleSucceeded"] = "scheduleSucceeded"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ScheduleSucceededTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""

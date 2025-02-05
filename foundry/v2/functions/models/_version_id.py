@@ -37,17 +37,17 @@ class VersionId(pydantic.BaseModel):
 
     version: ValueTypeVersion
 
-    version_id: ValueTypeVersionId = pydantic.Field(alias="versionId")
+    version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
 
-    api_name: ValueTypeApiName = pydantic.Field(alias="apiName")
+    api_name: ValueTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: DisplayName = pydantic.Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     description: Optional[ValueTypeDescription] = None
 
-    base_type: Optional[ValueTypeDataType] = pydantic.Field(alias="baseType", default=None)
+    base_type: Optional[ValueTypeDataType] = pydantic.Field(alias=str("baseType"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> VersionIdDict:
         """Return the dictionary representation of the model using the field aliases."""

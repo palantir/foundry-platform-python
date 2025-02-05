@@ -37,15 +37,13 @@ class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
 
     field: Optional[PropertyApiName] = None
 
-    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(
-        alias="propertyIdentifier", default=None
-    )
+    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
 
     value: str
 
     type: Literal["containsAllTermsInOrderPrefixLastTerm"] = "containsAllTermsInOrderPrefixLastTerm"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ContainsAllTermsInOrderPrefixLastTermDict:
         """Return the dictionary representation of the model using the field aliases."""

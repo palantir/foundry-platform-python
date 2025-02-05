@@ -33,7 +33,7 @@ class AgentVersionDetails(pydantic.BaseModel):
 
     """The minor version of the Agent. Incremented every time the Agent is saved."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentVersionDetailsDict:
         """Return the dictionary representation of the model using the field aliases."""

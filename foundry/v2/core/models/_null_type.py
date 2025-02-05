@@ -28,7 +28,7 @@ class NullType(pydantic.BaseModel):
 
     type: Literal["null"] = "null"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> NullTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

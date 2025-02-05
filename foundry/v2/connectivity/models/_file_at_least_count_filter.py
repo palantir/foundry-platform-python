@@ -28,7 +28,7 @@ from foundry.v2.connectivity.models._file_at_least_count_filter_dict import (
 class FileAtLeastCountFilter(pydantic.BaseModel):
     """Import all filtered files only if there are at least the specified number of files remaining."""
 
-    min_files_count: int = pydantic.Field(alias="minFilesCount")
+    min_files_count: int = pydantic.Field(alias=str("minFilesCount"))  # type: ignore[literal-required]
 
     """
     The minimum number of files remaining expected.
@@ -37,7 +37,7 @@ class FileAtLeastCountFilter(pydantic.BaseModel):
 
     type: Literal["atLeastCountFilter"] = "atLeastCountFilter"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FileAtLeastCountFilterDict:
         """Return the dictionary representation of the model using the field aliases."""

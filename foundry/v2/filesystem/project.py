@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -42,9 +43,17 @@ from foundry.v2.core.models._role_id import RoleId
 from foundry.v2.filesystem.models._list_organizations_of_project_response import (
     ListOrganizationsOfProjectResponse,
 )  # NOQA
+from foundry.v2.filesystem.models._principal_with_id import PrincipalWithId
 from foundry.v2.filesystem.models._principal_with_id_dict import PrincipalWithIdDict
 from foundry.v2.filesystem.models._project import Project
 from foundry.v2.filesystem.models._project_rid import ProjectRid
+from foundry.v2.filesystem.models._project_template_rid import ProjectTemplateRid
+from foundry.v2.filesystem.models._project_template_variable_id import (
+    ProjectTemplateVariableId,
+)  # NOQA
+from foundry.v2.filesystem.models._project_template_variable_value import (
+    ProjectTemplateVariableValue,
+)  # NOQA
 from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
 from foundry.v2.filesystem.models._space_rid import SpaceRid
 
@@ -131,7 +140,7 @@ class ProjectClient:
         default_roles: List[RoleId],
         display_name: ResourceDisplayName,
         organization_rids: List[OrganizationRid],
-        role_grants: Dict[RoleId, List[PrincipalWithIdDict]],
+        role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]],
         space_rid: SpaceRid,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -146,7 +155,7 @@ class ProjectClient:
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: Dict[RoleId, List[PrincipalWithIdDict]]
+        :type role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
         :type space_rid: SpaceRid
         :param description:
@@ -185,9 +194,81 @@ class ProjectClient:
                         "displayName": ResourceDisplayName,
                         "description": Optional[str],
                         "spaceRid": SpaceRid,
-                        "roleGrants": Dict[RoleId, List[PrincipalWithIdDict]],
+                        "roleGrants": Dict[
+                            Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                        ],
                         "defaultRoles": List[RoleId],
                         "organizationRids": List[OrganizationRid],
+                    },
+                ),
+                response_type=Project,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create_from_template(
+        self,
+        *,
+        template_rid: ProjectTemplateRid,
+        variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue],
+        default_roles: Optional[List[RoleId]] = None,
+        organization_rids: Optional[List[OrganizationRid]] = None,
+        preview: Optional[PreviewMode] = None,
+        project_description: Optional[str] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Project:
+        """
+        Creates a project from a project template.
+        :param template_rid:
+        :type template_rid: ProjectTemplateRid
+        :param variable_values:
+        :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
+        :param default_roles:
+        :type default_roles: Optional[List[RoleId]]
+        :param organization_rids:
+        :type organization_rids: Optional[List[OrganizationRid]]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param project_description:
+        :type project_description: Optional[str]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Project
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/projects/createFromTemplate",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "templateRid": template_rid,
+                    "variableValues": variable_values,
+                    "defaultRoles": default_roles,
+                    "organizationRids": organization_rids,
+                    "projectDescription": project_description,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "templateRid": ProjectTemplateRid,
+                        "variableValues": Dict[
+                            ProjectTemplateVariableId, ProjectTemplateVariableValue
+                        ],
+                        "defaultRoles": Optional[List[RoleId]],
+                        "organizationRids": Optional[List[OrganizationRid]],
+                        "projectDescription": Optional[str],
                     },
                 ),
                 response_type=Project,
@@ -478,7 +559,7 @@ class _ProjectClientRaw:
         default_roles: List[RoleId],
         display_name: ResourceDisplayName,
         organization_rids: List[OrganizationRid],
-        role_grants: Dict[RoleId, List[PrincipalWithIdDict]],
+        role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]],
         space_rid: SpaceRid,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -493,7 +574,7 @@ class _ProjectClientRaw:
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: Dict[RoleId, List[PrincipalWithIdDict]]
+        :type role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
         :type space_rid: SpaceRid
         :param description:
@@ -532,9 +613,81 @@ class _ProjectClientRaw:
                         "displayName": ResourceDisplayName,
                         "description": Optional[str],
                         "spaceRid": SpaceRid,
-                        "roleGrants": Dict[RoleId, List[PrincipalWithIdDict]],
+                        "roleGrants": Dict[
+                            Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                        ],
                         "defaultRoles": List[RoleId],
                         "organizationRids": List[OrganizationRid],
+                    },
+                ),
+                response_type=Project,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create_from_template(
+        self,
+        *,
+        template_rid: ProjectTemplateRid,
+        variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue],
+        default_roles: Optional[List[RoleId]] = None,
+        organization_rids: Optional[List[OrganizationRid]] = None,
+        preview: Optional[PreviewMode] = None,
+        project_description: Optional[str] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Project]:
+        """
+        Creates a project from a project template.
+        :param template_rid:
+        :type template_rid: ProjectTemplateRid
+        :param variable_values:
+        :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
+        :param default_roles:
+        :type default_roles: Optional[List[RoleId]]
+        :param organization_rids:
+        :type organization_rids: Optional[List[OrganizationRid]]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param project_description:
+        :type project_description: Optional[str]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Project]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/projects/createFromTemplate",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "templateRid": template_rid,
+                    "variableValues": variable_values,
+                    "defaultRoles": default_roles,
+                    "organizationRids": organization_rids,
+                    "projectDescription": project_description,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "templateRid": ProjectTemplateRid,
+                        "variableValues": Dict[
+                            ProjectTemplateVariableId, ProjectTemplateVariableValue
+                        ],
+                        "defaultRoles": Optional[List[RoleId]],
+                        "organizationRids": Optional[List[OrganizationRid]],
+                        "projectDescription": Optional[str],
                     },
                 ),
                 response_type=Project,
@@ -825,7 +978,7 @@ class _ProjectClientStreaming:
         default_roles: List[RoleId],
         display_name: ResourceDisplayName,
         organization_rids: List[OrganizationRid],
-        role_grants: Dict[RoleId, List[PrincipalWithIdDict]],
+        role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]],
         space_rid: SpaceRid,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -840,7 +993,7 @@ class _ProjectClientStreaming:
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: Dict[RoleId, List[PrincipalWithIdDict]]
+        :type role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
         :type space_rid: SpaceRid
         :param description:
@@ -879,9 +1032,81 @@ class _ProjectClientStreaming:
                         "displayName": ResourceDisplayName,
                         "description": Optional[str],
                         "spaceRid": SpaceRid,
-                        "roleGrants": Dict[RoleId, List[PrincipalWithIdDict]],
+                        "roleGrants": Dict[
+                            Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                        ],
                         "defaultRoles": List[RoleId],
                         "organizationRids": List[OrganizationRid],
+                    },
+                ),
+                response_type=Project,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def create_from_template(
+        self,
+        *,
+        template_rid: ProjectTemplateRid,
+        variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue],
+        default_roles: Optional[List[RoleId]] = None,
+        organization_rids: Optional[List[OrganizationRid]] = None,
+        preview: Optional[PreviewMode] = None,
+        project_description: Optional[str] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Project]:
+        """
+        Creates a project from a project template.
+        :param template_rid:
+        :type template_rid: ProjectTemplateRid
+        :param variable_values:
+        :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
+        :param default_roles:
+        :type default_roles: Optional[List[RoleId]]
+        :param organization_rids:
+        :type organization_rids: Optional[List[OrganizationRid]]
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param project_description:
+        :type project_description: Optional[str]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Project]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/projects/createFromTemplate",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "templateRid": template_rid,
+                    "variableValues": variable_values,
+                    "defaultRoles": default_roles,
+                    "organizationRids": organization_rids,
+                    "projectDescription": project_description,
+                },
+                body_type=TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "templateRid": ProjectTemplateRid,
+                        "variableValues": Dict[
+                            ProjectTemplateVariableId, ProjectTemplateVariableValue
+                        ],
+                        "defaultRoles": Optional[List[RoleId]],
+                        "organizationRids": Optional[List[OrganizationRid]],
+                        "projectDescription": Optional[str],
                     },
                 ),
                 response_type=Project,

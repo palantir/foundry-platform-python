@@ -30,13 +30,13 @@ class Parameter(pydantic.BaseModel):
 
     description: Optional[str] = None
 
-    base_type: ValueType = pydantic.Field(alias="baseType")
+    base_type: ValueType = pydantic.Field(alias=str("baseType"))  # type: ignore[literal-required]
 
-    data_type: Optional[OntologyDataType] = pydantic.Field(alias="dataType", default=None)
+    data_type: Optional[OntologyDataType] = pydantic.Field(alias=str("dataType"), default=None)  # type: ignore[literal-required]
 
     required: bool
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ParameterDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -51,7 +51,7 @@ class StringLengthConstraint(pydantic.BaseModel):
 
     type: Literal["stringLength"] = "stringLength"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StringLengthConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""

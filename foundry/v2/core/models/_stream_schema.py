@@ -34,7 +34,7 @@ class StreamSchema(pydantic.BaseModel):
 
     fields: List[Field]
 
-    key_field_names: Optional[List[FieldName]] = pydantic.Field(alias="keyFieldNames", default=None)
+    key_field_names: Optional[List[FieldName]] = pydantic.Field(alias=str("keyFieldNames"), default=None)  # type: ignore[literal-required]
 
     """
     The names of the fields to be used as keys for partitioning records. These key fields are used to group
@@ -57,11 +57,9 @@ class StreamSchema(pydantic.BaseModel):
     [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
-    change_data_capture: Optional[ChangeDataCaptureConfiguration] = pydantic.Field(
-        alias="changeDataCapture", default=None
-    )
+    change_data_capture: Optional[ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StreamSchemaDict:
         """Return the dictionary representation of the model using the field aliases."""

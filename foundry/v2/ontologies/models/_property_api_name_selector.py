@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._property_api_name_selector_dict import (
 class PropertyApiNameSelector(pydantic.BaseModel):
     """A property api name that references properties to query on."""
 
-    api_name: PropertyApiName = pydantic.Field(alias="apiName")
+    api_name: PropertyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
     type: Literal["property"] = "property"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> PropertyApiNameSelectorDict:
         """Return the dictionary representation of the model using the field aliases."""

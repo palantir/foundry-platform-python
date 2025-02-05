@@ -31,21 +31,21 @@ class ConnectingTarget(pydantic.BaseModel):
     target datasets (inclusive) except for the datasets to ignore.
     """
 
-    input_rids: List[BuildableRid] = pydantic.Field(alias="inputRids")
+    input_rids: List[BuildableRid] = pydantic.Field(alias=str("inputRids"))  # type: ignore[literal-required]
 
     """The upstream input datasets (exclusive)."""
 
-    target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
+    target_rids: List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
 
     """The downstream target datasets (inclusive)."""
 
-    ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
+    ignored_rids: List[BuildableRid] = pydantic.Field(alias=str("ignoredRids"))  # type: ignore[literal-required]
 
     """The datasets between the input datasets and target datasets to exclude."""
 
     type: Literal["connecting"] = "connecting"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ConnectingTargetDict:
         """Return the dictionary representation of the model using the field aliases."""

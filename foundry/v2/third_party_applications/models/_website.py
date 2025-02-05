@@ -29,9 +29,7 @@ from foundry.v2.third_party_applications.models._website_dict import WebsiteDict
 class Website(pydantic.BaseModel):
     """Website"""
 
-    deployed_version: Optional[VersionVersion] = pydantic.Field(
-        alias="deployedVersion", default=None
-    )
+    deployed_version: Optional[VersionVersion] = pydantic.Field(alias=str("deployedVersion"), default=None)  # type: ignore[literal-required]
 
     """The version of the Website that is currently deployed."""
 
@@ -39,7 +37,7 @@ class Website(pydantic.BaseModel):
 
     """The subdomains from which the Website is currently served."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> WebsiteDict:
         """Return the dictionary representation of the model using the field aliases."""

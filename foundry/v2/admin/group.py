@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from annotated_types import Len
@@ -39,12 +40,16 @@ from foundry.v2.admin.group_member import GroupMemberClient
 from foundry.v2.admin.group_provider_info import GroupProviderInfoClient
 from foundry.v2.admin.models._attribute_name import AttributeName
 from foundry.v2.admin.models._attribute_values import AttributeValues
+from foundry.v2.admin.models._get_groups_batch_request_element import (
+    GetGroupsBatchRequestElement,
+)  # NOQA
 from foundry.v2.admin.models._get_groups_batch_request_element_dict import (
     GetGroupsBatchRequestElementDict,
 )  # NOQA
 from foundry.v2.admin.models._get_groups_batch_response import GetGroupsBatchResponse
 from foundry.v2.admin.models._group import Group
 from foundry.v2.admin.models._group_name import GroupName
+from foundry.v2.admin.models._group_search_filter import GroupSearchFilter
 from foundry.v2.admin.models._group_search_filter_dict import GroupSearchFilterDict
 from foundry.v2.admin.models._list_groups_response import ListGroupsResponse
 from foundry.v2.admin.models._search_groups_response import SearchGroupsResponse
@@ -212,7 +217,10 @@ class GroupClient:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        body: Annotated[
+            List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
+        ],
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetGroupsBatchResponse:
@@ -221,7 +229,7 @@ class GroupClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -345,7 +353,7 @@ class GroupClient:
     def search(
         self,
         *,
-        where: GroupSearchFilterDict,
+        where: Union[GroupSearchFilter, GroupSearchFilterDict],
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -353,7 +361,7 @@ class GroupClient:
         """
 
         :param where:
-        :type where: GroupSearchFilterDict
+        :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -382,7 +390,7 @@ class GroupClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": GroupSearchFilterDict,
+                        "where": Union[GroupSearchFilter, GroupSearchFilterDict],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                     },
@@ -545,7 +553,10 @@ class _GroupClientRaw:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        body: Annotated[
+            List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
+        ],
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[GetGroupsBatchResponse]:
@@ -554,7 +565,7 @@ class _GroupClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -678,7 +689,7 @@ class _GroupClientRaw:
     def search(
         self,
         *,
-        where: GroupSearchFilterDict,
+        where: Union[GroupSearchFilter, GroupSearchFilterDict],
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -686,7 +697,7 @@ class _GroupClientRaw:
         """
 
         :param where:
-        :type where: GroupSearchFilterDict
+        :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -715,7 +726,7 @@ class _GroupClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": GroupSearchFilterDict,
+                        "where": Union[GroupSearchFilter, GroupSearchFilterDict],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                     },
@@ -878,7 +889,10 @@ class _GroupClientStreaming:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        body: Annotated[
+            List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
+        ],
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[GetGroupsBatchResponse]:
@@ -887,7 +901,7 @@ class _GroupClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1011,7 +1025,7 @@ class _GroupClientStreaming:
     def search(
         self,
         *,
-        where: GroupSearchFilterDict,
+        where: Union[GroupSearchFilter, GroupSearchFilterDict],
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -1019,7 +1033,7 @@ class _GroupClientStreaming:
         """
 
         :param where:
-        :type where: GroupSearchFilterDict
+        :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -1048,7 +1062,7 @@ class _GroupClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": GroupSearchFilterDict,
+                        "where": Union[GroupSearchFilter, GroupSearchFilterDict],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                     },

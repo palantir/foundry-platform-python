@@ -29,11 +29,11 @@ class OntologyStructField(pydantic.BaseModel):
 
     name: StructFieldName
 
-    field_type: OntologyDataType = pydantic.Field(alias="fieldType")
+    field_type: OntologyDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
 
     required: bool
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyStructFieldDict:
         """Return the dictionary representation of the model using the field aliases."""

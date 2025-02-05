@@ -29,17 +29,17 @@ from foundry.v2.ontologies.models._property_type_rid import PropertyTypeRid
 class ObjectContext(pydantic.BaseModel):
     """Details of relevant retrieved object instances for a user's message to include as additional context in the prompt to the Agent."""
 
-    object_rids: List[ObjectRid] = pydantic.Field(alias="objectRids")
+    object_rids: List[ObjectRid] = pydantic.Field(alias=str("objectRids"))  # type: ignore[literal-required]
 
     """The RIDs of the relevant object instances to include in the prompt."""
 
-    property_type_rids: List[PropertyTypeRid] = pydantic.Field(alias="propertyTypeRids")
+    property_type_rids: List[PropertyTypeRid] = pydantic.Field(alias=str("propertyTypeRids"))  # type: ignore[literal-required]
 
     """The RIDs of the property types for the given objects to include in the prompt."""
 
     type: Literal["objectContext"] = "objectContext"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectContextDict:
         """Return the dictionary representation of the model using the field aliases."""

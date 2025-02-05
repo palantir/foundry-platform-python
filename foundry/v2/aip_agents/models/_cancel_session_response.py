@@ -36,7 +36,7 @@ class CancelSessionResponse(pydantic.BaseModel):
     If no `response` was specified in the request, this returns an empty response, as no exchange was added to the session.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> CancelSessionResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

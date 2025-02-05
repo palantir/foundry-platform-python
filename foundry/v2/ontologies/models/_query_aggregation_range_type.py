@@ -31,11 +31,11 @@ from foundry.v2.ontologies.models._query_aggregation_range_type_dict import (
 class QueryAggregationRangeType(pydantic.BaseModel):
     """QueryAggregationRangeType"""
 
-    sub_type: QueryAggregationRangeSubType = pydantic.Field(alias="subType")
+    sub_type: QueryAggregationRangeSubType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
 
     type: Literal["range"] = "range"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> QueryAggregationRangeTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -27,11 +27,11 @@ from foundry.v2.ontologies.models._ontology_data_type import OntologyDataType
 class OntologyArrayType(pydantic.BaseModel):
     """OntologyArrayType"""
 
-    item_type: OntologyDataType = pydantic.Field(alias="itemType")
+    item_type: OntologyDataType = pydantic.Field(alias=str("itemType"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

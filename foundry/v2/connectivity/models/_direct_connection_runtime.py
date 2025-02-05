@@ -36,9 +36,7 @@ class DirectConnectionRuntime(pydantic.BaseModel):
     This is the preferred source connection method if the data source is accessible over the Internet.
     """
 
-    network_egress_policy_rids: List[NetworkEgressPolicyRid] = pydantic.Field(
-        alias="networkEgressPolicyRids"
-    )
+    network_egress_policy_rids: List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
 
     """
     The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
@@ -49,7 +47,7 @@ class DirectConnectionRuntime(pydantic.BaseModel):
 
     type: Literal["directConnectionRuntime"] = "directConnectionRuntime"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> DirectConnectionRuntimeDict:
         """Return the dictionary representation of the model using the field aliases."""

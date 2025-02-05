@@ -28,11 +28,11 @@ from foundry.v2.orchestration.models._project_scope_dict import ProjectScopeDict
 class ProjectScope(pydantic.BaseModel):
     """The schedule will only build resources in the following projects."""
 
-    project_rids: List[ProjectRid] = pydantic.Field(alias="projectRids")
+    project_rids: List[ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
 
     type: Literal["project"] = "project"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ProjectScopeDict:
         """Return the dictionary representation of the model using the field aliases."""

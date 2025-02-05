@@ -37,38 +37,74 @@ from foundry.v2.connectivity.models._connection_configuration_dict import (
 from foundry.v2.connectivity.models._connection_dict import ConnectionDict
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry.v2.connectivity.models._create_connection_request_agent_proxy_runtime import (
+    CreateConnectionRequestAgentProxyRuntime,
+)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_agent_proxy_runtime_dict import (
     CreateConnectionRequestAgentProxyRuntimeDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_agent_worker_runtime import (
+    CreateConnectionRequestAgentWorkerRuntime,
 )  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_agent_worker_runtime_dict import (
     CreateConnectionRequestAgentWorkerRuntimeDict,
 )  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_connection_configuration import (
+    CreateConnectionRequestConnectionConfiguration,
+)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_connection_configuration_dict import (
     CreateConnectionRequestConnectionConfigurationDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_direct_connection_runtime import (
+    CreateConnectionRequestDirectConnectionRuntime,
 )  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_direct_connection_runtime_dict import (
     CreateConnectionRequestDirectConnectionRuntimeDict,
 )  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_runtime_platform import (
+    CreateConnectionRequestRuntimePlatform,
+)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_runtime_platform_dict import (
     CreateConnectionRequestRuntimePlatformDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_s3_connection_configuration import (
+    CreateConnectionRequestS3ConnectionConfiguration,
 )  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_s3_connection_configuration_dict import (
     CreateConnectionRequestS3ConnectionConfigurationDict,
 )  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_jdbc_import_config import (
+    CreateTableImportRequestJdbcImportConfig,
+)  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_jdbc_import_config_dict import (
     CreateTableImportRequestJdbcImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_microsoft_access_import_config import (
+    CreateTableImportRequestMicrosoftAccessImportConfig,
 )  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_microsoft_access_import_config_dict import (
     CreateTableImportRequestMicrosoftAccessImportConfigDict,
 )  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_microsoft_sql_server_import_config import (
+    CreateTableImportRequestMicrosoftSqlServerImportConfig,
+)  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_microsoft_sql_server_import_config_dict import (
     CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_oracle_import_config import (
+    CreateTableImportRequestOracleImportConfig,
 )  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_oracle_import_config_dict import (
     CreateTableImportRequestOracleImportConfigDict,
 )  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_postgre_sql_import_config import (
+    CreateTableImportRequestPostgreSqlImportConfig,
+)  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_postgre_sql_import_config_dict import (
     CreateTableImportRequestPostgreSqlImportConfigDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_table_import_request_table_import_config import (
+    CreateTableImportRequestTableImportConfig,
 )  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_table_import_config_dict import (
     CreateTableImportRequestTableImportConfigDict,
@@ -228,17 +264,29 @@ __all__ = [
     "ConnectionDict",
     "ConnectionDisplayName",
     "ConnectionRid",
+    "CreateConnectionRequestAgentProxyRuntime",
     "CreateConnectionRequestAgentProxyRuntimeDict",
+    "CreateConnectionRequestAgentWorkerRuntime",
     "CreateConnectionRequestAgentWorkerRuntimeDict",
+    "CreateConnectionRequestConnectionConfiguration",
     "CreateConnectionRequestConnectionConfigurationDict",
+    "CreateConnectionRequestDirectConnectionRuntime",
     "CreateConnectionRequestDirectConnectionRuntimeDict",
+    "CreateConnectionRequestRuntimePlatform",
     "CreateConnectionRequestRuntimePlatformDict",
+    "CreateConnectionRequestS3ConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfigurationDict",
+    "CreateTableImportRequestJdbcImportConfig",
     "CreateTableImportRequestJdbcImportConfigDict",
+    "CreateTableImportRequestMicrosoftAccessImportConfig",
     "CreateTableImportRequestMicrosoftAccessImportConfigDict",
+    "CreateTableImportRequestMicrosoftSqlServerImportConfig",
     "CreateTableImportRequestMicrosoftSqlServerImportConfigDict",
+    "CreateTableImportRequestOracleImportConfig",
     "CreateTableImportRequestOracleImportConfigDict",
+    "CreateTableImportRequestPostgreSqlImportConfig",
     "CreateTableImportRequestPostgreSqlImportConfigDict",
+    "CreateTableImportRequestTableImportConfig",
     "CreateTableImportRequestTableImportConfigDict",
     "DirectConnectionRuntime",
     "DirectConnectionRuntimeDict",

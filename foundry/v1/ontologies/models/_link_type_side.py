@@ -32,21 +32,19 @@ from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 class LinkTypeSide(pydantic.BaseModel):
     """LinkTypeSide"""
 
-    api_name: LinkTypeApiName = pydantic.Field(alias="apiName")
+    api_name: LinkTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: DisplayName = pydantic.Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     status: ReleaseStatus
 
-    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
 
     cardinality: LinkTypeSideCardinality
 
-    foreign_key_property_api_name: Optional[PropertyApiName] = pydantic.Field(
-        alias="foreignKeyPropertyApiName", default=None
-    )
+    foreign_key_property_api_name: Optional[PropertyApiName] = pydantic.Field(alias=str("foreignKeyPropertyApiName"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> LinkTypeSideDict:
         """Return the dictionary representation of the model using the field aliases."""

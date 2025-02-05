@@ -26,14 +26,14 @@ from foundry.v2.admin.models._user_provider_info_dict import UserProviderInfoDic
 class UserProviderInfo(pydantic.BaseModel):
     """UserProviderInfo"""
 
-    provider_id: ProviderId = pydantic.Field(alias="providerId")
+    provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
 
     """
     The ID of the User in the external authentication provider. This value is determined by the authentication provider.
     At most one User can have a given provider ID in a given Realm.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> UserProviderInfoDict:
         """Return the dictionary representation of the model using the field aliases."""

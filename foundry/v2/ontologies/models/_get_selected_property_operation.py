@@ -34,11 +34,11 @@ class GetSelectedPropertyOperation(pydantic.BaseModel):
     Use collectList or collectSet which will return a list of values in that case.
     """
 
-    selected_property_api_name: PropertyApiName = pydantic.Field(alias="selectedPropertyApiName")
+    selected_property_api_name: PropertyApiName = pydantic.Field(alias=str("selectedPropertyApiName"))  # type: ignore[literal-required]
 
     type: Literal["get"] = "get"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> GetSelectedPropertyOperationDict:
         """Return the dictionary representation of the model using the field aliases."""

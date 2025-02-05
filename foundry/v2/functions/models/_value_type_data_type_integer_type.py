@@ -30,7 +30,7 @@ class ValueTypeDataTypeIntegerType(pydantic.BaseModel):
 
     type: Literal["integer"] = "integer"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeIntegerTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

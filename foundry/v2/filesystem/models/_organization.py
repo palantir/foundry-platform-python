@@ -34,13 +34,13 @@ class Organization(pydantic.BaseModel):
     Organizations are inherited via the file hierarchy and direct dependencies.
     """
 
-    marking_id: MarkingId = pydantic.Field(alias="markingId")
+    marking_id: MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
 
-    organization_rid: OrganizationRid = pydantic.Field(alias="organizationRid")
+    organization_rid: OrganizationRid = pydantic.Field(alias=str("organizationRid"))  # type: ignore[literal-required]
 
-    is_directly_applied: IsDirectlyApplied = pydantic.Field(alias="isDirectlyApplied")
+    is_directly_applied: IsDirectlyApplied = pydantic.Field(alias=str("isDirectlyApplied"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OrganizationDict:
         """Return the dictionary representation of the model using the field aliases."""

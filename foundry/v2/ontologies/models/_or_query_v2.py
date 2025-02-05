@@ -32,7 +32,7 @@ class OrQueryV2(pydantic.BaseModel):
 
     type: Literal["or"] = "or"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OrQueryV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

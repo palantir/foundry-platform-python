@@ -174,7 +174,7 @@ Name | Type | Description  | Notes |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
 **format** | Optional[StreamingOutputFormat] | format | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**range** | Optional[TimeRangeDict] |  | [optional] |
+**range** | Optional[Union[TimeRange, TimeRangeDict]] |  | [optional] |
 
 ### Return type
 **bytes**
@@ -204,7 +204,7 @@ artifact_repository = None
 format = None
 # Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[TimeRangeDict] |
+# Optional[Union[TimeRange, TimeRangeDict]] |
 range = {
     "type": "relative",
     "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},

@@ -32,17 +32,17 @@ class FoundryLiveDeployment(pydantic.BaseModel):
 
     """The live deployment identifier. This rid is of the format 'ri.foundry-ml-live.main.live-deployment.<uuid>'."""
 
-    input_param_name: Optional[str] = pydantic.Field(alias="inputParamName", default=None)
+    input_param_name: Optional[str] = pydantic.Field(alias=str("inputParamName"), default=None)  # type: ignore[literal-required]
 
     """The name of the input parameter to the model which should contain the query string."""
 
-    output_param_name: Optional[str] = pydantic.Field(alias="outputParamName", default=None)
+    output_param_name: Optional[str] = pydantic.Field(alias=str("outputParamName"), default=None)  # type: ignore[literal-required]
 
     """The name of the output parameter to the model which should contain the computed embedding."""
 
     type: Literal["foundryLiveDeployment"] = "foundryLiveDeployment"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FoundryLiveDeploymentDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -17,7 +17,7 @@ Creates a new TableImport.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**config** | CreateTableImportRequestTableImportConfigDict |  |  |
+**config** | Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
@@ -41,7 +41,7 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# CreateTableImportRequestTableImportConfigDict |
+# Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |
 config = None
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"

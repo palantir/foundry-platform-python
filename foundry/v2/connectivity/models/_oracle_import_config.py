@@ -36,7 +36,7 @@ class OracleImportConfig(pydantic.BaseModel):
 
     type: Literal["oracleImportConfig"] = "oracleImportConfig"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OracleImportConfigDict:
         """Return the dictionary representation of the model using the field aliases."""

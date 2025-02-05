@@ -46,6 +46,7 @@ from foundry.v2.ontologies.models._property_value_escaped_string import (
 )  # NOQA
 from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
 from foundry.v2.ontologies.models._streaming_output_format import StreamingOutputFormat
+from foundry.v2.ontologies.models._time_range import TimeRange
 from foundry.v2.ontologies.models._time_range_dict import TimeRangeDict
 from foundry.v2.ontologies.models._time_series_point import TimeSeriesPoint
 
@@ -212,7 +213,7 @@ class TimeSeriesPropertyV2Client:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
-        range: Optional[TimeRangeDict] = None,
+        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> BinaryStream:
@@ -237,7 +238,7 @@ class TimeSeriesPropertyV2Client:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[TimeRangeDict]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -260,7 +261,7 @@ class TimeSeriesPropertyV2Client:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
-        range: Optional[TimeRangeDict] = None,
+        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
         stream: Literal[False] = False,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> bytes:
@@ -285,7 +286,7 @@ class TimeSeriesPropertyV2Client:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[TimeRangeDict]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -310,7 +311,7 @@ class TimeSeriesPropertyV2Client:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
-        range: Optional[TimeRangeDict] = None,
+        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Union[bytes, BinaryStream]:
@@ -335,7 +336,7 @@ class TimeSeriesPropertyV2Client:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[TimeRangeDict]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -360,7 +361,7 @@ class TimeSeriesPropertyV2Client:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
-        range: Optional[TimeRangeDict] = None,
+        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
         stream: bool = False,
         chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -386,7 +387,7 @@ class TimeSeriesPropertyV2Client:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[TimeRangeDict]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -429,7 +430,7 @@ class TimeSeriesPropertyV2Client:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": Optional[TimeRangeDict],
+                        "range": Optional[Union[TimeRange, TimeRangeDict]],
                     },
                 ),
                 response_type=bytes,
@@ -594,7 +595,7 @@ class _TimeSeriesPropertyV2ClientRaw:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
-        range: Optional[TimeRangeDict] = None,
+        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[bytes]:
         """
@@ -618,7 +619,7 @@ class _TimeSeriesPropertyV2ClientRaw:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[TimeRangeDict]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -650,7 +651,7 @@ class _TimeSeriesPropertyV2ClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": Optional[TimeRangeDict],
+                        "range": Optional[Union[TimeRange, TimeRangeDict]],
                     },
                 ),
                 response_type=bytes,
@@ -813,7 +814,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         format: Optional[StreamingOutputFormat] = None,
         package_name: Optional[SdkPackageName] = None,
-        range: Optional[TimeRangeDict] = None,
+        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[bytes]:
         """
@@ -837,7 +838,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[TimeRangeDict]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -869,7 +870,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": Optional[TimeRangeDict],
+                        "range": Optional[Union[TimeRange, TimeRangeDict]],
                     },
                 ),
                 response_type=bytes,

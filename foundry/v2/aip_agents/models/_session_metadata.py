@@ -30,22 +30,22 @@ class SessionMetadata(pydantic.BaseModel):
 
     """The title of the session."""
 
-    created_time: datetime = pydantic.Field(alias="createdTime")
+    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
     """The time the session was created."""
 
-    updated_time: datetime = pydantic.Field(alias="updatedTime")
+    updated_time: datetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
 
     """The time the session was last updated."""
 
-    message_count: int = pydantic.Field(alias="messageCount")
+    message_count: int = pydantic.Field(alias=str("messageCount"))  # type: ignore[literal-required]
 
     """
     The count of messages in the session.
     Includes both user messages and Agent replies, so each complete exchange counts as two messages.
     """
 
-    estimated_expires_time: datetime = pydantic.Field(alias="estimatedExpiresTime")
+    estimated_expires_time: datetime = pydantic.Field(alias=str("estimatedExpiresTime"))  # type: ignore[literal-required]
 
     """
     The estimated time at which the session is due to expire.
@@ -53,7 +53,7 @@ class SessionMetadata(pydantic.BaseModel):
     The expiry time is automatically extended when new exchanges are added to the session.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SessionMetadataDict:
         """Return the dictionary representation of the model using the field aliases."""

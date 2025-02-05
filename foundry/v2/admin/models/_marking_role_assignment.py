@@ -28,13 +28,13 @@ from foundry.v2.core.models._principal_type import PrincipalType
 class MarkingRoleAssignment(pydantic.BaseModel):
     """MarkingRoleAssignment"""
 
-    principal_type: PrincipalType = pydantic.Field(alias="principalType")
+    principal_type: PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
 
-    principal_id: PrincipalId = pydantic.Field(alias="principalId")
+    principal_id: PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
     role: MarkingRole
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MarkingRoleAssignmentDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -35,9 +35,9 @@ from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 class ObjectType(pydantic.BaseModel):
     """Represents an object type in the Ontology."""
 
-    api_name: ObjectTypeApiName = pydantic.Field(alias="apiName")
+    api_name: ObjectTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
 
     status: ReleaseStatus
 
@@ -47,7 +47,7 @@ class ObjectType(pydantic.BaseModel):
 
     visibility: Optional[ObjectTypeVisibility] = None
 
-    primary_key: List[PropertyApiName] = pydantic.Field(alias="primaryKey")
+    primary_key: List[PropertyApiName] = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
 
     """The primary key of the object. This is a list of properties that can be used to uniquely identify the object."""
 
@@ -57,7 +57,7 @@ class ObjectType(pydantic.BaseModel):
 
     rid: ObjectTypeRid
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

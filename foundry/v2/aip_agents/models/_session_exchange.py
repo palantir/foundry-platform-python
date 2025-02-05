@@ -29,7 +29,7 @@ from foundry.v2.aip_agents.models._user_text_input import UserTextInput
 class SessionExchange(pydantic.BaseModel):
     """Represents an individual exchange between a user and an Agent in a conversation session."""
 
-    user_input: UserTextInput = pydantic.Field(alias="userInput")
+    user_input: UserTextInput = pydantic.Field(alias=str("userInput"))  # type: ignore[literal-required]
 
     """The user message that initiated the exchange."""
 
@@ -45,7 +45,7 @@ class SessionExchange(pydantic.BaseModel):
 
     """The final result for the exchange."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SessionExchangeDict:
         """Return the dictionary representation of the model using the field aliases."""

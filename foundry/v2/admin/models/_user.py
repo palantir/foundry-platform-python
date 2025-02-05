@@ -39,11 +39,11 @@ class User(pydantic.BaseModel):
 
     """The Foundry username of the User. This is unique within the realm."""
 
-    given_name: Optional[str] = pydantic.Field(alias="givenName", default=None)
+    given_name: Optional[str] = pydantic.Field(alias=str("givenName"), default=None)  # type: ignore[literal-required]
 
     """The given name of the User."""
 
-    family_name: Optional[str] = pydantic.Field(alias="familyName", default=None)
+    family_name: Optional[str] = pydantic.Field(alias=str("familyName"), default=None)  # type: ignore[literal-required]
 
     """The family name (last name) of the User."""
 
@@ -65,7 +65,7 @@ class User(pydantic.BaseModel):
     Control Panel and populated by the User's SSO provider upon login.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> UserDict:
         """Return the dictionary representation of the model using the field aliases."""

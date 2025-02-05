@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._object_set_as_base_object_types_type_dict imp
 class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
     """ObjectSetAsBaseObjectTypesType"""
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     type: Literal["asBaseObjectTypes"] = "asBaseObjectTypes"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetAsBaseObjectTypesTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

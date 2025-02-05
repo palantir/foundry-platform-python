@@ -26,11 +26,11 @@ from foundry.v2.core.models._unsupported_type_dict import UnsupportedTypeDict
 class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
-    unsupported_type: str = pydantic.Field(alias="unsupportedType")
+    unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
 
     type: Literal["unsupported"] = "unsupported"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> UnsupportedTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

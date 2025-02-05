@@ -38,29 +38,29 @@ class Build(pydantic.BaseModel):
 
     """The RID of a build."""
 
-    branch_name: BranchName = pydantic.Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
 
     """The branch that the build is running on."""
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
     """The timestamp that the build was created."""
 
-    created_by: CreatedBy = pydantic.Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
 
     """The user who created the build."""
 
-    fallback_branches: FallbackBranches = pydantic.Field(alias="fallbackBranches")
+    fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
 
-    retry_count: RetryCount = pydantic.Field(alias="retryCount")
+    retry_count: RetryCount = pydantic.Field(alias=str("retryCount"))  # type: ignore[literal-required]
 
-    retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias="retryBackoffDuration")
+    retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
 
-    abort_on_failure: AbortOnFailure = pydantic.Field(alias="abortOnFailure")
+    abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
 
     status: BuildStatus
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> BuildDict:
         """Return the dictionary representation of the model using the field aliases."""

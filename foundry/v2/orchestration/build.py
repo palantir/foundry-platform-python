@@ -19,6 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from annotated_types import Len
@@ -40,9 +41,13 @@ from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
 from foundry.v2.orchestration.models._build import Build
 from foundry.v2.orchestration.models._build_rid import BuildRid
+from foundry.v2.orchestration.models._build_target import BuildTarget
 from foundry.v2.orchestration.models._build_target_dict import BuildTargetDict
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._force_build import ForceBuild
+from foundry.v2.orchestration.models._get_builds_batch_request_element import (
+    GetBuildsBatchRequestElement,
+)  # NOQA
 from foundry.v2.orchestration.models._get_builds_batch_request_element_dict import (
     GetBuildsBatchRequestElementDict,
 )  # NOQA
@@ -50,13 +55,16 @@ from foundry.v2.orchestration.models._get_builds_batch_response import (
     GetBuildsBatchResponse,
 )  # NOQA
 from foundry.v2.orchestration.models._notifications_enabled import NotificationsEnabled
+from foundry.v2.orchestration.models._retry_backoff_duration import RetryBackoffDuration
 from foundry.v2.orchestration.models._retry_backoff_duration_dict import (
     RetryBackoffDurationDict,
 )  # NOQA
 from foundry.v2.orchestration.models._retry_count import RetryCount
+from foundry.v2.orchestration.models._search_builds_filter import SearchBuildsFilter
 from foundry.v2.orchestration.models._search_builds_filter_dict import (
     SearchBuildsFilterDict,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_order_by import SearchBuildsOrderBy
 from foundry.v2.orchestration.models._search_builds_order_by_dict import (
     SearchBuildsOrderByDict,
 )  # NOQA
@@ -132,13 +140,15 @@ class BuildClient:
         self,
         *,
         fallback_branches: FallbackBranches,
-        target: BuildTargetDict,
+        target: Union[BuildTarget, BuildTargetDict],
         abort_on_failure: Optional[AbortOnFailure] = None,
         branch_name: Optional[BranchName] = None,
         force_build: Optional[ForceBuild] = None,
         notifications_enabled: Optional[NotificationsEnabled] = None,
         preview: Optional[PreviewMode] = None,
-        retry_backoff_duration: Optional[RetryBackoffDurationDict] = None,
+        retry_backoff_duration: Optional[
+            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+        ] = None,
         retry_count: Optional[RetryCount] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Build:
@@ -147,7 +157,7 @@ class BuildClient:
         :param fallback_branches:
         :type fallback_branches: FallbackBranches
         :param target: The targets of the schedule.
-        :type target: BuildTargetDict
+        :type target: Union[BuildTarget, BuildTargetDict]
         :param abort_on_failure:
         :type abort_on_failure: Optional[AbortOnFailure]
         :param branch_name: The target branch the build should run on.
@@ -159,7 +169,7 @@ class BuildClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[RetryBackoffDurationDict]
+        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
         :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
@@ -193,12 +203,14 @@ class BuildClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "target": BuildTargetDict,
+                        "target": Union[BuildTarget, BuildTargetDict],
                         "branchName": Optional[BranchName],
                         "fallbackBranches": FallbackBranches,
                         "forceBuild": Optional[ForceBuild],
                         "retryCount": Optional[RetryCount],
-                        "retryBackoffDuration": Optional[RetryBackoffDurationDict],
+                        "retryBackoffDuration": Optional[
+                            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+                        ],
                         "abortOnFailure": Optional[AbortOnFailure],
                         "notificationsEnabled": Optional[NotificationsEnabled],
                     },
@@ -255,7 +267,10 @@ class BuildClient:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)],
+        body: Annotated[
+            List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]],
+            Len(min_length=1, max_length=100),
+        ],
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -265,7 +280,7 @@ class BuildClient:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)]
+        :type body: Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -301,8 +316,8 @@ class BuildClient:
     def search(
         self,
         *,
-        where: SearchBuildsFilterDict,
-        order_by: Optional[SearchBuildsOrderByDict] = None,
+        where: Union[SearchBuildsFilter, SearchBuildsFilterDict],
+        order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
@@ -311,9 +326,9 @@ class BuildClient:
         """
         Search for Builds.
         :param where:
-        :type where: SearchBuildsFilterDict
+        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: Optional[SearchBuildsOrderByDict]
+        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -347,8 +362,8 @@ class BuildClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": SearchBuildsFilterDict,
-                        "orderBy": Optional[SearchBuildsOrderByDict],
+                        "where": Union[SearchBuildsFilter, SearchBuildsFilterDict],
+                        "orderBy": Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],
                     },
@@ -424,13 +439,15 @@ class _BuildClientRaw:
         self,
         *,
         fallback_branches: FallbackBranches,
-        target: BuildTargetDict,
+        target: Union[BuildTarget, BuildTargetDict],
         abort_on_failure: Optional[AbortOnFailure] = None,
         branch_name: Optional[BranchName] = None,
         force_build: Optional[ForceBuild] = None,
         notifications_enabled: Optional[NotificationsEnabled] = None,
         preview: Optional[PreviewMode] = None,
-        retry_backoff_duration: Optional[RetryBackoffDurationDict] = None,
+        retry_backoff_duration: Optional[
+            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+        ] = None,
         retry_count: Optional[RetryCount] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[Build]:
@@ -439,7 +456,7 @@ class _BuildClientRaw:
         :param fallback_branches:
         :type fallback_branches: FallbackBranches
         :param target: The targets of the schedule.
-        :type target: BuildTargetDict
+        :type target: Union[BuildTarget, BuildTargetDict]
         :param abort_on_failure:
         :type abort_on_failure: Optional[AbortOnFailure]
         :param branch_name: The target branch the build should run on.
@@ -451,7 +468,7 @@ class _BuildClientRaw:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[RetryBackoffDurationDict]
+        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
         :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
@@ -485,12 +502,14 @@ class _BuildClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "target": BuildTargetDict,
+                        "target": Union[BuildTarget, BuildTargetDict],
                         "branchName": Optional[BranchName],
                         "fallbackBranches": FallbackBranches,
                         "forceBuild": Optional[ForceBuild],
                         "retryCount": Optional[RetryCount],
-                        "retryBackoffDuration": Optional[RetryBackoffDurationDict],
+                        "retryBackoffDuration": Optional[
+                            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+                        ],
                         "abortOnFailure": Optional[AbortOnFailure],
                         "notificationsEnabled": Optional[NotificationsEnabled],
                     },
@@ -547,7 +566,10 @@ class _BuildClientRaw:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)],
+        body: Annotated[
+            List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]],
+            Len(min_length=1, max_length=100),
+        ],
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -557,7 +579,7 @@ class _BuildClientRaw:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)]
+        :type body: Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -593,8 +615,8 @@ class _BuildClientRaw:
     def search(
         self,
         *,
-        where: SearchBuildsFilterDict,
-        order_by: Optional[SearchBuildsOrderByDict] = None,
+        where: Union[SearchBuildsFilter, SearchBuildsFilterDict],
+        order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
@@ -603,9 +625,9 @@ class _BuildClientRaw:
         """
         Search for Builds.
         :param where:
-        :type where: SearchBuildsFilterDict
+        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: Optional[SearchBuildsOrderByDict]
+        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -639,8 +661,8 @@ class _BuildClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": SearchBuildsFilterDict,
-                        "orderBy": Optional[SearchBuildsOrderByDict],
+                        "where": Union[SearchBuildsFilter, SearchBuildsFilterDict],
+                        "orderBy": Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],
                     },
@@ -716,13 +738,15 @@ class _BuildClientStreaming:
         self,
         *,
         fallback_branches: FallbackBranches,
-        target: BuildTargetDict,
+        target: Union[BuildTarget, BuildTargetDict],
         abort_on_failure: Optional[AbortOnFailure] = None,
         branch_name: Optional[BranchName] = None,
         force_build: Optional[ForceBuild] = None,
         notifications_enabled: Optional[NotificationsEnabled] = None,
         preview: Optional[PreviewMode] = None,
-        retry_backoff_duration: Optional[RetryBackoffDurationDict] = None,
+        retry_backoff_duration: Optional[
+            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+        ] = None,
         retry_count: Optional[RetryCount] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[Build]:
@@ -731,7 +755,7 @@ class _BuildClientStreaming:
         :param fallback_branches:
         :type fallback_branches: FallbackBranches
         :param target: The targets of the schedule.
-        :type target: BuildTargetDict
+        :type target: Union[BuildTarget, BuildTargetDict]
         :param abort_on_failure:
         :type abort_on_failure: Optional[AbortOnFailure]
         :param branch_name: The target branch the build should run on.
@@ -743,7 +767,7 @@ class _BuildClientStreaming:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[RetryBackoffDurationDict]
+        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
         :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
@@ -777,12 +801,14 @@ class _BuildClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "target": BuildTargetDict,
+                        "target": Union[BuildTarget, BuildTargetDict],
                         "branchName": Optional[BranchName],
                         "fallbackBranches": FallbackBranches,
                         "forceBuild": Optional[ForceBuild],
                         "retryCount": Optional[RetryCount],
-                        "retryBackoffDuration": Optional[RetryBackoffDurationDict],
+                        "retryBackoffDuration": Optional[
+                            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+                        ],
                         "abortOnFailure": Optional[AbortOnFailure],
                         "notificationsEnabled": Optional[NotificationsEnabled],
                     },
@@ -839,7 +865,10 @@ class _BuildClientStreaming:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)],
+        body: Annotated[
+            List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]],
+            Len(min_length=1, max_length=100),
+        ],
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -849,7 +878,7 @@ class _BuildClientStreaming:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)]
+        :type body: Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -885,8 +914,8 @@ class _BuildClientStreaming:
     def search(
         self,
         *,
-        where: SearchBuildsFilterDict,
-        order_by: Optional[SearchBuildsOrderByDict] = None,
+        where: Union[SearchBuildsFilter, SearchBuildsFilterDict],
+        order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         preview: Optional[PreviewMode] = None,
@@ -895,9 +924,9 @@ class _BuildClientStreaming:
         """
         Search for Builds.
         :param where:
-        :type where: SearchBuildsFilterDict
+        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: Optional[SearchBuildsOrderByDict]
+        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -931,8 +960,8 @@ class _BuildClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": SearchBuildsFilterDict,
-                        "orderBy": Optional[SearchBuildsOrderByDict],
+                        "where": Union[SearchBuildsFilter, SearchBuildsFilterDict],
+                        "orderBy": Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],
                     },

@@ -14,6 +14,9 @@
 
 
 from foundry.v2.streams.models._compressed import Compressed
+from foundry.v2.streams.models._create_stream_request_stream_schema import (
+    CreateStreamRequestStreamSchema,
+)  # NOQA
 from foundry.v2.streams.models._create_stream_request_stream_schema_dict import (
     CreateStreamRequestStreamSchemaDict,
 )  # NOQA
@@ -28,6 +31,7 @@ from foundry.v2.streams.models._view_rid import ViewRid
 
 __all__ = [
     "Compressed",
+    "CreateStreamRequestStreamSchema",
     "CreateStreamRequestStreamSchemaDict",
     "Dataset",
     "DatasetDict",

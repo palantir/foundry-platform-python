@@ -34,11 +34,11 @@ from foundry.v1.ontologies.models._query_type_dict import QueryTypeDict
 class QueryType(pydantic.BaseModel):
     """Represents a query type in the Ontology."""
 
-    api_name: QueryApiName = pydantic.Field(alias="apiName")
+    api_name: QueryApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
     description: Optional[str] = None
 
-    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
 
     parameters: Dict[ParameterId, Parameter]
 
@@ -48,7 +48,7 @@ class QueryType(pydantic.BaseModel):
 
     version: FunctionVersion
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> QueryTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

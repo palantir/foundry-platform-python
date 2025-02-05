@@ -27,11 +27,11 @@ from foundry.v2.ontologies.models._struct_field_type_dict import StructFieldType
 class StructFieldType(pydantic.BaseModel):
     """StructFieldType"""
 
-    api_name: StructFieldApiName = pydantic.Field(alias="apiName")
+    api_name: StructFieldApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
+    data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StructFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

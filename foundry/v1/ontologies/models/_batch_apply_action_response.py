@@ -27,7 +27,7 @@ from foundry.v1.ontologies.models._batch_apply_action_response_dict import (
 class BatchApplyActionResponse(pydantic.BaseModel):
     """BatchApplyActionResponse"""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> BatchApplyActionResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._selected_property_approximate_distinct_aggreg
 class SelectedPropertyApproximateDistinctAggregation(pydantic.BaseModel):
     """Computes an approximate number of distinct values for the provided field."""
 
-    selected_property_api_name: PropertyApiName = pydantic.Field(alias="selectedPropertyApiName")
+    selected_property_api_name: PropertyApiName = pydantic.Field(alias=str("selectedPropertyApiName"))  # type: ignore[literal-required]
 
     type: Literal["approximateDistinct"] = "approximateDistinct"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SelectedPropertyApproximateDistinctAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""

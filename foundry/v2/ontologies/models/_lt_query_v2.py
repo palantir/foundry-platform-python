@@ -32,15 +32,13 @@ class LtQueryV2(pydantic.BaseModel):
 
     field: Optional[PropertyApiName] = None
 
-    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(
-        alias="propertyIdentifier", default=None
-    )
+    property_identifier: Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
 
     value: PropertyValue
 
     type: Literal["lt"] = "lt"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> LtQueryV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

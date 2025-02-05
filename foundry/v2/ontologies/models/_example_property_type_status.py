@@ -33,7 +33,7 @@ class ExamplePropertyTypeStatus(pydantic.BaseModel):
 
     type: Literal["example"] = "example"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ExamplePropertyTypeStatusDict:
         """Return the dictionary representation of the model using the field aliases."""

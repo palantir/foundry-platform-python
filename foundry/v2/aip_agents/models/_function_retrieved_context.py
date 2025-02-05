@@ -30,17 +30,17 @@ from foundry.v2.functions.models._function_version import FunctionVersion
 class FunctionRetrievedContext(pydantic.BaseModel):
     """Context retrieved from running a function to include as additional context in the prompt to the Agent."""
 
-    function_rid: FunctionRid = pydantic.Field(alias="functionRid")
+    function_rid: FunctionRid = pydantic.Field(alias=str("functionRid"))  # type: ignore[literal-required]
 
-    function_version: FunctionVersion = pydantic.Field(alias="functionVersion")
+    function_version: FunctionVersion = pydantic.Field(alias=str("functionVersion"))  # type: ignore[literal-required]
 
-    retrieved_prompt: str = pydantic.Field(alias="retrievedPrompt")
+    retrieved_prompt: str = pydantic.Field(alias=str("retrievedPrompt"))  # type: ignore[literal-required]
 
     """String content returned from a context retrieval function."""
 
     type: Literal["functionRetrievedContext"] = "functionRetrievedContext"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FunctionRetrievedContextDict:
         """Return the dictionary representation of the model using the field aliases."""

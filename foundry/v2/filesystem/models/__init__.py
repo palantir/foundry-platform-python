@@ -55,6 +55,13 @@ from foundry.v2.filesystem.models._principal_with_id_dict import PrincipalWithId
 from foundry.v2.filesystem.models._project import Project
 from foundry.v2.filesystem.models._project_dict import ProjectDict
 from foundry.v2.filesystem.models._project_rid import ProjectRid
+from foundry.v2.filesystem.models._project_template_rid import ProjectTemplateRid
+from foundry.v2.filesystem.models._project_template_variable_id import (
+    ProjectTemplateVariableId,
+)  # NOQA
+from foundry.v2.filesystem.models._project_template_variable_value import (
+    ProjectTemplateVariableValue,
+)  # NOQA
 from foundry.v2.filesystem.models._resource import Resource
 from foundry.v2.filesystem.models._resource_dict import ResourceDict
 from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
@@ -97,6 +104,9 @@ __all__ = [
     "Project",
     "ProjectDict",
     "ProjectRid",
+    "ProjectTemplateRid",
+    "ProjectTemplateVariableId",
+    "ProjectTemplateVariableValue",
     "Resource",
     "ResourceDict",
     "ResourceDisplayName",

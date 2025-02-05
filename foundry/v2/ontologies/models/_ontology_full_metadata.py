@@ -43,23 +43,17 @@ class OntologyFullMetadata(pydantic.BaseModel):
 
     ontology: OntologyV2
 
-    object_types: Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = pydantic.Field(
-        alias="objectTypes"
-    )
+    object_types: Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = pydantic.Field(alias=str("objectTypes"))  # type: ignore[literal-required]
 
-    action_types: Dict[ActionTypeApiName, ActionTypeV2] = pydantic.Field(alias="actionTypes")
+    action_types: Dict[ActionTypeApiName, ActionTypeV2] = pydantic.Field(alias=str("actionTypes"))  # type: ignore[literal-required]
 
-    query_types: Dict[QueryApiName, QueryTypeV2] = pydantic.Field(alias="queryTypes")
+    query_types: Dict[QueryApiName, QueryTypeV2] = pydantic.Field(alias=str("queryTypes"))  # type: ignore[literal-required]
 
-    interface_types: Dict[InterfaceTypeApiName, InterfaceType] = pydantic.Field(
-        alias="interfaceTypes"
-    )
+    interface_types: Dict[InterfaceTypeApiName, InterfaceType] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
 
-    shared_property_types: Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(
-        alias="sharedPropertyTypes"
-    )
+    shared_property_types: Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("sharedPropertyTypes"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyFullMetadataDict:
         """Return the dictionary representation of the model using the field aliases."""

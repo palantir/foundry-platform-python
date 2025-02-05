@@ -28,17 +28,17 @@ from foundry.v2.orchestration.models._upstream_target_dict import UpstreamTarget
 class UpstreamTarget(pydantic.BaseModel):
     """Target the specified datasets along with all upstream datasets except the ignored datasets."""
 
-    target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
+    target_rids: List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
 
     """The target datasets."""
 
-    ignored_rids: List[BuildableRid] = pydantic.Field(alias="ignoredRids")
+    ignored_rids: List[BuildableRid] = pydantic.Field(alias=str("ignoredRids"))  # type: ignore[literal-required]
 
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     type: Literal["upstream"] = "upstream"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> UpstreamTargetDict:
         """Return the dictionary representation of the model using the field aliases."""

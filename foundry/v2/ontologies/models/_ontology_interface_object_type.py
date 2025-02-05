@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._ontology_interface_object_type_dict import (
 class OntologyInterfaceObjectType(pydantic.BaseModel):
     """OntologyInterfaceObjectType"""
 
-    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias="interfaceTypeApiName")
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
 
     type: Literal["interfaceObject"] = "interfaceObject"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyInterfaceObjectTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

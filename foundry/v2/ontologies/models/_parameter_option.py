@@ -28,13 +28,13 @@ from foundry.v2.ontologies.models._parameter_option_dict import ParameterOptionD
 class ParameterOption(pydantic.BaseModel):
     """A possible value for the parameter. This is defined in the **Ontology Manager** by Actions admins."""
 
-    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
 
     value: Optional[Any] = None
 
     """An allowed configured value for a parameter within an action."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ParameterOptionDict:
         """Return the dictionary representation of the model using the field aliases."""

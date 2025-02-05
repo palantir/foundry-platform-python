@@ -36,7 +36,7 @@ class GetUserMarkingsResponse(pydantic.BaseModel):
     markings. This includes organization markings for organizations in which the user is a guest member.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> GetUserMarkingsResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

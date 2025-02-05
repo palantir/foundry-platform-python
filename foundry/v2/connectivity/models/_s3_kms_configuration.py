@@ -27,21 +27,21 @@ from foundry.v2.connectivity.models._s3_kms_configuration_dict import S3KmsConfi
 class S3KmsConfiguration(pydantic.BaseModel):
     """S3KmsConfiguration"""
 
-    kms_key: str = pydantic.Field(alias="kmsKey")
+    kms_key: str = pydantic.Field(alias=str("kmsKey"))  # type: ignore[literal-required]
 
     """
     The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
     If not specified, the default KMS key for the bucket is used.
     """
 
-    kms_region: Optional[Region] = pydantic.Field(alias="kmsRegion", default=None)
+    kms_region: Optional[Region] = pydantic.Field(alias=str("kmsRegion"), default=None)  # type: ignore[literal-required]
 
     """
     The region of the client-side KMS key to use for encryption and decryption of data in the S3 bucket.
     If not specified, the default KMS key region for the bucket is used.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> S3KmsConfigurationDict:
         """Return the dictionary representation of the model using the field aliases."""

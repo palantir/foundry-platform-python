@@ -33,9 +33,9 @@ class ListMarkingMembersResponse(pydantic.BaseModel):
 
     data: List[MarkingMember]
 
-    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ListMarkingMembersResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -28,7 +28,7 @@ class MarkingType(pydantic.BaseModel):
 
     type: Literal["marking"] = "marking"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MarkingTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

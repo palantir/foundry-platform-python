@@ -29,11 +29,11 @@ from foundry.v2.functions.models._value_type_data_type_array_type_dict import (
 class ValueTypeDataTypeArrayType(pydantic.BaseModel):
     """ValueTypeDataTypeArrayType"""
 
-    sub_type: ValueTypeDataType = pydantic.Field(alias="subType")
+    sub_type: ValueTypeDataType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

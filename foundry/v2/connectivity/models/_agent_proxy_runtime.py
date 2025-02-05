@@ -35,7 +35,7 @@ class AgentProxyRuntime(pydantic.BaseModel):
     from Foundry's IP addresses.
     """
 
-    agent_rids: List[AgentRid] = pydantic.Field(alias="agentRids")
+    agent_rids: List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
 
     """
     The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
@@ -45,7 +45,7 @@ class AgentProxyRuntime(pydantic.BaseModel):
 
     type: Literal["agentProxyRuntime"] = "agentProxyRuntime"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentProxyRuntimeDict:
         """Return the dictionary representation of the model using the field aliases."""

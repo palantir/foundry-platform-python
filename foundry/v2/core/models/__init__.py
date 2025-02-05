@@ -93,6 +93,8 @@ from foundry.v2.core.models._geotime_series_reference_type import GeotimeSeriesR
 from foundry.v2.core.models._geotime_series_reference_type_dict import (
     GeotimeSeriesReferenceTypeDict,
 )  # NOQA
+from foundry.v2.core.models._group_name import GroupName
+from foundry.v2.core.models._group_rid import GroupRid
 from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._integer_type_dict import IntegerTypeDict
 from foundry.v2.core.models._lms_embedding_model import LmsEmbeddingModel
@@ -226,6 +228,8 @@ __all__ = [
     "GeoShapeTypeDict",
     "GeotimeSeriesReferenceType",
     "GeotimeSeriesReferenceTypeDict",
+    "GroupName",
+    "GroupRid",
     "IntegerType",
     "IntegerTypeDict",
     "LmsEmbeddingModel",

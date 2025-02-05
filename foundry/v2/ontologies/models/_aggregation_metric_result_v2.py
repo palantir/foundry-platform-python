@@ -38,7 +38,7 @@ class AggregationMetricResultV2(pydantic.BaseModel):
     a numeric metric, or a date string in the case of a date metric.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AggregationMetricResultV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

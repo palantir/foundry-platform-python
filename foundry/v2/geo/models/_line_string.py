@@ -35,7 +35,7 @@ class LineString(pydantic.BaseModel):
 
     type: Literal["LineString"] = "LineString"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> LineStringDict:
         """Return the dictionary representation of the model using the field aliases."""

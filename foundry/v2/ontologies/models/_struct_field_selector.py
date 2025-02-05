@@ -32,13 +32,13 @@ class StructFieldSelector(pydantic.BaseModel):
     will then become 'OR' queries across the fields of the struct property.
     """
 
-    property_api_name: PropertyApiName = pydantic.Field(alias="propertyApiName")
+    property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
 
-    struct_field_api_name: StructFieldApiName = pydantic.Field(alias="structFieldApiName")
+    struct_field_api_name: StructFieldApiName = pydantic.Field(alias=str("structFieldApiName"))  # type: ignore[literal-required]
 
     type: Literal["structField"] = "structField"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StructFieldSelectorDict:
         """Return the dictionary representation of the model using the field aliases."""

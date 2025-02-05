@@ -50,11 +50,11 @@ class FieldSchema(pydantic.BaseModel):
 
     nullable: bool
 
-    custom_metadata: Optional[CustomMetadata] = pydantic.Field(alias="customMetadata", default=None)
+    custom_metadata: Optional[CustomMetadata] = pydantic.Field(alias=str("customMetadata"), default=None)  # type: ignore[literal-required]
 
-    data_type: FieldDataType = pydantic.Field(alias="dataType")
+    data_type: FieldDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FieldSchemaDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -69,9 +69,9 @@ class Field(pydantic.BaseModel):
 
     name: FieldName
 
-    schema_: FieldSchema = pydantic.Field(alias="schema")
+    schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FieldDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -81,11 +81,11 @@ class Field(pydantic.BaseModel):
 class StructFieldType(pydantic.BaseModel):
     """StructFieldType"""
 
-    sub_fields: List[Field] = pydantic.Field(alias="subFields")
+    sub_fields: List[Field] = pydantic.Field(alias=str("subFields"))  # type: ignore[literal-required]
 
     type: Literal["struct"] = "struct"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StructFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -95,11 +95,11 @@ class StructFieldType(pydantic.BaseModel):
 class ArrayFieldType(pydantic.BaseModel):
     """ArrayFieldType"""
 
-    items_schema: FieldSchema = pydantic.Field(alias="itemsSchema")
+    items_schema: FieldSchema = pydantic.Field(alias=str("itemsSchema"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ArrayFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -109,13 +109,13 @@ class ArrayFieldType(pydantic.BaseModel):
 class MapFieldType(pydantic.BaseModel):
     """MapFieldType"""
 
-    key_schema: FieldSchema = pydantic.Field(alias="keySchema")
+    key_schema: FieldSchema = pydantic.Field(alias=str("keySchema"))  # type: ignore[literal-required]
 
-    value_schema: FieldSchema = pydantic.Field(alias="valueSchema")
+    value_schema: FieldSchema = pydantic.Field(alias=str("valueSchema"))  # type: ignore[literal-required]
 
     type: Literal["map"] = "map"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MapFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

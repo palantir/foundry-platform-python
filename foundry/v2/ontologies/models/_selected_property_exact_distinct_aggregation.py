@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._selected_property_exact_distinct_aggregation_
 class SelectedPropertyExactDistinctAggregation(pydantic.BaseModel):
     """Computes an exact number of distinct values for the provided field. May be slower than an approximate distinct aggregation."""
 
-    selected_property_api_name: PropertyApiName = pydantic.Field(alias="selectedPropertyApiName")
+    selected_property_api_name: PropertyApiName = pydantic.Field(alias=str("selectedPropertyApiName"))  # type: ignore[literal-required]
 
     type: Literal["exactDistinct"] = "exactDistinct"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SelectedPropertyExactDistinctAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""

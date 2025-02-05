@@ -32,13 +32,13 @@ from foundry.v2.ontologies.models._selected_property_operation import (
 class SelectedPropertyDefinition(pydantic.BaseModel):
     """Definition for a selected property over a MethodObjectSet."""
 
-    object_set: MethodObjectSet = pydantic.Field(alias="objectSet")
+    object_set: MethodObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     operation: SelectedPropertyOperation
 
     type: Literal["selection"] = "selection"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SelectedPropertyDefinitionDict:
         """Return the dictionary representation of the model using the field aliases."""

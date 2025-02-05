@@ -54,7 +54,7 @@ class Group(pydantic.BaseModel):
 
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> GroupDict:
         """Return the dictionary representation of the model using the field aliases."""

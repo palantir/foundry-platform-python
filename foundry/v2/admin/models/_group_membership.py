@@ -26,9 +26,9 @@ from foundry.v2.core.models._principal_id import PrincipalId
 class GroupMembership(pydantic.BaseModel):
     """GroupMembership"""
 
-    group_id: PrincipalId = pydantic.Field(alias="groupId")
+    group_id: PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> GroupMembershipDict:
         """Return the dictionary representation of the model using the field aliases."""

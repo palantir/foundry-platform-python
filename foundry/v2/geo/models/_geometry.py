@@ -50,7 +50,7 @@ class GeometryCollection(pydantic.BaseModel):
 
     type: Literal["GeometryCollection"] = "GeometryCollection"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> GeometryCollectionDict:
         """Return the dictionary representation of the model using the field aliases."""

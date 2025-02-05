@@ -36,15 +36,15 @@ class ScheduleRun(pydantic.BaseModel):
 
     """The RID of a schedule run"""
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias="scheduleRid")
+    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
 
-    schedule_version_rid: ScheduleVersionRid = pydantic.Field(alias="scheduleVersionRid")
+    schedule_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("scheduleVersionRid"))  # type: ignore[literal-required]
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
     """The time at which the schedule run was created."""
 
-    created_by: Optional[CreatedBy] = pydantic.Field(alias="createdBy", default=None)
+    created_by: Optional[CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
 
     """
     The Foundry user who manually invoked this schedule run. Automatic trigger runs have this field set to
@@ -58,7 +58,7 @@ class ScheduleRun(pydantic.BaseModel):
     is still working on triggering the schedule.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ScheduleRunDict:
         """Return the dictionary representation of the model using the field aliases."""

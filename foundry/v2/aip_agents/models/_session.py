@@ -37,11 +37,11 @@ class Session(pydantic.BaseModel):
 
     """Metadata about the session."""
 
-    agent_rid: AgentRid = pydantic.Field(alias="agentRid")
+    agent_rid: AgentRid = pydantic.Field(alias=str("agentRid"))  # type: ignore[literal-required]
 
     """The Resource Identifier (RID) of the Agent associated with the session."""
 
-    agent_version: AgentVersionString = pydantic.Field(alias="agentVersion")
+    agent_version: AgentVersionString = pydantic.Field(alias=str("agentVersion"))  # type: ignore[literal-required]
 
     """
     The version of the Agent associated with the session.
@@ -49,7 +49,7 @@ class Session(pydantic.BaseModel):
     If not specified, defaults to use the latest published version of the Agent at session creation time.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SessionDict:
         """Return the dictionary representation of the model using the field aliases."""

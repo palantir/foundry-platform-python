@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -43,9 +44,11 @@ from foundry.v2.ontologies.models._aggregate_objects_response_v2 import (
 from foundry.v2.ontologies.models._aggregation_accuracy_request import (
     AggregationAccuracyRequest,
 )  # NOQA
+from foundry.v2.ontologies.models._aggregation_group_by_v2 import AggregationGroupByV2
 from foundry.v2.ontologies.models._aggregation_group_by_v2_dict import (
     AggregationGroupByV2Dict,
 )  # NOQA
+from foundry.v2.ontologies.models._aggregation_v2 import AggregationV2
 from foundry.v2.ontologies.models._aggregation_v2_dict import AggregationV2Dict
 from foundry.v2.ontologies.models._interface_type import InterfaceType
 from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
@@ -53,6 +56,7 @@ from foundry.v2.ontologies.models._list_interface_types_response import (
     ListInterfaceTypesResponse,
 )  # NOQA
 from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
+from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 from foundry.v2.ontologies.models._search_json_query_v2_dict import SearchJsonQueryV2Dict  # NOQA
 
 
@@ -87,11 +91,11 @@ class OntologyInterfaceClient:
         ontology: OntologyIdentifier,
         interface_type: InterfaceTypeApiName,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         preview: Optional[PreviewMode] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AggregateObjectsResponseV2:
         """
@@ -114,15 +118,15 @@ class OntologyInterfaceClient:
         :param interface_type: interfaceType
         :type interface_type: InterfaceTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -153,9 +157,9 @@ class OntologyInterfaceClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -372,11 +376,11 @@ class _OntologyInterfaceClientRaw:
         ontology: OntologyIdentifier,
         interface_type: InterfaceTypeApiName,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         preview: Optional[PreviewMode] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[AggregateObjectsResponseV2]:
         """
@@ -399,15 +403,15 @@ class _OntologyInterfaceClientRaw:
         :param interface_type: interfaceType
         :type interface_type: InterfaceTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -438,9 +442,9 @@ class _OntologyInterfaceClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -657,11 +661,11 @@ class _OntologyInterfaceClientStreaming:
         ontology: OntologyIdentifier,
         interface_type: InterfaceTypeApiName,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         preview: Optional[PreviewMode] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[AggregateObjectsResponseV2]:
         """
@@ -684,15 +688,15 @@ class _OntologyInterfaceClientStreaming:
         :param interface_type: interfaceType
         :type interface_type: InterfaceTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -723,9 +727,9 @@ class _OntologyInterfaceClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),

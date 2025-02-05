@@ -42,9 +42,9 @@ class InterfaceType(pydantic.BaseModel):
 
     rid: InterfaceTypeRid
 
-    api_name: InterfaceTypeApiName = pydantic.Field(alias="apiName")
+    api_name: InterfaceTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: DisplayName = pydantic.Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     description: Optional[str] = None
 
@@ -57,9 +57,7 @@ class InterfaceType(pydantic.BaseModel):
     set of properties the interface has. A shared property type must be unique across all of the properties.
     """
 
-    all_properties: Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(
-        alias="allProperties"
-    )
+    all_properties: Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("allProperties"))  # type: ignore[literal-required]
 
     """
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
@@ -67,22 +65,18 @@ class InterfaceType(pydantic.BaseModel):
     interfaces.
     """
 
-    extends_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias="extendsInterfaces")
+    extends_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias=str("extendsInterfaces"))  # type: ignore[literal-required]
 
     """
     A list of interface API names that this interface extends. An interface can extend other interfaces to 
     inherit their properties.
     """
 
-    all_extends_interfaces: List[InterfaceTypeApiName] = pydantic.Field(
-        alias="allExtendsInterfaces"
-    )
+    all_extends_interfaces: List[InterfaceTypeApiName] = pydantic.Field(alias=str("allExtendsInterfaces"))  # type: ignore[literal-required]
 
     """A list of interface API names that this interface extends, both directly and indirectly."""
 
-    implemented_by_object_types: List[ObjectTypeApiName] = pydantic.Field(
-        alias="implementedByObjectTypes"
-    )
+    implemented_by_object_types: List[ObjectTypeApiName] = pydantic.Field(alias=str("implementedByObjectTypes"))  # type: ignore[literal-required]
 
     """A list of object API names that implement this interface."""
 
@@ -93,14 +87,14 @@ class InterfaceType(pydantic.BaseModel):
     set of link types the interface has.
     """
 
-    all_links: Dict[InterfaceLinkTypeApiName, InterfaceLinkType] = pydantic.Field(alias="allLinks")
+    all_links: Dict[InterfaceLinkTypeApiName, InterfaceLinkType] = pydantic.Field(alias=str("allLinks"))  # type: ignore[literal-required]
 
     """
     A map from an interface link type API name to the corresponding interface link type. The map describes the
     set of link types the interface has, including links from all directly and indirectly extended interfaces.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> InterfaceTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

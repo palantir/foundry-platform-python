@@ -55,9 +55,9 @@ class QueryStructField(pydantic.BaseModel):
 
     name: StructFieldName
 
-    field_type: QueryDataType = pydantic.Field(alias="fieldType")
+    field_type: QueryDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> QueryStructFieldDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -71,7 +71,7 @@ class QueryStructType(pydantic.BaseModel):
 
     type: Literal["struct"] = "struct"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> QueryStructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -81,11 +81,11 @@ class QueryStructType(pydantic.BaseModel):
 class QuerySetType(pydantic.BaseModel):
     """QuerySetType"""
 
-    sub_type: QueryDataType = pydantic.Field(alias="subType")
+    sub_type: QueryDataType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
 
     type: Literal["set"] = "set"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> QuerySetTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -95,11 +95,11 @@ class QuerySetType(pydantic.BaseModel):
 class QueryUnionType(pydantic.BaseModel):
     """QueryUnionType"""
 
-    union_types: List[QueryDataType] = pydantic.Field(alias="unionTypes")
+    union_types: List[QueryDataType] = pydantic.Field(alias=str("unionTypes"))  # type: ignore[literal-required]
 
     type: Literal["union"] = "union"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> QueryUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -109,11 +109,11 @@ class QueryUnionType(pydantic.BaseModel):
 class QueryArrayType(pydantic.BaseModel):
     """QueryArrayType"""
 
-    sub_type: QueryDataType = pydantic.Field(alias="subType")
+    sub_type: QueryDataType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> QueryArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

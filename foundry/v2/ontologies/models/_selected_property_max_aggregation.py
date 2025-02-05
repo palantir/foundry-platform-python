@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._selected_property_max_aggregation_dict import
 class SelectedPropertyMaxAggregation(pydantic.BaseModel):
     """Computes the maximum value for the provided field."""
 
-    selected_property_api_name: PropertyApiName = pydantic.Field(alias="selectedPropertyApiName")
+    selected_property_api_name: PropertyApiName = pydantic.Field(alias=str("selectedPropertyApiName"))  # type: ignore[literal-required]
 
     type: Literal["max"] = "max"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SelectedPropertyMaxAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -28,11 +28,11 @@ from foundry.v2.orchestration.models._manual_target_dict import ManualTargetDict
 class ManualTarget(pydantic.BaseModel):
     """Manually specify all datasets to build."""
 
-    target_rids: List[BuildableRid] = pydantic.Field(alias="targetRids")
+    target_rids: List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
 
     type: Literal["manual"] = "manual"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ManualTargetDict:
         """Return the dictionary representation of the model using the field aliases."""

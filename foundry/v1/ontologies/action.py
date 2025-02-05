@@ -19,6 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -33,6 +34,7 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v1.ontologies.models._action_type_api_name import ActionTypeApiName
+from foundry.v1.ontologies.models._apply_action_request import ApplyActionRequest
 from foundry.v1.ontologies.models._apply_action_request_dict import ApplyActionRequestDict  # NOQA
 from foundry.v1.ontologies.models._apply_action_response import ApplyActionResponse
 from foundry.v1.ontologies.models._batch_apply_action_response import (
@@ -133,7 +135,7 @@ class ActionClient:
         ontology_rid: OntologyRid,
         action_type: ActionTypeApiName,
         *,
-        requests: List[ApplyActionRequestDict],
+        requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]],
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> BatchApplyActionResponse:
         """
@@ -154,7 +156,7 @@ class ActionClient:
         :param action_type: actionType
         :type action_type: ActionTypeApiName
         :param requests:
-        :type requests: List[ApplyActionRequestDict]
+        :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -180,7 +182,7 @@ class ActionClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "requests": List[ApplyActionRequestDict],
+                        "requests": List[Union[ApplyActionRequest, ApplyActionRequestDict]],
                     },
                 ),
                 response_type=BatchApplyActionResponse,
@@ -336,7 +338,7 @@ class _ActionClientRaw:
         ontology_rid: OntologyRid,
         action_type: ActionTypeApiName,
         *,
-        requests: List[ApplyActionRequestDict],
+        requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]],
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[BatchApplyActionResponse]:
         """
@@ -357,7 +359,7 @@ class _ActionClientRaw:
         :param action_type: actionType
         :type action_type: ActionTypeApiName
         :param requests:
-        :type requests: List[ApplyActionRequestDict]
+        :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -383,7 +385,7 @@ class _ActionClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "requests": List[ApplyActionRequestDict],
+                        "requests": List[Union[ApplyActionRequest, ApplyActionRequestDict]],
                     },
                 ),
                 response_type=BatchApplyActionResponse,
@@ -539,7 +541,7 @@ class _ActionClientStreaming:
         ontology_rid: OntologyRid,
         action_type: ActionTypeApiName,
         *,
-        requests: List[ApplyActionRequestDict],
+        requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]],
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[BatchApplyActionResponse]:
         """
@@ -560,7 +562,7 @@ class _ActionClientStreaming:
         :param action_type: actionType
         :type action_type: ActionTypeApiName
         :param requests:
-        :type requests: List[ApplyActionRequestDict]
+        :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -586,7 +588,7 @@ class _ActionClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "requests": List[ApplyActionRequestDict],
+                        "requests": List[Union[ApplyActionRequest, ApplyActionRequestDict]],
                     },
                 ),
                 response_type=BatchApplyActionResponse,

@@ -30,13 +30,13 @@ from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 class ObjectSetFilterType(pydantic.BaseModel):
     """ObjectSetFilterType"""
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     where: SearchJsonQueryV2
 
     type: Literal["filter"] = "filter"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetFilterTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -16,9 +16,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**aggregation** | List[AggregationV2Dict] |  |  |
-**group_by** | List[AggregationGroupByV2Dict] |  |  |
-**object_set** | ObjectSetDict |  |  |
+**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
+**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
+**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
@@ -39,11 +39,11 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# List[AggregationV2Dict] |
+# List[Union[AggregationV2, AggregationV2Dict]] |
 aggregation = None
-# List[AggregationGroupByV2Dict] |
+# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
 group_by = None
-# ObjectSetDict |
+# Union[ObjectSet, ObjectSetDict] |
 object_set = None
 # Optional[AggregationAccuracyRequest] |
 accuracy = None
@@ -94,7 +94,7 @@ following operation scopes: `api:ontologies-read api:ontologies-write`.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**object_set** | ObjectSetDict |  |  |
+**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
 
 ### Return type
 **CreateTemporaryObjectSetResponseV2**
@@ -112,7 +112,7 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# ObjectSetDict |
+# Union[ObjectSet, ObjectSetDict] |
 object_set = {"type": "base", "objectType": "Employee"}
 
 
@@ -214,11 +214,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**object_set** | ObjectSetDict |  |  |
+**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[SearchOrderByV2Dict] |  | [optional] |
+**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -239,7 +239,7 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# ObjectSetDict |
+# Union[ObjectSet, ObjectSetDict] |
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName] |
 select = None
@@ -247,7 +247,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[SearchOrderByV2Dict] |
+# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |
 order_by = None
 # Optional[SdkPackageName] | packageName
 package_name = None

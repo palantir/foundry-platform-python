@@ -1,0 +1,6 @@
+type: improvement
+improvement:
+  description: Include Pydantic classes in the method definitions so that objects
+    can be passed used in addition to `dicts`
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/121

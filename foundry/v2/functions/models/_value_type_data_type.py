@@ -90,9 +90,9 @@ class ValueTypeDataTypeStructElement(pydantic.BaseModel):
 
     name: ValueTypeDataTypeStructFieldIdentifier
 
-    field_type: ValueTypeDataType = pydantic.Field(alias="fieldType")
+    field_type: ValueTypeDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeStructElementDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -108,7 +108,7 @@ class ValueTypeDataTypeStructType(pydantic.BaseModel):
 
     type: Literal["struct"] = "struct"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeStructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -120,11 +120,11 @@ class ValueTypeDataTypeStructType(pydantic.BaseModel):
 class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
     """ValueTypeDataTypeOptionalType"""
 
-    wrapped_type: ValueTypeDataType = pydantic.Field(alias="wrappedType")
+    wrapped_type: ValueTypeDataType = pydantic.Field(alias=str("wrappedType"))  # type: ignore[literal-required]
 
     type: Literal["optional"] = "optional"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeOptionalTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -136,11 +136,11 @@ class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
 class ValueTypeDataTypeUnionType(pydantic.BaseModel):
     """ValueTypeDataTypeUnionType"""
 
-    member_types: List[ValueTypeDataType] = pydantic.Field(alias="memberTypes")
+    member_types: List[ValueTypeDataType] = pydantic.Field(alias=str("memberTypes"))  # type: ignore[literal-required]
 
     type: Literal["union"] = "union"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -152,11 +152,11 @@ class ValueTypeDataTypeUnionType(pydantic.BaseModel):
 class ValueTypeDataTypeArrayType(pydantic.BaseModel):
     """ValueTypeDataTypeArrayType"""
 
-    sub_type: ValueTypeDataType = pydantic.Field(alias="subType")
+    sub_type: ValueTypeDataType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -168,13 +168,13 @@ class ValueTypeDataTypeArrayType(pydantic.BaseModel):
 class ValueTypeDataTypeMapType(pydantic.BaseModel):
     """ValueTypeDataTypeMapType"""
 
-    key_type: ValueTypeDataType = pydantic.Field(alias="keyType")
+    key_type: ValueTypeDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
 
-    value_type: ValueTypeDataType = pydantic.Field(alias="valueType")
+    value_type: ValueTypeDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
 
     type: Literal["map"] = "map"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeMapTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

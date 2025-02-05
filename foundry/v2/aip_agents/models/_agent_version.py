@@ -35,7 +35,7 @@ class AgentVersion(pydantic.BaseModel):
 
     """Semantic version details of the Agent."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentVersionDict:
         """Return the dictionary representation of the model using the field aliases."""
