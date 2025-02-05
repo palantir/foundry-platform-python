@@ -32,4 +32,4 @@ class StringType(pydantic.BaseModel):
 
     def to_dict(self) -> StringTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(StringTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(StringTypeDict, self.model_dump(by_alias=True, exclude_none=True))

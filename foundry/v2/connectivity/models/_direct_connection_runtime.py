@@ -51,4 +51,4 @@ class DirectConnectionRuntime(pydantic.BaseModel):
 
     def to_dict(self) -> DirectConnectionRuntimeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(DirectConnectionRuntimeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(DirectConnectionRuntimeDict, self.model_dump(by_alias=True, exclude_none=True))

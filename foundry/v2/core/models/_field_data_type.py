@@ -58,7 +58,7 @@ class FieldSchema(pydantic.BaseModel):
 
     def to_dict(self) -> FieldSchemaDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FieldSchemaDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FieldSchemaDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class Field(pydantic.BaseModel):
@@ -75,7 +75,7 @@ class Field(pydantic.BaseModel):
 
     def to_dict(self) -> FieldDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FieldDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FieldDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class StructFieldType(pydantic.BaseModel):
@@ -89,7 +89,7 @@ class StructFieldType(pydantic.BaseModel):
 
     def to_dict(self) -> StructFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(StructFieldTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(StructFieldTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class ArrayFieldType(pydantic.BaseModel):
@@ -103,7 +103,7 @@ class ArrayFieldType(pydantic.BaseModel):
 
     def to_dict(self) -> ArrayFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ArrayFieldTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ArrayFieldTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class MapFieldType(pydantic.BaseModel):
@@ -119,7 +119,7 @@ class MapFieldType(pydantic.BaseModel):
 
     def to_dict(self) -> MapFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MapFieldTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MapFieldTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 FieldDataType = Annotated[

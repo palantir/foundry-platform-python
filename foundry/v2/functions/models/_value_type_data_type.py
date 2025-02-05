@@ -97,7 +97,7 @@ class ValueTypeDataTypeStructElement(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeStructElementDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeStructElementDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeStructElementDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 
@@ -113,7 +113,7 @@ class ValueTypeDataTypeStructType(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeStructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeStructTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeStructTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 
@@ -129,7 +129,7 @@ class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeOptionalTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeOptionalTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeOptionalTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 
@@ -145,7 +145,7 @@ class ValueTypeDataTypeUnionType(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeUnionTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeUnionTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 
@@ -161,7 +161,7 @@ class ValueTypeDataTypeArrayType(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )
 
 
@@ -178,9 +178,7 @@ class ValueTypeDataTypeMapType(pydantic.BaseModel):
 
     def to_dict(self) -> ValueTypeDataTypeMapTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ValueTypeDataTypeMapTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ValueTypeDataTypeMapTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 ValueTypeDataType = Annotated[

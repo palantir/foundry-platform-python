@@ -41,5 +41,5 @@ class SyncApplyActionResponseV2(pydantic.BaseModel):
     def to_dict(self) -> SyncApplyActionResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            SyncApplyActionResponseV2Dict, self.model_dump(by_alias=True, exclude_unset=True)
+            SyncApplyActionResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
         )

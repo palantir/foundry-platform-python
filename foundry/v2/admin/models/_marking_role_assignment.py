@@ -38,4 +38,4 @@ class MarkingRoleAssignment(pydantic.BaseModel):
 
     def to_dict(self) -> MarkingRoleAssignmentDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MarkingRoleAssignmentDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MarkingRoleAssignmentDict, self.model_dump(by_alias=True, exclude_none=True))

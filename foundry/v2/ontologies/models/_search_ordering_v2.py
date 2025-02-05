@@ -37,4 +37,4 @@ class SearchOrderingV2(pydantic.BaseModel):
 
     def to_dict(self) -> SearchOrderingV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(SearchOrderingV2Dict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(SearchOrderingV2Dict, self.model_dump(by_alias=True, exclude_none=True))

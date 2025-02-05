@@ -40,4 +40,4 @@ class OneOfConstraint(pydantic.BaseModel):
 
     def to_dict(self) -> OneOfConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OneOfConstraintDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OneOfConstraintDict, self.model_dump(by_alias=True, exclude_none=True))

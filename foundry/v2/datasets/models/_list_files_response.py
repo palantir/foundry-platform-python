@@ -37,4 +37,4 @@ class ListFilesResponse(pydantic.BaseModel):
 
     def to_dict(self) -> ListFilesResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ListFilesResponseDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ListFilesResponseDict, self.model_dump(by_alias=True, exclude_none=True))

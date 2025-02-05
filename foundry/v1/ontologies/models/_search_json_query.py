@@ -50,7 +50,7 @@ class OrQuery(pydantic.BaseModel):
 
     def to_dict(self) -> OrQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OrQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OrQueryDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class NotQuery(pydantic.BaseModel):
@@ -64,7 +64,7 @@ class NotQuery(pydantic.BaseModel):
 
     def to_dict(self) -> NotQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(NotQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(NotQueryDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class AndQuery(pydantic.BaseModel):
@@ -78,7 +78,7 @@ class AndQuery(pydantic.BaseModel):
 
     def to_dict(self) -> AndQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AndQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AndQueryDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 SearchJsonQuery = Annotated[

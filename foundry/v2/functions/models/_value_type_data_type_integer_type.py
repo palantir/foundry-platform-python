@@ -35,5 +35,5 @@ class ValueTypeDataTypeIntegerType(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeIntegerTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeIntegerTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeIntegerTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )

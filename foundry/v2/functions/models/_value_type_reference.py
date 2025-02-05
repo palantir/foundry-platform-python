@@ -38,4 +38,4 @@ class ValueTypeReference(pydantic.BaseModel):
 
     def to_dict(self) -> ValueTypeReferenceDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ValueTypeReferenceDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ValueTypeReferenceDict, self.model_dump(by_alias=True, exclude_none=True))

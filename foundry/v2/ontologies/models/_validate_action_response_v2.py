@@ -47,6 +47,4 @@ class ValidateActionResponseV2(pydantic.BaseModel):
 
     def to_dict(self) -> ValidateActionResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ValidateActionResponseV2Dict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ValidateActionResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True))

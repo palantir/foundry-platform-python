@@ -35,4 +35,4 @@ class AsPlaintextValue(pydantic.BaseModel):
 
     def to_dict(self) -> AsPlaintextValueDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AsPlaintextValueDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AsPlaintextValueDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -40,4 +40,4 @@ class ObjectSetFilterType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetFilterTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_none=True))

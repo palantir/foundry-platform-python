@@ -39,4 +39,4 @@ class GeoPoint(pydantic.BaseModel):
 
     def to_dict(self) -> GeoPointDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(GeoPointDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(GeoPointDict, self.model_dump(by_alias=True, exclude_none=True))

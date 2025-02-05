@@ -41,4 +41,4 @@ class FileAtLeastCountFilter(pydantic.BaseModel):
 
     def to_dict(self) -> FileAtLeastCountFilterDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FileAtLeastCountFilterDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FileAtLeastCountFilterDict, self.model_dump(by_alias=True, exclude_none=True))

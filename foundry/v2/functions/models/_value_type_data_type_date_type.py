@@ -35,5 +35,5 @@ class ValueTypeDataTypeDateType(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeDateTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeDateTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeDateTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )

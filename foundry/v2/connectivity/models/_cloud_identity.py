@@ -38,4 +38,4 @@ class CloudIdentity(pydantic.BaseModel):
 
     def to_dict(self) -> CloudIdentityDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(CloudIdentityDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(CloudIdentityDict, self.model_dump(by_alias=True, exclude_none=True))

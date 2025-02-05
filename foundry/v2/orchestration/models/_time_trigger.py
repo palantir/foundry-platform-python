@@ -38,4 +38,4 @@ class TimeTrigger(pydantic.BaseModel):
 
     def to_dict(self) -> TimeTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(TimeTriggerDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(TimeTriggerDict, self.model_dump(by_alias=True, exclude_none=True))

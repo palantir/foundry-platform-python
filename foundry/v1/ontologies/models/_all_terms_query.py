@@ -44,4 +44,4 @@ class AllTermsQuery(pydantic.BaseModel):
 
     def to_dict(self) -> AllTermsQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AllTermsQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AllTermsQueryDict, self.model_dump(by_alias=True, exclude_none=True))

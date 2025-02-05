@@ -31,6 +31,4 @@ class BatchApplyActionResponse(pydantic.BaseModel):
 
     def to_dict(self) -> BatchApplyActionResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            BatchApplyActionResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(BatchApplyActionResponseDict, self.model_dump(by_alias=True, exclude_none=True))

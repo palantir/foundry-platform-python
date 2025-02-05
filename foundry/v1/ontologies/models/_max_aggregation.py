@@ -39,4 +39,4 @@ class MaxAggregation(pydantic.BaseModel):
 
     def to_dict(self) -> MaxAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MaxAggregationDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MaxAggregationDict, self.model_dump(by_alias=True, exclude_none=True))

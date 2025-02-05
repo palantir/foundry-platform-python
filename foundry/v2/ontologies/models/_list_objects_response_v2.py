@@ -44,4 +44,4 @@ class ListObjectsResponseV2(pydantic.BaseModel):
 
     def to_dict(self) -> ListObjectsResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ListObjectsResponseV2Dict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ListObjectsResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True))

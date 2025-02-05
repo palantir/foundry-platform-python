@@ -38,5 +38,5 @@ class ExamplePropertyTypeStatus(pydantic.BaseModel):
     def to_dict(self) -> ExamplePropertyTypeStatusDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ExamplePropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ExamplePropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_none=True)
         )

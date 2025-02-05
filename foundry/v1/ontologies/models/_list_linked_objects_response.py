@@ -40,5 +40,5 @@ class ListLinkedObjectsResponse(pydantic.BaseModel):
     def to_dict(self) -> ListLinkedObjectsResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ListLinkedObjectsResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ListLinkedObjectsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
         )

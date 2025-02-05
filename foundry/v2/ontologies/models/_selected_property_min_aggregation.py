@@ -38,5 +38,5 @@ class SelectedPropertyMinAggregation(pydantic.BaseModel):
     def to_dict(self) -> SelectedPropertyMinAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            SelectedPropertyMinAggregationDict, self.model_dump(by_alias=True, exclude_unset=True)
+            SelectedPropertyMinAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
         )

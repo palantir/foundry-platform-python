@@ -34,4 +34,4 @@ class ScheduleRunIgnored(pydantic.BaseModel):
 
     def to_dict(self) -> ScheduleRunIgnoredDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ScheduleRunIgnoredDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ScheduleRunIgnoredDict, self.model_dump(by_alias=True, exclude_none=True))

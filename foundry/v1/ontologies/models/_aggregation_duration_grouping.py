@@ -44,5 +44,5 @@ class AggregationDurationGrouping(pydantic.BaseModel):
     def to_dict(self) -> AggregationDurationGroupingDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            AggregationDurationGroupingDict, self.model_dump(by_alias=True, exclude_unset=True)
+            AggregationDurationGroupingDict, self.model_dump(by_alias=True, exclude_none=True)
         )

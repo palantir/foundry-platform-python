@@ -26,7 +26,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
 **session_rid** | SessionRid | sessionRid |  |
-**parameter_inputs** | Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.  |  |
+**parameter_inputs** | Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.  |  |
 **user_input** | Union[UserTextInput, UserTextInputDict] | The user message for the Agent to respond to. |  |
 **contexts_override** | Optional[List[Union[InputContext, InputContextDict]]] | If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
@@ -49,7 +49,7 @@ foundry_client = FoundryClient(
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | sessionRid
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
-# Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+# Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 parameter_inputs = {
     "currentCustomerOrders": {
         "type": "objectSet",
@@ -432,7 +432,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
 **session_rid** | SessionRid | sessionRid |  |
-**parameter_inputs** | Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]] | Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.  |  |
+**parameter_inputs** | Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.  |  |
 **user_input** | Union[UserTextInput, UserTextInputDict] | The user message to retrieve relevant context for from the configured Agent data sources. |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
@@ -454,7 +454,7 @@ foundry_client = FoundryClient(
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | sessionRid
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
-# Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]] | Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
+# Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
 parameter_inputs = {"customerName": {"type": "string", "value": "Titan Technologies"}}
 # Union[UserTextInput, UserTextInputDict] | The user message to retrieve relevant context for from the configured Agent data sources.
 user_input = {"text": "What is the status of my order?"}
@@ -506,7 +506,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
 **session_rid** | SessionRid | sessionRid |  |
-**parameter_inputs** | Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.  |  |
+**parameter_inputs** | Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.  |  |
 **user_input** | Union[UserTextInput, UserTextInputDict] | The user message for the Agent to respond to. |  |
 **contexts_override** | Optional[List[Union[InputContext, InputContextDict]]] | If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
 **message_id** | Optional[MessageId] | A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.  | [optional] |
@@ -530,7 +530,7 @@ foundry_client = FoundryClient(
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | sessionRid
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
-# Dict[Union[ParameterId, ParameterId], Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+# Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 parameter_inputs = {
     "currentCustomerOrders": {
         "type": "objectSet",

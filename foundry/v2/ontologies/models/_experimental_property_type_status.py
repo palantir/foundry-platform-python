@@ -35,5 +35,5 @@ class ExperimentalPropertyTypeStatus(pydantic.BaseModel):
     def to_dict(self) -> ExperimentalPropertyTypeStatusDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ExperimentalPropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ExperimentalPropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_none=True)
         )

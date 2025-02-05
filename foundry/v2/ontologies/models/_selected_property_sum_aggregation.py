@@ -38,5 +38,5 @@ class SelectedPropertySumAggregation(pydantic.BaseModel):
     def to_dict(self) -> SelectedPropertySumAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            SelectedPropertySumAggregationDict, self.model_dump(by_alias=True, exclude_unset=True)
+            SelectedPropertySumAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
         )

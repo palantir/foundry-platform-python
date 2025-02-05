@@ -140,7 +140,7 @@ class ProjectClient:
         default_roles: List[RoleId],
         display_name: ResourceDisplayName,
         organization_rids: List[OrganizationRid],
-        role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]],
+        role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]],
         space_rid: SpaceRid,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -155,7 +155,7 @@ class ProjectClient:
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]]
+        :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
         :type space_rid: SpaceRid
         :param description:
@@ -195,7 +195,7 @@ class ProjectClient:
                         "description": Optional[str],
                         "spaceRid": SpaceRid,
                         "roleGrants": Dict[
-                            Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                            RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]
                         ],
                         "defaultRoles": List[RoleId],
                         "organizationRids": List[OrganizationRid],
@@ -559,7 +559,7 @@ class _ProjectClientRaw:
         default_roles: List[RoleId],
         display_name: ResourceDisplayName,
         organization_rids: List[OrganizationRid],
-        role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]],
+        role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]],
         space_rid: SpaceRid,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -574,7 +574,7 @@ class _ProjectClientRaw:
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]]
+        :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
         :type space_rid: SpaceRid
         :param description:
@@ -614,7 +614,7 @@ class _ProjectClientRaw:
                         "description": Optional[str],
                         "spaceRid": SpaceRid,
                         "roleGrants": Dict[
-                            Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                            RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]
                         ],
                         "defaultRoles": List[RoleId],
                         "organizationRids": List[OrganizationRid],
@@ -978,7 +978,7 @@ class _ProjectClientStreaming:
         default_roles: List[RoleId],
         display_name: ResourceDisplayName,
         organization_rids: List[OrganizationRid],
-        role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]],
+        role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]],
         space_rid: SpaceRid,
         description: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
@@ -993,7 +993,7 @@ class _ProjectClientStreaming:
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: Dict[Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]]
+        :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
         :type space_rid: SpaceRid
         :param description:
@@ -1033,7 +1033,7 @@ class _ProjectClientStreaming:
                         "description": Optional[str],
                         "spaceRid": SpaceRid,
                         "roleGrants": Dict[
-                            Union[RoleId, RoleId], List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                            RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]
                         ],
                         "defaultRoles": List[RoleId],
                         "organizationRids": List[OrganizationRid],

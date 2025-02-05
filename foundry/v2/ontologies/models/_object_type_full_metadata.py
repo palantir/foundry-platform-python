@@ -62,4 +62,4 @@ class ObjectTypeFullMetadata(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectTypeFullMetadataDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectTypeFullMetadataDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectTypeFullMetadataDict, self.model_dump(by_alias=True, exclude_none=True))

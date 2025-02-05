@@ -42,5 +42,5 @@ class ApproximateDistinctAggregation(pydantic.BaseModel):
     def to_dict(self) -> ApproximateDistinctAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ApproximateDistinctAggregationDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ApproximateDistinctAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
         )

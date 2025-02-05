@@ -43,5 +43,5 @@ class SelectedPropertyDefinition(pydantic.BaseModel):
     def to_dict(self) -> SelectedPropertyDefinitionDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            SelectedPropertyDefinitionDict, self.model_dump(by_alias=True, exclude_unset=True)
+            SelectedPropertyDefinitionDict, self.model_dump(by_alias=True, exclude_none=True)
         )

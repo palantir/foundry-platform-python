@@ -40,5 +40,5 @@ class ListMarkingMembersResponse(pydantic.BaseModel):
     def to_dict(self) -> ListMarkingMembersResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ListMarkingMembersResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ListMarkingMembersResponseDict, self.model_dump(by_alias=True, exclude_none=True)
         )

@@ -35,5 +35,5 @@ class ValueTypeDataTypeShortType(pydantic.BaseModel):
     def to_dict(self) -> ValueTypeDataTypeShortTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ValueTypeDataTypeShortTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ValueTypeDataTypeShortTypeDict, self.model_dump(by_alias=True, exclude_none=True)
         )

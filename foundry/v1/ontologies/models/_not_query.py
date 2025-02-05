@@ -35,4 +35,4 @@ class NotQuery(pydantic.BaseModel):
 
     def to_dict(self) -> NotQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(NotQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(NotQueryDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -32,4 +32,4 @@ class TimestampType(pydantic.BaseModel):
 
     def to_dict(self) -> TimestampTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(TimestampTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(TimestampTypeDict, self.model_dump(by_alias=True, exclude_none=True))

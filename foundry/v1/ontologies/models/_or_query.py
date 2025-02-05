@@ -36,4 +36,4 @@ class OrQuery(pydantic.BaseModel):
 
     def to_dict(self) -> OrQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OrQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OrQueryDict, self.model_dump(by_alias=True, exclude_none=True))

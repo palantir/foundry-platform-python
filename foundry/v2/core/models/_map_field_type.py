@@ -37,4 +37,4 @@ class MapFieldType(pydantic.BaseModel):
 
     def to_dict(self) -> MapFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MapFieldTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MapFieldTypeDict, self.model_dump(by_alias=True, exclude_none=True))

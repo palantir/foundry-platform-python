@@ -54,4 +54,4 @@ class MarkingCategory(pydantic.BaseModel):
 
     def to_dict(self) -> MarkingCategoryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(MarkingCategoryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(MarkingCategoryDict, self.model_dump(by_alias=True, exclude_none=True))

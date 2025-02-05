@@ -35,4 +35,4 @@ class ApplyActionRequest(pydantic.BaseModel):
 
     def to_dict(self) -> ApplyActionRequestDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ApplyActionRequestDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ApplyActionRequestDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -38,4 +38,4 @@ class ObjectSetSubtractType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetSubtractTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetSubtractTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetSubtractTypeDict, self.model_dump(by_alias=True, exclude_none=True))

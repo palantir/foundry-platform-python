@@ -37,4 +37,4 @@ class StringParameter(pydantic.BaseModel):
 
     def to_dict(self) -> StringParameterDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(StringParameterDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(StringParameterDict, self.model_dump(by_alias=True, exclude_none=True))

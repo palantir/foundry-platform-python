@@ -48,7 +48,7 @@ class OrTrigger(pydantic.BaseModel):
 
     def to_dict(self) -> OrTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OrTriggerDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OrTriggerDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class AndTrigger(pydantic.BaseModel):
@@ -62,7 +62,7 @@ class AndTrigger(pydantic.BaseModel):
 
     def to_dict(self) -> AndTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AndTriggerDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AndTriggerDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 Trigger = Annotated[

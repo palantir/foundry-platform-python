@@ -36,4 +36,4 @@ class AndQuery(pydantic.BaseModel):
 
     def to_dict(self) -> AndQueryDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(AndQueryDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(AndQueryDict, self.model_dump(by_alias=True, exclude_none=True))

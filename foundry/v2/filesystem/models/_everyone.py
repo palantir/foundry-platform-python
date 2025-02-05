@@ -32,4 +32,4 @@ class Everyone(pydantic.BaseModel):
 
     def to_dict(self) -> EveryoneDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(EveryoneDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(EveryoneDict, self.model_dump(by_alias=True, exclude_none=True))

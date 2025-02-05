@@ -35,5 +35,5 @@ class GetMarkingsBatchRequestElement(pydantic.BaseModel):
     def to_dict(self) -> GetMarkingsBatchRequestElementDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            GetMarkingsBatchRequestElementDict, self.model_dump(by_alias=True, exclude_unset=True)
+            GetMarkingsBatchRequestElementDict, self.model_dump(by_alias=True, exclude_none=True)
         )

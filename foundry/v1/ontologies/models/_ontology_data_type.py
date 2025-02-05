@@ -62,7 +62,7 @@ class OntologyStructField(pydantic.BaseModel):
 
     def to_dict(self) -> OntologyStructFieldDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OntologyStructFieldDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OntologyStructFieldDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class OntologyStructType(pydantic.BaseModel):
@@ -76,7 +76,7 @@ class OntologyStructType(pydantic.BaseModel):
 
     def to_dict(self) -> OntologyStructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OntologyStructTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OntologyStructTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class OntologySetType(pydantic.BaseModel):
@@ -90,7 +90,7 @@ class OntologySetType(pydantic.BaseModel):
 
     def to_dict(self) -> OntologySetTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OntologySetTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OntologySetTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class OntologyArrayType(pydantic.BaseModel):
@@ -104,7 +104,7 @@ class OntologyArrayType(pydantic.BaseModel):
 
     def to_dict(self) -> OntologyArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OntologyArrayTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OntologyArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 class OntologyMapType(pydantic.BaseModel):
@@ -120,7 +120,7 @@ class OntologyMapType(pydantic.BaseModel):
 
     def to_dict(self) -> OntologyMapTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OntologyMapTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OntologyMapTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
 OntologyDataType = Annotated[

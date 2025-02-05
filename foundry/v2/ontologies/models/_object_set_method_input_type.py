@@ -34,6 +34,4 @@ class ObjectSetMethodInputType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetMethodInputTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ObjectSetMethodInputTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ObjectSetMethodInputTypeDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -47,5 +47,5 @@ class CreateScheduleRequestUpstreamTarget(pydantic.BaseModel):
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
             CreateScheduleRequestUpstreamTargetDict,
-            self.model_dump(by_alias=True, exclude_unset=True),
+            self.model_dump(by_alias=True, exclude_none=True),
         )

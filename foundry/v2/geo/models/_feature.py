@@ -59,4 +59,4 @@ class Feature(pydantic.BaseModel):
 
     def to_dict(self) -> FeatureDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(FeatureDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(FeatureDict, self.model_dump(by_alias=True, exclude_none=True))

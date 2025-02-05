@@ -36,4 +36,4 @@ class OrTrigger(pydantic.BaseModel):
 
     def to_dict(self) -> OrTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(OrTriggerDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(OrTriggerDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -35,5 +35,5 @@ class CreateScheduleRequestUserScope(pydantic.BaseModel):
     def to_dict(self) -> CreateScheduleRequestUserScopeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            CreateScheduleRequestUserScopeDict, self.model_dump(by_alias=True, exclude_unset=True)
+            CreateScheduleRequestUserScopeDict, self.model_dump(by_alias=True, exclude_none=True)
         )

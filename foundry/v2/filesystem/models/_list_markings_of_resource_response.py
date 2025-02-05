@@ -40,5 +40,5 @@ class ListMarkingsOfResourceResponse(pydantic.BaseModel):
     def to_dict(self) -> ListMarkingsOfResourceResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ListMarkingsOfResourceResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ListMarkingsOfResourceResponseDict, self.model_dump(by_alias=True, exclude_none=True)
         )

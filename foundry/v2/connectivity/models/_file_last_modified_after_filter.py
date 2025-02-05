@@ -44,5 +44,5 @@ class FileLastModifiedAfterFilter(pydantic.BaseModel):
     def to_dict(self) -> FileLastModifiedAfterFilterDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            FileLastModifiedAfterFilterDict, self.model_dump(by_alias=True, exclude_unset=True)
+            FileLastModifiedAfterFilterDict, self.model_dump(by_alias=True, exclude_none=True)
         )

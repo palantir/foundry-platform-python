@@ -35,5 +35,5 @@ class SelectedPropertyCountAggregation(pydantic.BaseModel):
     def to_dict(self) -> SelectedPropertyCountAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            SelectedPropertyCountAggregationDict, self.model_dump(by_alias=True, exclude_unset=True)
+            SelectedPropertyCountAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
         )

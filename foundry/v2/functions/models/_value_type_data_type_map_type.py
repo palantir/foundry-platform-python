@@ -39,6 +39,4 @@ class ValueTypeDataTypeMapType(pydantic.BaseModel):
 
     def to_dict(self) -> ValueTypeDataTypeMapTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ValueTypeDataTypeMapTypeDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ValueTypeDataTypeMapTypeDict, self.model_dump(by_alias=True, exclude_none=True))

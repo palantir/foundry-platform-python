@@ -37,4 +37,4 @@ class SearchBuildsNotFilter(pydantic.BaseModel):
 
     def to_dict(self) -> SearchBuildsNotFilterDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(SearchBuildsNotFilterDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(SearchBuildsNotFilterDict, self.model_dump(by_alias=True, exclude_none=True))

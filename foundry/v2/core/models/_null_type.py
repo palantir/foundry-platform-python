@@ -32,4 +32,4 @@ class NullType(pydantic.BaseModel):
 
     def to_dict(self) -> NullTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(NullTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(NullTypeDict, self.model_dump(by_alias=True, exclude_none=True))

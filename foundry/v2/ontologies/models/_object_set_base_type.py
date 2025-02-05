@@ -36,4 +36,4 @@ class ObjectSetBaseType(pydantic.BaseModel):
 
     def to_dict(self) -> ObjectSetBaseTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(ObjectSetBaseTypeDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(ObjectSetBaseTypeDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -53,4 +53,4 @@ class Session(pydantic.BaseModel):
 
     def to_dict(self) -> SessionDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(SessionDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(SessionDict, self.model_dump(by_alias=True, exclude_none=True))

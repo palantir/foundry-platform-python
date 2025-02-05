@@ -39,6 +39,4 @@ class ListTableImportsResponse(pydantic.BaseModel):
 
     def to_dict(self) -> ListTableImportsResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(
-            ListTableImportsResponseDict, self.model_dump(by_alias=True, exclude_unset=True)
-        )
+        return cast(ListTableImportsResponseDict, self.model_dump(by_alias=True, exclude_none=True))

@@ -61,5 +61,5 @@ class ReplaceScheduleRequestAction(pydantic.BaseModel):
     def to_dict(self) -> ReplaceScheduleRequestActionDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ReplaceScheduleRequestActionDict, self.model_dump(by_alias=True, exclude_unset=True)
+            ReplaceScheduleRequestActionDict, self.model_dump(by_alias=True, exclude_none=True)
         )

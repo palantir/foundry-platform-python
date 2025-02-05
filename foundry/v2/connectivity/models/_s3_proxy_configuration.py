@@ -54,4 +54,4 @@ class S3ProxyConfiguration(pydantic.BaseModel):
 
     def to_dict(self) -> S3ProxyConfigurationDict:
         """Return the dictionary representation of the model using the field aliases."""
-        return cast(S3ProxyConfigurationDict, self.model_dump(by_alias=True, exclude_unset=True))
+        return cast(S3ProxyConfigurationDict, self.model_dump(by_alias=True, exclude_none=True))

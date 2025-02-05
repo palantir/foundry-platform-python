@@ -39,6 +39,5 @@ class ObjectTypeInterfaceImplementation(pydantic.BaseModel):
     def to_dict(self) -> ObjectTypeInterfaceImplementationDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            ObjectTypeInterfaceImplementationDict,
-            self.model_dump(by_alias=True, exclude_unset=True),
+            ObjectTypeInterfaceImplementationDict, self.model_dump(by_alias=True, exclude_none=True)
         )
