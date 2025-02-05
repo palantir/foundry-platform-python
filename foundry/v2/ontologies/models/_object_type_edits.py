@@ -28,11 +28,11 @@ from foundry.v2.ontologies.models._object_type_edits_dict import ObjectTypeEdits
 class ObjectTypeEdits(pydantic.BaseModel):
     """ObjectTypeEdits"""
 
-    edited_object_types: List[ObjectTypeApiName] = pydantic.Field(alias="editedObjectTypes")
+    edited_object_types: List[ObjectTypeApiName] = pydantic.Field(alias=str("editedObjectTypes"))  # type: ignore[literal-required]
 
     type: Literal["largeScaleEdits"] = "largeScaleEdits"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectTypeEditsDict:
         """Return the dictionary representation of the model using the field aliases."""

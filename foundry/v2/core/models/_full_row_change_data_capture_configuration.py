@@ -33,11 +33,11 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
     the entire new state of that row to the stream.
     """
 
-    deletion_field_name: FieldName = pydantic.Field(alias="deletionFieldName")
+    deletion_field_name: FieldName = pydantic.Field(alias=str("deletionFieldName"))  # type: ignore[literal-required]
 
     """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
 
-    ordering_field_name: FieldName = pydantic.Field(alias="orderingFieldName")
+    ordering_field_name: FieldName = pydantic.Field(alias=str("orderingFieldName"))  # type: ignore[literal-required]
 
     """
     The name of an ordering field that determines the newest state for a row in the dataset. 
@@ -55,7 +55,7 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
 
     type: Literal["fullRow"] = "fullRow"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FullRowChangeDataCaptureConfigurationDict:
         """Return the dictionary representation of the model using the field aliases."""

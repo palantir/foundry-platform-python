@@ -29,13 +29,13 @@ from foundry.v2.ontologies.models._selected_property_approximate_percentile_aggr
 class SelectedPropertyApproximatePercentileAggregation(pydantic.BaseModel):
     """Computes the approximate percentile value for the provided field."""
 
-    selected_property_api_name: PropertyApiName = pydantic.Field(alias="selectedPropertyApiName")
+    selected_property_api_name: PropertyApiName = pydantic.Field(alias=str("selectedPropertyApiName"))  # type: ignore[literal-required]
 
-    approximate_percentile: float = pydantic.Field(alias="approximatePercentile")
+    approximate_percentile: float = pydantic.Field(alias=str("approximatePercentile"))  # type: ignore[literal-required]
 
     type: Literal["approximatePercentile"] = "approximatePercentile"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SelectedPropertyApproximatePercentileAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""

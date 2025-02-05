@@ -19,12 +19,18 @@ from foundry.v2.admin.models._attribute_values import AttributeValues
 from foundry.v2.admin.models._enrollment import Enrollment
 from foundry.v2.admin.models._enrollment_dict import EnrollmentDict
 from foundry.v2.admin.models._enrollment_name import EnrollmentName
+from foundry.v2.admin.models._get_groups_batch_request_element import (
+    GetGroupsBatchRequestElement,
+)  # NOQA
 from foundry.v2.admin.models._get_groups_batch_request_element_dict import (
     GetGroupsBatchRequestElementDict,
 )  # NOQA
 from foundry.v2.admin.models._get_groups_batch_response import GetGroupsBatchResponse
 from foundry.v2.admin.models._get_groups_batch_response_dict import (
     GetGroupsBatchResponseDict,
+)  # NOQA
+from foundry.v2.admin.models._get_markings_batch_request_element import (
+    GetMarkingsBatchRequestElement,
 )  # NOQA
 from foundry.v2.admin.models._get_markings_batch_request_element_dict import (
     GetMarkingsBatchRequestElementDict,
@@ -36,6 +42,9 @@ from foundry.v2.admin.models._get_markings_batch_response_dict import (
 from foundry.v2.admin.models._get_user_markings_response import GetUserMarkingsResponse
 from foundry.v2.admin.models._get_user_markings_response_dict import (
     GetUserMarkingsResponseDict,
+)  # NOQA
+from foundry.v2.admin.models._get_users_batch_request_element import (
+    GetUsersBatchRequestElement,
 )  # NOQA
 from foundry.v2.admin.models._get_users_batch_request_element_dict import (
     GetUsersBatchRequestElementDict,
@@ -52,6 +61,7 @@ from foundry.v2.admin.models._group_membership_expiration import GroupMembership
 from foundry.v2.admin.models._group_name import GroupName
 from foundry.v2.admin.models._group_provider_info import GroupProviderInfo
 from foundry.v2.admin.models._group_provider_info_dict import GroupProviderInfoDict
+from foundry.v2.admin.models._group_search_filter import GroupSearchFilter
 from foundry.v2.admin.models._group_search_filter_dict import GroupSearchFilterDict
 from foundry.v2.admin.models._host import Host
 from foundry.v2.admin.models._host_dict import HostDict
@@ -105,6 +115,7 @@ from foundry.v2.admin.models._marking_name import MarkingName
 from foundry.v2.admin.models._marking_role import MarkingRole
 from foundry.v2.admin.models._marking_role_assignment import MarkingRoleAssignment
 from foundry.v2.admin.models._marking_role_assignment_dict import MarkingRoleAssignmentDict  # NOQA
+from foundry.v2.admin.models._marking_role_update import MarkingRoleUpdate
 from foundry.v2.admin.models._marking_role_update_dict import MarkingRoleUpdateDict
 from foundry.v2.admin.models._marking_type import MarkingType
 from foundry.v2.admin.models._organization import Organization
@@ -120,6 +131,7 @@ from foundry.v2.admin.models._user import User
 from foundry.v2.admin.models._user_dict import UserDict
 from foundry.v2.admin.models._user_provider_info import UserProviderInfo
 from foundry.v2.admin.models._user_provider_info_dict import UserProviderInfoDict
+from foundry.v2.admin.models._user_search_filter import UserSearchFilter
 from foundry.v2.admin.models._user_search_filter_dict import UserSearchFilterDict
 from foundry.v2.admin.models._user_username import UserUsername
 
@@ -130,14 +142,17 @@ __all__ = [
     "Enrollment",
     "EnrollmentDict",
     "EnrollmentName",
+    "GetGroupsBatchRequestElement",
     "GetGroupsBatchRequestElementDict",
     "GetGroupsBatchResponse",
     "GetGroupsBatchResponseDict",
+    "GetMarkingsBatchRequestElement",
     "GetMarkingsBatchRequestElementDict",
     "GetMarkingsBatchResponse",
     "GetMarkingsBatchResponseDict",
     "GetUserMarkingsResponse",
     "GetUserMarkingsResponseDict",
+    "GetUsersBatchRequestElement",
     "GetUsersBatchRequestElementDict",
     "GetUsersBatchResponse",
     "GetUsersBatchResponseDict",
@@ -151,6 +166,7 @@ __all__ = [
     "GroupName",
     "GroupProviderInfo",
     "GroupProviderInfoDict",
+    "GroupSearchFilter",
     "GroupSearchFilterDict",
     "Host",
     "HostDict",
@@ -186,6 +202,7 @@ __all__ = [
     "MarkingRole",
     "MarkingRoleAssignment",
     "MarkingRoleAssignmentDict",
+    "MarkingRoleUpdate",
     "MarkingRoleUpdateDict",
     "MarkingType",
     "Organization",
@@ -201,6 +218,7 @@ __all__ = [
     "UserDict",
     "UserProviderInfo",
     "UserProviderInfoDict",
+    "UserSearchFilter",
     "UserSearchFilterDict",
     "UserUsername",
 ]

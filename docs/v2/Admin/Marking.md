@@ -17,7 +17,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **category_id** | MarkingCategoryId |  |  |
 **initial_members** | List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.  |  |
-**initial_role_assignments** | List[MarkingRoleUpdateDict] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
+**initial_role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
 **name** | MarkingName |  |  |
 **description** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
@@ -40,7 +40,7 @@ foundry_client = FoundryClient(
 category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
 # List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
 initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# List[MarkingRoleUpdateDict] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
 initial_role_assignments = [
     {"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
 ]
@@ -145,7 +145,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -162,7 +162,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[GetMarkingsBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request
+# Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request
 body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
 # Optional[PreviewMode] | preview
 preview = None

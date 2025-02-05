@@ -30,11 +30,11 @@ class Property(pydantic.BaseModel):
 
     description: Optional[str] = None
 
-    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
 
-    base_type: ValueType = pydantic.Field(alias="baseType")
+    base_type: ValueType = pydantic.Field(alias=str("baseType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> PropertyDict:
         """Return the dictionary representation of the model using the field aliases."""

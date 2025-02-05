@@ -30,13 +30,13 @@ class OneOfConstraint(pydantic.BaseModel):
 
     options: List[ParameterOption]
 
-    other_values_allowed: bool = pydantic.Field(alias="otherValuesAllowed")
+    other_values_allowed: bool = pydantic.Field(alias=str("otherValuesAllowed"))  # type: ignore[literal-required]
 
     """A flag denoting whether custom, user provided values will be considered valid. This is configured via the **Allowed "Other" value** toggle in the **Ontology Manager**."""
 
     type: Literal["oneOf"] = "oneOf"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OneOfConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""

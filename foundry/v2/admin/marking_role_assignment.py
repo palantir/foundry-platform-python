@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -38,6 +39,7 @@ from foundry.v2.admin.models._list_marking_role_assignments_response import (
     ListMarkingRoleAssignmentsResponse,
 )  # NOQA
 from foundry.v2.admin.models._marking_role_assignment import MarkingRoleAssignment
+from foundry.v2.admin.models._marking_role_update import MarkingRoleUpdate
 from foundry.v2.admin.models._marking_role_update_dict import MarkingRoleUpdateDict
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._page_size import PageSize
@@ -75,7 +77,7 @@ class MarkingRoleAssignmentClient:
         self,
         marking_id: MarkingId,
         *,
-        role_assignments: List[MarkingRoleUpdateDict],
+        role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
@@ -84,7 +86,7 @@ class MarkingRoleAssignmentClient:
         :param marking_id: markingId
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[MarkingRoleUpdateDict]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -112,7 +114,7 @@ class MarkingRoleAssignmentClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": List[MarkingRoleUpdateDict],
+                        "roleAssignments": List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
                     },
                 ),
                 response_type=None,
@@ -235,7 +237,7 @@ class MarkingRoleAssignmentClient:
         self,
         marking_id: MarkingId,
         *,
-        role_assignments: List[MarkingRoleUpdateDict],
+        role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
@@ -244,7 +246,7 @@ class MarkingRoleAssignmentClient:
         :param marking_id: markingId
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[MarkingRoleUpdateDict]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -272,7 +274,7 @@ class MarkingRoleAssignmentClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": List[MarkingRoleUpdateDict],
+                        "roleAssignments": List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
                     },
                 ),
                 response_type=None,
@@ -305,7 +307,7 @@ class _MarkingRoleAssignmentClientRaw:
         self,
         marking_id: MarkingId,
         *,
-        role_assignments: List[MarkingRoleUpdateDict],
+        role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[None]:
@@ -314,7 +316,7 @@ class _MarkingRoleAssignmentClientRaw:
         :param marking_id: markingId
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[MarkingRoleUpdateDict]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -342,7 +344,7 @@ class _MarkingRoleAssignmentClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": List[MarkingRoleUpdateDict],
+                        "roleAssignments": List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
                     },
                 ),
                 response_type=None,
@@ -465,7 +467,7 @@ class _MarkingRoleAssignmentClientRaw:
         self,
         marking_id: MarkingId,
         *,
-        role_assignments: List[MarkingRoleUpdateDict],
+        role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[None]:
@@ -474,7 +476,7 @@ class _MarkingRoleAssignmentClientRaw:
         :param marking_id: markingId
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[MarkingRoleUpdateDict]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -502,7 +504,7 @@ class _MarkingRoleAssignmentClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": List[MarkingRoleUpdateDict],
+                        "roleAssignments": List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
                     },
                 ),
                 response_type=None,
@@ -535,7 +537,7 @@ class _MarkingRoleAssignmentClientStreaming:
         self,
         marking_id: MarkingId,
         *,
-        role_assignments: List[MarkingRoleUpdateDict],
+        role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[None]:
@@ -544,7 +546,7 @@ class _MarkingRoleAssignmentClientStreaming:
         :param marking_id: markingId
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[MarkingRoleUpdateDict]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -572,7 +574,7 @@ class _MarkingRoleAssignmentClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": List[MarkingRoleUpdateDict],
+                        "roleAssignments": List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
                     },
                 ),
                 response_type=None,
@@ -695,7 +697,7 @@ class _MarkingRoleAssignmentClientStreaming:
         self,
         marking_id: MarkingId,
         *,
-        role_assignments: List[MarkingRoleUpdateDict],
+        role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[None]:
@@ -704,7 +706,7 @@ class _MarkingRoleAssignmentClientStreaming:
         :param marking_id: markingId
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[MarkingRoleUpdateDict]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -732,7 +734,7 @@ class _MarkingRoleAssignmentClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": List[MarkingRoleUpdateDict],
+                        "roleAssignments": List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]],
                     },
                 ),
                 response_type=None,

@@ -33,9 +33,9 @@ class PropertyV2(pydantic.BaseModel):
 
     description: Optional[str] = None
 
-    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
 
-    data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
+    data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
     rid: PropertyTypeRid
 
@@ -43,7 +43,7 @@ class PropertyV2(pydantic.BaseModel):
 
     visibility: Optional[PropertyTypeVisibility] = None
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> PropertyV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

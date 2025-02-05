@@ -32,13 +32,13 @@ class FilesCountLimitFilter(pydantic.BaseModel):
     This option can increase the reliability of incremental syncs.
     """
 
-    files_count: int = pydantic.Field(alias="filesCount")
+    files_count: int = pydantic.Field(alias=str("filesCount"))  # type: ignore[literal-required]
 
     """The number of files to import in the transaction. The value specified must be positive."""
 
     type: Literal["filesCountLimitFilter"] = "filesCountLimitFilter"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FilesCountLimitFilterDict:
         """Return the dictionary representation of the model using the field aliases."""

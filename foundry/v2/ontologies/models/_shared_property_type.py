@@ -34,17 +34,17 @@ class SharedPropertyType(pydantic.BaseModel):
 
     rid: SharedPropertyTypeRid
 
-    api_name: SharedPropertyTypeApiName = pydantic.Field(alias="apiName")
+    api_name: SharedPropertyTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: DisplayName = pydantic.Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     description: Optional[str] = None
 
     """A short text that describes the SharedPropertyType."""
 
-    data_type: ObjectPropertyType = pydantic.Field(alias="dataType")
+    data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SharedPropertyTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

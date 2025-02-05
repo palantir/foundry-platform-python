@@ -44,6 +44,7 @@ from foundry.v2.aip_agents.models._function_retrieved_context import (
 from foundry.v2.aip_agents.models._function_retrieved_context_dict import (
     FunctionRetrievedContextDict,
 )  # NOQA
+from foundry.v2.aip_agents.models._input_context import InputContext
 from foundry.v2.aip_agents.models._input_context_dict import InputContextDict
 from foundry.v2.aip_agents.models._list_agent_versions_response import (
     ListAgentVersionsResponse,
@@ -60,6 +61,7 @@ from foundry.v2.aip_agents.models._object_context import ObjectContext
 from foundry.v2.aip_agents.models._object_context_dict import ObjectContextDict
 from foundry.v2.aip_agents.models._object_set_parameter import ObjectSetParameter
 from foundry.v2.aip_agents.models._object_set_parameter_dict import ObjectSetParameterDict  # NOQA
+from foundry.v2.aip_agents.models._object_set_parameter_value import ObjectSetParameterValue  # NOQA
 from foundry.v2.aip_agents.models._object_set_parameter_value_dict import (
     ObjectSetParameterValueDict,
 )  # NOQA
@@ -75,6 +77,7 @@ from foundry.v2.aip_agents.models._parameter_dict import ParameterDict
 from foundry.v2.aip_agents.models._parameter_id import ParameterId
 from foundry.v2.aip_agents.models._parameter_type import ParameterType
 from foundry.v2.aip_agents.models._parameter_type_dict import ParameterTypeDict
+from foundry.v2.aip_agents.models._parameter_value import ParameterValue
 from foundry.v2.aip_agents.models._parameter_value_dict import ParameterValueDict
 from foundry.v2.aip_agents.models._parameter_value_update import ParameterValueUpdate
 from foundry.v2.aip_agents.models._parameter_value_update_dict import (
@@ -126,6 +129,7 @@ __all__ = [
     "ContentDict",
     "FunctionRetrievedContext",
     "FunctionRetrievedContextDict",
+    "InputContext",
     "InputContextDict",
     "ListAgentVersionsResponse",
     "ListAgentVersionsResponseDict",
@@ -136,6 +140,7 @@ __all__ = [
     "ObjectContextDict",
     "ObjectSetParameter",
     "ObjectSetParameterDict",
+    "ObjectSetParameterValue",
     "ObjectSetParameterValueDict",
     "ObjectSetParameterValueUpdate",
     "ObjectSetParameterValueUpdateDict",
@@ -145,6 +150,7 @@ __all__ = [
     "ParameterId",
     "ParameterType",
     "ParameterTypeDict",
+    "ParameterValue",
     "ParameterValueDict",
     "ParameterValueUpdate",
     "ParameterValueUpdateDict",

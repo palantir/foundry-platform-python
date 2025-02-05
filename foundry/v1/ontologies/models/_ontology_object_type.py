@@ -27,13 +27,13 @@ from foundry.v1.ontologies.models._ontology_object_type_dict import OntologyObje
 class OntologyObjectType(pydantic.BaseModel):
     """OntologyObjectType"""
 
-    object_api_name: ObjectTypeApiName = pydantic.Field(alias="objectApiName")
+    object_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectApiName"))  # type: ignore[literal-required]
 
-    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
 
     type: Literal["object"] = "object"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyObjectTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -31,17 +31,17 @@ from foundry.v2.streams.models._view_rid import ViewRid
 class Stream(pydantic.BaseModel):
     """Stream"""
 
-    branch_name: BranchName = pydantic.Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
 
-    schema_: StreamSchema = pydantic.Field(alias="schema")
+    schema_: StreamSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
 
     """The Foundry schema for this stream."""
 
-    view_rid: ViewRid = pydantic.Field(alias="viewRid")
+    view_rid: ViewRid = pydantic.Field(alias=str("viewRid"))  # type: ignore[literal-required]
 
     """The view that this stream corresponds to."""
 
-    partitions_count: PartitionsCount = pydantic.Field(alias="partitionsCount")
+    partitions_count: PartitionsCount = pydantic.Field(alias=str("partitionsCount"))  # type: ignore[literal-required]
 
     """
     The number of partitions for the Foundry stream. Defaults to 1.
@@ -50,7 +50,7 @@ class Stream(pydantic.BaseModel):
     are recommended.
     """
 
-    stream_type: StreamType = pydantic.Field(alias="streamType")
+    stream_type: StreamType = pydantic.Field(alias=str("streamType"))  # type: ignore[literal-required]
 
     """
     A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
@@ -61,7 +61,7 @@ class Stream(pydantic.BaseModel):
 
     """Whether or not compression is enabled for the stream. Defaults to false."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StreamDict:
         """Return the dictionary representation of the model using the field aliases."""

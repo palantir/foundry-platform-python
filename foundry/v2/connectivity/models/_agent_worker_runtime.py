@@ -34,7 +34,7 @@ class AgentWorkerRuntime(pydantic.BaseModel):
     and run source capabilities on the agent itself.
     """
 
-    agent_rids: List[AgentRid] = pydantic.Field(alias="agentRids")
+    agent_rids: List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
 
     """
     The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
@@ -44,7 +44,7 @@ class AgentWorkerRuntime(pydantic.BaseModel):
 
     type: Literal["agentWorkerRuntime"] = "agentWorkerRuntime"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentWorkerRuntimeDict:
         """Return the dictionary representation of the model using the field aliases."""

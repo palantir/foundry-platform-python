@@ -27,11 +27,11 @@ from foundry.v2.core.models._field_schema import FieldSchema
 class ArrayFieldType(pydantic.BaseModel):
     """ArrayFieldType"""
 
-    items_schema: FieldSchema = pydantic.Field(alias="itemsSchema")
+    items_schema: FieldSchema = pydantic.Field(alias=str("itemsSchema"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ArrayFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

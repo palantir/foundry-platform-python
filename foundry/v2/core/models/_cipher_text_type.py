@@ -28,15 +28,13 @@ from foundry.v2.core.models._cipher_text_type_dict import CipherTextTypeDict
 class CipherTextType(pydantic.BaseModel):
     """CipherTextType"""
 
-    default_cipher_channel: Optional[RID] = pydantic.Field(
-        alias="defaultCipherChannel", default=None
-    )
+    default_cipher_channel: Optional[RID] = pydantic.Field(alias=str("defaultCipherChannel"), default=None)  # type: ignore[literal-required]
 
     """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: Literal["cipherText"] = "cipherText"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> CipherTextTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

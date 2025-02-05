@@ -32,19 +32,19 @@ class Transaction(pydantic.BaseModel):
 
     rid: TransactionRid
 
-    transaction_type: TransactionType = pydantic.Field(alias="transactionType")
+    transaction_type: TransactionType = pydantic.Field(alias=str("transactionType"))  # type: ignore[literal-required]
 
     status: TransactionStatus
 
-    created_time: datetime = pydantic.Field(alias="createdTime")
+    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    closed_time: Optional[datetime] = pydantic.Field(alias="closedTime", default=None)
+    closed_time: Optional[datetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
 
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> TransactionDict:
         """Return the dictionary representation of the model using the field aliases."""

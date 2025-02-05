@@ -39,13 +39,11 @@ class ValidateActionResponseV2(pydantic.BaseModel):
 
     result: ValidationResult
 
-    submission_criteria: List[SubmissionCriteriaEvaluation] = pydantic.Field(
-        alias="submissionCriteria"
-    )
+    submission_criteria: List[SubmissionCriteriaEvaluation] = pydantic.Field(alias=str("submissionCriteria"))  # type: ignore[literal-required]
 
     parameters: Dict[ParameterId, ParameterEvaluationResult]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValidateActionResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

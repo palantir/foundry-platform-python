@@ -38,21 +38,21 @@ class Schedule(pydantic.BaseModel):
 
     rid: ScheduleRid
 
-    display_name: Optional[str] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[str] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
 
     description: Optional[str] = None
 
-    current_version_rid: ScheduleVersionRid = pydantic.Field(alias="currentVersionRid")
+    current_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("currentVersionRid"))  # type: ignore[literal-required]
 
     """The RID of the current schedule version"""
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
-    created_by: CreatedBy = pydantic.Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
 
-    updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
+    updated_time: UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
 
-    updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
+    updated_by: UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
 
     paused: SchedulePaused
 
@@ -65,9 +65,9 @@ class Schedule(pydantic.BaseModel):
 
     action: Action
 
-    scope_mode: ScopeMode = pydantic.Field(alias="scopeMode")
+    scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ScheduleDict:
         """Return the dictionary representation of the model using the field aliases."""

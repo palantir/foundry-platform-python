@@ -32,7 +32,7 @@ class AgentsSessionsPage(pydantic.BaseModel):
     Sessions are returned in order of most recently updated first.
     """
 
-    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
     """
     The page token that should be used when requesting the next page of results.
@@ -41,7 +41,7 @@ class AgentsSessionsPage(pydantic.BaseModel):
 
     data: List[Session]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentsSessionsPageDict:
         """Return the dictionary representation of the model using the field aliases."""

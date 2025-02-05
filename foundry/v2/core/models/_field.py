@@ -32,9 +32,9 @@ class Field(pydantic.BaseModel):
 
     name: FieldName
 
-    schema_: FieldSchema = pydantic.Field(alias="schema")
+    schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FieldDict:
         """Return the dictionary representation of the model using the field aliases."""

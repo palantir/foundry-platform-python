@@ -13,6 +13,9 @@
 #  limitations under the License.
 
 
+from foundry.v2.filesystem.errors._add_group_to_parent_group_permission_denied import (
+    AddGroupToParentGroupPermissionDenied,
+)  # NOQA
 from foundry.v2.filesystem.errors._add_markings_permission_denied import (
     AddMarkingsPermissionDenied,
 )  # NOQA
@@ -28,11 +31,20 @@ from foundry.v2.filesystem.errors._create_folder_outside_project_not_supported i
 from foundry.v2.filesystem.errors._create_folder_permission_denied import (
     CreateFolderPermissionDenied,
 )  # NOQA
+from foundry.v2.filesystem.errors._create_group_permission_denied import (
+    CreateGroupPermissionDenied,
+)  # NOQA
+from foundry.v2.filesystem.errors._create_project_from_template_permission_denied import (
+    CreateProjectFromTemplatePermissionDenied,
+)  # NOQA
 from foundry.v2.filesystem.errors._create_project_no_owner_like_role_grant import (
     CreateProjectNoOwnerLikeRoleGrant,
 )  # NOQA
 from foundry.v2.filesystem.errors._create_project_permission_denied import (
     CreateProjectPermissionDenied,
+)  # NOQA
+from foundry.v2.filesystem.errors._default_roles_not_in_space_role_set import (
+    DefaultRolesNotInSpaceRoleSet,
 )  # NOQA
 from foundry.v2.filesystem.errors._delete_resource_permission_denied import (
     DeleteResourcePermissionDenied,
@@ -50,12 +62,29 @@ from foundry.v2.filesystem.errors._get_access_requirements_permission_denied imp
 from foundry.v2.filesystem.errors._get_by_path_permission_denied import (
     GetByPathPermissionDenied,
 )  # NOQA
+from foundry.v2.filesystem.errors._invalid_default_roles import InvalidDefaultRoles
+from foundry.v2.filesystem.errors._invalid_description import InvalidDescription
 from foundry.v2.filesystem.errors._invalid_display_name import InvalidDisplayName
 from foundry.v2.filesystem.errors._invalid_folder import InvalidFolder
+from foundry.v2.filesystem.errors._invalid_organization_hierarchy import (
+    InvalidOrganizationHierarchy,
+)  # NOQA
+from foundry.v2.filesystem.errors._invalid_organizations import InvalidOrganizations
 from foundry.v2.filesystem.errors._invalid_path import InvalidPath
+from foundry.v2.filesystem.errors._invalid_principal_ids_for_group_template import (
+    InvalidPrincipalIdsForGroupTemplate,
+)  # NOQA
 from foundry.v2.filesystem.errors._invalid_role_ids import InvalidRoleIds
+from foundry.v2.filesystem.errors._invalid_variable import InvalidVariable
+from foundry.v2.filesystem.errors._invalid_variable_enum_option import (
+    InvalidVariableEnumOption,
+)  # NOQA
 from foundry.v2.filesystem.errors._marking_not_found import MarkingNotFound
 from foundry.v2.filesystem.errors._missing_display_name import MissingDisplayName
+from foundry.v2.filesystem.errors._missing_variable_value import MissingVariableValue
+from foundry.v2.filesystem.errors._not_authorized_to_apply_organization import (
+    NotAuthorizedToApplyOrganization,
+)  # NOQA
 from foundry.v2.filesystem.errors._organization_marking_not_on_space import (
     OrganizationMarkingNotOnSpace,
 )  # NOQA
@@ -74,6 +103,7 @@ from foundry.v2.filesystem.errors._project_name_already_exists import (
     ProjectNameAlreadyExists,
 )  # NOQA
 from foundry.v2.filesystem.errors._project_not_found import ProjectNotFound
+from foundry.v2.filesystem.errors._project_template_not_found import ProjectTemplateNotFound  # NOQA
 from foundry.v2.filesystem.errors._remove_markings_permission_denied import (
     RemoveMarkingsPermissionDenied,
 )  # NOQA
@@ -92,6 +122,12 @@ from foundry.v2.filesystem.errors._restore_resource_permission_denied import (
     RestoreResourcePermissionDenied,
 )  # NOQA
 from foundry.v2.filesystem.errors._space_not_found import SpaceNotFound
+from foundry.v2.filesystem.errors._template_group_name_conflict import (
+    TemplateGroupNameConflict,
+)  # NOQA
+from foundry.v2.filesystem.errors._template_marking_name_conflict import (
+    TemplateMarkingNameConflict,
+)  # NOQA
 from foundry.v2.filesystem.errors._trashing_autosaved_resources_not_supported import (
     TrashingAutosavedResourcesNotSupported,
 )  # NOQA
@@ -103,25 +139,38 @@ from foundry.v2.filesystem.errors._trashing_space_not_supported import (
 )  # NOQA
 
 __all__ = [
+    "AddGroupToParentGroupPermissionDenied",
     "AddMarkingsPermissionDenied",
     "AddOrganizationsPermissionDenied",
     "AddResourceRolesPermissionDenied",
     "CreateFolderOutsideProjectNotSupported",
     "CreateFolderPermissionDenied",
+    "CreateGroupPermissionDenied",
+    "CreateProjectFromTemplatePermissionDenied",
     "CreateProjectNoOwnerLikeRoleGrant",
     "CreateProjectPermissionDenied",
+    "DefaultRolesNotInSpaceRoleSet",
     "DeleteResourcePermissionDenied",
     "FolderNotFound",
     "ForbiddenOperationOnAutosavedResource",
     "ForbiddenOperationOnHiddenResource",
     "GetAccessRequirementsPermissionDenied",
     "GetByPathPermissionDenied",
+    "InvalidDefaultRoles",
+    "InvalidDescription",
     "InvalidDisplayName",
     "InvalidFolder",
+    "InvalidOrganizationHierarchy",
+    "InvalidOrganizations",
     "InvalidPath",
+    "InvalidPrincipalIdsForGroupTemplate",
     "InvalidRoleIds",
+    "InvalidVariable",
+    "InvalidVariableEnumOption",
     "MarkingNotFound",
     "MissingDisplayName",
+    "MissingVariableValue",
+    "NotAuthorizedToApplyOrganization",
     "OrganizationMarkingNotOnSpace",
     "OrganizationMarkingNotSupported",
     "OrganizationsNotFound",
@@ -130,6 +179,7 @@ __all__ = [
     "ProjectCreationNotSupported",
     "ProjectNameAlreadyExists",
     "ProjectNotFound",
+    "ProjectTemplateNotFound",
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
@@ -138,6 +188,8 @@ __all__ = [
     "ResourceNotTrashed",
     "RestoreResourcePermissionDenied",
     "SpaceNotFound",
+    "TemplateGroupNameConflict",
+    "TemplateMarkingNameConflict",
     "TrashingAutosavedResourcesNotSupported",
     "TrashingHiddenResourcesNotSupported",
     "TrashingSpaceNotSupported",

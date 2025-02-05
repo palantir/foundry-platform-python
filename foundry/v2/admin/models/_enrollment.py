@@ -33,9 +33,9 @@ class Enrollment(pydantic.BaseModel):
 
     name: EnrollmentName
 
-    created_time: Optional[CreatedTime] = pydantic.Field(alias="createdTime", default=None)
+    created_time: Optional[CreatedTime] = pydantic.Field(alias=str("createdTime"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> EnrollmentDict:
         """Return the dictionary representation of the model using the field aliases."""

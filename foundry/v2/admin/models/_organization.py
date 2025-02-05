@@ -36,7 +36,7 @@ class Organization(pydantic.BaseModel):
 
     description: Optional[str] = None
 
-    marking_id: MarkingId = pydantic.Field(alias="markingId")
+    marking_id: MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
 
     """
     The ID of this Organization's underlying marking. Organization guest access can be managed
@@ -50,7 +50,7 @@ class Organization(pydantic.BaseModel):
     Organization.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OrganizationDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -28,11 +28,11 @@ from foundry.v2.ontologies.models._object_set_union_type_dict import ObjectSetUn
 class ObjectSetUnionType(pydantic.BaseModel):
     """ObjectSetUnionType"""
 
-    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias=str("objectSets"))  # type: ignore[literal-required]
 
     type: Literal["union"] = "union"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

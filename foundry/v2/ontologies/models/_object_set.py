@@ -64,13 +64,13 @@ from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 class ObjectSetSearchAroundType(pydantic.BaseModel):
     """ObjectSetSearchAroundType"""
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     link: LinkTypeApiName
 
     type: Literal["searchAround"] = "searchAround"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetSearchAroundTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -82,11 +82,11 @@ class ObjectSetSearchAroundType(pydantic.BaseModel):
 class ObjectSetIntersectionType(pydantic.BaseModel):
     """ObjectSetIntersectionType"""
 
-    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias=str("objectSets"))  # type: ignore[literal-required]
 
     type: Literal["intersect"] = "intersect"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetIntersectionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -98,11 +98,11 @@ class ObjectSetIntersectionType(pydantic.BaseModel):
 class ObjectSetSubtractType(pydantic.BaseModel):
     """ObjectSetSubtractType"""
 
-    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias=str("objectSets"))  # type: ignore[literal-required]
 
     type: Literal["subtract"] = "subtract"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetSubtractTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -112,11 +112,11 @@ class ObjectSetSubtractType(pydantic.BaseModel):
 class ObjectSetUnionType(pydantic.BaseModel):
     """ObjectSetUnionType"""
 
-    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias=str("objectSets"))  # type: ignore[literal-required]
 
     type: Literal["union"] = "union"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -130,15 +130,15 @@ class ObjectSetAsTypeType(pydantic.BaseModel):
     object set. This is currently unsupported and an exception will be thrown if used.
     """
 
-    entity_type: str = pydantic.Field(alias="entityType")
+    entity_type: str = pydantic.Field(alias=str("entityType"))  # type: ignore[literal-required]
 
     """An object type or interface type API name."""
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     type: Literal["asType"] = "asType"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetAsTypeTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -148,13 +148,13 @@ class ObjectSetAsTypeType(pydantic.BaseModel):
 class ObjectSetFilterType(pydantic.BaseModel):
     """ObjectSetFilterType"""
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     where: SearchJsonQueryV2
 
     type: Literal["filter"] = "filter"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetFilterTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -164,11 +164,11 @@ class ObjectSetFilterType(pydantic.BaseModel):
 class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
     """ObjectSetAsBaseObjectTypesType"""
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     type: Literal["asBaseObjectTypes"] = "asBaseObjectTypes"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetAsBaseObjectTypesTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

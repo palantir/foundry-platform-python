@@ -30,17 +30,13 @@ from foundry.v2.ontologies.models._ontology_object_set_type_dict import (
 class OntologyObjectSetType(pydantic.BaseModel):
     """OntologyObjectSetType"""
 
-    object_api_name: Optional[ObjectTypeApiName] = pydantic.Field(
-        alias="objectApiName", default=None
-    )
+    object_api_name: Optional[ObjectTypeApiName] = pydantic.Field(alias=str("objectApiName"), default=None)  # type: ignore[literal-required]
 
-    object_type_api_name: Optional[ObjectTypeApiName] = pydantic.Field(
-        alias="objectTypeApiName", default=None
-    )
+    object_type_api_name: Optional[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypeApiName"), default=None)  # type: ignore[literal-required]
 
     type: Literal["objectSet"] = "objectSet"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyObjectSetTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

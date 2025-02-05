@@ -3227,6 +3227,37 @@ def filesystem_project_create(
     click.echo(repr(result))
 
 
+@filesystem_project.command("create_from_template")
+@click.option("--template_rid", type=str, required=True, help="""""")
+@click.option("--variable_values", type=str, required=True, help="""""")
+@click.option("--default_roles", type=str, required=False, help="""""")
+@click.option("--organization_rids", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--project_description", type=str, required=False, help="""""")
+@click.pass_obj
+def filesystem_project_create_from_template(
+    client: foundry.v2.FoundryClient,
+    template_rid: str,
+    variable_values: str,
+    default_roles: Optional[str],
+    organization_rids: Optional[str],
+    preview: Optional[bool],
+    project_description: Optional[str],
+):
+    """
+    Creates a project from a project template.
+    """
+    result = client.filesystem.Project.create_from_template(
+        template_rid=template_rid,
+        variable_values=json.loads(variable_values),
+        default_roles=None if default_roles is None else json.loads(default_roles),
+        organization_rids=None if organization_rids is None else json.loads(organization_rids),
+        preview=preview,
+        project_description=project_description,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_project.command("get")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")

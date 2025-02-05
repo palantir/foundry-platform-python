@@ -35,13 +35,13 @@ class MediaSetUpdatedTrigger(pydantic.BaseModel):
     eventually (but not necessary immediately) after an update.
     """
 
-    media_set_rid: MediaSetRid = pydantic.Field(alias="mediaSetRid")
+    media_set_rid: MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
 
-    branch_name: BranchName = pydantic.Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
 
     type: Literal["mediaSetUpdated"] = "mediaSetUpdated"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MediaSetUpdatedTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""

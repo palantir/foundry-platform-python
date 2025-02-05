@@ -29,11 +29,11 @@ from foundry.v2.functions.models._value_type_data_type_optional_type_dict import
 class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
     """ValueTypeDataTypeOptionalType"""
 
-    wrapped_type: ValueTypeDataType = pydantic.Field(alias="wrappedType")
+    wrapped_type: ValueTypeDataType = pydantic.Field(alias=str("wrappedType"))  # type: ignore[literal-required]
 
     type: Literal["optional"] = "optional"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeOptionalTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

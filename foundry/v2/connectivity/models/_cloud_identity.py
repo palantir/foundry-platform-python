@@ -30,11 +30,11 @@ class CloudIdentity(pydantic.BaseModel):
     cloud provider resources without the use of static credentials.
     """
 
-    cloud_identity_rid: CloudIdentityRid = pydantic.Field(alias="cloudIdentityRid")
+    cloud_identity_rid: CloudIdentityRid = pydantic.Field(alias=str("cloudIdentityRid"))  # type: ignore[literal-required]
 
     type: Literal["cloudIdentity"] = "cloudIdentity"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> CloudIdentityDict:
         """Return the dictionary representation of the model using the field aliases."""

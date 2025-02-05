@@ -29,11 +29,11 @@ from foundry.v2.aip_agents.models._session_exchange_contexts_dict import (
 class SessionExchangeContexts(pydantic.BaseModel):
     """Retrieved context which was passed to the Agent as input for the exchange."""
 
-    object_contexts: List[ObjectContext] = pydantic.Field(alias="objectContexts")
+    object_contexts: List[ObjectContext] = pydantic.Field(alias=str("objectContexts"))  # type: ignore[literal-required]
 
     """Relevant object context for the user's message that was included in the prompt to the Agent."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SessionExchangeContextsDict:
         """Return the dictionary representation of the model using the field aliases."""

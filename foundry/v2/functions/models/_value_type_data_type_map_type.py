@@ -29,13 +29,13 @@ from foundry.v2.functions.models._value_type_data_type_map_type_dict import (
 class ValueTypeDataTypeMapType(pydantic.BaseModel):
     """ValueTypeDataTypeMapType"""
 
-    key_type: ValueTypeDataType = pydantic.Field(alias="keyType")
+    key_type: ValueTypeDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
 
-    value_type: ValueTypeDataType = pydantic.Field(alias="valueType")
+    value_type: ValueTypeDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
 
     type: Literal["map"] = "map"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeMapTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

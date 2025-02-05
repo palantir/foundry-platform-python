@@ -38,7 +38,7 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
 
     type: Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MicrosoftSqlServerImportConfigDict:
         """Return the dictionary representation of the model using the field aliases."""

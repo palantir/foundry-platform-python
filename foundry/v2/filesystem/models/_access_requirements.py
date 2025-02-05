@@ -35,7 +35,7 @@ class AccessRequirements(pydantic.BaseModel):
 
     markings: List[Marking]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AccessRequirementsDict:
         """Return the dictionary representation of the model using the field aliases."""

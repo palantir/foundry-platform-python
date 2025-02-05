@@ -27,13 +27,13 @@ from foundry.v2.orchestration.models._schedule_run_error_name import ScheduleRun
 class ScheduleRunError(pydantic.BaseModel):
     """An error occurred attempting to run the schedule."""
 
-    error_name: ScheduleRunErrorName = pydantic.Field(alias="errorName")
+    error_name: ScheduleRunErrorName = pydantic.Field(alias=str("errorName"))  # type: ignore[literal-required]
 
     description: str
 
     type: Literal["error"] = "error"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ScheduleRunErrorDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -34,15 +34,13 @@ class VectorType(pydantic.BaseModel):
 
     """The dimension of the vector."""
 
-    supports_search_with: List[VectorSimilarityFunction] = pydantic.Field(
-        alias="supportsSearchWith"
-    )
+    supports_search_with: List[VectorSimilarityFunction] = pydantic.Field(alias=str("supportsSearchWith"))  # type: ignore[literal-required]
 
-    embedding_model: Optional[EmbeddingModel] = pydantic.Field(alias="embeddingModel", default=None)
+    embedding_model: Optional[EmbeddingModel] = pydantic.Field(alias=str("embeddingModel"), default=None)  # type: ignore[literal-required]
 
     type: Literal["vector"] = "vector"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> VectorTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

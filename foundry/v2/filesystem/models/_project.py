@@ -37,7 +37,7 @@ class Project(pydantic.BaseModel):
 
     rid: ProjectRid
 
-    display_name: ResourceDisplayName = pydantic.Field(alias="displayName")
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     """The display name of the Project. Must be unique and cannot contain a /"""
 
@@ -51,23 +51,23 @@ class Project(pydantic.BaseModel):
 
     path: ResourcePath
 
-    created_by: CreatedBy = pydantic.Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
 
-    updated_by: UpdatedBy = pydantic.Field(alias="updatedBy")
+    updated_by: UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
-    updated_time: UpdatedTime = pydantic.Field(alias="updatedTime")
+    updated_time: UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
 
-    trash_status: TrashStatus = pydantic.Field(alias="trashStatus")
+    trash_status: TrashStatus = pydantic.Field(alias=str("trashStatus"))  # type: ignore[literal-required]
 
     """The trash status of the Project."""
 
-    space_rid: SpaceRid = pydantic.Field(alias="spaceRid")
+    space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
 
     """The Space Resource Identifier (RID) that the Project lives in."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ProjectDict:
         """Return the dictionary representation of the model using the field aliases."""

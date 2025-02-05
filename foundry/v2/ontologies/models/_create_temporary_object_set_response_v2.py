@@ -28,9 +28,9 @@ from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
 class CreateTemporaryObjectSetResponseV2(pydantic.BaseModel):
     """CreateTemporaryObjectSetResponseV2"""
 
-    object_set_rid: ObjectSetRid = pydantic.Field(alias="objectSetRid")
+    object_set_rid: ObjectSetRid = pydantic.Field(alias=str("objectSetRid"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> CreateTemporaryObjectSetResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

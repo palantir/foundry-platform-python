@@ -19,6 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -40,9 +41,11 @@ from foundry.v2.ontologies.models._aggregate_objects_response_v2 import (
 from foundry.v2.ontologies.models._aggregation_accuracy_request import (
     AggregationAccuracyRequest,
 )  # NOQA
+from foundry.v2.ontologies.models._aggregation_group_by_v2 import AggregationGroupByV2
 from foundry.v2.ontologies.models._aggregation_group_by_v2_dict import (
     AggregationGroupByV2Dict,
 )  # NOQA
+from foundry.v2.ontologies.models._aggregation_v2 import AggregationV2
 from foundry.v2.ontologies.models._aggregation_v2_dict import AggregationV2Dict
 from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
 from foundry.v2.ontologies.models._create_temporary_object_set_response_v2 import (
@@ -56,6 +59,7 @@ from foundry.v2.ontologies.models._object_set_dict import ObjectSetDict
 from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
 from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
 from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
+from foundry.v2.ontologies.models._search_order_by_v2 import SearchOrderByV2
 from foundry.v2.ontologies.models._search_order_by_v2_dict import SearchOrderByV2Dict
 from foundry.v2.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
 
@@ -90,9 +94,9 @@ class OntologyObjectSetClient:
         self,
         ontology: OntologyIdentifier,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
-        object_set: ObjectSetDict,
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
+        object_set: Union[ObjectSet, ObjectSetDict],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
@@ -106,11 +110,11 @@ class OntologyObjectSetClient:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
@@ -147,9 +151,9 @@ class OntologyObjectSetClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "objectSet": ObjectSetDict,
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -165,7 +169,7 @@ class OntologyObjectSetClient:
         self,
         ontology: OntologyIdentifier,
         *,
-        object_set: ObjectSetDict,
+        object_set: Union[ObjectSet, ObjectSetDict],
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> CreateTemporaryObjectSetResponseV2:
         """
@@ -177,7 +181,7 @@ class OntologyObjectSetClient:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -202,7 +206,7 @@ class OntologyObjectSetClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": ObjectSetDict,
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
                     },
                 ),
                 response_type=CreateTemporaryObjectSetResponseV2,
@@ -261,11 +265,11 @@ class OntologyObjectSetClient:
         self,
         ontology: OntologyIdentifier,
         *,
-        object_set: ObjectSetDict,
+        object_set: Union[ObjectSet, ObjectSetDict],
         select: List[SelectedPropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         exclude_rid: Optional[bool] = None,
-        order_by: Optional[SearchOrderByV2Dict] = None,
+        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
@@ -284,7 +288,7 @@ class OntologyObjectSetClient:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param artifact_repository: artifactRepository
@@ -292,7 +296,7 @@ class OntologyObjectSetClient:
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[SearchOrderByV2Dict]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -331,8 +335,8 @@ class OntologyObjectSetClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": ObjectSetDict,
-                        "orderBy": Optional[SearchOrderByV2Dict],
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
                         "select": List[SelectedPropertyApiName],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],
@@ -369,9 +373,9 @@ class _OntologyObjectSetClientRaw:
         self,
         ontology: OntologyIdentifier,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
-        object_set: ObjectSetDict,
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
+        object_set: Union[ObjectSet, ObjectSetDict],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
@@ -385,11 +389,11 @@ class _OntologyObjectSetClientRaw:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
@@ -426,9 +430,9 @@ class _OntologyObjectSetClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "objectSet": ObjectSetDict,
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -444,7 +448,7 @@ class _OntologyObjectSetClientRaw:
         self,
         ontology: OntologyIdentifier,
         *,
-        object_set: ObjectSetDict,
+        object_set: Union[ObjectSet, ObjectSetDict],
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[CreateTemporaryObjectSetResponseV2]:
         """
@@ -456,7 +460,7 @@ class _OntologyObjectSetClientRaw:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -481,7 +485,7 @@ class _OntologyObjectSetClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": ObjectSetDict,
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
                     },
                 ),
                 response_type=CreateTemporaryObjectSetResponseV2,
@@ -540,11 +544,11 @@ class _OntologyObjectSetClientRaw:
         self,
         ontology: OntologyIdentifier,
         *,
-        object_set: ObjectSetDict,
+        object_set: Union[ObjectSet, ObjectSetDict],
         select: List[SelectedPropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         exclude_rid: Optional[bool] = None,
-        order_by: Optional[SearchOrderByV2Dict] = None,
+        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
@@ -563,7 +567,7 @@ class _OntologyObjectSetClientRaw:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param artifact_repository: artifactRepository
@@ -571,7 +575,7 @@ class _OntologyObjectSetClientRaw:
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[SearchOrderByV2Dict]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -610,8 +614,8 @@ class _OntologyObjectSetClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": ObjectSetDict,
-                        "orderBy": Optional[SearchOrderByV2Dict],
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
                         "select": List[SelectedPropertyApiName],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],
@@ -648,9 +652,9 @@ class _OntologyObjectSetClientStreaming:
         self,
         ontology: OntologyIdentifier,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
-        object_set: ObjectSetDict,
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
+        object_set: Union[ObjectSet, ObjectSetDict],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
@@ -664,11 +668,11 @@ class _OntologyObjectSetClientStreaming:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
@@ -705,9 +709,9 @@ class _OntologyObjectSetClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "objectSet": ObjectSetDict,
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -723,7 +727,7 @@ class _OntologyObjectSetClientStreaming:
         self,
         ontology: OntologyIdentifier,
         *,
-        object_set: ObjectSetDict,
+        object_set: Union[ObjectSet, ObjectSetDict],
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[CreateTemporaryObjectSetResponseV2]:
         """
@@ -735,7 +739,7 @@ class _OntologyObjectSetClientStreaming:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -760,7 +764,7 @@ class _OntologyObjectSetClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": ObjectSetDict,
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
                     },
                 ),
                 response_type=CreateTemporaryObjectSetResponseV2,
@@ -819,11 +823,11 @@ class _OntologyObjectSetClientStreaming:
         self,
         ontology: OntologyIdentifier,
         *,
-        object_set: ObjectSetDict,
+        object_set: Union[ObjectSet, ObjectSetDict],
         select: List[SelectedPropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         exclude_rid: Optional[bool] = None,
-        order_by: Optional[SearchOrderByV2Dict] = None,
+        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
@@ -842,7 +846,7 @@ class _OntologyObjectSetClientStreaming:
         :param ontology: ontology
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: ObjectSetDict
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param artifact_repository: artifactRepository
@@ -850,7 +854,7 @@ class _OntologyObjectSetClientStreaming:
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[SearchOrderByV2Dict]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -889,8 +893,8 @@ class _OntologyObjectSetClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": ObjectSetDict,
-                        "orderBy": Optional[SearchOrderByV2Dict],
+                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
                         "select": List[SelectedPropertyApiName],
                         "pageToken": Optional[PageToken],
                         "pageSize": Optional[PageSize],

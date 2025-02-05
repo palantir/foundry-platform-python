@@ -28,17 +28,17 @@ from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 class DeleteLinkRule(pydantic.BaseModel):
     """DeleteLinkRule"""
 
-    link_type_api_name_ato_b: LinkTypeApiName = pydantic.Field(alias="linkTypeApiNameAtoB")
+    link_type_api_name_ato_b: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameAtoB"))  # type: ignore[literal-required]
 
-    link_type_api_name_bto_a: LinkTypeApiName = pydantic.Field(alias="linkTypeApiNameBtoA")
+    link_type_api_name_bto_a: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameBtoA"))  # type: ignore[literal-required]
 
-    a_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="aSideObjectTypeApiName")
+    a_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("aSideObjectTypeApiName"))  # type: ignore[literal-required]
 
-    b_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="bSideObjectTypeApiName")
+    b_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("bSideObjectTypeApiName"))  # type: ignore[literal-required]
 
     type: Literal["deleteLink"] = "deleteLink"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> DeleteLinkRuleDict:
         """Return the dictionary representation of the model using the field aliases."""

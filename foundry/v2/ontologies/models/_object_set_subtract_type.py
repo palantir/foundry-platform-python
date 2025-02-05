@@ -30,11 +30,11 @@ from foundry.v2.ontologies.models._object_set_subtract_type_dict import (
 class ObjectSetSubtractType(pydantic.BaseModel):
     """ObjectSetSubtractType"""
 
-    object_sets: List[ObjectSet] = pydantic.Field(alias="objectSets")
+    object_sets: List[ObjectSet] = pydantic.Field(alias=str("objectSets"))  # type: ignore[literal-required]
 
     type: Literal["subtract"] = "subtract"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetSubtractTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -42,17 +42,15 @@ class InterfaceLinkType(pydantic.BaseModel):
 
     rid: InterfaceLinkTypeRid
 
-    api_name: InterfaceLinkTypeApiName = pydantic.Field(alias="apiName")
+    api_name: InterfaceLinkTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: DisplayName = pydantic.Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     description: Optional[str] = None
 
     """The description of the interface link type."""
 
-    linked_entity_api_name: InterfaceLinkTypeLinkedEntityApiName = pydantic.Field(
-        alias="linkedEntityApiName"
-    )
+    linked_entity_api_name: InterfaceLinkTypeLinkedEntityApiName = pydantic.Field(alias=str("linkedEntityApiName"))  # type: ignore[literal-required]
 
     cardinality: InterfaceLinkTypeCardinality
 
@@ -60,7 +58,7 @@ class InterfaceLinkType(pydantic.BaseModel):
 
     """Whether each implementing object type must declare at least one implementation of this link."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> InterfaceLinkTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

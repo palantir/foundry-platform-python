@@ -40,7 +40,7 @@ class S3ProxyConfiguration(pydantic.BaseModel):
 
     port: int
 
-    non_proxy_hosts: Optional[List[str]] = pydantic.Field(alias="nonProxyHosts", default=None)
+    non_proxy_hosts: Optional[List[str]] = pydantic.Field(alias=str("nonProxyHosts"), default=None)  # type: ignore[literal-required]
 
     """A list of hosts that can bypass the proxy, such as those used for STS Role. You can also use "*" wildcards."""
 
@@ -50,7 +50,7 @@ class S3ProxyConfiguration(pydantic.BaseModel):
 
     credentials: Optional[BasicCredentials] = None
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> S3ProxyConfigurationDict:
         """Return the dictionary representation of the model using the field aliases."""

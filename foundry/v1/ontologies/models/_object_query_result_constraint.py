@@ -30,7 +30,7 @@ class ObjectQueryResultConstraint(pydantic.BaseModel):
 
     type: Literal["objectQueryResult"] = "objectQueryResult"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectQueryResultConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -37,7 +37,7 @@ class SelectedPropertyCollectSetAggregation(pydantic.BaseModel):
     Returns an empty list when none of the objects have values for a provided property.
     """
 
-    selected_property_api_name: PropertyApiName = pydantic.Field(alias="selectedPropertyApiName")
+    selected_property_api_name: PropertyApiName = pydantic.Field(alias=str("selectedPropertyApiName"))  # type: ignore[literal-required]
 
     limit: int
 
@@ -45,7 +45,7 @@ class SelectedPropertyCollectSetAggregation(pydantic.BaseModel):
 
     type: Literal["collectSet"] = "collectSet"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SelectedPropertyCollectSetAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""

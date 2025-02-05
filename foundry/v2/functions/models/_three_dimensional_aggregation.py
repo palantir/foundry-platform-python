@@ -32,13 +32,13 @@ from foundry.v2.functions.models._two_dimensional_aggregation import (
 class ThreeDimensionalAggregation(pydantic.BaseModel):
     """ThreeDimensionalAggregation"""
 
-    key_type: QueryAggregationKeyType = pydantic.Field(alias="keyType")
+    key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
 
-    value_type: TwoDimensionalAggregation = pydantic.Field(alias="valueType")
+    value_type: TwoDimensionalAggregation = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
 
     type: Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ThreeDimensionalAggregationDict:
         """Return the dictionary representation of the model using the field aliases."""

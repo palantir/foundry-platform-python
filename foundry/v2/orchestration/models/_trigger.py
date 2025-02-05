@@ -44,7 +44,7 @@ class OrTrigger(pydantic.BaseModel):
 
     type: Literal["or"] = "or"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OrTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -58,7 +58,7 @@ class AndTrigger(pydantic.BaseModel):
 
     type: Literal["and"] = "and"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AndTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -30,11 +30,11 @@ from foundry.v2.functions.models._value_type_data_type_union_type_dict import (
 class ValueTypeDataTypeUnionType(pydantic.BaseModel):
     """ValueTypeDataTypeUnionType"""
 
-    member_types: List[ValueTypeDataType] = pydantic.Field(alias="memberTypes")
+    member_types: List[ValueTypeDataType] = pydantic.Field(alias=str("memberTypes"))  # type: ignore[literal-required]
 
     type: Literal["union"] = "union"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeUnionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

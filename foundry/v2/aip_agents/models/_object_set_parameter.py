@@ -28,13 +28,13 @@ from foundry.v2.ontologies.models._object_type_id import ObjectTypeId
 class ObjectSetParameter(pydantic.BaseModel):
     """ObjectSetParameter"""
 
-    expected_object_types: List[ObjectTypeId] = pydantic.Field(alias="expectedObjectTypes")
+    expected_object_types: List[ObjectTypeId] = pydantic.Field(alias=str("expectedObjectTypes"))  # type: ignore[literal-required]
 
     """The types of objects that are expected in ObjectSet values passed for this variable."""
 
     type: Literal["objectSet"] = "objectSet"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetParameterDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -34,7 +34,7 @@ class Oidc(pydantic.BaseModel):
 
     """The configured audience that identifies the external system."""
 
-    issuer_url: str = pydantic.Field(alias="issuerUrl")
+    issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
 
     """The URL that identifies Foundry as an OIDC identity provider."""
 
@@ -44,7 +44,7 @@ class Oidc(pydantic.BaseModel):
 
     type: Literal["oidc"] = "oidc"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OidcDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -20,12 +20,12 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**aggregation** | List[AggregationV2Dict] |  |  |
-**group_by** | List[AggregationGroupByV2Dict] |  |  |
+**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
+**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**where** | Optional[SearchJsonQueryV2Dict] |  | [optional] |
+**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -45,12 +45,12 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# List[AggregationV2Dict] |
+# List[Union[AggregationV2, AggregationV2Dict]] |
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[AggregationGroupByV2Dict] |
+# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
 group_by = [
     {
         "field": "startDate",
@@ -65,7 +65,7 @@ accuracy = None
 artifact_repository = None
 # Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[SearchJsonQueryV2Dict] |
+# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
 where = {"type": "eq", "field": "name", "value": "john"}
 
 
@@ -475,11 +475,11 @@ Name | Type | Description  | Notes |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[SearchOrderByV2Dict] |  | [optional] |
+**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
-**where** | Optional[SearchJsonQueryV2Dict] |  | [optional] |
+**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
 
 ### Return type
 **SearchObjectsResponseV2**
@@ -505,7 +505,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[SearchOrderByV2Dict] |
+# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |
 order_by = None
 # Optional[SdkPackageName] | packageName
 package_name = None
@@ -513,7 +513,7 @@ package_name = None
 page_size = None
 # Optional[PageToken] |
 page_token = None
-# Optional[SearchJsonQueryV2Dict] |
+# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
 where = {"type": "eq", "field": "age", "value": 21}
 
 

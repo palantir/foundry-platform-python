@@ -35,7 +35,7 @@ class TimeSeriesPoint(pydantic.BaseModel):
 
     """An object which is either an enum String or a double number."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> TimeSeriesPointDict:
         """Return the dictionary representation of the model using the field aliases."""

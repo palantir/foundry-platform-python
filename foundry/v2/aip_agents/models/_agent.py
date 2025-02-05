@@ -48,7 +48,7 @@ class Agent(pydantic.BaseModel):
     These variables can be used to send custom values in prompts sent to an Agent to customize and control the Agent's behavior.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentDict:
         """Return the dictionary representation of the model using the field aliases."""

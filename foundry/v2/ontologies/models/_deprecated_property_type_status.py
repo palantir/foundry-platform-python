@@ -38,11 +38,11 @@ class DeprecatedPropertyTypeStatus(pydantic.BaseModel):
 
     deadline: datetime
 
-    replaced_by: Optional[PropertyTypeRid] = pydantic.Field(alias="replacedBy", default=None)
+    replaced_by: Optional[PropertyTypeRid] = pydantic.Field(alias=str("replacedBy"), default=None)  # type: ignore[literal-required]
 
     type: Literal["deprecated"] = "deprecated"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> DeprecatedPropertyTypeStatusDict:
         """Return the dictionary representation of the model using the field aliases."""

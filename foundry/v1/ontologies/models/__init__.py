@@ -30,16 +30,27 @@ from foundry.v1.ontologies.models._aggregate_objects_response_item import (
 from foundry.v1.ontologies.models._aggregate_objects_response_item_dict import (
     AggregateObjectsResponseItemDict,
 )  # NOQA
+from foundry.v1.ontologies.models._aggregation import Aggregation
 from foundry.v1.ontologies.models._aggregation_dict import AggregationDict
+from foundry.v1.ontologies.models._aggregation_duration_grouping import (
+    AggregationDurationGrouping,
+)  # NOQA
 from foundry.v1.ontologies.models._aggregation_duration_grouping_dict import (
     AggregationDurationGroupingDict,
+)  # NOQA
+from foundry.v1.ontologies.models._aggregation_exact_grouping import (
+    AggregationExactGrouping,
 )  # NOQA
 from foundry.v1.ontologies.models._aggregation_exact_grouping_dict import (
     AggregationExactGroupingDict,
 )  # NOQA
+from foundry.v1.ontologies.models._aggregation_fixed_width_grouping import (
+    AggregationFixedWidthGrouping,
+)  # NOQA
 from foundry.v1.ontologies.models._aggregation_fixed_width_grouping_dict import (
     AggregationFixedWidthGroupingDict,
 )  # NOQA
+from foundry.v1.ontologies.models._aggregation_group_by import AggregationGroupBy
 from foundry.v1.ontologies.models._aggregation_group_by_dict import AggregationGroupByDict  # NOQA
 from foundry.v1.ontologies.models._aggregation_group_key import AggregationGroupKey
 from foundry.v1.ontologies.models._aggregation_group_value import AggregationGroupValue
@@ -48,14 +59,22 @@ from foundry.v1.ontologies.models._aggregation_metric_result import AggregationM
 from foundry.v1.ontologies.models._aggregation_metric_result_dict import (
     AggregationMetricResultDict,
 )  # NOQA
+from foundry.v1.ontologies.models._aggregation_range import AggregationRange
 from foundry.v1.ontologies.models._aggregation_range_dict import AggregationRangeDict
+from foundry.v1.ontologies.models._aggregation_ranges_grouping import (
+    AggregationRangesGrouping,
+)  # NOQA
 from foundry.v1.ontologies.models._aggregation_ranges_grouping_dict import (
     AggregationRangesGroupingDict,
 )  # NOQA
+from foundry.v1.ontologies.models._all_terms_query import AllTermsQuery
 from foundry.v1.ontologies.models._all_terms_query_dict import AllTermsQueryDict
+from foundry.v1.ontologies.models._and_query import AndQuery
 from foundry.v1.ontologies.models._and_query_dict import AndQueryDict
+from foundry.v1.ontologies.models._any_term_query import AnyTermQuery
 from foundry.v1.ontologies.models._any_term_query_dict import AnyTermQueryDict
 from foundry.v1.ontologies.models._apply_action_mode import ApplyActionMode
+from foundry.v1.ontologies.models._apply_action_request import ApplyActionRequest
 from foundry.v1.ontologies.models._apply_action_request_dict import ApplyActionRequestDict  # NOQA
 from foundry.v1.ontologies.models._apply_action_request_options import (
     ApplyActionRequestOptions,
@@ -65,6 +84,9 @@ from foundry.v1.ontologies.models._apply_action_request_options_dict import (
 )  # NOQA
 from foundry.v1.ontologies.models._apply_action_response import ApplyActionResponse
 from foundry.v1.ontologies.models._apply_action_response_dict import ApplyActionResponseDict  # NOQA
+from foundry.v1.ontologies.models._approximate_distinct_aggregation import (
+    ApproximateDistinctAggregation,
+)  # NOQA
 from foundry.v1.ontologies.models._approximate_distinct_aggregation_dict import (
     ApproximateDistinctAggregationDict,
 )  # NOQA
@@ -72,6 +94,7 @@ from foundry.v1.ontologies.models._array_size_constraint import ArraySizeConstra
 from foundry.v1.ontologies.models._array_size_constraint_dict import ArraySizeConstraintDict  # NOQA
 from foundry.v1.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
 from foundry.v1.ontologies.models._attachment_rid import AttachmentRid
+from foundry.v1.ontologies.models._avg_aggregation import AvgAggregation
 from foundry.v1.ontologies.models._avg_aggregation_dict import AvgAggregationDict
 from foundry.v1.ontologies.models._batch_apply_action_response import (
     BatchApplyActionResponse,
@@ -79,7 +102,9 @@ from foundry.v1.ontologies.models._batch_apply_action_response import (
 from foundry.v1.ontologies.models._batch_apply_action_response_dict import (
     BatchApplyActionResponseDict,
 )  # NOQA
+from foundry.v1.ontologies.models._contains_query import ContainsQuery
 from foundry.v1.ontologies.models._contains_query_dict import ContainsQueryDict
+from foundry.v1.ontologies.models._count_aggregation import CountAggregation
 from foundry.v1.ontologies.models._count_aggregation_dict import CountAggregationDict
 from foundry.v1.ontologies.models._create_interface_object_rule import (
     CreateInterfaceObjectRule,
@@ -104,6 +129,7 @@ from foundry.v1.ontologies.models._delete_object_rule import DeleteObjectRule
 from foundry.v1.ontologies.models._delete_object_rule_dict import DeleteObjectRuleDict
 from foundry.v1.ontologies.models._derived_property_api_name import DerivedPropertyApiName  # NOQA
 from foundry.v1.ontologies.models._duration import Duration
+from foundry.v1.ontologies.models._equals_query import EqualsQuery
 from foundry.v1.ontologies.models._equals_query_dict import EqualsQueryDict
 from foundry.v1.ontologies.models._execute_query_response import ExecuteQueryResponse
 from foundry.v1.ontologies.models._execute_query_response_dict import (
@@ -118,10 +144,13 @@ from foundry.v1.ontologies.models._group_member_constraint import GroupMemberCon
 from foundry.v1.ontologies.models._group_member_constraint_dict import (
     GroupMemberConstraintDict,
 )  # NOQA
+from foundry.v1.ontologies.models._gt_query import GtQuery
 from foundry.v1.ontologies.models._gt_query_dict import GtQueryDict
+from foundry.v1.ontologies.models._gte_query import GteQuery
 from foundry.v1.ontologies.models._gte_query_dict import GteQueryDict
 from foundry.v1.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v1.ontologies.models._interface_type_rid import InterfaceTypeRid
+from foundry.v1.ontologies.models._is_null_query import IsNullQuery
 from foundry.v1.ontologies.models._is_null_query_dict import IsNullQueryDict
 from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
 from foundry.v1.ontologies.models._link_type_side import LinkTypeSide
@@ -159,9 +188,13 @@ from foundry.v1.ontologies.models._list_query_types_response_dict import (
 )  # NOQA
 from foundry.v1.ontologies.models._logic_rule import LogicRule
 from foundry.v1.ontologies.models._logic_rule_dict import LogicRuleDict
+from foundry.v1.ontologies.models._lt_query import LtQuery
 from foundry.v1.ontologies.models._lt_query_dict import LtQueryDict
+from foundry.v1.ontologies.models._lte_query import LteQuery
 from foundry.v1.ontologies.models._lte_query_dict import LteQueryDict
+from foundry.v1.ontologies.models._max_aggregation import MaxAggregation
 from foundry.v1.ontologies.models._max_aggregation_dict import MaxAggregationDict
+from foundry.v1.ontologies.models._min_aggregation import MinAggregation
 from foundry.v1.ontologies.models._min_aggregation_dict import MinAggregationDict
 from foundry.v1.ontologies.models._modify_interface_object_rule import (
     ModifyInterfaceObjectRule,
@@ -171,6 +204,7 @@ from foundry.v1.ontologies.models._modify_interface_object_rule_dict import (
 )  # NOQA
 from foundry.v1.ontologies.models._modify_object_rule import ModifyObjectRule
 from foundry.v1.ontologies.models._modify_object_rule_dict import ModifyObjectRuleDict
+from foundry.v1.ontologies.models._not_query import NotQuery
 from foundry.v1.ontologies.models._not_query_dict import NotQueryDict
 from foundry.v1.ontologies.models._object_property_value_constraint import (
     ObjectPropertyValueConstraint,
@@ -217,6 +251,7 @@ from foundry.v1.ontologies.models._ontology_struct_field import OntologyStructFi
 from foundry.v1.ontologies.models._ontology_struct_field_dict import OntologyStructFieldDict  # NOQA
 from foundry.v1.ontologies.models._ontology_struct_type import OntologyStructType
 from foundry.v1.ontologies.models._ontology_struct_type_dict import OntologyStructTypeDict  # NOQA
+from foundry.v1.ontologies.models._or_query import OrQuery
 from foundry.v1.ontologies.models._or_query_dict import OrQueryDict
 from foundry.v1.ontologies.models._order_by import OrderBy
 from foundry.v1.ontologies.models._parameter import Parameter
@@ -236,7 +271,9 @@ from foundry.v1.ontologies.models._parameter_evaluation_result_dict import (
 from foundry.v1.ontologies.models._parameter_id import ParameterId
 from foundry.v1.ontologies.models._parameter_option import ParameterOption
 from foundry.v1.ontologies.models._parameter_option_dict import ParameterOptionDict
+from foundry.v1.ontologies.models._phrase_query import PhraseQuery
 from foundry.v1.ontologies.models._phrase_query_dict import PhraseQueryDict
+from foundry.v1.ontologies.models._prefix_query import PrefixQuery
 from foundry.v1.ontologies.models._prefix_query_dict import PrefixQueryDict
 from foundry.v1.ontologies.models._primary_key_value import PrimaryKeyValue
 from foundry.v1.ontologies.models._property import Property
@@ -276,13 +313,16 @@ from foundry.v1.ontologies.models._range_constraint import RangeConstraint
 from foundry.v1.ontologies.models._range_constraint_dict import RangeConstraintDict
 from foundry.v1.ontologies.models._return_edits_mode import ReturnEditsMode
 from foundry.v1.ontologies.models._sdk_package_name import SdkPackageName
+from foundry.v1.ontologies.models._search_json_query import SearchJsonQuery
 from foundry.v1.ontologies.models._search_json_query_dict import SearchJsonQueryDict
 from foundry.v1.ontologies.models._search_objects_response import SearchObjectsResponse
 from foundry.v1.ontologies.models._search_objects_response_dict import (
     SearchObjectsResponseDict,
 )  # NOQA
+from foundry.v1.ontologies.models._search_order_by import SearchOrderBy
 from foundry.v1.ontologies.models._search_order_by_dict import SearchOrderByDict
 from foundry.v1.ontologies.models._search_order_by_type import SearchOrderByType
+from foundry.v1.ontologies.models._search_ordering import SearchOrdering
 from foundry.v1.ontologies.models._search_ordering_dict import SearchOrderingDict
 from foundry.v1.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
 from foundry.v1.ontologies.models._shared_property_type_api_name import (
@@ -305,6 +345,7 @@ from foundry.v1.ontologies.models._submission_criteria_evaluation import (
 from foundry.v1.ontologies.models._submission_criteria_evaluation_dict import (
     SubmissionCriteriaEvaluationDict,
 )  # NOQA
+from foundry.v1.ontologies.models._sum_aggregation import SumAggregation
 from foundry.v1.ontologies.models._sum_aggregation_dict import SumAggregationDict
 from foundry.v1.ontologies.models._three_dimensional_aggregation_dict import (
     ThreeDimensionalAggregationDict,
@@ -333,36 +374,51 @@ __all__ = [
     "AggregateObjectsResponseDict",
     "AggregateObjectsResponseItem",
     "AggregateObjectsResponseItemDict",
+    "Aggregation",
     "AggregationDict",
+    "AggregationDurationGrouping",
     "AggregationDurationGroupingDict",
+    "AggregationExactGrouping",
     "AggregationExactGroupingDict",
+    "AggregationFixedWidthGrouping",
     "AggregationFixedWidthGroupingDict",
+    "AggregationGroupBy",
     "AggregationGroupByDict",
     "AggregationGroupKey",
     "AggregationGroupValue",
     "AggregationMetricName",
     "AggregationMetricResult",
     "AggregationMetricResultDict",
+    "AggregationRange",
     "AggregationRangeDict",
+    "AggregationRangesGrouping",
     "AggregationRangesGroupingDict",
+    "AllTermsQuery",
     "AllTermsQueryDict",
+    "AndQuery",
     "AndQueryDict",
+    "AnyTermQuery",
     "AnyTermQueryDict",
     "ApplyActionMode",
+    "ApplyActionRequest",
     "ApplyActionRequestDict",
     "ApplyActionRequestOptions",
     "ApplyActionRequestOptionsDict",
     "ApplyActionResponse",
     "ApplyActionResponseDict",
+    "ApproximateDistinctAggregation",
     "ApproximateDistinctAggregationDict",
     "ArraySizeConstraint",
     "ArraySizeConstraintDict",
     "ArtifactRepositoryRid",
     "AttachmentRid",
+    "AvgAggregation",
     "AvgAggregationDict",
     "BatchApplyActionResponse",
     "BatchApplyActionResponseDict",
+    "ContainsQuery",
     "ContainsQueryDict",
+    "CountAggregation",
     "CountAggregationDict",
     "CreateInterfaceObjectRule",
     "CreateInterfaceObjectRuleDict",
@@ -379,6 +435,7 @@ __all__ = [
     "DeleteObjectRuleDict",
     "DerivedPropertyApiName",
     "Duration",
+    "EqualsQuery",
     "EqualsQueryDict",
     "ExecuteQueryResponse",
     "ExecuteQueryResponseDict",
@@ -389,10 +446,13 @@ __all__ = [
     "Fuzzy",
     "GroupMemberConstraint",
     "GroupMemberConstraintDict",
+    "GtQuery",
     "GtQueryDict",
+    "GteQuery",
     "GteQueryDict",
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
+    "IsNullQuery",
     "IsNullQueryDict",
     "LinkTypeApiName",
     "LinkTypeSide",
@@ -414,14 +474,19 @@ __all__ = [
     "ListQueryTypesResponseDict",
     "LogicRule",
     "LogicRuleDict",
+    "LtQuery",
     "LtQueryDict",
+    "LteQuery",
     "LteQueryDict",
+    "MaxAggregation",
     "MaxAggregationDict",
+    "MinAggregation",
     "MinAggregationDict",
     "ModifyInterfaceObjectRule",
     "ModifyInterfaceObjectRuleDict",
     "ModifyObjectRule",
     "ModifyObjectRuleDict",
+    "NotQuery",
     "NotQueryDict",
     "ObjectPropertyValueConstraint",
     "ObjectPropertyValueConstraintDict",
@@ -458,6 +523,7 @@ __all__ = [
     "OntologyStructFieldDict",
     "OntologyStructType",
     "OntologyStructTypeDict",
+    "OrQuery",
     "OrQueryDict",
     "OrderBy",
     "Parameter",
@@ -469,7 +535,9 @@ __all__ = [
     "ParameterId",
     "ParameterOption",
     "ParameterOptionDict",
+    "PhraseQuery",
     "PhraseQueryDict",
+    "PrefixQuery",
     "PrefixQueryDict",
     "PrimaryKeyValue",
     "Property",
@@ -497,11 +565,14 @@ __all__ = [
     "RangeConstraintDict",
     "ReturnEditsMode",
     "SdkPackageName",
+    "SearchJsonQuery",
     "SearchJsonQueryDict",
     "SearchObjectsResponse",
     "SearchObjectsResponseDict",
+    "SearchOrderBy",
     "SearchOrderByDict",
     "SearchOrderByType",
+    "SearchOrdering",
     "SearchOrderingDict",
     "SelectedPropertyApiName",
     "SharedPropertyTypeApiName",
@@ -512,6 +583,7 @@ __all__ = [
     "StringRegexMatchConstraintDict",
     "SubmissionCriteriaEvaluation",
     "SubmissionCriteriaEvaluationDict",
+    "SumAggregation",
     "SumAggregationDict",
     "ThreeDimensionalAggregationDict",
     "TwoDimensionalAggregationDict",

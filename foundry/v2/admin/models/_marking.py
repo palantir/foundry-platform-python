@@ -34,7 +34,7 @@ class Marking(pydantic.BaseModel):
 
     id: MarkingId
 
-    category_id: MarkingCategoryId = pydantic.Field(alias="categoryId")
+    category_id: MarkingCategoryId = pydantic.Field(alias=str("categoryId"))  # type: ignore[literal-required]
 
     name: MarkingName
 
@@ -44,11 +44,11 @@ class Marking(pydantic.BaseModel):
 
     """If this marking is associated with an Organization, its RID will be populated here."""
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
-    created_by: Optional[CreatedBy] = pydantic.Field(alias="createdBy", default=None)
+    created_by: Optional[CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MarkingDict:
         """Return the dictionary representation of the model using the field aliases."""

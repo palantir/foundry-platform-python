@@ -30,7 +30,7 @@ from foundry.v2.connectivity.models._file_last_modified_after_filter_dict import
 class FileLastModifiedAfterFilter(pydantic.BaseModel):
     """Only import files that have been modified after a specified timestamp"""
 
-    after_timestamp: Optional[datetime] = pydantic.Field(alias="afterTimestamp", default=None)
+    after_timestamp: Optional[datetime] = pydantic.Field(alias=str("afterTimestamp"), default=None)  # type: ignore[literal-required]
 
     """
     Timestamp threshold, specified in ISO-8601 format.
@@ -39,7 +39,7 @@ class FileLastModifiedAfterFilter(pydantic.BaseModel):
 
     type: Literal["lastModifiedAfterFilter"] = "lastModifiedAfterFilter"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FileLastModifiedAfterFilterDict:
         """Return the dictionary representation of the model using the field aliases."""

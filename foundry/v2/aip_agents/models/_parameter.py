@@ -28,7 +28,7 @@ from foundry.v2.aip_agents.models._parameter_type import ParameterType
 class Parameter(pydantic.BaseModel):
     """A variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
-    parameter_type: ParameterType = pydantic.Field(alias="parameterType")
+    parameter_type: ParameterType = pydantic.Field(alias=str("parameterType"))  # type: ignore[literal-required]
 
     """Details of the types of values accepted and defaults for this variable."""
 
@@ -43,7 +43,7 @@ class Parameter(pydantic.BaseModel):
     This description is injected into the Agent's prompt to provide context for when to use the variable.
     """
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ParameterDict:
         """Return the dictionary representation of the model using the field aliases."""

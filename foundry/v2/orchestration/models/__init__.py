@@ -27,26 +27,50 @@ from foundry.v2.orchestration.models._build_target_dict import BuildTargetDict
 from foundry.v2.orchestration.models._buildable_rid import BuildableRid
 from foundry.v2.orchestration.models._connecting_target import ConnectingTarget
 from foundry.v2.orchestration.models._connecting_target_dict import ConnectingTargetDict
+from foundry.v2.orchestration.models._create_schedule_request_action import (
+    CreateScheduleRequestAction,
+)  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_action_dict import (
     CreateScheduleRequestActionDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_build_target import (
+    CreateScheduleRequestBuildTarget,
 )  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_build_target_dict import (
     CreateScheduleRequestBuildTargetDict,
 )  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_connecting_target import (
+    CreateScheduleRequestConnectingTarget,
+)  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_connecting_target_dict import (
     CreateScheduleRequestConnectingTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_manual_target import (
+    CreateScheduleRequestManualTarget,
 )  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_manual_target_dict import (
     CreateScheduleRequestManualTargetDict,
 )  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_project_scope import (
+    CreateScheduleRequestProjectScope,
+)  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_project_scope_dict import (
     CreateScheduleRequestProjectScopeDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_scope_mode import (
+    CreateScheduleRequestScopeMode,
 )  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_scope_mode_dict import (
     CreateScheduleRequestScopeModeDict,
 )  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_upstream_target import (
+    CreateScheduleRequestUpstreamTarget,
+)  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_upstream_target_dict import (
     CreateScheduleRequestUpstreamTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_user_scope import (
+    CreateScheduleRequestUserScope,
 )  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_user_scope_dict import (
     CreateScheduleRequestUserScopeDict,
@@ -58,6 +82,9 @@ from foundry.v2.orchestration.models._dataset_updated_trigger_dict import (
 )  # NOQA
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._force_build import ForceBuild
+from foundry.v2.orchestration.models._get_builds_batch_request_element import (
+    GetBuildsBatchRequestElement,
+)  # NOQA
 from foundry.v2.orchestration.models._get_builds_batch_request_element_dict import (
     GetBuildsBatchRequestElementDict,
 )  # NOQA
@@ -92,26 +119,50 @@ from foundry.v2.orchestration.models._or_trigger import OrTrigger
 from foundry.v2.orchestration.models._or_trigger_dict import OrTriggerDict
 from foundry.v2.orchestration.models._project_scope import ProjectScope
 from foundry.v2.orchestration.models._project_scope_dict import ProjectScopeDict
+from foundry.v2.orchestration.models._replace_schedule_request_action import (
+    ReplaceScheduleRequestAction,
+)  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_action_dict import (
     ReplaceScheduleRequestActionDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_build_target import (
+    ReplaceScheduleRequestBuildTarget,
 )  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_build_target_dict import (
     ReplaceScheduleRequestBuildTargetDict,
 )  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_connecting_target import (
+    ReplaceScheduleRequestConnectingTarget,
+)  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_connecting_target_dict import (
     ReplaceScheduleRequestConnectingTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_manual_target import (
+    ReplaceScheduleRequestManualTarget,
 )  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_manual_target_dict import (
     ReplaceScheduleRequestManualTargetDict,
 )  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_project_scope import (
+    ReplaceScheduleRequestProjectScope,
+)  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_project_scope_dict import (
     ReplaceScheduleRequestProjectScopeDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_scope_mode import (
+    ReplaceScheduleRequestScopeMode,
 )  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_dict import (
     ReplaceScheduleRequestScopeModeDict,
 )  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_upstream_target import (
+    ReplaceScheduleRequestUpstreamTarget,
+)  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_upstream_target_dict import (
     ReplaceScheduleRequestUpstreamTargetDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_user_scope import (
+    ReplaceScheduleRequestUserScope,
 )  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_user_scope_dict import (
     ReplaceScheduleRequestUserScopeDict,
@@ -152,8 +203,12 @@ from foundry.v2.orchestration.models._schedule_version_dict import ScheduleVersi
 from foundry.v2.orchestration.models._schedule_version_rid import ScheduleVersionRid
 from foundry.v2.orchestration.models._scope_mode import ScopeMode
 from foundry.v2.orchestration.models._scope_mode_dict import ScopeModeDict
+from foundry.v2.orchestration.models._search_builds_and_filter import SearchBuildsAndFilter  # NOQA
 from foundry.v2.orchestration.models._search_builds_and_filter_dict import (
     SearchBuildsAndFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_equals_filter import (
+    SearchBuildsEqualsFilter,
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_equals_filter_dict import (
     SearchBuildsEqualsFilterDict,
@@ -161,32 +216,41 @@ from foundry.v2.orchestration.models._search_builds_equals_filter_dict import (
 from foundry.v2.orchestration.models._search_builds_equals_filter_field import (
     SearchBuildsEqualsFilterField,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_filter import SearchBuildsFilter
 from foundry.v2.orchestration.models._search_builds_filter_dict import (
     SearchBuildsFilterDict,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_gte_filter import SearchBuildsGteFilter  # NOQA
 from foundry.v2.orchestration.models._search_builds_gte_filter_dict import (
     SearchBuildsGteFilterDict,
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_gte_filter_field import (
     SearchBuildsGteFilterField,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_lt_filter import SearchBuildsLtFilter  # NOQA
 from foundry.v2.orchestration.models._search_builds_lt_filter_dict import (
     SearchBuildsLtFilterDict,
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_lt_filter_field import (
     SearchBuildsLtFilterField,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_not_filter import SearchBuildsNotFilter  # NOQA
 from foundry.v2.orchestration.models._search_builds_not_filter_dict import (
     SearchBuildsNotFilterDict,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_or_filter import SearchBuildsOrFilter  # NOQA
 from foundry.v2.orchestration.models._search_builds_or_filter_dict import (
     SearchBuildsOrFilterDict,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_order_by import SearchBuildsOrderBy
 from foundry.v2.orchestration.models._search_builds_order_by_dict import (
     SearchBuildsOrderByDict,
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_order_by_field import (
     SearchBuildsOrderByField,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_order_by_item import (
+    SearchBuildsOrderByItem,
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_order_by_item_dict import (
     SearchBuildsOrderByItemDict,
@@ -219,19 +283,28 @@ __all__ = [
     "BuildableRid",
     "ConnectingTarget",
     "ConnectingTargetDict",
+    "CreateScheduleRequestAction",
     "CreateScheduleRequestActionDict",
+    "CreateScheduleRequestBuildTarget",
     "CreateScheduleRequestBuildTargetDict",
+    "CreateScheduleRequestConnectingTarget",
     "CreateScheduleRequestConnectingTargetDict",
+    "CreateScheduleRequestManualTarget",
     "CreateScheduleRequestManualTargetDict",
+    "CreateScheduleRequestProjectScope",
     "CreateScheduleRequestProjectScopeDict",
+    "CreateScheduleRequestScopeMode",
     "CreateScheduleRequestScopeModeDict",
+    "CreateScheduleRequestUpstreamTarget",
     "CreateScheduleRequestUpstreamTargetDict",
+    "CreateScheduleRequestUserScope",
     "CreateScheduleRequestUserScopeDict",
     "CronExpression",
     "DatasetUpdatedTrigger",
     "DatasetUpdatedTriggerDict",
     "FallbackBranches",
     "ForceBuild",
+    "GetBuildsBatchRequestElement",
     "GetBuildsBatchRequestElementDict",
     "GetBuildsBatchResponse",
     "GetBuildsBatchResponseDict",
@@ -250,13 +323,21 @@ __all__ = [
     "OrTriggerDict",
     "ProjectScope",
     "ProjectScopeDict",
+    "ReplaceScheduleRequestAction",
     "ReplaceScheduleRequestActionDict",
+    "ReplaceScheduleRequestBuildTarget",
     "ReplaceScheduleRequestBuildTargetDict",
+    "ReplaceScheduleRequestConnectingTarget",
     "ReplaceScheduleRequestConnectingTargetDict",
+    "ReplaceScheduleRequestManualTarget",
     "ReplaceScheduleRequestManualTargetDict",
+    "ReplaceScheduleRequestProjectScope",
     "ReplaceScheduleRequestProjectScopeDict",
+    "ReplaceScheduleRequestScopeMode",
     "ReplaceScheduleRequestScopeModeDict",
+    "ReplaceScheduleRequestUpstreamTarget",
     "ReplaceScheduleRequestUpstreamTargetDict",
+    "ReplaceScheduleRequestUserScope",
     "ReplaceScheduleRequestUserScopeDict",
     "RetryBackoffDuration",
     "RetryBackoffDurationDict",
@@ -284,18 +365,27 @@ __all__ = [
     "ScheduleVersionRid",
     "ScopeMode",
     "ScopeModeDict",
+    "SearchBuildsAndFilter",
     "SearchBuildsAndFilterDict",
+    "SearchBuildsEqualsFilter",
     "SearchBuildsEqualsFilterDict",
     "SearchBuildsEqualsFilterField",
+    "SearchBuildsFilter",
     "SearchBuildsFilterDict",
+    "SearchBuildsGteFilter",
     "SearchBuildsGteFilterDict",
     "SearchBuildsGteFilterField",
+    "SearchBuildsLtFilter",
     "SearchBuildsLtFilterDict",
     "SearchBuildsLtFilterField",
+    "SearchBuildsNotFilter",
     "SearchBuildsNotFilterDict",
+    "SearchBuildsOrFilter",
     "SearchBuildsOrFilterDict",
+    "SearchBuildsOrderBy",
     "SearchBuildsOrderByDict",
     "SearchBuildsOrderByField",
+    "SearchBuildsOrderByItem",
     "SearchBuildsOrderByItemDict",
     "SearchBuildsResponse",
     "SearchBuildsResponseDict",

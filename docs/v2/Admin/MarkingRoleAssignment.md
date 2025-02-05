@@ -15,7 +15,7 @@ Method | HTTP request |
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **marking_id** | MarkingId | markingId |  |
-**role_assignments** | List[MarkingRoleUpdateDict] |  |  |
+**role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -34,7 +34,7 @@ foundry_client = FoundryClient(
 
 # MarkingId | markingId
 marking_id = None
-# List[MarkingRoleUpdateDict] |
+# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
 role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 # Optional[PreviewMode] | preview
 preview = None
@@ -201,7 +201,7 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **marking_id** | MarkingId | markingId |  |
-**role_assignments** | List[MarkingRoleUpdateDict] |  |  |
+**role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -220,7 +220,7 @@ foundry_client = FoundryClient(
 
 # MarkingId | markingId
 marking_id = None
-# List[MarkingRoleUpdateDict] |
+# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
 role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 # Optional[PreviewMode] | preview
 preview = None

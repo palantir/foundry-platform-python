@@ -29,11 +29,11 @@ from foundry.v2.orchestration.models._schedule_run_submitted_dict import (
 class ScheduleRunSubmitted(pydantic.BaseModel):
     """The schedule has been successfully triggered."""
 
-    build_rid: BuildRid = pydantic.Field(alias="buildRid")
+    build_rid: BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
 
     type: Literal["submitted"] = "submitted"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ScheduleRunSubmittedDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -28,17 +28,17 @@ from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
 class AddLink(pydantic.BaseModel):
     """AddLink"""
 
-    link_type_api_name_ato_b: LinkTypeApiName = pydantic.Field(alias="linkTypeApiNameAtoB")
+    link_type_api_name_ato_b: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameAtoB"))  # type: ignore[literal-required]
 
-    link_type_api_name_bto_a: LinkTypeApiName = pydantic.Field(alias="linkTypeApiNameBtoA")
+    link_type_api_name_bto_a: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameBtoA"))  # type: ignore[literal-required]
 
-    a_side_object: LinkSideObject = pydantic.Field(alias="aSideObject")
+    a_side_object: LinkSideObject = pydantic.Field(alias=str("aSideObject"))  # type: ignore[literal-required]
 
-    b_side_object: LinkSideObject = pydantic.Field(alias="bSideObject")
+    b_side_object: LinkSideObject = pydantic.Field(alias=str("bSideObject"))  # type: ignore[literal-required]
 
     type: Literal["addLink"] = "addLink"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AddLinkDict:
         """Return the dictionary representation of the model using the field aliases."""

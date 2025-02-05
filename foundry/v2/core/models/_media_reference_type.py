@@ -28,7 +28,7 @@ class MediaReferenceType(pydantic.BaseModel):
 
     type: Literal["mediaReference"] = "mediaReference"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MediaReferenceTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

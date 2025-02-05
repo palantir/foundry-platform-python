@@ -54,11 +54,11 @@ class OntologyStructField(pydantic.BaseModel):
 
     name: StructFieldName
 
-    field_type: OntologyDataType = pydantic.Field(alias="fieldType")
+    field_type: OntologyDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
 
     required: bool
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyStructFieldDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -72,7 +72,7 @@ class OntologyStructType(pydantic.BaseModel):
 
     type: Literal["struct"] = "struct"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyStructTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -82,11 +82,11 @@ class OntologyStructType(pydantic.BaseModel):
 class OntologySetType(pydantic.BaseModel):
     """OntologySetType"""
 
-    item_type: OntologyDataType = pydantic.Field(alias="itemType")
+    item_type: OntologyDataType = pydantic.Field(alias=str("itemType"))  # type: ignore[literal-required]
 
     type: Literal["set"] = "set"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologySetTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -96,11 +96,11 @@ class OntologySetType(pydantic.BaseModel):
 class OntologyArrayType(pydantic.BaseModel):
     """OntologyArrayType"""
 
-    item_type: OntologyDataType = pydantic.Field(alias="itemType")
+    item_type: OntologyDataType = pydantic.Field(alias=str("itemType"))  # type: ignore[literal-required]
 
     type: Literal["array"] = "array"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyArrayTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
@@ -110,13 +110,13 @@ class OntologyArrayType(pydantic.BaseModel):
 class OntologyMapType(pydantic.BaseModel):
     """OntologyMapType"""
 
-    key_type: OntologyDataType = pydantic.Field(alias="keyType")
+    key_type: OntologyDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
 
-    value_type: OntologyDataType = pydantic.Field(alias="valueType")
+    value_type: OntologyDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
 
     type: Literal["map"] = "map"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyMapTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -26,11 +26,11 @@ from foundry.v2.ontologies.models._within_bounding_box_point import WithinBoundi
 class BoundingBoxValue(pydantic.BaseModel):
     """The top left and bottom right coordinate points that make up the bounding box."""
 
-    top_left: WithinBoundingBoxPoint = pydantic.Field(alias="topLeft")
+    top_left: WithinBoundingBoxPoint = pydantic.Field(alias=str("topLeft"))  # type: ignore[literal-required]
 
-    bottom_right: WithinBoundingBoxPoint = pydantic.Field(alias="bottomRight")
+    bottom_right: WithinBoundingBoxPoint = pydantic.Field(alias=str("bottomRight"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> BoundingBoxValueDict:
         """Return the dictionary representation of the model using the field aliases."""

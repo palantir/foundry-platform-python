@@ -28,11 +28,11 @@ from foundry.v1.datasets.models._transaction_rid import TransactionRid
 class Branch(pydantic.BaseModel):
     """A Branch of a Dataset."""
 
-    branch_id: BranchId = pydantic.Field(alias="branchId")
+    branch_id: BranchId = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
 
-    transaction_rid: Optional[TransactionRid] = pydantic.Field(alias="transactionRid", default=None)
+    transaction_rid: Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> BranchDict:
         """Return the dictionary representation of the model using the field aliases."""

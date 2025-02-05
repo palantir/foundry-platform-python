@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -42,9 +43,11 @@ from foundry.v2.ontologies.models._aggregate_objects_response_v2 import (
 from foundry.v2.ontologies.models._aggregation_accuracy_request import (
     AggregationAccuracyRequest,
 )  # NOQA
+from foundry.v2.ontologies.models._aggregation_group_by_v2 import AggregationGroupByV2
 from foundry.v2.ontologies.models._aggregation_group_by_v2_dict import (
     AggregationGroupByV2Dict,
 )  # NOQA
+from foundry.v2.ontologies.models._aggregation_v2 import AggregationV2
 from foundry.v2.ontologies.models._aggregation_v2_dict import AggregationV2Dict
 from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
 from foundry.v2.ontologies.models._count_objects_response_v2 import CountObjectsResponseV2  # NOQA
@@ -58,8 +61,10 @@ from foundry.v2.ontologies.models._property_value_escaped_string import (
     PropertyValueEscapedString,
 )  # NOQA
 from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
+from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
 from foundry.v2.ontologies.models._search_json_query_v2_dict import SearchJsonQueryV2Dict  # NOQA
 from foundry.v2.ontologies.models._search_objects_response_v2 import SearchObjectsResponseV2  # NOQA
+from foundry.v2.ontologies.models._search_order_by_v2 import SearchOrderByV2
 from foundry.v2.ontologies.models._search_order_by_v2_dict import SearchOrderByV2Dict
 from foundry.v2.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
 
@@ -95,12 +100,12 @@ class OntologyObjectClient:
         ontology: OntologyIdentifier,
         object_type: ObjectTypeApiName,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AggregateObjectsResponseV2:
         """
@@ -113,9 +118,9 @@ class OntologyObjectClient:
         :param object_type: objectType
         :type object_type: ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
@@ -123,7 +128,7 @@ class OntologyObjectClient:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -155,9 +160,9 @@ class OntologyObjectClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -471,11 +476,11 @@ class OntologyObjectClient:
         select: List[PropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         exclude_rid: Optional[bool] = None,
-        order_by: Optional[SearchOrderByV2Dict] = None,
+        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchObjectsResponseV2:
         """
@@ -516,7 +521,7 @@ class OntologyObjectClient:
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[SearchOrderByV2Dict]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -524,7 +529,7 @@ class OntologyObjectClient:
         :param page_token:
         :type page_token: Optional[PageToken]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -558,8 +563,8 @@ class OntologyObjectClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "orderBy": Optional[SearchOrderByV2Dict],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                         "select": List[PropertyApiName],
@@ -597,12 +602,12 @@ class _OntologyObjectClientRaw:
         ontology: OntologyIdentifier,
         object_type: ObjectTypeApiName,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[AggregateObjectsResponseV2]:
         """
@@ -615,9 +620,9 @@ class _OntologyObjectClientRaw:
         :param object_type: objectType
         :type object_type: ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
@@ -625,7 +630,7 @@ class _OntologyObjectClientRaw:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -657,9 +662,9 @@ class _OntologyObjectClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -973,11 +978,11 @@ class _OntologyObjectClientRaw:
         select: List[PropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         exclude_rid: Optional[bool] = None,
-        order_by: Optional[SearchOrderByV2Dict] = None,
+        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[SearchObjectsResponseV2]:
         """
@@ -1018,7 +1023,7 @@ class _OntologyObjectClientRaw:
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[SearchOrderByV2Dict]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -1026,7 +1031,7 @@ class _OntologyObjectClientRaw:
         :param page_token:
         :type page_token: Optional[PageToken]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1060,8 +1065,8 @@ class _OntologyObjectClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "orderBy": Optional[SearchOrderByV2Dict],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                         "select": List[PropertyApiName],
@@ -1099,12 +1104,12 @@ class _OntologyObjectClientStreaming:
         ontology: OntologyIdentifier,
         object_type: ObjectTypeApiName,
         *,
-        aggregation: List[AggregationV2Dict],
-        group_by: List[AggregationGroupByV2Dict],
+        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
+        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
         accuracy: Optional[AggregationAccuracyRequest] = None,
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[AggregateObjectsResponseV2]:
         """
@@ -1117,9 +1122,9 @@ class _OntologyObjectClientStreaming:
         :param object_type: objectType
         :type object_type: ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationV2Dict]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByV2Dict]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
@@ -1127,7 +1132,7 @@ class _OntologyObjectClientStreaming:
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1159,9 +1164,9 @@ class _OntologyObjectClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationV2Dict],
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "groupBy": List[AggregationGroupByV2Dict],
+                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
                         "accuracy": Optional[AggregationAccuracyRequest],
                     },
                 ),
@@ -1475,11 +1480,11 @@ class _OntologyObjectClientStreaming:
         select: List[PropertyApiName],
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         exclude_rid: Optional[bool] = None,
-        order_by: Optional[SearchOrderByV2Dict] = None,
+        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
         package_name: Optional[SdkPackageName] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
-        where: Optional[SearchJsonQueryV2Dict] = None,
+        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[SearchObjectsResponseV2]:
         """
@@ -1520,7 +1525,7 @@ class _OntologyObjectClientStreaming:
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[SearchOrderByV2Dict]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -1528,7 +1533,7 @@ class _OntologyObjectClientStreaming:
         :param page_token:
         :type page_token: Optional[PageToken]
         :param where:
-        :type where: Optional[SearchJsonQueryV2Dict]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1562,8 +1567,8 @@ class _OntologyObjectClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Optional[SearchJsonQueryV2Dict],
-                        "orderBy": Optional[SearchOrderByV2Dict],
+                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
+                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                         "select": List[PropertyApiName],

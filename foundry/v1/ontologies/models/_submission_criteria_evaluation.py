@@ -33,9 +33,7 @@ class SubmissionCriteriaEvaluation(pydantic.BaseModel):
     These are configured in the **Ontology Manager**.
     """
 
-    configured_failure_message: Optional[str] = pydantic.Field(
-        alias="configuredFailureMessage", default=None
-    )
+    configured_failure_message: Optional[str] = pydantic.Field(alias=str("configuredFailureMessage"), default=None)  # type: ignore[literal-required]
 
     """
     The message indicating one of the **submission criteria** was not satisfied.
@@ -44,7 +42,7 @@ class SubmissionCriteriaEvaluation(pydantic.BaseModel):
 
     result: ValidationResult
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> SubmissionCriteriaEvaluationDict:
         """Return the dictionary representation of the model using the field aliases."""

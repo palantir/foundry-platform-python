@@ -37,13 +37,13 @@ class ScheduleVersion(pydantic.BaseModel):
 
     """The RID of a schedule version"""
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias="scheduleRid")
+    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
     """The time the schedule version was created"""
 
-    created_by: CreatedBy = pydantic.Field(alias="createdBy")
+    created_by: CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
 
     """The Foundry user who created the schedule version"""
 
@@ -51,9 +51,9 @@ class ScheduleVersion(pydantic.BaseModel):
 
     action: Action
 
-    scope_mode: ScopeMode = pydantic.Field(alias="scopeMode")
+    scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ScheduleVersionDict:
         """Return the dictionary representation of the model using the field aliases."""

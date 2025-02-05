@@ -31,11 +31,11 @@ from foundry.v1.ontologies.models._query_type import QueryType
 class ListQueryTypesResponse(pydantic.BaseModel):
     """ListQueryTypesResponse"""
 
-    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
     data: List[QueryType]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ListQueryTypesResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

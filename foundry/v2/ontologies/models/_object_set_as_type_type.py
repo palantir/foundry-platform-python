@@ -33,15 +33,15 @@ class ObjectSetAsTypeType(pydantic.BaseModel):
     object set. This is currently unsupported and an exception will be thrown if used.
     """
 
-    entity_type: str = pydantic.Field(alias="entityType")
+    entity_type: str = pydantic.Field(alias=str("entityType"))  # type: ignore[literal-required]
 
     """An object type or interface type API name."""
 
-    object_set: ObjectSet = pydantic.Field(alias="objectSet")
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
     type: Literal["asType"] = "asType"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectSetAsTypeTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -32,9 +32,9 @@ class Dataset(pydantic.BaseModel):
 
     name: DatasetName
 
-    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
+    parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> DatasetDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -27,11 +27,11 @@ from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
 class ModifyObjectRule(pydantic.BaseModel):
     """ModifyObjectRule"""
 
-    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias="objectTypeApiName")
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
 
     type: Literal["modifyObject"] = "modifyObject"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ModifyObjectRuleDict:
         """Return the dictionary representation of the model using the field aliases."""

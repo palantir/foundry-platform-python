@@ -27,13 +27,13 @@ from foundry.v2.core.models._map_field_type_dict import MapFieldTypeDict
 class MapFieldType(pydantic.BaseModel):
     """MapFieldType"""
 
-    key_schema: FieldSchema = pydantic.Field(alias="keySchema")
+    key_schema: FieldSchema = pydantic.Field(alias=str("keySchema"))  # type: ignore[literal-required]
 
-    value_schema: FieldSchema = pydantic.Field(alias="valueSchema")
+    value_schema: FieldSchema = pydantic.Field(alias=str("valueSchema"))  # type: ignore[literal-required]
 
     type: Literal["map"] = "map"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MapFieldTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

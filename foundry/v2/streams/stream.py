@@ -19,6 +19,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -33,10 +34,14 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.core.models._stream_schema import StreamSchema
 from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.streams.models._compressed import Compressed
+from foundry.v2.streams.models._create_stream_request_stream_schema import (
+    CreateStreamRequestStreamSchema,
+)  # NOQA
 from foundry.v2.streams.models._create_stream_request_stream_schema_dict import (
     CreateStreamRequestStreamSchemaDict,
 )  # NOQA
@@ -76,7 +81,7 @@ class StreamClient:
         dataset_rid: DatasetRid,
         *,
         branch_name: BranchName,
-        schema: CreateStreamRequestStreamSchemaDict,
+        schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict],
         compressed: Optional[Compressed] = None,
         partitions_count: Optional[PartitionsCount] = None,
         preview: Optional[PreviewMode] = None,
@@ -91,7 +96,7 @@ class StreamClient:
         :param branch_name:
         :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
-        :type schema: CreateStreamRequestStreamSchemaDict
+        :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
@@ -130,7 +135,9 @@ class StreamClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": CreateStreamRequestStreamSchemaDict,
+                        "schema": Union[
+                            CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict
+                        ],
                         "partitionsCount": Optional[PartitionsCount],
                         "streamType": Optional[StreamType],
                         "branchName": BranchName,
@@ -381,7 +388,7 @@ class StreamClient:
         compressed: Optional[Compressed] = None,
         partitions_count: Optional[PartitionsCount] = None,
         preview: Optional[PreviewMode] = None,
-        schema: Optional[StreamSchemaDict] = None,
+        schema: Optional[Union[StreamSchema, StreamSchemaDict]] = None,
         stream_type: Optional[StreamType] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Stream:
@@ -405,7 +412,7 @@ class StreamClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-        :type schema: Optional[StreamSchemaDict]
+        :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
         :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
@@ -438,7 +445,7 @@ class StreamClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Optional[StreamSchemaDict],
+                        "schema": Optional[Union[StreamSchema, StreamSchemaDict]],
                         "partitionsCount": Optional[PartitionsCount],
                         "streamType": Optional[StreamType],
                         "compressed": Optional[Compressed],
@@ -475,7 +482,7 @@ class _StreamClientRaw:
         dataset_rid: DatasetRid,
         *,
         branch_name: BranchName,
-        schema: CreateStreamRequestStreamSchemaDict,
+        schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict],
         compressed: Optional[Compressed] = None,
         partitions_count: Optional[PartitionsCount] = None,
         preview: Optional[PreviewMode] = None,
@@ -490,7 +497,7 @@ class _StreamClientRaw:
         :param branch_name:
         :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
-        :type schema: CreateStreamRequestStreamSchemaDict
+        :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
@@ -529,7 +536,9 @@ class _StreamClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": CreateStreamRequestStreamSchemaDict,
+                        "schema": Union[
+                            CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict
+                        ],
                         "partitionsCount": Optional[PartitionsCount],
                         "streamType": Optional[StreamType],
                         "branchName": BranchName,
@@ -780,7 +789,7 @@ class _StreamClientRaw:
         compressed: Optional[Compressed] = None,
         partitions_count: Optional[PartitionsCount] = None,
         preview: Optional[PreviewMode] = None,
-        schema: Optional[StreamSchemaDict] = None,
+        schema: Optional[Union[StreamSchema, StreamSchemaDict]] = None,
         stream_type: Optional[StreamType] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[Stream]:
@@ -804,7 +813,7 @@ class _StreamClientRaw:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-        :type schema: Optional[StreamSchemaDict]
+        :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
         :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
@@ -837,7 +846,7 @@ class _StreamClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Optional[StreamSchemaDict],
+                        "schema": Optional[Union[StreamSchema, StreamSchemaDict]],
                         "partitionsCount": Optional[PartitionsCount],
                         "streamType": Optional[StreamType],
                         "compressed": Optional[Compressed],
@@ -874,7 +883,7 @@ class _StreamClientStreaming:
         dataset_rid: DatasetRid,
         *,
         branch_name: BranchName,
-        schema: CreateStreamRequestStreamSchemaDict,
+        schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict],
         compressed: Optional[Compressed] = None,
         partitions_count: Optional[PartitionsCount] = None,
         preview: Optional[PreviewMode] = None,
@@ -889,7 +898,7 @@ class _StreamClientStreaming:
         :param branch_name:
         :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
-        :type schema: CreateStreamRequestStreamSchemaDict
+        :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
@@ -928,7 +937,9 @@ class _StreamClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": CreateStreamRequestStreamSchemaDict,
+                        "schema": Union[
+                            CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict
+                        ],
                         "partitionsCount": Optional[PartitionsCount],
                         "streamType": Optional[StreamType],
                         "branchName": BranchName,
@@ -1179,7 +1190,7 @@ class _StreamClientStreaming:
         compressed: Optional[Compressed] = None,
         partitions_count: Optional[PartitionsCount] = None,
         preview: Optional[PreviewMode] = None,
-        schema: Optional[StreamSchemaDict] = None,
+        schema: Optional[Union[StreamSchema, StreamSchemaDict]] = None,
         stream_type: Optional[StreamType] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[Stream]:
@@ -1203,7 +1214,7 @@ class _StreamClientStreaming:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-        :type schema: Optional[StreamSchemaDict]
+        :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
         :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1236,7 +1247,7 @@ class _StreamClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Optional[StreamSchemaDict],
+                        "schema": Optional[Union[StreamSchema, StreamSchemaDict]],
                         "partitionsCount": Optional[PartitionsCount],
                         "streamType": Optional[StreamType],
                         "compressed": Optional[Compressed],

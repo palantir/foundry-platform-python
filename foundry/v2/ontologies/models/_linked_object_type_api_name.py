@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 class LinkedObjectTypeApiName(pydantic.BaseModel):
     """A reference to the linked object type."""
 
-    api_name: ObjectTypeApiName = pydantic.Field(alias="apiName")
+    api_name: ObjectTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
     type: Literal["objectTypeApiName"] = "objectTypeApiName"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> LinkedObjectTypeApiNameDict:
         """Return the dictionary representation of the model using the field aliases."""

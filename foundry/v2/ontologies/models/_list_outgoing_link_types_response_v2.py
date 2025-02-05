@@ -31,13 +31,13 @@ from foundry.v2.ontologies.models._list_outgoing_link_types_response_v2_dict imp
 class ListOutgoingLinkTypesResponseV2(pydantic.BaseModel):
     """ListOutgoingLinkTypesResponseV2"""
 
-    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
     data: List[LinkTypeSideV2]
 
     """The list of link type sides in the current page."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ListOutgoingLinkTypesResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

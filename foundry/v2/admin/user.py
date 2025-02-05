@@ -42,6 +42,9 @@ from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin.group_membership import GroupMembershipClient
 from foundry.v2.admin.models._get_user_markings_response import GetUserMarkingsResponse
+from foundry.v2.admin.models._get_users_batch_request_element import (
+    GetUsersBatchRequestElement,
+)  # NOQA
 from foundry.v2.admin.models._get_users_batch_request_element_dict import (
     GetUsersBatchRequestElementDict,
 )  # NOQA
@@ -49,6 +52,7 @@ from foundry.v2.admin.models._get_users_batch_response import GetUsersBatchRespo
 from foundry.v2.admin.models._list_users_response import ListUsersResponse
 from foundry.v2.admin.models._search_users_response import SearchUsersResponse
 from foundry.v2.admin.models._user import User
+from foundry.v2.admin.models._user_search_filter import UserSearchFilter
 from foundry.v2.admin.models._user_search_filter_dict import UserSearchFilterDict
 from foundry.v2.admin.user_provider_info import UserProviderInfoClient
 from foundry.v2.core.models._page_size import PageSize
@@ -157,7 +161,10 @@ class UserClient:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        body: Annotated[
+            List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
+        ],
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> GetUsersBatchResponse:
@@ -166,7 +173,7 @@ class UserClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -491,7 +498,7 @@ class UserClient:
     def search(
         self,
         *,
-        where: UserSearchFilterDict,
+        where: Union[UserSearchFilter, UserSearchFilterDict],
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -499,7 +506,7 @@ class UserClient:
         """
 
         :param where:
-        :type where: UserSearchFilterDict
+        :type where: Union[UserSearchFilter, UserSearchFilterDict]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -528,7 +535,7 @@ class UserClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": UserSearchFilterDict,
+                        "where": Union[UserSearchFilter, UserSearchFilterDict],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                     },
@@ -633,7 +640,10 @@ class _UserClientRaw:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        body: Annotated[
+            List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
+        ],
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[GetUsersBatchResponse]:
@@ -642,7 +652,7 @@ class _UserClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -877,7 +887,7 @@ class _UserClientRaw:
     def search(
         self,
         *,
-        where: UserSearchFilterDict,
+        where: Union[UserSearchFilter, UserSearchFilterDict],
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -885,7 +895,7 @@ class _UserClientRaw:
         """
 
         :param where:
-        :type where: UserSearchFilterDict
+        :type where: Union[UserSearchFilter, UserSearchFilterDict]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -914,7 +924,7 @@ class _UserClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": UserSearchFilterDict,
+                        "where": Union[UserSearchFilter, UserSearchFilterDict],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                     },
@@ -1019,7 +1029,10 @@ class _UserClientStreaming:
     @handle_unexpected
     def get_batch(
         self,
-        body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)],
+        body: Annotated[
+            List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]],
+            Len(min_length=1, max_length=500),
+        ],
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[GetUsersBatchResponse]:
@@ -1028,7 +1041,7 @@ class _UserClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)]
+        :type body: Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1263,7 +1276,7 @@ class _UserClientStreaming:
     def search(
         self,
         *,
-        where: UserSearchFilterDict,
+        where: Union[UserSearchFilter, UserSearchFilterDict],
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -1271,7 +1284,7 @@ class _UserClientStreaming:
         """
 
         :param where:
-        :type where: UserSearchFilterDict
+        :type where: Union[UserSearchFilter, UserSearchFilterDict]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -1300,7 +1313,7 @@ class _UserClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": UserSearchFilterDict,
+                        "where": Union[UserSearchFilter, UserSearchFilterDict],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                     },

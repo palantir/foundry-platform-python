@@ -27,13 +27,13 @@ from foundry.v2.aip_agents.models._string_parameter_dict import StringParameterD
 class StringParameter(pydantic.BaseModel):
     """StringParameter"""
 
-    default_value: Optional[str] = pydantic.Field(alias="defaultValue", default=None)
+    default_value: Optional[str] = pydantic.Field(alias=str("defaultValue"), default=None)  # type: ignore[literal-required]
 
     """The default value to use for this variable."""
 
     type: Literal["string"] = "string"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StringParameterDict:
         """Return the dictionary representation of the model using the field aliases."""

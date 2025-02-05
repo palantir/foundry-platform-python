@@ -38,11 +38,11 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
     """
 
-    bucket_url: str = pydantic.Field(alias="bucketUrl")
+    bucket_url: str = pydantic.Field(alias=str("bucketUrl"))  # type: ignore[literal-required]
 
     """The URL of the S3 bucket. The URL should contain a trailing slash."""
 
-    s3_endpoint: Optional[str] = pydantic.Field(alias="s3Endpoint", default=None)
+    s3_endpoint: Optional[str] = pydantic.Field(alias=str("s3Endpoint"), default=None)  # type: ignore[literal-required]
 
     """
     The endpoint of the S3 service. This is used to connect to a custom S3 service that is not AWS S3.
@@ -57,18 +57,14 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
     """
 
-    authentication_mode: Optional[S3AuthenticationMode] = pydantic.Field(
-        alias="authenticationMode", default=None
-    )
+    authentication_mode: Optional[S3AuthenticationMode] = pydantic.Field(alias=str("authenticationMode"), default=None)  # type: ignore[literal-required]
 
     """
     The authentication mode to use to connect to the S3 external system. No authentication mode is required
     to connect to publicly accessible AWS S3 buckets.
     """
 
-    s3_endpoint_signing_region: Optional[Region] = pydantic.Field(
-        alias="s3EndpointSigningRegion", default=None
-    )
+    s3_endpoint_signing_region: Optional[Region] = pydantic.Field(alias=str("s3EndpointSigningRegion"), default=None)  # type: ignore[literal-required]
 
     """
     The region used when constructing the S3 client using a custom endpoint.
@@ -76,62 +72,50 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     and are also setting a custom endpoint that requires a non-default region.
     """
 
-    client_kms_configuration: Optional[S3KmsConfiguration] = pydantic.Field(
-        alias="clientKmsConfiguration", default=None
-    )
+    client_kms_configuration: Optional[S3KmsConfiguration] = pydantic.Field(alias=str("clientKmsConfiguration"), default=None)  # type: ignore[literal-required]
 
     """
     The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
     If not specified, the default KMS key for the bucket is used.
     """
 
-    sts_role_configuration: Optional[StsRoleConfiguration] = pydantic.Field(
-        alias="stsRoleConfiguration", default=None
-    )
+    sts_role_configuration: Optional[StsRoleConfiguration] = pydantic.Field(alias=str("stsRoleConfiguration"), default=None)  # type: ignore[literal-required]
 
     """The configuration needed to assume a role to connect to the S3 external system."""
 
-    proxy_configuration: Optional[S3ProxyConfiguration] = pydantic.Field(
-        alias="proxyConfiguration", default=None
-    )
+    proxy_configuration: Optional[S3ProxyConfiguration] = pydantic.Field(alias=str("proxyConfiguration"), default=None)  # type: ignore[literal-required]
 
     """The configuration needed to connect to the S3 external system through a proxy."""
 
-    max_connections: Optional[int] = pydantic.Field(alias="maxConnections", default=None)
+    max_connections: Optional[int] = pydantic.Field(alias=str("maxConnections"), default=None)  # type: ignore[literal-required]
 
     """
     The maximum number of HTTP connections to the S3 service per sync.
     If not specified, defaults to 50 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_MAX_CONNECTIONS).
     """
 
-    connection_timeout_millis: Optional[Long] = pydantic.Field(
-        alias="connectionTimeoutMillis", default=None
-    )
+    connection_timeout_millis: Optional[Long] = pydantic.Field(alias=str("connectionTimeoutMillis"), default=None)  # type: ignore[literal-required]
 
     """
     The amount of time (in milliseconds) to wait when initially establishing a connection before giving up and timing out.
     If not specified, defaults to 10000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_CONNECTION_TIMEOUT).
     """
 
-    socket_timeout_millis: Optional[Long] = pydantic.Field(
-        alias="socketTimeoutMillis", default=None
-    )
+    socket_timeout_millis: Optional[Long] = pydantic.Field(alias=str("socketTimeoutMillis"), default=None)  # type: ignore[literal-required]
 
     """
     The amount of time (in milliseconds) to wait for data to be transferred over an established, open connection.
     If not specified, defaults to 50000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_SOCKET_TIMEOUT).
     """
 
-    max_error_retry: Optional[int] = pydantic.Field(alias="maxErrorRetry", default=None)
+    max_error_retry: Optional[int] = pydantic.Field(alias=str("maxErrorRetry"), default=None)  # type: ignore[literal-required]
 
     """
     The maximum number of retry attempts for failed requests to the S3 service.
     If not specified, defaults to 3 as defined by the [AWS SDK default](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/retry-strategy.html#retry-strategies).
     """
 
-    match_subfolder_exactly: Optional[bool] = pydantic.Field(
-        alias="matchSubfolderExactly", default=None
-    )
+    match_subfolder_exactly: Optional[bool] = pydantic.Field(alias=str("matchSubfolderExactly"), default=None)  # type: ignore[literal-required]
 
     """
     If true, only files in the subfolder specified in the bucket URL will be synced.
@@ -139,9 +123,7 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     If not specified, defaults to false.
     """
 
-    enable_requester_pays: Optional[bool] = pydantic.Field(
-        alias="enableRequesterPays", default=None
-    )
+    enable_requester_pays: Optional[bool] = pydantic.Field(alias=str("enableRequesterPays"), default=None)  # type: ignore[literal-required]
 
     """
     Defaults to false, unless set and overwritten.
@@ -151,7 +133,7 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
 
     type: Literal["s3"] = "s3"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> S3ConnectionConfigurationDict:
         """Return the dictionary representation of the model using the field aliases."""

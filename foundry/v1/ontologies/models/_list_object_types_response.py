@@ -31,13 +31,13 @@ from foundry.v1.ontologies.models._object_type import ObjectType
 class ListObjectTypesResponse(pydantic.BaseModel):
     """ListObjectTypesResponse"""
 
-    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
     data: List[ObjectType]
 
     """The list of object types in the current page."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ListObjectTypesResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

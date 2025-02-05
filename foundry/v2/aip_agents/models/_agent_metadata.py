@@ -27,7 +27,7 @@ from foundry.v2.aip_agents.models._agent_metadata_dict import AgentMetadataDict
 class AgentMetadata(pydantic.BaseModel):
     """Metadata for an Agent."""
 
-    display_name: str = pydantic.Field(alias="displayName")
+    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     """The name of the Agent."""
 
@@ -35,15 +35,15 @@ class AgentMetadata(pydantic.BaseModel):
 
     """The description for the Agent."""
 
-    input_placeholder: Optional[str] = pydantic.Field(alias="inputPlaceholder", default=None)
+    input_placeholder: Optional[str] = pydantic.Field(alias=str("inputPlaceholder"), default=None)  # type: ignore[literal-required]
 
     """The default text to show as the placeholder input for chats with the Agent."""
 
-    suggested_prompts: List[str] = pydantic.Field(alias="suggestedPrompts")
+    suggested_prompts: List[str] = pydantic.Field(alias=str("suggestedPrompts"))  # type: ignore[literal-required]
 
     """Prompts to show to the user as example messages to start a conversation with the Agent."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AgentMetadataDict:
         """Return the dictionary representation of the model using the field aliases."""

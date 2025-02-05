@@ -28,13 +28,13 @@ from foundry.v2.ontologies.models._property_value import PropertyValue
 class ModifyObject(pydantic.BaseModel):
     """ModifyObject"""
 
-    primary_key: PropertyValue = pydantic.Field(alias="primaryKey")
+    primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
 
-    object_type: ObjectTypeApiName = pydantic.Field(alias="objectType")
+    object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
 
     type: Literal["modifyObject"] = "modifyObject"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ModifyObjectDict:
         """Return the dictionary representation of the model using the field aliases."""

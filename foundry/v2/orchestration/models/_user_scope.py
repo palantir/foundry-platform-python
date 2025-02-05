@@ -31,7 +31,7 @@ class UserScope(pydantic.BaseModel):
 
     type: Literal["user"] = "user"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> UserScopeDict:
         """Return the dictionary representation of the model using the field aliases."""

@@ -32,17 +32,17 @@ class Connection(pydantic.BaseModel):
 
     rid: ConnectionRid
 
-    parent_folder_rid: FolderRid = pydantic.Field(alias="parentFolderRid")
+    parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
-    display_name: ConnectionDisplayName = pydantic.Field(alias="displayName")
+    display_name: ConnectionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     """The display name of the Connection. The display name must not be blank."""
 
-    runtime_platform: RuntimePlatform = pydantic.Field(alias="runtimePlatform")
+    runtime_platform: RuntimePlatform = pydantic.Field(alias=str("runtimePlatform"))  # type: ignore[literal-required]
 
     configuration: ConnectionConfiguration
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ConnectionDict:
         """Return the dictionary representation of the model using the field aliases."""

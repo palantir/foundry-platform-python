@@ -35,7 +35,7 @@ class GeoPoint(pydantic.BaseModel):
 
     type: Literal["Point"] = "Point"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> GeoPointDict:
         """Return the dictionary representation of the model using the field aliases."""

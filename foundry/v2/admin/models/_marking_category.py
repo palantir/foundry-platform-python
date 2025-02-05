@@ -40,17 +40,17 @@ class MarkingCategory(pydantic.BaseModel):
 
     description: Optional[str] = None
 
-    category_type: MarkingCategoryType = pydantic.Field(alias="categoryType")
+    category_type: MarkingCategoryType = pydantic.Field(alias=str("categoryType"))  # type: ignore[literal-required]
 
-    marking_type: MarkingType = pydantic.Field(alias="markingType")
+    marking_type: MarkingType = pydantic.Field(alias=str("markingType"))  # type: ignore[literal-required]
 
     markings: List[MarkingId]
 
-    created_time: CreatedTime = pydantic.Field(alias="createdTime")
+    created_time: CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
 
-    created_by: Optional[CreatedBy] = pydantic.Field(alias="createdBy", default=None)
+    created_by: Optional[CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> MarkingCategoryDict:
         """Return the dictionary representation of the model using the field aliases."""

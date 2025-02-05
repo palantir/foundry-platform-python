@@ -32,7 +32,7 @@ class AndQueryV2(pydantic.BaseModel):
 
     type: Literal["and"] = "and"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AndQueryV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

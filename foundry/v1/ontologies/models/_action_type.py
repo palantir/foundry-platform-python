@@ -35,11 +35,11 @@ from foundry.v1.ontologies.models._parameter_id import ParameterId
 class ActionType(pydantic.BaseModel):
     """Represents an action type in the Ontology."""
 
-    api_name: ActionTypeApiName = pydantic.Field(alias="apiName")
+    api_name: ActionTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
     description: Optional[str] = None
 
-    display_name: Optional[DisplayName] = pydantic.Field(alias="displayName", default=None)
+    display_name: Optional[DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
 
     status: ReleaseStatus
 
@@ -49,7 +49,7 @@ class ActionType(pydantic.BaseModel):
 
     operations: List[LogicRule]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ActionTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

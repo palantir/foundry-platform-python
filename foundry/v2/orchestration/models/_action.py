@@ -36,25 +36,23 @@ class Action(pydantic.BaseModel):
 
     target: BuildTarget
 
-    branch_name: BranchName = pydantic.Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
 
     """The target branch the schedule should run on."""
 
-    fallback_branches: FallbackBranches = pydantic.Field(alias="fallbackBranches")
+    fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
 
-    force_build: ForceBuild = pydantic.Field(alias="forceBuild")
+    force_build: ForceBuild = pydantic.Field(alias=str("forceBuild"))  # type: ignore[literal-required]
 
-    retry_count: Optional[RetryCount] = pydantic.Field(alias="retryCount", default=None)
+    retry_count: Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
 
-    retry_backoff_duration: Optional[RetryBackoffDuration] = pydantic.Field(
-        alias="retryBackoffDuration", default=None
-    )
+    retry_backoff_duration: Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
 
-    abort_on_failure: AbortOnFailure = pydantic.Field(alias="abortOnFailure")
+    abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
 
-    notifications_enabled: NotificationsEnabled = pydantic.Field(alias="notificationsEnabled")
+    notifications_enabled: NotificationsEnabled = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ActionDict:
         """Return the dictionary representation of the model using the field aliases."""

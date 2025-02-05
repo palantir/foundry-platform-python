@@ -30,7 +30,7 @@ class ValueTypeDataTypeDateType(pydantic.BaseModel):
 
     type: Literal["date"] = "date"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeDateTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

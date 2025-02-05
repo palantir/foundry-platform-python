@@ -71,13 +71,13 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **fallback_branches** | FallbackBranches |  |  |
-**target** | BuildTargetDict | The targets of the schedule. |  |
+**target** | Union[BuildTarget, BuildTargetDict] | The targets of the schedule. |  |
 **abort_on_failure** | Optional[AbortOnFailure] |  | [optional] |
 **branch_name** | Optional[BranchName] | The target branch the build should run on. | [optional] |
 **force_build** | Optional[ForceBuild] |  | [optional] |
 **notifications_enabled** | Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**retry_backoff_duration** | Optional[RetryBackoffDurationDict] |  | [optional] |
+**retry_backoff_duration** | Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |  | [optional] |
 **retry_count** | Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
 
 ### Return type
@@ -96,7 +96,7 @@ foundry_client = FoundryClient(
 
 # FallbackBranches |
 fallback_branches = ["master"]
-# BuildTargetDict | The targets of the schedule.
+# Union[BuildTarget, BuildTargetDict] | The targets of the schedule.
 target = None
 # Optional[AbortOnFailure] |
 abort_on_failure = False
@@ -108,7 +108,7 @@ force_build = None
 notifications_enabled = None
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[RetryBackoffDurationDict] |
+# Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |
 retry_backoff_duration = {"unit": "SECONDS", "value": 30}
 # Optional[RetryCount] | The number of retry attempts for failed jobs.
 retry_count = 1
@@ -210,7 +210,7 @@ The maximum batch size for this endpoint is 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)] | Body of the request |  |
+**body** | Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)] | Body of the request |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -227,7 +227,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)] | Body of the request
+# Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)] | Body of the request
 body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
 # Optional[PreviewMode] | preview
 preview = None
@@ -264,8 +264,8 @@ Search for Builds.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | SearchBuildsFilterDict |  |  |
-**order_by** | Optional[SearchBuildsOrderByDict] |  | [optional] |
+**where** | Union[SearchBuildsFilter, SearchBuildsFilterDict] |  |  |
+**order_by** | Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] |  | [optional] |
 **page_size** | Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
@@ -284,9 +284,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# SearchBuildsFilterDict |
+# Union[SearchBuildsFilter, SearchBuildsFilterDict] |
 where = None
-# Optional[SearchBuildsOrderByDict] |
+# Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] |
 order_by = {"fields": [{"field": "STARTED_TIME", "direction": "ASC"}]}
 # Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.
 page_size = 100

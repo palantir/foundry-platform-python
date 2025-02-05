@@ -27,13 +27,13 @@ from foundry.v2.ontologies.models._ontology_map_type_dict import OntologyMapType
 class OntologyMapType(pydantic.BaseModel):
     """OntologyMapType"""
 
-    key_type: OntologyDataType = pydantic.Field(alias="keyType")
+    key_type: OntologyDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
 
-    value_type: OntologyDataType = pydantic.Field(alias="valueType")
+    value_type: OntologyDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
 
     type: Literal["map"] = "map"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyMapTypeDict:
         """Return the dictionary representation of the model using the field aliases."""

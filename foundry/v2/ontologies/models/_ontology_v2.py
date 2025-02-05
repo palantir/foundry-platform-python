@@ -28,15 +28,15 @@ from foundry.v2.ontologies.models._ontology_v2_dict import OntologyV2Dict
 class OntologyV2(pydantic.BaseModel):
     """Metadata about an Ontology."""
 
-    api_name: OntologyApiName = pydantic.Field(alias="apiName")
+    api_name: OntologyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
-    display_name: DisplayName = pydantic.Field(alias="displayName")
+    display_name: DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
     description: str
 
     rid: OntologyRid
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> OntologyV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

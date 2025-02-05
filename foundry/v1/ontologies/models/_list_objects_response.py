@@ -30,15 +30,15 @@ from foundry.v1.ontologies.models._ontology_object import OntologyObject
 class ListObjectsResponse(pydantic.BaseModel):
     """ListObjectsResponse"""
 
-    next_page_token: Optional[PageToken] = pydantic.Field(alias="nextPageToken", default=None)
+    next_page_token: Optional[PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
     data: List[OntologyObject]
 
     """The list of objects in the current page."""
 
-    total_count: TotalCount = pydantic.Field(alias="totalCount")
+    total_count: TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ListObjectsResponseDict:
         """Return the dictionary representation of the model using the field aliases."""

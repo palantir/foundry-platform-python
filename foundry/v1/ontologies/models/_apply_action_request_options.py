@@ -32,9 +32,9 @@ class ApplyActionRequestOptions(pydantic.BaseModel):
 
     mode: Optional[ApplyActionMode] = None
 
-    return_edits: Optional[ReturnEditsMode] = pydantic.Field(alias="returnEdits", default=None)
+    return_edits: Optional[ReturnEditsMode] = pydantic.Field(alias=str("returnEdits"), default=None)  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ApplyActionRequestOptionsDict:
         """Return the dictionary representation of the model using the field aliases."""

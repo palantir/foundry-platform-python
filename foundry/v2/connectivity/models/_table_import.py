@@ -38,29 +38,29 @@ class TableImport(pydantic.BaseModel):
 
     rid: TableImportRid
 
-    connection_rid: ConnectionRid = pydantic.Field(alias="connectionRid")
+    connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
 
     """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
-    dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
+    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
 
     """The RID of the output dataset."""
 
-    branch_name: Optional[BranchName] = pydantic.Field(alias="branchName", default=None)
+    branch_name: Optional[BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
 
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
-    display_name: TableImportDisplayName = pydantic.Field(alias="displayName")
+    display_name: TableImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
-    import_mode: TableImportMode = pydantic.Field(alias="importMode")
+    import_mode: TableImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
 
-    allow_schema_changes: TableImportAllowSchemaChanges = pydantic.Field(alias="allowSchemaChanges")
+    allow_schema_changes: TableImportAllowSchemaChanges = pydantic.Field(alias=str("allowSchemaChanges"))  # type: ignore[literal-required]
 
     """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
     config: TableImportConfig
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> TableImportDict:
         """Return the dictionary representation of the model using the field aliases."""

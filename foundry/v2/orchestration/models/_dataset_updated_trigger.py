@@ -33,13 +33,13 @@ class DatasetUpdatedTrigger(pydantic.BaseModel):
     dataset on the target branch.
     """
 
-    dataset_rid: DatasetRid = pydantic.Field(alias="datasetRid")
+    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
 
-    branch_name: BranchName = pydantic.Field(alias="branchName")
+    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
 
     type: Literal["datasetUpdated"] = "datasetUpdated"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> DatasetUpdatedTriggerDict:
         """Return the dictionary representation of the model using the field aliases."""

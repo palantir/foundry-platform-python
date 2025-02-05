@@ -33,9 +33,9 @@ class ValueTypeDataTypeStructElement(pydantic.BaseModel):
 
     name: ValueTypeDataTypeStructFieldIdentifier
 
-    field_type: ValueTypeDataType = pydantic.Field(alias="fieldType")
+    field_type: ValueTypeDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ValueTypeDataTypeStructElementDict:
         """Return the dictionary representation of the model using the field aliases."""

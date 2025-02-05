@@ -19,6 +19,7 @@ import warnings
 from typing import Any
 from typing import Dict
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -36,8 +37,14 @@ from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.orchestration.models._create_schedule_request_action import (
+    CreateScheduleRequestAction,
+)  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_action_dict import (
     CreateScheduleRequestActionDict,
+)  # NOQA
+from foundry.v2.orchestration.models._create_schedule_request_scope_mode import (
+    CreateScheduleRequestScopeMode,
 )  # NOQA
 from foundry.v2.orchestration.models._create_schedule_request_scope_mode_dict import (
     CreateScheduleRequestScopeModeDict,
@@ -45,8 +52,14 @@ from foundry.v2.orchestration.models._create_schedule_request_scope_mode_dict im
 from foundry.v2.orchestration.models._list_runs_of_schedule_response import (
     ListRunsOfScheduleResponse,
 )  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_action import (
+    ReplaceScheduleRequestAction,
+)  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_action_dict import (
     ReplaceScheduleRequestActionDict,
+)  # NOQA
+from foundry.v2.orchestration.models._replace_schedule_request_scope_mode import (
+    ReplaceScheduleRequestScopeMode,
 )  # NOQA
 from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_dict import (
     ReplaceScheduleRequestScopeModeDict,
@@ -54,6 +67,7 @@ from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_dict i
 from foundry.v2.orchestration.models._schedule import Schedule
 from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
 from foundry.v2.orchestration.models._schedule_run import ScheduleRun
+from foundry.v2.orchestration.models._trigger import Trigger
 from foundry.v2.orchestration.models._trigger_dict import TriggerDict
 
 
@@ -84,18 +98,20 @@ class ScheduleClient:
     def create(
         self,
         *,
-        action: CreateScheduleRequestActionDict,
+        action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict],
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[CreateScheduleRequestScopeModeDict] = None,
-        trigger: Optional[TriggerDict] = None,
+        scope_mode: Optional[
+            Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]
+        ] = None,
+        trigger: Optional[Union[Trigger, TriggerDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Schedule:
         """
         Creates a new Schedule.
         :param action:
-        :type action: CreateScheduleRequestActionDict
+        :type action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -103,9 +119,9 @@ class ScheduleClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[CreateScheduleRequestScopeModeDict]
+        :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[TriggerDict]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -136,9 +152,15 @@ class ScheduleClient:
                     {  # type: ignore
                         "displayName": Optional[str],
                         "description": Optional[str],
-                        "action": CreateScheduleRequestActionDict,
-                        "trigger": Optional[TriggerDict],
-                        "scopeMode": Optional[CreateScheduleRequestScopeModeDict],
+                        "action": Union[
+                            CreateScheduleRequestAction, CreateScheduleRequestActionDict
+                        ],
+                        "trigger": Optional[Union[Trigger, TriggerDict]],
+                        "scopeMode": Optional[
+                            Union[
+                                CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=Schedule,
@@ -275,12 +297,14 @@ class ScheduleClient:
         self,
         schedule_rid: ScheduleRid,
         *,
-        action: ReplaceScheduleRequestActionDict,
+        action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict],
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[ReplaceScheduleRequestScopeModeDict] = None,
-        trigger: Optional[TriggerDict] = None,
+        scope_mode: Optional[
+            Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]
+        ] = None,
+        trigger: Optional[Union[Trigger, TriggerDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Schedule:
         """
@@ -288,7 +312,7 @@ class ScheduleClient:
         :param schedule_rid: scheduleRid
         :type schedule_rid: ScheduleRid
         :param action:
-        :type action: ReplaceScheduleRequestActionDict
+        :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -296,9 +320,9 @@ class ScheduleClient:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[ReplaceScheduleRequestScopeModeDict]
+        :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[TriggerDict]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -331,9 +355,15 @@ class ScheduleClient:
                     {  # type: ignore
                         "displayName": Optional[str],
                         "description": Optional[str],
-                        "action": ReplaceScheduleRequestActionDict,
-                        "trigger": Optional[TriggerDict],
-                        "scopeMode": Optional[ReplaceScheduleRequestScopeModeDict],
+                        "action": Union[
+                            ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict
+                        ],
+                        "trigger": Optional[Union[Trigger, TriggerDict]],
+                        "scopeMode": Optional[
+                            Union[
+                                ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=Schedule,
@@ -555,18 +585,20 @@ class _ScheduleClientRaw:
     def create(
         self,
         *,
-        action: CreateScheduleRequestActionDict,
+        action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict],
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[CreateScheduleRequestScopeModeDict] = None,
-        trigger: Optional[TriggerDict] = None,
+        scope_mode: Optional[
+            Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]
+        ] = None,
+        trigger: Optional[Union[Trigger, TriggerDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[Schedule]:
         """
         Creates a new Schedule.
         :param action:
-        :type action: CreateScheduleRequestActionDict
+        :type action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -574,9 +606,9 @@ class _ScheduleClientRaw:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[CreateScheduleRequestScopeModeDict]
+        :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[TriggerDict]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -607,9 +639,15 @@ class _ScheduleClientRaw:
                     {  # type: ignore
                         "displayName": Optional[str],
                         "description": Optional[str],
-                        "action": CreateScheduleRequestActionDict,
-                        "trigger": Optional[TriggerDict],
-                        "scopeMode": Optional[CreateScheduleRequestScopeModeDict],
+                        "action": Union[
+                            CreateScheduleRequestAction, CreateScheduleRequestActionDict
+                        ],
+                        "trigger": Optional[Union[Trigger, TriggerDict]],
+                        "scopeMode": Optional[
+                            Union[
+                                CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=Schedule,
@@ -746,12 +784,14 @@ class _ScheduleClientRaw:
         self,
         schedule_rid: ScheduleRid,
         *,
-        action: ReplaceScheduleRequestActionDict,
+        action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict],
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[ReplaceScheduleRequestScopeModeDict] = None,
-        trigger: Optional[TriggerDict] = None,
+        scope_mode: Optional[
+            Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]
+        ] = None,
+        trigger: Optional[Union[Trigger, TriggerDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[Schedule]:
         """
@@ -759,7 +799,7 @@ class _ScheduleClientRaw:
         :param schedule_rid: scheduleRid
         :type schedule_rid: ScheduleRid
         :param action:
-        :type action: ReplaceScheduleRequestActionDict
+        :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -767,9 +807,9 @@ class _ScheduleClientRaw:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[ReplaceScheduleRequestScopeModeDict]
+        :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[TriggerDict]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -802,9 +842,15 @@ class _ScheduleClientRaw:
                     {  # type: ignore
                         "displayName": Optional[str],
                         "description": Optional[str],
-                        "action": ReplaceScheduleRequestActionDict,
-                        "trigger": Optional[TriggerDict],
-                        "scopeMode": Optional[ReplaceScheduleRequestScopeModeDict],
+                        "action": Union[
+                            ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict
+                        ],
+                        "trigger": Optional[Union[Trigger, TriggerDict]],
+                        "scopeMode": Optional[
+                            Union[
+                                ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=Schedule,
@@ -1026,18 +1072,20 @@ class _ScheduleClientStreaming:
     def create(
         self,
         *,
-        action: CreateScheduleRequestActionDict,
+        action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict],
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[CreateScheduleRequestScopeModeDict] = None,
-        trigger: Optional[TriggerDict] = None,
+        scope_mode: Optional[
+            Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]
+        ] = None,
+        trigger: Optional[Union[Trigger, TriggerDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[Schedule]:
         """
         Creates a new Schedule.
         :param action:
-        :type action: CreateScheduleRequestActionDict
+        :type action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -1045,9 +1093,9 @@ class _ScheduleClientStreaming:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[CreateScheduleRequestScopeModeDict]
+        :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[TriggerDict]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1078,9 +1126,15 @@ class _ScheduleClientStreaming:
                     {  # type: ignore
                         "displayName": Optional[str],
                         "description": Optional[str],
-                        "action": CreateScheduleRequestActionDict,
-                        "trigger": Optional[TriggerDict],
-                        "scopeMode": Optional[CreateScheduleRequestScopeModeDict],
+                        "action": Union[
+                            CreateScheduleRequestAction, CreateScheduleRequestActionDict
+                        ],
+                        "trigger": Optional[Union[Trigger, TriggerDict]],
+                        "scopeMode": Optional[
+                            Union[
+                                CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=Schedule,
@@ -1217,12 +1271,14 @@ class _ScheduleClientStreaming:
         self,
         schedule_rid: ScheduleRid,
         *,
-        action: ReplaceScheduleRequestActionDict,
+        action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict],
         description: Optional[str] = None,
         display_name: Optional[str] = None,
         preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[ReplaceScheduleRequestScopeModeDict] = None,
-        trigger: Optional[TriggerDict] = None,
+        scope_mode: Optional[
+            Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]
+        ] = None,
+        trigger: Optional[Union[Trigger, TriggerDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[Schedule]:
         """
@@ -1230,7 +1286,7 @@ class _ScheduleClientStreaming:
         :param schedule_rid: scheduleRid
         :type schedule_rid: ScheduleRid
         :param action:
-        :type action: ReplaceScheduleRequestActionDict
+        :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -1238,9 +1294,9 @@ class _ScheduleClientStreaming:
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[ReplaceScheduleRequestScopeModeDict]
+        :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[TriggerDict]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1273,9 +1329,15 @@ class _ScheduleClientStreaming:
                     {  # type: ignore
                         "displayName": Optional[str],
                         "description": Optional[str],
-                        "action": ReplaceScheduleRequestActionDict,
-                        "trigger": Optional[TriggerDict],
-                        "scopeMode": Optional[ReplaceScheduleRequestScopeModeDict],
+                        "action": Union[
+                            ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict
+                        ],
+                        "trigger": Optional[Union[Trigger, TriggerDict]],
+                        "scopeMode": Optional[
+                            Union[
+                                ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=Schedule,

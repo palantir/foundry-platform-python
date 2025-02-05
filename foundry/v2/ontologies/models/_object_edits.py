@@ -30,19 +30,19 @@ class ObjectEdits(pydantic.BaseModel):
 
     edits: List[ObjectEdit]
 
-    added_object_count: int = pydantic.Field(alias="addedObjectCount")
+    added_object_count: int = pydantic.Field(alias=str("addedObjectCount"))  # type: ignore[literal-required]
 
-    modified_objects_count: int = pydantic.Field(alias="modifiedObjectsCount")
+    modified_objects_count: int = pydantic.Field(alias=str("modifiedObjectsCount"))  # type: ignore[literal-required]
 
-    deleted_objects_count: int = pydantic.Field(alias="deletedObjectsCount")
+    deleted_objects_count: int = pydantic.Field(alias=str("deletedObjectsCount"))  # type: ignore[literal-required]
 
-    added_links_count: int = pydantic.Field(alias="addedLinksCount")
+    added_links_count: int = pydantic.Field(alias=str("addedLinksCount"))  # type: ignore[literal-required]
 
-    deleted_links_count: int = pydantic.Field(alias="deletedLinksCount")
+    deleted_links_count: int = pydantic.Field(alias=str("deletedLinksCount"))  # type: ignore[literal-required]
 
     type: Literal["edits"] = "edits"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ObjectEditsDict:
         """Return the dictionary representation of the model using the field aliases."""

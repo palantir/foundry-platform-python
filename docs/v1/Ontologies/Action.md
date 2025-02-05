@@ -93,7 +93,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **action_type** | ActionTypeApiName | actionType |  |
-**requests** | List[ApplyActionRequestDict] |  |  |
+**requests** | List[Union[ApplyActionRequest, ApplyActionRequestDict]] |  |  |
 
 ### Return type
 **BatchApplyActionResponse**
@@ -113,7 +113,7 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ActionTypeApiName | actionType
 action_type = "rename-employee"
-# List[ApplyActionRequestDict] |
+# List[Union[ApplyActionRequest, ApplyActionRequestDict]] |
 requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},

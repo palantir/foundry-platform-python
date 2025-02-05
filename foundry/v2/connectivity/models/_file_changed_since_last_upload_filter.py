@@ -33,7 +33,7 @@ class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
     This will exclude files uploaded in any previous imports, regardless of the file import mode used. A SNAPSHOT file import mode does not reset the filter.
     """
 
-    file_properties: List[FileProperty] = pydantic.Field(alias="fileProperties")
+    file_properties: List[FileProperty] = pydantic.Field(alias=str("fileProperties"))  # type: ignore[literal-required]
 
     """
     The criteria on which to determine whether a file has been changed or not since the last import. 
@@ -47,7 +47,7 @@ class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
 
     type: Literal["changedSinceLastUploadFilter"] = "changedSinceLastUploadFilter"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> FileChangedSinceLastUploadFilterDict:
         """Return the dictionary representation of the model using the field aliases."""

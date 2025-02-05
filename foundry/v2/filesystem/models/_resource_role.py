@@ -27,11 +27,11 @@ from foundry.v2.filesystem.models._resource_role_principal import ResourceRolePr
 class ResourceRole(pydantic.BaseModel):
     """ResourceRole"""
 
-    resource_role_principal: ResourceRolePrincipal = pydantic.Field(alias="resourceRolePrincipal")
+    resource_role_principal: ResourceRolePrincipal = pydantic.Field(alias=str("resourceRolePrincipal"))  # type: ignore[literal-required]
 
-    role_id: RoleId = pydantic.Field(alias="roleId")
+    role_id: RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ResourceRoleDict:
         """Return the dictionary representation of the model using the field aliases."""

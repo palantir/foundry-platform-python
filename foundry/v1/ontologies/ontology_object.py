@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -39,7 +40,9 @@ from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.ontologies.models._aggregate_objects_response import (
     AggregateObjectsResponse,
 )  # NOQA
+from foundry.v1.ontologies.models._aggregation import Aggregation
 from foundry.v1.ontologies.models._aggregation_dict import AggregationDict
+from foundry.v1.ontologies.models._aggregation_group_by import AggregationGroupBy
 from foundry.v1.ontologies.models._aggregation_group_by_dict import AggregationGroupByDict  # NOQA
 from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
 from foundry.v1.ontologies.models._list_linked_objects_response import (
@@ -54,8 +57,10 @@ from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 from foundry.v1.ontologies.models._property_value_escaped_string import (
     PropertyValueEscapedString,
 )  # NOQA
+from foundry.v1.ontologies.models._search_json_query import SearchJsonQuery
 from foundry.v1.ontologies.models._search_json_query_dict import SearchJsonQueryDict
 from foundry.v1.ontologies.models._search_objects_response import SearchObjectsResponse
+from foundry.v1.ontologies.models._search_order_by import SearchOrderBy
 from foundry.v1.ontologies.models._search_order_by_dict import SearchOrderByDict
 from foundry.v1.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
 
@@ -91,9 +96,9 @@ class OntologyObjectClient:
         ontology_rid: OntologyRid,
         object_type: ObjectTypeApiName,
         *,
-        aggregation: List[AggregationDict],
-        group_by: List[AggregationGroupByDict],
-        query: Optional[SearchJsonQueryDict] = None,
+        aggregation: List[Union[Aggregation, AggregationDict]],
+        group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]],
+        query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> AggregateObjectsResponse:
         """
@@ -106,11 +111,11 @@ class OntologyObjectClient:
         :param object_type: objectType
         :type object_type: ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationDict]
+        :type aggregation: List[Union[Aggregation, AggregationDict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByDict]
+        :type group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]]
         :param query:
-        :type query: Optional[SearchJsonQueryDict]
+        :type query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -138,9 +143,9 @@ class OntologyObjectClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationDict],
-                        "query": Optional[SearchJsonQueryDict],
-                        "groupBy": List[AggregationGroupByDict],
+                        "aggregation": List[Union[Aggregation, AggregationDict]],
+                        "query": Optional[Union[SearchJsonQuery, SearchJsonQueryDict]],
+                        "groupBy": List[Union[AggregationGroupBy, AggregationGroupByDict]],
                     },
                 ),
                 response_type=AggregateObjectsResponse,
@@ -604,8 +609,8 @@ class OntologyObjectClient:
         object_type: ObjectTypeApiName,
         *,
         fields: List[PropertyApiName],
-        query: SearchJsonQueryDict,
-        order_by: Optional[SearchOrderByDict] = None,
+        query: Union[SearchJsonQuery, SearchJsonQueryDict],
+        order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -643,9 +648,9 @@ class OntologyObjectClient:
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]
         :param query:
-        :type query: SearchJsonQueryDict
+        :type query: Union[SearchJsonQuery, SearchJsonQueryDict]
         :param order_by:
-        :type order_by: Optional[SearchOrderByDict]
+        :type order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -679,8 +684,8 @@ class OntologyObjectClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "query": SearchJsonQueryDict,
-                        "orderBy": Optional[SearchOrderByDict],
+                        "query": Union[SearchJsonQuery, SearchJsonQueryDict],
+                        "orderBy": Optional[Union[SearchOrderBy, SearchOrderByDict]],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                         "fields": List[PropertyApiName],
@@ -717,9 +722,9 @@ class _OntologyObjectClientRaw:
         ontology_rid: OntologyRid,
         object_type: ObjectTypeApiName,
         *,
-        aggregation: List[AggregationDict],
-        group_by: List[AggregationGroupByDict],
-        query: Optional[SearchJsonQueryDict] = None,
+        aggregation: List[Union[Aggregation, AggregationDict]],
+        group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]],
+        query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[AggregateObjectsResponse]:
         """
@@ -732,11 +737,11 @@ class _OntologyObjectClientRaw:
         :param object_type: objectType
         :type object_type: ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationDict]
+        :type aggregation: List[Union[Aggregation, AggregationDict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByDict]
+        :type group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]]
         :param query:
-        :type query: Optional[SearchJsonQueryDict]
+        :type query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -764,9 +769,9 @@ class _OntologyObjectClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationDict],
-                        "query": Optional[SearchJsonQueryDict],
-                        "groupBy": List[AggregationGroupByDict],
+                        "aggregation": List[Union[Aggregation, AggregationDict]],
+                        "query": Optional[Union[SearchJsonQuery, SearchJsonQueryDict]],
+                        "groupBy": List[Union[AggregationGroupBy, AggregationGroupByDict]],
                     },
                 ),
                 response_type=AggregateObjectsResponse,
@@ -1230,8 +1235,8 @@ class _OntologyObjectClientRaw:
         object_type: ObjectTypeApiName,
         *,
         fields: List[PropertyApiName],
-        query: SearchJsonQueryDict,
-        order_by: Optional[SearchOrderByDict] = None,
+        query: Union[SearchJsonQuery, SearchJsonQueryDict],
+        order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -1269,9 +1274,9 @@ class _OntologyObjectClientRaw:
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]
         :param query:
-        :type query: SearchJsonQueryDict
+        :type query: Union[SearchJsonQuery, SearchJsonQueryDict]
         :param order_by:
-        :type order_by: Optional[SearchOrderByDict]
+        :type order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -1305,8 +1310,8 @@ class _OntologyObjectClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "query": SearchJsonQueryDict,
-                        "orderBy": Optional[SearchOrderByDict],
+                        "query": Union[SearchJsonQuery, SearchJsonQueryDict],
+                        "orderBy": Optional[Union[SearchOrderBy, SearchOrderByDict]],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                         "fields": List[PropertyApiName],
@@ -1343,9 +1348,9 @@ class _OntologyObjectClientStreaming:
         ontology_rid: OntologyRid,
         object_type: ObjectTypeApiName,
         *,
-        aggregation: List[AggregationDict],
-        group_by: List[AggregationGroupByDict],
-        query: Optional[SearchJsonQueryDict] = None,
+        aggregation: List[Union[Aggregation, AggregationDict]],
+        group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]],
+        query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[AggregateObjectsResponse]:
         """
@@ -1358,11 +1363,11 @@ class _OntologyObjectClientStreaming:
         :param object_type: objectType
         :type object_type: ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[AggregationDict]
+        :type aggregation: List[Union[Aggregation, AggregationDict]]
         :param group_by:
-        :type group_by: List[AggregationGroupByDict]
+        :type group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]]
         :param query:
-        :type query: Optional[SearchJsonQueryDict]
+        :type query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1390,9 +1395,9 @@ class _OntologyObjectClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[AggregationDict],
-                        "query": Optional[SearchJsonQueryDict],
-                        "groupBy": List[AggregationGroupByDict],
+                        "aggregation": List[Union[Aggregation, AggregationDict]],
+                        "query": Optional[Union[SearchJsonQuery, SearchJsonQueryDict]],
+                        "groupBy": List[Union[AggregationGroupBy, AggregationGroupByDict]],
                     },
                 ),
                 response_type=AggregateObjectsResponse,
@@ -1856,8 +1861,8 @@ class _OntologyObjectClientStreaming:
         object_type: ObjectTypeApiName,
         *,
         fields: List[PropertyApiName],
-        query: SearchJsonQueryDict,
-        order_by: Optional[SearchOrderByDict] = None,
+        query: Union[SearchJsonQuery, SearchJsonQueryDict],
+        order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]] = None,
         page_size: Optional[PageSize] = None,
         page_token: Optional[PageToken] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
@@ -1895,9 +1900,9 @@ class _OntologyObjectClientStreaming:
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]
         :param query:
-        :type query: SearchJsonQueryDict
+        :type query: Union[SearchJsonQuery, SearchJsonQueryDict]
         :param order_by:
-        :type order_by: Optional[SearchOrderByDict]
+        :type order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -1931,8 +1936,8 @@ class _OntologyObjectClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "query": SearchJsonQueryDict,
-                        "orderBy": Optional[SearchOrderByDict],
+                        "query": Union[SearchJsonQuery, SearchJsonQueryDict],
+                        "orderBy": Optional[Union[SearchOrderBy, SearchOrderByDict]],
                         "pageSize": Optional[PageSize],
                         "pageToken": Optional[PageToken],
                         "fields": List[PropertyApiName],

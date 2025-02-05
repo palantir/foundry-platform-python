@@ -29,11 +29,11 @@ from foundry.v2.ontologies.models._linked_interface_type_api_name_dict import (
 class LinkedInterfaceTypeApiName(pydantic.BaseModel):
     """A reference to the linked interface type."""
 
-    api_name: InterfaceTypeApiName = pydantic.Field(alias="apiName")
+    api_name: InterfaceTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
 
     type: Literal["interfaceTypeApiName"] = "interfaceTypeApiName"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> LinkedInterfaceTypeApiNameDict:
         """Return the dictionary representation of the model using the field aliases."""

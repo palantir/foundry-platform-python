@@ -34,15 +34,13 @@ class ParameterEvaluationResult(pydantic.BaseModel):
 
     result: ValidationResult
 
-    evaluated_constraints: List[ParameterEvaluatedConstraint] = pydantic.Field(
-        alias="evaluatedConstraints"
-    )
+    evaluated_constraints: List[ParameterEvaluatedConstraint] = pydantic.Field(alias=str("evaluatedConstraints"))  # type: ignore[literal-required]
 
     required: bool
 
     """Represents whether the parameter is a required input to the action."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ParameterEvaluationResultDict:
         """Return the dictionary representation of the model using the field aliases."""

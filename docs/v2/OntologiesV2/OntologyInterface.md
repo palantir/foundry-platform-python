@@ -24,11 +24,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **interface_type** | InterfaceTypeApiName | interfaceType |  |
-**aggregation** | List[AggregationV2Dict] |  |  |
-**group_by** | List[AggregationGroupByV2Dict] |  |  |
+**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
+**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **preview** | Optional[PreviewMode] | preview | [optional] |
-**where** | Optional[SearchJsonQueryV2Dict] |  | [optional] |
+**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -48,12 +48,12 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # InterfaceTypeApiName | interfaceType
 interface_type = "Employee"
-# List[AggregationV2Dict] |
+# List[Union[AggregationV2, AggregationV2Dict]] |
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[AggregationGroupByV2Dict] |
+# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
 group_by = [
     {
         "field": "startDate",
@@ -66,7 +66,7 @@ group_by = [
 accuracy = None
 # Optional[PreviewMode] | preview
 preview = None
-# Optional[SearchJsonQueryV2Dict] |
+# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
 where = {"type": "eq", "field": "name", "value": "john"}
 
 

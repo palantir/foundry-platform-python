@@ -33,13 +33,13 @@ from foundry.v2.ontologies.models._aggregation_accuracy import AggregationAccura
 class AggregateObjectsResponseV2(pydantic.BaseModel):
     """AggregateObjectsResponseV2"""
 
-    excluded_items: Optional[int] = pydantic.Field(alias="excludedItems", default=None)
+    excluded_items: Optional[int] = pydantic.Field(alias=str("excludedItems"), default=None)  # type: ignore[literal-required]
 
     accuracy: AggregationAccuracy
 
     data: List[AggregateObjectsResponseItemV2]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> AggregateObjectsResponseV2Dict:
         """Return the dictionary representation of the model using the field aliases."""

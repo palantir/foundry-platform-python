@@ -30,11 +30,11 @@ class Branch(pydantic.BaseModel):
 
     name: BranchName
 
-    transaction_rid: Optional[TransactionRid] = pydantic.Field(alias="transactionRid", default=None)
+    transaction_rid: Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
 
     """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> BranchDict:
         """Return the dictionary representation of the model using the field aliases."""

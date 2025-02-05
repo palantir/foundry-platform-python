@@ -33,9 +33,7 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
 
     """The regular expression configured in the **Ontology Manager**."""
 
-    configured_failure_message: Optional[str] = pydantic.Field(
-        alias="configuredFailureMessage", default=None
-    )
+    configured_failure_message: Optional[str] = pydantic.Field(alias=str("configuredFailureMessage"), default=None)  # type: ignore[literal-required]
 
     """
     The message indicating that the regular expression was not matched.
@@ -44,7 +42,7 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
 
     type: Literal["stringRegexMatch"] = "stringRegexMatch"
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> StringRegexMatchConstraintDict:
         """Return the dictionary representation of the model using the field aliases."""

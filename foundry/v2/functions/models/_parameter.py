@@ -29,9 +29,9 @@ class Parameter(pydantic.BaseModel):
 
     description: Optional[str] = None
 
-    data_type: QueryDataType = pydantic.Field(alias="dataType")
+    data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
-    model_config = {"extra": "allow"}
+    model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> ParameterDict:
         """Return the dictionary representation of the model using the field aliases."""

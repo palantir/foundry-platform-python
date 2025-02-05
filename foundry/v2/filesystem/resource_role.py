@@ -20,6 +20,7 @@ from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 import pydantic
 from typing_extensions import Annotated
@@ -73,7 +74,7 @@ class ResourceRoleClient:
         self,
         resource_rid: ResourceRid,
         *,
-        roles: List[ResourceRoleDict],
+        roles: List[Union[ResourceRole, ResourceRoleDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
@@ -82,7 +83,7 @@ class ResourceRoleClient:
         :param resource_rid: resourceRid
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRoleDict]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -110,7 +111,7 @@ class ResourceRoleClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[ResourceRoleDict],
+                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
                     },
                 ),
                 response_type=None,
@@ -241,7 +242,7 @@ class ResourceRoleClient:
         self,
         resource_rid: ResourceRid,
         *,
-        roles: List[ResourceRoleDict],
+        roles: List[Union[ResourceRole, ResourceRoleDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> None:
@@ -250,7 +251,7 @@ class ResourceRoleClient:
         :param resource_rid: resourceRid
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRoleDict]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -278,7 +279,7 @@ class ResourceRoleClient:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[ResourceRoleDict],
+                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
                     },
                 ),
                 response_type=None,
@@ -311,7 +312,7 @@ class _ResourceRoleClientRaw:
         self,
         resource_rid: ResourceRid,
         *,
-        roles: List[ResourceRoleDict],
+        roles: List[Union[ResourceRole, ResourceRoleDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[None]:
@@ -320,7 +321,7 @@ class _ResourceRoleClientRaw:
         :param resource_rid: resourceRid
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRoleDict]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -348,7 +349,7 @@ class _ResourceRoleClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[ResourceRoleDict],
+                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
                     },
                 ),
                 response_type=None,
@@ -479,7 +480,7 @@ class _ResourceRoleClientRaw:
         self,
         resource_rid: ResourceRid,
         *,
-        roles: List[ResourceRoleDict],
+        roles: List[Union[ResourceRole, ResourceRoleDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[None]:
@@ -488,7 +489,7 @@ class _ResourceRoleClientRaw:
         :param resource_rid: resourceRid
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRoleDict]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -516,7 +517,7 @@ class _ResourceRoleClientRaw:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[ResourceRoleDict],
+                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
                     },
                 ),
                 response_type=None,
@@ -549,7 +550,7 @@ class _ResourceRoleClientStreaming:
         self,
         resource_rid: ResourceRid,
         *,
-        roles: List[ResourceRoleDict],
+        roles: List[Union[ResourceRole, ResourceRoleDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[None]:
@@ -558,7 +559,7 @@ class _ResourceRoleClientStreaming:
         :param resource_rid: resourceRid
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRoleDict]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -586,7 +587,7 @@ class _ResourceRoleClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[ResourceRoleDict],
+                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
                     },
                 ),
                 response_type=None,
@@ -717,7 +718,7 @@ class _ResourceRoleClientStreaming:
         self,
         resource_rid: ResourceRid,
         *,
-        roles: List[ResourceRoleDict],
+        roles: List[Union[ResourceRole, ResourceRoleDict]],
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[None]:
@@ -726,7 +727,7 @@ class _ResourceRoleClientStreaming:
         :param resource_rid: resourceRid
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRoleDict]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -754,7 +755,7 @@ class _ResourceRoleClientStreaming:
                 body_type=TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[ResourceRoleDict],
+                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
                     },
                 ),
                 response_type=None,

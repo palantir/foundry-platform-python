@@ -194,7 +194,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request |  |
 
 ### Return type
 **GetGroupsBatchResponse**
@@ -210,7 +210,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)] | Body of the request
+# Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request
 body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
@@ -358,7 +358,7 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | GroupSearchFilterDict |  |  |
+**where** | Union[GroupSearchFilter, GroupSearchFilterDict] |  |  |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -376,7 +376,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# GroupSearchFilterDict |
+# Union[GroupSearchFilter, GroupSearchFilterDict] |
 where = {"type": "queryString"}
 # Optional[PageSize] |
 page_size = 100

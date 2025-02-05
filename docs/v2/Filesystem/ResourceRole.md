@@ -10,7 +10,7 @@ Method | HTTP request |
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**roles** | List[ResourceRoleDict] |  |  |
+**roles** | List[Union[ResourceRole, ResourceRoleDict]] |  |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -29,7 +29,7 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# List[ResourceRoleDict] |
+# List[Union[ResourceRole, ResourceRoleDict]] |
 roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]
 # Optional[PreviewMode] | preview
 preview = None
@@ -201,7 +201,7 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**roles** | List[ResourceRoleDict] |  |  |
+**roles** | List[Union[ResourceRole, ResourceRoleDict]] |  |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -220,7 +220,7 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# List[ResourceRoleDict] |
+# List[Union[ResourceRole, ResourceRoleDict]] |
 roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]
 # Optional[PreviewMode] | preview
 preview = None
