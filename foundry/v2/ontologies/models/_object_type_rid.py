@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 ObjectTypeRid = RID
-"""The unique Resource Identifier (RID) of an object type, useful for interacting with other Foundry APIs."""
+"""The unique resource identifier of an object type, useful for interacting with other Foundry APIs."""

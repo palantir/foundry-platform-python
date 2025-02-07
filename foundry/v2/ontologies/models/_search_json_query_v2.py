@@ -23,7 +23,6 @@ from typing import cast
 import pydantic
 from typing_extensions import Annotated
 
-from foundry.v2.ontologies.models._and_query_v2_dict import AndQueryV2Dict
 from foundry.v2.ontologies.models._contains_all_terms_in_order_prefix_last_term import (
     ContainsAllTermsInOrderPrefixLastTerm,
 )  # NOQA
@@ -50,8 +49,9 @@ from foundry.v2.ontologies.models._intersects_polygon_query import IntersectsPol
 from foundry.v2.ontologies.models._is_null_query_v2 import IsNullQueryV2
 from foundry.v2.ontologies.models._lt_query_v2 import LtQueryV2
 from foundry.v2.ontologies.models._lte_query_v2 import LteQueryV2
-from foundry.v2.ontologies.models._not_query_v2_dict import NotQueryV2Dict
-from foundry.v2.ontologies.models._or_query_v2_dict import OrQueryV2Dict
+from foundry.v2.ontologies.models._search_json_query_v2_dict import AndQueryV2Dict
+from foundry.v2.ontologies.models._search_json_query_v2_dict import NotQueryV2Dict
+from foundry.v2.ontologies.models._search_json_query_v2_dict import OrQueryV2Dict
 from foundry.v2.ontologies.models._starts_with_query import StartsWithQuery
 from foundry.v2.ontologies.models._within_bounding_box_query import WithinBoundingBoxQuery  # NOQA
 from foundry.v2.ontologies.models._within_distance_of_query import WithinDistanceOfQuery

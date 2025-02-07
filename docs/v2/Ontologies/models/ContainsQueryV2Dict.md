@@ -1,6 +1,8 @@
 # ContainsQueryV2Dict
 
-Returns objects where the specified array contains a value.
+Returns objects where the specified array contains a value. Allows you to specify a property to query on by a 
+variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
 
 ## Properties
 | Name | Type | Required | Description |

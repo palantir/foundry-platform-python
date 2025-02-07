@@ -24,7 +24,6 @@ from typing import cast
 import pydantic
 from typing_extensions import Annotated
 
-from foundry.v2.core.models._array_field_type_dict import ArrayFieldTypeDict
 from foundry.v2.core.models._binary_type import BinaryType
 from foundry.v2.core.models._boolean_type import BooleanType
 from foundry.v2.core.models._byte_type import ByteType
@@ -32,16 +31,17 @@ from foundry.v2.core.models._custom_metadata import CustomMetadata
 from foundry.v2.core.models._date_type import DateType
 from foundry.v2.core.models._decimal_type import DecimalType
 from foundry.v2.core.models._double_type import DoubleType
-from foundry.v2.core.models._field_dict import FieldDict
+from foundry.v2.core.models._field_data_type_dict import ArrayFieldTypeDict
+from foundry.v2.core.models._field_data_type_dict import FieldDict
+from foundry.v2.core.models._field_data_type_dict import FieldSchemaDict
+from foundry.v2.core.models._field_data_type_dict import MapFieldTypeDict
+from foundry.v2.core.models._field_data_type_dict import StructFieldTypeDict
 from foundry.v2.core.models._field_name import FieldName
-from foundry.v2.core.models._field_schema_dict import FieldSchemaDict
 from foundry.v2.core.models._float_type import FloatType
 from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._long_type import LongType
-from foundry.v2.core.models._map_field_type_dict import MapFieldTypeDict
 from foundry.v2.core.models._short_type import ShortType
 from foundry.v2.core.models._string_type import StringType
-from foundry.v2.core.models._struct_field_type_dict import StructFieldTypeDict
 from foundry.v2.core.models._timestamp_type import TimestampType
 
 

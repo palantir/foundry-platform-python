@@ -32,6 +32,7 @@ from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
 from foundry.v2.core.models._media_reference_type_dict import MediaReferenceTypeDict
 from foundry.v2.core.models._string_type_dict import StringTypeDict
 from foundry.v2.core.models._timestamp_type_dict import TimestampTypeDict
+from foundry.v2.ontologies.models._ontology_data_type_dict import OntologyStructTypeDict
 from foundry.v2.ontologies.models._ontology_interface_object_type_dict import (
     OntologyInterfaceObjectTypeDict,
 )  # NOQA
@@ -42,7 +43,6 @@ from foundry.v2.ontologies.models._ontology_object_type_dict import OntologyObje
 from foundry.v2.ontologies.models._ontology_object_type_reference_type_dict import (
     OntologyObjectTypeReferenceTypeDict,
 )  # NOQA
-from foundry.v2.ontologies.models._ontology_struct_type_dict import OntologyStructTypeDict  # NOQA
 
 
 class ActionParameterArrayTypeDict(TypedDict):

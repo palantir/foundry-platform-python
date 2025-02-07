@@ -39,5 +39,4 @@ python -m platform_sdk_generator \
     --output_dir . \
     --manifest_path "tmp/manifest.yml" \
     --version v1 --ir_path "tmp/openapi-ir.json" \
-    --version v2 --ir_path "tmp/openapi-ir.json" \
-    --version v2 --ir_path "tmp/v2.json"
+    --version v2 --ir_path "tmp/combined-ir.json"

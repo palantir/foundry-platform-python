@@ -40,13 +40,13 @@ from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._struct_field_name import StructFieldName
 from foundry.v2.core.models._timestamp_type import TimestampType
 from foundry.v2.core.models._unsupported_type import UnsupportedType
-from foundry.v2.ontologies.models._ontology_array_type_dict import OntologyArrayTypeDict
-from foundry.v2.ontologies.models._ontology_map_type_dict import OntologyMapTypeDict
+from foundry.v2.ontologies.models._ontology_data_type_dict import OntologyArrayTypeDict
+from foundry.v2.ontologies.models._ontology_data_type_dict import OntologyMapTypeDict
+from foundry.v2.ontologies.models._ontology_data_type_dict import OntologySetTypeDict
+from foundry.v2.ontologies.models._ontology_data_type_dict import OntologyStructFieldDict  # NOQA
+from foundry.v2.ontologies.models._ontology_data_type_dict import OntologyStructTypeDict
 from foundry.v2.ontologies.models._ontology_object_set_type import OntologyObjectSetType
 from foundry.v2.ontologies.models._ontology_object_type import OntologyObjectType
-from foundry.v2.ontologies.models._ontology_set_type_dict import OntologySetTypeDict
-from foundry.v2.ontologies.models._ontology_struct_field_dict import OntologyStructFieldDict  # NOQA
-from foundry.v2.ontologies.models._ontology_struct_type_dict import OntologyStructTypeDict  # NOQA
 
 
 class OntologyStructField(pydantic.BaseModel):

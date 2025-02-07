@@ -108,17 +108,17 @@
       },
       "additionalRelationships": [
         [
-          "OntologiesV2",
+          "Ontologies",
           "Ontology",
           "ActionType"
         ],
         [
-          "OntologiesV2",
+          "Ontologies",
           "Ontology",
           "ObjectType"
         ],
         [
-          "OntologiesV2",
+          "Ontologies",
           "Ontology",
           "QueryType"
         ]
@@ -131,10 +131,9 @@
         "Datasets": true,
         "Functions": true,
         "Geo": true,
-        "Ontologies": [],
         "Filesystem": true,
         "Mediasets": [],
-        "OntologiesV2": [
+        "Ontologies": [
           "getOntologyV2",
           "getOntologyFullMetadata",
           "listActionTypesV2",
@@ -176,9 +175,6 @@
         "Orchestration": true,
         "Streams": true,
         "ThirdPartyApplications": true
-      },
-      "namespaceRenames": {
-        "OntologiesV2": "Ontologies"
       },
       "resourceRenames": {
         "OntologyV2": "Ontology",

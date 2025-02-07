@@ -26,7 +26,10 @@ from foundry.v2.ontologies.models._property_value import PropertyValue
 
 
 class GteQueryV2Dict(TypedDict):
-    """Returns objects where the specified field is greater than or equal to a value."""
+    """
+    Returns objects where the specified field is greater than or equal to a value. Allows you to specify a property
+    to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

@@ -3602,17 +3602,12 @@ def ontologies():
     pass
 
 
-@cli.group("ontologies_v2")
-def ontologies_v2():
+@ontologies.group("time_series_property_v2")
+def ontologies_time_series_property_v2():
     pass
 
 
-@ontologies_v2.group("time_series_property_v2")
-def ontologies_v2_time_series_property_v2():
-    pass
-
-
-@ontologies_v2_time_series_property_v2.command("get_first_point")
+@ontologies_time_series_property_v2.command("get_first_point")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -3620,7 +3615,7 @@ def ontologies_v2_time_series_property_v2():
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_time_series_property_v2_get_first_point(
+def ontologies_time_series_property_v2_get_first_point(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -3647,7 +3642,7 @@ def ontologies_v2_time_series_property_v2_get_first_point(
     click.echo(repr(result))
 
 
-@ontologies_v2_time_series_property_v2.command("get_last_point")
+@ontologies_time_series_property_v2.command("get_last_point")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -3655,7 +3650,7 @@ def ontologies_v2_time_series_property_v2_get_first_point(
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_time_series_property_v2_get_last_point(
+def ontologies_time_series_property_v2_get_last_point(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -3682,7 +3677,7 @@ def ontologies_v2_time_series_property_v2_get_last_point(
     click.echo(repr(result))
 
 
-@ontologies_v2_time_series_property_v2.command("stream_points")
+@ontologies_time_series_property_v2.command("stream_points")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -3692,7 +3687,7 @@ def ontologies_v2_time_series_property_v2_get_last_point(
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--range", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_v2_time_series_property_v2_stream_points(
+def ontologies_time_series_property_v2_stream_points(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -3723,19 +3718,19 @@ def ontologies_v2_time_series_property_v2_stream_points(
     click.echo(result)
 
 
-@ontologies_v2.group("query")
-def ontologies_v2_query():
+@ontologies.group("query")
+def ontologies_query():
     pass
 
 
-@ontologies_v2_query.command("execute")
+@ontologies_query.command("execute")
 @click.argument("ontology", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_query_execute(
+def ontologies_query_execute(
     client: foundry.v2.FoundryClient,
     ontology: str,
     query_api_name: str,
@@ -3762,12 +3757,12 @@ def ontologies_v2_query_execute(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("ontology_object_set")
-def ontologies_v2_ontology_object_set():
+@ontologies.group("ontology_object_set")
+def ontologies_ontology_object_set():
     pass
 
 
-@ontologies_v2_ontology_object_set.command("aggregate")
+@ontologies_ontology_object_set.command("aggregate")
 @click.argument("ontology", type=str, required=True)
 @click.option("--aggregation", type=str, required=True, help="""""")
 @click.option("--group_by", type=str, required=True, help="""""")
@@ -3781,7 +3776,7 @@ def ontologies_v2_ontology_object_set():
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_ontology_object_set_aggregate(
+def ontologies_ontology_object_set_aggregate(
     client: foundry.v2.FoundryClient,
     ontology: str,
     aggregation: str,
@@ -3809,11 +3804,11 @@ def ontologies_v2_ontology_object_set_aggregate(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_set.command("create_temporary")
+@ontologies_ontology_object_set.command("create_temporary")
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.pass_obj
-def ontologies_v2_ontology_object_set_create_temporary(
+def ontologies_ontology_object_set_create_temporary(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_set: str,
@@ -3832,11 +3827,11 @@ def ontologies_v2_ontology_object_set_create_temporary(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_set.command("get")
+@ontologies_ontology_object_set.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_set_rid", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_ontology_object_set_get(
+def ontologies_ontology_object_set_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_set_rid: str,
@@ -3854,7 +3849,7 @@ def ontologies_v2_ontology_object_set_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_set.command("load")
+@ontologies_ontology_object_set.command("load")
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
@@ -3872,7 +3867,7 @@ Setting this to true may improve performance of this endpoint for object types i
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_v2_ontology_object_set_load(
+def ontologies_ontology_object_set_load(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_set: str,
@@ -3909,12 +3904,12 @@ def ontologies_v2_ontology_object_set_load(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("ontology_object")
-def ontologies_v2_ontology_object():
+@ontologies.group("ontology_object")
+def ontologies_ontology_object():
     pass
 
 
-@ontologies_v2_ontology_object.command("aggregate")
+@ontologies_ontology_object.command("aggregate")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--aggregation", type=str, required=True, help="""""")
@@ -3929,7 +3924,7 @@ def ontologies_v2_ontology_object():
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_v2_ontology_object_aggregate(
+def ontologies_ontology_object_aggregate(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -3959,13 +3954,13 @@ def ontologies_v2_ontology_object_aggregate(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object.command("count")
+@ontologies_ontology_object.command("count")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_ontology_object_count(
+def ontologies_ontology_object_count(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -3987,7 +3982,7 @@ def ontologies_v2_ontology_object_count(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object.command("get")
+@ontologies_ontology_object.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -3996,7 +3991,7 @@ def ontologies_v2_ontology_object_count(
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_ontology_object_get(
+def ontologies_ontology_object_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4024,7 +4019,7 @@ def ontologies_v2_ontology_object_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object.command("list")
+@ontologies_ontology_object.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
@@ -4035,7 +4030,7 @@ def ontologies_v2_ontology_object_get(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_ontology_object_list(
+def ontologies_ontology_object_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4079,7 +4074,7 @@ def ontologies_v2_ontology_object_list(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object.command("page")
+@ontologies_ontology_object.command("page")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
@@ -4090,7 +4085,7 @@ def ontologies_v2_ontology_object_list(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_ontology_object_page(
+def ontologies_ontology_object_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4134,7 +4129,7 @@ def ontologies_v2_ontology_object_page(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object.command("search")
+@ontologies_ontology_object.command("search")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option(
@@ -4159,7 +4154,7 @@ Setting this to true may improve performance of this endpoint for object types i
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_v2_ontology_object_search(
+def ontologies_ontology_object_search(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4215,12 +4210,12 @@ def ontologies_v2_ontology_object_search(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("ontology_interface")
-def ontologies_v2_ontology_interface():
+@ontologies.group("ontology_interface")
+def ontologies_ontology_interface():
     pass
 
 
-@ontologies_v2_ontology_interface.command("aggregate")
+@ontologies_ontology_interface.command("aggregate")
 @click.argument("ontology", type=str, required=True)
 @click.argument("interface_type", type=str, required=True)
 @click.option("--aggregation", type=str, required=True, help="""""")
@@ -4234,7 +4229,7 @@ def ontologies_v2_ontology_interface():
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_v2_ontology_interface_aggregate(
+def ontologies_ontology_interface_aggregate(
     client: foundry.v2.FoundryClient,
     ontology: str,
     interface_type: str,
@@ -4272,12 +4267,12 @@ def ontologies_v2_ontology_interface_aggregate(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_interface.command("get")
+@ontologies_ontology_interface.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("interface_type", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def ontologies_v2_ontology_interface_get(
+def ontologies_ontology_interface_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
     interface_type: str,
@@ -4302,13 +4297,13 @@ def ontologies_v2_ontology_interface_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_interface.command("list")
+@ontologies_ontology_interface.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def ontologies_v2_ontology_interface_list(
+def ontologies_ontology_interface_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4338,13 +4333,13 @@ def ontologies_v2_ontology_interface_list(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_interface.command("page")
+@ontologies_ontology_interface.command("page")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def ontologies_v2_ontology_interface_page(
+def ontologies_ontology_interface_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4374,15 +4369,15 @@ def ontologies_v2_ontology_interface_page(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("ontology")
-def ontologies_v2_ontology():
+@ontologies.group("ontology")
+def ontologies_ontology():
     pass
 
 
-@ontologies_v2_ontology.command("get")
+@ontologies_ontology.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_ontology_get(
+def ontologies_ontology_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
 ):
@@ -4398,10 +4393,10 @@ def ontologies_v2_ontology_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology.command("get_full_metadata")
+@ontologies_ontology.command("get_full_metadata")
 @click.argument("ontology", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_ontology_get_full_metadata(
+def ontologies_ontology_get_full_metadata(
     client: foundry.v2.FoundryClient,
     ontology: str,
 ):
@@ -4415,16 +4410,16 @@ def ontologies_v2_ontology_get_full_metadata(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology.group("query_type")
-def ontologies_v2_ontology_query_type():
+@ontologies_ontology.group("query_type")
+def ontologies_ontology_query_type():
     pass
 
 
-@ontologies_v2_ontology_query_type.command("get")
+@ontologies_ontology_query_type.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_ontology_query_type_get(
+def ontologies_ontology_query_type_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
     query_api_name: str,
@@ -4442,12 +4437,12 @@ def ontologies_v2_ontology_query_type_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_query_type.command("list")
+@ontologies_ontology_query_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_query_type_list(
+def ontologies_ontology_query_type_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4470,12 +4465,12 @@ def ontologies_v2_ontology_query_type_list(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_query_type.command("page")
+@ontologies_ontology_query_type.command("page")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_query_type_page(
+def ontologies_ontology_query_type_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4498,16 +4493,16 @@ def ontologies_v2_ontology_query_type_page(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology.group("object_type")
-def ontologies_v2_ontology_object_type():
+@ontologies_ontology.group("object_type")
+def ontologies_ontology_object_type():
     pass
 
 
-@ontologies_v2_ontology_object_type.command("get")
+@ontologies_ontology_object_type.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_ontology_object_type_get(
+def ontologies_ontology_object_type_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4525,12 +4520,12 @@ def ontologies_v2_ontology_object_type_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_type.command("get_outgoing_link_type")
+@ontologies_ontology_object_type.command("get_outgoing_link_type")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_ontology_object_type_get_outgoing_link_type(
+def ontologies_ontology_object_type_get_outgoing_link_type(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4551,12 +4546,12 @@ def ontologies_v2_ontology_object_type_get_outgoing_link_type(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_type.command("list")
+@ontologies_ontology_object_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_object_type_list(
+def ontologies_ontology_object_type_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4580,13 +4575,13 @@ def ontologies_v2_ontology_object_type_list(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_type.command("list_outgoing_link_types")
+@ontologies_ontology_object_type.command("list_outgoing_link_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_object_type_list_outgoing_link_types(
+def ontologies_ontology_object_type_list_outgoing_link_types(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4609,12 +4604,12 @@ def ontologies_v2_ontology_object_type_list_outgoing_link_types(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_type.command("page")
+@ontologies_ontology_object_type.command("page")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_object_type_page(
+def ontologies_ontology_object_type_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4638,13 +4633,13 @@ def ontologies_v2_ontology_object_type_page(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_object_type.command("page_outgoing_link_types")
+@ontologies_ontology_object_type.command("page_outgoing_link_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_object_type_page_outgoing_link_types(
+def ontologies_ontology_object_type_page_outgoing_link_types(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4667,16 +4662,16 @@ def ontologies_v2_ontology_object_type_page_outgoing_link_types(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology.group("action_type")
-def ontologies_v2_ontology_action_type():
+@ontologies_ontology.group("action_type")
+def ontologies_ontology_action_type():
     pass
 
 
-@ontologies_v2_ontology_action_type.command("get")
+@ontologies_ontology_action_type.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("action_type", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_ontology_action_type_get(
+def ontologies_ontology_action_type_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
     action_type: str,
@@ -4694,12 +4689,12 @@ def ontologies_v2_ontology_action_type_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_action_type.command("list")
+@ontologies_ontology_action_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_action_type_list(
+def ontologies_ontology_action_type_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4722,12 +4717,12 @@ def ontologies_v2_ontology_action_type_list(
     click.echo(repr(result))
 
 
-@ontologies_v2_ontology_action_type.command("page")
+@ontologies_ontology_action_type.command("page")
 @click.argument("ontology", type=str, required=True)
 @click.option("--page_size", type=int, required=False, help="""pageSize""")
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.pass_obj
-def ontologies_v2_ontology_action_type_page(
+def ontologies_ontology_action_type_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
     page_size: Optional[int],
@@ -4750,12 +4745,12 @@ def ontologies_v2_ontology_action_type_page(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("linked_object")
-def ontologies_v2_linked_object():
+@ontologies.group("linked_object")
+def ontologies_linked_object():
     pass
 
 
-@ontologies_v2_linked_object.command("get_linked_object")
+@ontologies_linked_object.command("get_linked_object")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4766,7 +4761,7 @@ def ontologies_v2_linked_object():
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_linked_object_get_linked_object(
+def ontologies_linked_object_get_linked_object(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4800,7 +4795,7 @@ def ontologies_v2_linked_object_get_linked_object(
     click.echo(repr(result))
 
 
-@ontologies_v2_linked_object.command("list_linked_objects")
+@ontologies_linked_object.command("list_linked_objects")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4813,7 +4808,7 @@ def ontologies_v2_linked_object_get_linked_object(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_linked_object_list_linked_objects(
+def ontologies_linked_object_list_linked_objects(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4861,7 +4856,7 @@ def ontologies_v2_linked_object_list_linked_objects(
     click.echo(repr(result))
 
 
-@ontologies_v2_linked_object.command("page_linked_objects")
+@ontologies_linked_object.command("page_linked_objects")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4874,7 +4869,7 @@ def ontologies_v2_linked_object_list_linked_objects(
 @click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--select", type=str, required=False, help="""select""")
 @click.pass_obj
-def ontologies_v2_linked_object_page_linked_objects(
+def ontologies_linked_object_page_linked_objects(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4922,12 +4917,12 @@ def ontologies_v2_linked_object_page_linked_objects(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("attachment_property")
-def ontologies_v2_attachment_property():
+@ontologies.group("attachment_property")
+def ontologies_attachment_property():
     pass
 
 
-@ontologies_v2_attachment_property.command("get_attachment")
+@ontologies_attachment_property.command("get_attachment")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4935,7 +4930,7 @@ def ontologies_v2_attachment_property():
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_get_attachment(
+def ontologies_attachment_property_get_attachment(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -4962,7 +4957,7 @@ def ontologies_v2_attachment_property_get_attachment(
     click.echo(repr(result))
 
 
-@ontologies_v2_attachment_property.command("get_attachment_by_rid")
+@ontologies_attachment_property.command("get_attachment_by_rid")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -4971,7 +4966,7 @@ def ontologies_v2_attachment_property_get_attachment(
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_get_attachment_by_rid(
+def ontologies_attachment_property_get_attachment_by_rid(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -5000,7 +4995,7 @@ def ontologies_v2_attachment_property_get_attachment_by_rid(
     click.echo(repr(result))
 
 
-@ontologies_v2_attachment_property.command("read_attachment")
+@ontologies_attachment_property.command("read_attachment")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -5008,7 +5003,7 @@ def ontologies_v2_attachment_property_get_attachment_by_rid(
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_read_attachment(
+def ontologies_attachment_property_read_attachment(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -5035,7 +5030,7 @@ def ontologies_v2_attachment_property_read_attachment(
     click.echo(result)
 
 
-@ontologies_v2_attachment_property.command("read_attachment_by_rid")
+@ontologies_attachment_property.command("read_attachment_by_rid")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
@@ -5044,7 +5039,7 @@ def ontologies_v2_attachment_property_read_attachment(
 @click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_attachment_property_read_attachment_by_rid(
+def ontologies_attachment_property_read_attachment_by_rid(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
@@ -5075,15 +5070,15 @@ def ontologies_v2_attachment_property_read_attachment_by_rid(
     click.echo(result)
 
 
-@ontologies_v2.group("attachment")
-def ontologies_v2_attachment():
+@ontologies.group("attachment")
+def ontologies_attachment():
     pass
 
 
-@ontologies_v2_attachment.command("get")
+@ontologies_attachment.command("get")
 @click.argument("attachment_rid", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_attachment_get(
+def ontologies_attachment_get(
     client: foundry.v2.FoundryClient,
     attachment_rid: str,
 ):
@@ -5100,10 +5095,10 @@ def ontologies_v2_attachment_get(
     click.echo(repr(result))
 
 
-@ontologies_v2_attachment.command("read")
+@ontologies_attachment.command("read")
 @click.argument("attachment_rid", type=str, required=True)
 @click.pass_obj
-def ontologies_v2_attachment_read(
+def ontologies_attachment_read(
     client: foundry.v2.FoundryClient,
     attachment_rid: str,
 ):
@@ -5120,13 +5115,13 @@ def ontologies_v2_attachment_read(
     click.echo(result)
 
 
-@ontologies_v2_attachment.command("upload")
+@ontologies_attachment.command("upload")
 @click.argument("body", type=click.File("rb"), required=True)
 @click.option("--content_length", type=int, required=True, help="""Content-Length""")
 @click.option("--content_type", type=str, required=True, help="""Content-Type""")
 @click.option("--filename", type=str, required=True, help="""filename""")
 @click.pass_obj
-def ontologies_v2_attachment_upload(
+def ontologies_attachment_upload(
     client: foundry.v2.FoundryClient,
     body: io.BufferedReader,
     content_length: int,
@@ -5153,12 +5148,12 @@ def ontologies_v2_attachment_upload(
     click.echo(repr(result))
 
 
-@ontologies_v2.group("action")
-def ontologies_v2_action():
+@ontologies.group("action")
+def ontologies_action():
     pass
 
 
-@ontologies_v2_action.command("apply")
+@ontologies_action.command("apply")
 @click.argument("ontology", type=str, required=True)
 @click.argument("action", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
@@ -5166,7 +5161,7 @@ def ontologies_v2_action():
 @click.option("--options", type=str, required=False, help="""""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_action_apply(
+def ontologies_action_apply(
     client: foundry.v2.FoundryClient,
     ontology: str,
     action: str,
@@ -5198,7 +5193,7 @@ def ontologies_v2_action_apply(
     click.echo(repr(result))
 
 
-@ontologies_v2_action.command("apply_batch")
+@ontologies_action.command("apply_batch")
 @click.argument("ontology", type=str, required=True)
 @click.argument("action", type=str, required=True)
 @click.option("--requests", type=str, required=True, help="""""")
@@ -5206,7 +5201,7 @@ def ontologies_v2_action_apply(
 @click.option("--options", type=str, required=False, help="""""")
 @click.option("--package_name", type=str, required=False, help="""packageName""")
 @click.pass_obj
-def ontologies_v2_action_apply_batch(
+def ontologies_action_apply_batch(
     client: foundry.v2.FoundryClient,
     ontology: str,
     action: str,

@@ -54,7 +54,6 @@ def test_can_validate_types():
         *[(models_functions_v2, model_name) for model_name in dir(models_functions_v2)],
         *[(models_geo_v2, model_name) for model_name in dir(models_geo_v2)],
         *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
-        *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
         *[(models_orchestration_v2, model_name) for model_name in dir(models_orchestration_v2)],
         *[(models_streams_v2, model_name) for model_name in dir(models_streams_v2)],
         *[

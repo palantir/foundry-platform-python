@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 PropertyTypeRid = RID
-"""The RID for a property type from an ontology object."""
+"""PropertyTypeRid"""

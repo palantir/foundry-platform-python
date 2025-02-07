@@ -69,8 +69,6 @@ from foundry.v1.ontologies.models._aggregation_ranges_grouping_dict import (
 )  # NOQA
 from foundry.v1.ontologies.models._all_terms_query import AllTermsQuery
 from foundry.v1.ontologies.models._all_terms_query_dict import AllTermsQueryDict
-from foundry.v1.ontologies.models._and_query import AndQuery
-from foundry.v1.ontologies.models._and_query_dict import AndQueryDict
 from foundry.v1.ontologies.models._any_term_query import AnyTermQuery
 from foundry.v1.ontologies.models._any_term_query_dict import AnyTermQueryDict
 from foundry.v1.ontologies.models._apply_action_mode import ApplyActionMode
@@ -204,8 +202,6 @@ from foundry.v1.ontologies.models._modify_interface_object_rule_dict import (
 )  # NOQA
 from foundry.v1.ontologies.models._modify_object_rule import ModifyObjectRule
 from foundry.v1.ontologies.models._modify_object_rule_dict import ModifyObjectRuleDict
-from foundry.v1.ontologies.models._not_query import NotQuery
-from foundry.v1.ontologies.models._not_query_dict import NotQueryDict
 from foundry.v1.ontologies.models._object_property_value_constraint import (
     ObjectPropertyValueConstraint,
 )  # NOQA
@@ -229,13 +225,19 @@ from foundry.v1.ontologies.models._one_of_constraint import OneOfConstraint
 from foundry.v1.ontologies.models._one_of_constraint_dict import OneOfConstraintDict
 from foundry.v1.ontologies.models._ontology import Ontology
 from foundry.v1.ontologies.models._ontology_api_name import OntologyApiName
-from foundry.v1.ontologies.models._ontology_array_type import OntologyArrayType
-from foundry.v1.ontologies.models._ontology_array_type_dict import OntologyArrayTypeDict
+from foundry.v1.ontologies.models._ontology_data_type import OntologyArrayType
 from foundry.v1.ontologies.models._ontology_data_type import OntologyDataType
+from foundry.v1.ontologies.models._ontology_data_type import OntologyMapType
+from foundry.v1.ontologies.models._ontology_data_type import OntologySetType
+from foundry.v1.ontologies.models._ontology_data_type import OntologyStructField
+from foundry.v1.ontologies.models._ontology_data_type import OntologyStructType
+from foundry.v1.ontologies.models._ontology_data_type_dict import OntologyArrayTypeDict
 from foundry.v1.ontologies.models._ontology_data_type_dict import OntologyDataTypeDict
+from foundry.v1.ontologies.models._ontology_data_type_dict import OntologyMapTypeDict
+from foundry.v1.ontologies.models._ontology_data_type_dict import OntologySetTypeDict
+from foundry.v1.ontologies.models._ontology_data_type_dict import OntologyStructFieldDict  # NOQA
+from foundry.v1.ontologies.models._ontology_data_type_dict import OntologyStructTypeDict
 from foundry.v1.ontologies.models._ontology_dict import OntologyDict
-from foundry.v1.ontologies.models._ontology_map_type import OntologyMapType
-from foundry.v1.ontologies.models._ontology_map_type_dict import OntologyMapTypeDict
 from foundry.v1.ontologies.models._ontology_object import OntologyObject
 from foundry.v1.ontologies.models._ontology_object_dict import OntologyObjectDict
 from foundry.v1.ontologies.models._ontology_object_set_type import OntologyObjectSetType
@@ -245,14 +247,6 @@ from foundry.v1.ontologies.models._ontology_object_set_type_dict import (
 from foundry.v1.ontologies.models._ontology_object_type import OntologyObjectType
 from foundry.v1.ontologies.models._ontology_object_type_dict import OntologyObjectTypeDict  # NOQA
 from foundry.v1.ontologies.models._ontology_rid import OntologyRid
-from foundry.v1.ontologies.models._ontology_set_type import OntologySetType
-from foundry.v1.ontologies.models._ontology_set_type_dict import OntologySetTypeDict
-from foundry.v1.ontologies.models._ontology_struct_field import OntologyStructField
-from foundry.v1.ontologies.models._ontology_struct_field_dict import OntologyStructFieldDict  # NOQA
-from foundry.v1.ontologies.models._ontology_struct_type import OntologyStructType
-from foundry.v1.ontologies.models._ontology_struct_type_dict import OntologyStructTypeDict  # NOQA
-from foundry.v1.ontologies.models._or_query import OrQuery
-from foundry.v1.ontologies.models._or_query_dict import OrQueryDict
 from foundry.v1.ontologies.models._order_by import OrderBy
 from foundry.v1.ontologies.models._parameter import Parameter
 from foundry.v1.ontologies.models._parameter_dict import ParameterDict
@@ -298,22 +292,28 @@ from foundry.v1.ontologies.models._query_aggregation_value_type_dict import (
     QueryAggregationValueTypeDict,
 )  # NOQA
 from foundry.v1.ontologies.models._query_api_name import QueryApiName
-from foundry.v1.ontologies.models._query_array_type_dict import QueryArrayTypeDict
+from foundry.v1.ontologies.models._query_data_type_dict import QueryArrayTypeDict
 from foundry.v1.ontologies.models._query_data_type_dict import QueryDataTypeDict
+from foundry.v1.ontologies.models._query_data_type_dict import QuerySetTypeDict
+from foundry.v1.ontologies.models._query_data_type_dict import QueryStructFieldDict
+from foundry.v1.ontologies.models._query_data_type_dict import QueryStructTypeDict
+from foundry.v1.ontologies.models._query_data_type_dict import QueryUnionTypeDict
 from foundry.v1.ontologies.models._query_runtime_error_parameter import (
     QueryRuntimeErrorParameter,
 )  # NOQA
-from foundry.v1.ontologies.models._query_set_type_dict import QuerySetTypeDict
-from foundry.v1.ontologies.models._query_struct_field_dict import QueryStructFieldDict
-from foundry.v1.ontologies.models._query_struct_type_dict import QueryStructTypeDict
 from foundry.v1.ontologies.models._query_type import QueryType
 from foundry.v1.ontologies.models._query_type_dict import QueryTypeDict
-from foundry.v1.ontologies.models._query_union_type_dict import QueryUnionTypeDict
 from foundry.v1.ontologies.models._range_constraint import RangeConstraint
 from foundry.v1.ontologies.models._range_constraint_dict import RangeConstraintDict
 from foundry.v1.ontologies.models._return_edits_mode import ReturnEditsMode
 from foundry.v1.ontologies.models._sdk_package_name import SdkPackageName
+from foundry.v1.ontologies.models._search_json_query import AndQuery
+from foundry.v1.ontologies.models._search_json_query import NotQuery
+from foundry.v1.ontologies.models._search_json_query import OrQuery
 from foundry.v1.ontologies.models._search_json_query import SearchJsonQuery
+from foundry.v1.ontologies.models._search_json_query_dict import AndQueryDict
+from foundry.v1.ontologies.models._search_json_query_dict import NotQueryDict
+from foundry.v1.ontologies.models._search_json_query_dict import OrQueryDict
 from foundry.v1.ontologies.models._search_json_query_dict import SearchJsonQueryDict
 from foundry.v1.ontologies.models._search_objects_response import SearchObjectsResponse
 from foundry.v1.ontologies.models._search_objects_response_dict import (
