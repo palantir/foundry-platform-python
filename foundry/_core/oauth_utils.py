@@ -18,7 +18,11 @@ import hashlib
 import secrets
 import string
 import time
+import warnings
+from abc import ABC
+from abc import abstractmethod
 from typing import Any
+from typing import Callable
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -27,7 +31,9 @@ from urllib.parse import urlencode
 import httpx
 import pydantic
 
+from foundry._core.auth_utils import Auth
 from foundry._core.auth_utils import Token
+from foundry._core.config import Config
 from foundry._core.http_client import HttpClient
 
 
@@ -52,6 +58,14 @@ class OAuthUtils:
     @staticmethod
     def create_uri(context_path: Optional[str], request_path: str) -> str:
         return (context_path or OAuthUtils.base_context_path) + request_path
+
+
+class SignInResponse(pydantic.BaseModel):
+    session: Dict[str, Any]
+
+
+class SignOutResponse(pydantic.BaseModel):
+    pass
 
 
 class OAuthTokenResponse(pydantic.BaseModel):
@@ -102,12 +116,98 @@ class AuthorizeRequest(pydantic.BaseModel):
     code_verifier: str
 
 
+class OAuth(Auth, ABC):
+    def __init__(
+        self,
+        hostname: Optional[str],
+        config: Optional[Config],
+        scopes: Optional[List[str]] = None,
+    ) -> None:
+        self._config = config
+        self._scopes = scopes
+        self._hostname = hostname
+        self._parameterized_directly = config is not None or hostname is not None
+        self._client: Optional[HttpClient] = None
+
+    @abstractmethod
+    def sign_out(self) -> SignOutResponse:
+        pass
+
+    def execute_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> httpx.Response:
+        try:
+            return self._run_with_attempted_refresh(func)
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 401:
+                self.sign_out()
+            raise e
+        except Exception as e:
+            raise e
+
+    def run_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> None:
+        self.execute_with_token(func)
+
+    @abstractmethod
+    def _refresh_token(self) -> None:
+        pass
+
+    @abstractmethod
+    def get_token(self) -> OAuthToken:
+        pass
+
+    def _run_with_attempted_refresh(
+        self, func: Callable[[OAuthToken], httpx.Response]
+    ) -> httpx.Response:
+        """
+        Attempt to run func, and if it fails with a 401, refresh the token and try again.
+        If it fails with a 401 again, raise the exception.
+        """
+        try:
+            return func(self.get_token())
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 401:
+                self._refresh_token()
+                return func(self.get_token())
+            else:
+                raise e
+
+    def _parameterize(self, hostname: str, config: Optional[Config]) -> None:
+        if self._parameterized_directly:
+            warnings.warn(
+                f"When a {self.__class__.__name__} instance is given to a FoundryClient, its hostname "
+                "and config are automatically provided by the FoundryClient. Please remove these "
+                "parameters from the {self.__class__.__name__} initialization.",
+                UserWarning,
+                stacklevel=2,
+            )
+
+        if self._client is not None:
+            return
+
+        self._config = config
+        self._hostname = hostname
+
+        # Set here so that the next call to _parameterize() doesn't re-create another HttpClient
+        # This method may be called many times dependening on how many different ApiClients
+        # are created with the same Auth object
+        self._client = HttpClient(hostname, config)
+
+    def _get_client(self) -> HttpClient:
+        if self._client is None:
+            if self._hostname is None:
+                raise ValueError(
+                    f"The hostname must be provided to {self.__class__.__name__} when fetching a token."
+                )
+
+            self._client = HttpClient(hostname=self._hostname, config=self._config)
+
+        return self._client
+
+
 class ConfidentialClientOAuthFlowProvider:
     def __init__(
         self,
         client_id: str,
         client_secret: str,
-        hostname: str,
         multipass_context_path: Optional[str] = None,
         scopes: Optional[List[str]] = None,
     ):
@@ -115,7 +215,6 @@ class ConfidentialClientOAuthFlowProvider:
         self._client_secret = client_secret
         self.multipass_context_path = multipass_context_path
         self.scopes = scopes
-        self._client = HttpClient(hostname)
 
     @property
     def client_id(self) -> str:
@@ -125,7 +224,7 @@ class ConfidentialClientOAuthFlowProvider:
     def client_secret(self) -> str:
         return self._client_secret
 
-    def get_token(self) -> OAuthToken:
+    def get_token(self, client: HttpClient) -> OAuthToken:
         params = {
             "client_id": self._client_id,
             "client_secret": self._client_secret,
@@ -136,11 +235,11 @@ class ConfidentialClientOAuthFlowProvider:
             params["scope"] = " ".join(scopes)
 
         token_url = OAuthUtils.get_token_uri(self.multipass_context_path)
-        response = self._client.post(token_url, data=params)
+        response = client.post(token_url, data=params)
         response.raise_for_status()
         return OAuthToken(token=OAuthTokenResponse(token_response=response.json()))
 
-    def revoke_token(self, access_token: str) -> None:
+    def revoke_token(self, client: HttpClient, access_token: str) -> None:
         body = {
             "client_id": self._client_id,
             "client_secret": self._client_secret,
@@ -148,7 +247,7 @@ class ConfidentialClientOAuthFlowProvider:
         }
 
         token_url = OAuthUtils.get_revoke_uri(self.multipass_context_path)
-        revoke_token_response = self._client.post(token_url, data=body)
+        revoke_token_response = client.post(token_url, data=body)
         revoke_token_response.raise_for_status()
 
     def get_scopes(self) -> List[str]:
@@ -178,7 +277,6 @@ class PublicClientOAuthFlowProvider:
         self,
         client_id: str,
         redirect_url: str,
-        hostname: str,
         multipass_context_path: Optional[str] = None,
         scopes: Optional[List[str]] = None,
     ):
@@ -186,7 +284,6 @@ class PublicClientOAuthFlowProvider:
         self._redirect_url = redirect_url
         self.multipass_context_path = multipass_context_path
         self.scopes = scopes
-        self._client = HttpClient(hostname)
 
     @property
     def client_id(self) -> str:
@@ -196,7 +293,7 @@ class PublicClientOAuthFlowProvider:
     def redirect_url(self) -> str:
         return self._redirect_url
 
-    def generate_auth_request(self) -> AuthorizeRequest:
+    def generate_auth_request(self, client: HttpClient) -> AuthorizeRequest:
         state = generate_random_string()
         code_verifier = generate_random_string()
         code_challenge = generate_code_challenge(code_verifier)
@@ -216,12 +313,12 @@ class PublicClientOAuthFlowProvider:
         authorize_url = OAuthUtils.get_authorize_uri(self.multipass_context_path)
 
         return AuthorizeRequest(
-            url=f"{self._client.base_url}{authorize_url}?{urlencode(params, doseq=True)}",
+            url=f"{client.base_url}{authorize_url}?{urlencode(params, doseq=True)}",
             state=state,
             code_verifier=code_verifier,
         )
 
-    def get_token(self, code: str, code_verifier: str) -> OAuthToken:
+    def get_token(self, client: HttpClient, code: str, code_verifier: str) -> OAuthToken:
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         params = {
             "grant_type": "authorization_code",
@@ -235,11 +332,11 @@ class PublicClientOAuthFlowProvider:
             params["scope"] = " ".join(scopes)
 
         token_url = OAuthUtils.get_token_uri(self.multipass_context_path)
-        response = self._client.post(token_url, data=params, headers=headers)
+        response = client.post(token_url, data=params, headers=headers)
         response.raise_for_status()
         return OAuthToken(token=OAuthTokenResponse(token_response=response.json()))
 
-    def refresh_token(self, refresh_token: str) -> OAuthToken:
+    def refresh_token(self, client: HttpClient, refresh_token: str) -> OAuthToken:
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         params = {
             "grant_type": "refresh_token",
@@ -248,18 +345,18 @@ class PublicClientOAuthFlowProvider:
         }
 
         token_url = OAuthUtils.get_token_uri(self.multipass_context_path)
-        response = self._client.post(token_url, data=params, headers=headers)
+        response = client.post(token_url, data=params, headers=headers)
         response.raise_for_status()
         return OAuthToken(token=OAuthTokenResponse(token_response=response.json()))
 
-    def revoke_token(self, access_token: str) -> None:
+    def revoke_token(self, client: HttpClient, access_token: str) -> None:
         body = {
             "client_id": self._client_id,
             "token": access_token,
         }
 
         token_url = OAuthUtils.get_revoke_uri(self.multipass_context_path)
-        revoke_token_response = self._client.post(token_url, data=body)
+        revoke_token_response = client.post(token_url, data=body)
         revoke_token_response.raise_for_status()
 
     def get_scopes(self) -> List[str]:

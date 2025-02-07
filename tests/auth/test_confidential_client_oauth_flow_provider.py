@@ -17,11 +17,11 @@ import httpx
 import pytest
 from expects import equal
 from expects import expect
-from expects import raise_error
 from mockito import mock
 from mockito import unstub
 from mockito import when
 
+from foundry._core.http_client import HttpClient
 from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
 from foundry._core.oauth_utils import OAuthUtils
 
@@ -31,19 +31,23 @@ def instantiate_server_oauth_flow_provider():
     return ConfidentialClientOAuthFlowProvider(
         client_id="client_id",
         client_secret="client_secret",
-        hostname="a.b.c",
         multipass_context_path="/multipass",
         scopes=["scope1", "scope2"],
     )
 
 
-def test_get_token(client):
+@pytest.fixture(scope="module")
+def http_client():
+    return HttpClient("https://a.b.c.com")
+
+
+def test_get_token(client, http_client):
     response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
     when(response).json().thenReturn(
         {"access_token": "example_token", "expires_in": 42, "token_type": "Bearer"}
     )
-    when(client._client).post(
+    when(http_client).post(
         "/multipass/api/oauth2/token",
         data={
             "client_id": "client_id",
@@ -52,13 +56,13 @@ def test_get_token(client):
             "scope": "scope1 scope2 offline_access",
         },
     ).thenReturn(response)
-    token = client.get_token()
+    token = client.get_token(http_client)
     expect(token.access_token).to(equal("example_token"))
     expect(token.token_type).to(equal("Bearer"))
     unstub()
 
 
-def test_get_token_throws_when_unsuccessful(client):
+def test_get_token_throws_when_unsuccessful(client, http_client):
     response = mock(httpx.Response)
     when(response).raise_for_status().thenRaise(
         httpx.HTTPStatusError(
@@ -67,7 +71,7 @@ def test_get_token_throws_when_unsuccessful(client):
             response=httpx.Response(200),
         ),
     )
-    when(client._client).post(
+    when(http_client).post(
         "/multipass/api/oauth2/token",
         data={
             "client_id": "client_id",
@@ -78,15 +82,15 @@ def test_get_token_throws_when_unsuccessful(client):
     ).thenReturn(response)
 
     with pytest.raises(httpx.HTTPStatusError):
-        client.get_token()
+        client.get_token(http_client)
 
     unstub()
 
 
-def test_revoke_token(client):
+def test_revoke_token(client, http_client):
     response = mock(httpx.Response)
     when(response).raise_for_status().thenReturn(None)
-    when(client._client).post(
+    when(http_client).post(
         "/multipass/api/oauth2/revoke_token",
         data={
             "client_id": "client_id",
@@ -94,7 +98,7 @@ def test_revoke_token(client):
             "token": "token_to_be_revoked",
         },
     ).thenReturn(response)
-    client.revoke_token("token_to_be_revoked")
+    client.revoke_token(http_client, "token_to_be_revoked")
     unstub()
 
 

@@ -13,18 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
 from typing import Optional
 
 from foundry._core import Auth
 from foundry._core import Config
-from foundry.v1.datasets.dataset import DatasetClient
 
 
-class DatasetsClient:
+class StreamsClient:
     """
-    The API client for the Datasets Namespace.
+    The API client for the Streams Namespace.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -37,4 +34,6 @@ class DatasetsClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        from foundry.v2.streams.dataset import DatasetClient
+
         self.Dataset = DatasetClient(auth=auth, hostname=hostname, config=config)

@@ -34,16 +34,16 @@ class FoundryClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
-        from foundry.v2.admin.client import AdminClient
-        from foundry.v2.aip_agents.client import AipAgentsClient
-        from foundry.v2.connectivity.client import ConnectivityClient
-        from foundry.v2.datasets.client import DatasetsClient
-        from foundry.v2.filesystem.client import FilesystemClient
-        from foundry.v2.functions.client import FunctionsClient
-        from foundry.v2.ontologies.client import OntologiesClient
-        from foundry.v2.orchestration.client import OrchestrationClient
-        from foundry.v2.streams.client import StreamsClient
-        from foundry.v2.third_party_applications.client import ThirdPartyApplicationsClient  # NOQA
+        from foundry.v2.admin._client import AdminClient
+        from foundry.v2.aip_agents._client import AipAgentsClient
+        from foundry.v2.connectivity._client import ConnectivityClient
+        from foundry.v2.datasets._client import DatasetsClient
+        from foundry.v2.filesystem._client import FilesystemClient
+        from foundry.v2.functions._client import FunctionsClient
+        from foundry.v2.ontologies._client import OntologiesClient
+        from foundry.v2.orchestration._client import OrchestrationClient
+        from foundry.v2.streams._client import StreamsClient
+        from foundry.v2.third_party_applications._client import ThirdPartyApplicationsClient  # NOQA
 
         self.admin = AdminClient(auth=auth, hostname=hostname, config=config)
         self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname, config=config)

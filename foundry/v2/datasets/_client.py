@@ -13,23 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
 from typing import Optional
 
 from foundry._core import Auth
 from foundry._core import Config
-from foundry.v2.admin.enrollment import EnrollmentClient
-from foundry.v2.admin.group import GroupClient
-from foundry.v2.admin.marking import MarkingClient
-from foundry.v2.admin.marking_category import MarkingCategoryClient
-from foundry.v2.admin.organization import OrganizationClient
-from foundry.v2.admin.user import UserClient
 
 
-class AdminClient:
+class DatasetsClient:
     """
-    The API client for the Admin Namespace.
+    The API client for the Datasets Namespace.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -42,9 +34,6 @@ class AdminClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
-        self.Enrollment = EnrollmentClient(auth=auth, hostname=hostname, config=config)
-        self.Group = GroupClient(auth=auth, hostname=hostname, config=config)
-        self.Marking = MarkingClient(auth=auth, hostname=hostname, config=config)
-        self.MarkingCategory = MarkingCategoryClient(auth=auth, hostname=hostname, config=config)
-        self.Organization = OrganizationClient(auth=auth, hostname=hostname, config=config)
-        self.User = UserClient(auth=auth, hostname=hostname, config=config)
+        from foundry.v2.datasets.dataset import DatasetClient
+
+        self.Dataset = DatasetClient(auth=auth, hostname=hostname, config=config)

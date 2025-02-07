@@ -13,15 +13,8 @@
 #  limitations under the License.
 
 
-from typing import Any
-from typing import Dict
+from foundry.v2.streams._client import StreamsClient
 
-import pydantic
-
-
-class SignInResponse(pydantic.BaseModel):
-    session: Dict[str, Any]
-
-
-class SignOutResponse(pydantic.BaseModel):
-    pass
+__all__ = [
+    "StreamsClient",
+]

@@ -13,19 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
 from typing import Optional
 
 from foundry._core import Auth
 from foundry._core import Config
-from foundry.v2.functions.query import QueryClient
-from foundry.v2.functions.value_type import ValueTypeClient
 
 
-class FunctionsClient:
+class OrchestrationClient:
     """
-    The API client for the Functions Namespace.
+    The API client for the Orchestration Namespace.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -38,5 +34,10 @@ class FunctionsClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
-        self.Query = QueryClient(auth=auth, hostname=hostname, config=config)
-        self.ValueType = ValueTypeClient(auth=auth, hostname=hostname, config=config)
+        from foundry.v2.orchestration.build import BuildClient
+        from foundry.v2.orchestration.schedule import ScheduleClient
+        from foundry.v2.orchestration.schedule_version import ScheduleVersionClient
+
+        self.Build = BuildClient(auth=auth, hostname=hostname, config=config)
+        self.Schedule = ScheduleClient(auth=auth, hostname=hostname, config=config)
+        self.ScheduleVersion = ScheduleVersionClient(auth=auth, hostname=hostname, config=config)
