@@ -13,11 +13,15 @@
 #  limitations under the License.
 
 
+import warnings
 from abc import ABC
 from abc import abstractmethod
 from typing import Callable
+from typing import Optional
 
 import httpx
+
+from foundry._core.config import Config
 
 
 class Token(ABC):
@@ -29,9 +33,11 @@ class Token(ABC):
 
 
 class Auth(ABC):
-
     @abstractmethod
     def get_token(self) -> "Token":
+        pass
+
+    def _parameterize(self, hostname: str, config: Optional[Config]) -> None:
         pass
 
     @abstractmethod

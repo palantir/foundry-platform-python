@@ -13,8 +13,11 @@
 #  limitations under the License.
 
 
+import contextlib
+
 import httpx
 import pytest
+from mockito import any
 from mockito import spy
 from mockito import unstub
 from mockito import verify
@@ -27,17 +30,48 @@ from foundry._core.oauth_utils import OAuthTokenResponse
 from foundry._core.public_client_auth import PublicClientAuth
 from foundry._errors.not_authenticated import NotAuthenticated
 
+RESPONSE = {
+    "access_token": "access_token",
+    "token_type": "foo",
+    "expires_in": 3600,
+    "refresh_token": "bar",
+}
 
-def create_token(access_token="access_token", expired_in=3600) -> OAuthToken:
-    return OAuthToken(
-        OAuthTokenResponse(
-            {
-                "access_token": access_token,
-                "token_type": "foo",
-                "expires_in": expired_in,
-            }
-        )
+
+@contextlib.contextmanager
+def stubbed_auth(should_refresh=True, token_response=RESPONSE):
+    auth = PublicClientAuth(
+        client_id="client_id",
+        redirect_url="redirect_url",
+        hostname="https://a.b.c.com",
+        should_refresh=should_refresh,
     )
+
+    response = httpx.Response(
+        request=httpx.Request("GET", "foo"), status_code=200, json=token_response
+    )
+    when(auth._get_client()).post(
+        "/multipass/api/oauth2/token",
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+        data=any(),
+    ).thenReturn(response)
+
+    response = httpx.Response(request=httpx.Request("GET", "foo"), status_code=200)
+    when(auth._get_client()).post("/multipass/api/oauth2/revoke_token", data=any()).thenReturn(
+        response
+    )
+
+    when(auth)._refresh_token().thenCallOriginalImplementation()
+    when(auth).sign_out().thenCallOriginalImplementation()
+
+    yield auth
+    unstub()
+
+
+def _sign_in(auth: PublicClientAuth):
+    auth.sign_in()
+    assert auth._auth_request is not None
+    auth.set_token(code="", state=auth._auth_request.state)
 
 
 def test_public_client_instantiate():
@@ -55,30 +89,19 @@ def test_public_client_instantiate():
 
 
 def test_public_client_sign_in():
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-
-    assert auth.sign_in().startswith("https://a.b.c.com/multipass/api/oauth2/authorize?")
-    assert auth._auth_request is not None
+    with stubbed_auth() as auth:
+        assert auth.sign_in().startswith("https://a.b.c.com/multipass/api/oauth2/authorize?")
+        assert auth._auth_request is not None
 
 
 def test_public_client_set_token():
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    auth._auth_request = AuthorizeRequest(url="", state="", code_verifier="")
-    token = create_token()
-    when(auth._server_oauth_flow_provider).get_token(code="", code_verifier="").thenReturn(token)
-    auth.set_token(code="", state="")
-    assert auth._token == token
-    unstub()
+    with stubbed_auth() as auth:
+        auth.sign_in()
+        assert auth._auth_request is not None
+
+        auth.set_token(code="", state=auth._auth_request.state)
+        assert auth._token is not None
+        assert auth._token.access_token == "access_token"
 
 
 def test_public_client_url():
@@ -94,105 +117,62 @@ def test_public_client_url():
 
 
 def test_public_client_get_token():
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    token = create_token()
-    auth._token = token
-    assert auth.get_token() == token
+    with stubbed_auth() as auth:
+        _sign_in(auth)
+        assert isinstance(auth.get_token(), Token)
 
 
 def test_public_client_sign_out():
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    token = create_token()
-    auth._token = token
-    when(auth._server_oauth_flow_provider).revoke_token("access_token").thenReturn(None)
-    auth.sign_out()
-    assert auth._token == None
-    assert auth._stop_refresh_event._flag == True  # type: ignore
-    unstub()
+    with stubbed_auth() as auth:
+        _sign_in(auth)
+        assert auth._token is not None
+
+        auth.sign_out()
+        assert auth._token is None
+        assert auth._stop_refresh_event._flag == True  # type: ignore
 
 
 def test_public_client_get_token_throws_if_not_signed_in():
-    # pylint: disable=unnecessary-lambda
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
+    with stubbed_auth() as auth:
+        with pytest.raises(NotAuthenticated) as e:
+            auth.get_token()
 
-    with pytest.raises(NotAuthenticated) as e:
-        auth.get_token()
-
-    assert str(e.value) == "Client has not been authenticated."
+        assert str(e.value) == "Client has not been authenticated."
 
 
 def test_public_client_execute_with_token_successful_method():
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    token = create_token()
-    auth._token = token
-    auth = spy(auth)
-    assert auth.execute_with_token(lambda _: "success") == "success"
-    verify(auth, times=0)._refresh_token()
+    with stubbed_auth() as auth:
+        _sign_in(auth)
+        assert auth.execute_with_token(lambda _: httpx.Response(200)).status_code == 200
+        verify(auth, times=0)._refresh_token()
 
 
 def test_public_client_execute_with_token_failing_method():
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    token = create_token()
-    auth._token = token
-    when(auth).sign_out().thenReturn(None)
+    with stubbed_auth() as auth:
+        _sign_in(auth)
 
-    def raise_(ex):
-        raise ex
+        def raise_(ex):
+            raise ex
 
-    with pytest.raises(ValueError):
-        auth.execute_with_token(lambda _: raise_(ValueError("Oops!")))
+        with pytest.raises(ValueError):
+            auth.execute_with_token(lambda _: raise_(ValueError("Oops!")))
 
-    verify(auth, times=0)._refresh_token()
-    unstub()
+        verify(auth, times=0)._refresh_token()
 
 
 def test_public_client_execute_with_token_method_raises_401():
-    auth = PublicClientAuth(
-        client_id="client_id",
-        redirect_url="redirect_url",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    token = create_token()
-    auth._token = token
-    when(auth).sign_out().thenReturn(None)
-    when(auth)._refresh_token().thenReturn(token)
+    with stubbed_auth() as auth:
+        _sign_in(auth)
 
-    def raise_401():
-        e = httpx.HTTPStatusError(
-            "foo",
-            request=httpx.Request("foo", url="foo"),
-            response=httpx.Response(status_code=401),
-        )
-        raise e
+        def raise_401():
+            e = httpx.HTTPStatusError(
+                "foo",
+                request=httpx.Request("foo", url="foo"),
+                response=httpx.Response(status_code=401),
+            )
+            raise e
 
-    with pytest.raises(httpx.HTTPStatusError):
-        auth.execute_with_token(lambda _: raise_401())
+        with pytest.raises(httpx.HTTPStatusError):
+            auth.execute_with_token(lambda _: raise_401())
 
-    verify(auth, times=1)._refresh_token()
-    unstub()
+        verify(auth, times=1)._refresh_token()

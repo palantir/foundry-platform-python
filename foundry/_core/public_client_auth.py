@@ -15,38 +15,39 @@
 
 import threading
 import time
-import webbrowser
-from typing import Callable
 from typing import List
 from typing import Optional
 
-import httpx
-
-from foundry._core.auth_utils import Auth
-from foundry._core.oauth import SignOutResponse
+from foundry._core.config import Config
 from foundry._core.oauth_utils import AuthorizeRequest
+from foundry._core.oauth_utils import OAuth
 from foundry._core.oauth_utils import OAuthToken
 from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
+from foundry._core.oauth_utils import SignOutResponse
 from foundry._errors.not_authenticated import NotAuthenticated
-from foundry._errors.sdk_internal_error import SDKInternalError
 
 
-class PublicClientAuth(Auth):
+class PublicClientAuth(OAuth):
     """
     Client for Public Client OAuth-authenticated Ontology applications.
     Runs a background thread to periodically refresh access token.
+
     :param client_id: OAuth client id to be used by the application.
-    :param client_secret: OAuth client secret to be used by the application.
-    :param hostname: Hostname for authentication and ontology endpoints.
+    :param redirect_url: The URL the authorization server should redirect the user to after the user approves the request.
+    :param scopes: The list of scopes to request. By default, no specific scope is provided and a token will be returned with all scopes.
+    :param hostname: Hostname for authentication. This is only required if using PublicClientAuth independently of the FoundryClient.
+    :param config: The HTTP config for authentication. This is only required if using ConfidentialClientAuth independently of the FoundryClient.
     """
 
     def __init__(
         self,
         client_id: str,
         redirect_url: str,
-        hostname: str,
+        hostname: Optional[str] = None,
         scopes: Optional[List[str]] = None,
         should_refresh: bool = False,
+        *,
+        config: Optional[Config] = None,
     ) -> None:
         self._client_id = client_id
         self._redirect_url = redirect_url
@@ -54,65 +55,40 @@ class PublicClientAuth(Auth):
         self._token: Optional[OAuthToken] = None
         self._should_refresh = should_refresh
         self._stop_refresh_event = threading.Event()
+        self._scopes = scopes
+        self._auth_request: Optional[AuthorizeRequest] = None
         self._server_oauth_flow_provider = PublicClientOAuthFlowProvider(
             client_id=client_id,
             redirect_url=redirect_url,
-            hostname=hostname,
             scopes=scopes,
         )
-        self._auth_request: Optional[AuthorizeRequest] = None
+        super().__init__(hostname, config, scopes)
 
     def get_token(self) -> OAuthToken:
         if self._token is None:
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def execute_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> httpx.Response:
-        try:
-            return self._run_with_attempted_refresh(func)
-        except Exception as e:
-            self.sign_out()
-            raise e
-
-    def run_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> None:
-        try:
-            self._run_with_attempted_refresh(func)
-        except Exception as e:
-            self.sign_out()
-            raise e
-
     def _refresh_token(self) -> None:
         if not self._token:
             raise RuntimeError("must have token to refresh")
+
         if not self._token.refresh_token:
             raise RuntimeError("no refresh token provided")
 
         self._token = self._server_oauth_flow_provider.refresh_token(
-            refresh_token=self._token.refresh_token
+            self._get_client(),
+            refresh_token=self._token.refresh_token,
         )
-
-    def _run_with_attempted_refresh(
-        self, func: Callable[[OAuthToken], httpx.Response]
-    ) -> httpx.Response:
-        """
-        Attempt to run func, and if it fails with a 401, refresh the token and try again.
-        If it fails with a 401 again, raise the exception.
-        """
-        try:
-            return func(self.get_token())
-        except httpx.HTTPStatusError as e:
-            if e.response.status_code == 401:
-                self._refresh_token()
-                return func(self.get_token())
-            else:
-                raise e
 
     @property
     def url(self) -> str:
-        return self._server_oauth_flow_provider._client.base_url.host
+        return self._get_client().base_url.host
 
     def sign_in(self) -> str:
-        self._auth_request = self._server_oauth_flow_provider.generate_auth_request()
+        self._auth_request = self._server_oauth_flow_provider.generate_auth_request(
+            self._get_client()
+        )
         return self._auth_request.url
 
     def _start_auto_refresh(self) -> None:
@@ -122,7 +98,8 @@ class PublicClientAuth(Auth):
                     # Sleep for (expires_in - 60) seconds to refresh the token 1 minute before it expires
                     time.sleep(self._token.expires_in - 60)
                     self._token = self._server_oauth_flow_provider.refresh_token(
-                        refresh_token=self._token.refresh_token
+                        self._get_client(),
+                        refresh_token=self._token.refresh_token,
                     )
                 else:
                     # Wait 10 seconds and check again if the token is set
@@ -134,19 +111,25 @@ class PublicClientAuth(Auth):
     def set_token(self, code: str, state: str) -> None:
         if not self._auth_request:
             raise RuntimeError("Must sign in prior to setting token")
+
         if state != self._auth_request.state:
             raise RuntimeError("Unable to verify state")
+
         self._token = self._server_oauth_flow_provider.get_token(
-            code=code, code_verifier=self._auth_request.code_verifier
+            self._get_client(),
+            code=code,
+            code_verifier=self._auth_request.code_verifier,
         )
 
         if self._should_refresh:
             self._start_auto_refresh()
-        return
 
     def sign_out(self) -> SignOutResponse:
         if self._token:
-            self._server_oauth_flow_provider.revoke_token(self._token.access_token)
+            self._server_oauth_flow_provider.revoke_token(
+                self._get_client(),
+                self._token.access_token,
+            )
 
         self._token = None
 

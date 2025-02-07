@@ -15,21 +15,19 @@
 
 import threading
 import time
-from typing import Callable
+import warnings
 from typing import List
 from typing import Optional
 
-import httpx
-
-from foundry._core.auth_utils import Auth
-from foundry._core.oauth import SignInResponse
-from foundry._core.oauth import SignOutResponse
+from foundry._core.config import Config
 from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
+from foundry._core.oauth_utils import OAuth
 from foundry._core.oauth_utils import OAuthToken
-from foundry._errors.not_authenticated import NotAuthenticated
+from foundry._core.oauth_utils import SignInResponse
+from foundry._core.oauth_utils import SignOutResponse
 
 
-class ConfidentialClientAuth(Auth):
+class ConfidentialClientAuth(OAuth):
     """
     Client for Confidential Client OAuth-authenticated Ontology applications.
     Runs a background thread to periodically refresh access token.
@@ -37,77 +35,47 @@ class ConfidentialClientAuth(Auth):
     :param client_id: OAuth client id to be used by the application.
     :param client_secret: OAuth client secret to be used by the application.
     :param scopes: The list of scopes to request. By default, no specific scope is provided and a token will be returned with all scopes.
-    :param hostname: Hostname for authentication and ontology endpoints.
+    :param hostname: Hostname for authentication. This is only required if using ConfidentialClientAuth independently of the FoundryClient.
+    :param config: The HTTP config for authentication. This is only required if using ConfidentialClientAuth independently of the FoundryClient.
     """
 
     def __init__(
         self,
         client_id: str,
         client_secret: str,
-        hostname: str,
+        hostname: Optional[str] = None,
         scopes: Optional[List[str]] = None,
         should_refresh: bool = False,
+        *,
+        config: Optional[Config] = None,
     ) -> None:
         self._client_id = client_id
         self._client_secret = client_secret
         self._token: Optional[OAuthToken] = None
         self._should_refresh = should_refresh
         self._stop_refresh_event = threading.Event()
-        self._hostname = hostname
         self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
             client_id,
             client_secret,
-            hostname=hostname,
             scopes=scopes,
         )
+        super().__init__(hostname, config, scopes)
 
     def get_token(self) -> OAuthToken:
         if self._token is None:
-            raise NotAuthenticated("Client has not been authenticated.")
+            self._token = self._server_oauth_flow_provider.get_token(self._get_client())
+
+            if self._should_refresh:
+                self._start_auto_refresh()
+
         return self._token
-
-    def execute_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> httpx.Response:
-        try:
-            return self._run_with_attempted_refresh(func)
-        except httpx.HTTPStatusError as http_e:
-            if http_e.response.status_code == 401:
-                self.sign_out()
-            raise http_e
-        except Exception as e:
-            raise e
-
-    def run_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> None:
-        try:
-            self._run_with_attempted_refresh(func)
-        except httpx.HTTPStatusError as http_e:
-            if http_e.response.status_code == 401:
-                self.sign_out()
-            raise http_e
-        except Exception as e:
-            raise e
-
-    def _run_with_attempted_refresh(
-        self, func: Callable[[OAuthToken], httpx.Response]
-    ) -> httpx.Response:
-        """
-        Attempt to run func, and if it fails with a 401, refresh the token and try again.
-        If it fails with a 401 again, raise the exception.
-        """
-        try:
-            return func(self.get_token())
-        except httpx.HTTPStatusError as e:
-            if e.response.status_code == 401:
-                self._refresh_token()
-                return func(self.get_token())
-            else:
-                raise e
 
     @property
     def url(self) -> str:
-        return self._server_oauth_flow_provider._client.base_url.host
+        return self._get_client().base_url.host
 
     def _refresh_token(self) -> None:
-        self._token = self._server_oauth_flow_provider.get_token()
+        self._token = self._server_oauth_flow_provider.get_token(self._get_client())
 
     def _start_auto_refresh(self) -> None:
         def _auto_refresh_token() -> None:
@@ -124,23 +92,26 @@ class ConfidentialClientAuth(Auth):
         refresh_thread.start()
 
     def sign_in_as_service_user(self) -> SignInResponse:
-        token = self._server_oauth_flow_provider.get_token()
-        self._token = token
+        warnings.warn(
+            "sign_in_as_service_user() is deprecated. Use get_token() instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
-        if self._should_refresh:
-            self._start_auto_refresh()
-
+        token = self.get_token()
         return SignInResponse(
             session={"accessToken": token.access_token, "expiresIn": token.expires_in}
         )
 
     def sign_out(self) -> SignOutResponse:
         if self._token:
-            self._server_oauth_flow_provider.revoke_token(self._token.access_token)
+            self._server_oauth_flow_provider.revoke_token(
+                self._get_client(),
+                self._token.access_token,
+            )
 
         self._token = None
 
         # Signal the auto-refresh thread to stop
         self._stop_refresh_event.set()
-
         return SignOutResponse()

@@ -97,9 +97,10 @@ natively supports the [client credentials grant flow](https://www.palantir.com/d
 The token obtained by this grant can be used to access resources on behalf of the created service user. To use this
 authentication method, you will first need to register a third-party application in Foundry by following [the guide on third-party application registration](https://www.palantir.com/docs/foundry/platform-security-third-party/register-3pa).
 
-To use the confidential client functionality, you first need to contstruct a `ConfidentialClientAuth` object and initiate
-the sign-in process using the `sign_in_as_service_user` method. As these service user tokens have a short lifespan, we
-automatically retry all operations one time if a `401` (Unauthorized) error is thrown after refreshing the token.
+To use the confidential client functionality, you first need to contstruct a
+`ConfidentialClientAuth` object. As these service user tokens have a short
+lifespan (one hour), we automatically retry all operations one time if a `401`
+(Unauthorized) error is thrown after refreshing the token.
 
 ```python
 import foundry
@@ -107,11 +108,8 @@ import foundry
 auth = foundry.ConfidentialClientAuth(
     client_id=os.environ["CLIENT_ID"],
     client_secret=os.environ["CLIENT_SECRET"],
-    hostname="example.palantirfoundry.com",
     scopes=[...],  # optional list of scopes
 )
-
-auth.sign_in_as_service_user()
 ```
 
 > [!IMPORTANT]
@@ -125,6 +123,12 @@ import foundry.v2
 
 foundry_client = foundry.v2.FoundryClient(auth=auth, hostname="example.palantirfoundry.com")
 ```
+
+> [!TIP]
+> If you want to use the `ConfidentialClientAuth` class independently of the `FoundryClient`, you can
+> use the `get_token()` method to get the token. You will have to provide a `hostname` when
+> instantiating the `ConfidentialClientAuth` object, for example
+> `ConfidentialClientAuth(..., hostname="example.palantirfoundry.com")`.
 
 ## Quickstart
 
@@ -394,6 +398,16 @@ The full list of options can be found below.
 - `verify` (bool | str): SSL verification, can be a boolean or a path to a CA bundle. Defaults to `True`.
 - `default_params` (dict[str, Any]): URL query parameters to include with all requests.
 - `scheme` ("http" | "https"): URL scheme to use ('http' or 'https'). Defaults to 'https'.
+
+### SSL Certificate Verification
+
+In addition to the `Config` class, the SSL certificate file used for verification can be set using
+the following environment variables (in order of precedence):
+- **`REQUESTS_CA_BUNDLE`**
+- **`SSL_CERT_FILE`**
+
+The SDK will only check for the presence of these environment variables if the `verify` option is set to
+`True` (the default value). If `verify` is set to False, the environment variables will be ignored.
 
 ## Common errors
 This section will document any user-related errors with information on how you may be able to resolve them.

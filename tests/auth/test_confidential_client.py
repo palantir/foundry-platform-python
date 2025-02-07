@@ -13,30 +13,51 @@
 #  limitations under the License.
 
 
+import contextlib
+import warnings
+
 import httpx
 import pytest
+from mockito import any
 from mockito import spy
 from mockito import unstub
 from mockito import verify
 from mockito import when
 
 from foundry._core.confidential_client_auth import ConfidentialClientAuth
-from foundry._core.oauth import SignInResponse
-from foundry._core.oauth_utils import OAuthToken
-from foundry._core.oauth_utils import OAuthTokenResponse
-from foundry._errors.not_authenticated import NotAuthenticated
+from foundry._core.oauth_utils import SignInResponse
+
+RESPONSE = {
+    "access_token": "access_token",
+    "token_type": "foo",
+    "expires_in": 3600,
+}
 
 
-def create_token(access_token="access_token", expired_in=3600) -> OAuthToken:
-    return OAuthToken(
-        OAuthTokenResponse(
-            {
-                "access_token": access_token,
-                "token_type": "foo",
-                "expires_in": expired_in,
-            }
-        )
+@contextlib.contextmanager
+def stubbed_auth(should_refresh=True, token_response=RESPONSE):
+    auth = ConfidentialClientAuth(
+        client_id="client_id",
+        client_secret="client_secret",
+        hostname="https://a.b.c.com",
+        should_refresh=should_refresh,
     )
+
+    response = httpx.Response(
+        request=httpx.Request("GET", "foo"), status_code=200, json=token_response
+    )
+    when(auth._get_client()).post("/multipass/api/oauth2/token", data=any()).thenReturn(response)
+
+    response = httpx.Response(request=httpx.Request("GET", "foo"), status_code=200)
+    when(auth._get_client()).post("/multipass/api/oauth2/revoke_token", data=any()).thenReturn(
+        response
+    )
+
+    when(auth)._refresh_token().thenCallOriginalImplementation()
+    when(auth).sign_out().thenCallOriginalImplementation()
+
+    yield auth
+    unstub()
 
 
 def test_confidential_client_instantiate():
@@ -55,19 +76,13 @@ def test_confidential_client_instantiate():
 
 
 def test_confidential_client_sign_in_as_service_user():
-    auth = ConfidentialClientAuth(
-        client_id="client_id",
-        client_secret="client_secret",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    token = create_token()
-    when(auth._server_oauth_flow_provider).get_token().thenReturn(token)
-    assert auth.sign_in_as_service_user() == SignInResponse(
-        session={"accessToken": "access_token", "expiresIn": 3600}
-    )
-    assert auth.get_token() == token
-    unstub()
+    with stubbed_auth() as auth:
+        with warnings.catch_warnings(record=True) as w:
+            assert auth.sign_in_as_service_user() == SignInResponse(
+                session={"accessToken": "access_token", "expiresIn": 3600}
+            )
+
+            assert len(w) == 1
 
 
 def test_confidential_client_url():
@@ -86,91 +101,51 @@ def test_confidential_client_url():
 
 
 def test_confidential_client_get_token():
-    auth = ConfidentialClientAuth(
-        client_id="client_id", client_secret="client_secret", hostname="https://a.b.c.com"
-    )
-    token = create_token()
-    when(auth._server_oauth_flow_provider).get_token().thenReturn(token)
-    auth.sign_in_as_service_user()
-    assert auth.get_token() == token
-    unstub()
+    with stubbed_auth() as auth:
+        assert auth.get_token().access_token == "access_token"
 
 
 def test_confidential_client_sign_out():
-    auth = ConfidentialClientAuth(
-        client_id="client_id",
-        client_secret="client_secret",
-        hostname="https://a.b.c.com",
-        should_refresh=True,
-    )
-    token = create_token()
-    auth._token = token
-    when(auth._server_oauth_flow_provider).revoke_token("access_token").thenReturn(None)
-    auth.sign_out()
-    assert auth._token == None
-    assert auth._stop_refresh_event._flag == True  # type: ignore
-    unstub()
-
-
-def test_confidential_client_get_token_throws_if_not_signed_in():
-    # pylint: disable=unnecessary-lambda
-    auth = ConfidentialClientAuth(
-        client_id="client_id", client_secret="client_secret", hostname="https://a.b.c.com"
-    )
-    with pytest.raises(NotAuthenticated):
+    with stubbed_auth() as auth:
         auth.get_token()
+        assert auth._token is not None
+        auth.sign_out()
+        assert auth._token is None
+        assert auth._stop_refresh_event._flag == True  # type: ignore
 
 
 def test_confidential_client_execute_with_token_successful_method():
-    auth = ConfidentialClientAuth(
-        client_id="client_id", client_secret="client_secret", hostname="https://a.b.c.com"
-    )
-    token = create_token()
-    auth._token = token
-    auth = spy(auth)
-    assert auth.execute_with_token(lambda _: "success") == "success"
-    verify(auth, times=0)._refresh_token()
+    with stubbed_auth() as auth:
+        assert auth.execute_with_token(lambda _: httpx.Response(200)).status_code == 200
+        verify(auth, times=0)._refresh_token()
 
 
 def test_confidential_client_execute_with_token_failing_method():
-    auth = ConfidentialClientAuth(
-        client_id="client_id", client_secret="client_secret", hostname="https://a.b.c.com"
-    )
-    token = create_token()
-    auth._token = token
-    when(auth).sign_out().thenReturn(None)
+    with stubbed_auth() as auth:
 
-    def raise_(ex):
-        raise ex
+        def raise_(ex):
+            raise ex
 
-    with pytest.raises(ValueError):
-        auth.execute_with_token(lambda _: raise_(ValueError("Oops!")))
+        with pytest.raises(ValueError):
+            auth.execute_with_token(lambda _: raise_(ValueError("Oops!")))
 
-    verify(auth, times=0)._refresh_token()
-    verify(auth, times=0).sign_out()
-    unstub()
+        verify(auth, times=0)._refresh_token()
+        verify(auth, times=0).sign_out()
 
 
 def test_confidential_client_execute_with_token_method_raises_401():
-    auth = ConfidentialClientAuth(
-        client_id="client_id", client_secret="client_secret", hostname="https://a.b.c.com"
-    )
-    token = create_token()
-    auth._token = token
-    when(auth).sign_out().thenReturn(None)
-    when(auth)._refresh_token().thenReturn(token)
+    with stubbed_auth() as auth:
 
-    def raise_401():
-        e = httpx.HTTPStatusError(
-            "foo",
-            request=httpx.Request("foo", url="foo"),
-            response=httpx.Response(status_code=401),
-        )
-        raise e
+        def raise_401():
+            e = httpx.HTTPStatusError(
+                "foo",
+                request=httpx.Request("foo", url="foo"),
+                response=httpx.Response(status_code=401),
+            )
+            raise e
 
-    with pytest.raises(httpx.HTTPStatusError):
-        auth.execute_with_token(lambda _: raise_401())
+        with pytest.raises(httpx.HTTPStatusError):
+            auth.execute_with_token(lambda _: raise_401())
 
-    verify(auth, times=1)._refresh_token()
-    verify(auth, times=1).sign_out()
-    unstub()
+        verify(auth, times=1)._refresh_token()
+        verify(auth, times=1).sign_out()

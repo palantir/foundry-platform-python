@@ -28,6 +28,7 @@ import httpx
 import pytest
 
 from foundry import BadRequestError
+from foundry import ConfidentialClientAuth
 from foundry import Config
 from foundry import ConnectionError
 from foundry import InternalServerError
@@ -315,3 +316,31 @@ def test_ssl_error():
         client.call_api(request_info)
 
     assert "SSL" in str(error.value)
+
+
+def test_config_shared_with_auth():
+    config = Config(timeout=1)
+    auth = ConfidentialClientAuth(client_id="foo", client_secret="bar")
+    assert auth._hostname is None
+    assert auth._config is None
+
+    with warnings.catch_warnings(record=True) as w:
+        ApiClient(auth=auth, hostname="localhost:1234", config=config)
+        assert len(w) == 0
+
+    assert auth._hostname == "localhost:1234"
+    assert auth._config == config
+
+
+def test_config_shared_with_auth():
+    config = Config(timeout=1)
+    auth = ConfidentialClientAuth(client_id="foo", client_secret="bar", hostname="localhost:9876")
+
+    with warnings.catch_warnings(record=True) as w:
+        ApiClient(auth=auth, hostname="localhost:1234", config=config)
+
+        # Make sure the ApiClient hostname is prioritized
+        assert auth._hostname == "localhost:1234"
+
+        # And make sure the user receives a warning
+        assert len(w) == 1

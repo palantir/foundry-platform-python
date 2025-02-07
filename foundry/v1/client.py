@@ -34,8 +34,8 @@ class FoundryClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
-        from foundry.v1.datasets.client import DatasetsClient
-        from foundry.v1.ontologies.client import OntologiesClient
+        from foundry.v1.datasets._client import DatasetsClient
+        from foundry.v1.ontologies._client import OntologiesClient
 
         self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
         self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)

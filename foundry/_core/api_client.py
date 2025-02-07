@@ -261,6 +261,7 @@ class ApiClient:
     ):
         self._auth = auth
         self._session = HttpClient(hostname, config)
+        self._auth._parameterize(hostname, config)
 
     @property
     @deprecated(

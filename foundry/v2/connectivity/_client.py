@@ -13,21 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
 from typing import Optional
 
 from foundry._core import Auth
 from foundry._core import Config
-from foundry.v1.ontologies.action import ActionClient
-from foundry.v1.ontologies.ontology import OntologyClient
-from foundry.v1.ontologies.ontology_object import OntologyObjectClient
-from foundry.v1.ontologies.query import QueryClient
 
 
-class OntologiesClient:
+class ConnectivityClient:
     """
-    The API client for the Ontologies Namespace.
+    The API client for the Connectivity Namespace.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -40,7 +34,6 @@ class OntologiesClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
-        self.Action = ActionClient(auth=auth, hostname=hostname, config=config)
-        self.Ontology = OntologyClient(auth=auth, hostname=hostname, config=config)
-        self.OntologyObject = OntologyObjectClient(auth=auth, hostname=hostname, config=config)
-        self.Query = QueryClient(auth=auth, hostname=hostname, config=config)
+        from foundry.v2.connectivity.connection import ConnectionClient
+
+        self.Connection = ConnectionClient(auth=auth, hostname=hostname, config=config)
