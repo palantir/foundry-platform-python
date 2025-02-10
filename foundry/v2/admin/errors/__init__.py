@@ -22,12 +22,6 @@ from foundry.v2.admin.errors._add_marking_members_permission_denied import (
 from foundry.v2.admin.errors._add_marking_role_assignments_permission_denied import (
     AddMarkingRoleAssignmentsPermissionDenied,
 )  # NOQA
-from foundry.v2.admin.errors._cannot_get_provider_info_for_preregistered_principal import (
-    CannotGetProviderInfoForPreregisteredPrincipal,
-)  # NOQA
-from foundry.v2.admin.errors._cannot_replace_provider_info_for_preregistered_principal import (
-    CannotReplaceProviderInfoForPreregisteredPrincipal,
-)  # NOQA
 from foundry.v2.admin.errors._cannot_replace_provider_info_for_principal_in_protected_realm import (
     CannotReplaceProviderInfoForPrincipalInProtectedRealm,
 )  # NOQA
@@ -129,8 +123,6 @@ __all__ = [
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
-    "CannotGetProviderInfoForPreregisteredPrincipal",
-    "CannotReplaceProviderInfoForPreregisteredPrincipal",
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
     "CreateGroupPermissionDenied",
     "CreateMarkingMissingInitialAdminRole",
