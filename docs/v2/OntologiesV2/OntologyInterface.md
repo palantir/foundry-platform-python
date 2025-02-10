@@ -2,6 +2,9 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
 
 :::callout{theme=warning title=Warning}
 This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
@@ -100,6 +103,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 :::callout{theme=warning title=Warning}
   This endpoint is in preview and may be modified or removed at any time.
   To use this endpoint, add `preview=true` to the request query parameters.
@@ -166,6 +170,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **list**
 :::callout{theme=warning title=Warning}
   This endpoint is in preview and may be modified or removed at any time.
   To use this endpoint, add `preview=true` to the request query parameters.
@@ -238,6 +243,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **page**
 :::callout{theme=warning title=Warning}
   This endpoint is in preview and may be modified or removed at any time.
   To use this endpoint, add `preview=true` to the request query parameters.

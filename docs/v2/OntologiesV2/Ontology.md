@@ -3,6 +3,7 @@
 Method | HTTP request |
 ------------- | ------------- |
 [**get**](#get) | **GET** /v2/ontologies/{ontology} |
+[**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata |
 
 # **get**
 Gets a specific ontology with the given Ontology RID.
@@ -58,6 +59,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_full_metadata**
 Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
 

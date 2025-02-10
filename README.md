@@ -543,12 +543,17 @@ Namespace | Resource | Operation | HTTP request |
 **OntologiesV2** | ObjectType | [**page**](docs/v2/OntologiesV2/ObjectType.md#page) | **GET** /v2/ontologies/{ontology}/objectTypes |
 **OntologiesV2** | ObjectType | [**page_outgoing_link_types**](docs/v2/OntologiesV2/ObjectType.md#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
 **OntologiesV2** | Ontology | [**get**](docs/v2/OntologiesV2/Ontology.md#get) | **GET** /v2/ontologies/{ontology} |
+**OntologiesV2** | Ontology | [**get_full_metadata**](docs/v2/OntologiesV2/Ontology.md#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata |
+**OntologiesV2** | OntologyInterface | [**get**](docs/v2/OntologiesV2/OntologyInterface.md#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} |
+**OntologiesV2** | OntologyInterface | [**list**](docs/v2/OntologiesV2/OntologyInterface.md#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
+**OntologiesV2** | OntologyInterface | [**page**](docs/v2/OntologiesV2/OntologyInterface.md#page) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
 **OntologiesV2** | OntologyObject | [**aggregate**](docs/v2/OntologiesV2/OntologyObject.md#aggregate) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/aggregate |
 **OntologiesV2** | OntologyObject | [**get**](docs/v2/OntologiesV2/OntologyObject.md#get) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey} |
 **OntologiesV2** | OntologyObject | [**list**](docs/v2/OntologiesV2/OntologyObject.md#list) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
 **OntologiesV2** | OntologyObject | [**page**](docs/v2/OntologiesV2/OntologyObject.md#page) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
 **OntologiesV2** | OntologyObject | [**search**](docs/v2/OntologiesV2/OntologyObject.md#search) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/search |
 **OntologiesV2** | OntologyObjectSet | [**aggregate**](docs/v2/OntologiesV2/OntologyObjectSet.md#aggregate) | **POST** /v2/ontologies/{ontology}/objectSets/aggregate |
+**OntologiesV2** | OntologyObjectSet | [**create_temporary**](docs/v2/OntologiesV2/OntologyObjectSet.md#create_temporary) | **POST** /v2/ontologies/{ontology}/objectSets/createTemporary |
 **OntologiesV2** | OntologyObjectSet | [**load**](docs/v2/OntologiesV2/OntologyObjectSet.md#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects |
 **OntologiesV2** | Query | [**execute**](docs/v2/OntologiesV2/Query.md#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute |
 **OntologiesV2** | QueryType | [**get**](docs/v2/OntologiesV2/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |

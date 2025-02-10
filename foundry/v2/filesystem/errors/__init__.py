@@ -62,6 +62,12 @@ from foundry.v2.filesystem.errors._get_access_requirements_permission_denied imp
 from foundry.v2.filesystem.errors._get_by_path_permission_denied import (
     GetByPathPermissionDenied,
 )  # NOQA
+from foundry.v2.filesystem.errors._get_root_folder_not_supported import (
+    GetRootFolderNotSupported,
+)  # NOQA
+from foundry.v2.filesystem.errors._get_space_resource_not_supported import (
+    GetSpaceResourceNotSupported,
+)  # NOQA
 from foundry.v2.filesystem.errors._invalid_default_roles import InvalidDefaultRoles
 from foundry.v2.filesystem.errors._invalid_description import InvalidDescription
 from foundry.v2.filesystem.errors._invalid_display_name import InvalidDisplayName
@@ -113,6 +119,9 @@ from foundry.v2.filesystem.errors._remove_organizations_permission_denied import
 from foundry.v2.filesystem.errors._remove_resource_roles_permission_denied import (
     RemoveResourceRolesPermissionDenied,
 )  # NOQA
+from foundry.v2.filesystem.errors._resource_name_already_exists import (
+    ResourceNameAlreadyExists,
+)  # NOQA
 from foundry.v2.filesystem.errors._resource_not_directly_trashed import (
     ResourceNotDirectlyTrashed,
 )  # NOQA
@@ -156,6 +165,8 @@ __all__ = [
     "ForbiddenOperationOnHiddenResource",
     "GetAccessRequirementsPermissionDenied",
     "GetByPathPermissionDenied",
+    "GetRootFolderNotSupported",
+    "GetSpaceResourceNotSupported",
     "InvalidDefaultRoles",
     "InvalidDescription",
     "InvalidDisplayName",
@@ -183,6 +194,7 @@ __all__ = [
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
+    "ResourceNameAlreadyExists",
     "ResourceNotDirectlyTrashed",
     "ResourceNotFound",
     "ResourceNotTrashed",
