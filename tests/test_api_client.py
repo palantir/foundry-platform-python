@@ -318,6 +318,35 @@ def test_ssl_error():
     assert "SSL" in str(error.value)
 
 
+def test_passing_in_str_auth():
+    with pytest.raises(TypeError) as e:
+        ApiClient(auth="foo", hostname="localhost:8123")  # type: ignore
+        assert str(e.value).startswith(
+            "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
+        )
+
+
+def test_passing_in_int_to_auth():
+    with pytest.raises(TypeError) as e:
+        ApiClient(auth=2, hostname="localhost:8123")  # type: ignore
+        assert (
+            str(e.value)
+            == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
+        )
+
+
+def test_passing_in_int_to_hostname():
+    with pytest.raises(TypeError) as e:
+        ApiClient(auth=UserTokenAuth(token="foo"), hostname=2)  # type: ignore
+        assert str(e.value) == "hostname must be a string, not int."
+
+
+def test_passing_in_int_to_config():
+    with pytest.raises(TypeError) as e:
+        ApiClient(auth=UserTokenAuth(token="foo"), hostname="localhost:1234", config=2)  # type: ignore
+        assert str(e.value) == "config must be an instance of Config, not int."
+
+
 def test_config_shared_with_auth():
     config = Config(timeout=1)
     auth = ConfidentialClientAuth(client_id="foo", client_secret="bar")

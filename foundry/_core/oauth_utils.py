@@ -121,10 +121,8 @@ class OAuth(Auth, ABC):
         self,
         hostname: Optional[str],
         config: Optional[Config],
-        scopes: Optional[List[str]] = None,
     ) -> None:
         self._config = config
-        self._scopes = scopes
         self._hostname = hostname
         self._parameterized_directly = config is not None or hostname is not None
         self._client: Optional[HttpClient] = None
