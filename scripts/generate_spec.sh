@@ -12,8 +12,7 @@ echo Downloading $API_GATEWAY_VERSION...
 mkdir -p "${TMP_DIR}"
 wget -P "${TMP_DIR}"  "${MAVEN_REPO_PATH}/${API_GATEWAY_VERSION}/${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}.sls.tgz" &> /dev/null
 
-tar -xf "${TMP_DIR}/${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}.sls.tgz" -C "${TMP_DIR}" --strip-components=4 "${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}/asset/palantir/ir-v2/openapi-ir.json"
-tar -xf "${TMP_DIR}/${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}.sls.tgz" -C "${TMP_DIR}" --strip-components=4 "${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}/asset/palantir/ir-v2/v2.json"
+tar -xf "${TMP_DIR}/${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}.sls.tgz" -C "${TMP_DIR}" --strip-components=4 "${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}/asset/palantir/ir-v2/combined-ir.json"
 tar -xf "${TMP_DIR}/${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}.sls.tgz" -C "${TMP_DIR}" --strip-components=2 "${MAVEN_CONJURE_ARTIFACT_ID}-${API_GATEWAY_VERSION}/deployment/manifest.yml"
 
 echo Done!
