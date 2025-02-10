@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Use Combined IR for SDK Generation
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/128
