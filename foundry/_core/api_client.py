@@ -259,6 +259,26 @@ class ApiClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        if isinstance(auth, str):
+            # This is a common error so we have a special error message
+            # for these situations
+            raise TypeError(
+                "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or "
+                "PublicClientAuth, not a string. You likely want to use "
+                "UserTokenAuth(token=<TOKEN>)."
+            )
+        elif not isinstance(auth, Auth):
+            raise TypeError(
+                "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or "
+                "PublicClientAuth, not an instance of {type(auth)}."
+            )
+
+        if not isinstance(hostname, str):
+            raise TypeError(f"hostname must be a string, not {type(hostname)}.")
+
+        if config is not None and not isinstance(config, Config):
+            raise TypeError(f"config must be an instance of Config, not {type(config)}.")
+
         self._auth = auth
         self._session = HttpClient(hostname, config)
         self._auth._parameterize(hostname, config)

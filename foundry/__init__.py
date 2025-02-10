@@ -14,6 +14,7 @@
 
 
 from foundry._core import ApiResponse
+from foundry._core import Auth
 from foundry._core import ConfidentialClientAuth
 from foundry._core import Config
 from foundry._core import ResourceIterator
@@ -53,6 +54,7 @@ from foundry._versions import __version__
 __all__ = [
     "__version__",
     "__openapi_document_version__",
+    "Auth",
     "ConfidentialClientAuth",
     "UserTokenAuth",
     "Config",

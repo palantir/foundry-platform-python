@@ -62,7 +62,11 @@ class PublicClientAuth(OAuth):
             redirect_url=redirect_url,
             scopes=scopes,
         )
-        super().__init__(hostname, config, scopes)
+        super().__init__(hostname, config)
+
+    @property
+    def scopes(self) -> List[str]:
+        return self._server_oauth_flow_provider.scopes or []
 
     def get_token(self) -> OAuthToken:
         if self._token is None:
