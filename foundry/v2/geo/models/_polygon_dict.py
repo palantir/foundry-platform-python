@@ -26,7 +26,7 @@ from foundry.v2.geo.models._linear_ring import LinearRing
 
 
 class PolygonDict(TypedDict):
-    """See https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"""
+    """Polygon"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

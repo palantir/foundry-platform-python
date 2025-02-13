@@ -173,7 +173,7 @@ class OntologyObjectSetClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> CreateTemporaryObjectSetResponseV2:
         """
-        Creates a temporary `ObjectSet` from the given definition.
+        Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
@@ -452,7 +452,7 @@ class _OntologyObjectSetClientRaw:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[CreateTemporaryObjectSetResponseV2]:
         """
-        Creates a temporary `ObjectSet` from the given definition.
+        Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
@@ -731,7 +731,7 @@ class _OntologyObjectSetClientStreaming:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[CreateTemporaryObjectSetResponseV2]:
         """
-        Creates a temporary `ObjectSet` from the given definition.
+        Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.

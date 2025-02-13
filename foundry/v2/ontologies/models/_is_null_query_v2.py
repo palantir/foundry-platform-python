@@ -27,7 +27,10 @@ from foundry.v2.ontologies.models._property_identifier import PropertyIdentifier
 
 
 class IsNullQueryV2(pydantic.BaseModel):
-    """Returns objects based on the existence of the specified field."""
+    """
+    Returns objects based on the existence of the specified field. Allows you to specify a property to query on
+    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
     field: Optional[PropertyApiName] = None
 

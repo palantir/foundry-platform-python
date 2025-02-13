@@ -7,7 +7,6 @@ length 2*n where n is the number of dimensions represented in the
 contained geometries, with all axes of the most southwesterly point
 followed by all axes of the more northeasterly point. The axes order
 of a bbox follows the axes order of geometries.
-See https://datatracker.ietf.org/doc/html/rfc7946#section-5.
 
 
 ## Type

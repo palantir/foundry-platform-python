@@ -16,8 +16,6 @@
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
 from foundry.v2.orchestration.models._action import Action
 from foundry.v2.orchestration.models._action_dict import ActionDict
-from foundry.v2.orchestration.models._and_trigger import AndTrigger
-from foundry.v2.orchestration.models._and_trigger_dict import AndTriggerDict
 from foundry.v2.orchestration.models._build import Build
 from foundry.v2.orchestration.models._build_dict import BuildDict
 from foundry.v2.orchestration.models._build_rid import BuildRid
@@ -94,6 +92,9 @@ from foundry.v2.orchestration.models._get_builds_batch_response import (
 from foundry.v2.orchestration.models._get_builds_batch_response_dict import (
     GetBuildsBatchResponseDict,
 )  # NOQA
+from foundry.v2.orchestration.models._job import Job
+from foundry.v2.orchestration.models._job_dict import JobDict
+from foundry.v2.orchestration.models._job_rid import JobRid
 from foundry.v2.orchestration.models._job_succeeded_trigger import JobSucceededTrigger
 from foundry.v2.orchestration.models._job_succeeded_trigger_dict import (
     JobSucceededTriggerDict,
@@ -115,8 +116,6 @@ from foundry.v2.orchestration.models._media_set_updated_trigger_dict import (
 from foundry.v2.orchestration.models._new_logic_trigger import NewLogicTrigger
 from foundry.v2.orchestration.models._new_logic_trigger_dict import NewLogicTriggerDict
 from foundry.v2.orchestration.models._notifications_enabled import NotificationsEnabled
-from foundry.v2.orchestration.models._or_trigger import OrTrigger
-from foundry.v2.orchestration.models._or_trigger_dict import OrTriggerDict
 from foundry.v2.orchestration.models._project_scope import ProjectScope
 from foundry.v2.orchestration.models._project_scope_dict import ProjectScopeDict
 from foundry.v2.orchestration.models._replace_schedule_request_action import (
@@ -203,10 +202,6 @@ from foundry.v2.orchestration.models._schedule_version_dict import ScheduleVersi
 from foundry.v2.orchestration.models._schedule_version_rid import ScheduleVersionRid
 from foundry.v2.orchestration.models._scope_mode import ScopeMode
 from foundry.v2.orchestration.models._scope_mode_dict import ScopeModeDict
-from foundry.v2.orchestration.models._search_builds_and_filter import SearchBuildsAndFilter  # NOQA
-from foundry.v2.orchestration.models._search_builds_and_filter_dict import (
-    SearchBuildsAndFilterDict,
-)  # NOQA
 from foundry.v2.orchestration.models._search_builds_equals_filter import (
     SearchBuildsEqualsFilter,
 )  # NOQA
@@ -216,9 +211,21 @@ from foundry.v2.orchestration.models._search_builds_equals_filter_dict import (
 from foundry.v2.orchestration.models._search_builds_equals_filter_field import (
     SearchBuildsEqualsFilterField,
 )  # NOQA
+from foundry.v2.orchestration.models._search_builds_filter import SearchBuildsAndFilter
 from foundry.v2.orchestration.models._search_builds_filter import SearchBuildsFilter
+from foundry.v2.orchestration.models._search_builds_filter import SearchBuildsNotFilter
+from foundry.v2.orchestration.models._search_builds_filter import SearchBuildsOrFilter
+from foundry.v2.orchestration.models._search_builds_filter_dict import (
+    SearchBuildsAndFilterDict,
+)  # NOQA
 from foundry.v2.orchestration.models._search_builds_filter_dict import (
     SearchBuildsFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_filter_dict import (
+    SearchBuildsNotFilterDict,
+)  # NOQA
+from foundry.v2.orchestration.models._search_builds_filter_dict import (
+    SearchBuildsOrFilterDict,
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_gte_filter import SearchBuildsGteFilter  # NOQA
 from foundry.v2.orchestration.models._search_builds_gte_filter_dict import (
@@ -233,14 +240,6 @@ from foundry.v2.orchestration.models._search_builds_lt_filter_dict import (
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_lt_filter_field import (
     SearchBuildsLtFilterField,
-)  # NOQA
-from foundry.v2.orchestration.models._search_builds_not_filter import SearchBuildsNotFilter  # NOQA
-from foundry.v2.orchestration.models._search_builds_not_filter_dict import (
-    SearchBuildsNotFilterDict,
-)  # NOQA
-from foundry.v2.orchestration.models._search_builds_or_filter import SearchBuildsOrFilter  # NOQA
-from foundry.v2.orchestration.models._search_builds_or_filter_dict import (
-    SearchBuildsOrFilterDict,
 )  # NOQA
 from foundry.v2.orchestration.models._search_builds_order_by import SearchBuildsOrderBy
 from foundry.v2.orchestration.models._search_builds_order_by_dict import (
@@ -261,7 +260,11 @@ from foundry.v2.orchestration.models._search_builds_response_dict import (
 )  # NOQA
 from foundry.v2.orchestration.models._time_trigger import TimeTrigger
 from foundry.v2.orchestration.models._time_trigger_dict import TimeTriggerDict
+from foundry.v2.orchestration.models._trigger import AndTrigger
+from foundry.v2.orchestration.models._trigger import OrTrigger
 from foundry.v2.orchestration.models._trigger import Trigger
+from foundry.v2.orchestration.models._trigger_dict import AndTriggerDict
+from foundry.v2.orchestration.models._trigger_dict import OrTriggerDict
 from foundry.v2.orchestration.models._trigger_dict import TriggerDict
 from foundry.v2.orchestration.models._upstream_target import UpstreamTarget
 from foundry.v2.orchestration.models._upstream_target_dict import UpstreamTargetDict
@@ -308,6 +311,9 @@ __all__ = [
     "GetBuildsBatchRequestElementDict",
     "GetBuildsBatchResponse",
     "GetBuildsBatchResponseDict",
+    "Job",
+    "JobDict",
+    "JobRid",
     "JobSucceededTrigger",
     "JobSucceededTriggerDict",
     "ListRunsOfScheduleResponse",

@@ -1,6 +1,8 @@
 # IsNullQueryV2Dict
 
-Returns objects based on the existence of the specified field.
+Returns objects based on the existence of the specified field. Allows you to specify a property to query on
+by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
 
 ## Properties
 | Name | Type | Required | Description |

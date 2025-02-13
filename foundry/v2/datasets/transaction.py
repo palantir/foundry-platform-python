@@ -31,11 +31,13 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._transaction import Transaction
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
 from foundry.v2.datasets.models._transaction_type import TransactionType
+from foundry.v2.orchestration.models._build import Build
 
 
 class TransactionClient:
@@ -98,6 +100,55 @@ class TransactionClient:
                 body=None,
                 body_type=None,
                 response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        ).decode()
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def build(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Build:
+        """
+        Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
+        given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
+        is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Build
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/build",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Build,
                 request_timeout=request_timeout,
             ),
         ).decode()
@@ -305,6 +356,55 @@ class _TransactionClientRaw:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
+    def build(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Build]:
+        """
+        Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
+        given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
+        is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Build]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/build",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Build,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
     def commit(
         self,
         dataset_rid: DatasetRid,
@@ -498,6 +598,55 @@ class _TransactionClientStreaming:
                 body=None,
                 body_type=None,
                 response_type=Transaction,
+                request_timeout=request_timeout,
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def build(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Build]:
+        """
+        Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
+        given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
+        is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Build]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/build",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Build,
                 request_timeout=request_timeout,
             ),
         )

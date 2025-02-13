@@ -1,6 +1,6 @@
 # PropertyTypeRid
 
-The RID for a property type from an ontology object.
+PropertyTypeRid
 
 ## Type
 ```python

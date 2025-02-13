@@ -43,12 +43,12 @@ from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._timeseries_type import TimeseriesType
 from foundry.v2.core.models._timestamp_type import TimestampType
 from foundry.v2.core.models._vector_type import VectorType
-from foundry.v2.ontologies.models._ontology_object_array_type_dict import (
+from foundry.v2.ontologies.models._object_property_type_dict import (
     OntologyObjectArrayTypeDict,
 )  # NOQA
+from foundry.v2.ontologies.models._object_property_type_dict import StructFieldTypeDict
+from foundry.v2.ontologies.models._object_property_type_dict import StructTypeDict
 from foundry.v2.ontologies.models._struct_field_api_name import StructFieldApiName
-from foundry.v2.ontologies.models._struct_field_type_dict import StructFieldTypeDict
-from foundry.v2.ontologies.models._struct_type_dict import StructTypeDict
 
 
 class StructFieldType(pydantic.BaseModel):

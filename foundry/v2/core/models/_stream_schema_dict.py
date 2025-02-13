@@ -23,7 +23,7 @@ from typing_extensions import TypedDict
 from foundry.v2.core.models._change_data_capture_configuration_dict import (
     ChangeDataCaptureConfigurationDict,
 )  # NOQA
-from foundry.v2.core.models._field_dict import FieldDict
+from foundry.v2.core.models._field_data_type_dict import FieldDict
 from foundry.v2.core.models._field_name import FieldName
 
 

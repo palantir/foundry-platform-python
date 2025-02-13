@@ -1,6 +1,8 @@
 # WithinDistanceOfQuery
 
 Returns objects where the specified field contains a point within the distance provided of the center point.
+Allows you to specify a property to query on by a variety of means. Either `field` or `propertyIdentifier` 
+must be supplied, but not both.
 
 
 ## Properties

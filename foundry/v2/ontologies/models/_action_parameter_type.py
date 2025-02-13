@@ -32,9 +32,10 @@ from foundry.v2.core.models._marking_type import MarkingType
 from foundry.v2.core.models._media_reference_type import MediaReferenceType
 from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._timestamp_type import TimestampType
-from foundry.v2.ontologies.models._action_parameter_array_type_dict import (
+from foundry.v2.ontologies.models._action_parameter_type_dict import (
     ActionParameterArrayTypeDict,
 )  # NOQA
+from foundry.v2.ontologies.models._ontology_data_type import OntologyStructType
 from foundry.v2.ontologies.models._ontology_interface_object_type import (
     OntologyInterfaceObjectType,
 )  # NOQA
@@ -43,7 +44,6 @@ from foundry.v2.ontologies.models._ontology_object_type import OntologyObjectTyp
 from foundry.v2.ontologies.models._ontology_object_type_reference_type import (
     OntologyObjectTypeReferenceType,
 )  # NOQA
-from foundry.v2.ontologies.models._ontology_struct_type import OntologyStructType
 
 
 class ActionParameterArrayType(pydantic.BaseModel):

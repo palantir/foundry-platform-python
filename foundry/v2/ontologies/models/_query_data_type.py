@@ -37,11 +37,11 @@ from foundry.v2.core.models._timestamp_type import TimestampType
 from foundry.v2.core.models._unsupported_type import UnsupportedType
 from foundry.v2.ontologies.models._ontology_object_set_type import OntologyObjectSetType
 from foundry.v2.ontologies.models._ontology_object_type import OntologyObjectType
-from foundry.v2.ontologies.models._query_array_type_dict import QueryArrayTypeDict
-from foundry.v2.ontologies.models._query_set_type_dict import QuerySetTypeDict
-from foundry.v2.ontologies.models._query_struct_field_dict import QueryStructFieldDict
-from foundry.v2.ontologies.models._query_struct_type_dict import QueryStructTypeDict
-from foundry.v2.ontologies.models._query_union_type_dict import QueryUnionTypeDict
+from foundry.v2.ontologies.models._query_data_type_dict import QueryArrayTypeDict
+from foundry.v2.ontologies.models._query_data_type_dict import QuerySetTypeDict
+from foundry.v2.ontologies.models._query_data_type_dict import QueryStructFieldDict
+from foundry.v2.ontologies.models._query_data_type_dict import QueryStructTypeDict
+from foundry.v2.ontologies.models._query_data_type_dict import QueryUnionTypeDict
 from foundry.v2.ontologies.models._three_dimensional_aggregation import (
     ThreeDimensionalAggregation,
 )  # NOQA

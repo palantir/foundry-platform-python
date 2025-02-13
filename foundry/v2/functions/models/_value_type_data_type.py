@@ -23,9 +23,6 @@ from typing import cast
 import pydantic
 from typing_extensions import Annotated
 
-from foundry.v2.functions.models._value_type_data_type_array_type_dict import (
-    ValueTypeDataTypeArrayTypeDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_binary_type import (
     ValueTypeDataTypeBinaryType,
 )  # NOQA
@@ -41,6 +38,24 @@ from foundry.v2.functions.models._value_type_data_type_date_type import (
 from foundry.v2.functions.models._value_type_data_type_decimal_type import (
     ValueTypeDataTypeDecimalType,
 )  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeArrayTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeMapTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeOptionalTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeStructElementDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeStructTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeUnionTypeDict,
+)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_double_type import (
     ValueTypeDataTypeDoubleType,
 )  # NOQA
@@ -53,32 +68,17 @@ from foundry.v2.functions.models._value_type_data_type_integer_type import (
 from foundry.v2.functions.models._value_type_data_type_long_type import (
     ValueTypeDataTypeLongType,
 )  # NOQA
-from foundry.v2.functions.models._value_type_data_type_map_type_dict import (
-    ValueTypeDataTypeMapTypeDict,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_optional_type_dict import (
-    ValueTypeDataTypeOptionalTypeDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_short_type import (
     ValueTypeDataTypeShortType,
 )  # NOQA
 from foundry.v2.functions.models._value_type_data_type_string_type import (
     ValueTypeDataTypeStringType,
 )  # NOQA
-from foundry.v2.functions.models._value_type_data_type_struct_element_dict import (
-    ValueTypeDataTypeStructElementDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_struct_field_identifier import (
     ValueTypeDataTypeStructFieldIdentifier,
 )  # NOQA
-from foundry.v2.functions.models._value_type_data_type_struct_type_dict import (
-    ValueTypeDataTypeStructTypeDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_timestamp_type import (
     ValueTypeDataTypeTimestampType,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_union_type_dict import (
-    ValueTypeDataTypeUnionTypeDict,
 )  # NOQA
 from foundry.v2.functions.models._value_type_data_type_value_type_reference import (
     ValueTypeDataTypeValueTypeReference,

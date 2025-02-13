@@ -1,6 +1,6 @@
 # MediaSetRid
 
-The Resource Identifier (RID) of a Media Set
+The Resource Identifier (RID) of a Media Set in Foundry.
 
 ## Type
 ```python

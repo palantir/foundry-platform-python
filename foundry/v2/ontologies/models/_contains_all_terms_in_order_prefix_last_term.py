@@ -32,7 +32,8 @@ class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
     """
     Returns objects where the specified field contains all of the terms in the order provided,
     but they do have to be adjacent to each other.
-    The last term can be a partial prefix match.
+    The last term can be a partial prefix match. Allows you to specify a property to query on
+    by a variety of means. Either `field` or `propertyIdentifier` can be supplied, but not both.
     """
 
     field: Optional[PropertyApiName] = None

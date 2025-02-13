@@ -27,7 +27,7 @@ from foundry.v2.geo.models._position import Position
 
 
 class GeoPoint(pydantic.BaseModel):
-    """See https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.2 for more information."""
+    """GeoPoint"""
 
     coordinates: Position
 

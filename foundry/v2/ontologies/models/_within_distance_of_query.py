@@ -30,7 +30,11 @@ from foundry.v2.ontologies.models._within_distance_of_query_dict import (
 
 
 class WithinDistanceOfQuery(pydantic.BaseModel):
-    """Returns objects where the specified field contains a point within the distance provided of the center point."""
+    """
+    Returns objects where the specified field contains a point within the distance provided of the center point.
+    Allows you to specify a property to query on by a variety of means. Either `field` or `propertyIdentifier`
+    must be supplied, but not both.
+    """
 
     field: Optional[PropertyApiName] = None
 

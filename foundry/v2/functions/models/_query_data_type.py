@@ -34,11 +34,11 @@ from foundry.v2.core.models._null_type import NullType
 from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._timestamp_type import TimestampType
 from foundry.v2.core.models._unsupported_type import UnsupportedType
-from foundry.v2.functions.models._query_array_type_dict import QueryArrayTypeDict
-from foundry.v2.functions.models._query_set_type_dict import QuerySetTypeDict
-from foundry.v2.functions.models._query_struct_field_dict import QueryStructFieldDict
-from foundry.v2.functions.models._query_struct_type_dict import QueryStructTypeDict
-from foundry.v2.functions.models._query_union_type_dict import QueryUnionTypeDict
+from foundry.v2.functions.models._query_data_type_dict import QueryArrayTypeDict
+from foundry.v2.functions.models._query_data_type_dict import QuerySetTypeDict
+from foundry.v2.functions.models._query_data_type_dict import QueryStructFieldDict
+from foundry.v2.functions.models._query_data_type_dict import QueryStructTypeDict
+from foundry.v2.functions.models._query_data_type_dict import QueryUnionTypeDict
 from foundry.v2.functions.models._struct_field_name import StructFieldName
 from foundry.v2.functions.models._three_dimensional_aggregation import (
     ThreeDimensionalAggregation,

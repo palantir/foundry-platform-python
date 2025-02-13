@@ -1,6 +1,9 @@
 # ObjectSetMethodInputType
 
-ObjectSetMethodInputType
+ObjectSet which is the root of a MethodObjectSet definition.
+
+This feature is experimental and not yet generally available.
+
 
 ## Properties
 | Name | Type | Required | Description |

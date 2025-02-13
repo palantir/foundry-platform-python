@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 MediaSetRid = RID
-"""The Resource Identifier (RID) of a Media Set"""
+"""The Resource Identifier (RID) of a Media Set in Foundry."""

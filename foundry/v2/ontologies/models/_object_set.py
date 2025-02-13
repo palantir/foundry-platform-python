@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing import List
 from typing import Literal
 from typing import Union
@@ -23,42 +24,33 @@ from typing import cast
 import pydantic
 from typing_extensions import Annotated
 
+from foundry.v2.ontologies.models._derived_property_api_name import DerivedPropertyApiName  # NOQA
 from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
-from foundry.v2.ontologies.models._object_set_as_base_object_types_type_dict import (
-    ObjectSetAsBaseObjectTypesTypeDict,
-)  # NOQA
-from foundry.v2.ontologies.models._object_set_as_type_type_dict import (
-    ObjectSetAsTypeTypeDict,
-)  # NOQA
+from foundry.v2.ontologies.models._nearest_neighbors_query import NearestNeighborsQuery
 from foundry.v2.ontologies.models._object_set_base_type import ObjectSetBaseType
-from foundry.v2.ontologies.models._object_set_filter_type_dict import (
-    ObjectSetFilterTypeDict,
-)  # NOQA
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetAsBaseObjectTypesTypeDict  # NOQA
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetAsTypeTypeDict
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetFilterTypeDict
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetIntersectionTypeDict
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetNearestNeighborsTypeDict  # NOQA
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetSearchAroundTypeDict
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetSubtractTypeDict
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetUnionTypeDict
+from foundry.v2.ontologies.models._object_set_dict import ObjectSetWithPropertiesTypeDict  # NOQA
+from foundry.v2.ontologies.models._object_set_dict import SelectedPropertyDefinitionDict
 from foundry.v2.ontologies.models._object_set_interface_base_type import (
     ObjectSetInterfaceBaseType,
-)  # NOQA
-from foundry.v2.ontologies.models._object_set_intersection_type_dict import (
-    ObjectSetIntersectionTypeDict,
 )  # NOQA
 from foundry.v2.ontologies.models._object_set_method_input_type import (
     ObjectSetMethodInputType,
 )  # NOQA
-from foundry.v2.ontologies.models._object_set_nearest_neighbors_type import (
-    ObjectSetNearestNeighborsType,
-)  # NOQA
 from foundry.v2.ontologies.models._object_set_reference_type import ObjectSetReferenceType  # NOQA
-from foundry.v2.ontologies.models._object_set_search_around_type_dict import (
-    ObjectSetSearchAroundTypeDict,
-)  # NOQA
 from foundry.v2.ontologies.models._object_set_static_type import ObjectSetStaticType
-from foundry.v2.ontologies.models._object_set_subtract_type_dict import (
-    ObjectSetSubtractTypeDict,
-)  # NOQA
-from foundry.v2.ontologies.models._object_set_union_type_dict import ObjectSetUnionTypeDict  # NOQA
-from foundry.v2.ontologies.models._object_set_with_properties_type import (
-    ObjectSetWithPropertiesType,
-)  # NOQA
+from foundry.v2.ontologies.models._property_identifier import PropertyIdentifier
 from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
+from foundry.v2.ontologies.models._selected_property_operation import (
+    SelectedPropertyOperation,
+)  # NOQA
 
 
 class ObjectSetSearchAroundType(pydantic.BaseModel):
@@ -95,6 +87,52 @@ class ObjectSetIntersectionType(pydantic.BaseModel):
         )
 
 
+class ObjectSetWithPropertiesType(pydantic.BaseModel):
+    """
+    ObjectSet which returns objects with additional derived properties.
+
+    This feature is experimental and not yet generally available.
+    """
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+
+    derived_properties: Dict[DerivedPropertyApiName, DerivedPropertyDefinition] = pydantic.Field(alias=str("derivedProperties"))  # type: ignore[literal-required]
+
+    """Map of the name of the derived property to return and its definition"""
+
+    type: Literal["withProperties"] = "withProperties"
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> ObjectSetWithPropertiesTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            ObjectSetWithPropertiesTypeDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class SelectedPropertyDefinition(pydantic.BaseModel):
+    """Definition for a selected property over a MethodObjectSet."""
+
+    object_set: MethodObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+
+    operation: SelectedPropertyOperation
+
+    type: Literal["selection"] = "selection"
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> SelectedPropertyDefinitionDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            SelectedPropertyDefinitionDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+DerivedPropertyDefinition = SelectedPropertyDefinition
+"""Definition of a derived property."""
+
+
 class ObjectSetSubtractType(pydantic.BaseModel):
     """ObjectSetSubtractType"""
 
@@ -107,6 +145,43 @@ class ObjectSetSubtractType(pydantic.BaseModel):
     def to_dict(self) -> ObjectSetSubtractTypeDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(ObjectSetSubtractTypeDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class ObjectSetNearestNeighborsType(pydantic.BaseModel):
+    """
+    ObjectSet containing the top `numNeighbors` objects with `propertyIdentifier` nearest to the input vector or
+    text. This can only be performed on a property with type vector that has been configured to be searched with
+    approximate nearest neighbors using a similarity function configured in the Ontology.
+
+    A non-zero score for each resulting object is returned when the `orderType` in the `orderBy` field is set to
+    `relevance`. Note that:
+      - Scores will not be returned if a nearestNeighbors object set is composed through union, subtraction
+        or intersection with non-nearestNeighbors object sets.
+      - If results have scores, the order of the scores will be decreasing (duplicate scores are possible).
+    """
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+
+    property_identifier: PropertyIdentifier = pydantic.Field(alias=str("propertyIdentifier"))  # type: ignore[literal-required]
+
+    num_neighbors: int = pydantic.Field(alias=str("numNeighbors"))  # type: ignore[literal-required]
+
+    """
+    The number of objects to return. If the number of documents in the objectType is less than the provided
+    value, all objects will be returned. This value is limited to 1 &lt;= numNeighbors &lt;= 500.
+    """
+
+    query: NearestNeighborsQuery
+
+    type: Literal["nearestNeighbors"] = "nearestNeighbors"
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> ObjectSetNearestNeighborsTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(
+            ObjectSetNearestNeighborsTypeDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
 
 
 class ObjectSetUnionType(pydantic.BaseModel):
@@ -162,7 +237,11 @@ class ObjectSetFilterType(pydantic.BaseModel):
 
 
 class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
-    """ObjectSetAsBaseObjectTypesType"""
+    """
+    Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
+    properties in the resulting object set, not just the properties that implement interface properties. This is
+    currently unsupported and an exception will be thrown if used.
+    """
 
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
@@ -196,4 +275,8 @@ ObjectSet = Annotated[
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""Represents the definition of an `ObjectSet` in the ontology."""
+"""Represents the definition of an `ObjectSet` in the `Ontology`."""
+
+
+MethodObjectSet = ObjectSet
+"""MethodObjectSet"""

@@ -28,7 +28,7 @@ from foundry.v2.geo.models._polygon_dict import PolygonDict
 
 
 class Polygon(pydantic.BaseModel):
-    """See https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"""
+    """Polygon"""
 
     coordinates: List[LinearRing]
 

@@ -1,7 +1,6 @@
 # PolygonDict
 
-See https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6
-
+Polygon
 
 ## Properties
 | Name | Type | Required | Description |

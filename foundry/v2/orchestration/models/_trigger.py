@@ -23,18 +23,18 @@ from typing import cast
 import pydantic
 from typing_extensions import Annotated
 
-from foundry.v2.orchestration.models._and_trigger_dict import AndTriggerDict
 from foundry.v2.orchestration.models._dataset_updated_trigger import DatasetUpdatedTrigger  # NOQA
 from foundry.v2.orchestration.models._job_succeeded_trigger import JobSucceededTrigger
 from foundry.v2.orchestration.models._media_set_updated_trigger import (
     MediaSetUpdatedTrigger,
 )  # NOQA
 from foundry.v2.orchestration.models._new_logic_trigger import NewLogicTrigger
-from foundry.v2.orchestration.models._or_trigger_dict import OrTriggerDict
 from foundry.v2.orchestration.models._schedule_succeeded_trigger import (
     ScheduleSucceededTrigger,
 )  # NOQA
 from foundry.v2.orchestration.models._time_trigger import TimeTrigger
+from foundry.v2.orchestration.models._trigger_dict import AndTriggerDict
+from foundry.v2.orchestration.models._trigger_dict import OrTriggerDict
 
 
 class OrTrigger(pydantic.BaseModel):

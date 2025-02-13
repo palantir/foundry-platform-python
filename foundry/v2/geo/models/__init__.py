@@ -25,8 +25,8 @@ from foundry.v2.geo.models._feature_property_key import FeaturePropertyKey
 from foundry.v2.geo.models._geo_point import GeoPoint
 from foundry.v2.geo.models._geo_point_dict import GeoPointDict
 from foundry.v2.geo.models._geometry import Geometry
-from foundry.v2.geo.models._geometry_collection import GeometryCollection
-from foundry.v2.geo.models._geometry_collection_dict import GeometryCollectionDict
+from foundry.v2.geo.models._geometry import GeometryCollection
+from foundry.v2.geo.models._geometry_dict import GeometryCollectionDict
 from foundry.v2.geo.models._geometry_dict import GeometryDict
 from foundry.v2.geo.models._line_string import LineString
 from foundry.v2.geo.models._line_string_coordinates import LineStringCoordinates

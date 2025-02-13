@@ -16,4 +16,4 @@
 from __future__ import annotations
 
 OntologyIdentifier = str
-"""Either an ontology RID or an ontology API name."""
+"""Either an ontology rid or an ontology api name."""

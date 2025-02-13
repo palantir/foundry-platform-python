@@ -1,6 +1,6 @@
 # ObjectSet
 
-Represents the definition of an `ObjectSet` in the ontology.
+Represents the definition of an `ObjectSet` in the `Ontology`.
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
 of of the models listed below.

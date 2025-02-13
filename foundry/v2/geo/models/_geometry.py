@@ -26,7 +26,7 @@ from typing_extensions import Annotated
 
 from foundry.v2.geo.models._b_box import BBox
 from foundry.v2.geo.models._geo_point import GeoPoint
-from foundry.v2.geo.models._geometry_collection_dict import GeometryCollectionDict
+from foundry.v2.geo.models._geometry_dict import GeometryCollectionDict
 from foundry.v2.geo.models._line_string import LineString
 from foundry.v2.geo.models._multi_line_string import MultiLineString
 from foundry.v2.geo.models._multi_point import MultiPoint

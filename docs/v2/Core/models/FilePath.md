@@ -1,6 +1,6 @@
 # FilePath
 
-The path to a File within Foundry.
+The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`.
 
 
 ## Type

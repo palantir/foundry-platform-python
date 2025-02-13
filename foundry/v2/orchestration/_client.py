@@ -35,9 +35,11 @@ class OrchestrationClient:
         config: Optional[Config] = None,
     ):
         from foundry.v2.orchestration.build import BuildClient
+        from foundry.v2.orchestration.job import JobClient
         from foundry.v2.orchestration.schedule import ScheduleClient
         from foundry.v2.orchestration.schedule_version import ScheduleVersionClient
 
         self.Build = BuildClient(auth=auth, hostname=hostname, config=config)
+        self.Job = JobClient(auth=auth, hostname=hostname, config=config)
         self.Schedule = ScheduleClient(auth=auth, hostname=hostname, config=config)
         self.ScheduleVersion = ScheduleVersionClient(auth=auth, hostname=hostname, config=config)

@@ -1,6 +1,8 @@
 # GtQueryV2
 
-Returns objects where the specified field is greater than a value.
+Returns objects where the specified field is greater than a value. Allows you to specify a property to query on
+by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
 
 ## Properties
 | Name | Type | Required | Description |

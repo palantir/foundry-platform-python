@@ -98,7 +98,6 @@ def temp_os_env():
 
 
 def test_requests_env_var(temp_os_env, patch_ssl_verify, tmp_cert: str):
-    print("HELLO", tmp_cert)
     temp_os_env["REQUESTS_CA_BUNDLE"] = tmp_cert
     assert create_client(Config(verify=True))._verify == tmp_cert
 

@@ -1,6 +1,9 @@
 # ObjectSetAsBaseObjectTypesTypeDict
 
-ObjectSetAsBaseObjectTypesType
+Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
+properties in the resulting object set, not just the properties that implement interface properties. This is 
+currently unsupported and an exception will be thrown if used.
+
 
 ## Properties
 | Name | Type | Required | Description |

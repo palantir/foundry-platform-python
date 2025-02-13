@@ -63,6 +63,9 @@ from foundry.v2.datasets.errors._read_table_dataset_permission_denied import (
     ReadTableDatasetPermissionDenied,
 )  # NOQA
 from foundry.v2.datasets.errors._read_table_error import ReadTableError
+from foundry.v2.datasets.errors._read_table_row_limit_exceeded import (
+    ReadTableRowLimitExceeded,
+)  # NOQA
 from foundry.v2.datasets.errors._read_table_timeout import ReadTableTimeout
 from foundry.v2.datasets.errors._schema_not_found import SchemaNotFound
 from foundry.v2.datasets.errors._transaction_not_committed import TransactionNotCommitted  # NOQA
@@ -97,6 +100,7 @@ __all__ = [
     "PutSchemaPermissionDenied",
     "ReadTableDatasetPermissionDenied",
     "ReadTableError",
+    "ReadTableRowLimitExceeded",
     "ReadTableTimeout",
     "SchemaNotFound",
     "TransactionNotCommitted",

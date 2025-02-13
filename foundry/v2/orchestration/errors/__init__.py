@@ -50,6 +50,7 @@ from foundry.v2.orchestration.errors._invalid_schedule_description import (
 )  # NOQA
 from foundry.v2.orchestration.errors._invalid_schedule_name import InvalidScheduleName
 from foundry.v2.orchestration.errors._invalid_time_trigger import InvalidTimeTrigger
+from foundry.v2.orchestration.errors._job_not_found import JobNotFound
 from foundry.v2.orchestration.errors._missing_build_targets import MissingBuildTargets
 from foundry.v2.orchestration.errors._missing_connecting_build_inputs import (
     MissingConnectingBuildInputs,
@@ -100,6 +101,7 @@ __all__ = [
     "InvalidScheduleDescription",
     "InvalidScheduleName",
     "InvalidTimeTrigger",
+    "JobNotFound",
     "MissingBuildTargets",
     "MissingConnectingBuildInputs",
     "MissingTrigger",

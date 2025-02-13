@@ -25,7 +25,7 @@ from foundry.v2.geo.models._position import Position
 
 
 class GeoPointDict(TypedDict):
-    """See https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.2 for more information."""
+    """GeoPoint"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
