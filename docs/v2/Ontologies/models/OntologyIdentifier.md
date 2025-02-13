@@ -1,6 +1,6 @@
 # OntologyIdentifier
 
-Either an ontology RID or an ontology API name.
+Either an ontology rid or an ontology api name.
 
 ## Type
 ```python

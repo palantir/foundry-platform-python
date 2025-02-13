@@ -47,22 +47,22 @@ from foundry.v2.functions.models._query_aggregation_value_type_dict import (
     QueryAggregationValueTypeDict,
 )  # NOQA
 from foundry.v2.functions.models._query_api_name import QueryApiName
-from foundry.v2.functions.models._query_array_type import QueryArrayType
-from foundry.v2.functions.models._query_array_type_dict import QueryArrayTypeDict
+from foundry.v2.functions.models._query_data_type import QueryArrayType
 from foundry.v2.functions.models._query_data_type import QueryDataType
+from foundry.v2.functions.models._query_data_type import QuerySetType
+from foundry.v2.functions.models._query_data_type import QueryStructField
+from foundry.v2.functions.models._query_data_type import QueryStructType
+from foundry.v2.functions.models._query_data_type import QueryUnionType
+from foundry.v2.functions.models._query_data_type_dict import QueryArrayTypeDict
 from foundry.v2.functions.models._query_data_type_dict import QueryDataTypeDict
+from foundry.v2.functions.models._query_data_type_dict import QuerySetTypeDict
+from foundry.v2.functions.models._query_data_type_dict import QueryStructFieldDict
+from foundry.v2.functions.models._query_data_type_dict import QueryStructTypeDict
+from foundry.v2.functions.models._query_data_type_dict import QueryUnionTypeDict
 from foundry.v2.functions.models._query_dict import QueryDict
 from foundry.v2.functions.models._query_runtime_error_parameter import (
     QueryRuntimeErrorParameter,
 )  # NOQA
-from foundry.v2.functions.models._query_set_type import QuerySetType
-from foundry.v2.functions.models._query_set_type_dict import QuerySetTypeDict
-from foundry.v2.functions.models._query_struct_field import QueryStructField
-from foundry.v2.functions.models._query_struct_field_dict import QueryStructFieldDict
-from foundry.v2.functions.models._query_struct_type import QueryStructType
-from foundry.v2.functions.models._query_struct_type_dict import QueryStructTypeDict
-from foundry.v2.functions.models._query_union_type import QueryUnionType
-from foundry.v2.functions.models._query_union_type_dict import QueryUnionTypeDict
 from foundry.v2.functions.models._struct_field_name import StructFieldName
 from foundry.v2.functions.models._three_dimensional_aggregation import (
     ThreeDimensionalAggregation,
@@ -79,12 +79,12 @@ from foundry.v2.functions.models._two_dimensional_aggregation_dict import (
 from foundry.v2.functions.models._value_type import ValueType
 from foundry.v2.functions.models._value_type_api_name import ValueTypeApiName
 from foundry.v2.functions.models._value_type_data_type import ValueTypeDataType
-from foundry.v2.functions.models._value_type_data_type_array_type import (
-    ValueTypeDataTypeArrayType,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_array_type_dict import (
-    ValueTypeDataTypeArrayTypeDict,
-)  # NOQA
+from foundry.v2.functions.models._value_type_data_type import ValueTypeDataTypeArrayType
+from foundry.v2.functions.models._value_type_data_type import ValueTypeDataTypeMapType
+from foundry.v2.functions.models._value_type_data_type import ValueTypeDataTypeOptionalType  # NOQA
+from foundry.v2.functions.models._value_type_data_type import ValueTypeDataTypeStructElement  # NOQA
+from foundry.v2.functions.models._value_type_data_type import ValueTypeDataTypeStructType  # NOQA
+from foundry.v2.functions.models._value_type_data_type import ValueTypeDataTypeUnionType
 from foundry.v2.functions.models._value_type_data_type_binary_type import (
     ValueTypeDataTypeBinaryType,
 )  # NOQA
@@ -115,7 +115,25 @@ from foundry.v2.functions.models._value_type_data_type_decimal_type import (
 from foundry.v2.functions.models._value_type_data_type_decimal_type_dict import (
     ValueTypeDataTypeDecimalTypeDict,
 )  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeArrayTypeDict,
+)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_dict import ValueTypeDataTypeDict
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeMapTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeOptionalTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeStructElementDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeStructTypeDict,
+)  # NOQA
+from foundry.v2.functions.models._value_type_data_type_dict import (
+    ValueTypeDataTypeUnionTypeDict,
+)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_double_type import (
     ValueTypeDataTypeDoubleType,
 )  # NOQA
@@ -140,18 +158,6 @@ from foundry.v2.functions.models._value_type_data_type_long_type import (
 from foundry.v2.functions.models._value_type_data_type_long_type_dict import (
     ValueTypeDataTypeLongTypeDict,
 )  # NOQA
-from foundry.v2.functions.models._value_type_data_type_map_type import (
-    ValueTypeDataTypeMapType,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_map_type_dict import (
-    ValueTypeDataTypeMapTypeDict,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_optional_type import (
-    ValueTypeDataTypeOptionalType,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_optional_type_dict import (
-    ValueTypeDataTypeOptionalTypeDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_short_type import (
     ValueTypeDataTypeShortType,
 )  # NOQA
@@ -164,32 +170,14 @@ from foundry.v2.functions.models._value_type_data_type_string_type import (
 from foundry.v2.functions.models._value_type_data_type_string_type_dict import (
     ValueTypeDataTypeStringTypeDict,
 )  # NOQA
-from foundry.v2.functions.models._value_type_data_type_struct_element import (
-    ValueTypeDataTypeStructElement,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_struct_element_dict import (
-    ValueTypeDataTypeStructElementDict,
-)  # NOQA
 from foundry.v2.functions.models._value_type_data_type_struct_field_identifier import (
     ValueTypeDataTypeStructFieldIdentifier,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_struct_type import (
-    ValueTypeDataTypeStructType,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_struct_type_dict import (
-    ValueTypeDataTypeStructTypeDict,
 )  # NOQA
 from foundry.v2.functions.models._value_type_data_type_timestamp_type import (
     ValueTypeDataTypeTimestampType,
 )  # NOQA
 from foundry.v2.functions.models._value_type_data_type_timestamp_type_dict import (
     ValueTypeDataTypeTimestampTypeDict,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_union_type import (
-    ValueTypeDataTypeUnionType,
-)  # NOQA
-from foundry.v2.functions.models._value_type_data_type_union_type_dict import (
-    ValueTypeDataTypeUnionTypeDict,
 )  # NOQA
 from foundry.v2.functions.models._value_type_data_type_value_type_reference import (
     ValueTypeDataTypeValueTypeReference,

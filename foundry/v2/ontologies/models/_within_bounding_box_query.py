@@ -30,7 +30,11 @@ from foundry.v2.ontologies.models._within_bounding_box_query_dict import (
 
 
 class WithinBoundingBoxQuery(pydantic.BaseModel):
-    """Returns objects where the specified field contains a point within the bounding box provided."""
+    """
+    Returns objects where the specified field contains a point within the bounding box provided. Allows you to
+    specify a property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied,
+    but not both.
+    """
 
     field: Optional[PropertyApiName] = None
 

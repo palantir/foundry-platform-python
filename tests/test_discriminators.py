@@ -28,6 +28,7 @@ from foundry.v2.datasets import models as models_datasets_v2
 from foundry.v2.filesystem import models as models_filesystem_v2
 from foundry.v2.functions import models as models_functions_v2
 from foundry.v2.geo import models as models_geo_v2
+from foundry.v2.media_sets import models as models_media_sets_v2
 from foundry.v2.ontologies import models as models_ontologies_v2
 from foundry.v2.orchestration import models as models_orchestration_v2
 from foundry.v2.streams import models as models_streams_v2
@@ -53,7 +54,7 @@ def test_can_validate_types():
         *[(models_filesystem_v2, model_name) for model_name in dir(models_filesystem_v2)],
         *[(models_functions_v2, model_name) for model_name in dir(models_functions_v2)],
         *[(models_geo_v2, model_name) for model_name in dir(models_geo_v2)],
-        *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
+        *[(models_media_sets_v2, model_name) for model_name in dir(models_media_sets_v2)],
         *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
         *[(models_orchestration_v2, model_name) for model_name in dir(models_orchestration_v2)],
         *[(models_streams_v2, model_name) for model_name in dir(models_streams_v2)],

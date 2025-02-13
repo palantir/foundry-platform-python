@@ -21,7 +21,7 @@ from foundry._core import Config
 
 class OntologiesClient:
     """
-    The API client for the OntologiesV2 Namespace.
+    The API client for the Ontologies Namespace.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.

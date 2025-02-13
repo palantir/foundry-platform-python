@@ -27,7 +27,11 @@ from foundry.v2.ontologies.models._property_value import PropertyValue
 
 
 class InQueryDict(TypedDict):
-    """Returns objects where the specified field equals any of the provided values."""
+    """
+    Returns objects where the specified field equals any of the provided values. Allows you to
+    specify a property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied,
+    but not both.
+    """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

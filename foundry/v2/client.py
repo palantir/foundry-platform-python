@@ -40,6 +40,7 @@ class FoundryClient:
         from foundry.v2.datasets._client import DatasetsClient
         from foundry.v2.filesystem._client import FilesystemClient
         from foundry.v2.functions._client import FunctionsClient
+        from foundry.v2.media_sets._client import MediaSetsClient
         from foundry.v2.ontologies._client import OntologiesClient
         from foundry.v2.orchestration._client import OrchestrationClient
         from foundry.v2.streams._client import StreamsClient
@@ -51,6 +52,7 @@ class FoundryClient:
         self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
         self.filesystem = FilesystemClient(auth=auth, hostname=hostname, config=config)
         self.functions = FunctionsClient(auth=auth, hostname=hostname, config=config)
+        self.media_sets = MediaSetsClient(auth=auth, hostname=hostname, config=config)
         self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)
         self.orchestration = OrchestrationClient(auth=auth, hostname=hostname, config=config)
         self.streams = StreamsClient(auth=auth, hostname=hostname, config=config)

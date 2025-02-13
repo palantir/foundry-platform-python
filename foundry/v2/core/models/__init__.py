@@ -15,8 +15,6 @@
 
 from foundry.v2.core.models._any_type import AnyType
 from foundry.v2.core.models._any_type_dict import AnyTypeDict
-from foundry.v2.core.models._array_field_type import ArrayFieldType
-from foundry.v2.core.models._array_field_type_dict import ArrayFieldTypeDict
 from foundry.v2.core.models._attachment_type import AttachmentType
 from foundry.v2.core.models._attachment_type_dict import AttachmentTypeDict
 from foundry.v2.core.models._binary_type import BinaryType
@@ -53,13 +51,19 @@ from foundry.v2.core.models._duration_dict import DurationDict
 from foundry.v2.core.models._embedding_model import EmbeddingModel
 from foundry.v2.core.models._embedding_model_dict import EmbeddingModelDict
 from foundry.v2.core.models._enrollment_rid import EnrollmentRid
-from foundry.v2.core.models._field import Field
+from foundry.v2.core.models._field_data_type import ArrayFieldType
+from foundry.v2.core.models._field_data_type import Field
 from foundry.v2.core.models._field_data_type import FieldDataType
+from foundry.v2.core.models._field_data_type import FieldSchema
+from foundry.v2.core.models._field_data_type import MapFieldType
+from foundry.v2.core.models._field_data_type import StructFieldType
+from foundry.v2.core.models._field_data_type_dict import ArrayFieldTypeDict
 from foundry.v2.core.models._field_data_type_dict import FieldDataTypeDict
-from foundry.v2.core.models._field_dict import FieldDict
+from foundry.v2.core.models._field_data_type_dict import FieldDict
+from foundry.v2.core.models._field_data_type_dict import FieldSchemaDict
+from foundry.v2.core.models._field_data_type_dict import MapFieldTypeDict
+from foundry.v2.core.models._field_data_type_dict import StructFieldTypeDict
 from foundry.v2.core.models._field_name import FieldName
-from foundry.v2.core.models._field_schema import FieldSchema
-from foundry.v2.core.models._field_schema_dict import FieldSchemaDict
 from foundry.v2.core.models._file_path import FilePath
 from foundry.v2.core.models._filename import Filename
 from foundry.v2.core.models._filter_binary_type_dict import FilterBinaryTypeDict
@@ -77,6 +81,7 @@ from foundry.v2.core.models._filter_type_dict import FilterTypeDict
 from foundry.v2.core.models._filter_uuid_type_dict import FilterUuidTypeDict
 from foundry.v2.core.models._float_type import FloatType
 from foundry.v2.core.models._float_type_dict import FloatTypeDict
+from foundry.v2.core.models._folder_rid import FolderRid
 from foundry.v2.core.models._foundry_live_deployment import FoundryLiveDeployment
 from foundry.v2.core.models._foundry_live_deployment_dict import FoundryLiveDeploymentDict  # NOQA
 from foundry.v2.core.models._full_row_change_data_capture_configuration import (
@@ -102,14 +107,24 @@ from foundry.v2.core.models._lms_embedding_model_dict import LmsEmbeddingModelDi
 from foundry.v2.core.models._lms_embedding_model_value import LmsEmbeddingModelValue
 from foundry.v2.core.models._long_type import LongType
 from foundry.v2.core.models._long_type_dict import LongTypeDict
-from foundry.v2.core.models._map_field_type import MapFieldType
-from foundry.v2.core.models._map_field_type_dict import MapFieldTypeDict
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._marking_type import MarkingType
 from foundry.v2.core.models._marking_type_dict import MarkingTypeDict
+from foundry.v2.core.models._media_item_path import MediaItemPath
+from foundry.v2.core.models._media_item_read_token import MediaItemReadToken
+from foundry.v2.core.models._media_item_rid import MediaItemRid
+from foundry.v2.core.models._media_reference import MediaReference
+from foundry.v2.core.models._media_reference_dict import MediaReferenceDict
 from foundry.v2.core.models._media_reference_type import MediaReferenceType
 from foundry.v2.core.models._media_reference_type_dict import MediaReferenceTypeDict
 from foundry.v2.core.models._media_set_rid import MediaSetRid
+from foundry.v2.core.models._media_set_view_item import MediaSetViewItem
+from foundry.v2.core.models._media_set_view_item_dict import MediaSetViewItemDict
+from foundry.v2.core.models._media_set_view_item_wrapper import MediaSetViewItemWrapper
+from foundry.v2.core.models._media_set_view_item_wrapper_dict import (
+    MediaSetViewItemWrapperDict,
+)  # NOQA
+from foundry.v2.core.models._media_set_view_rid import MediaSetViewRid
 from foundry.v2.core.models._media_type import MediaType
 from foundry.v2.core.models._null_type import NullType
 from foundry.v2.core.models._null_type_dict import NullTypeDict
@@ -121,6 +136,8 @@ from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.core.models._principal_id import PrincipalId
 from foundry.v2.core.models._principal_type import PrincipalType
 from foundry.v2.core.models._realm import Realm
+from foundry.v2.core.models._reference import Reference
+from foundry.v2.core.models._reference_dict import ReferenceDict
 from foundry.v2.core.models._release_status import ReleaseStatus
 from foundry.v2.core.models._role_id import RoleId
 from foundry.v2.core.models._short_type import ShortType
@@ -131,8 +148,6 @@ from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
 from foundry.v2.core.models._string_type import StringType
 from foundry.v2.core.models._string_type_dict import StringTypeDict
 from foundry.v2.core.models._struct_field_name import StructFieldName
-from foundry.v2.core.models._struct_field_type import StructFieldType
-from foundry.v2.core.models._struct_field_type_dict import StructFieldTypeDict
 from foundry.v2.core.models._time_series_item_type import TimeSeriesItemType
 from foundry.v2.core.models._time_series_item_type_dict import TimeSeriesItemTypeDict
 from foundry.v2.core.models._time_unit import TimeUnit
@@ -218,6 +233,7 @@ __all__ = [
     "FilterUuidTypeDict",
     "FloatType",
     "FloatTypeDict",
+    "FolderRid",
     "FoundryLiveDeployment",
     "FoundryLiveDeploymentDict",
     "FullRowChangeDataCaptureConfiguration",
@@ -242,9 +258,19 @@ __all__ = [
     "MarkingId",
     "MarkingType",
     "MarkingTypeDict",
+    "MediaItemPath",
+    "MediaItemReadToken",
+    "MediaItemRid",
+    "MediaReference",
+    "MediaReferenceDict",
     "MediaReferenceType",
     "MediaReferenceTypeDict",
     "MediaSetRid",
+    "MediaSetViewItem",
+    "MediaSetViewItemDict",
+    "MediaSetViewItemWrapper",
+    "MediaSetViewItemWrapperDict",
+    "MediaSetViewRid",
     "MediaType",
     "NullType",
     "NullTypeDict",
@@ -256,6 +282,8 @@ __all__ = [
     "PrincipalId",
     "PrincipalType",
     "Realm",
+    "Reference",
+    "ReferenceDict",
     "ReleaseStatus",
     "RoleId",
     "ShortType",

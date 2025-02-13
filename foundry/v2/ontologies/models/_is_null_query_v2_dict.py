@@ -25,7 +25,10 @@ from foundry.v2.ontologies.models._property_identifier_dict import PropertyIdent
 
 
 class IsNullQueryV2Dict(TypedDict):
-    """Returns objects based on the existence of the specified field."""
+    """
+    Returns objects based on the existence of the specified field. Allows you to specify a property to query on
+    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

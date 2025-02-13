@@ -24,7 +24,7 @@ import pydantic
 from foundry.v2.core.models._change_data_capture_configuration import (
     ChangeDataCaptureConfiguration,
 )  # NOQA
-from foundry.v2.core.models._field import Field
+from foundry.v2.core.models._field_data_type import Field
 from foundry.v2.core.models._field_name import FieldName
 from foundry.v2.streams.models._create_stream_request_stream_schema_dict import (
     CreateStreamRequestStreamSchemaDict,

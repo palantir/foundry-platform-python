@@ -26,7 +26,11 @@ from foundry.v2.ontologies.models._object_set_method_input_type_dict import (
 
 
 class ObjectSetMethodInputType(pydantic.BaseModel):
-    """ObjectSetMethodInputType"""
+    """
+    ObjectSet which is the root of a MethodObjectSet definition.
+
+    This feature is experimental and not yet generally available.
+    """
 
     type: Literal["methodInput"] = "methodInput"
 

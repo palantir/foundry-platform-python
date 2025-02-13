@@ -24,7 +24,6 @@ import pydantic
 from typing_extensions import Annotated
 
 from foundry.v1.ontologies.models._all_terms_query import AllTermsQuery
-from foundry.v1.ontologies.models._and_query_dict import AndQueryDict
 from foundry.v1.ontologies.models._any_term_query import AnyTermQuery
 from foundry.v1.ontologies.models._contains_query import ContainsQuery
 from foundry.v1.ontologies.models._equals_query import EqualsQuery
@@ -33,10 +32,11 @@ from foundry.v1.ontologies.models._gte_query import GteQuery
 from foundry.v1.ontologies.models._is_null_query import IsNullQuery
 from foundry.v1.ontologies.models._lt_query import LtQuery
 from foundry.v1.ontologies.models._lte_query import LteQuery
-from foundry.v1.ontologies.models._not_query_dict import NotQueryDict
-from foundry.v1.ontologies.models._or_query_dict import OrQueryDict
 from foundry.v1.ontologies.models._phrase_query import PhraseQuery
 from foundry.v1.ontologies.models._prefix_query import PrefixQuery
+from foundry.v1.ontologies.models._search_json_query_dict import AndQueryDict
+from foundry.v1.ontologies.models._search_json_query_dict import NotQueryDict
+from foundry.v1.ontologies.models._search_json_query_dict import OrQueryDict
 
 
 class OrQuery(pydantic.BaseModel):

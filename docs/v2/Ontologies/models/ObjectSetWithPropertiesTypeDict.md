@@ -1,10 +1,15 @@
 # ObjectSetWithPropertiesTypeDict
 
-ObjectSetWithPropertiesType
+ObjectSet which returns objects with additional derived properties.
+
+This feature is experimental and not yet generally available.
+
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**objectSet** | ObjectSetDict | Yes |  |
+**derivedProperties** | Dict[DerivedPropertyApiName, DerivedPropertyDefinitionDict] | Yes | Map of the name of the derived property to return and its definition  |
 **type** | Literal["withProperties"] | Yes | None |
 
 

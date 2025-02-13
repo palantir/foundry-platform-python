@@ -1,6 +1,8 @@
 # DoesNotIntersectPolygonQuery
 
-Returns objects where the specified field does not intersect the polygon provided.
+Returns objects where the specified field does not intersect the polygon provided. Allows you to specify a 
+property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not 
+both.
 
 
 ## Properties

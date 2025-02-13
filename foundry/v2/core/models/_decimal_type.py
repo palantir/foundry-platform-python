@@ -27,13 +27,13 @@ from foundry.v2.core.models._decimal_type_dict import DecimalTypeDict
 class DecimalType(pydantic.BaseModel):
     """DecimalType"""
 
-    scale: Optional[int] = None
-
-    """The number of digits to the right of the decimal point. The maximum value is 38."""
-
     precision: Optional[int] = None
 
     """The total number of digits of the Decimal type. The maximum value is 38."""
+
+    scale: Optional[int] = None
+
+    """The number of digits to the right of the decimal point. The maximum value is 38."""
 
     type: Literal["decimal"] = "decimal"
 

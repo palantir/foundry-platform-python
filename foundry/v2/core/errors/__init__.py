@@ -13,9 +13,14 @@
 #  limitations under the License.
 
 
+from foundry.v2.core.errors._api_feature_preview_usage_only import (
+    ApiFeaturePreviewUsageOnly,
+)  # NOQA
+from foundry.v2.core.errors._api_usage_denied import ApiUsageDenied
 from foundry.v2.core.errors._batch_request_size_exceeded_limit import (
     BatchRequestSizeExceededLimit,
 )  # NOQA
+from foundry.v2.core.errors._folder_not_found import FolderNotFound
 from foundry.v2.core.errors._invalid_and_filter import InvalidAndFilter
 from foundry.v2.core.errors._invalid_change_data_capture_configuration import (
     InvalidChangeDataCaptureConfiguration,
@@ -31,20 +36,29 @@ from foundry.v2.core.errors._invalid_parameter_combination import (
 from foundry.v2.core.errors._invalid_schema import InvalidSchema
 from foundry.v2.core.errors._invalid_time_zone import InvalidTimeZone
 from foundry.v2.core.errors._missing_batch_request import MissingBatchRequest
+from foundry.v2.core.errors._missing_post_body import MissingPostBody
+from foundry.v2.core.errors._resource_name_already_exists import ResourceNameAlreadyExists  # NOQA
 from foundry.v2.core.errors._schema_is_not_stream_schema import SchemaIsNotStreamSchema
+from foundry.v2.core.errors._unknown_distance_unit import UnknownDistanceUnit
 
 __all__ = [
-    "BatchRequestSizeExceededLimit",
-    "InvalidAndFilter",
-    "InvalidChangeDataCaptureConfiguration",
+    "InvalidPageToken",
+    "FolderNotFound",
     "InvalidFieldSchema",
     "InvalidFilterValue",
-    "InvalidOrFilter",
-    "InvalidPageSize",
-    "InvalidPageToken",
-    "InvalidParameterCombination",
-    "InvalidSchema",
     "InvalidTimeZone",
-    "MissingBatchRequest",
+    "InvalidSchema",
+    "ApiFeaturePreviewUsageOnly",
+    "BatchRequestSizeExceededLimit",
+    "InvalidChangeDataCaptureConfiguration",
     "SchemaIsNotStreamSchema",
+    "InvalidOrFilter",
+    "InvalidParameterCombination",
+    "InvalidAndFilter",
+    "ApiUsageDenied",
+    "UnknownDistanceUnit",
+    "ResourceNameAlreadyExists",
+    "MissingBatchRequest",
+    "InvalidPageSize",
+    "MissingPostBody",
 ]

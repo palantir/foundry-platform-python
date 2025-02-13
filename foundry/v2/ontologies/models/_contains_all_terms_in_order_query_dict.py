@@ -27,7 +27,8 @@ from foundry.v2.ontologies.models._property_identifier_dict import PropertyIdent
 class ContainsAllTermsInOrderQueryDict(TypedDict):
     """
     Returns objects where the specified field contains all of the terms in the order provided,
-    but they do have to be adjacent to each other.
+    but they do have to be adjacent to each other. Allows you to specify a property to query on
+    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
