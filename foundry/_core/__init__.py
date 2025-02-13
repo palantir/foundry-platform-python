@@ -23,4 +23,5 @@ from foundry._core.binary_stream import BinaryStream
 from foundry._core.confidential_client_auth import ConfidentialClientAuth
 from foundry._core.config import Config
 from foundry._core.foundry_token_auth_client import UserTokenAuth
+from foundry._core.public_client_auth import PublicClientAuth
 from foundry._core.resource_iterator import ResourceIterator

@@ -17,6 +17,7 @@ from foundry._core import ApiResponse
 from foundry._core import Auth
 from foundry._core import ConfidentialClientAuth
 from foundry._core import Config
+from foundry._core import PublicClientAuth
 from foundry._core import ResourceIterator
 from foundry._core import StreamedApiResponse
 from foundry._core import StreamingContextManager
@@ -56,6 +57,7 @@ __all__ = [
     "__openapi_document_version__",
     "Auth",
     "ConfidentialClientAuth",
+    "PublicClientAuth",
     "UserTokenAuth",
     "Config",
     "PalantirException",
