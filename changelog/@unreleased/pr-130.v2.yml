@@ -1,0 +1,6 @@
+type: fix
+fix:
+  description: Due to a bug in `pydantic` versions <= 2.5, we now require `pydantic`
+    versions >= 2.6. This bug is related to an edge case with circular type definitions.
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/130
