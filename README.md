@@ -521,6 +521,7 @@ Namespace | Resource | Operation | HTTP request |
 **Filesystem** | Folder | [**children_page**](docs/v2/Filesystem/Folder.md#children_page) | **GET** /v2/filesystem/folders/{folderRid}/children |
 **Filesystem** | Folder | [**create**](docs/v2/Filesystem/Folder.md#create) | **POST** /v2/filesystem/folders |
 **Filesystem** | Folder | [**get**](docs/v2/Filesystem/Folder.md#get) | **GET** /v2/filesystem/folders/{folderRid} |
+**Filesystem** | Project | [**create**](docs/v2/Filesystem/Project.md#create) | **POST** /v2/filesystem/projects/create |
 **MediaSets** | MediaSet | [**abort**](docs/v2/MediaSets/MediaSet.md#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort |
 **MediaSets** | MediaSet | [**commit**](docs/v2/MediaSets/MediaSet.md#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit |
 **MediaSets** | MediaSet | [**create**](docs/v2/MediaSets/MediaSet.md#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions |

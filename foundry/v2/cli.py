@@ -3261,7 +3261,12 @@ def filesystem_project_create(
     preview: Optional[bool],
 ):
     """
-    Creates a project.
+    Creates a new Project.
+
+    Note that third-party applications using this endpoint via OAuth2 cannot be associated with an
+    Ontology SDK as this will reduce the scope of operations to only those within specified projects.
+    When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
+
     """
     result = client.filesystem.Project.create(
         default_roles=json.loads(default_roles),
