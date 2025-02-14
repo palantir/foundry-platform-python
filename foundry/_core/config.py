@@ -37,7 +37,10 @@ class Config:
     """The default timeout for all requests in seconds."""
 
     verify: Union[bool, str] = True
-    """SSL verification, can be a boolean or a path to a CA bundle. Defaults to `True`."""
+    """
+    SSL verification, can be a boolean or a path to a CA bundle. When using an HTTPS proxy,
+    connection this value will be passed to the proxy's SSL context as well.
+    """
 
     default_params: Optional[Dict[str, Any]] = None
     """URL query parameters to include with all requests."""

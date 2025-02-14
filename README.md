@@ -409,6 +409,9 @@ the following environment variables (in order of precedence):
 The SDK will only check for the presence of these environment variables if the `verify` option is set to
 `True` (the default value). If `verify` is set to False, the environment variables will be ignored.
 
+> [!NOTE] If you are using an HTTPS proxy server, the `verify` value will be passed to the proxy's
+> SSL context as well.
+
 ## Common errors
 This section will document any user-related errors with information on how you may be able to resolve them.
 
