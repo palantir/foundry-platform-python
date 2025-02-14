@@ -2863,6 +2863,29 @@ def filesystem():
     pass
 
 
+@filesystem.group("space")
+def filesystem_space():
+    pass
+
+
+@filesystem_space.command("list")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_space_list(
+    client: foundry.v2.FoundryClient,
+    preview: Optional[bool],
+):
+    """
+    Lists all Spaces.
+
+
+    """
+    result = client.filesystem.Space.list(
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem.group("resource")
 def filesystem_resource():
     pass

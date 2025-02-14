@@ -17,6 +17,7 @@ from foundry.v2.filesystem.models._access_requirements import AccessRequirements
 from foundry.v2.filesystem.models._access_requirements_dict import AccessRequirementsDict  # NOQA
 from foundry.v2.filesystem.models._everyone import Everyone
 from foundry.v2.filesystem.models._everyone_dict import EveryoneDict
+from foundry.v2.filesystem.models._file_system_id import FileSystemId
 from foundry.v2.filesystem.models._folder import Folder
 from foundry.v2.filesystem.models._folder_dict import FolderDict
 from foundry.v2.filesystem.models._folder_rid import FolderRid
@@ -46,6 +47,8 @@ from foundry.v2.filesystem.models._list_resource_roles_response import (
 from foundry.v2.filesystem.models._list_resource_roles_response_dict import (
     ListResourceRolesResponseDict,
 )  # NOQA
+from foundry.v2.filesystem.models._list_spaces_response import ListSpacesResponse
+from foundry.v2.filesystem.models._list_spaces_response_dict import ListSpacesResponseDict  # NOQA
 from foundry.v2.filesystem.models._marking import Marking
 from foundry.v2.filesystem.models._marking_dict import MarkingDict
 from foundry.v2.filesystem.models._organization import Organization
@@ -74,14 +77,18 @@ from foundry.v2.filesystem.models._resource_role_principal_dict import (
     ResourceRolePrincipalDict,
 )  # NOQA
 from foundry.v2.filesystem.models._resource_type import ResourceType
+from foundry.v2.filesystem.models._space import Space
+from foundry.v2.filesystem.models._space_dict import SpaceDict
 from foundry.v2.filesystem.models._space_rid import SpaceRid
 from foundry.v2.filesystem.models._trash_status import TrashStatus
+from foundry.v2.filesystem.models._usage_account_rid import UsageAccountRid
 
 __all__ = [
     "AccessRequirements",
     "AccessRequirementsDict",
     "Everyone",
     "EveryoneDict",
+    "FileSystemId",
     "Folder",
     "FolderDict",
     "FolderRid",
@@ -95,6 +102,8 @@ __all__ = [
     "ListOrganizationsOfProjectResponseDict",
     "ListResourceRolesResponse",
     "ListResourceRolesResponseDict",
+    "ListSpacesResponse",
+    "ListSpacesResponseDict",
     "Marking",
     "MarkingDict",
     "Organization",
@@ -117,6 +126,9 @@ __all__ = [
     "ResourceRolePrincipal",
     "ResourceRolePrincipalDict",
     "ResourceType",
+    "Space",
+    "SpaceDict",
     "SpaceRid",
     "TrashStatus",
+    "UsageAccountRid",
 ]

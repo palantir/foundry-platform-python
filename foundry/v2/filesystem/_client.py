@@ -37,7 +37,9 @@ class FilesystemClient:
         from foundry.v2.filesystem.folder import FolderClient
         from foundry.v2.filesystem.project import ProjectClient
         from foundry.v2.filesystem.resource import ResourceClient
+        from foundry.v2.filesystem.space import SpaceClient
 
         self.Folder = FolderClient(auth=auth, hostname=hostname, config=config)
         self.Project = ProjectClient(auth=auth, hostname=hostname, config=config)
         self.Resource = ResourceClient(auth=auth, hostname=hostname, config=config)
+        self.Space = SpaceClient(auth=auth, hostname=hostname, config=config)

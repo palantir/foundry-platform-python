@@ -218,8 +218,8 @@ from foundry.v1.ontologies.errors._view_object_permission_denied import (
 )  # NOQA
 
 __all__ = [
-    "MalformedPropertyFilters",
     "InvalidAggregationRangeValue",
+    "MalformedPropertyFilters",
     "ActionParameterInterfaceTypeNotFound",
     "MarketplaceObjectMappingNotFound",
     "InvalidDurationGroupByValue",
@@ -288,8 +288,8 @@ __all__ = [
     "PropertiesHaveDifferentIds",
     "OntologyNotFound",
     "PropertyTypeNotFound",
-    "MarketplaceInstallationNotFound",
     "InvalidPropertyType",
+    "MarketplaceInstallationNotFound",
     "ActionParameterObjectTypeNotFound",
     "UnknownParameter",
     "FunctionExecutionFailed",

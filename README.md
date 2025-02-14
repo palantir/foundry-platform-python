@@ -1088,6 +1088,7 @@ Namespace | Name | Import |
 **Filesystem** | [AccessRequirementsDict](docs/v2/Filesystem/models/AccessRequirementsDict.md) | `from foundry.v2.filesystem.models import AccessRequirementsDict` |
 **Filesystem** | [Everyone](docs/v2/Filesystem/models/Everyone.md) | `from foundry.v2.filesystem.models import Everyone` |
 **Filesystem** | [EveryoneDict](docs/v2/Filesystem/models/EveryoneDict.md) | `from foundry.v2.filesystem.models import EveryoneDict` |
+**Filesystem** | [FileSystemId](docs/v2/Filesystem/models/FileSystemId.md) | `from foundry.v2.filesystem.models import FileSystemId` |
 **Filesystem** | [Folder](docs/v2/Filesystem/models/Folder.md) | `from foundry.v2.filesystem.models import Folder` |
 **Filesystem** | [FolderDict](docs/v2/Filesystem/models/FolderDict.md) | `from foundry.v2.filesystem.models import FolderDict` |
 **Filesystem** | [FolderRid](docs/v2/Filesystem/models/FolderRid.md) | `from foundry.v2.filesystem.models import FolderRid` |
@@ -1101,6 +1102,8 @@ Namespace | Name | Import |
 **Filesystem** | [ListOrganizationsOfProjectResponseDict](docs/v2/Filesystem/models/ListOrganizationsOfProjectResponseDict.md) | `from foundry.v2.filesystem.models import ListOrganizationsOfProjectResponseDict` |
 **Filesystem** | [ListResourceRolesResponse](docs/v2/Filesystem/models/ListResourceRolesResponse.md) | `from foundry.v2.filesystem.models import ListResourceRolesResponse` |
 **Filesystem** | [ListResourceRolesResponseDict](docs/v2/Filesystem/models/ListResourceRolesResponseDict.md) | `from foundry.v2.filesystem.models import ListResourceRolesResponseDict` |
+**Filesystem** | [ListSpacesResponse](docs/v2/Filesystem/models/ListSpacesResponse.md) | `from foundry.v2.filesystem.models import ListSpacesResponse` |
+**Filesystem** | [ListSpacesResponseDict](docs/v2/Filesystem/models/ListSpacesResponseDict.md) | `from foundry.v2.filesystem.models import ListSpacesResponseDict` |
 **Filesystem** | [Marking](docs/v2/Filesystem/models/Marking.md) | `from foundry.v2.filesystem.models import Marking` |
 **Filesystem** | [MarkingDict](docs/v2/Filesystem/models/MarkingDict.md) | `from foundry.v2.filesystem.models import MarkingDict` |
 **Filesystem** | [Organization](docs/v2/Filesystem/models/Organization.md) | `from foundry.v2.filesystem.models import Organization` |
@@ -1123,8 +1126,11 @@ Namespace | Name | Import |
 **Filesystem** | [ResourceRolePrincipal](docs/v2/Filesystem/models/ResourceRolePrincipal.md) | `from foundry.v2.filesystem.models import ResourceRolePrincipal` |
 **Filesystem** | [ResourceRolePrincipalDict](docs/v2/Filesystem/models/ResourceRolePrincipalDict.md) | `from foundry.v2.filesystem.models import ResourceRolePrincipalDict` |
 **Filesystem** | [ResourceType](docs/v2/Filesystem/models/ResourceType.md) | `from foundry.v2.filesystem.models import ResourceType` |
+**Filesystem** | [Space](docs/v2/Filesystem/models/Space.md) | `from foundry.v2.filesystem.models import Space` |
+**Filesystem** | [SpaceDict](docs/v2/Filesystem/models/SpaceDict.md) | `from foundry.v2.filesystem.models import SpaceDict` |
 **Filesystem** | [SpaceRid](docs/v2/Filesystem/models/SpaceRid.md) | `from foundry.v2.filesystem.models import SpaceRid` |
 **Filesystem** | [TrashStatus](docs/v2/Filesystem/models/TrashStatus.md) | `from foundry.v2.filesystem.models import TrashStatus` |
+**Filesystem** | [UsageAccountRid](docs/v2/Filesystem/models/UsageAccountRid.md) | `from foundry.v2.filesystem.models import UsageAccountRid` |
 **Functions** | [DataValue](docs/v2/Functions/models/DataValue.md) | `from foundry.v2.functions.models import DataValue` |
 **Functions** | [ExecuteQueryResponse](docs/v2/Functions/models/ExecuteQueryResponse.md) | `from foundry.v2.functions.models import ExecuteQueryResponse` |
 **Functions** | [ExecuteQueryResponseDict](docs/v2/Functions/models/ExecuteQueryResponseDict.md) | `from foundry.v2.functions.models import ExecuteQueryResponseDict` |

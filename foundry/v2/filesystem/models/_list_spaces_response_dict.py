@@ -13,8 +13,22 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1072.0"
+from typing import List
+
+from typing_extensions import NotRequired
+from typing_extensions import TypedDict
+
+from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.filesystem.models._space_dict import SpaceDict
+
+
+class ListSpacesResponseDict(TypedDict):
+    """ListSpacesResponse"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: List[SpaceDict]
+
+    nextPageToken: NotRequired[PageToken]
