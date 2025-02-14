@@ -1,5 +1,6 @@
 import functools
 import os
+import ssl
 import sys
 from typing import Optional
 from typing import Union
@@ -18,11 +19,36 @@ def type_safe_cache(func: AnyCallableT) -> AnyCallableT:
 
 
 @type_safe_cache
-def _get_transport(verify: Union[bool, str], proxy: Optional[httpx.Proxy]) -> httpx.BaseTransport:
+def _get_transport(verify: Union[bool, str], proxy_url: Optional[str]) -> httpx.BaseTransport:
     """Create a shared transport. Because verify is at the transport level, we have to create a
     transport for each different configuration.
     """
-    return httpx.HTTPTransport(verify=verify, proxy=proxy)
+    # If verify is a string, we need to create an SSL context ourself
+    # since httpx has deprecated strings as inputs
+    # This logic to check whether the path is a file or directory is
+    # the same logic as both httpx (before they deprecated string paths) and requests
+    # Otherwise, we let httpx create the SSL context for us from a True/False value
+    if isinstance(verify, str):
+        if os.path.isdir(verify):
+            ssl_context = ssl.create_default_context(capath=verify)
+        else:
+            ssl_context = ssl.create_default_context(cafile=verify)
+    else:
+        ssl_context = httpx.create_ssl_context(verify=verify)
+
+    proxy: Optional[httpx.Proxy] = None
+    if proxy_url is not None:
+        if not proxy_url.startswith(("http://", "https://")):
+            raise ValueError(f"Proxy URL must start with http:// or https://: {proxy_url}")
+
+        # We shold only pass the SSL context to the proxy iff the proxy is HTTPS
+        # Otherwise, httpx will throw an error
+        if proxy_url.startswith("https://"):
+            proxy = httpx.Proxy(url=proxy_url, ssl_context=ssl_context)
+        else:
+            proxy = httpx.Proxy(url=proxy_url)
+
+    return httpx.HTTPTransport(verify=ssl_context, proxy=proxy)
 
 
 class HttpClient(httpx.Client):
@@ -52,9 +78,9 @@ class HttpClient(httpx.Client):
                 **(config.default_headers or {}),
             },
             params=config.default_params,
-            transport=_get_transport(verify=verify, proxy=None),
+            transport=_get_transport(verify=verify, proxy_url=None),
             mounts={
-                scheme + "://": _get_transport(verify=verify, proxy=httpx.Proxy(url=proxy_url))
+                scheme + "://": _get_transport(verify=verify, proxy_url=proxy_url)
                 for scheme, proxy_url in (config.proxies or {}).items()
             },
             # Unlike requests, HTTPX does not follow redirects by default

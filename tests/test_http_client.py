@@ -143,13 +143,25 @@ def test_proxies():
 
     transport = assert_http_transport(client._mounts[URLPattern("https://")])
     proxy = assert_http_proxy(transport._pool)
+    assert proxy._ssl_context is not None
+    assert proxy._ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
+    assert proxy._proxy_ssl_context is not None
+    assert proxy._proxy_ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
     assert proxy._proxy_url.scheme == b"https"
     assert proxy._proxy_url.host == b"foo.bar"
 
     transport = assert_http_transport(client._mounts[URLPattern("http://")])
     proxy = assert_http_proxy(transport._pool)
+    assert proxy._ssl_context is not None
+    assert proxy._ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
+    assert proxy._proxy_ssl_context is None
     assert proxy._proxy_url.scheme == b"http"
     assert proxy._proxy_url.host == b"foo.bar"
+
+
+def test_bad_proxy_url():
+    with pytest.raises(ValueError):
+        create_client(Config(proxies={"https": "htts://foo.bar"}))
 
 
 def test_timeout():

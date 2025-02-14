@@ -13,7 +13,7 @@ packages = [{ include = "foundry" }]
 annotated-types = ">=0.7.0, <1.0.0"
 pydantic = ">=2.6.0, <3.0.0"
 python = "^3.9"
-httpx = ">=0.24.0, <1.0.0"
+httpx = ">=0.25.0, <1.0.0"
 typing-extensions = ">=4.7.1, <5.0.0"
 
 [tool.poetry.group.test.dependencies]
