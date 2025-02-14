@@ -1,0 +1,6 @@
+type: improvement
+improvement:
+  description: We now pass the `verify` details to the `httpx.Proxy` when using an
+    HTTPS Proxy server.
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/134
