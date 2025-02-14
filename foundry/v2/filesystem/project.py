@@ -147,7 +147,12 @@ class ProjectClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> Project:
         """
-        Creates a project.
+        Creates a new Project.
+
+        Note that third-party applications using this endpoint via OAuth2 cannot be associated with an
+        Ontology SDK as this will reduce the scope of operations to only those within specified projects.
+        When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
+
         :param default_roles:
         :type default_roles: List[RoleId]
         :param display_name:
@@ -566,7 +571,12 @@ class _ProjectClientRaw:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[Project]:
         """
-        Creates a project.
+        Creates a new Project.
+
+        Note that third-party applications using this endpoint via OAuth2 cannot be associated with an
+        Ontology SDK as this will reduce the scope of operations to only those within specified projects.
+        When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
+
         :param default_roles:
         :type default_roles: List[RoleId]
         :param display_name:
@@ -985,7 +995,12 @@ class _ProjectClientStreaming:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[Project]:
         """
-        Creates a project.
+        Creates a new Project.
+
+        Note that third-party applications using this endpoint via OAuth2 cannot be associated with an
+        Ontology SDK as this will reduce the scope of operations to only those within specified projects.
+        When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
+
         :param default_roles:
         :type default_roles: List[RoleId]
         :param display_name:

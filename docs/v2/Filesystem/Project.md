@@ -2,6 +2,7 @@
 
 Method | HTTP request |
 ------------- | ------------- |
+[**create**](#create) | **POST** /v2/filesystem/projects/create |
 
 Adds a list of Organizations to a Project.
 
@@ -28,7 +29,7 @@ foundry_client = FoundryClient(
 )
 
 # ProjectRid | projectRid
-project_rid = None
+project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # List[OrganizationRid] |
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
 # Optional[PreviewMode] | preview
@@ -61,7 +62,13 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
-Creates a project.
+# **create**
+Creates a new Project.
+
+Note that third-party applications using this endpoint via OAuth2 cannot be associated with an
+Ontology SDK as this will reduce the scope of operations to only those within specified projects.
+When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
+
 
 ### Parameters
 
@@ -233,7 +240,7 @@ foundry_client = FoundryClient(
 )
 
 # ProjectRid | projectRid
-project_rid = None
+project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # Optional[PreviewMode] | preview
 preview = None
 
@@ -291,7 +298,7 @@ foundry_client = FoundryClient(
 )
 
 # ProjectRid | projectRid
-project_rid = None
+project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # Optional[PageSize] | pageSize
 page_size = None
 # Optional[PageToken] | pageToken
@@ -354,7 +361,7 @@ foundry_client = FoundryClient(
 )
 
 # ProjectRid | projectRid
-project_rid = None
+project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # Optional[PageSize] | pageSize
 page_size = None
 # Optional[PageToken] | pageToken
@@ -415,7 +422,7 @@ foundry_client = FoundryClient(
 )
 
 # ProjectRid | projectRid
-project_rid = None
+project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # List[OrganizationRid] |
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
 # Optional[PreviewMode] | preview
