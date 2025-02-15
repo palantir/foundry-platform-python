@@ -1026,6 +1026,7 @@ Namespace | Name | Import |
 **Core** | [MediaType](docs/v2/Core/models/MediaType.md) | `from foundry.v2.core.models import MediaType` |
 **Core** | [NullType](docs/v2/Core/models/NullType.md) | `from foundry.v2.core.models import NullType` |
 **Core** | [NullTypeDict](docs/v2/Core/models/NullTypeDict.md) | `from foundry.v2.core.models import NullTypeDict` |
+**Core** | [OperationScope](docs/v2/Core/models/OperationScope.md) | `from foundry.v2.core.models import OperationScope` |
 **Core** | [OrderByDirection](docs/v2/Core/models/OrderByDirection.md) | `from foundry.v2.core.models import OrderByDirection` |
 **Core** | [OrganizationRid](docs/v2/Core/models/OrganizationRid.md) | `from foundry.v2.core.models import OrganizationRid` |
 **Core** | [PageSize](docs/v2/Core/models/PageSize.md) | `from foundry.v2.core.models import PageSize` |
@@ -1891,6 +1892,7 @@ Namespace | Name | Import |
 **Core** | [MarkingType](docs/v1/Core/models/MarkingType.md) | `from foundry.v1.core.models import MarkingType` |
 **Core** | [MarkingTypeDict](docs/v1/Core/models/MarkingTypeDict.md) | `from foundry.v1.core.models import MarkingTypeDict` |
 **Core** | [NullTypeDict](docs/v1/Core/models/NullTypeDict.md) | `from foundry.v1.core.models import NullTypeDict` |
+**Core** | [OperationScope](docs/v1/Core/models/OperationScope.md) | `from foundry.v1.core.models import OperationScope` |
 **Core** | [PageSize](docs/v1/Core/models/PageSize.md) | `from foundry.v1.core.models import PageSize` |
 **Core** | [PageToken](docs/v1/Core/models/PageToken.md) | `from foundry.v1.core.models import PageToken` |
 **Core** | [PreviewMode](docs/v1/Core/models/PreviewMode.md) | `from foundry.v1.core.models import PreviewMode` |

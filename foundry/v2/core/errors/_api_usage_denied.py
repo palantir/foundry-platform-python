@@ -19,15 +19,19 @@ from dataclasses import dataclass
 from typing import Literal
 
 import pydantic
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry._errors import PalantirRPCException
+from foundry.v2.core.models._operation_scope import OperationScope
 
 
 class ApiUsageDeniedParameters(TypedDict):
     """You are not allowed to use Palantir APIs."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    missingScope: NotRequired[OperationScope]
 
 
 @dataclass

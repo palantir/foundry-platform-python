@@ -128,6 +128,7 @@ from foundry.v2.core.models._media_set_view_rid import MediaSetViewRid
 from foundry.v2.core.models._media_type import MediaType
 from foundry.v2.core.models._null_type import NullType
 from foundry.v2.core.models._null_type_dict import NullTypeDict
+from foundry.v2.core.models._operation_scope import OperationScope
 from foundry.v2.core.models._order_by_direction import OrderByDirection
 from foundry.v2.core.models._organization_rid import OrganizationRid
 from foundry.v2.core.models._page_size import PageSize
@@ -274,6 +275,7 @@ __all__ = [
     "MediaType",
     "NullType",
     "NullTypeDict",
+    "OperationScope",
     "OrderByDirection",
     "OrganizationRid",
     "PageSize",
