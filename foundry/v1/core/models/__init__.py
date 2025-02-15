@@ -43,6 +43,7 @@ from foundry.v1.core.models._long_type_dict import LongTypeDict
 from foundry.v1.core.models._marking_type import MarkingType
 from foundry.v1.core.models._marking_type_dict import MarkingTypeDict
 from foundry.v1.core.models._null_type_dict import NullTypeDict
+from foundry.v1.core.models._operation_scope import OperationScope
 from foundry.v1.core.models._page_size import PageSize
 from foundry.v1.core.models._page_token import PageToken
 from foundry.v1.core.models._preview_mode import PreviewMode
@@ -89,6 +90,7 @@ __all__ = [
     "MarkingType",
     "MarkingTypeDict",
     "NullTypeDict",
+    "OperationScope",
     "PageSize",
     "PageToken",
     "PreviewMode",
