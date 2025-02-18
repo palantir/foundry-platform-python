@@ -20,6 +20,7 @@ from foundry._core.api_client import StreamedApiResponse
 from foundry._core.api_client import StreamingContextManager
 from foundry._core.auth_utils import Auth
 from foundry._core.binary_stream import BinaryStream
+from foundry._core.compute_module_pipeline_auth import ComputeModulePipelineAuth
 from foundry._core.confidential_client_auth import ConfidentialClientAuth
 from foundry._core.config import Config
 from foundry._core.foundry_token_auth_client import UserTokenAuth
