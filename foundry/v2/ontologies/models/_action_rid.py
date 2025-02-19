@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from foundry._core.utils import RID
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+ActionRid = RID
+"""The unique resource identifier for an action."""

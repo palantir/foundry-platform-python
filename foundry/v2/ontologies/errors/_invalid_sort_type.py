@@ -15,7 +15,28 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class InvalidSortTypeParameters(TypedDict):
+    """The requested sort type of one or more clauses is invalid. Valid sort types are 'p' or 'properties'."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    invalidSortType: str
+
+
+@dataclass
+class InvalidSortType(PalantirRPCException):
+    name: Literal["InvalidSortType"]
+    parameters: InvalidSortTypeParameters
+    error_instance_id: str
+
+
+__all__ = ["InvalidSortType"]

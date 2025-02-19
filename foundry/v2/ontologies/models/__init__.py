@@ -25,6 +25,7 @@ from foundry.v2.ontologies.models._action_parameter_v2 import ActionParameterV2
 from foundry.v2.ontologies.models._action_parameter_v2_dict import ActionParameterV2Dict
 from foundry.v2.ontologies.models._action_results import ActionResults
 from foundry.v2.ontologies.models._action_results_dict import ActionResultsDict
+from foundry.v2.ontologies.models._action_rid import ActionRid
 from foundry.v2.ontologies.models._action_type_api_name import ActionTypeApiName
 from foundry.v2.ontologies.models._action_type_rid import ActionTypeRid
 from foundry.v2.ontologies.models._action_type_v2 import ActionTypeV2
@@ -255,6 +256,7 @@ from foundry.v2.ontologies.models._experimental_property_type_status import (
 from foundry.v2.ontologies.models._experimental_property_type_status_dict import (
     ExperimentalPropertyTypeStatusDict,
 )  # NOQA
+from foundry.v2.ontologies.models._filter_value import FilterValue
 from foundry.v2.ontologies.models._function_rid import FunctionRid
 from foundry.v2.ontologies.models._function_version import FunctionVersion
 from foundry.v2.ontologies.models._fuzzy_v2 import FuzzyV2
@@ -563,11 +565,14 @@ from foundry.v2.ontologies.models._parameter_option import ParameterOption
 from foundry.v2.ontologies.models._parameter_option_dict import ParameterOptionDict
 from foundry.v2.ontologies.models._polygon_value import PolygonValue
 from foundry.v2.ontologies.models._polygon_value_dict import PolygonValueDict
+from foundry.v2.ontologies.models._primary_key_value import PrimaryKeyValue
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._property_api_name_selector import PropertyApiNameSelector  # NOQA
 from foundry.v2.ontologies.models._property_api_name_selector_dict import (
     PropertyApiNameSelectorDict,
 )  # NOQA
+from foundry.v2.ontologies.models._property_filter import PropertyFilter
+from foundry.v2.ontologies.models._property_id import PropertyId
 from foundry.v2.ontologies.models._property_identifier import PropertyIdentifier
 from foundry.v2.ontologies.models._property_identifier_dict import PropertyIdentifierDict  # NOQA
 from foundry.v2.ontologies.models._property_type_rid import PropertyTypeRid
@@ -617,6 +622,9 @@ from foundry.v2.ontologies.models._query_data_type_dict import QueryStructTypeDi
 from foundry.v2.ontologies.models._query_data_type_dict import QueryUnionTypeDict
 from foundry.v2.ontologies.models._query_parameter_v2 import QueryParameterV2
 from foundry.v2.ontologies.models._query_parameter_v2_dict import QueryParameterV2Dict
+from foundry.v2.ontologies.models._query_runtime_error_parameter import (
+    QueryRuntimeErrorParameter,
+)  # NOQA
 from foundry.v2.ontologies.models._query_type_v2 import QueryTypeV2
 from foundry.v2.ontologies.models._query_type_v2_dict import QueryTypeV2Dict
 from foundry.v2.ontologies.models._range_constraint import RangeConstraint
@@ -779,6 +787,7 @@ from foundry.v2.ontologies.models._validate_action_response_v2_dict import (
     ValidateActionResponseV2Dict,
 )  # NOQA
 from foundry.v2.ontologies.models._validation_result import ValidationResult
+from foundry.v2.ontologies.models._value_type import ValueType
 from foundry.v2.ontologies.models._within_bounding_box_point import WithinBoundingBoxPoint  # NOQA
 from foundry.v2.ontologies.models._within_bounding_box_point_dict import (
     WithinBoundingBoxPointDict,
@@ -805,6 +814,7 @@ __all__ = [
     "ActionParameterV2Dict",
     "ActionResults",
     "ActionResultsDict",
+    "ActionRid",
     "ActionTypeApiName",
     "ActionTypeRid",
     "ActionTypeV2",
@@ -923,6 +933,7 @@ __all__ = [
     "ExecuteQueryResponseDict",
     "ExperimentalPropertyTypeStatus",
     "ExperimentalPropertyTypeStatusDict",
+    "FilterValue",
     "FunctionRid",
     "FunctionVersion",
     "FuzzyV2",
@@ -1107,9 +1118,12 @@ __all__ = [
     "ParameterOptionDict",
     "PolygonValue",
     "PolygonValueDict",
+    "PrimaryKeyValue",
     "PropertyApiName",
     "PropertyApiNameSelector",
     "PropertyApiNameSelectorDict",
+    "PropertyFilter",
+    "PropertyId",
     "PropertyIdentifier",
     "PropertyIdentifierDict",
     "PropertyTypeRid",
@@ -1135,6 +1149,7 @@ __all__ = [
     "QueryDataTypeDict",
     "QueryParameterV2",
     "QueryParameterV2Dict",
+    "QueryRuntimeErrorParameter",
     "QuerySetType",
     "QuerySetTypeDict",
     "QueryStructField",
@@ -1227,6 +1242,7 @@ __all__ = [
     "ValidateActionResponseV2",
     "ValidateActionResponseV2Dict",
     "ValidationResult",
+    "ValueType",
     "WithinBoundingBoxPoint",
     "WithinBoundingBoxPointDict",
     "WithinBoundingBoxQuery",

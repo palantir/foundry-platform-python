@@ -15,7 +15,26 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class InvalidAggregationOrderingParameters(TypedDict):
+    """Aggregation ordering can only be applied to metrics with exactly one groupBy clause."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidAggregationOrdering(PalantirRPCException):
+    name: Literal["InvalidAggregationOrdering"]
+    parameters: InvalidAggregationOrderingParameters
+    error_instance_id: str
+
+
+__all__ = ["InvalidAggregationOrdering"]

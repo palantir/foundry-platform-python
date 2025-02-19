@@ -15,7 +15,28 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class MalformedPropertyFiltersParameters(TypedDict):
+    """At least one of requested filters are malformed. Please look at the documentation of `PropertyFilter`."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    malformedPropertyFilter: str
+
+
+@dataclass
+class MalformedPropertyFilters(PalantirRPCException):
+    name: Literal["MalformedPropertyFilters"]
+    parameters: MalformedPropertyFiltersParameters
+    error_instance_id: str
+
+
+__all__ = ["MalformedPropertyFilters"]

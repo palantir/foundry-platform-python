@@ -15,7 +15,26 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class ObjectAlreadyExistsParameters(TypedDict):
+    """The object the user is attempting to create already exists."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ObjectAlreadyExists(PalantirRPCException):
+    name: Literal["ObjectAlreadyExists"]
+    parameters: ObjectAlreadyExistsParameters
+    error_instance_id: str
+
+
+__all__ = ["ObjectAlreadyExists"]

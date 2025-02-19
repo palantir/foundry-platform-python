@@ -15,7 +15,26 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class InvalidAggregationRangeParameters(TypedDict):
+    """Aggregation range should include one lt or lte and one gt or gte."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidAggregationRange(PalantirRPCException):
+    name: Literal["InvalidAggregationRange"]
+    parameters: InvalidAggregationRangeParameters
+    error_instance_id: str
+
+
+__all__ = ["InvalidAggregationRange"]

@@ -15,7 +15,26 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class TooManyNearestNeighborsRequestedParameters(TypedDict):
+    """The value of numNeighbors must be in the range 1 &lt;= numNeighbors &lt;= 500."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TooManyNearestNeighborsRequested(PalantirRPCException):
+    name: Literal["TooManyNearestNeighborsRequested"]
+    parameters: TooManyNearestNeighborsRequestedParameters
+    error_instance_id: str
+
+
+__all__ = ["TooManyNearestNeighborsRequested"]

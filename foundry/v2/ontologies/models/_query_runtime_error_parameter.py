@@ -15,7 +15,5 @@
 
 from __future__ import annotations
 
-from typing import Literal
-
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+QueryRuntimeErrorParameter = str
+"""QueryRuntimeErrorParameter"""

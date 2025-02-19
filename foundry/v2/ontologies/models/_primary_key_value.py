@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+PrimaryKeyValue = Any
+"""Represents the primary key value that is used as a unique identifier for an object."""

@@ -15,7 +15,8 @@
 
 from __future__ import annotations
 
-from typing import Literal
-
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+PropertyId = str
+"""
+The immutable ID of a property. Property IDs are only used to identify properties in the **Ontology Manager**
+application and assign them API names. In every other case, API names should be used instead of property IDs.
+"""
