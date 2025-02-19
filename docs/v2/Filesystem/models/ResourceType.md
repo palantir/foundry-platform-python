@@ -6,6 +6,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | --------- |
 | `"ARTIFACTS_REPOSITORY"` |
 | `"BELLASO_CIPHER_CHANNEL"` |
+| `"BLOBSTER_CODE"` |
 | `"BLOBSTER_DOCUMENT"` |
 | `"BLOBSTER_IMAGE"` |
 | `"CARBON_WORKSPACE"` |

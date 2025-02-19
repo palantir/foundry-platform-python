@@ -20,6 +20,7 @@ from typing import Literal
 ResourceType = Literal[
     "ARTIFACTS_REPOSITORY",
     "BELLASO_CIPHER_CHANNEL",
+    "BLOBSTER_CODE",
     "BLOBSTER_DOCUMENT",
     "BLOBSTER_IMAGE",
     "CARBON_WORKSPACE",
