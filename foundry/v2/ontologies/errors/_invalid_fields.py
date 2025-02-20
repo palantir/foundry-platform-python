@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidFieldsParameters(TypedDict):
@@ -37,7 +36,7 @@ class InvalidFieldsParameters(TypedDict):
 
 
 @dataclass
-class InvalidFields(PalantirRPCException):
+class InvalidFields(BadRequestError):
     name: Literal["InvalidFields"]
     parameters: InvalidFieldsParameters
     error_instance_id: str

@@ -38,6 +38,7 @@ from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
+from foundry.v2.orchestration import errors as orchestration_errors
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
 from foundry.v2.orchestration.models._build import Build
 from foundry.v2.orchestration.models._build_rid import BuildRid
@@ -113,6 +114,8 @@ class BuildClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises CancelBuildPermissionDenied: Could not cancel the Build.
         """
 
         return self._api_client.call_api(
@@ -130,6 +133,9 @@ class BuildClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CancelBuildPermissionDenied": orchestration_errors.CancelBuildPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -176,6 +182,8 @@ class BuildClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Build
+
+        :raises CreateBuildsPermissionDenied: Could not create the Build.
         """
 
         return self._api_client.call_api(
@@ -217,6 +225,9 @@ class BuildClient:
                 ),
                 response_type=Build,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateBuildsPermissionDenied": orchestration_errors.CreateBuildsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -240,6 +251,8 @@ class BuildClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Build
+
+        :raises BuildNotFound: The given Build could not be found.
         """
 
         return self._api_client.call_api(
@@ -259,6 +272,9 @@ class BuildClient:
                 body_type=None,
                 response_type=Build,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BuildNotFound": orchestration_errors.BuildNotFound,
+                },
             ),
         ).decode()
 
@@ -307,6 +323,7 @@ class BuildClient:
                 ],
                 response_type=GetBuildsBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -339,6 +356,8 @@ class BuildClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: SearchBuildsResponse
+
+        :raises SearchBuildsPermissionDenied: Could not search the Build.
         """
 
         return self._api_client.call_api(
@@ -370,6 +389,9 @@ class BuildClient:
                 ),
                 response_type=SearchBuildsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SearchBuildsPermissionDenied": orchestration_errors.SearchBuildsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -412,6 +434,8 @@ class _BuildClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises CancelBuildPermissionDenied: Could not cancel the Build.
         """
 
         return self._api_client.call_api(
@@ -429,6 +453,9 @@ class _BuildClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CancelBuildPermissionDenied": orchestration_errors.CancelBuildPermissionDenied,
+                },
             ),
         )
 
@@ -475,6 +502,8 @@ class _BuildClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Build]
+
+        :raises CreateBuildsPermissionDenied: Could not create the Build.
         """
 
         return self._api_client.call_api(
@@ -516,6 +545,9 @@ class _BuildClientRaw:
                 ),
                 response_type=Build,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateBuildsPermissionDenied": orchestration_errors.CreateBuildsPermissionDenied,
+                },
             ),
         )
 
@@ -539,6 +571,8 @@ class _BuildClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Build]
+
+        :raises BuildNotFound: The given Build could not be found.
         """
 
         return self._api_client.call_api(
@@ -558,6 +592,9 @@ class _BuildClientRaw:
                 body_type=None,
                 response_type=Build,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BuildNotFound": orchestration_errors.BuildNotFound,
+                },
             ),
         )
 
@@ -606,6 +643,7 @@ class _BuildClientRaw:
                 ],
                 response_type=GetBuildsBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -638,6 +676,8 @@ class _BuildClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[SearchBuildsResponse]
+
+        :raises SearchBuildsPermissionDenied: Could not search the Build.
         """
 
         return self._api_client.call_api(
@@ -669,6 +709,9 @@ class _BuildClientRaw:
                 ),
                 response_type=SearchBuildsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SearchBuildsPermissionDenied": orchestration_errors.SearchBuildsPermissionDenied,
+                },
             ),
         )
 
@@ -711,6 +754,8 @@ class _BuildClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises CancelBuildPermissionDenied: Could not cancel the Build.
         """
 
         return self._api_client.stream_api(
@@ -728,6 +773,9 @@ class _BuildClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CancelBuildPermissionDenied": orchestration_errors.CancelBuildPermissionDenied,
+                },
             ),
         )
 
@@ -774,6 +822,8 @@ class _BuildClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Build]
+
+        :raises CreateBuildsPermissionDenied: Could not create the Build.
         """
 
         return self._api_client.stream_api(
@@ -815,6 +865,9 @@ class _BuildClientStreaming:
                 ),
                 response_type=Build,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateBuildsPermissionDenied": orchestration_errors.CreateBuildsPermissionDenied,
+                },
             ),
         )
 
@@ -838,6 +891,8 @@ class _BuildClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Build]
+
+        :raises BuildNotFound: The given Build could not be found.
         """
 
         return self._api_client.stream_api(
@@ -857,6 +912,9 @@ class _BuildClientStreaming:
                 body_type=None,
                 response_type=Build,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BuildNotFound": orchestration_errors.BuildNotFound,
+                },
             ),
         )
 
@@ -905,6 +963,7 @@ class _BuildClientStreaming:
                 ],
                 response_type=GetBuildsBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -937,6 +996,8 @@ class _BuildClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[SearchBuildsResponse]
+
+        :raises SearchBuildsPermissionDenied: Could not search the Build.
         """
 
         return self._api_client.stream_api(
@@ -968,5 +1029,8 @@ class _BuildClientStreaming:
                 ),
                 response_type=SearchBuildsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SearchBuildsPermissionDenied": orchestration_errors.SearchBuildsPermissionDenied,
+                },
             ),
         )

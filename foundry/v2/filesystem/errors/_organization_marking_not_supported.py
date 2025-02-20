@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._marking_id import MarkingId
 
 
@@ -38,7 +37,7 @@ class OrganizationMarkingNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class OrganizationMarkingNotSupported(PalantirRPCException):
+class OrganizationMarkingNotSupported(BadRequestError):
     name: Literal["OrganizationMarkingNotSupported"]
     parameters: OrganizationMarkingNotSupportedParameters
     error_instance_id: str

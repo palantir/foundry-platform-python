@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._function_rid import FunctionRid
 from foundry.v1.ontologies.models._function_version import FunctionVersion
 
@@ -41,7 +40,7 @@ class FunctionExecutionFailedParameters(TypedDict):
 
 
 @dataclass
-class FunctionExecutionFailed(PalantirRPCException):
+class FunctionExecutionFailed(BadRequestError):
     name: Literal["FunctionExecutionFailed"]
     parameters: FunctionExecutionFailedParameters
     error_instance_id: str

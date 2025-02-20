@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.third_party_applications.models._version_version import VersionVersion
 
 
@@ -34,7 +33,7 @@ class CannotDeleteDeployedVersionParameters(TypedDict):
 
 
 @dataclass
-class CannotDeleteDeployedVersion(PalantirRPCException):
+class CannotDeleteDeployedVersion(BadRequestError):
     name: Literal["CannotDeleteDeployedVersion"]
     parameters: CannotDeleteDeployedVersionParameters
     error_instance_id: str

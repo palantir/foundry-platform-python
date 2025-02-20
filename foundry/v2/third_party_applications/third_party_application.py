@@ -31,6 +31,7 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.third_party_applications import errors as third_party_applications_errors  # NOQA
 from foundry.v2.third_party_applications.models._third_party_application import (
     ThirdPartyApplication,
 )  # NOQA
@@ -84,6 +85,8 @@ class ThirdPartyApplicationClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ThirdPartyApplication
+
+        :raises ThirdPartyApplicationNotFound: The given ThirdPartyApplication could not be found.
         """
 
         return self._api_client.call_api(
@@ -103,6 +106,9 @@ class ThirdPartyApplicationClient:
                 body_type=None,
                 response_type=ThirdPartyApplication,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ThirdPartyApplicationNotFound": third_party_applications_errors.ThirdPartyApplicationNotFound,
+                },
             ),
         ).decode()
 
@@ -144,6 +150,8 @@ class _ThirdPartyApplicationClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ThirdPartyApplication]
+
+        :raises ThirdPartyApplicationNotFound: The given ThirdPartyApplication could not be found.
         """
 
         return self._api_client.call_api(
@@ -163,6 +171,9 @@ class _ThirdPartyApplicationClientRaw:
                 body_type=None,
                 response_type=ThirdPartyApplication,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ThirdPartyApplicationNotFound": third_party_applications_errors.ThirdPartyApplicationNotFound,
+                },
             ),
         )
 
@@ -204,6 +215,8 @@ class _ThirdPartyApplicationClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ThirdPartyApplication]
+
+        :raises ThirdPartyApplicationNotFound: The given ThirdPartyApplication could not be found.
         """
 
         return self._api_client.stream_api(
@@ -223,5 +236,8 @@ class _ThirdPartyApplicationClientStreaming:
                 body_type=None,
                 response_type=ThirdPartyApplication,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ThirdPartyApplicationNotFound": third_party_applications_errors.ThirdPartyApplicationNotFound,
+                },
             ),
         )

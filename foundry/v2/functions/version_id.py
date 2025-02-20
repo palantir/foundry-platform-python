@@ -31,6 +31,7 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.functions import errors as functions_errors
 from foundry.v2.functions.models._value_type_rid import ValueTypeRid
 from foundry.v2.functions.models._value_type_version_id import ValueTypeVersionId
 from foundry.v2.functions.models._version_id import VersionId
@@ -81,6 +82,8 @@ class VersionIdClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: VersionId
+
+        :raises VersionIdNotFound: The given VersionId could not be found.
         """
 
         return self._api_client.call_api(
@@ -101,6 +104,9 @@ class VersionIdClient:
                 body_type=None,
                 response_type=VersionId,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "VersionIdNotFound": functions_errors.VersionIdNotFound,
+                },
             ),
         ).decode()
 
@@ -146,6 +152,8 @@ class _VersionIdClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[VersionId]
+
+        :raises VersionIdNotFound: The given VersionId could not be found.
         """
 
         return self._api_client.call_api(
@@ -166,6 +174,9 @@ class _VersionIdClientRaw:
                 body_type=None,
                 response_type=VersionId,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "VersionIdNotFound": functions_errors.VersionIdNotFound,
+                },
             ),
         )
 
@@ -211,6 +222,8 @@ class _VersionIdClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[VersionId]
+
+        :raises VersionIdNotFound: The given VersionId could not be found.
         """
 
         return self._api_client.stream_api(
@@ -231,5 +244,8 @@ class _VersionIdClientStreaming:
                 body_type=None,
                 response_type=VersionId,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "VersionIdNotFound": functions_errors.VersionIdNotFound,
+                },
             ),
         )

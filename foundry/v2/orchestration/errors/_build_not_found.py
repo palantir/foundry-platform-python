@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.orchestration.models._build_rid import BuildRid
 
 
@@ -35,7 +34,7 @@ class BuildNotFoundParameters(TypedDict):
 
 
 @dataclass
-class BuildNotFound(PalantirRPCException):
+class BuildNotFound(NotFoundError):
     name: Literal["BuildNotFound"]
     parameters: BuildNotFoundParameters
     error_instance_id: str

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.third_party_applications.models._third_party_application_rid import (
     ThirdPartyApplicationRid,
 )  # NOQA
@@ -37,7 +36,7 @@ class UploadSnapshotVersionPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class UploadSnapshotVersionPermissionDenied(PalantirRPCException):
+class UploadSnapshotVersionPermissionDenied(PermissionDeniedError):
     name: Literal["UploadSnapshotVersionPermissionDenied"]
     parameters: UploadSnapshotVersionPermissionDeniedParameters
     error_instance_id: str

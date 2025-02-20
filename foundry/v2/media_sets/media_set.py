@@ -117,6 +117,7 @@ class MediaSetClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -164,6 +165,7 @@ class MediaSetClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -213,6 +215,7 @@ class MediaSetClient:
                 body_type=None,
                 response_type=TransactionId,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -266,6 +269,7 @@ class MediaSetClient:
                 body_type=None,
                 response_type=GetMediaItemInfoResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -445,6 +449,7 @@ class MediaSetClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -498,6 +503,7 @@ class MediaSetClient:
                 body_type=None,
                 response_type=MediaReference,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -569,6 +575,7 @@ class MediaSetClient:
                 body_type=bytes,
                 response_type=PutMediaItemResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -634,6 +641,7 @@ class _MediaSetClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -681,6 +689,7 @@ class _MediaSetClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -730,6 +739,7 @@ class _MediaSetClientRaw:
                 body_type=None,
                 response_type=TransactionId,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -783,6 +793,7 @@ class _MediaSetClientRaw:
                 body_type=None,
                 response_type=GetMediaItemInfoResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -836,6 +847,7 @@ class _MediaSetClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -889,6 +901,7 @@ class _MediaSetClientRaw:
                 body_type=None,
                 response_type=MediaReference,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -960,6 +973,7 @@ class _MediaSetClientRaw:
                 body_type=bytes,
                 response_type=PutMediaItemResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1025,6 +1039,7 @@ class _MediaSetClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1072,6 +1087,7 @@ class _MediaSetClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1121,6 +1137,7 @@ class _MediaSetClientStreaming:
                 body_type=None,
                 response_type=TransactionId,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1174,6 +1191,7 @@ class _MediaSetClientStreaming:
                 body_type=None,
                 response_type=GetMediaItemInfoResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1227,6 +1245,7 @@ class _MediaSetClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1280,6 +1299,7 @@ class _MediaSetClientStreaming:
                 body_type=None,
                 response_type=MediaReference,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1351,5 +1371,6 @@ class _MediaSetClientStreaming:
                 body_type=bytes,
                 response_type=PutMediaItemResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

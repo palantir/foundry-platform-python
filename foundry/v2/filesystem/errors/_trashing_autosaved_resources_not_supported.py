@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
 
 
@@ -34,7 +33,7 @@ class TrashingAutosavedResourcesNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class TrashingAutosavedResourcesNotSupported(PalantirRPCException):
+class TrashingAutosavedResourcesNotSupported(BadRequestError):
     name: Literal["TrashingAutosavedResourcesNotSupported"]
     parameters: TrashingAutosavedResourcesNotSupportedParameters
     error_instance_id: str

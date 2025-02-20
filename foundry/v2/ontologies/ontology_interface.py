@@ -165,6 +165,7 @@ class OntologyInterfaceClient:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -219,6 +220,7 @@ class OntologyInterfaceClient:
                 body_type=None,
                 response_type=InterfaceType,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -280,6 +282,7 @@ class OntologyInterfaceClient:
                 body_type=None,
                 response_type=ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -347,6 +350,7 @@ class OntologyInterfaceClient:
                 body_type=None,
                 response_type=ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -450,6 +454,7 @@ class _OntologyInterfaceClientRaw:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -504,6 +509,7 @@ class _OntologyInterfaceClientRaw:
                 body_type=None,
                 response_type=InterfaceType,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -565,6 +571,7 @@ class _OntologyInterfaceClientRaw:
                 body_type=None,
                 response_type=ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -632,6 +639,7 @@ class _OntologyInterfaceClientRaw:
                 body_type=None,
                 response_type=ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -735,6 +743,7 @@ class _OntologyInterfaceClientStreaming:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -789,6 +798,7 @@ class _OntologyInterfaceClientStreaming:
                 body_type=None,
                 response_type=InterfaceType,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -850,6 +860,7 @@ class _OntologyInterfaceClientStreaming:
                 body_type=None,
                 response_type=ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -917,5 +928,6 @@ class _OntologyInterfaceClientStreaming:
                 body_type=None,
                 response_type=ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

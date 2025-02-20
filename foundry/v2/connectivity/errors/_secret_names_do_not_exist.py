@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._secret_name import SecretName
 
@@ -38,7 +37,7 @@ class SecretNamesDoNotExistParameters(TypedDict):
 
 
 @dataclass
-class SecretNamesDoNotExist(PalantirRPCException):
+class SecretNamesDoNotExist(BadRequestError):
     name: Literal["SecretNamesDoNotExist"]
     parameters: SecretNamesDoNotExistParameters
     error_instance_id: str

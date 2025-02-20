@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 
 
@@ -36,7 +35,7 @@ class TableImportNotSupportedForConnectionParameters(TypedDict):
 
 
 @dataclass
-class TableImportNotSupportedForConnection(PalantirRPCException):
+class TableImportNotSupportedForConnection(BadRequestError):
     name: Literal["TableImportNotSupportedForConnection"]
     parameters: TableImportNotSupportedForConnectionParameters
     error_instance_id: str

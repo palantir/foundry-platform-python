@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class MissingDisplayNameParameters(TypedDict):
@@ -31,7 +30,7 @@ class MissingDisplayNameParameters(TypedDict):
 
 
 @dataclass
-class MissingDisplayName(PalantirRPCException):
+class MissingDisplayName(BadRequestError):
     name: Literal["MissingDisplayName"]
     parameters: MissingDisplayNameParameters
     error_instance_id: str

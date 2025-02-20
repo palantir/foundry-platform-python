@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.streams.models._view_rid import ViewRid
@@ -41,7 +40,7 @@ class InvalidStreamNoSchemaParameters(TypedDict):
 
 
 @dataclass
-class InvalidStreamNoSchema(PalantirRPCException):
+class InvalidStreamNoSchema(BadRequestError):
     name: Literal["InvalidStreamNoSchema"]
     parameters: InvalidStreamNoSchemaParameters
     error_instance_id: str

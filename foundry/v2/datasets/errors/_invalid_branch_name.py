@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.datasets.models._branch_name import BranchName
 
 
@@ -34,7 +33,7 @@ class InvalidBranchNameParameters(TypedDict):
 
 
 @dataclass
-class InvalidBranchName(PalantirRPCException):
+class InvalidBranchName(BadRequestError):
     name: Literal["InvalidBranchName"]
     parameters: InvalidBranchNameParameters
     error_instance_id: str

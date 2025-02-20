@@ -16,6 +16,7 @@
 import warnings
 from typing import Any
 from typing import Dict
+from typing import Optional
 from typing import Type
 from typing import cast
 from typing import get_type_hints
@@ -29,31 +30,35 @@ from foundry._errors.sdk_internal_error import SDKInternalError
 def deserialize_error(
     error_metadata: Dict[str, Any],
     exception_classes: Dict[str, type],
-):
-    name = error_metadata["errorName"]
-    parameters = error_metadata["parameters"]
-    error_instance_id = error_metadata["errorInstanceId"]
+) -> Optional[PalantirRPCException]:
+    try:
+        name = error_metadata["errorName"]
+        parameters = error_metadata["parameters"]
+        error_instance_id = error_metadata["errorInstanceId"]
+    except KeyError as e:
+        warnings.warn(str(SDKInternalError(f"Failed to find required error attributes: {e}")))
+
+        return None
 
     exc_class = exception_classes.get(name)
-    if exc_class is not None:
-        annotations = get_type_hints(exc_class)
-        parameters_type = cast(Type[Dict[str, Any]], annotations["parameters"])
-        adapter = pydantic.TypeAdapter(parameters_type)
+    if exc_class is None:
+        return None
 
-        try:
-            parameters_instance = adapter.validate_python(parameters)
-            return exc_class(
-                name=name, parameters=parameters_instance, error_instance_id=error_instance_id
-            )
-        except pydantic.ValidationError as e:
-            # For whatever reason, if we can't properly deserialize the error parameters we will throw PalantirRPCException
-            # instead of failing
-            # To provide additional details to the user we will add a bunch of metadata to the warning
-            # using the "SDKInternalError" class but just emit a warning
-            warning_message = str(
-                SDKInternalError(f'Deserialization failed for error "{name}": {e}')
-            )
-            warnings.warn(warning_message)
+    annotations = get_type_hints(exc_class)
+    parameters_type = cast(Type[Dict[str, Any]], annotations["parameters"])
+    adapter = pydantic.TypeAdapter(parameters_type)
 
-    # Fallback to PalantirRPCException if no match is found
-    return PalantirRPCException(error_metadata)
+    try:
+        parameters_instance = adapter.validate_python(parameters)
+        return exc_class(
+            name=name, parameters=parameters_instance, error_instance_id=error_instance_id
+        )
+    except pydantic.ValidationError as e:
+        # For whatever reason, if we can't properly deserialize the error parameters we will throw PalantirRPCException
+        # instead of failing
+        # To provide additional details to the user we will add a bunch of metadata to the warning
+        # using the "SDKInternalError" class but just emit a warning
+        warning_message = str(SDKInternalError(f'Deserialization failed for error "{name}": {e}'))
+
+        warnings.warn(warning_message)
+        return None

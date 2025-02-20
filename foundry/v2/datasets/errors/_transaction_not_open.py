@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
 from foundry.v2.datasets.models._transaction_status import TransactionStatus
@@ -40,7 +39,7 @@ class TransactionNotOpenParameters(TypedDict):
 
 
 @dataclass
-class TransactionNotOpen(PalantirRPCException):
+class TransactionNotOpen(BadRequestError):
     name: Literal["TransactionNotOpen"]
     parameters: TransactionNotOpenParameters
     error_instance_id: str

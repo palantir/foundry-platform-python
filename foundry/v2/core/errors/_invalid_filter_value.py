@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import Any
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._filter_type_dict import FilterTypeDict
 
 
@@ -39,7 +38,7 @@ class InvalidFilterValueParameters(TypedDict):
 
 
 @dataclass
-class InvalidFilterValue(PalantirRPCException):
+class InvalidFilterValue(BadRequestError):
     name: Literal["InvalidFilterValue"]
     parameters: InvalidFilterValueParameters
     error_instance_id: str

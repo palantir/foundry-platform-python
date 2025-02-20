@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class VersionLimitExceededParameters(TypedDict):
@@ -36,7 +35,7 @@ class VersionLimitExceededParameters(TypedDict):
 
 
 @dataclass
-class VersionLimitExceeded(PalantirRPCException):
+class VersionLimitExceeded(BadRequestError):
     name: Literal["VersionLimitExceeded"]
     parameters: VersionLimitExceededParameters
     error_instance_id: str

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.ontologies.models._action_type_api_name import ActionTypeApiName
 from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
 from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
@@ -40,7 +39,7 @@ class MarketplaceActionMappingNotFoundParameters(TypedDict):
 
 
 @dataclass
-class MarketplaceActionMappingNotFound(PalantirRPCException):
+class MarketplaceActionMappingNotFound(NotFoundError):
     name: Literal["MarketplaceActionMappingNotFound"]
     parameters: MarketplaceActionMappingNotFoundParameters
     error_instance_id: str

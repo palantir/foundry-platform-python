@@ -18,12 +18,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry._core.utils import RID
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._session_rid import SessionRid
 
@@ -40,14 +39,13 @@ class FunctionLocatorNotFoundParameters(TypedDict):
 
     sessionRid: NotRequired[SessionRid]
     """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
-
     functionRid: RID
 
     functionVersion: str
 
 
 @dataclass
-class FunctionLocatorNotFound(PalantirRPCException):
+class FunctionLocatorNotFound(NotFoundError):
     name: Literal["FunctionLocatorNotFound"]
     parameters: FunctionLocatorNotFoundParameters
     error_instance_id: str

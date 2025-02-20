@@ -160,6 +160,7 @@ class ActionClient:
                 ),
                 response_type=SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -244,6 +245,7 @@ class ActionClient:
                 ),
                 response_type=BatchApplyActionResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -339,6 +341,7 @@ class _ActionClientRaw:
                 ),
                 response_type=SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -423,6 +426,7 @@ class _ActionClientRaw:
                 ),
                 response_type=BatchApplyActionResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -518,6 +522,7 @@ class _ActionClientStreaming:
                 ),
                 response_type=SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -602,5 +607,6 @@ class _ActionClientStreaming:
                 ),
                 response_type=BatchApplyActionResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

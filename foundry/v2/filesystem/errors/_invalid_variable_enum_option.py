@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidVariableEnumOptionParameters(TypedDict):
@@ -38,7 +37,7 @@ class InvalidVariableEnumOptionParameters(TypedDict):
 
 
 @dataclass
-class InvalidVariableEnumOption(PalantirRPCException):
+class InvalidVariableEnumOption(BadRequestError):
     name: Literal["InvalidVariableEnumOption"]
     parameters: InvalidVariableEnumOptionParameters
     error_instance_id: str

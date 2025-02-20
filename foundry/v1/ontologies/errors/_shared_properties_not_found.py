@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v1.ontologies.models._shared_property_type_api_name import (
     SharedPropertyTypeApiName,
@@ -40,7 +39,7 @@ class SharedPropertiesNotFoundParameters(TypedDict):
 
 
 @dataclass
-class SharedPropertiesNotFound(PalantirRPCException):
+class SharedPropertiesNotFound(NotFoundError):
     name: Literal["SharedPropertiesNotFound"]
     parameters: SharedPropertiesNotFoundParameters
     error_instance_id: str

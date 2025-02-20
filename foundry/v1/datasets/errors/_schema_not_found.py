@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.datasets.models._branch_id import BranchId
 from foundry.v1.datasets.models._dataset_rid import DatasetRid
 from foundry.v1.datasets.models._transaction_rid import TransactionRid
@@ -41,7 +40,7 @@ class SchemaNotFoundParameters(TypedDict):
 
 
 @dataclass
-class SchemaNotFound(PalantirRPCException):
+class SchemaNotFound(NotFoundError):
     name: Literal["SchemaNotFound"]
     parameters: SchemaNotFoundParameters
     error_instance_id: str

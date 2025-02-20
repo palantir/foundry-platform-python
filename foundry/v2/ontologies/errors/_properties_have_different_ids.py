@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._shared_property_type_api_name import (
     SharedPropertyTypeApiName,
 )  # NOQA
@@ -37,7 +36,7 @@ class PropertiesHaveDifferentIdsParameters(TypedDict):
 
 
 @dataclass
-class PropertiesHaveDifferentIds(PalantirRPCException):
+class PropertiesHaveDifferentIds(BadRequestError):
     name: Literal["PropertiesHaveDifferentIds"]
     parameters: PropertiesHaveDifferentIdsParameters
     error_instance_id: str

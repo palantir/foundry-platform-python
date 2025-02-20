@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
 from foundry.v2.ontologies.models._query_api_name import QueryApiName
 from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
@@ -40,7 +39,7 @@ class MarketplaceQueryMappingNotFoundParameters(TypedDict):
 
 
 @dataclass
-class MarketplaceQueryMappingNotFound(PalantirRPCException):
+class MarketplaceQueryMappingNotFound(NotFoundError):
     name: Literal["MarketplaceQueryMappingNotFound"]
     parameters: MarketplaceQueryMappingNotFoundParameters
     error_instance_id: str

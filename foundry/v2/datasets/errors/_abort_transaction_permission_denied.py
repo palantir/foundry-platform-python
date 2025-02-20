@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
 
@@ -37,7 +36,7 @@ class AbortTransactionPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class AbortTransactionPermissionDenied(PalantirRPCException):
+class AbortTransactionPermissionDenied(PermissionDeniedError):
     name: Literal["AbortTransactionPermissionDenied"]
     parameters: AbortTransactionPermissionDeniedParameters
     error_instance_id: str

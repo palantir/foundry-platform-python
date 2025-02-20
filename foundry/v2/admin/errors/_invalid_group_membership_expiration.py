@@ -19,11 +19,10 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.admin.models._group_membership_expiration import GroupMembershipExpiration  # NOQA
 from foundry.v2.core.models._principal_id import PrincipalId
 
@@ -43,7 +42,7 @@ class InvalidGroupMembershipExpirationParameters(TypedDict):
 
 
 @dataclass
-class InvalidGroupMembershipExpiration(PalantirRPCException):
+class InvalidGroupMembershipExpiration(BadRequestError):
     name: Literal["InvalidGroupMembershipExpiration"]
     parameters: InvalidGroupMembershipExpirationParameters
     error_instance_id: str

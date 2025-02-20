@@ -159,6 +159,7 @@ class OntologyObjectSetClient:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -211,6 +212,7 @@ class OntologyObjectSetClient:
                 ),
                 response_type=CreateTemporaryObjectSetResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -255,6 +257,7 @@ class OntologyObjectSetClient:
                 body_type=None,
                 response_type=ObjectSet,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -345,6 +348,7 @@ class OntologyObjectSetClient:
                 ),
                 response_type=LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -438,6 +442,7 @@ class _OntologyObjectSetClientRaw:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -490,6 +495,7 @@ class _OntologyObjectSetClientRaw:
                 ),
                 response_type=CreateTemporaryObjectSetResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -534,6 +540,7 @@ class _OntologyObjectSetClientRaw:
                 body_type=None,
                 response_type=ObjectSet,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -624,6 +631,7 @@ class _OntologyObjectSetClientRaw:
                 ),
                 response_type=LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -717,6 +725,7 @@ class _OntologyObjectSetClientStreaming:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -769,6 +778,7 @@ class _OntologyObjectSetClientStreaming:
                 ),
                 response_type=CreateTemporaryObjectSetResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -813,6 +823,7 @@ class _OntologyObjectSetClientStreaming:
                 body_type=None,
                 response_type=ObjectSet,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -903,5 +914,6 @@ class _OntologyObjectSetClientStreaming:
                 ),
                 response_type=LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

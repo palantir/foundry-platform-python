@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._page_size import PageSize
 
 
@@ -35,7 +34,7 @@ class InvalidPageSizeParameters(TypedDict):
 
 
 @dataclass
-class InvalidPageSize(PalantirRPCException):
+class InvalidPageSize(BadRequestError):
     name: Literal["InvalidPageSize"]
     parameters: InvalidPageSizeParameters
     error_instance_id: str

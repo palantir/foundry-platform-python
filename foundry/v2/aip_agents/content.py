@@ -30,6 +30,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.aip_agents import errors as aip_agents_errors
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._content import Content
 from foundry.v2.aip_agents.models._session_rid import SessionRid
@@ -80,6 +81,8 @@ class ContentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Content
+
+        :raises ContentNotFound: The given Content could not be found.
         """
 
         return self._api_client.call_api(
@@ -100,6 +103,9 @@ class ContentClient:
                 body_type=None,
                 response_type=Content,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ContentNotFound": aip_agents_errors.ContentNotFound,
+                },
             ),
         ).decode()
 
@@ -144,6 +150,8 @@ class _ContentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Content]
+
+        :raises ContentNotFound: The given Content could not be found.
         """
 
         return self._api_client.call_api(
@@ -164,6 +172,9 @@ class _ContentClientRaw:
                 body_type=None,
                 response_type=Content,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ContentNotFound": aip_agents_errors.ContentNotFound,
+                },
             ),
         )
 
@@ -208,6 +219,8 @@ class _ContentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Content]
+
+        :raises ContentNotFound: The given Content could not be found.
         """
 
         return self._api_client.stream_api(
@@ -228,5 +241,8 @@ class _ContentClientStreaming:
                 body_type=None,
                 response_type=Content,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ContentNotFound": aip_agents_errors.ContentNotFound,
+                },
             ),
         )

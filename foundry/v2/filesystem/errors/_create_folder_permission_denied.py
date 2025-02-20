@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class CreateFolderPermissionDeniedParameters(TypedDict):
@@ -31,7 +30,7 @@ class CreateFolderPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class CreateFolderPermissionDenied(PalantirRPCException):
+class CreateFolderPermissionDenied(PermissionDeniedError):
     name: Literal["CreateFolderPermissionDenied"]
     parameters: CreateFolderPermissionDeniedParameters
     error_instance_id: str

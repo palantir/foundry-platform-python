@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.ontologies.models._action_type_api_name import ActionTypeApiName
 from foundry.v2.ontologies.models._action_type_rid import ActionTypeRid
 
@@ -38,7 +37,7 @@ class ActionTypeNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ActionTypeNotFound(PalantirRPCException):
+class ActionTypeNotFound(NotFoundError):
     name: Literal["ActionTypeNotFound"]
     parameters: ActionTypeNotFoundParameters
     error_instance_id: str

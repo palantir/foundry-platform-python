@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.orchestration.models._build_rid import BuildRid
 
 
@@ -35,7 +34,7 @@ class CancelBuildPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class CancelBuildPermissionDenied(PalantirRPCException):
+class CancelBuildPermissionDenied(PermissionDeniedError):
     name: Literal["CancelBuildPermissionDenied"]
     parameters: CancelBuildPermissionDeniedParameters
     error_instance_id: str

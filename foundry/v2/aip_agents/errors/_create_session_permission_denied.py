@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 
 
@@ -35,7 +34,7 @@ class CreateSessionPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class CreateSessionPermissionDenied(PalantirRPCException):
+class CreateSessionPermissionDenied(PermissionDeniedError):
     name: Literal["CreateSessionPermissionDenied"]
     parameters: CreateSessionPermissionDeniedParameters
     error_instance_id: str

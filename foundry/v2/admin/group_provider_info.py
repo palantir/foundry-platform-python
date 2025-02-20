@@ -31,6 +31,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._group_provider_info import GroupProviderInfo
 from foundry.v2.admin.models._provider_id import ProviderId
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -80,6 +81,8 @@ class GroupProviderInfoClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: GroupProviderInfo
+
+        :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         """
 
         return self._api_client.call_api(
@@ -99,6 +102,9 @@ class GroupProviderInfoClient:
                 body_type=None,
                 response_type=GroupProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
+                },
             ),
         ).decode()
 
@@ -125,6 +131,8 @@ class GroupProviderInfoClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: GroupProviderInfo
+
+        :raises ReplaceGroupProviderInfoPermissionDenied: Could not replace the GroupProviderInfo.
         """
 
         return self._api_client.call_api(
@@ -152,6 +160,9 @@ class GroupProviderInfoClient:
                 ),
                 response_type=GroupProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceGroupProviderInfoPermissionDenied": admin_errors.ReplaceGroupProviderInfoPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -193,6 +204,8 @@ class _GroupProviderInfoClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[GroupProviderInfo]
+
+        :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         """
 
         return self._api_client.call_api(
@@ -212,6 +225,9 @@ class _GroupProviderInfoClientRaw:
                 body_type=None,
                 response_type=GroupProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
+                },
             ),
         )
 
@@ -238,6 +254,8 @@ class _GroupProviderInfoClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[GroupProviderInfo]
+
+        :raises ReplaceGroupProviderInfoPermissionDenied: Could not replace the GroupProviderInfo.
         """
 
         return self._api_client.call_api(
@@ -265,6 +283,9 @@ class _GroupProviderInfoClientRaw:
                 ),
                 response_type=GroupProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceGroupProviderInfoPermissionDenied": admin_errors.ReplaceGroupProviderInfoPermissionDenied,
+                },
             ),
         )
 
@@ -306,6 +327,8 @@ class _GroupProviderInfoClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[GroupProviderInfo]
+
+        :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         """
 
         return self._api_client.stream_api(
@@ -325,6 +348,9 @@ class _GroupProviderInfoClientStreaming:
                 body_type=None,
                 response_type=GroupProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
+                },
             ),
         )
 
@@ -351,6 +377,8 @@ class _GroupProviderInfoClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[GroupProviderInfo]
+
+        :raises ReplaceGroupProviderInfoPermissionDenied: Could not replace the GroupProviderInfo.
         """
 
         return self._api_client.stream_api(
@@ -378,5 +406,8 @@ class _GroupProviderInfoClientStreaming:
                 ),
                 response_type=GroupProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceGroupProviderInfoPermissionDenied": admin_errors.ReplaceGroupProviderInfoPermissionDenied,
+                },
             ),
         )

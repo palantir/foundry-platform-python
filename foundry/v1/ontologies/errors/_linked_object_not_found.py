@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import Dict
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
 from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v1.ontologies.models._primary_key_value import PrimaryKeyValue
@@ -42,7 +41,7 @@ class LinkedObjectNotFoundParameters(TypedDict):
 
 
 @dataclass
-class LinkedObjectNotFound(PalantirRPCException):
+class LinkedObjectNotFound(NotFoundError):
     name: Literal["LinkedObjectNotFound"]
     parameters: LinkedObjectNotFoundParameters
     error_instance_id: str

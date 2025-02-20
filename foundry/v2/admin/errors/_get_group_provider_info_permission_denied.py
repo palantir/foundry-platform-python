@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
@@ -34,7 +33,7 @@ class GetGroupProviderInfoPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class GetGroupProviderInfoPermissionDenied(PalantirRPCException):
+class GetGroupProviderInfoPermissionDenied(PermissionDeniedError):
     name: Literal["GetGroupProviderInfoPermissionDenied"]
     parameters: GetGroupProviderInfoPermissionDeniedParameters
     error_instance_id: str

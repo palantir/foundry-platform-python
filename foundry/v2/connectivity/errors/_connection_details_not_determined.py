@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import InternalServerError
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 
 
@@ -36,7 +35,7 @@ class ConnectionDetailsNotDeterminedParameters(TypedDict):
 
 
 @dataclass
-class ConnectionDetailsNotDetermined(PalantirRPCException):
+class ConnectionDetailsNotDetermined(InternalServerError):
     name: Literal["ConnectionDetailsNotDetermined"]
     parameters: ConnectionDetailsNotDeterminedParameters
     error_instance_id: str

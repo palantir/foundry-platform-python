@@ -32,6 +32,7 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.functions import errors as functions_errors
 from foundry.v2.functions.models._data_value import DataValue
 from foundry.v2.functions.models._execute_query_response import ExecuteQueryResponse
 from foundry.v2.functions.models._function_rid import FunctionRid
@@ -87,6 +88,8 @@ class QueryClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ExecuteQueryResponse
+
+        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
         """
 
         return self._api_client.call_api(
@@ -114,6 +117,9 @@ class QueryClient:
                 ),
                 response_type=ExecuteQueryResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteQueryPermissionDenied": functions_errors.ExecuteQueryPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -138,6 +144,8 @@ class QueryClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Query
+
+        :raises QueryNotFound: The given Query could not be found.
         """
 
         return self._api_client.call_api(
@@ -157,6 +165,9 @@ class QueryClient:
                 body_type=None,
                 response_type=Query,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "QueryNotFound": functions_errors.QueryNotFound,
+                },
             ),
         ).decode()
 
@@ -181,6 +192,8 @@ class QueryClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Query
+
+        :raises GetByRidQueriesPermissionDenied: Could not getByRid the Query.
         """
 
         return self._api_client.call_api(
@@ -206,6 +219,9 @@ class QueryClient:
                 ),
                 response_type=Query,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByRidQueriesPermissionDenied": functions_errors.GetByRidQueriesPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -253,6 +269,8 @@ class _QueryClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ExecuteQueryResponse]
+
+        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
         """
 
         return self._api_client.call_api(
@@ -280,6 +298,9 @@ class _QueryClientRaw:
                 ),
                 response_type=ExecuteQueryResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteQueryPermissionDenied": functions_errors.ExecuteQueryPermissionDenied,
+                },
             ),
         )
 
@@ -304,6 +325,8 @@ class _QueryClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Query]
+
+        :raises QueryNotFound: The given Query could not be found.
         """
 
         return self._api_client.call_api(
@@ -323,6 +346,9 @@ class _QueryClientRaw:
                 body_type=None,
                 response_type=Query,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "QueryNotFound": functions_errors.QueryNotFound,
+                },
             ),
         )
 
@@ -347,6 +373,8 @@ class _QueryClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Query]
+
+        :raises GetByRidQueriesPermissionDenied: Could not getByRid the Query.
         """
 
         return self._api_client.call_api(
@@ -372,6 +400,9 @@ class _QueryClientRaw:
                 ),
                 response_type=Query,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByRidQueriesPermissionDenied": functions_errors.GetByRidQueriesPermissionDenied,
+                },
             ),
         )
 
@@ -419,6 +450,8 @@ class _QueryClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ExecuteQueryResponse]
+
+        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
         """
 
         return self._api_client.stream_api(
@@ -446,6 +479,9 @@ class _QueryClientStreaming:
                 ),
                 response_type=ExecuteQueryResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteQueryPermissionDenied": functions_errors.ExecuteQueryPermissionDenied,
+                },
             ),
         )
 
@@ -470,6 +506,8 @@ class _QueryClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Query]
+
+        :raises QueryNotFound: The given Query could not be found.
         """
 
         return self._api_client.stream_api(
@@ -489,6 +527,9 @@ class _QueryClientStreaming:
                 body_type=None,
                 response_type=Query,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "QueryNotFound": functions_errors.QueryNotFound,
+                },
             ),
         )
 
@@ -513,6 +554,8 @@ class _QueryClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Query]
+
+        :raises GetByRidQueriesPermissionDenied: Could not getByRid the Query.
         """
 
         return self._api_client.stream_api(
@@ -538,5 +581,8 @@ class _QueryClientStreaming:
                 ),
                 response_type=Query,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByRidQueriesPermissionDenied": functions_errors.GetByRidQueriesPermissionDenied,
+                },
             ),
         )

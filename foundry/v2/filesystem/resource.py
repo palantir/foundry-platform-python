@@ -38,6 +38,7 @@ from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.filesystem import errors as filesystem_errors
 from foundry.v2.filesystem.models._access_requirements import AccessRequirements
 from foundry.v2.filesystem.models._list_markings_of_resource_response import (
     ListMarkingsOfResourceResponse,
@@ -93,6 +94,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AddMarkingsPermissionDenied: Could not addMarkings the Resource.
         """
 
         return self._api_client.call_api(
@@ -119,6 +122,9 @@ class ResourceClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingsPermissionDenied": filesystem_errors.AddMarkingsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -144,6 +150,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises DeleteResourcePermissionDenied: Could not delete the Resource.
         """
 
         return self._api_client.call_api(
@@ -161,6 +169,9 @@ class ResourceClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteResourcePermissionDenied": filesystem_errors.DeleteResourcePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -184,6 +195,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Resource
+
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -203,6 +216,9 @@ class ResourceClient:
                 body_type=None,
                 response_type=Resource,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
             ),
         ).decode()
 
@@ -228,6 +244,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: AccessRequirements
+
+        :raises GetAccessRequirementsPermissionDenied: Could not getAccessRequirements the Resource.
         """
 
         return self._api_client.call_api(
@@ -247,6 +265,9 @@ class ResourceClient:
                 body_type=None,
                 response_type=AccessRequirements,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetAccessRequirementsPermissionDenied": filesystem_errors.GetAccessRequirementsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -270,6 +291,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Resource
+
+        :raises GetByPathPermissionDenied: Could not getByPath the Resource.
         """
 
         return self._api_client.call_api(
@@ -288,6 +311,9 @@ class ResourceClient:
                 body_type=None,
                 response_type=Resource,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByPathPermissionDenied": filesystem_errors.GetByPathPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -340,6 +366,7 @@ class ResourceClient:
                 body_type=None,
                 response_type=ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -398,6 +425,7 @@ class ResourceClient:
                 body_type=None,
                 response_type=ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -423,6 +451,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
         """
 
         return self._api_client.call_api(
@@ -440,6 +470,9 @@ class ResourceClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PermanentlyDeleteResourcePermissionDenied": filesystem_errors.PermanentlyDeleteResourcePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -466,6 +499,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises RemoveMarkingsPermissionDenied: Could not removeMarkings the Resource.
         """
 
         return self._api_client.call_api(
@@ -492,6 +527,9 @@ class ResourceClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveMarkingsPermissionDenied": filesystem_errors.RemoveMarkingsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -517,6 +555,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
 
         return self._api_client.call_api(
@@ -534,6 +574,9 @@ class ResourceClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RestoreResourcePermissionDenied": filesystem_errors.RestoreResourcePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -578,6 +621,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises AddMarkingsPermissionDenied: Could not addMarkings the Resource.
         """
 
         return self._api_client.call_api(
@@ -604,6 +649,9 @@ class _ResourceClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingsPermissionDenied": filesystem_errors.AddMarkingsPermissionDenied,
+                },
             ),
         )
 
@@ -629,6 +677,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises DeleteResourcePermissionDenied: Could not delete the Resource.
         """
 
         return self._api_client.call_api(
@@ -646,6 +696,9 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteResourcePermissionDenied": filesystem_errors.DeleteResourcePermissionDenied,
+                },
             ),
         )
 
@@ -669,6 +722,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Resource]
+
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -688,6 +743,9 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=Resource,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
             ),
         )
 
@@ -713,6 +771,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[AccessRequirements]
+
+        :raises GetAccessRequirementsPermissionDenied: Could not getAccessRequirements the Resource.
         """
 
         return self._api_client.call_api(
@@ -732,6 +792,9 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=AccessRequirements,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetAccessRequirementsPermissionDenied": filesystem_errors.GetAccessRequirementsPermissionDenied,
+                },
             ),
         )
 
@@ -755,6 +818,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Resource]
+
+        :raises GetByPathPermissionDenied: Could not getByPath the Resource.
         """
 
         return self._api_client.call_api(
@@ -773,6 +838,9 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=Resource,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByPathPermissionDenied": filesystem_errors.GetByPathPermissionDenied,
+                },
             ),
         )
 
@@ -825,6 +893,7 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -883,6 +952,7 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -908,6 +978,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
         """
 
         return self._api_client.call_api(
@@ -925,6 +997,9 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PermanentlyDeleteResourcePermissionDenied": filesystem_errors.PermanentlyDeleteResourcePermissionDenied,
+                },
             ),
         )
 
@@ -951,6 +1026,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises RemoveMarkingsPermissionDenied: Could not removeMarkings the Resource.
         """
 
         return self._api_client.call_api(
@@ -977,6 +1054,9 @@ class _ResourceClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveMarkingsPermissionDenied": filesystem_errors.RemoveMarkingsPermissionDenied,
+                },
             ),
         )
 
@@ -1002,6 +1082,8 @@ class _ResourceClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
 
         return self._api_client.call_api(
@@ -1019,6 +1101,9 @@ class _ResourceClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RestoreResourcePermissionDenied": filesystem_errors.RestoreResourcePermissionDenied,
+                },
             ),
         )
 
@@ -1063,6 +1148,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises AddMarkingsPermissionDenied: Could not addMarkings the Resource.
         """
 
         return self._api_client.stream_api(
@@ -1089,6 +1176,9 @@ class _ResourceClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingsPermissionDenied": filesystem_errors.AddMarkingsPermissionDenied,
+                },
             ),
         )
 
@@ -1114,6 +1204,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises DeleteResourcePermissionDenied: Could not delete the Resource.
         """
 
         return self._api_client.stream_api(
@@ -1131,6 +1223,9 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteResourcePermissionDenied": filesystem_errors.DeleteResourcePermissionDenied,
+                },
             ),
         )
 
@@ -1154,6 +1249,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Resource]
+
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.stream_api(
@@ -1173,6 +1270,9 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=Resource,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
             ),
         )
 
@@ -1198,6 +1298,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[AccessRequirements]
+
+        :raises GetAccessRequirementsPermissionDenied: Could not getAccessRequirements the Resource.
         """
 
         return self._api_client.stream_api(
@@ -1217,6 +1319,9 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=AccessRequirements,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetAccessRequirementsPermissionDenied": filesystem_errors.GetAccessRequirementsPermissionDenied,
+                },
             ),
         )
 
@@ -1240,6 +1345,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Resource]
+
+        :raises GetByPathPermissionDenied: Could not getByPath the Resource.
         """
 
         return self._api_client.stream_api(
@@ -1258,6 +1365,9 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=Resource,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByPathPermissionDenied": filesystem_errors.GetByPathPermissionDenied,
+                },
             ),
         )
 
@@ -1310,6 +1420,7 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1368,6 +1479,7 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1393,6 +1505,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
         """
 
         return self._api_client.stream_api(
@@ -1410,6 +1524,9 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PermanentlyDeleteResourcePermissionDenied": filesystem_errors.PermanentlyDeleteResourcePermissionDenied,
+                },
             ),
         )
 
@@ -1436,6 +1553,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises RemoveMarkingsPermissionDenied: Could not removeMarkings the Resource.
         """
 
         return self._api_client.stream_api(
@@ -1462,6 +1581,9 @@ class _ResourceClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveMarkingsPermissionDenied": filesystem_errors.RemoveMarkingsPermissionDenied,
+                },
             ),
         )
 
@@ -1487,6 +1609,8 @@ class _ResourceClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
 
         return self._api_client.stream_api(
@@ -1504,5 +1628,8 @@ class _ResourceClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RestoreResourcePermissionDenied": filesystem_errors.RestoreResourcePermissionDenied,
+                },
             ),
         )

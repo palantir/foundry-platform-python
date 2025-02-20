@@ -31,6 +31,7 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.orchestration import errors as orchestration_errors
 from foundry.v2.orchestration.models._schedule import Schedule
 from foundry.v2.orchestration.models._schedule_version import ScheduleVersion
 from foundry.v2.orchestration.models._schedule_version_rid import ScheduleVersionRid
@@ -79,6 +80,8 @@ class ScheduleVersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ScheduleVersion
+
+        :raises ScheduleVersionNotFound: The given ScheduleVersion could not be found.
         """
 
         return self._api_client.call_api(
@@ -98,6 +101,9 @@ class ScheduleVersionClient:
                 body_type=None,
                 response_type=ScheduleVersion,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ScheduleVersionNotFound": orchestration_errors.ScheduleVersionNotFound,
+                },
             ),
         ).decode()
 
@@ -140,6 +146,7 @@ class ScheduleVersionClient:
                 body_type=None,
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -181,6 +188,8 @@ class _ScheduleVersionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ScheduleVersion]
+
+        :raises ScheduleVersionNotFound: The given ScheduleVersion could not be found.
         """
 
         return self._api_client.call_api(
@@ -200,6 +209,9 @@ class _ScheduleVersionClientRaw:
                 body_type=None,
                 response_type=ScheduleVersion,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ScheduleVersionNotFound": orchestration_errors.ScheduleVersionNotFound,
+                },
             ),
         )
 
@@ -242,6 +254,7 @@ class _ScheduleVersionClientRaw:
                 body_type=None,
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -283,6 +296,8 @@ class _ScheduleVersionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ScheduleVersion]
+
+        :raises ScheduleVersionNotFound: The given ScheduleVersion could not be found.
         """
 
         return self._api_client.stream_api(
@@ -302,6 +317,9 @@ class _ScheduleVersionClientStreaming:
                 body_type=None,
                 response_type=ScheduleVersion,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ScheduleVersionNotFound": orchestration_errors.ScheduleVersionNotFound,
+                },
             ),
         )
 
@@ -344,5 +362,6 @@ class _ScheduleVersionClientStreaming:
                 body_type=None,
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

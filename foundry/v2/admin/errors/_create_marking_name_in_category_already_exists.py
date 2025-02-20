@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
 
 
@@ -36,7 +35,7 @@ class CreateMarkingNameInCategoryAlreadyExistsParameters(TypedDict):
 
 
 @dataclass
-class CreateMarkingNameInCategoryAlreadyExists(PalantirRPCException):
+class CreateMarkingNameInCategoryAlreadyExists(BadRequestError):
     name: Literal["CreateMarkingNameInCategoryAlreadyExists"]
     parameters: CreateMarkingNameInCategoryAlreadyExistsParameters
     error_instance_id: str

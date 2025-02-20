@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import ConflictError
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 
 
@@ -38,7 +37,7 @@ class OntologySyncingObjectTypesParameters(TypedDict):
 
 
 @dataclass
-class OntologySyncingObjectTypes(PalantirRPCException):
+class OntologySyncingObjectTypes(ConflictError):
     name: Literal["OntologySyncingObjectTypes"]
     parameters: OntologySyncingObjectTypesParameters
     error_instance_id: str

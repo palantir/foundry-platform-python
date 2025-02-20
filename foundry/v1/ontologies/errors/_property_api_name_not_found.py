@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._property_id import PropertyId
 from foundry.v1.ontologies.models._value_type import ValueType
 
@@ -40,7 +39,7 @@ class PropertyApiNameNotFoundParameters(TypedDict):
 
 
 @dataclass
-class PropertyApiNameNotFound(PalantirRPCException):
+class PropertyApiNameNotFound(BadRequestError):
     name: Literal["PropertyApiNameNotFound"]
     parameters: PropertyApiNameNotFoundParameters
     error_instance_id: str

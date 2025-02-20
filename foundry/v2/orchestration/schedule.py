@@ -37,6 +37,7 @@ from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.orchestration import errors as orchestration_errors
 from foundry.v2.orchestration.models._create_schedule_request_action import (
     CreateScheduleRequestAction,
 )  # NOQA
@@ -126,6 +127,8 @@ class ScheduleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Schedule
+
+        :raises CreateSchedulePermissionDenied: Could not create the Schedule.
         """
 
         return self._api_client.call_api(
@@ -165,6 +168,9 @@ class ScheduleClient:
                 ),
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateSchedulePermissionDenied": orchestration_errors.CreateSchedulePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -188,6 +194,8 @@ class ScheduleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises DeleteSchedulePermissionDenied: Could not delete the Schedule.
         """
 
         return self._api_client.call_api(
@@ -205,6 +213,9 @@ class ScheduleClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteSchedulePermissionDenied": orchestration_errors.DeleteSchedulePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -228,6 +239,8 @@ class ScheduleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Schedule
+
+        :raises ScheduleNotFound: The given Schedule could not be found.
         """
 
         return self._api_client.call_api(
@@ -247,6 +260,9 @@ class ScheduleClient:
                 body_type=None,
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
+                },
             ),
         ).decode()
 
@@ -270,6 +286,8 @@ class ScheduleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises PauseSchedulePermissionDenied: Could not pause the Schedule.
         """
 
         return self._api_client.call_api(
@@ -287,6 +305,9 @@ class ScheduleClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PauseSchedulePermissionDenied": orchestration_errors.PauseSchedulePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -327,6 +348,8 @@ class ScheduleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Schedule
+
+        :raises ReplaceSchedulePermissionDenied: Could not replace the Schedule.
         """
 
         return self._api_client.call_api(
@@ -368,6 +391,9 @@ class ScheduleClient:
                 ),
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceSchedulePermissionDenied": orchestration_errors.ReplaceSchedulePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -391,6 +417,8 @@ class ScheduleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ScheduleRun
+
+        :raises RunSchedulePermissionDenied: Could not run the Schedule.
         """
 
         return self._api_client.call_api(
@@ -410,6 +438,9 @@ class ScheduleClient:
                 body_type=None,
                 response_type=ScheduleRun,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RunSchedulePermissionDenied": orchestration_errors.RunSchedulePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -461,6 +492,7 @@ class ScheduleClient:
                 body_type=None,
                 response_type=ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -518,6 +550,7 @@ class ScheduleClient:
                 body_type=None,
                 response_type=ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -541,6 +574,8 @@ class ScheduleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises UnpauseSchedulePermissionDenied: Could not unpause the Schedule.
         """
 
         return self._api_client.call_api(
@@ -558,6 +593,9 @@ class ScheduleClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UnpauseSchedulePermissionDenied": orchestration_errors.UnpauseSchedulePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -613,6 +651,8 @@ class _ScheduleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Schedule]
+
+        :raises CreateSchedulePermissionDenied: Could not create the Schedule.
         """
 
         return self._api_client.call_api(
@@ -652,6 +692,9 @@ class _ScheduleClientRaw:
                 ),
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateSchedulePermissionDenied": orchestration_errors.CreateSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -675,6 +718,8 @@ class _ScheduleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises DeleteSchedulePermissionDenied: Could not delete the Schedule.
         """
 
         return self._api_client.call_api(
@@ -692,6 +737,9 @@ class _ScheduleClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteSchedulePermissionDenied": orchestration_errors.DeleteSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -715,6 +763,8 @@ class _ScheduleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Schedule]
+
+        :raises ScheduleNotFound: The given Schedule could not be found.
         """
 
         return self._api_client.call_api(
@@ -734,6 +784,9 @@ class _ScheduleClientRaw:
                 body_type=None,
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
+                },
             ),
         )
 
@@ -757,6 +810,8 @@ class _ScheduleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises PauseSchedulePermissionDenied: Could not pause the Schedule.
         """
 
         return self._api_client.call_api(
@@ -774,6 +829,9 @@ class _ScheduleClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PauseSchedulePermissionDenied": orchestration_errors.PauseSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -814,6 +872,8 @@ class _ScheduleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Schedule]
+
+        :raises ReplaceSchedulePermissionDenied: Could not replace the Schedule.
         """
 
         return self._api_client.call_api(
@@ -855,6 +915,9 @@ class _ScheduleClientRaw:
                 ),
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceSchedulePermissionDenied": orchestration_errors.ReplaceSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -878,6 +941,8 @@ class _ScheduleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ScheduleRun]
+
+        :raises RunSchedulePermissionDenied: Could not run the Schedule.
         """
 
         return self._api_client.call_api(
@@ -897,6 +962,9 @@ class _ScheduleClientRaw:
                 body_type=None,
                 response_type=ScheduleRun,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RunSchedulePermissionDenied": orchestration_errors.RunSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -948,6 +1016,7 @@ class _ScheduleClientRaw:
                 body_type=None,
                 response_type=ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1005,6 +1074,7 @@ class _ScheduleClientRaw:
                 body_type=None,
                 response_type=ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1028,6 +1098,8 @@ class _ScheduleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises UnpauseSchedulePermissionDenied: Could not unpause the Schedule.
         """
 
         return self._api_client.call_api(
@@ -1045,6 +1117,9 @@ class _ScheduleClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UnpauseSchedulePermissionDenied": orchestration_errors.UnpauseSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -1100,6 +1175,8 @@ class _ScheduleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Schedule]
+
+        :raises CreateSchedulePermissionDenied: Could not create the Schedule.
         """
 
         return self._api_client.stream_api(
@@ -1139,6 +1216,9 @@ class _ScheduleClientStreaming:
                 ),
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateSchedulePermissionDenied": orchestration_errors.CreateSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -1162,6 +1242,8 @@ class _ScheduleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises DeleteSchedulePermissionDenied: Could not delete the Schedule.
         """
 
         return self._api_client.stream_api(
@@ -1179,6 +1261,9 @@ class _ScheduleClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteSchedulePermissionDenied": orchestration_errors.DeleteSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -1202,6 +1287,8 @@ class _ScheduleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Schedule]
+
+        :raises ScheduleNotFound: The given Schedule could not be found.
         """
 
         return self._api_client.stream_api(
@@ -1221,6 +1308,9 @@ class _ScheduleClientStreaming:
                 body_type=None,
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
+                },
             ),
         )
 
@@ -1244,6 +1334,8 @@ class _ScheduleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises PauseSchedulePermissionDenied: Could not pause the Schedule.
         """
 
         return self._api_client.stream_api(
@@ -1261,6 +1353,9 @@ class _ScheduleClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PauseSchedulePermissionDenied": orchestration_errors.PauseSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -1301,6 +1396,8 @@ class _ScheduleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Schedule]
+
+        :raises ReplaceSchedulePermissionDenied: Could not replace the Schedule.
         """
 
         return self._api_client.stream_api(
@@ -1342,6 +1439,9 @@ class _ScheduleClientStreaming:
                 ),
                 response_type=Schedule,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceSchedulePermissionDenied": orchestration_errors.ReplaceSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -1365,6 +1465,8 @@ class _ScheduleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ScheduleRun]
+
+        :raises RunSchedulePermissionDenied: Could not run the Schedule.
         """
 
         return self._api_client.stream_api(
@@ -1384,6 +1486,9 @@ class _ScheduleClientStreaming:
                 body_type=None,
                 response_type=ScheduleRun,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RunSchedulePermissionDenied": orchestration_errors.RunSchedulePermissionDenied,
+                },
             ),
         )
 
@@ -1435,6 +1540,7 @@ class _ScheduleClientStreaming:
                 body_type=None,
                 response_type=ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1492,6 +1598,7 @@ class _ScheduleClientStreaming:
                 body_type=None,
                 response_type=ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1515,6 +1622,8 @@ class _ScheduleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises UnpauseSchedulePermissionDenied: Could not unpause the Schedule.
         """
 
         return self._api_client.stream_api(
@@ -1532,5 +1641,8 @@ class _ScheduleClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UnpauseSchedulePermissionDenied": orchestration_errors.UnpauseSchedulePermissionDenied,
+                },
             ),
         )

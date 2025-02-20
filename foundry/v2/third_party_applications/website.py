@@ -31,6 +31,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.third_party_applications import errors as third_party_applications_errors  # NOQA
 from foundry.v2.third_party_applications.models._third_party_application_rid import (
     ThirdPartyApplicationRid,
 )  # NOQA
@@ -81,6 +82,8 @@ class WebsiteClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Website
+
+        :raises DeployWebsitePermissionDenied: Could not deploy the Website.
         """
 
         return self._api_client.call_api(
@@ -106,6 +109,9 @@ class WebsiteClient:
                 ),
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeployWebsitePermissionDenied": third_party_applications_errors.DeployWebsitePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -126,6 +132,8 @@ class WebsiteClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Website
+
+        :raises WebsiteNotFound: The given Website could not be found.
         """
 
         return self._api_client.call_api(
@@ -143,6 +151,9 @@ class WebsiteClient:
                 body_type=None,
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "WebsiteNotFound": third_party_applications_errors.WebsiteNotFound,
+                },
             ),
         ).decode()
 
@@ -163,6 +174,8 @@ class WebsiteClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Website
+
+        :raises UndeployWebsitePermissionDenied: Could not undeploy the Website.
         """
 
         return self._api_client.call_api(
@@ -180,6 +193,9 @@ class WebsiteClient:
                 body_type=None,
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UndeployWebsitePermissionDenied": third_party_applications_errors.UndeployWebsitePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -221,6 +237,8 @@ class _WebsiteClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Website]
+
+        :raises DeployWebsitePermissionDenied: Could not deploy the Website.
         """
 
         return self._api_client.call_api(
@@ -246,6 +264,9 @@ class _WebsiteClientRaw:
                 ),
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeployWebsitePermissionDenied": third_party_applications_errors.DeployWebsitePermissionDenied,
+                },
             ),
         )
 
@@ -266,6 +287,8 @@ class _WebsiteClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Website]
+
+        :raises WebsiteNotFound: The given Website could not be found.
         """
 
         return self._api_client.call_api(
@@ -283,6 +306,9 @@ class _WebsiteClientRaw:
                 body_type=None,
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "WebsiteNotFound": third_party_applications_errors.WebsiteNotFound,
+                },
             ),
         )
 
@@ -303,6 +329,8 @@ class _WebsiteClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Website]
+
+        :raises UndeployWebsitePermissionDenied: Could not undeploy the Website.
         """
 
         return self._api_client.call_api(
@@ -320,6 +348,9 @@ class _WebsiteClientRaw:
                 body_type=None,
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UndeployWebsitePermissionDenied": third_party_applications_errors.UndeployWebsitePermissionDenied,
+                },
             ),
         )
 
@@ -361,6 +392,8 @@ class _WebsiteClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Website]
+
+        :raises DeployWebsitePermissionDenied: Could not deploy the Website.
         """
 
         return self._api_client.stream_api(
@@ -386,6 +419,9 @@ class _WebsiteClientStreaming:
                 ),
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeployWebsitePermissionDenied": third_party_applications_errors.DeployWebsitePermissionDenied,
+                },
             ),
         )
 
@@ -406,6 +442,8 @@ class _WebsiteClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Website]
+
+        :raises WebsiteNotFound: The given Website could not be found.
         """
 
         return self._api_client.stream_api(
@@ -423,6 +461,9 @@ class _WebsiteClientStreaming:
                 body_type=None,
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "WebsiteNotFound": third_party_applications_errors.WebsiteNotFound,
+                },
             ),
         )
 
@@ -443,6 +484,8 @@ class _WebsiteClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Website]
+
+        :raises UndeployWebsitePermissionDenied: Could not undeploy the Website.
         """
 
         return self._api_client.stream_api(
@@ -460,5 +503,8 @@ class _WebsiteClientStreaming:
                 body_type=None,
                 response_type=Website,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UndeployWebsitePermissionDenied": third_party_applications_errors.UndeployWebsitePermissionDenied,
+                },
             ),
         )

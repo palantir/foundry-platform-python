@@ -35,6 +35,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.connectivity import errors as connectivity_errors
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._file_import import FileImport
 from foundry.v2.connectivity.models._file_import_display_name import FileImportDisplayName  # NOQA
@@ -112,6 +113,16 @@ class FileImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: FileImport
+
+        :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises CreateFileImportPermissionDenied: Could not create the FileImport.
+        :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
+        :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileImportNotSupportedForConnection: The specified connection does not support file imports.
+        :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
+        :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
+        :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
+        :raises FileSizeFilterMissingGreaterThanAndLessThan: Both the `gt` and `lt` properties are missing from the FileSizeFilter. At least one of these properties must be present
         """
 
         return self._api_client.call_api(
@@ -149,6 +160,17 @@ class FileImportClient:
                 ),
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "CreateFileImportPermissionDenied": connectivity_errors.CreateFileImportPermissionDenied,
+                    "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
+                    "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileImportNotSupportedForConnection": connectivity_errors.FileImportNotSupportedForConnection,
+                    "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
+                    "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
+                    "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,
+                    "FileSizeFilterMissingGreaterThanAndLessThan": connectivity_errors.FileSizeFilterMissingGreaterThanAndLessThan,
+                },
             ),
         ).decode()
 
@@ -178,6 +200,8 @@ class FileImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises DeleteFileImportPermissionDenied: Could not delete the FileImport.
         """
 
         return self._api_client.call_api(
@@ -196,6 +220,9 @@ class FileImportClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteFileImportPermissionDenied": connectivity_errors.DeleteFileImportPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -224,6 +251,8 @@ class FileImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: BuildRid
+
+        :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
 
         return self._api_client.call_api(
@@ -244,6 +273,9 @@ class FileImportClient:
                 body_type=None,
                 response_type=BuildRid,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -270,6 +302,8 @@ class FileImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: FileImport
+
+        :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -290,6 +324,9 @@ class FileImportClient:
                 body_type=None,
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
+                },
             ),
         ).decode()
 
@@ -342,6 +379,7 @@ class FileImportClient:
                 body_type=None,
                 response_type=ListFileImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -400,6 +438,7 @@ class FileImportClient:
                 body_type=None,
                 response_type=ListFileImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -444,6 +483,14 @@ class FileImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: FileImport
+
+        :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
+        :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
+        :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
+        :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
+        :raises FileSizeFilterMissingGreaterThanAndLessThan: Both the `gt` and `lt` properties are missing from the FileSizeFilter. At least one of these properties must be present
+        :raises ReplaceFileImportPermissionDenied: Could not replace the FileImport.
         """
 
         return self._api_client.call_api(
@@ -482,6 +529,15 @@ class FileImportClient:
                 ),
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
+                    "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
+                    "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
+                    "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,
+                    "FileSizeFilterMissingGreaterThanAndLessThan": connectivity_errors.FileSizeFilterMissingGreaterThanAndLessThan,
+                    "ReplaceFileImportPermissionDenied": connectivity_errors.ReplaceFileImportPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -541,6 +597,16 @@ class _FileImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[FileImport]
+
+        :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises CreateFileImportPermissionDenied: Could not create the FileImport.
+        :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
+        :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileImportNotSupportedForConnection: The specified connection does not support file imports.
+        :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
+        :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
+        :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
+        :raises FileSizeFilterMissingGreaterThanAndLessThan: Both the `gt` and `lt` properties are missing from the FileSizeFilter. At least one of these properties must be present
         """
 
         return self._api_client.call_api(
@@ -578,6 +644,17 @@ class _FileImportClientRaw:
                 ),
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "CreateFileImportPermissionDenied": connectivity_errors.CreateFileImportPermissionDenied,
+                    "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
+                    "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileImportNotSupportedForConnection": connectivity_errors.FileImportNotSupportedForConnection,
+                    "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
+                    "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
+                    "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,
+                    "FileSizeFilterMissingGreaterThanAndLessThan": connectivity_errors.FileSizeFilterMissingGreaterThanAndLessThan,
+                },
             ),
         )
 
@@ -607,6 +684,8 @@ class _FileImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises DeleteFileImportPermissionDenied: Could not delete the FileImport.
         """
 
         return self._api_client.call_api(
@@ -625,6 +704,9 @@ class _FileImportClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteFileImportPermissionDenied": connectivity_errors.DeleteFileImportPermissionDenied,
+                },
             ),
         )
 
@@ -653,6 +735,8 @@ class _FileImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[BuildRid]
+
+        :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
 
         return self._api_client.call_api(
@@ -673,6 +757,9 @@ class _FileImportClientRaw:
                 body_type=None,
                 response_type=BuildRid,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
+                },
             ),
         )
 
@@ -699,6 +786,8 @@ class _FileImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[FileImport]
+
+        :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -719,6 +808,9 @@ class _FileImportClientRaw:
                 body_type=None,
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
+                },
             ),
         )
 
@@ -771,6 +863,7 @@ class _FileImportClientRaw:
                 body_type=None,
                 response_type=ListFileImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -829,6 +922,7 @@ class _FileImportClientRaw:
                 body_type=None,
                 response_type=ListFileImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -873,6 +967,14 @@ class _FileImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[FileImport]
+
+        :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
+        :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
+        :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
+        :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
+        :raises FileSizeFilterMissingGreaterThanAndLessThan: Both the `gt` and `lt` properties are missing from the FileSizeFilter. At least one of these properties must be present
+        :raises ReplaceFileImportPermissionDenied: Could not replace the FileImport.
         """
 
         return self._api_client.call_api(
@@ -911,6 +1013,15 @@ class _FileImportClientRaw:
                 ),
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
+                    "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
+                    "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
+                    "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,
+                    "FileSizeFilterMissingGreaterThanAndLessThan": connectivity_errors.FileSizeFilterMissingGreaterThanAndLessThan,
+                    "ReplaceFileImportPermissionDenied": connectivity_errors.ReplaceFileImportPermissionDenied,
+                },
             ),
         )
 
@@ -970,6 +1081,16 @@ class _FileImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[FileImport]
+
+        :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises CreateFileImportPermissionDenied: Could not create the FileImport.
+        :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
+        :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileImportNotSupportedForConnection: The specified connection does not support file imports.
+        :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
+        :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
+        :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
+        :raises FileSizeFilterMissingGreaterThanAndLessThan: Both the `gt` and `lt` properties are missing from the FileSizeFilter. At least one of these properties must be present
         """
 
         return self._api_client.stream_api(
@@ -1007,6 +1128,17 @@ class _FileImportClientStreaming:
                 ),
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "CreateFileImportPermissionDenied": connectivity_errors.CreateFileImportPermissionDenied,
+                    "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
+                    "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileImportNotSupportedForConnection": connectivity_errors.FileImportNotSupportedForConnection,
+                    "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
+                    "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
+                    "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,
+                    "FileSizeFilterMissingGreaterThanAndLessThan": connectivity_errors.FileSizeFilterMissingGreaterThanAndLessThan,
+                },
             ),
         )
 
@@ -1036,6 +1168,8 @@ class _FileImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises DeleteFileImportPermissionDenied: Could not delete the FileImport.
         """
 
         return self._api_client.stream_api(
@@ -1054,6 +1188,9 @@ class _FileImportClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteFileImportPermissionDenied": connectivity_errors.DeleteFileImportPermissionDenied,
+                },
             ),
         )
 
@@ -1082,6 +1219,8 @@ class _FileImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[BuildRid]
+
+        :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
 
         return self._api_client.stream_api(
@@ -1102,6 +1241,9 @@ class _FileImportClientStreaming:
                 body_type=None,
                 response_type=BuildRid,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
+                },
             ),
         )
 
@@ -1128,6 +1270,8 @@ class _FileImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[FileImport]
+
+        :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.stream_api(
@@ -1148,6 +1292,9 @@ class _FileImportClientStreaming:
                 body_type=None,
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
+                },
             ),
         )
 
@@ -1200,6 +1347,7 @@ class _FileImportClientStreaming:
                 body_type=None,
                 response_type=ListFileImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1258,6 +1406,7 @@ class _FileImportClientStreaming:
                 body_type=None,
                 response_type=ListFileImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1302,6 +1451,14 @@ class _FileImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[FileImport]
+
+        :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
+        :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
+        :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
+        :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
+        :raises FileSizeFilterMissingGreaterThanAndLessThan: Both the `gt` and `lt` properties are missing from the FileSizeFilter. At least one of these properties must be present
+        :raises ReplaceFileImportPermissionDenied: Could not replace the FileImport.
         """
 
         return self._api_client.stream_api(
@@ -1340,5 +1497,14 @@ class _FileImportClientStreaming:
                 ),
                 response_type=FileImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
+                    "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
+                    "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
+                    "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,
+                    "FileSizeFilterMissingGreaterThanAndLessThan": connectivity_errors.FileSizeFilterMissingGreaterThanAndLessThan,
+                    "ReplaceFileImportPermissionDenied": connectivity_errors.ReplaceFileImportPermissionDenied,
+                },
             ),
         )

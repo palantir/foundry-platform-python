@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
 
 
@@ -34,7 +33,7 @@ class RemoveMarkingsPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class RemoveMarkingsPermissionDenied(PalantirRPCException):
+class RemoveMarkingsPermissionDenied(PermissionDeniedError):
     name: Literal["RemoveMarkingsPermissionDenied"]
     parameters: RemoveMarkingsPermissionDeniedParameters
     error_instance_id: str

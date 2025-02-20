@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._derived_property_api_name import DerivedPropertyApiName  # NOQA
 
 
@@ -35,7 +34,7 @@ class DerivedPropertyApiNamesNotUniqueParameters(TypedDict):
 
 
 @dataclass
-class DerivedPropertyApiNamesNotUnique(PalantirRPCException):
+class DerivedPropertyApiNamesNotUnique(BadRequestError):
     name: Literal["DerivedPropertyApiNamesNotUnique"]
     parameters: DerivedPropertyApiNamesNotUniqueParameters
     error_instance_id: str

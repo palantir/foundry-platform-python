@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.filesystem.models._project_template_rid import ProjectTemplateRid
 
 
@@ -34,7 +33,7 @@ class ProjectTemplateNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ProjectTemplateNotFound(PalantirRPCException):
+class ProjectTemplateNotFound(NotFoundError):
     name: Literal["ProjectTemplateNotFound"]
     parameters: ProjectTemplateNotFoundParameters
     error_instance_id: str

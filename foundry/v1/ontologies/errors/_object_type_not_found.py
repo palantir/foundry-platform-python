@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v1.ontologies.models._object_type_rid import ObjectTypeRid
 
@@ -38,7 +37,7 @@ class ObjectTypeNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ObjectTypeNotFound(PalantirRPCException):
+class ObjectTypeNotFound(NotFoundError):
     name: Literal["ObjectTypeNotFound"]
     parameters: ObjectTypeNotFoundParameters
     error_instance_id: str

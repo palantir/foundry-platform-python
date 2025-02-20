@@ -40,6 +40,7 @@ from foundry._errors import handle_unexpected
 from foundry.v2.core.models._file_path import FilePath
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.datasets import errors as datasets_errors
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._file import File
@@ -122,6 +123,11 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: BinaryStream
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises GetFileContentPermissionDenied: Could not content the File.
         """
         ...
 
@@ -172,6 +178,11 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises GetFileContentPermissionDenied: Could not content the File.
         """
         ...
 
@@ -228,6 +239,11 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises GetFileContentPermissionDenied: Could not content the File.
         """
         ...
 
@@ -283,6 +299,11 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises GetFileContentPermissionDenied: Could not content the File.
         """
 
         if stream:
@@ -314,6 +335,12 @@ class FileClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "GetFileContentPermissionDenied": datasets_errors.GetFileContentPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -353,6 +380,11 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DeleteFilePermissionDenied: Could not delete the File.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         """
 
         return self._api_client.call_api(
@@ -372,6 +404,12 @@ class FileClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DeleteFilePermissionDenied": datasets_errors.DeleteFilePermissionDenied,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                },
             ),
         ).decode()
 
@@ -420,6 +458,11 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: File
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFound: The given File could not be found.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -442,6 +485,12 @@ class FileClient:
                 body_type=None,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFound": datasets_errors.FileNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                },
             ),
         ).decode()
 
@@ -495,6 +544,9 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ResourceIterator[File]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.iterate_api(
@@ -518,6 +570,10 @@ class FileClient:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -571,6 +627,9 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ListFilesResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         warnings.warn(
@@ -600,6 +659,10 @@ class FileClient:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         ).decode()
 
@@ -648,6 +711,12 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: File
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
+        :raises UploadFilePermissionDenied: The provided token does not have permission to upload the given file to the given dataset and transaction.
         """
 
         return self._api_client.call_api(
@@ -671,6 +740,13 @@ class FileClient:
                 body_type=bytes,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileAlreadyExists": datasets_errors.FileAlreadyExists,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                    "UploadFilePermissionDenied": datasets_errors.UploadFilePermissionDenied,
+                },
             ),
         ).decode()
 
@@ -738,6 +814,11 @@ class _FileClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[bytes]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises GetFileContentPermissionDenied: Could not content the File.
         """
 
         return self._api_client.call_api(
@@ -760,6 +841,12 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "GetFileContentPermissionDenied": datasets_errors.GetFileContentPermissionDenied,
+                },
             ),
         )
 
@@ -799,6 +886,11 @@ class _FileClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DeleteFilePermissionDenied: Could not delete the File.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         """
 
         return self._api_client.call_api(
@@ -818,6 +910,12 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DeleteFilePermissionDenied": datasets_errors.DeleteFilePermissionDenied,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                },
             ),
         )
 
@@ -866,6 +964,11 @@ class _FileClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[File]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFound: The given File could not be found.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -888,6 +991,12 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFound": datasets_errors.FileNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                },
             ),
         )
 
@@ -941,6 +1050,9 @@ class _FileClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListFilesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -964,6 +1076,10 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -1017,6 +1133,9 @@ class _FileClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListFilesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         warnings.warn(
@@ -1046,6 +1165,10 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -1094,6 +1217,12 @@ class _FileClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[File]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
+        :raises UploadFilePermissionDenied: The provided token does not have permission to upload the given file to the given dataset and transaction.
         """
 
         return self._api_client.call_api(
@@ -1117,6 +1246,13 @@ class _FileClientRaw:
                 body_type=bytes,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileAlreadyExists": datasets_errors.FileAlreadyExists,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                    "UploadFilePermissionDenied": datasets_errors.UploadFilePermissionDenied,
+                },
             ),
         )
 
@@ -1184,6 +1320,11 @@ class _FileClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[bytes]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises GetFileContentPermissionDenied: Could not content the File.
         """
 
         return self._api_client.stream_api(
@@ -1206,6 +1347,12 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "GetFileContentPermissionDenied": datasets_errors.GetFileContentPermissionDenied,
+                },
             ),
         )
 
@@ -1245,6 +1392,11 @@ class _FileClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DeleteFilePermissionDenied: Could not delete the File.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         """
 
         return self._api_client.stream_api(
@@ -1264,6 +1416,12 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DeleteFilePermissionDenied": datasets_errors.DeleteFilePermissionDenied,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                },
             ),
         )
 
@@ -1312,6 +1470,11 @@ class _FileClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[File]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFound: The given File could not be found.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
@@ -1334,6 +1497,12 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFound": datasets_errors.FileNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                },
             ),
         )
 
@@ -1387,6 +1556,9 @@ class _FileClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListFilesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
@@ -1410,6 +1582,10 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -1463,6 +1639,9 @@ class _FileClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListFilesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         warnings.warn(
@@ -1492,6 +1671,10 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -1540,6 +1723,12 @@ class _FileClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[File]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
+        :raises UploadFilePermissionDenied: The provided token does not have permission to upload the given file to the given dataset and transaction.
         """
 
         return self._api_client.stream_api(
@@ -1563,5 +1752,12 @@ class _FileClientStreaming:
                 body_type=bytes,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileAlreadyExists": datasets_errors.FileAlreadyExists,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                    "UploadFilePermissionDenied": datasets_errors.UploadFilePermissionDenied,
+                },
             ),
         )

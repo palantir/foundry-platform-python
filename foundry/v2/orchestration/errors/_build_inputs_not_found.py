@@ -19,11 +19,10 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry._core.utils import RID
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 
 
 class BuildInputsNotFoundParameters(TypedDict):
@@ -35,7 +34,7 @@ class BuildInputsNotFoundParameters(TypedDict):
 
 
 @dataclass
-class BuildInputsNotFound(PalantirRPCException):
+class BuildInputsNotFound(NotFoundError):
     name: Literal["BuildInputsNotFound"]
     parameters: BuildInputsNotFoundParameters
     error_instance_id: str

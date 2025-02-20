@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._session_rid import SessionRid
 
@@ -40,7 +39,7 @@ class RateLimitExceededParameters(TypedDict):
 
 
 @dataclass
-class RateLimitExceeded(PalantirRPCException):
+class RateLimitExceeded(BadRequestError):
     name: Literal["RateLimitExceeded"]
     parameters: RateLimitExceededParameters
     error_instance_id: str

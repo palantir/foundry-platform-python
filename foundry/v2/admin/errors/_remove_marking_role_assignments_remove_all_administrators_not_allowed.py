@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._marking_id import MarkingId
 from foundry.v2.core.models._principal_id import PrincipalId
 
@@ -38,7 +37,7 @@ class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters(Ty
 
 
 @dataclass
-class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(PalantirRPCException):
+class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(BadRequestError):
     name: Literal["RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed"]
     parameters: RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters
     error_instance_id: str

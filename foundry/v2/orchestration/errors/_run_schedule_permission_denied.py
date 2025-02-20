@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
 
 
@@ -34,7 +33,7 @@ class RunSchedulePermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class RunSchedulePermissionDenied(PalantirRPCException):
+class RunSchedulePermissionDenied(PermissionDeniedError):
     name: Literal["RunSchedulePermissionDenied"]
     parameters: RunSchedulePermissionDeniedParameters
     error_instance_id: str

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters(TypedDict):
@@ -33,7 +32,7 @@ class EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters(TypedDict):
 
 
 @dataclass
-class EncryptedPropertyMustBeSpecifiedAsPlaintextValue(PalantirRPCException):
+class EncryptedPropertyMustBeSpecifiedAsPlaintextValue(BadRequestError):
     name: Literal["EncryptedPropertyMustBeSpecifiedAsPlaintextValue"]
     parameters: EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters
     error_instance_id: str

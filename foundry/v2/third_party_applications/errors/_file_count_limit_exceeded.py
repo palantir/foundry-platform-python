@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class FileCountLimitExceededParameters(TypedDict):
@@ -33,7 +32,7 @@ class FileCountLimitExceededParameters(TypedDict):
 
 
 @dataclass
-class FileCountLimitExceeded(PalantirRPCException):
+class FileCountLimitExceeded(BadRequestError):
     name: Literal["FileCountLimitExceeded"]
     parameters: FileCountLimitExceededParameters
     error_instance_id: str

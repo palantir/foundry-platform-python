@@ -133,6 +133,7 @@ class AttachmentPropertyClient:
                 body_type=None,
                 response_type=AttachmentMetadataResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -199,6 +200,7 @@ class AttachmentPropertyClient:
                 body_type=None,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -408,6 +410,7 @@ class AttachmentPropertyClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -638,6 +641,7 @@ class AttachmentPropertyClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -718,6 +722,7 @@ class _AttachmentPropertyClientRaw:
                 body_type=None,
                 response_type=AttachmentMetadataResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -784,6 +789,7 @@ class _AttachmentPropertyClientRaw:
                 body_type=None,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -846,6 +852,7 @@ class _AttachmentPropertyClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -914,6 +921,7 @@ class _AttachmentPropertyClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -994,6 +1002,7 @@ class _AttachmentPropertyClientStreaming:
                 body_type=None,
                 response_type=AttachmentMetadataResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1060,6 +1069,7 @@ class _AttachmentPropertyClientStreaming:
                 body_type=None,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1122,6 +1132,7 @@ class _AttachmentPropertyClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1190,5 +1201,6 @@ class _AttachmentPropertyClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

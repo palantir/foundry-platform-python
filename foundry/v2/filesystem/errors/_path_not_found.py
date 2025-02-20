@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.filesystem.models._resource_path import ResourcePath
 
 
@@ -34,7 +33,7 @@ class PathNotFoundParameters(TypedDict):
 
 
 @dataclass
-class PathNotFound(PalantirRPCException):
+class PathNotFound(NotFoundError):
     name: Literal["PathNotFound"]
     parameters: PathNotFoundParameters
     error_instance_id: str

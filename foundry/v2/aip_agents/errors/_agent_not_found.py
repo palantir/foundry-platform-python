@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 
 
@@ -35,7 +34,7 @@ class AgentNotFoundParameters(TypedDict):
 
 
 @dataclass
-class AgentNotFound(PalantirRPCException):
+class AgentNotFound(NotFoundError):
     name: Literal["AgentNotFound"]
     parameters: AgentNotFoundParameters
     error_instance_id: str

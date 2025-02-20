@@ -168,6 +168,7 @@ class OntologyObjectClient:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -221,6 +222,7 @@ class OntologyObjectClient:
                 body_type=None,
                 response_type=CountObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -286,6 +288,7 @@ class OntologyObjectClient:
                 body_type=None,
                 response_type=OntologyObjectV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -371,6 +374,7 @@ class OntologyObjectClient:
                 body_type=None,
                 response_type=ListObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -462,6 +466,7 @@ class OntologyObjectClient:
                 body_type=None,
                 response_type=ListObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -573,6 +578,7 @@ class OntologyObjectClient:
                 ),
                 response_type=SearchObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -670,6 +676,7 @@ class _OntologyObjectClientRaw:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -723,6 +730,7 @@ class _OntologyObjectClientRaw:
                 body_type=None,
                 response_type=CountObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -788,6 +796,7 @@ class _OntologyObjectClientRaw:
                 body_type=None,
                 response_type=OntologyObjectV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -873,6 +882,7 @@ class _OntologyObjectClientRaw:
                 body_type=None,
                 response_type=ListObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -964,6 +974,7 @@ class _OntologyObjectClientRaw:
                 body_type=None,
                 response_type=ListObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1075,6 +1086,7 @@ class _OntologyObjectClientRaw:
                 ),
                 response_type=SearchObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1172,6 +1184,7 @@ class _OntologyObjectClientStreaming:
                 ),
                 response_type=AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1225,6 +1238,7 @@ class _OntologyObjectClientStreaming:
                 body_type=None,
                 response_type=CountObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1290,6 +1304,7 @@ class _OntologyObjectClientStreaming:
                 body_type=None,
                 response_type=OntologyObjectV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1375,6 +1390,7 @@ class _OntologyObjectClientStreaming:
                 body_type=None,
                 response_type=ListObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1466,6 +1482,7 @@ class _OntologyObjectClientStreaming:
                 body_type=None,
                 response_type=ListObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1577,5 +1594,6 @@ class _OntologyObjectClientStreaming:
                 ),
                 response_type=SearchObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

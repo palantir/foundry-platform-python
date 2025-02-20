@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
 from foundry.v1.ontologies.models._sdk_package_name import SdkPackageName
 
@@ -37,7 +36,7 @@ class MarketplaceInstallationNotFoundParameters(TypedDict):
 
 
 @dataclass
-class MarketplaceInstallationNotFound(PalantirRPCException):
+class MarketplaceInstallationNotFound(NotFoundError):
     name: Literal["MarketplaceInstallationNotFound"]
     parameters: MarketplaceInstallationNotFoundParameters
     error_instance_id: str

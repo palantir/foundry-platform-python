@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 
 
@@ -34,7 +33,7 @@ class ConnectionNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ConnectionNotFound(PalantirRPCException):
+class ConnectionNotFound(NotFoundError):
     name: Literal["ConnectionNotFound"]
     parameters: ConnectionNotFoundParameters
     error_instance_id: str

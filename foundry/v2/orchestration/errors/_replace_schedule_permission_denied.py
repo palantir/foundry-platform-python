@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
 
 
@@ -34,7 +33,7 @@ class ReplaceSchedulePermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ReplaceSchedulePermissionDenied(PalantirRPCException):
+class ReplaceSchedulePermissionDenied(PermissionDeniedError):
     name: Literal["ReplaceSchedulePermissionDenied"]
     parameters: ReplaceSchedulePermissionDeniedParameters
     error_instance_id: str

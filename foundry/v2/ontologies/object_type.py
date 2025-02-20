@@ -109,6 +109,7 @@ class ObjectTypeClient:
                 body_type=None,
                 response_type=ObjectTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -158,6 +159,7 @@ class ObjectTypeClient:
                 body_type=None,
                 response_type=LinkTypeSideV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -211,6 +213,7 @@ class ObjectTypeClient:
                 body_type=None,
                 response_type=ListObjectTypesV2Response,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -265,6 +268,7 @@ class ObjectTypeClient:
                 body_type=None,
                 response_type=ListOutgoingLinkTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -324,6 +328,7 @@ class ObjectTypeClient:
                 body_type=None,
                 response_type=ListObjectTypesV2Response,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -384,6 +389,7 @@ class ObjectTypeClient:
                 body_type=None,
                 response_type=ListOutgoingLinkTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -446,6 +452,7 @@ class _ObjectTypeClientRaw:
                 body_type=None,
                 response_type=ObjectTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -495,6 +502,7 @@ class _ObjectTypeClientRaw:
                 body_type=None,
                 response_type=LinkTypeSideV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -548,6 +556,7 @@ class _ObjectTypeClientRaw:
                 body_type=None,
                 response_type=ListObjectTypesV2Response,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -602,6 +611,7 @@ class _ObjectTypeClientRaw:
                 body_type=None,
                 response_type=ListOutgoingLinkTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -661,6 +671,7 @@ class _ObjectTypeClientRaw:
                 body_type=None,
                 response_type=ListObjectTypesV2Response,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -721,6 +732,7 @@ class _ObjectTypeClientRaw:
                 body_type=None,
                 response_type=ListOutgoingLinkTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -783,6 +795,7 @@ class _ObjectTypeClientStreaming:
                 body_type=None,
                 response_type=ObjectTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -832,6 +845,7 @@ class _ObjectTypeClientStreaming:
                 body_type=None,
                 response_type=LinkTypeSideV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -885,6 +899,7 @@ class _ObjectTypeClientStreaming:
                 body_type=None,
                 response_type=ListObjectTypesV2Response,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -939,6 +954,7 @@ class _ObjectTypeClientStreaming:
                 body_type=None,
                 response_type=ListOutgoingLinkTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -998,6 +1014,7 @@ class _ObjectTypeClientStreaming:
                 body_type=None,
                 response_type=ListObjectTypesV2Response,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1058,5 +1075,6 @@ class _ObjectTypeClientStreaming:
                 body_type=None,
                 response_type=ListOutgoingLinkTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

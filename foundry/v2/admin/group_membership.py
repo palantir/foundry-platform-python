@@ -118,6 +118,7 @@ class GroupMembershipClient:
                 body_type=None,
                 response_type=ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -181,6 +182,7 @@ class GroupMembershipClient:
                 body_type=None,
                 response_type=ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -256,6 +258,7 @@ class _GroupMembershipClientRaw:
                 body_type=None,
                 response_type=ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -319,6 +322,7 @@ class _GroupMembershipClientRaw:
                 body_type=None,
                 response_type=ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -394,6 +398,7 @@ class _GroupMembershipClientStreaming:
                 body_type=None,
                 response_type=ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -457,5 +462,6 @@ class _GroupMembershipClientStreaming:
                 body_type=None,
                 response_type=ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

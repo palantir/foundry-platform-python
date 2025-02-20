@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 
@@ -38,7 +37,7 @@ class CreateTransactionPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class CreateTransactionPermissionDenied(PalantirRPCException):
+class CreateTransactionPermissionDenied(PermissionDeniedError):
     name: Literal["CreateTransactionPermissionDenied"]
     parameters: CreateTransactionPermissionDeniedParameters
     error_instance_id: str

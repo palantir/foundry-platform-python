@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 
 
@@ -34,7 +33,7 @@ class ReadTableDatasetPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ReadTableDatasetPermissionDenied(PalantirRPCException):
+class ReadTableDatasetPermissionDenied(PermissionDeniedError):
     name: Literal["ReadTableDatasetPermissionDenied"]
     parameters: ReadTableDatasetPermissionDeniedParameters
     error_instance_id: str

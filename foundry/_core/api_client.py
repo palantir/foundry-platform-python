@@ -44,6 +44,7 @@ from foundry._core.config import Config
 from foundry._core.http_client import HttpClient
 from foundry._core.resource_iterator import ResourceIterator
 from foundry._errors import BadRequestError
+from foundry._errors import ConflictError
 from foundry._errors import ConnectionError
 from foundry._errors import ConnectTimeout
 from foundry._errors import InternalServerError
@@ -53,11 +54,13 @@ from foundry._errors import PermissionDeniedError
 from foundry._errors import ProxyError
 from foundry._errors import RateLimitError
 from foundry._errors import ReadTimeout
+from foundry._errors import RequestEntityTooLargeError
 from foundry._errors import SDKInternalError
 from foundry._errors import StreamConsumedError
 from foundry._errors import UnauthorizedError
 from foundry._errors import UnprocessableEntityError
 from foundry._errors import WriteTimeout
+from foundry._errors import deserialize_error
 from foundry._versions import __version__
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
@@ -92,6 +95,7 @@ class RequestInfo:
     body: Any
     body_type: Any
     request_timeout: Optional[int]
+    throwable_errors: Dict[str, Type[PalantirRPCException]]
 
     # DEPRECATED: Remove the streaming details
     stream: bool = False
@@ -114,6 +118,7 @@ class RequestInfo:
             body_type=self.body_type,
             request_timeout=self.request_timeout,
             stream=stream if stream is not None else self.stream,
+            throwable_errors=self.throwable_errors,
         )
 
     @classmethod
@@ -130,6 +135,7 @@ class RequestInfo:
         request_timeout: Optional[int] = None,
         stream: bool = False,
         chunk_size: Optional[int] = None,
+        throwable_errors: Dict[str, Type[PalantirRPCException]] = {},
     ):
         return cls(
             method=method,
@@ -143,6 +149,7 @@ class RequestInfo:
             request_timeout=request_timeout,
             stream=stream,
             chunk_size=chunk_size,
+            throwable_errors=throwable_errors,
         )
 
 
@@ -340,7 +347,7 @@ class ApiClient:
         except httpx.WriteTimeout as e:
             raise WriteTimeout(str(e)) from e
 
-        self._check_for_errors(res)
+        self._check_for_errors(request_info, res)
         return ApiResponse(request_info, res)
 
     def stream_api(self, request_info: RequestInfo) -> StreamingContextManager[Any]:
@@ -387,7 +394,7 @@ class ApiClient:
             },
         }
 
-    def _check_for_errors(self, res: httpx.Response):
+    def _check_for_errors(self, req: RequestInfo, res: httpx.Response):
         if 200 <= res.status_code <= 299:
             return
 
@@ -396,7 +403,9 @@ class ApiClient:
         except json.JSONDecodeError:
             raise SDKInternalError("Unable to decode JSON error response: " + res.text)
 
-        if res.status_code == 400:
+        if error_instance := deserialize_error(error_json, req.throwable_errors):
+            raise error_instance
+        elif res.status_code == 400:
             raise BadRequestError(error_json)
         elif res.status_code == 401:
             raise UnauthorizedError(error_json)
@@ -404,6 +413,10 @@ class ApiClient:
             raise PermissionDeniedError(error_json)
         elif res.status_code == 404:
             raise NotFoundError(error_json)
+        elif res.status_code == 409:
+            raise ConflictError(error_json)
+        elif res.status_code == 413:
+            raise RequestEntityTooLargeError(error_json)
         elif res.status_code == 422:
             raise UnprocessableEntityError(error_json)
         elif res.status_code == 429:

@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.ontologies.models._attachment_rid import AttachmentRid
 
 
@@ -40,7 +39,7 @@ class AttachmentNotFoundParameters(TypedDict):
 
 
 @dataclass
-class AttachmentNotFound(PalantirRPCException):
+class AttachmentNotFound(NotFoundError):
     name: Literal["AttachmentNotFound"]
     parameters: AttachmentNotFoundParameters
     error_instance_id: str

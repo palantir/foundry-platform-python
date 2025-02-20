@@ -102,6 +102,7 @@ class ActionTypeClient:
                 body_type=None,
                 response_type=ActionType,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -154,6 +155,7 @@ class ActionTypeClient:
                 body_type=None,
                 response_type=ListActionTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -212,6 +214,7 @@ class ActionTypeClient:
                 body_type=None,
                 response_type=ListActionTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -274,6 +277,7 @@ class _ActionTypeClientRaw:
                 body_type=None,
                 response_type=ActionType,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -326,6 +330,7 @@ class _ActionTypeClientRaw:
                 body_type=None,
                 response_type=ListActionTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -384,6 +389,7 @@ class _ActionTypeClientRaw:
                 body_type=None,
                 response_type=ListActionTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -446,6 +452,7 @@ class _ActionTypeClientStreaming:
                 body_type=None,
                 response_type=ActionType,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -498,6 +505,7 @@ class _ActionTypeClientStreaming:
                 body_type=None,
                 response_type=ListActionTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -556,5 +564,6 @@ class _ActionTypeClientStreaming:
                 body_type=None,
                 response_type=ListActionTypesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

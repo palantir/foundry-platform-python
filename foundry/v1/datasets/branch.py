@@ -116,6 +116,7 @@ class BranchClient:
                 ),
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -158,6 +159,7 @@ class BranchClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -202,6 +204,7 @@ class BranchClient:
                 body_type=None,
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -251,6 +254,7 @@ class BranchClient:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -306,6 +310,7 @@ class BranchClient:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -380,6 +385,7 @@ class _BranchClientRaw:
                 ),
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -422,6 +428,7 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -466,6 +473,7 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -515,6 +523,7 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -570,6 +579,7 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -644,6 +654,7 @@ class _BranchClientStreaming:
                 ),
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -686,6 +697,7 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -730,6 +742,7 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -779,6 +792,7 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -834,5 +848,6 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

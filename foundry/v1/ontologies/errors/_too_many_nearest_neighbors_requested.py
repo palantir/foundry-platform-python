@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class TooManyNearestNeighborsRequestedParameters(TypedDict):
@@ -31,7 +30,7 @@ class TooManyNearestNeighborsRequestedParameters(TypedDict):
 
 
 @dataclass
-class TooManyNearestNeighborsRequested(PalantirRPCException):
+class TooManyNearestNeighborsRequested(BadRequestError):
     name: Literal["TooManyNearestNeighborsRequested"]
     parameters: TooManyNearestNeighborsRequestedParameters
     error_instance_id: str

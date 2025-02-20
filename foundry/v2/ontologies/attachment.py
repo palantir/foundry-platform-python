@@ -102,6 +102,7 @@ class AttachmentClient:
                 body_type=None,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -245,6 +246,7 @@ class AttachmentClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -302,6 +304,7 @@ class AttachmentClient:
                 body_type=bytes,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -361,6 +364,7 @@ class _AttachmentClientRaw:
                 body_type=None,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -402,6 +406,7 @@ class _AttachmentClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -459,6 +464,7 @@ class _AttachmentClientRaw:
                 body_type=bytes,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -518,6 +524,7 @@ class _AttachmentClientStreaming:
                 body_type=None,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -559,6 +566,7 @@ class _AttachmentClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -616,5 +624,6 @@ class _AttachmentClientStreaming:
                 body_type=bytes,
                 response_type=AttachmentV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

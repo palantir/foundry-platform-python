@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
 
@@ -33,13 +32,12 @@ class AgentVersionNotFoundParameters(TypedDict):
 
     agentRid: AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
-
     agentVersionString: AgentVersionString
     """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
 
 @dataclass
-class AgentVersionNotFound(PalantirRPCException):
+class AgentVersionNotFound(NotFoundError):
     name: Literal["AgentVersionNotFound"]
     parameters: AgentVersionNotFoundParameters
     error_instance_id: str

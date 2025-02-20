@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._function_rid import FunctionRid
 from foundry.v2.ontologies.models._function_version import FunctionVersion
 
@@ -36,7 +35,7 @@ class FunctionInvalidInputParameters(TypedDict):
 
 
 @dataclass
-class FunctionInvalidInput(PalantirRPCException):
+class FunctionInvalidInput(BadRequestError):
     name: Literal["FunctionInvalidInput"]
     parameters: FunctionInvalidInputParameters
     error_instance_id: str

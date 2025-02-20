@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._parameter_id import ParameterId
 
 
@@ -40,7 +39,7 @@ class UnknownParameterParameters(TypedDict):
 
 
 @dataclass
-class UnknownParameter(PalantirRPCException):
+class UnknownParameter(BadRequestError):
     name: Literal["UnknownParameter"]
     parameters: UnknownParameterParameters
     error_instance_id: str

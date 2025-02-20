@@ -144,6 +144,7 @@ class LinkedObjectClient:
                 body_type=None,
                 response_type=OntologyObjectV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -237,6 +238,7 @@ class LinkedObjectClient:
                 body_type=None,
                 response_type=ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -336,6 +338,7 @@ class LinkedObjectClient:
                 body_type=None,
                 response_type=ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -429,6 +432,7 @@ class _LinkedObjectClientRaw:
                 body_type=None,
                 response_type=OntologyObjectV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -522,6 +526,7 @@ class _LinkedObjectClientRaw:
                 body_type=None,
                 response_type=ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -621,6 +626,7 @@ class _LinkedObjectClientRaw:
                 body_type=None,
                 response_type=ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -714,6 +720,7 @@ class _LinkedObjectClientStreaming:
                 body_type=None,
                 response_type=OntologyObjectV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -807,6 +814,7 @@ class _LinkedObjectClientStreaming:
                 body_type=None,
                 response_type=ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -906,5 +914,6 @@ class _LinkedObjectClientStreaming:
                 body_type=None,
                 response_type=ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

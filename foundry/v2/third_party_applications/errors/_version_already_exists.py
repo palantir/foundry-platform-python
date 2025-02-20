@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import ConflictError
 from foundry.v2.third_party_applications.models._version_version import VersionVersion
 
 
@@ -34,7 +33,7 @@ class VersionAlreadyExistsParameters(TypedDict):
 
 
 @dataclass
-class VersionAlreadyExists(PalantirRPCException):
+class VersionAlreadyExists(ConflictError):
     name: Literal["VersionAlreadyExists"]
     parameters: VersionAlreadyExistsParameters
     error_instance_id: str

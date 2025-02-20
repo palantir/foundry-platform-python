@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.core.models._marking_id import MarkingId
 
 
@@ -35,7 +34,7 @@ class MarkingNotFoundParameters(TypedDict):
 
 
 @dataclass
-class MarkingNotFound(PalantirRPCException):
+class MarkingNotFound(NotFoundError):
     name: Literal["MarkingNotFound"]
     parameters: MarkingNotFoundParameters
     error_instance_id: str

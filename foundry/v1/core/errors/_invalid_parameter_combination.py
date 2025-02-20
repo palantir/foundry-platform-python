@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidParameterCombinationParameters(TypedDict):
@@ -36,7 +35,7 @@ class InvalidParameterCombinationParameters(TypedDict):
 
 
 @dataclass
-class InvalidParameterCombination(PalantirRPCException):
+class InvalidParameterCombination(BadRequestError):
     name: Literal["InvalidParameterCombination"]
     parameters: InvalidParameterCombinationParameters
     error_instance_id: str

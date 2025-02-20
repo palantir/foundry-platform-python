@@ -174,6 +174,7 @@ Want to learn more about this Foundry SDK library? Review the following sections
 ↳ [Static type analysis](#static-types): Learn about the static type analysis capabilities of this library  
 ↳ [HTTP Session Configuration](#session-config): Learn how to configure the HTTP session.  
 
+<a id="errors"></a>
 ## Error handling
 ### Data validation
 The SDK employs [Pydantic](https://docs.pydantic.dev/latest/) for runtime validation
@@ -206,26 +207,57 @@ the [Pydantic error documentation](https://docs.pydantic.dev/latest/errors/error
 experience. See [Static Type Analysis](#static-types) below for more information.
 
 ### HTTP exceptions
-When an HTTP error status is returned, a `PalantirRPCException` is thrown. There are several
-subclasses that be caught for more specific conditions, all of which inherit from
-`PalantirRPCException`.
+Each operation includes a list of possible exceptions that can be thrown which can be thrown by
+the server, all of which inherit from `PalantirRPCException`. For example, an operation that interacts
+with datasets might throw a `DatasetNotFound` error, which is defined as follows:
+
+```python
+class DatasetNotFoundParameters(TypedDict):
+    """The given Dataset could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: DatasetRid
 
 
-| Status Code | Error Class                |
-| ----------- | -------------------------- |
-| 400         | `BadRequestError`          |
-| 401         | `UnauthorizedError`        |
-| 403         | `PermissionDeniedError`    |
-| 404         | `NotFoundError`            |
-| 422         | `UnprocessableEntityError` |
-| 429         | `RateLimitError`           |
-| >=500,<600  | `InternalServerError`      |
-| Other       | `PalantirRPCException`     |
+@dataclass
+class DatasetNotFound(NotFoundError):
+    name: Literal["DatasetNotFound"]
+    parameters: DatasetNotFoundParameters
+    error_instance_id: str
+```
+
+As a user, you can catch this exception and handle it accordingly.
+
+```python
+from foundry.v2.datasets.errors import DatasetNotFound
+
+try:
+    dataset = foundry_client.datasets.Dataset.get("ri.foundry.main.dataset.abc")
+    ...
+except DatasetNotFound as e:
+    print("Dataset not found", e.parameters["datasetRid"])
+```
+
+You can refer to the method documentation to see which exceptions can be thrown. It is also possible to
+catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or `NotFoundError`.
+
+
+| Status Code | Error Class                  |
+| ----------- | ---------------------------- |
+| 400         | `BadRequestError`            |
+| 401         | `UnauthorizedError`          |
+| 403         | `PermissionDeniedError`      |
+| 404         | `NotFoundError`              |
+| 413         | `RequestEntityTooLargeError` |
+| 422         | `UnprocessableEntityError`   |
+| 429         | `RateLimitError`             |
+| >=500,<600  | `InternalServerError`        |
+| Other       | `PalantirRPCException`       |
 
 ```python
 from foundry import PalantirRPCException
 from foundry import NotFoundError
-from foundry import RateLimitError
 
 
 try:
@@ -233,8 +265,6 @@ try:
     ...
 except NotFoundError as e:
     print("Dataset or Transaction not found", e)
-except RateLimitError as e:
-    print("We are aborting too many Transactions", e)
 except PalantirRPCException as e:
     print("Another HTTP exception occurred", e)
 ```
@@ -250,17 +280,19 @@ All HTTP exceptions will have the following properties. See the [Foundry API doc
 ### Other exceptions
 There are a handful of other exception classes that could be thrown when instantiating or using a client.
 
-| ErrorClass               | Thrown Directly | Description                                                                                                                       |
-| ------------------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |     
-| NotAuthenticated         | Yes             | You used either `ConfidentialClientAuth` or `PublicClientAuth` to make an API call without going through the OAuth process first. |           
-| ConnectionError          | Yes             | An issue occurred when connecting to the server. This also catches `ProxyError`.                                                  |
-| ProxyError               | Yes             | An issue occurred when connecting to or authenticating with a proxy server.                                                       |
-| TimeoutError             | No              | The request timed out. This catches both `ConnectTimeout`, `ReadTimeout` and `WriteTimeout`.                                                      |
-| ConnectTimeout           | Yes             | The request timed out when attempting to connect to the server.                                                                   |
-| ReadTimeout              | Yes             | The server did not send any data in the allotted amount of time.                                                                  |
-| WriteTimeout             | Yes             | There was a timeout when writing data to the server.                                                                              |
-| StreamConsumedError      | Yes             | The content of the given stream has already been consumed.                                                                        |
-| SDKInternalError         | Yes             | An unexpected issue occurred and should be reported.                                                                              |
+| ErrorClass                 | Thrown Directly | Description                                                                                                                       |
+| -------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |     
+| NotAuthenticated           | Yes             | You used either `ConfidentialClientAuth` or `PublicClientAuth` to make an API call without going through the OAuth process first. |           
+| ConnectionError            | Yes             | An issue occurred when connecting to the server. This also catches `ProxyError`.                                                  |
+| ProxyError                 | Yes             | An issue occurred when connecting to or authenticating with a proxy server.                                                       |
+| TimeoutError               | No              | The request timed out. This catches both `ConnectTimeout`, `ReadTimeout` and `WriteTimeout`.                                      |
+| ConnectTimeout             | Yes             | The request timed out when attempting to connect to the server.                                                                   |
+| ReadTimeout                | Yes             | The server did not send any data in the allotted amount of time.                                                                  |
+| WriteTimeout               | Yes             | There was a timeout when writing data to the server.                                                                              |
+| StreamConsumedError        | Yes             | The content of the given stream has already been consumed.                                                                        |
+| RequestEntityTooLargeError | Yes             | The request entity is too large.                                                                                                  |
+| ConflictError              | Yes             | There was a conflict with another request.                                                                                        |
+| SDKInternalError           | Yes             | An unexpected issue occurred and should be reported.                                                                              |
 
 <a id="pagination"></a>
 ## Pagination
@@ -1382,6 +1414,8 @@ Namespace | Name | Import |
 **Ontologies** | [DoesNotIntersectPolygonQueryDict](docs/v2/Ontologies/models/DoesNotIntersectPolygonQueryDict.md) | `from foundry.v2.ontologies.models import DoesNotIntersectPolygonQueryDict` |
 **Ontologies** | [DoubleVector](docs/v2/Ontologies/models/DoubleVector.md) | `from foundry.v2.ontologies.models import DoubleVector` |
 **Ontologies** | [DoubleVectorDict](docs/v2/Ontologies/models/DoubleVectorDict.md) | `from foundry.v2.ontologies.models import DoubleVectorDict` |
+**Ontologies** | [EntrySetType](docs/v2/Ontologies/models/EntrySetType.md) | `from foundry.v2.ontologies.models import EntrySetType` |
+**Ontologies** | [EntrySetTypeDict](docs/v2/Ontologies/models/EntrySetTypeDict.md) | `from foundry.v2.ontologies.models import EntrySetTypeDict` |
 **Ontologies** | [EqualsQueryV2](docs/v2/Ontologies/models/EqualsQueryV2.md) | `from foundry.v2.ontologies.models import EqualsQueryV2` |
 **Ontologies** | [EqualsQueryV2Dict](docs/v2/Ontologies/models/EqualsQueryV2Dict.md) | `from foundry.v2.ontologies.models import EqualsQueryV2Dict` |
 **Ontologies** | [ExactDistinctAggregationV2](docs/v2/Ontologies/models/ExactDistinctAggregationV2.md) | `from foundry.v2.ontologies.models import ExactDistinctAggregationV2` |
@@ -2003,6 +2037,7 @@ Namespace | Name | Import |
 **Ontologies** | [DeleteObjectRuleDict](docs/v1/Ontologies/models/DeleteObjectRuleDict.md) | `from foundry.v1.ontologies.models import DeleteObjectRuleDict` |
 **Ontologies** | [DerivedPropertyApiName](docs/v1/Ontologies/models/DerivedPropertyApiName.md) | `from foundry.v1.ontologies.models import DerivedPropertyApiName` |
 **Ontologies** | [Duration](docs/v1/Ontologies/models/Duration.md) | `from foundry.v1.ontologies.models import Duration` |
+**Ontologies** | [EntrySetTypeDict](docs/v1/Ontologies/models/EntrySetTypeDict.md) | `from foundry.v1.ontologies.models import EntrySetTypeDict` |
 **Ontologies** | [EqualsQuery](docs/v1/Ontologies/models/EqualsQuery.md) | `from foundry.v1.ontologies.models import EqualsQuery` |
 **Ontologies** | [EqualsQueryDict](docs/v1/Ontologies/models/EqualsQueryDict.md) | `from foundry.v1.ontologies.models import EqualsQueryDict` |
 **Ontologies** | [ExecuteQueryResponse](docs/v1/Ontologies/models/ExecuteQueryResponse.md) | `from foundry.v1.ontologies.models import ExecuteQueryResponse` |
@@ -2161,6 +2196,535 @@ Namespace | Name | Import |
 **Ontologies** | [ValidateActionResponseDict](docs/v1/Ontologies/models/ValidateActionResponseDict.md) | `from foundry.v1.ontologies.models import ValidateActionResponseDict` |
 **Ontologies** | [ValidationResult](docs/v1/Ontologies/models/ValidationResult.md) | `from foundry.v1.ontologies.models import ValidationResult` |
 **Ontologies** | [ValueType](docs/v1/Ontologies/models/ValueType.md) | `from foundry.v1.ontologies.models import ValueType` |
+
+
+<a id="all-errors"></a>
+## Documentation for errors
+<a id="errors-v2-link"></a>
+## Documentation for V2 errors
+
+Namespace | Name | Import |
+--------- | ---- | ------ |
+**Admin** | AddGroupMembersPermissionDenied | `from foundry.v2.admin.errors import AddGroupMembersPermissionDenied` |
+**Admin** | AddMarkingMembersPermissionDenied | `from foundry.v2.admin.errors import AddMarkingMembersPermissionDenied` |
+**Admin** | AddMarkingRoleAssignmentsPermissionDenied | `from foundry.v2.admin.errors import AddMarkingRoleAssignmentsPermissionDenied` |
+**Admin** | CannotReplaceProviderInfoForPrincipalInProtectedRealm | `from foundry.v2.admin.errors import CannotReplaceProviderInfoForPrincipalInProtectedRealm` |
+**Admin** | CreateGroupPermissionDenied | `from foundry.v2.admin.errors import CreateGroupPermissionDenied` |
+**Admin** | CreateMarkingMissingInitialAdminRole | `from foundry.v2.admin.errors import CreateMarkingMissingInitialAdminRole` |
+**Admin** | CreateMarkingNameInCategoryAlreadyExists | `from foundry.v2.admin.errors import CreateMarkingNameInCategoryAlreadyExists` |
+**Admin** | CreateMarkingPermissionDenied | `from foundry.v2.admin.errors import CreateMarkingPermissionDenied` |
+**Admin** | DeleteGroupPermissionDenied | `from foundry.v2.admin.errors import DeleteGroupPermissionDenied` |
+**Admin** | DeleteUserPermissionDenied | `from foundry.v2.admin.errors import DeleteUserPermissionDenied` |
+**Admin** | EnrollmentNotFound | `from foundry.v2.admin.errors import EnrollmentNotFound` |
+**Admin** | GetCurrentEnrollmentPermissionDenied | `from foundry.v2.admin.errors import GetCurrentEnrollmentPermissionDenied` |
+**Admin** | GetCurrentUserPermissionDenied | `from foundry.v2.admin.errors import GetCurrentUserPermissionDenied` |
+**Admin** | GetGroupProviderInfoPermissionDenied | `from foundry.v2.admin.errors import GetGroupProviderInfoPermissionDenied` |
+**Admin** | GetMarkingCategoryPermissionDenied | `from foundry.v2.admin.errors import GetMarkingCategoryPermissionDenied` |
+**Admin** | GetMarkingPermissionDenied | `from foundry.v2.admin.errors import GetMarkingPermissionDenied` |
+**Admin** | GetMarkingsUserPermissionDenied | `from foundry.v2.admin.errors import GetMarkingsUserPermissionDenied` |
+**Admin** | GetProfilePictureOfUserPermissionDenied | `from foundry.v2.admin.errors import GetProfilePictureOfUserPermissionDenied` |
+**Admin** | GetUserProviderInfoPermissionDenied | `from foundry.v2.admin.errors import GetUserProviderInfoPermissionDenied` |
+**Admin** | GroupNameAlreadyExists | `from foundry.v2.admin.errors import GroupNameAlreadyExists` |
+**Admin** | GroupNotFound | `from foundry.v2.admin.errors import GroupNotFound` |
+**Admin** | GroupProviderInfoNotFound | `from foundry.v2.admin.errors import GroupProviderInfoNotFound` |
+**Admin** | InvalidGroupMembershipExpiration | `from foundry.v2.admin.errors import InvalidGroupMembershipExpiration` |
+**Admin** | InvalidGroupOrganizations | `from foundry.v2.admin.errors import InvalidGroupOrganizations` |
+**Admin** | InvalidHostName | `from foundry.v2.admin.errors import InvalidHostName` |
+**Admin** | InvalidProfilePicture | `from foundry.v2.admin.errors import InvalidProfilePicture` |
+**Admin** | ListHostsPermissionDenied | `from foundry.v2.admin.errors import ListHostsPermissionDenied` |
+**Admin** | ListMarkingMembersPermissionDenied | `from foundry.v2.admin.errors import ListMarkingMembersPermissionDenied` |
+**Admin** | ListMarkingRoleAssignmentsPermissionDenied | `from foundry.v2.admin.errors import ListMarkingRoleAssignmentsPermissionDenied` |
+**Admin** | MarkingCategoryNotFound | `from foundry.v2.admin.errors import MarkingCategoryNotFound` |
+**Admin** | MarkingNotFound | `from foundry.v2.admin.errors import MarkingNotFound` |
+**Admin** | OrganizationNotFound | `from foundry.v2.admin.errors import OrganizationNotFound` |
+**Admin** | PrincipalNotFound | `from foundry.v2.admin.errors import PrincipalNotFound` |
+**Admin** | ProfilePictureNotFound | `from foundry.v2.admin.errors import ProfilePictureNotFound` |
+**Admin** | RemoveGroupMembersPermissionDenied | `from foundry.v2.admin.errors import RemoveGroupMembersPermissionDenied` |
+**Admin** | RemoveMarkingMembersPermissionDenied | `from foundry.v2.admin.errors import RemoveMarkingMembersPermissionDenied` |
+**Admin** | RemoveMarkingRoleAssignmentsPermissionDenied | `from foundry.v2.admin.errors import RemoveMarkingRoleAssignmentsPermissionDenied` |
+**Admin** | RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed | `from foundry.v2.admin.errors import RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed` |
+**Admin** | ReplaceGroupProviderInfoPermissionDenied | `from foundry.v2.admin.errors import ReplaceGroupProviderInfoPermissionDenied` |
+**Admin** | ReplaceOrganizationPermissionDenied | `from foundry.v2.admin.errors import ReplaceOrganizationPermissionDenied` |
+**Admin** | ReplaceUserProviderInfoPermissionDenied | `from foundry.v2.admin.errors import ReplaceUserProviderInfoPermissionDenied` |
+**Admin** | SearchGroupsPermissionDenied | `from foundry.v2.admin.errors import SearchGroupsPermissionDenied` |
+**Admin** | SearchUsersPermissionDenied | `from foundry.v2.admin.errors import SearchUsersPermissionDenied` |
+**Admin** | UserNotFound | `from foundry.v2.admin.errors import UserNotFound` |
+**Admin** | UserProviderInfoNotFound | `from foundry.v2.admin.errors import UserProviderInfoNotFound` |
+**AipAgents** | AgentIterationsExceededLimit | `from foundry.v2.aip_agents.errors import AgentIterationsExceededLimit` |
+**AipAgents** | AgentNotFound | `from foundry.v2.aip_agents.errors import AgentNotFound` |
+**AipAgents** | AgentVersionNotFound | `from foundry.v2.aip_agents.errors import AgentVersionNotFound` |
+**AipAgents** | BlockingContinueSessionPermissionDenied | `from foundry.v2.aip_agents.errors import BlockingContinueSessionPermissionDenied` |
+**AipAgents** | CancelSessionFailedMessageNotInProgress | `from foundry.v2.aip_agents.errors import CancelSessionFailedMessageNotInProgress` |
+**AipAgents** | CancelSessionPermissionDenied | `from foundry.v2.aip_agents.errors import CancelSessionPermissionDenied` |
+**AipAgents** | ContentNotFound | `from foundry.v2.aip_agents.errors import ContentNotFound` |
+**AipAgents** | ContextSizeExceededLimit | `from foundry.v2.aip_agents.errors import ContextSizeExceededLimit` |
+**AipAgents** | CreateSessionPermissionDenied | `from foundry.v2.aip_agents.errors import CreateSessionPermissionDenied` |
+**AipAgents** | FunctionLocatorNotFound | `from foundry.v2.aip_agents.errors import FunctionLocatorNotFound` |
+**AipAgents** | GetAllSessionsAgentsPermissionDenied | `from foundry.v2.aip_agents.errors import GetAllSessionsAgentsPermissionDenied` |
+**AipAgents** | GetRagContextForSessionPermissionDenied | `from foundry.v2.aip_agents.errors import GetRagContextForSessionPermissionDenied` |
+**AipAgents** | InvalidAgentVersion | `from foundry.v2.aip_agents.errors import InvalidAgentVersion` |
+**AipAgents** | InvalidParameter | `from foundry.v2.aip_agents.errors import InvalidParameter` |
+**AipAgents** | InvalidParameterType | `from foundry.v2.aip_agents.errors import InvalidParameterType` |
+**AipAgents** | ListSessionsForAgentsPermissionDenied | `from foundry.v2.aip_agents.errors import ListSessionsForAgentsPermissionDenied` |
+**AipAgents** | NoPublishedAgentVersion | `from foundry.v2.aip_agents.errors import NoPublishedAgentVersion` |
+**AipAgents** | ObjectTypeIdsNotFound | `from foundry.v2.aip_agents.errors import ObjectTypeIdsNotFound` |
+**AipAgents** | ObjectTypeRidsNotFound | `from foundry.v2.aip_agents.errors import ObjectTypeRidsNotFound` |
+**AipAgents** | RateLimitExceeded | `from foundry.v2.aip_agents.errors import RateLimitExceeded` |
+**AipAgents** | SessionExecutionFailed | `from foundry.v2.aip_agents.errors import SessionExecutionFailed` |
+**AipAgents** | SessionNotFound | `from foundry.v2.aip_agents.errors import SessionNotFound` |
+**AipAgents** | StreamingContinueSessionPermissionDenied | `from foundry.v2.aip_agents.errors import StreamingContinueSessionPermissionDenied` |
+**Connectivity** | ChangingBranchNameNotSupportedForImports | `from foundry.v2.connectivity.errors import ChangingBranchNameNotSupportedForImports` |
+**Connectivity** | ChangingOutputDatasetNotSupportedForImports | `from foundry.v2.connectivity.errors import ChangingOutputDatasetNotSupportedForImports` |
+**Connectivity** | ConnectionDetailsNotDetermined | `from foundry.v2.connectivity.errors import ConnectionDetailsNotDetermined` |
+**Connectivity** | ConnectionNotFound | `from foundry.v2.connectivity.errors import ConnectionNotFound` |
+**Connectivity** | ConnectionTypeNotSupported | `from foundry.v2.connectivity.errors import ConnectionTypeNotSupported` |
+**Connectivity** | CreateConnectionPermissionDenied | `from foundry.v2.connectivity.errors import CreateConnectionPermissionDenied` |
+**Connectivity** | CreateFileImportPermissionDenied | `from foundry.v2.connectivity.errors import CreateFileImportPermissionDenied` |
+**Connectivity** | CreateTableImportPermissionDenied | `from foundry.v2.connectivity.errors import CreateTableImportPermissionDenied` |
+**Connectivity** | DeleteFileImportPermissionDenied | `from foundry.v2.connectivity.errors import DeleteFileImportPermissionDenied` |
+**Connectivity** | DeleteTableImportPermissionDenied | `from foundry.v2.connectivity.errors import DeleteTableImportPermissionDenied` |
+**Connectivity** | EncryptedPropertyMustBeSpecifiedAsPlaintextValue | `from foundry.v2.connectivity.errors import EncryptedPropertyMustBeSpecifiedAsPlaintextValue` |
+**Connectivity** | ExecuteFileImportPermissionDenied | `from foundry.v2.connectivity.errors import ExecuteFileImportPermissionDenied` |
+**Connectivity** | ExecuteTableImportPermissionDenied | `from foundry.v2.connectivity.errors import ExecuteTableImportPermissionDenied` |
+**Connectivity** | FileAtLeastCountFilterInvalidMinCount | `from foundry.v2.connectivity.errors import FileAtLeastCountFilterInvalidMinCount` |
+**Connectivity** | FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports | `from foundry.v2.connectivity.errors import FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports` |
+**Connectivity** | FileImportNotFound | `from foundry.v2.connectivity.errors import FileImportNotFound` |
+**Connectivity** | FileImportNotSupportedForConnection | `from foundry.v2.connectivity.errors import FileImportNotSupportedForConnection` |
+**Connectivity** | FilesCountLimitFilterInvalidLimit | `from foundry.v2.connectivity.errors import FilesCountLimitFilterInvalidLimit` |
+**Connectivity** | FileSizeFilterGreaterThanCannotBeNegative | `from foundry.v2.connectivity.errors import FileSizeFilterGreaterThanCannotBeNegative` |
+**Connectivity** | FileSizeFilterInvalidGreaterThanAndLessThanRange | `from foundry.v2.connectivity.errors import FileSizeFilterInvalidGreaterThanAndLessThanRange` |
+**Connectivity** | FileSizeFilterLessThanMustBeOneByteOrLarger | `from foundry.v2.connectivity.errors import FileSizeFilterLessThanMustBeOneByteOrLarger` |
+**Connectivity** | FileSizeFilterMissingGreaterThanAndLessThan | `from foundry.v2.connectivity.errors import FileSizeFilterMissingGreaterThanAndLessThan` |
+**Connectivity** | ParentFolderNotFoundForConnection | `from foundry.v2.connectivity.errors import ParentFolderNotFoundForConnection` |
+**Connectivity** | PropertyCannotBeBlank | `from foundry.v2.connectivity.errors import PropertyCannotBeBlank` |
+**Connectivity** | ReplaceFileImportPermissionDenied | `from foundry.v2.connectivity.errors import ReplaceFileImportPermissionDenied` |
+**Connectivity** | SecretNamesDoNotExist | `from foundry.v2.connectivity.errors import SecretNamesDoNotExist` |
+**Connectivity** | TableImportNotFound | `from foundry.v2.connectivity.errors import TableImportNotFound` |
+**Connectivity** | TableImportNotSupportedForConnection | `from foundry.v2.connectivity.errors import TableImportNotSupportedForConnection` |
+**Connectivity** | TableImportTypeNotSupported | `from foundry.v2.connectivity.errors import TableImportTypeNotSupported` |
+**Connectivity** | UpdateSecretsForConnectionPermissionDenied | `from foundry.v2.connectivity.errors import UpdateSecretsForConnectionPermissionDenied` |
+**Core** | ApiFeaturePreviewUsageOnly | `from foundry.v2.core.errors import ApiFeaturePreviewUsageOnly` |
+**Core** | ApiUsageDenied | `from foundry.v2.core.errors import ApiUsageDenied` |
+**Core** | BatchRequestSizeExceededLimit | `from foundry.v2.core.errors import BatchRequestSizeExceededLimit` |
+**Core** | FolderNotFound | `from foundry.v2.core.errors import FolderNotFound` |
+**Core** | InvalidAndFilter | `from foundry.v2.core.errors import InvalidAndFilter` |
+**Core** | InvalidChangeDataCaptureConfiguration | `from foundry.v2.core.errors import InvalidChangeDataCaptureConfiguration` |
+**Core** | InvalidFieldSchema | `from foundry.v2.core.errors import InvalidFieldSchema` |
+**Core** | InvalidFilterValue | `from foundry.v2.core.errors import InvalidFilterValue` |
+**Core** | InvalidOrFilter | `from foundry.v2.core.errors import InvalidOrFilter` |
+**Core** | InvalidPageSize | `from foundry.v2.core.errors import InvalidPageSize` |
+**Core** | InvalidPageToken | `from foundry.v2.core.errors import InvalidPageToken` |
+**Core** | InvalidParameterCombination | `from foundry.v2.core.errors import InvalidParameterCombination` |
+**Core** | InvalidSchema | `from foundry.v2.core.errors import InvalidSchema` |
+**Core** | InvalidTimeZone | `from foundry.v2.core.errors import InvalidTimeZone` |
+**Core** | MissingBatchRequest | `from foundry.v2.core.errors import MissingBatchRequest` |
+**Core** | MissingPostBody | `from foundry.v2.core.errors import MissingPostBody` |
+**Core** | ResourceNameAlreadyExists | `from foundry.v2.core.errors import ResourceNameAlreadyExists` |
+**Core** | SchemaIsNotStreamSchema | `from foundry.v2.core.errors import SchemaIsNotStreamSchema` |
+**Core** | UnknownDistanceUnit | `from foundry.v2.core.errors import UnknownDistanceUnit` |
+**Datasets** | AbortTransactionPermissionDenied | `from foundry.v2.datasets.errors import AbortTransactionPermissionDenied` |
+**Datasets** | BranchAlreadyExists | `from foundry.v2.datasets.errors import BranchAlreadyExists` |
+**Datasets** | BranchNotFound | `from foundry.v2.datasets.errors import BranchNotFound` |
+**Datasets** | ColumnTypesNotSupported | `from foundry.v2.datasets.errors import ColumnTypesNotSupported` |
+**Datasets** | CommitTransactionPermissionDenied | `from foundry.v2.datasets.errors import CommitTransactionPermissionDenied` |
+**Datasets** | CreateBranchPermissionDenied | `from foundry.v2.datasets.errors import CreateBranchPermissionDenied` |
+**Datasets** | CreateDatasetPermissionDenied | `from foundry.v2.datasets.errors import CreateDatasetPermissionDenied` |
+**Datasets** | CreateTransactionPermissionDenied | `from foundry.v2.datasets.errors import CreateTransactionPermissionDenied` |
+**Datasets** | DatasetNotFound | `from foundry.v2.datasets.errors import DatasetNotFound` |
+**Datasets** | DatasetReadNotSupported | `from foundry.v2.datasets.errors import DatasetReadNotSupported` |
+**Datasets** | DeleteBranchPermissionDenied | `from foundry.v2.datasets.errors import DeleteBranchPermissionDenied` |
+**Datasets** | DeleteFilePermissionDenied | `from foundry.v2.datasets.errors import DeleteFilePermissionDenied` |
+**Datasets** | DeleteSchemaPermissionDenied | `from foundry.v2.datasets.errors import DeleteSchemaPermissionDenied` |
+**Datasets** | FileAlreadyExists | `from foundry.v2.datasets.errors import FileAlreadyExists` |
+**Datasets** | FileNotFound | `from foundry.v2.datasets.errors import FileNotFound` |
+**Datasets** | FileNotFoundOnBranch | `from foundry.v2.datasets.errors import FileNotFoundOnBranch` |
+**Datasets** | FileNotFoundOnTransactionRange | `from foundry.v2.datasets.errors import FileNotFoundOnTransactionRange` |
+**Datasets** | GetFileContentPermissionDenied | `from foundry.v2.datasets.errors import GetFileContentPermissionDenied` |
+**Datasets** | InvalidBranchName | `from foundry.v2.datasets.errors import InvalidBranchName` |
+**Datasets** | InvalidTransactionType | `from foundry.v2.datasets.errors import InvalidTransactionType` |
+**Datasets** | OpenTransactionAlreadyExists | `from foundry.v2.datasets.errors import OpenTransactionAlreadyExists` |
+**Datasets** | PutSchemaPermissionDenied | `from foundry.v2.datasets.errors import PutSchemaPermissionDenied` |
+**Datasets** | ReadTableDatasetPermissionDenied | `from foundry.v2.datasets.errors import ReadTableDatasetPermissionDenied` |
+**Datasets** | ReadTableError | `from foundry.v2.datasets.errors import ReadTableError` |
+**Datasets** | ReadTableRowLimitExceeded | `from foundry.v2.datasets.errors import ReadTableRowLimitExceeded` |
+**Datasets** | ReadTableTimeout | `from foundry.v2.datasets.errors import ReadTableTimeout` |
+**Datasets** | SchemaNotFound | `from foundry.v2.datasets.errors import SchemaNotFound` |
+**Datasets** | TransactionNotCommitted | `from foundry.v2.datasets.errors import TransactionNotCommitted` |
+**Datasets** | TransactionNotFound | `from foundry.v2.datasets.errors import TransactionNotFound` |
+**Datasets** | TransactionNotOpen | `from foundry.v2.datasets.errors import TransactionNotOpen` |
+**Datasets** | UploadFilePermissionDenied | `from foundry.v2.datasets.errors import UploadFilePermissionDenied` |
+**Filesystem** | AddGroupToParentGroupPermissionDenied | `from foundry.v2.filesystem.errors import AddGroupToParentGroupPermissionDenied` |
+**Filesystem** | AddMarkingsPermissionDenied | `from foundry.v2.filesystem.errors import AddMarkingsPermissionDenied` |
+**Filesystem** | AddOrganizationsPermissionDenied | `from foundry.v2.filesystem.errors import AddOrganizationsPermissionDenied` |
+**Filesystem** | AddResourceRolesPermissionDenied | `from foundry.v2.filesystem.errors import AddResourceRolesPermissionDenied` |
+**Filesystem** | CreateFolderOutsideProjectNotSupported | `from foundry.v2.filesystem.errors import CreateFolderOutsideProjectNotSupported` |
+**Filesystem** | CreateFolderPermissionDenied | `from foundry.v2.filesystem.errors import CreateFolderPermissionDenied` |
+**Filesystem** | CreateGroupPermissionDenied | `from foundry.v2.filesystem.errors import CreateGroupPermissionDenied` |
+**Filesystem** | CreateProjectFromTemplatePermissionDenied | `from foundry.v2.filesystem.errors import CreateProjectFromTemplatePermissionDenied` |
+**Filesystem** | CreateProjectNoOwnerLikeRoleGrant | `from foundry.v2.filesystem.errors import CreateProjectNoOwnerLikeRoleGrant` |
+**Filesystem** | CreateProjectPermissionDenied | `from foundry.v2.filesystem.errors import CreateProjectPermissionDenied` |
+**Filesystem** | DefaultRolesNotInSpaceRoleSet | `from foundry.v2.filesystem.errors import DefaultRolesNotInSpaceRoleSet` |
+**Filesystem** | DeleteResourcePermissionDenied | `from foundry.v2.filesystem.errors import DeleteResourcePermissionDenied` |
+**Filesystem** | FolderNotFound | `from foundry.v2.filesystem.errors import FolderNotFound` |
+**Filesystem** | ForbiddenOperationOnAutosavedResource | `from foundry.v2.filesystem.errors import ForbiddenOperationOnAutosavedResource` |
+**Filesystem** | ForbiddenOperationOnHiddenResource | `from foundry.v2.filesystem.errors import ForbiddenOperationOnHiddenResource` |
+**Filesystem** | GetAccessRequirementsPermissionDenied | `from foundry.v2.filesystem.errors import GetAccessRequirementsPermissionDenied` |
+**Filesystem** | GetByPathPermissionDenied | `from foundry.v2.filesystem.errors import GetByPathPermissionDenied` |
+**Filesystem** | GetRootFolderNotSupported | `from foundry.v2.filesystem.errors import GetRootFolderNotSupported` |
+**Filesystem** | GetSpaceResourceNotSupported | `from foundry.v2.filesystem.errors import GetSpaceResourceNotSupported` |
+**Filesystem** | InvalidDefaultRoles | `from foundry.v2.filesystem.errors import InvalidDefaultRoles` |
+**Filesystem** | InvalidDescription | `from foundry.v2.filesystem.errors import InvalidDescription` |
+**Filesystem** | InvalidDisplayName | `from foundry.v2.filesystem.errors import InvalidDisplayName` |
+**Filesystem** | InvalidFolder | `from foundry.v2.filesystem.errors import InvalidFolder` |
+**Filesystem** | InvalidOrganizationHierarchy | `from foundry.v2.filesystem.errors import InvalidOrganizationHierarchy` |
+**Filesystem** | InvalidOrganizations | `from foundry.v2.filesystem.errors import InvalidOrganizations` |
+**Filesystem** | InvalidPath | `from foundry.v2.filesystem.errors import InvalidPath` |
+**Filesystem** | InvalidPrincipalIdsForGroupTemplate | `from foundry.v2.filesystem.errors import InvalidPrincipalIdsForGroupTemplate` |
+**Filesystem** | InvalidRoleIds | `from foundry.v2.filesystem.errors import InvalidRoleIds` |
+**Filesystem** | InvalidVariable | `from foundry.v2.filesystem.errors import InvalidVariable` |
+**Filesystem** | InvalidVariableEnumOption | `from foundry.v2.filesystem.errors import InvalidVariableEnumOption` |
+**Filesystem** | MarkingNotFound | `from foundry.v2.filesystem.errors import MarkingNotFound` |
+**Filesystem** | MissingDisplayName | `from foundry.v2.filesystem.errors import MissingDisplayName` |
+**Filesystem** | MissingVariableValue | `from foundry.v2.filesystem.errors import MissingVariableValue` |
+**Filesystem** | NotAuthorizedToApplyOrganization | `from foundry.v2.filesystem.errors import NotAuthorizedToApplyOrganization` |
+**Filesystem** | OrganizationMarkingNotOnSpace | `from foundry.v2.filesystem.errors import OrganizationMarkingNotOnSpace` |
+**Filesystem** | OrganizationMarkingNotSupported | `from foundry.v2.filesystem.errors import OrganizationMarkingNotSupported` |
+**Filesystem** | OrganizationsNotFound | `from foundry.v2.filesystem.errors import OrganizationsNotFound` |
+**Filesystem** | PathNotFound | `from foundry.v2.filesystem.errors import PathNotFound` |
+**Filesystem** | PermanentlyDeleteResourcePermissionDenied | `from foundry.v2.filesystem.errors import PermanentlyDeleteResourcePermissionDenied` |
+**Filesystem** | ProjectCreationNotSupported | `from foundry.v2.filesystem.errors import ProjectCreationNotSupported` |
+**Filesystem** | ProjectNameAlreadyExists | `from foundry.v2.filesystem.errors import ProjectNameAlreadyExists` |
+**Filesystem** | ProjectNotFound | `from foundry.v2.filesystem.errors import ProjectNotFound` |
+**Filesystem** | ProjectTemplateNotFound | `from foundry.v2.filesystem.errors import ProjectTemplateNotFound` |
+**Filesystem** | RemoveMarkingsPermissionDenied | `from foundry.v2.filesystem.errors import RemoveMarkingsPermissionDenied` |
+**Filesystem** | RemoveOrganizationsPermissionDenied | `from foundry.v2.filesystem.errors import RemoveOrganizationsPermissionDenied` |
+**Filesystem** | RemoveResourceRolesPermissionDenied | `from foundry.v2.filesystem.errors import RemoveResourceRolesPermissionDenied` |
+**Filesystem** | ResourceNameAlreadyExists | `from foundry.v2.filesystem.errors import ResourceNameAlreadyExists` |
+**Filesystem** | ResourceNotDirectlyTrashed | `from foundry.v2.filesystem.errors import ResourceNotDirectlyTrashed` |
+**Filesystem** | ResourceNotFound | `from foundry.v2.filesystem.errors import ResourceNotFound` |
+**Filesystem** | ResourceNotTrashed | `from foundry.v2.filesystem.errors import ResourceNotTrashed` |
+**Filesystem** | RestoreResourcePermissionDenied | `from foundry.v2.filesystem.errors import RestoreResourcePermissionDenied` |
+**Filesystem** | SpaceNotFound | `from foundry.v2.filesystem.errors import SpaceNotFound` |
+**Filesystem** | TemplateGroupNameConflict | `from foundry.v2.filesystem.errors import TemplateGroupNameConflict` |
+**Filesystem** | TemplateMarkingNameConflict | `from foundry.v2.filesystem.errors import TemplateMarkingNameConflict` |
+**Filesystem** | TrashingAutosavedResourcesNotSupported | `from foundry.v2.filesystem.errors import TrashingAutosavedResourcesNotSupported` |
+**Filesystem** | TrashingHiddenResourcesNotSupported | `from foundry.v2.filesystem.errors import TrashingHiddenResourcesNotSupported` |
+**Filesystem** | TrashingSpaceNotSupported | `from foundry.v2.filesystem.errors import TrashingSpaceNotSupported` |
+**Functions** | ExecuteQueryPermissionDenied | `from foundry.v2.functions.errors import ExecuteQueryPermissionDenied` |
+**Functions** | GetByRidQueriesPermissionDenied | `from foundry.v2.functions.errors import GetByRidQueriesPermissionDenied` |
+**Functions** | InvalidQueryParameterValue | `from foundry.v2.functions.errors import InvalidQueryParameterValue` |
+**Functions** | MissingParameter | `from foundry.v2.functions.errors import MissingParameter` |
+**Functions** | QueryEncounteredUserFacingError | `from foundry.v2.functions.errors import QueryEncounteredUserFacingError` |
+**Functions** | QueryMemoryExceededLimit | `from foundry.v2.functions.errors import QueryMemoryExceededLimit` |
+**Functions** | QueryNotFound | `from foundry.v2.functions.errors import QueryNotFound` |
+**Functions** | QueryRuntimeError | `from foundry.v2.functions.errors import QueryRuntimeError` |
+**Functions** | QueryTimeExceededLimit | `from foundry.v2.functions.errors import QueryTimeExceededLimit` |
+**Functions** | UnknownParameter | `from foundry.v2.functions.errors import UnknownParameter` |
+**Functions** | ValueTypeNotFound | `from foundry.v2.functions.errors import ValueTypeNotFound` |
+**Functions** | VersionIdNotFound | `from foundry.v2.functions.errors import VersionIdNotFound` |
+**MediaSets** | ConflictingMediaSetIdentifiers | `from foundry.v2.media_sets.errors import ConflictingMediaSetIdentifiers` |
+**MediaSets** | MediaItemNotFound | `from foundry.v2.media_sets.errors import MediaItemNotFound` |
+**Ontologies** | ActionContainsDuplicateEdits | `from foundry.v2.ontologies.errors import ActionContainsDuplicateEdits` |
+**Ontologies** | ActionEditedPropertiesNotFound | `from foundry.v2.ontologies.errors import ActionEditedPropertiesNotFound` |
+**Ontologies** | ActionEditsReadOnlyEntity | `from foundry.v2.ontologies.errors import ActionEditsReadOnlyEntity` |
+**Ontologies** | ActionNotFound | `from foundry.v2.ontologies.errors import ActionNotFound` |
+**Ontologies** | ActionParameterInterfaceTypeNotFound | `from foundry.v2.ontologies.errors import ActionParameterInterfaceTypeNotFound` |
+**Ontologies** | ActionParameterObjectNotFound | `from foundry.v2.ontologies.errors import ActionParameterObjectNotFound` |
+**Ontologies** | ActionParameterObjectTypeNotFound | `from foundry.v2.ontologies.errors import ActionParameterObjectTypeNotFound` |
+**Ontologies** | ActionTypeNotFound | `from foundry.v2.ontologies.errors import ActionTypeNotFound` |
+**Ontologies** | ActionValidationFailed | `from foundry.v2.ontologies.errors import ActionValidationFailed` |
+**Ontologies** | AggregationGroupCountExceededLimit | `from foundry.v2.ontologies.errors import AggregationGroupCountExceededLimit` |
+**Ontologies** | AggregationMemoryExceededLimit | `from foundry.v2.ontologies.errors import AggregationMemoryExceededLimit` |
+**Ontologies** | AggregationNestedObjectSetSizeExceededLimit | `from foundry.v2.ontologies.errors import AggregationNestedObjectSetSizeExceededLimit` |
+**Ontologies** | ApplyActionFailed | `from foundry.v2.ontologies.errors import ApplyActionFailed` |
+**Ontologies** | AttachmentNotFound | `from foundry.v2.ontologies.errors import AttachmentNotFound` |
+**Ontologies** | AttachmentSizeExceededLimit | `from foundry.v2.ontologies.errors import AttachmentSizeExceededLimit` |
+**Ontologies** | CompositePrimaryKeyNotSupported | `from foundry.v2.ontologies.errors import CompositePrimaryKeyNotSupported` |
+**Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry.v2.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
+**Ontologies** | DuplicateOrderBy | `from foundry.v2.ontologies.errors import DuplicateOrderBy` |
+**Ontologies** | EditObjectPermissionDenied | `from foundry.v2.ontologies.errors import EditObjectPermissionDenied` |
+**Ontologies** | FunctionEncounteredUserFacingError | `from foundry.v2.ontologies.errors import FunctionEncounteredUserFacingError` |
+**Ontologies** | FunctionExecutionFailed | `from foundry.v2.ontologies.errors import FunctionExecutionFailed` |
+**Ontologies** | FunctionExecutionTimedOut | `from foundry.v2.ontologies.errors import FunctionExecutionTimedOut` |
+**Ontologies** | FunctionInvalidInput | `from foundry.v2.ontologies.errors import FunctionInvalidInput` |
+**Ontologies** | InterfaceTypeNotFound | `from foundry.v2.ontologies.errors import InterfaceTypeNotFound` |
+**Ontologies** | InterfaceTypesNotFound | `from foundry.v2.ontologies.errors import InterfaceTypesNotFound` |
+**Ontologies** | InvalidAggregationOrdering | `from foundry.v2.ontologies.errors import InvalidAggregationOrdering` |
+**Ontologies** | InvalidAggregationRange | `from foundry.v2.ontologies.errors import InvalidAggregationRange` |
+**Ontologies** | InvalidAggregationRangePropertyType | `from foundry.v2.ontologies.errors import InvalidAggregationRangePropertyType` |
+**Ontologies** | InvalidAggregationRangeValue | `from foundry.v2.ontologies.errors import InvalidAggregationRangeValue` |
+**Ontologies** | InvalidApplyActionOptionCombination | `from foundry.v2.ontologies.errors import InvalidApplyActionOptionCombination` |
+**Ontologies** | InvalidContentLength | `from foundry.v2.ontologies.errors import InvalidContentLength` |
+**Ontologies** | InvalidContentType | `from foundry.v2.ontologies.errors import InvalidContentType` |
+**Ontologies** | InvalidDurationGroupByPropertyType | `from foundry.v2.ontologies.errors import InvalidDurationGroupByPropertyType` |
+**Ontologies** | InvalidDurationGroupByValue | `from foundry.v2.ontologies.errors import InvalidDurationGroupByValue` |
+**Ontologies** | InvalidFields | `from foundry.v2.ontologies.errors import InvalidFields` |
+**Ontologies** | InvalidGroupId | `from foundry.v2.ontologies.errors import InvalidGroupId` |
+**Ontologies** | InvalidOrderType | `from foundry.v2.ontologies.errors import InvalidOrderType` |
+**Ontologies** | InvalidParameterValue | `from foundry.v2.ontologies.errors import InvalidParameterValue` |
+**Ontologies** | InvalidPropertyFiltersCombination | `from foundry.v2.ontologies.errors import InvalidPropertyFiltersCombination` |
+**Ontologies** | InvalidPropertyFilterValue | `from foundry.v2.ontologies.errors import InvalidPropertyFilterValue` |
+**Ontologies** | InvalidPropertyType | `from foundry.v2.ontologies.errors import InvalidPropertyType` |
+**Ontologies** | InvalidPropertyValue | `from foundry.v2.ontologies.errors import InvalidPropertyValue` |
+**Ontologies** | InvalidQueryParameterValue | `from foundry.v2.ontologies.errors import InvalidQueryParameterValue` |
+**Ontologies** | InvalidRangeQuery | `from foundry.v2.ontologies.errors import InvalidRangeQuery` |
+**Ontologies** | InvalidSortOrder | `from foundry.v2.ontologies.errors import InvalidSortOrder` |
+**Ontologies** | InvalidSortType | `from foundry.v2.ontologies.errors import InvalidSortType` |
+**Ontologies** | InvalidUserId | `from foundry.v2.ontologies.errors import InvalidUserId` |
+**Ontologies** | LinkAlreadyExists | `from foundry.v2.ontologies.errors import LinkAlreadyExists` |
+**Ontologies** | LinkedObjectNotFound | `from foundry.v2.ontologies.errors import LinkedObjectNotFound` |
+**Ontologies** | LinkTypeNotFound | `from foundry.v2.ontologies.errors import LinkTypeNotFound` |
+**Ontologies** | MalformedPropertyFilters | `from foundry.v2.ontologies.errors import MalformedPropertyFilters` |
+**Ontologies** | MarketplaceActionMappingNotFound | `from foundry.v2.ontologies.errors import MarketplaceActionMappingNotFound` |
+**Ontologies** | MarketplaceInstallationNotFound | `from foundry.v2.ontologies.errors import MarketplaceInstallationNotFound` |
+**Ontologies** | MarketplaceLinkMappingNotFound | `from foundry.v2.ontologies.errors import MarketplaceLinkMappingNotFound` |
+**Ontologies** | MarketplaceObjectMappingNotFound | `from foundry.v2.ontologies.errors import MarketplaceObjectMappingNotFound` |
+**Ontologies** | MarketplaceQueryMappingNotFound | `from foundry.v2.ontologies.errors import MarketplaceQueryMappingNotFound` |
+**Ontologies** | MissingParameter | `from foundry.v2.ontologies.errors import MissingParameter` |
+**Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry.v2.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
+**Ontologies** | MultiplePropertyValuesNotSupported | `from foundry.v2.ontologies.errors import MultiplePropertyValuesNotSupported` |
+**Ontologies** | ObjectAlreadyExists | `from foundry.v2.ontologies.errors import ObjectAlreadyExists` |
+**Ontologies** | ObjectChanged | `from foundry.v2.ontologies.errors import ObjectChanged` |
+**Ontologies** | ObjectNotFound | `from foundry.v2.ontologies.errors import ObjectNotFound` |
+**Ontologies** | ObjectSetNotFound | `from foundry.v2.ontologies.errors import ObjectSetNotFound` |
+**Ontologies** | ObjectsExceededLimit | `from foundry.v2.ontologies.errors import ObjectsExceededLimit` |
+**Ontologies** | ObjectTypeNotFound | `from foundry.v2.ontologies.errors import ObjectTypeNotFound` |
+**Ontologies** | ObjectTypeNotSynced | `from foundry.v2.ontologies.errors import ObjectTypeNotSynced` |
+**Ontologies** | ObjectTypesNotSynced | `from foundry.v2.ontologies.errors import ObjectTypesNotSynced` |
+**Ontologies** | OntologyApiNameNotUnique | `from foundry.v2.ontologies.errors import OntologyApiNameNotUnique` |
+**Ontologies** | OntologyEditsExceededLimit | `from foundry.v2.ontologies.errors import OntologyEditsExceededLimit` |
+**Ontologies** | OntologyNotFound | `from foundry.v2.ontologies.errors import OntologyNotFound` |
+**Ontologies** | OntologySyncing | `from foundry.v2.ontologies.errors import OntologySyncing` |
+**Ontologies** | OntologySyncingObjectTypes | `from foundry.v2.ontologies.errors import OntologySyncingObjectTypes` |
+**Ontologies** | ParameterObjectNotFound | `from foundry.v2.ontologies.errors import ParameterObjectNotFound` |
+**Ontologies** | ParameterObjectSetRidNotFound | `from foundry.v2.ontologies.errors import ParameterObjectSetRidNotFound` |
+**Ontologies** | ParametersNotFound | `from foundry.v2.ontologies.errors import ParametersNotFound` |
+**Ontologies** | ParameterTypeNotSupported | `from foundry.v2.ontologies.errors import ParameterTypeNotSupported` |
+**Ontologies** | ParentAttachmentPermissionDenied | `from foundry.v2.ontologies.errors import ParentAttachmentPermissionDenied` |
+**Ontologies** | PropertiesHaveDifferentIds | `from foundry.v2.ontologies.errors import PropertiesHaveDifferentIds` |
+**Ontologies** | PropertiesNotFilterable | `from foundry.v2.ontologies.errors import PropertiesNotFilterable` |
+**Ontologies** | PropertiesNotFound | `from foundry.v2.ontologies.errors import PropertiesNotFound` |
+**Ontologies** | PropertiesNotSearchable | `from foundry.v2.ontologies.errors import PropertiesNotSearchable` |
+**Ontologies** | PropertiesNotSortable | `from foundry.v2.ontologies.errors import PropertiesNotSortable` |
+**Ontologies** | PropertyApiNameNotFound | `from foundry.v2.ontologies.errors import PropertyApiNameNotFound` |
+**Ontologies** | PropertyBaseTypeNotSupported | `from foundry.v2.ontologies.errors import PropertyBaseTypeNotSupported` |
+**Ontologies** | PropertyFiltersNotSupported | `from foundry.v2.ontologies.errors import PropertyFiltersNotSupported` |
+**Ontologies** | PropertyNotFound | `from foundry.v2.ontologies.errors import PropertyNotFound` |
+**Ontologies** | PropertyTypeDoesNotSupportNearestNeighbors | `from foundry.v2.ontologies.errors import PropertyTypeDoesNotSupportNearestNeighbors` |
+**Ontologies** | PropertyTypeNotFound | `from foundry.v2.ontologies.errors import PropertyTypeNotFound` |
+**Ontologies** | PropertyTypesSearchNotSupported | `from foundry.v2.ontologies.errors import PropertyTypesSearchNotSupported` |
+**Ontologies** | QueryEncounteredUserFacingError | `from foundry.v2.ontologies.errors import QueryEncounteredUserFacingError` |
+**Ontologies** | QueryMemoryExceededLimit | `from foundry.v2.ontologies.errors import QueryMemoryExceededLimit` |
+**Ontologies** | QueryNotFound | `from foundry.v2.ontologies.errors import QueryNotFound` |
+**Ontologies** | QueryRuntimeError | `from foundry.v2.ontologies.errors import QueryRuntimeError` |
+**Ontologies** | QueryTimeExceededLimit | `from foundry.v2.ontologies.errors import QueryTimeExceededLimit` |
+**Ontologies** | SearchVectorDimensionsDiffer | `from foundry.v2.ontologies.errors import SearchVectorDimensionsDiffer` |
+**Ontologies** | SharedPropertiesNotFound | `from foundry.v2.ontologies.errors import SharedPropertiesNotFound` |
+**Ontologies** | SharedPropertyTypeNotFound | `from foundry.v2.ontologies.errors import SharedPropertyTypeNotFound` |
+**Ontologies** | TooManyNearestNeighborsRequested | `from foundry.v2.ontologies.errors import TooManyNearestNeighborsRequested` |
+**Ontologies** | UnknownParameter | `from foundry.v2.ontologies.errors import UnknownParameter` |
+**Ontologies** | UnsupportedObjectSet | `from foundry.v2.ontologies.errors import UnsupportedObjectSet` |
+**Ontologies** | ViewObjectPermissionDenied | `from foundry.v2.ontologies.errors import ViewObjectPermissionDenied` |
+**Orchestration** | BuildInputsNotFound | `from foundry.v2.orchestration.errors import BuildInputsNotFound` |
+**Orchestration** | BuildInputsPermissionDenied | `from foundry.v2.orchestration.errors import BuildInputsPermissionDenied` |
+**Orchestration** | BuildNotFound | `from foundry.v2.orchestration.errors import BuildNotFound` |
+**Orchestration** | BuildTargetsMissingJobSpecs | `from foundry.v2.orchestration.errors import BuildTargetsMissingJobSpecs` |
+**Orchestration** | BuildTargetsNotFound | `from foundry.v2.orchestration.errors import BuildTargetsNotFound` |
+**Orchestration** | BuildTargetsPermissionDenied | `from foundry.v2.orchestration.errors import BuildTargetsPermissionDenied` |
+**Orchestration** | BuildTargetsResolutionError | `from foundry.v2.orchestration.errors import BuildTargetsResolutionError` |
+**Orchestration** | CancelBuildPermissionDenied | `from foundry.v2.orchestration.errors import CancelBuildPermissionDenied` |
+**Orchestration** | CreateBuildsPermissionDenied | `from foundry.v2.orchestration.errors import CreateBuildsPermissionDenied` |
+**Orchestration** | CreateSchedulePermissionDenied | `from foundry.v2.orchestration.errors import CreateSchedulePermissionDenied` |
+**Orchestration** | DeleteSchedulePermissionDenied | `from foundry.v2.orchestration.errors import DeleteSchedulePermissionDenied` |
+**Orchestration** | InvalidAndTrigger | `from foundry.v2.orchestration.errors import InvalidAndTrigger` |
+**Orchestration** | InvalidMediaSetTrigger | `from foundry.v2.orchestration.errors import InvalidMediaSetTrigger` |
+**Orchestration** | InvalidOrTrigger | `from foundry.v2.orchestration.errors import InvalidOrTrigger` |
+**Orchestration** | InvalidScheduleDescription | `from foundry.v2.orchestration.errors import InvalidScheduleDescription` |
+**Orchestration** | InvalidScheduleName | `from foundry.v2.orchestration.errors import InvalidScheduleName` |
+**Orchestration** | InvalidTimeTrigger | `from foundry.v2.orchestration.errors import InvalidTimeTrigger` |
+**Orchestration** | JobNotFound | `from foundry.v2.orchestration.errors import JobNotFound` |
+**Orchestration** | MissingBuildTargets | `from foundry.v2.orchestration.errors import MissingBuildTargets` |
+**Orchestration** | MissingConnectingBuildInputs | `from foundry.v2.orchestration.errors import MissingConnectingBuildInputs` |
+**Orchestration** | MissingTrigger | `from foundry.v2.orchestration.errors import MissingTrigger` |
+**Orchestration** | PauseSchedulePermissionDenied | `from foundry.v2.orchestration.errors import PauseSchedulePermissionDenied` |
+**Orchestration** | ReplaceSchedulePermissionDenied | `from foundry.v2.orchestration.errors import ReplaceSchedulePermissionDenied` |
+**Orchestration** | RunSchedulePermissionDenied | `from foundry.v2.orchestration.errors import RunSchedulePermissionDenied` |
+**Orchestration** | ScheduleNotFound | `from foundry.v2.orchestration.errors import ScheduleNotFound` |
+**Orchestration** | ScheduleTriggerResourcesNotFound | `from foundry.v2.orchestration.errors import ScheduleTriggerResourcesNotFound` |
+**Orchestration** | ScheduleTriggerResourcesPermissionDenied | `from foundry.v2.orchestration.errors import ScheduleTriggerResourcesPermissionDenied` |
+**Orchestration** | ScheduleVersionNotFound | `from foundry.v2.orchestration.errors import ScheduleVersionNotFound` |
+**Orchestration** | SearchBuildsPermissionDenied | `from foundry.v2.orchestration.errors import SearchBuildsPermissionDenied` |
+**Orchestration** | TargetNotSupported | `from foundry.v2.orchestration.errors import TargetNotSupported` |
+**Orchestration** | UnpauseSchedulePermissionDenied | `from foundry.v2.orchestration.errors import UnpauseSchedulePermissionDenied` |
+**Streams** | CannotCreateStreamingDatasetInUserFolder | `from foundry.v2.streams.errors import CannotCreateStreamingDatasetInUserFolder` |
+**Streams** | CannotWriteToTrashedStream | `from foundry.v2.streams.errors import CannotWriteToTrashedStream` |
+**Streams** | CreateStreamingDatasetPermissionDenied | `from foundry.v2.streams.errors import CreateStreamingDatasetPermissionDenied` |
+**Streams** | CreateStreamPermissionDenied | `from foundry.v2.streams.errors import CreateStreamPermissionDenied` |
+**Streams** | FailedToProcessBinaryRecord | `from foundry.v2.streams.errors import FailedToProcessBinaryRecord` |
+**Streams** | InvalidStreamNoSchema | `from foundry.v2.streams.errors import InvalidStreamNoSchema` |
+**Streams** | InvalidStreamType | `from foundry.v2.streams.errors import InvalidStreamType` |
+**Streams** | PublishBinaryRecordToStreamPermissionDenied | `from foundry.v2.streams.errors import PublishBinaryRecordToStreamPermissionDenied` |
+**Streams** | PublishRecordsToStreamPermissionDenied | `from foundry.v2.streams.errors import PublishRecordsToStreamPermissionDenied` |
+**Streams** | PublishRecordToStreamPermissionDenied | `from foundry.v2.streams.errors import PublishRecordToStreamPermissionDenied` |
+**Streams** | RecordDoesNotMatchStreamSchema | `from foundry.v2.streams.errors import RecordDoesNotMatchStreamSchema` |
+**Streams** | RecordTooLarge | `from foundry.v2.streams.errors import RecordTooLarge` |
+**Streams** | ResetStreamPermissionDenied | `from foundry.v2.streams.errors import ResetStreamPermissionDenied` |
+**Streams** | StreamNotFound | `from foundry.v2.streams.errors import StreamNotFound` |
+**Streams** | ViewNotFound | `from foundry.v2.streams.errors import ViewNotFound` |
+**ThirdPartyApplications** | CannotDeleteDeployedVersion | `from foundry.v2.third_party_applications.errors import CannotDeleteDeployedVersion` |
+**ThirdPartyApplications** | DeleteVersionPermissionDenied | `from foundry.v2.third_party_applications.errors import DeleteVersionPermissionDenied` |
+**ThirdPartyApplications** | DeployWebsitePermissionDenied | `from foundry.v2.third_party_applications.errors import DeployWebsitePermissionDenied` |
+**ThirdPartyApplications** | FileCountLimitExceeded | `from foundry.v2.third_party_applications.errors import FileCountLimitExceeded` |
+**ThirdPartyApplications** | FileSizeLimitExceeded | `from foundry.v2.third_party_applications.errors import FileSizeLimitExceeded` |
+**ThirdPartyApplications** | InvalidVersion | `from foundry.v2.third_party_applications.errors import InvalidVersion` |
+**ThirdPartyApplications** | ThirdPartyApplicationNotFound | `from foundry.v2.third_party_applications.errors import ThirdPartyApplicationNotFound` |
+**ThirdPartyApplications** | UndeployWebsitePermissionDenied | `from foundry.v2.third_party_applications.errors import UndeployWebsitePermissionDenied` |
+**ThirdPartyApplications** | UploadSnapshotVersionPermissionDenied | `from foundry.v2.third_party_applications.errors import UploadSnapshotVersionPermissionDenied` |
+**ThirdPartyApplications** | UploadVersionPermissionDenied | `from foundry.v2.third_party_applications.errors import UploadVersionPermissionDenied` |
+**ThirdPartyApplications** | VersionAlreadyExists | `from foundry.v2.third_party_applications.errors import VersionAlreadyExists` |
+**ThirdPartyApplications** | VersionLimitExceeded | `from foundry.v2.third_party_applications.errors import VersionLimitExceeded` |
+**ThirdPartyApplications** | VersionNotFound | `from foundry.v2.third_party_applications.errors import VersionNotFound` |
+**ThirdPartyApplications** | WebsiteNotFound | `from foundry.v2.third_party_applications.errors import WebsiteNotFound` |
+<a id="errors-v1-link"></a>
+## Documentation for V1 errors
+
+Namespace | Name | Import |
+--------- | ---- | ------ |
+**Core** | ApiFeaturePreviewUsageOnly | `from foundry.v1.core.errors import ApiFeaturePreviewUsageOnly` |
+**Core** | ApiUsageDenied | `from foundry.v1.core.errors import ApiUsageDenied` |
+**Core** | FolderNotFound | `from foundry.v1.core.errors import FolderNotFound` |
+**Core** | InvalidPageSize | `from foundry.v1.core.errors import InvalidPageSize` |
+**Core** | InvalidPageToken | `from foundry.v1.core.errors import InvalidPageToken` |
+**Core** | InvalidParameterCombination | `from foundry.v1.core.errors import InvalidParameterCombination` |
+**Core** | MissingPostBody | `from foundry.v1.core.errors import MissingPostBody` |
+**Core** | ResourceNameAlreadyExists | `from foundry.v1.core.errors import ResourceNameAlreadyExists` |
+**Core** | UnknownDistanceUnit | `from foundry.v1.core.errors import UnknownDistanceUnit` |
+**Datasets** | AbortTransactionPermissionDenied | `from foundry.v1.datasets.errors import AbortTransactionPermissionDenied` |
+**Datasets** | BranchAlreadyExists | `from foundry.v1.datasets.errors import BranchAlreadyExists` |
+**Datasets** | BranchNotFound | `from foundry.v1.datasets.errors import BranchNotFound` |
+**Datasets** | ColumnTypesNotSupported | `from foundry.v1.datasets.errors import ColumnTypesNotSupported` |
+**Datasets** | CommitTransactionPermissionDenied | `from foundry.v1.datasets.errors import CommitTransactionPermissionDenied` |
+**Datasets** | CreateBranchPermissionDenied | `from foundry.v1.datasets.errors import CreateBranchPermissionDenied` |
+**Datasets** | CreateDatasetPermissionDenied | `from foundry.v1.datasets.errors import CreateDatasetPermissionDenied` |
+**Datasets** | CreateTransactionPermissionDenied | `from foundry.v1.datasets.errors import CreateTransactionPermissionDenied` |
+**Datasets** | DatasetNotFound | `from foundry.v1.datasets.errors import DatasetNotFound` |
+**Datasets** | DatasetReadNotSupported | `from foundry.v1.datasets.errors import DatasetReadNotSupported` |
+**Datasets** | DeleteBranchPermissionDenied | `from foundry.v1.datasets.errors import DeleteBranchPermissionDenied` |
+**Datasets** | DeleteSchemaPermissionDenied | `from foundry.v1.datasets.errors import DeleteSchemaPermissionDenied` |
+**Datasets** | FileAlreadyExists | `from foundry.v1.datasets.errors import FileAlreadyExists` |
+**Datasets** | FileNotFoundOnBranch | `from foundry.v1.datasets.errors import FileNotFoundOnBranch` |
+**Datasets** | FileNotFoundOnTransactionRange | `from foundry.v1.datasets.errors import FileNotFoundOnTransactionRange` |
+**Datasets** | InvalidBranchId | `from foundry.v1.datasets.errors import InvalidBranchId` |
+**Datasets** | InvalidTransactionType | `from foundry.v1.datasets.errors import InvalidTransactionType` |
+**Datasets** | OpenTransactionAlreadyExists | `from foundry.v1.datasets.errors import OpenTransactionAlreadyExists` |
+**Datasets** | PutSchemaPermissionDenied | `from foundry.v1.datasets.errors import PutSchemaPermissionDenied` |
+**Datasets** | ReadTablePermissionDenied | `from foundry.v1.datasets.errors import ReadTablePermissionDenied` |
+**Datasets** | SchemaNotFound | `from foundry.v1.datasets.errors import SchemaNotFound` |
+**Datasets** | TransactionNotCommitted | `from foundry.v1.datasets.errors import TransactionNotCommitted` |
+**Datasets** | TransactionNotFound | `from foundry.v1.datasets.errors import TransactionNotFound` |
+**Datasets** | TransactionNotOpen | `from foundry.v1.datasets.errors import TransactionNotOpen` |
+**Datasets** | UploadFilePermissionDenied | `from foundry.v1.datasets.errors import UploadFilePermissionDenied` |
+**Ontologies** | ActionContainsDuplicateEdits | `from foundry.v1.ontologies.errors import ActionContainsDuplicateEdits` |
+**Ontologies** | ActionEditedPropertiesNotFound | `from foundry.v1.ontologies.errors import ActionEditedPropertiesNotFound` |
+**Ontologies** | ActionEditsReadOnlyEntity | `from foundry.v1.ontologies.errors import ActionEditsReadOnlyEntity` |
+**Ontologies** | ActionNotFound | `from foundry.v1.ontologies.errors import ActionNotFound` |
+**Ontologies** | ActionParameterInterfaceTypeNotFound | `from foundry.v1.ontologies.errors import ActionParameterInterfaceTypeNotFound` |
+**Ontologies** | ActionParameterObjectNotFound | `from foundry.v1.ontologies.errors import ActionParameterObjectNotFound` |
+**Ontologies** | ActionParameterObjectTypeNotFound | `from foundry.v1.ontologies.errors import ActionParameterObjectTypeNotFound` |
+**Ontologies** | ActionTypeNotFound | `from foundry.v1.ontologies.errors import ActionTypeNotFound` |
+**Ontologies** | ActionValidationFailed | `from foundry.v1.ontologies.errors import ActionValidationFailed` |
+**Ontologies** | AggregationGroupCountExceededLimit | `from foundry.v1.ontologies.errors import AggregationGroupCountExceededLimit` |
+**Ontologies** | AggregationMemoryExceededLimit | `from foundry.v1.ontologies.errors import AggregationMemoryExceededLimit` |
+**Ontologies** | AggregationNestedObjectSetSizeExceededLimit | `from foundry.v1.ontologies.errors import AggregationNestedObjectSetSizeExceededLimit` |
+**Ontologies** | ApplyActionFailed | `from foundry.v1.ontologies.errors import ApplyActionFailed` |
+**Ontologies** | AttachmentNotFound | `from foundry.v1.ontologies.errors import AttachmentNotFound` |
+**Ontologies** | AttachmentSizeExceededLimit | `from foundry.v1.ontologies.errors import AttachmentSizeExceededLimit` |
+**Ontologies** | CompositePrimaryKeyNotSupported | `from foundry.v1.ontologies.errors import CompositePrimaryKeyNotSupported` |
+**Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry.v1.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
+**Ontologies** | DuplicateOrderBy | `from foundry.v1.ontologies.errors import DuplicateOrderBy` |
+**Ontologies** | EditObjectPermissionDenied | `from foundry.v1.ontologies.errors import EditObjectPermissionDenied` |
+**Ontologies** | FunctionEncounteredUserFacingError | `from foundry.v1.ontologies.errors import FunctionEncounteredUserFacingError` |
+**Ontologies** | FunctionExecutionFailed | `from foundry.v1.ontologies.errors import FunctionExecutionFailed` |
+**Ontologies** | FunctionExecutionTimedOut | `from foundry.v1.ontologies.errors import FunctionExecutionTimedOut` |
+**Ontologies** | FunctionInvalidInput | `from foundry.v1.ontologies.errors import FunctionInvalidInput` |
+**Ontologies** | InterfaceTypeNotFound | `from foundry.v1.ontologies.errors import InterfaceTypeNotFound` |
+**Ontologies** | InterfaceTypesNotFound | `from foundry.v1.ontologies.errors import InterfaceTypesNotFound` |
+**Ontologies** | InvalidAggregationOrdering | `from foundry.v1.ontologies.errors import InvalidAggregationOrdering` |
+**Ontologies** | InvalidAggregationRange | `from foundry.v1.ontologies.errors import InvalidAggregationRange` |
+**Ontologies** | InvalidAggregationRangePropertyType | `from foundry.v1.ontologies.errors import InvalidAggregationRangePropertyType` |
+**Ontologies** | InvalidAggregationRangeValue | `from foundry.v1.ontologies.errors import InvalidAggregationRangeValue` |
+**Ontologies** | InvalidApplyActionOptionCombination | `from foundry.v1.ontologies.errors import InvalidApplyActionOptionCombination` |
+**Ontologies** | InvalidContentLength | `from foundry.v1.ontologies.errors import InvalidContentLength` |
+**Ontologies** | InvalidContentType | `from foundry.v1.ontologies.errors import InvalidContentType` |
+**Ontologies** | InvalidDurationGroupByPropertyType | `from foundry.v1.ontologies.errors import InvalidDurationGroupByPropertyType` |
+**Ontologies** | InvalidDurationGroupByValue | `from foundry.v1.ontologies.errors import InvalidDurationGroupByValue` |
+**Ontologies** | InvalidFields | `from foundry.v1.ontologies.errors import InvalidFields` |
+**Ontologies** | InvalidGroupId | `from foundry.v1.ontologies.errors import InvalidGroupId` |
+**Ontologies** | InvalidOrderType | `from foundry.v1.ontologies.errors import InvalidOrderType` |
+**Ontologies** | InvalidParameterValue | `from foundry.v1.ontologies.errors import InvalidParameterValue` |
+**Ontologies** | InvalidPropertyFiltersCombination | `from foundry.v1.ontologies.errors import InvalidPropertyFiltersCombination` |
+**Ontologies** | InvalidPropertyFilterValue | `from foundry.v1.ontologies.errors import InvalidPropertyFilterValue` |
+**Ontologies** | InvalidPropertyType | `from foundry.v1.ontologies.errors import InvalidPropertyType` |
+**Ontologies** | InvalidPropertyValue | `from foundry.v1.ontologies.errors import InvalidPropertyValue` |
+**Ontologies** | InvalidQueryParameterValue | `from foundry.v1.ontologies.errors import InvalidQueryParameterValue` |
+**Ontologies** | InvalidRangeQuery | `from foundry.v1.ontologies.errors import InvalidRangeQuery` |
+**Ontologies** | InvalidSortOrder | `from foundry.v1.ontologies.errors import InvalidSortOrder` |
+**Ontologies** | InvalidSortType | `from foundry.v1.ontologies.errors import InvalidSortType` |
+**Ontologies** | InvalidUserId | `from foundry.v1.ontologies.errors import InvalidUserId` |
+**Ontologies** | LinkAlreadyExists | `from foundry.v1.ontologies.errors import LinkAlreadyExists` |
+**Ontologies** | LinkedObjectNotFound | `from foundry.v1.ontologies.errors import LinkedObjectNotFound` |
+**Ontologies** | LinkTypeNotFound | `from foundry.v1.ontologies.errors import LinkTypeNotFound` |
+**Ontologies** | MalformedPropertyFilters | `from foundry.v1.ontologies.errors import MalformedPropertyFilters` |
+**Ontologies** | MarketplaceActionMappingNotFound | `from foundry.v1.ontologies.errors import MarketplaceActionMappingNotFound` |
+**Ontologies** | MarketplaceInstallationNotFound | `from foundry.v1.ontologies.errors import MarketplaceInstallationNotFound` |
+**Ontologies** | MarketplaceLinkMappingNotFound | `from foundry.v1.ontologies.errors import MarketplaceLinkMappingNotFound` |
+**Ontologies** | MarketplaceObjectMappingNotFound | `from foundry.v1.ontologies.errors import MarketplaceObjectMappingNotFound` |
+**Ontologies** | MarketplaceQueryMappingNotFound | `from foundry.v1.ontologies.errors import MarketplaceQueryMappingNotFound` |
+**Ontologies** | MissingParameter | `from foundry.v1.ontologies.errors import MissingParameter` |
+**Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry.v1.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
+**Ontologies** | MultiplePropertyValuesNotSupported | `from foundry.v1.ontologies.errors import MultiplePropertyValuesNotSupported` |
+**Ontologies** | ObjectAlreadyExists | `from foundry.v1.ontologies.errors import ObjectAlreadyExists` |
+**Ontologies** | ObjectChanged | `from foundry.v1.ontologies.errors import ObjectChanged` |
+**Ontologies** | ObjectNotFound | `from foundry.v1.ontologies.errors import ObjectNotFound` |
+**Ontologies** | ObjectSetNotFound | `from foundry.v1.ontologies.errors import ObjectSetNotFound` |
+**Ontologies** | ObjectsExceededLimit | `from foundry.v1.ontologies.errors import ObjectsExceededLimit` |
+**Ontologies** | ObjectTypeNotFound | `from foundry.v1.ontologies.errors import ObjectTypeNotFound` |
+**Ontologies** | ObjectTypeNotSynced | `from foundry.v1.ontologies.errors import ObjectTypeNotSynced` |
+**Ontologies** | ObjectTypesNotSynced | `from foundry.v1.ontologies.errors import ObjectTypesNotSynced` |
+**Ontologies** | OntologyApiNameNotUnique | `from foundry.v1.ontologies.errors import OntologyApiNameNotUnique` |
+**Ontologies** | OntologyEditsExceededLimit | `from foundry.v1.ontologies.errors import OntologyEditsExceededLimit` |
+**Ontologies** | OntologyNotFound | `from foundry.v1.ontologies.errors import OntologyNotFound` |
+**Ontologies** | OntologySyncing | `from foundry.v1.ontologies.errors import OntologySyncing` |
+**Ontologies** | OntologySyncingObjectTypes | `from foundry.v1.ontologies.errors import OntologySyncingObjectTypes` |
+**Ontologies** | ParameterObjectNotFound | `from foundry.v1.ontologies.errors import ParameterObjectNotFound` |
+**Ontologies** | ParameterObjectSetRidNotFound | `from foundry.v1.ontologies.errors import ParameterObjectSetRidNotFound` |
+**Ontologies** | ParametersNotFound | `from foundry.v1.ontologies.errors import ParametersNotFound` |
+**Ontologies** | ParameterTypeNotSupported | `from foundry.v1.ontologies.errors import ParameterTypeNotSupported` |
+**Ontologies** | ParentAttachmentPermissionDenied | `from foundry.v1.ontologies.errors import ParentAttachmentPermissionDenied` |
+**Ontologies** | PropertiesHaveDifferentIds | `from foundry.v1.ontologies.errors import PropertiesHaveDifferentIds` |
+**Ontologies** | PropertiesNotFilterable | `from foundry.v1.ontologies.errors import PropertiesNotFilterable` |
+**Ontologies** | PropertiesNotFound | `from foundry.v1.ontologies.errors import PropertiesNotFound` |
+**Ontologies** | PropertiesNotSearchable | `from foundry.v1.ontologies.errors import PropertiesNotSearchable` |
+**Ontologies** | PropertiesNotSortable | `from foundry.v1.ontologies.errors import PropertiesNotSortable` |
+**Ontologies** | PropertyApiNameNotFound | `from foundry.v1.ontologies.errors import PropertyApiNameNotFound` |
+**Ontologies** | PropertyBaseTypeNotSupported | `from foundry.v1.ontologies.errors import PropertyBaseTypeNotSupported` |
+**Ontologies** | PropertyFiltersNotSupported | `from foundry.v1.ontologies.errors import PropertyFiltersNotSupported` |
+**Ontologies** | PropertyNotFound | `from foundry.v1.ontologies.errors import PropertyNotFound` |
+**Ontologies** | PropertyTypeDoesNotSupportNearestNeighbors | `from foundry.v1.ontologies.errors import PropertyTypeDoesNotSupportNearestNeighbors` |
+**Ontologies** | PropertyTypeNotFound | `from foundry.v1.ontologies.errors import PropertyTypeNotFound` |
+**Ontologies** | PropertyTypesSearchNotSupported | `from foundry.v1.ontologies.errors import PropertyTypesSearchNotSupported` |
+**Ontologies** | QueryEncounteredUserFacingError | `from foundry.v1.ontologies.errors import QueryEncounteredUserFacingError` |
+**Ontologies** | QueryMemoryExceededLimit | `from foundry.v1.ontologies.errors import QueryMemoryExceededLimit` |
+**Ontologies** | QueryNotFound | `from foundry.v1.ontologies.errors import QueryNotFound` |
+**Ontologies** | QueryRuntimeError | `from foundry.v1.ontologies.errors import QueryRuntimeError` |
+**Ontologies** | QueryTimeExceededLimit | `from foundry.v1.ontologies.errors import QueryTimeExceededLimit` |
+**Ontologies** | SearchVectorDimensionsDiffer | `from foundry.v1.ontologies.errors import SearchVectorDimensionsDiffer` |
+**Ontologies** | SharedPropertiesNotFound | `from foundry.v1.ontologies.errors import SharedPropertiesNotFound` |
+**Ontologies** | SharedPropertyTypeNotFound | `from foundry.v1.ontologies.errors import SharedPropertyTypeNotFound` |
+**Ontologies** | TooManyNearestNeighborsRequested | `from foundry.v1.ontologies.errors import TooManyNearestNeighborsRequested` |
+**Ontologies** | UnknownParameter | `from foundry.v1.ontologies.errors import UnknownParameter` |
+**Ontologies** | UnsupportedObjectSet | `from foundry.v1.ontologies.errors import UnsupportedObjectSet` |
+**Ontologies** | ViewObjectPermissionDenied | `from foundry.v1.ontologies.errors import ViewObjectPermissionDenied` |
 
 
 ## Contributions

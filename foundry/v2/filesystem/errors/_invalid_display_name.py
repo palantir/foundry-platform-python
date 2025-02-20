@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
 
 
@@ -37,7 +36,7 @@ class InvalidDisplayNameParameters(TypedDict):
 
 
 @dataclass
-class InvalidDisplayName(PalantirRPCException):
+class InvalidDisplayName(BadRequestError):
     name: Literal["InvalidDisplayName"]
     parameters: InvalidDisplayNameParameters
     error_instance_id: str

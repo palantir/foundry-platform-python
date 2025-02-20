@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._message_id import MessageId
 from foundry.v2.aip_agents.models._session_rid import SessionRid
@@ -44,14 +43,13 @@ class CancelSessionFailedMessageNotInProgressParameters(TypedDict):
 
     messageId: MessageId
     """The message identifier that was requested for cancellation."""
-
     agentRid: AgentRid
 
     sessionRid: SessionRid
 
 
 @dataclass
-class CancelSessionFailedMessageNotInProgress(PalantirRPCException):
+class CancelSessionFailedMessageNotInProgress(BadRequestError):
     name: Literal["CancelSessionFailedMessageNotInProgress"]
     parameters: CancelSessionFailedMessageNotInProgressParameters
     error_instance_id: str

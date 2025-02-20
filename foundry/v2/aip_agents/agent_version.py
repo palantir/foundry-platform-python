@@ -32,6 +32,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.aip_agents import errors as aip_agents_errors
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._agent_version import AgentVersion
 from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
@@ -87,6 +88,8 @@ class AgentVersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: AgentVersion
+
+        :raises AgentVersionNotFound: The given AgentVersion could not be found.
         """
 
         return self._api_client.call_api(
@@ -107,6 +110,9 @@ class AgentVersionClient:
                 body_type=None,
                 response_type=AgentVersion,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
+                },
             ),
         ).decode()
 
@@ -159,6 +165,7 @@ class AgentVersionClient:
                 body_type=None,
                 response_type=ListAgentVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -217,6 +224,7 @@ class AgentVersionClient:
                 body_type=None,
                 response_type=ListAgentVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -261,6 +269,8 @@ class _AgentVersionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[AgentVersion]
+
+        :raises AgentVersionNotFound: The given AgentVersion could not be found.
         """
 
         return self._api_client.call_api(
@@ -281,6 +291,9 @@ class _AgentVersionClientRaw:
                 body_type=None,
                 response_type=AgentVersion,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
+                },
             ),
         )
 
@@ -333,6 +346,7 @@ class _AgentVersionClientRaw:
                 body_type=None,
                 response_type=ListAgentVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -391,6 +405,7 @@ class _AgentVersionClientRaw:
                 body_type=None,
                 response_type=ListAgentVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -435,6 +450,8 @@ class _AgentVersionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[AgentVersion]
+
+        :raises AgentVersionNotFound: The given AgentVersion could not be found.
         """
 
         return self._api_client.stream_api(
@@ -455,6 +472,9 @@ class _AgentVersionClientStreaming:
                 body_type=None,
                 response_type=AgentVersion,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
+                },
             ),
         )
 
@@ -507,6 +527,7 @@ class _AgentVersionClientStreaming:
                 body_type=None,
                 response_type=ListAgentVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -565,5 +586,6 @@ class _AgentVersionClientStreaming:
                 body_type=None,
                 response_type=ListAgentVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

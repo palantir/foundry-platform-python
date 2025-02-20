@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class FilesCountLimitFilterInvalidLimitParameters(TypedDict):
@@ -33,7 +32,7 @@ class FilesCountLimitFilterInvalidLimitParameters(TypedDict):
 
 
 @dataclass
-class FilesCountLimitFilterInvalidLimit(PalantirRPCException):
+class FilesCountLimitFilterInvalidLimit(BadRequestError):
     name: Literal["FilesCountLimitFilterInvalidLimit"]
     parameters: FilesCountLimitFilterInvalidLimitParameters
     error_instance_id: str

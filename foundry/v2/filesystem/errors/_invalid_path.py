@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.filesystem.models._resource_path import ResourcePath
 
 
@@ -38,7 +37,7 @@ class InvalidPathParameters(TypedDict):
 
 
 @dataclass
-class InvalidPath(PalantirRPCException):
+class InvalidPath(BadRequestError):
     name: Literal["InvalidPath"]
     parameters: InvalidPathParameters
     error_instance_id: str

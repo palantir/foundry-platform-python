@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
@@ -35,7 +34,7 @@ class OrganizationsNotFoundParameters(TypedDict):
 
 
 @dataclass
-class OrganizationsNotFound(PalantirRPCException):
+class OrganizationsNotFound(NotFoundError):
     name: Literal["OrganizationsNotFound"]
     parameters: OrganizationsNotFoundParameters
     error_instance_id: str

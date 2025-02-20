@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import ConflictError
 from foundry.v1.datasets.models._branch_id import BranchId
 from foundry.v1.datasets.models._dataset_rid import DatasetRid
 
@@ -37,7 +36,7 @@ class BranchAlreadyExistsParameters(TypedDict):
 
 
 @dataclass
-class BranchAlreadyExists(PalantirRPCException):
+class BranchAlreadyExists(ConflictError):
     name: Literal["BranchAlreadyExists"]
     parameters: BranchAlreadyExistsParameters
     error_instance_id: str

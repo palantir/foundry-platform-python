@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.core.models._file_path import FilePath
 from foundry.v1.datasets.models._dataset_rid import DatasetRid
 from foundry.v1.datasets.models._transaction_rid import TransactionRid
@@ -43,7 +42,7 @@ class FileNotFoundOnTransactionRangeParameters(TypedDict):
 
 
 @dataclass
-class FileNotFoundOnTransactionRange(PalantirRPCException):
+class FileNotFoundOnTransactionRange(NotFoundError):
     name: Literal["FileNotFoundOnTransactionRange"]
     parameters: FileNotFoundOnTransactionRangeParameters
     error_instance_id: str

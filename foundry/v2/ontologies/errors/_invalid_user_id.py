@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidUserIdParameters(TypedDict):
@@ -33,7 +32,7 @@ class InvalidUserIdParameters(TypedDict):
 
 
 @dataclass
-class InvalidUserId(PalantirRPCException):
+class InvalidUserId(BadRequestError):
     name: Literal["InvalidUserId"]
     parameters: InvalidUserIdParameters
     error_instance_id: str

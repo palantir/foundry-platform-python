@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import ConflictError
 
 
 class TemplateMarkingNameConflictParameters(TypedDict):
@@ -34,7 +33,7 @@ class TemplateMarkingNameConflictParameters(TypedDict):
 
 
 @dataclass
-class TemplateMarkingNameConflict(PalantirRPCException):
+class TemplateMarkingNameConflict(ConflictError):
     name: Literal["TemplateMarkingNameConflict"]
     parameters: TemplateMarkingNameConflictParameters
     error_instance_id: str

@@ -30,6 +30,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.host import HostClient
 from foundry.v2.admin.models._enrollment import Enrollment
 from foundry.v2.core.models._enrollment_rid import EnrollmentRid
@@ -78,6 +79,8 @@ class EnrollmentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Enrollment
+
+        :raises EnrollmentNotFound: The given Enrollment could not be found.
         """
 
         return self._api_client.call_api(
@@ -97,6 +100,9 @@ class EnrollmentClient:
                 body_type=None,
                 response_type=Enrollment,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
+                },
             ),
         ).decode()
 
@@ -118,6 +124,8 @@ class EnrollmentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Enrollment
+
+        :raises GetCurrentEnrollmentPermissionDenied: Could not getCurrent the Enrollment.
         """
 
         return self._api_client.call_api(
@@ -135,6 +143,9 @@ class EnrollmentClient:
                 body_type=None,
                 response_type=Enrollment,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetCurrentEnrollmentPermissionDenied": admin_errors.GetCurrentEnrollmentPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -176,6 +187,8 @@ class _EnrollmentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Enrollment]
+
+        :raises EnrollmentNotFound: The given Enrollment could not be found.
         """
 
         return self._api_client.call_api(
@@ -195,6 +208,9 @@ class _EnrollmentClientRaw:
                 body_type=None,
                 response_type=Enrollment,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
+                },
             ),
         )
 
@@ -216,6 +232,8 @@ class _EnrollmentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Enrollment]
+
+        :raises GetCurrentEnrollmentPermissionDenied: Could not getCurrent the Enrollment.
         """
 
         return self._api_client.call_api(
@@ -233,6 +251,9 @@ class _EnrollmentClientRaw:
                 body_type=None,
                 response_type=Enrollment,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetCurrentEnrollmentPermissionDenied": admin_errors.GetCurrentEnrollmentPermissionDenied,
+                },
             ),
         )
 
@@ -274,6 +295,8 @@ class _EnrollmentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Enrollment]
+
+        :raises EnrollmentNotFound: The given Enrollment could not be found.
         """
 
         return self._api_client.stream_api(
@@ -293,6 +316,9 @@ class _EnrollmentClientStreaming:
                 body_type=None,
                 response_type=Enrollment,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
+                },
             ),
         )
 
@@ -314,6 +340,8 @@ class _EnrollmentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Enrollment]
+
+        :raises GetCurrentEnrollmentPermissionDenied: Could not getCurrent the Enrollment.
         """
 
         return self._api_client.stream_api(
@@ -331,5 +359,8 @@ class _EnrollmentClientStreaming:
                 body_type=None,
                 response_type=Enrollment,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetCurrentEnrollmentPermissionDenied": admin_errors.GetCurrentEnrollmentPermissionDenied,
+                },
             ),
         )

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import ConflictError
 
 
 class ObjectChangedParameters(TypedDict):
@@ -31,7 +30,7 @@ class ObjectChangedParameters(TypedDict):
 
 
 @dataclass
-class ObjectChanged(PalantirRPCException):
+class ObjectChanged(ConflictError):
     name: Literal["ObjectChanged"]
     parameters: ObjectChangedParameters
     error_instance_id: str

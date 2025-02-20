@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 
 
@@ -37,7 +36,7 @@ class NoPublishedAgentVersionParameters(TypedDict):
 
 
 @dataclass
-class NoPublishedAgentVersion(PalantirRPCException):
+class NoPublishedAgentVersion(BadRequestError):
     name: Literal["NoPublishedAgentVersion"]
     parameters: NoPublishedAgentVersionParameters
     error_instance_id: str

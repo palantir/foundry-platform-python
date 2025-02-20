@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._data_value import DataValue
 from foundry.v2.ontologies.models._parameter_id import ParameterId
 from foundry.v2.ontologies.models._query_data_type_dict import QueryDataTypeDict
@@ -44,7 +43,7 @@ class InvalidQueryParameterValueParameters(TypedDict):
 
 
 @dataclass
-class InvalidQueryParameterValue(PalantirRPCException):
+class InvalidQueryParameterValue(BadRequestError):
     name: Literal["InvalidQueryParameterValue"]
     parameters: InvalidQueryParameterValueParameters
     error_instance_id: str

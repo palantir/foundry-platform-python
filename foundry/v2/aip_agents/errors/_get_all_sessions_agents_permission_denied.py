@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class GetAllSessionsAgentsPermissionDeniedParameters(TypedDict):
@@ -34,7 +33,7 @@ class GetAllSessionsAgentsPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class GetAllSessionsAgentsPermissionDenied(PalantirRPCException):
+class GetAllSessionsAgentsPermissionDenied(PermissionDeniedError):
     name: Literal["GetAllSessionsAgentsPermissionDenied"]
     parameters: GetAllSessionsAgentsPermissionDeniedParameters
     error_instance_id: str

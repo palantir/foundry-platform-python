@@ -31,6 +31,7 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.functions import errors as functions_errors
 from foundry.v2.functions.models._value_type import ValueType
 from foundry.v2.functions.models._value_type_rid import ValueTypeRid
 from foundry.v2.functions.version_id import VersionIdClient
@@ -79,6 +80,8 @@ class ValueTypeClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ValueType
+
+        :raises ValueTypeNotFound: The given ValueType could not be found.
         """
 
         return self._api_client.call_api(
@@ -98,6 +101,9 @@ class ValueTypeClient:
                 body_type=None,
                 response_type=ValueType,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ValueTypeNotFound": functions_errors.ValueTypeNotFound,
+                },
             ),
         ).decode()
 
@@ -140,6 +146,8 @@ class _ValueTypeClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ValueType]
+
+        :raises ValueTypeNotFound: The given ValueType could not be found.
         """
 
         return self._api_client.call_api(
@@ -159,6 +167,9 @@ class _ValueTypeClientRaw:
                 body_type=None,
                 response_type=ValueType,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ValueTypeNotFound": functions_errors.ValueTypeNotFound,
+                },
             ),
         )
 
@@ -201,6 +212,8 @@ class _ValueTypeClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ValueType]
+
+        :raises ValueTypeNotFound: The given ValueType could not be found.
         """
 
         return self._api_client.stream_api(
@@ -220,5 +233,8 @@ class _ValueTypeClientStreaming:
                 body_type=None,
                 response_type=ValueType,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ValueTypeNotFound": functions_errors.ValueTypeNotFound,
+                },
             ),
         )

@@ -31,6 +31,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._provider_id import ProviderId
 from foundry.v2.admin.models._user_provider_info import UserProviderInfo
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -80,6 +81,8 @@ class UserProviderInfoClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: UserProviderInfo
+
+        :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
 
         return self._api_client.call_api(
@@ -99,6 +102,9 @@ class UserProviderInfoClient:
                 body_type=None,
                 response_type=UserProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
+                },
             ),
         ).decode()
 
@@ -125,6 +131,8 @@ class UserProviderInfoClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: UserProviderInfo
+
+        :raises ReplaceUserProviderInfoPermissionDenied: Could not replace the UserProviderInfo.
         """
 
         return self._api_client.call_api(
@@ -152,6 +160,9 @@ class UserProviderInfoClient:
                 ),
                 response_type=UserProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceUserProviderInfoPermissionDenied": admin_errors.ReplaceUserProviderInfoPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -193,6 +204,8 @@ class _UserProviderInfoClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[UserProviderInfo]
+
+        :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
 
         return self._api_client.call_api(
@@ -212,6 +225,9 @@ class _UserProviderInfoClientRaw:
                 body_type=None,
                 response_type=UserProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
+                },
             ),
         )
 
@@ -238,6 +254,8 @@ class _UserProviderInfoClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[UserProviderInfo]
+
+        :raises ReplaceUserProviderInfoPermissionDenied: Could not replace the UserProviderInfo.
         """
 
         return self._api_client.call_api(
@@ -265,6 +283,9 @@ class _UserProviderInfoClientRaw:
                 ),
                 response_type=UserProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceUserProviderInfoPermissionDenied": admin_errors.ReplaceUserProviderInfoPermissionDenied,
+                },
             ),
         )
 
@@ -306,6 +327,8 @@ class _UserProviderInfoClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[UserProviderInfo]
+
+        :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
 
         return self._api_client.stream_api(
@@ -325,6 +348,9 @@ class _UserProviderInfoClientStreaming:
                 body_type=None,
                 response_type=UserProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
+                },
             ),
         )
 
@@ -351,6 +377,8 @@ class _UserProviderInfoClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[UserProviderInfo]
+
+        :raises ReplaceUserProviderInfoPermissionDenied: Could not replace the UserProviderInfo.
         """
 
         return self._api_client.stream_api(
@@ -378,5 +406,8 @@ class _UserProviderInfoClientStreaming:
                 ),
                 response_type=UserProviderInfo,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ReplaceUserProviderInfoPermissionDenied": admin_errors.ReplaceUserProviderInfoPermissionDenied,
+                },
             ),
         )

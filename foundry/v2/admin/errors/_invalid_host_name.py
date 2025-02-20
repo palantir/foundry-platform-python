@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidHostNameParameters(TypedDict):
@@ -33,7 +32,7 @@ class InvalidHostNameParameters(TypedDict):
 
 
 @dataclass
-class InvalidHostName(PalantirRPCException):
+class InvalidHostName(BadRequestError):
     name: Literal["InvalidHostName"]
     parameters: InvalidHostNameParameters
     error_instance_id: str

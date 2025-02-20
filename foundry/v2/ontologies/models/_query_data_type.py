@@ -37,6 +37,7 @@ from foundry.v2.core.models._timestamp_type import TimestampType
 from foundry.v2.core.models._unsupported_type import UnsupportedType
 from foundry.v2.ontologies.models._ontology_object_set_type import OntologyObjectSetType
 from foundry.v2.ontologies.models._ontology_object_type import OntologyObjectType
+from foundry.v2.ontologies.models._query_data_type_dict import EntrySetTypeDict
 from foundry.v2.ontologies.models._query_data_type_dict import QueryArrayTypeDict
 from foundry.v2.ontologies.models._query_data_type_dict import QuerySetTypeDict
 from foundry.v2.ontologies.models._query_data_type_dict import QueryStructFieldDict
@@ -92,6 +93,22 @@ class QuerySetType(pydantic.BaseModel):
         return cast(QuerySetTypeDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
+class EntrySetType(pydantic.BaseModel):
+    """EntrySetType"""
+
+    key_type: QueryDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
+
+    value_type: QueryDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
+
+    type: Literal["entrySet"] = "entrySet"
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> EntrySetTypeDict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return cast(EntrySetTypeDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
 class QueryUnionType(pydantic.BaseModel):
     """QueryUnionType"""
 
@@ -126,6 +143,7 @@ QueryDataType = Annotated[
         QueryStructType,
         QuerySetType,
         StringType,
+        EntrySetType,
         DoubleType,
         IntegerType,
         ThreeDimensionalAggregation,

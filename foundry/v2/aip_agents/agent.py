@@ -32,6 +32,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.aip_agents import errors as aip_agents_errors
 from foundry.v2.aip_agents.agent_version import AgentVersionClient
 from foundry.v2.aip_agents.models._agent import Agent
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
@@ -92,6 +93,8 @@ class AgentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ResourceIterator[Session]
+
+        :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         return self._api_client.iterate_api(
@@ -111,6 +114,9 @@ class AgentClient:
                 body_type=None,
                 response_type=AgentsSessionsPage,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
+                },
             ),
         )
 
@@ -139,6 +145,8 @@ class AgentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: AgentsSessionsPage
+
+        :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         warnings.warn(
@@ -164,6 +172,9 @@ class AgentClient:
                 body_type=None,
                 response_type=AgentsSessionsPage,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -190,6 +201,10 @@ class AgentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Agent
+
+        :raises AgentNotFound: The given Agent could not be found.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
         """
 
         return self._api_client.call_api(
@@ -210,6 +225,11 @@ class AgentClient:
                 body_type=None,
                 response_type=Agent,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
+                    "InvalidAgentVersion": aip_agents_errors.InvalidAgentVersion,
+                    "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
+                },
             ),
         ).decode()
 
@@ -256,6 +276,8 @@ class _AgentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[AgentsSessionsPage]
+
+        :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         return self._api_client.call_api(
@@ -275,6 +297,9 @@ class _AgentClientRaw:
                 body_type=None,
                 response_type=AgentsSessionsPage,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
+                },
             ),
         )
 
@@ -303,6 +328,8 @@ class _AgentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[AgentsSessionsPage]
+
+        :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         warnings.warn(
@@ -328,6 +355,9 @@ class _AgentClientRaw:
                 body_type=None,
                 response_type=AgentsSessionsPage,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
+                },
             ),
         )
 
@@ -354,6 +384,10 @@ class _AgentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Agent]
+
+        :raises AgentNotFound: The given Agent could not be found.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
         """
 
         return self._api_client.call_api(
@@ -374,6 +408,11 @@ class _AgentClientRaw:
                 body_type=None,
                 response_type=Agent,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
+                    "InvalidAgentVersion": aip_agents_errors.InvalidAgentVersion,
+                    "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
+                },
             ),
         )
 
@@ -420,6 +459,8 @@ class _AgentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[AgentsSessionsPage]
+
+        :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         return self._api_client.stream_api(
@@ -439,6 +480,9 @@ class _AgentClientStreaming:
                 body_type=None,
                 response_type=AgentsSessionsPage,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
+                },
             ),
         )
 
@@ -467,6 +511,8 @@ class _AgentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[AgentsSessionsPage]
+
+        :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         warnings.warn(
@@ -492,6 +538,9 @@ class _AgentClientStreaming:
                 body_type=None,
                 response_type=AgentsSessionsPage,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
+                },
             ),
         )
 
@@ -518,6 +567,10 @@ class _AgentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Agent]
+
+        :raises AgentNotFound: The given Agent could not be found.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
         """
 
         return self._api_client.stream_api(
@@ -538,5 +591,10 @@ class _AgentClientStreaming:
                 body_type=None,
                 response_type=Agent,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
+                    "InvalidAgentVersion": aip_agents_errors.InvalidAgentVersion,
+                    "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
+                },
             ),
         )

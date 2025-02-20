@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.core.models._file_path import FilePath
 from foundry.v1.datasets.models._branch_id import BranchId
 from foundry.v1.datasets.models._dataset_rid import DatasetRid
@@ -40,7 +39,7 @@ class FileNotFoundOnBranchParameters(TypedDict):
 
 
 @dataclass
-class FileNotFoundOnBranch(PalantirRPCException):
+class FileNotFoundOnBranch(NotFoundError):
     name: Literal["FileNotFoundOnBranch"]
     parameters: FileNotFoundOnBranchParameters
     error_instance_id: str

@@ -32,6 +32,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._host import Host
 from foundry.v2.admin.models._list_hosts_response import ListHostsResponse
 from foundry.v2.core.models._enrollment_rid import EnrollmentRid
@@ -89,6 +90,8 @@ class HostClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ResourceIterator[Host]
+
+        :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         return self._api_client.iterate_api(
@@ -110,6 +113,9 @@ class HostClient:
                 body_type=None,
                 response_type=ListHostsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
+                },
             ),
         )
 
@@ -141,6 +147,8 @@ class HostClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ListHostsResponse
+
+        :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         warnings.warn(
@@ -168,6 +176,9 @@ class HostClient:
                 body_type=None,
                 response_type=ListHostsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -217,6 +228,8 @@ class _HostClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListHostsResponse]
+
+        :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         return self._api_client.call_api(
@@ -238,6 +251,9 @@ class _HostClientRaw:
                 body_type=None,
                 response_type=ListHostsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
+                },
             ),
         )
 
@@ -269,6 +285,8 @@ class _HostClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListHostsResponse]
+
+        :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         warnings.warn(
@@ -296,6 +314,9 @@ class _HostClientRaw:
                 body_type=None,
                 response_type=ListHostsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
+                },
             ),
         )
 
@@ -345,6 +366,8 @@ class _HostClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListHostsResponse]
+
+        :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         return self._api_client.stream_api(
@@ -366,6 +389,9 @@ class _HostClientStreaming:
                 body_type=None,
                 response_type=ListHostsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
+                },
             ),
         )
 
@@ -397,6 +423,8 @@ class _HostClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListHostsResponse]
+
+        :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         warnings.warn(
@@ -424,5 +452,8 @@ class _HostClientStreaming:
                 body_type=None,
                 response_type=ListHostsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
+                },
             ),
         )

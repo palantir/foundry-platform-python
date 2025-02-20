@@ -14,6 +14,7 @@ DateType | date
 QueryStructType | struct
 QuerySetType | set
 StringType | string
+EntrySetType | entrySet
 DoubleType | double
 IntegerType | integer
 ThreeDimensionalAggregation | threeDimensionalAggregation

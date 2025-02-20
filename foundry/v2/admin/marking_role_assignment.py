@@ -35,6 +35,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._list_marking_role_assignments_response import (
     ListMarkingRoleAssignmentsResponse,
 )  # NOQA
@@ -93,6 +94,8 @@ class MarkingRoleAssignmentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         """
 
         return self._api_client.call_api(
@@ -119,6 +122,9 @@ class MarkingRoleAssignmentClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -170,6 +176,7 @@ class MarkingRoleAssignmentClient:
                 body_type=None,
                 response_type=ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -227,6 +234,7 @@ class MarkingRoleAssignmentClient:
                 body_type=None,
                 response_type=ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -253,6 +261,10 @@ class MarkingRoleAssignmentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveMarkingRoleAssignmentsPermissionDenied: Could not remove the MarkingRoleAssignment.
+        :raises RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed: You cannot remove all administrators from a marking.
         """
 
         return self._api_client.call_api(
@@ -279,6 +291,11 @@ class MarkingRoleAssignmentClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveMarkingRoleAssignmentsPermissionDenied": admin_errors.RemoveMarkingRoleAssignmentsPermissionDenied,
+                    "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed": admin_errors.RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed,
+                },
             ),
         ).decode()
 
@@ -323,6 +340,8 @@ class _MarkingRoleAssignmentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         """
 
         return self._api_client.call_api(
@@ -349,6 +368,9 @@ class _MarkingRoleAssignmentClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
+                },
             ),
         )
 
@@ -400,6 +422,7 @@ class _MarkingRoleAssignmentClientRaw:
                 body_type=None,
                 response_type=ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -457,6 +480,7 @@ class _MarkingRoleAssignmentClientRaw:
                 body_type=None,
                 response_type=ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -483,6 +507,10 @@ class _MarkingRoleAssignmentClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveMarkingRoleAssignmentsPermissionDenied: Could not remove the MarkingRoleAssignment.
+        :raises RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed: You cannot remove all administrators from a marking.
         """
 
         return self._api_client.call_api(
@@ -509,6 +537,11 @@ class _MarkingRoleAssignmentClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveMarkingRoleAssignmentsPermissionDenied": admin_errors.RemoveMarkingRoleAssignmentsPermissionDenied,
+                    "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed": admin_errors.RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed,
+                },
             ),
         )
 
@@ -553,6 +586,8 @@ class _MarkingRoleAssignmentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         """
 
         return self._api_client.stream_api(
@@ -579,6 +614,9 @@ class _MarkingRoleAssignmentClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
+                },
             ),
         )
 
@@ -630,6 +668,7 @@ class _MarkingRoleAssignmentClientStreaming:
                 body_type=None,
                 response_type=ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -687,6 +726,7 @@ class _MarkingRoleAssignmentClientStreaming:
                 body_type=None,
                 response_type=ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -713,6 +753,10 @@ class _MarkingRoleAssignmentClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveMarkingRoleAssignmentsPermissionDenied: Could not remove the MarkingRoleAssignment.
+        :raises RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed: You cannot remove all administrators from a marking.
         """
 
         return self._api_client.stream_api(
@@ -739,5 +783,10 @@ class _MarkingRoleAssignmentClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveMarkingRoleAssignmentsPermissionDenied": admin_errors.RemoveMarkingRoleAssignmentsPermissionDenied,
+                    "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed": admin_errors.RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed,
+                },
             ),
         )

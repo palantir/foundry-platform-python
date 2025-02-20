@@ -101,6 +101,7 @@ class TransactionClient:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -146,6 +147,7 @@ class TransactionClient:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -202,6 +204,7 @@ class TransactionClient:
                 ),
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -246,6 +249,7 @@ class TransactionClient:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -309,6 +313,7 @@ class _TransactionClientRaw:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -354,6 +359,7 @@ class _TransactionClientRaw:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -410,6 +416,7 @@ class _TransactionClientRaw:
                 ),
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -454,6 +461,7 @@ class _TransactionClientRaw:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -517,6 +525,7 @@ class _TransactionClientStreaming:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -562,6 +571,7 @@ class _TransactionClientStreaming:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -618,6 +628,7 @@ class _TransactionClientStreaming:
                 ),
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -662,5 +673,6 @@ class _TransactionClientStreaming:
                 body_type=None,
                 response_type=Transaction,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

@@ -40,6 +40,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.group_membership import GroupMembershipClient
 from foundry.v2.admin.models._get_user_markings_response import GetUserMarkingsResponse
 from foundry.v2.admin.models._get_users_batch_request_element import (
@@ -101,6 +102,8 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises DeleteUserPermissionDenied: Could not delete the User.
         """
 
         return self._api_client.call_api(
@@ -116,6 +119,9 @@ class UserClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteUserPermissionDenied": admin_errors.DeleteUserPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -136,6 +142,8 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: User
+
+        :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.call_api(
@@ -153,6 +161,9 @@ class UserClient:
                 body_type=None,
                 response_type=User,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UserNotFound": admin_errors.UserNotFound,
+                },
             ),
         ).decode()
 
@@ -196,6 +207,7 @@ class UserClient:
                 ],
                 response_type=GetUsersBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -213,6 +225,8 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: User
+
+        :raises GetCurrentUserPermissionDenied: Could not getCurrent the User.
         """
 
         return self._api_client.call_api(
@@ -228,6 +242,9 @@ class UserClient:
                 body_type=None,
                 response_type=User,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetCurrentUserPermissionDenied": admin_errors.GetCurrentUserPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -251,6 +268,8 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: GetUserMarkingsResponse
+
+        :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
         """
 
         return self._api_client.call_api(
@@ -270,6 +289,9 @@ class UserClient:
                 body_type=None,
                 response_type=GetUserMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -313,6 +335,7 @@ class UserClient:
                 body_type=None,
                 response_type=ListUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -362,6 +385,7 @@ class UserClient:
                 body_type=None,
                 response_type=ListUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -389,6 +413,9 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: BinaryStream
+
+        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
+        :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
         ...
 
@@ -410,6 +437,9 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+
+        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
+        :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
         ...
 
@@ -437,6 +467,9 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
+        :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
         ...
 
@@ -463,6 +496,9 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
+        :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
 
         if stream:
@@ -489,6 +525,10 @@ class UserClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
+                    "InvalidProfilePicture": admin_errors.InvalidProfilePicture,
+                },
             ),
         ).decode()
 
@@ -515,6 +555,8 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: SearchUsersResponse
+
+        :raises SearchUsersPermissionDenied: Could not search the User.
         """
 
         return self._api_client.call_api(
@@ -542,6 +584,9 @@ class UserClient:
                 ),
                 response_type=SearchUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SearchUsersPermissionDenied": admin_errors.SearchUsersPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -580,6 +625,8 @@ class _UserClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises DeleteUserPermissionDenied: Could not delete the User.
         """
 
         return self._api_client.call_api(
@@ -595,6 +642,9 @@ class _UserClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteUserPermissionDenied": admin_errors.DeleteUserPermissionDenied,
+                },
             ),
         )
 
@@ -615,6 +665,8 @@ class _UserClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[User]
+
+        :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.call_api(
@@ -632,6 +684,9 @@ class _UserClientRaw:
                 body_type=None,
                 response_type=User,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UserNotFound": admin_errors.UserNotFound,
+                },
             ),
         )
 
@@ -675,6 +730,7 @@ class _UserClientRaw:
                 ],
                 response_type=GetUsersBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -692,6 +748,8 @@ class _UserClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[User]
+
+        :raises GetCurrentUserPermissionDenied: Could not getCurrent the User.
         """
 
         return self._api_client.call_api(
@@ -707,6 +765,9 @@ class _UserClientRaw:
                 body_type=None,
                 response_type=User,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetCurrentUserPermissionDenied": admin_errors.GetCurrentUserPermissionDenied,
+                },
             ),
         )
 
@@ -730,6 +791,8 @@ class _UserClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[GetUserMarkingsResponse]
+
+        :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
         """
 
         return self._api_client.call_api(
@@ -749,6 +812,9 @@ class _UserClientRaw:
                 body_type=None,
                 response_type=GetUserMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
+                },
             ),
         )
 
@@ -792,6 +858,7 @@ class _UserClientRaw:
                 body_type=None,
                 response_type=ListUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -841,6 +908,7 @@ class _UserClientRaw:
                 body_type=None,
                 response_type=ListUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -861,6 +929,9 @@ class _UserClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[bytes]
+
+        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
+        :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
 
         return self._api_client.call_api(
@@ -878,6 +949,10 @@ class _UserClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
+                    "InvalidProfilePicture": admin_errors.InvalidProfilePicture,
+                },
             ),
         )
 
@@ -904,6 +979,8 @@ class _UserClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[SearchUsersResponse]
+
+        :raises SearchUsersPermissionDenied: Could not search the User.
         """
 
         return self._api_client.call_api(
@@ -931,6 +1008,9 @@ class _UserClientRaw:
                 ),
                 response_type=SearchUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SearchUsersPermissionDenied": admin_errors.SearchUsersPermissionDenied,
+                },
             ),
         )
 
@@ -969,6 +1049,8 @@ class _UserClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises DeleteUserPermissionDenied: Could not delete the User.
         """
 
         return self._api_client.stream_api(
@@ -984,6 +1066,9 @@ class _UserClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteUserPermissionDenied": admin_errors.DeleteUserPermissionDenied,
+                },
             ),
         )
 
@@ -1004,6 +1089,8 @@ class _UserClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[User]
+
+        :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.stream_api(
@@ -1021,6 +1108,9 @@ class _UserClientStreaming:
                 body_type=None,
                 response_type=User,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UserNotFound": admin_errors.UserNotFound,
+                },
             ),
         )
 
@@ -1064,6 +1154,7 @@ class _UserClientStreaming:
                 ],
                 response_type=GetUsersBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1081,6 +1172,8 @@ class _UserClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[User]
+
+        :raises GetCurrentUserPermissionDenied: Could not getCurrent the User.
         """
 
         return self._api_client.stream_api(
@@ -1096,6 +1189,9 @@ class _UserClientStreaming:
                 body_type=None,
                 response_type=User,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetCurrentUserPermissionDenied": admin_errors.GetCurrentUserPermissionDenied,
+                },
             ),
         )
 
@@ -1119,6 +1215,8 @@ class _UserClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[GetUserMarkingsResponse]
+
+        :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
         """
 
         return self._api_client.stream_api(
@@ -1138,6 +1236,9 @@ class _UserClientStreaming:
                 body_type=None,
                 response_type=GetUserMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
+                },
             ),
         )
 
@@ -1181,6 +1282,7 @@ class _UserClientStreaming:
                 body_type=None,
                 response_type=ListUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1230,6 +1332,7 @@ class _UserClientStreaming:
                 body_type=None,
                 response_type=ListUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1250,6 +1353,9 @@ class _UserClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[bytes]
+
+        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
+        :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
 
         return self._api_client.stream_api(
@@ -1267,6 +1373,10 @@ class _UserClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
+                    "InvalidProfilePicture": admin_errors.InvalidProfilePicture,
+                },
             ),
         )
 
@@ -1293,6 +1403,8 @@ class _UserClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[SearchUsersResponse]
+
+        :raises SearchUsersPermissionDenied: Could not search the User.
         """
 
         return self._api_client.stream_api(
@@ -1320,5 +1432,8 @@ class _UserClientStreaming:
                 ),
                 response_type=SearchUsersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SearchUsersPermissionDenied": admin_errors.SearchUsersPermissionDenied,
+                },
             ),
         )

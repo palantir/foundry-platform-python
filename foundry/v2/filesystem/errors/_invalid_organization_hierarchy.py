@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
@@ -35,7 +34,7 @@ class InvalidOrganizationHierarchyParameters(TypedDict):
 
 
 @dataclass
-class InvalidOrganizationHierarchy(PalantirRPCException):
+class InvalidOrganizationHierarchy(BadRequestError):
     name: Literal["InvalidOrganizationHierarchy"]
     parameters: InvalidOrganizationHierarchyParameters
     error_instance_id: str

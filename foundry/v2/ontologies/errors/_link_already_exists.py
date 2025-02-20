@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import ConflictError
 
 
 class LinkAlreadyExistsParameters(TypedDict):
@@ -31,7 +30,7 @@ class LinkAlreadyExistsParameters(TypedDict):
 
 
 @dataclass
-class LinkAlreadyExists(PalantirRPCException):
+class LinkAlreadyExists(ConflictError):
     name: Literal["LinkAlreadyExists"]
     parameters: LinkAlreadyExistsParameters
     error_instance_id: str

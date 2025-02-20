@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 from foundry.v1.ontologies.models._property_value import PropertyValue
 from foundry.v1.ontologies.models._value_type import ValueType
@@ -43,7 +42,7 @@ class InvalidPropertyValueParameters(TypedDict):
 
 
 @dataclass
-class InvalidPropertyValue(PalantirRPCException):
+class InvalidPropertyValue(BadRequestError):
     name: Literal["InvalidPropertyValue"]
     parameters: InvalidPropertyValueParameters
     error_instance_id: str

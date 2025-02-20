@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class PropertyTypeDoesNotSupportNearestNeighborsParameters(TypedDict):
@@ -31,7 +30,7 @@ class PropertyTypeDoesNotSupportNearestNeighborsParameters(TypedDict):
 
 
 @dataclass
-class PropertyTypeDoesNotSupportNearestNeighbors(PalantirRPCException):
+class PropertyTypeDoesNotSupportNearestNeighbors(BadRequestError):
     name: Literal["PropertyTypeDoesNotSupportNearestNeighbors"]
     parameters: PropertyTypeDoesNotSupportNearestNeighborsParameters
     error_instance_id: str

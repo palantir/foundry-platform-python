@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._role_id import RoleId
 
 
@@ -37,7 +36,7 @@ class CreateProjectNoOwnerLikeRoleGrantParameters(TypedDict):
 
 
 @dataclass
-class CreateProjectNoOwnerLikeRoleGrant(PalantirRPCException):
+class CreateProjectNoOwnerLikeRoleGrant(BadRequestError):
     name: Literal["CreateProjectNoOwnerLikeRoleGrant"]
     parameters: CreateProjectNoOwnerLikeRoleGrantParameters
     error_instance_id: str

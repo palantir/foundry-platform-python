@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class AggregationNestedObjectSetSizeExceededLimitParameters(TypedDict):
@@ -38,7 +37,7 @@ class AggregationNestedObjectSetSizeExceededLimitParameters(TypedDict):
 
 
 @dataclass
-class AggregationNestedObjectSetSizeExceededLimit(PalantirRPCException):
+class AggregationNestedObjectSetSizeExceededLimit(BadRequestError):
     name: Literal["AggregationNestedObjectSetSizeExceededLimit"]
     parameters: AggregationNestedObjectSetSizeExceededLimitParameters
     error_instance_id: str

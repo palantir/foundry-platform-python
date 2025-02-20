@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.filesystem.models._project_rid import ProjectRid
 
 
@@ -34,7 +33,7 @@ class RemoveOrganizationsPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class RemoveOrganizationsPermissionDenied(PalantirRPCException):
+class RemoveOrganizationsPermissionDenied(PermissionDeniedError):
     name: Literal["RemoveOrganizationsPermissionDenied"]
     parameters: RemoveOrganizationsPermissionDeniedParameters
     error_instance_id: str

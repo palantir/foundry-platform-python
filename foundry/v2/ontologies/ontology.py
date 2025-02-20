@@ -99,6 +99,7 @@ class OntologyClient:
                 body_type=None,
                 response_type=OntologyV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -137,6 +138,7 @@ class OntologyClient:
                 body_type=None,
                 response_type=OntologyFullMetadata,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -195,6 +197,7 @@ class _OntologyClientRaw:
                 body_type=None,
                 response_type=OntologyV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -233,6 +236,7 @@ class _OntologyClientRaw:
                 body_type=None,
                 response_type=OntologyFullMetadata,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -291,6 +295,7 @@ class _OntologyClientStreaming:
                 body_type=None,
                 response_type=OntologyV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -329,5 +334,6 @@ class _OntologyClientStreaming:
                 body_type=None,
                 response_type=OntologyFullMetadata,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class AggregationMemoryExceededLimitParameters(TypedDict):
@@ -42,7 +41,7 @@ class AggregationMemoryExceededLimitParameters(TypedDict):
 
 
 @dataclass
-class AggregationMemoryExceededLimit(PalantirRPCException):
+class AggregationMemoryExceededLimit(BadRequestError):
     name: Literal["AggregationMemoryExceededLimit"]
     parameters: AggregationMemoryExceededLimitParameters
     error_instance_id: str

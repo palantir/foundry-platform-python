@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class FileSizeFilterMissingGreaterThanAndLessThanParameters(TypedDict):
@@ -34,7 +33,7 @@ class FileSizeFilterMissingGreaterThanAndLessThanParameters(TypedDict):
 
 
 @dataclass
-class FileSizeFilterMissingGreaterThanAndLessThan(PalantirRPCException):
+class FileSizeFilterMissingGreaterThanAndLessThan(BadRequestError):
     name: Literal["FileSizeFilterMissingGreaterThanAndLessThan"]
     parameters: FileSizeFilterMissingGreaterThanAndLessThanParameters
     error_instance_id: str

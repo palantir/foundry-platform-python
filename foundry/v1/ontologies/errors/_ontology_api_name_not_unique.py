@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._ontology_api_name import OntologyApiName
 
 
@@ -34,7 +33,7 @@ class OntologyApiNameNotUniqueParameters(TypedDict):
 
 
 @dataclass
-class OntologyApiNameNotUnique(PalantirRPCException):
+class OntologyApiNameNotUnique(BadRequestError):
     name: Literal["OntologyApiNameNotUnique"]
     parameters: OntologyApiNameNotUniqueParameters
     error_instance_id: str

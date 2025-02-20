@@ -14,6 +14,7 @@ DateTypeDict | date
 QueryStructTypeDict | struct
 QuerySetTypeDict | set
 StringTypeDict | string
+EntrySetTypeDict | entrySet
 DoubleTypeDict | double
 IntegerTypeDict | integer
 ThreeDimensionalAggregationDict | threeDimensionalAggregation

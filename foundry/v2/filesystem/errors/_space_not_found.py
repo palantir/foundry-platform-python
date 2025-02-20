@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.filesystem.models._space_rid import SpaceRid
 
 
@@ -34,7 +33,7 @@ class SpaceNotFoundParameters(TypedDict):
 
 
 @dataclass
-class SpaceNotFound(PalantirRPCException):
+class SpaceNotFound(NotFoundError):
     name: Literal["SpaceNotFound"]
     parameters: SpaceNotFoundParameters
     error_instance_id: str

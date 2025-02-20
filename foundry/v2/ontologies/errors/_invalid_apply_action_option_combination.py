@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._apply_action_request_options import (
     ApplyActionRequestOptions,
 )  # NOQA
@@ -37,7 +36,7 @@ class InvalidApplyActionOptionCombinationParameters(TypedDict):
 
 
 @dataclass
-class InvalidApplyActionOptionCombination(PalantirRPCException):
+class InvalidApplyActionOptionCombination(BadRequestError):
     name: Literal["InvalidApplyActionOptionCombination"]
     parameters: InvalidApplyActionOptionCombinationParameters
     error_instance_id: str
