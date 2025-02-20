@@ -15,7 +15,30 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+from typing import List
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+
+
+class DuplicateOrderByParameters(TypedDict):
+    """The requested sort order includes duplicate properties."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    properties: List[PropertyApiName]
+
+
+@dataclass
+class DuplicateOrderBy(PalantirRPCException):
+    name: Literal["DuplicateOrderBy"]
+    parameters: DuplicateOrderByParameters
+    error_instance_id: str
+
+
+__all__ = ["DuplicateOrderBy"]

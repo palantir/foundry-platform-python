@@ -15,7 +15,29 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class InvalidContentTypeParameters(TypedDict):
+    """
+    The `Content-Type` cannot be inferred from the request content and filename.
+    Please check your request content and filename to ensure they are compatible.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidContentType(PalantirRPCException):
+    name: Literal["InvalidContentType"]
+    parameters: InvalidContentTypeParameters
+    error_instance_id: str
+
+
+__all__ = ["InvalidContentType"]

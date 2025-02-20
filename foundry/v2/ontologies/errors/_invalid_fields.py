@@ -15,7 +15,32 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+from typing import List
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class InvalidFieldsParameters(TypedDict):
+    """
+    The value of the given field does not match the expected pattern. For example, an Ontology object property `id`
+    should be written `properties.id`.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    properties: List[str]
+
+
+@dataclass
+class InvalidFields(PalantirRPCException):
+    name: Literal["InvalidFields"]
+    parameters: InvalidFieldsParameters
+    error_instance_id: str
+
+
+__all__ = ["InvalidFields"]

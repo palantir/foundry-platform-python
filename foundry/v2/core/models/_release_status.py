@@ -17,5 +17,5 @@ from __future__ import annotations
 
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "EXPERIMENTAL", "DEPRECATED"]
+ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
 """The release status of the entity."""

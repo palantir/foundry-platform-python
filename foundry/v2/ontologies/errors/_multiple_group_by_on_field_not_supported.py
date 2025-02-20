@@ -15,7 +15,29 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+from typing import List
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class MultipleGroupByOnFieldNotSupportedParameters(TypedDict):
+    """Aggregation cannot group by on the same field multiple times."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    duplicateFields: List[str]
+
+
+@dataclass
+class MultipleGroupByOnFieldNotSupported(PalantirRPCException):
+    name: Literal["MultipleGroupByOnFieldNotSupported"]
+    parameters: MultipleGroupByOnFieldNotSupportedParameters
+    error_instance_id: str
+
+
+__all__ = ["MultipleGroupByOnFieldNotSupported"]

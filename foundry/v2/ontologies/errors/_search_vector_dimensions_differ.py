@@ -15,7 +15,26 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class SearchVectorDimensionsDifferParameters(TypedDict):
+    """The dimensions of the provided vector don't match the dimensions of the embedding model being queried."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class SearchVectorDimensionsDiffer(PalantirRPCException):
+    name: Literal["SearchVectorDimensionsDiffer"]
+    parameters: SearchVectorDimensionsDifferParameters
+    error_instance_id: str
+
+
+__all__ = ["SearchVectorDimensionsDiffer"]

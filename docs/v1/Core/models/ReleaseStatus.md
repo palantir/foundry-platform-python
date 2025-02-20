@@ -5,6 +5,7 @@ The release status of the entity.
 | **Value** |
 | --------- |
 | `"ACTIVE"` |
+| `"ENDORSED"` |
 | `"EXPERIMENTAL"` |
 | `"DEPRECATED"` |
 

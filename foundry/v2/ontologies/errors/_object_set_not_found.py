@@ -15,7 +15,29 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
+
+
+class ObjectSetNotFoundParameters(TypedDict):
+    """The requested object set is not found, or the client token does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectSetRid: ObjectSetRid
+
+
+@dataclass
+class ObjectSetNotFound(PalantirRPCException):
+    name: Literal["ObjectSetNotFound"]
+    parameters: ObjectSetNotFoundParameters
+    error_instance_id: str
+
+
+__all__ = ["ObjectSetNotFound"]

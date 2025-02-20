@@ -15,7 +15,26 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class EditObjectPermissionDeniedParameters(TypedDict):
+    """The user does not have permission to edit this `ObjectType`."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class EditObjectPermissionDenied(PalantirRPCException):
+    name: Literal["EditObjectPermissionDenied"]
+    parameters: EditObjectPermissionDeniedParameters
+    error_instance_id: str
+
+
+__all__ = ["EditObjectPermissionDenied"]

@@ -15,7 +15,29 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class ObjectsExceededLimitParameters(TypedDict):
+    """
+    There are more objects, but they cannot be returned by this API. Only 10,000 objects are available through this
+    API for a given request.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ObjectsExceededLimit(PalantirRPCException):
+    name: Literal["ObjectsExceededLimit"]
+    parameters: ObjectsExceededLimitParameters
+    error_instance_id: str
+
+
+__all__ = ["ObjectsExceededLimit"]

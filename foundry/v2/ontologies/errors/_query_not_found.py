@@ -15,7 +15,29 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+from foundry.v2.ontologies.models._query_api_name import QueryApiName
+
+
+class QueryNotFoundParameters(TypedDict):
+    """The query is not found, or the user does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    query: QueryApiName
+
+
+@dataclass
+class QueryNotFound(PalantirRPCException):
+    name: Literal["QueryNotFound"]
+    parameters: QueryNotFoundParameters
+    error_instance_id: str
+
+
+__all__ = ["QueryNotFound"]

@@ -15,7 +15,31 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+import pydantic
+from typing_extensions import TypedDict
+
+from foundry._errors import PalantirRPCException
+
+
+class InvalidSortOrderParameters(TypedDict):
+    """
+    The requested sort order of one or more properties is invalid. Valid sort orders are 'asc' or 'desc'. Sort
+    order can also be omitted, and defaults to 'asc'.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    invalidSortOrder: str
+
+
+@dataclass
+class InvalidSortOrder(PalantirRPCException):
+    name: Literal["InvalidSortOrder"]
+    parameters: InvalidSortOrderParameters
+    error_instance_id: str
+
+
+__all__ = ["InvalidSortOrder"]

@@ -15,7 +15,8 @@
 
 from __future__ import annotations
 
-from typing import Literal
-
-ReleaseStatus = Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
-"""The release status of the entity."""
+FilterValue = str
+"""
+Represents the value of a property filter. For instance, false is the FilterValue in
+`properties.{propertyApiName}.isNull=false`.
+"""
