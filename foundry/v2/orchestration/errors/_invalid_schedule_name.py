@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidScheduleNameParameters(TypedDict):
@@ -31,7 +30,7 @@ class InvalidScheduleNameParameters(TypedDict):
 
 
 @dataclass
-class InvalidScheduleName(PalantirRPCException):
+class InvalidScheduleName(BadRequestError):
     name: Literal["InvalidScheduleName"]
     parameters: InvalidScheduleNameParameters
     error_instance_id: str

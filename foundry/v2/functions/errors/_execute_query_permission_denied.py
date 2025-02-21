@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.functions.models._query_api_name import QueryApiName
 
 
@@ -34,7 +33,7 @@ class ExecuteQueryPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ExecuteQueryPermissionDenied(PalantirRPCException):
+class ExecuteQueryPermissionDenied(PermissionDeniedError):
     name: Literal["ExecuteQueryPermissionDenied"]
     parameters: ExecuteQueryPermissionDeniedParameters
     error_instance_id: str

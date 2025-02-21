@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 
@@ -37,7 +36,7 @@ class CreateBranchPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class CreateBranchPermissionDenied(PalantirRPCException):
+class CreateBranchPermissionDenied(PermissionDeniedError):
     name: Literal["CreateBranchPermissionDenied"]
     parameters: CreateBranchPermissionDeniedParameters
     error_instance_id: str

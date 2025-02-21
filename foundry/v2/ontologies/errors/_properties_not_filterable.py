@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
 
@@ -39,7 +38,7 @@ class PropertiesNotFilterableParameters(TypedDict):
 
 
 @dataclass
-class PropertiesNotFilterable(PalantirRPCException):
+class PropertiesNotFilterable(BadRequestError):
     name: Literal["PropertiesNotFilterable"]
     parameters: PropertiesNotFilterableParameters
     error_instance_id: str

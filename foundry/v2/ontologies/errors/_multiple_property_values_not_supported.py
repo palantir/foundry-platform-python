@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 from foundry.v2.ontologies.models._property_filter import PropertyFilter
 
@@ -40,7 +39,7 @@ class MultiplePropertyValuesNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class MultiplePropertyValuesNotSupported(PalantirRPCException):
+class MultiplePropertyValuesNotSupported(BadRequestError):
     name: Literal["MultiplePropertyValuesNotSupported"]
     parameters: MultiplePropertyValuesNotSupportedParameters
     error_instance_id: str

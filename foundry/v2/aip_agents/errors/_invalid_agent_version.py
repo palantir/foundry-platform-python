@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
 
@@ -37,7 +36,7 @@ class InvalidAgentVersionParameters(TypedDict):
 
 
 @dataclass
-class InvalidAgentVersion(PalantirRPCException):
+class InvalidAgentVersion(BadRequestError):
     name: Literal["InvalidAgentVersion"]
     parameters: InvalidAgentVersionParameters
     error_instance_id: str

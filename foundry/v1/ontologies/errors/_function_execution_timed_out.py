@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import InternalServerError
 from foundry.v1.ontologies.models._function_rid import FunctionRid
 from foundry.v1.ontologies.models._function_version import FunctionVersion
 
@@ -36,7 +35,7 @@ class FunctionExecutionTimedOutParameters(TypedDict):
 
 
 @dataclass
-class FunctionExecutionTimedOut(PalantirRPCException):
+class FunctionExecutionTimedOut(InternalServerError):
     name: Literal["FunctionExecutionTimedOut"]
     parameters: FunctionExecutionTimedOutParameters
     error_instance_id: str

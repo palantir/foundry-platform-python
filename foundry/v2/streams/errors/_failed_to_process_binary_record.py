@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import InternalServerError
 
 
 class FailedToProcessBinaryRecordParameters(TypedDict):
@@ -31,7 +30,7 @@ class FailedToProcessBinaryRecordParameters(TypedDict):
 
 
 @dataclass
-class FailedToProcessBinaryRecord(PalantirRPCException):
+class FailedToProcessBinaryRecord(InternalServerError):
     name: Literal["FailedToProcessBinaryRecord"]
     parameters: FailedToProcessBinaryRecordParameters
     error_instance_id: str

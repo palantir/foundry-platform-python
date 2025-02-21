@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.core.models._media_item_rid import MediaItemRid
 from foundry.v2.core.models._media_set_rid import MediaSetRid
 
@@ -37,7 +36,7 @@ class MediaItemNotFoundParameters(TypedDict):
 
 
 @dataclass
-class MediaItemNotFound(PalantirRPCException):
+class MediaItemNotFound(NotFoundError):
     name: Literal["MediaItemNotFound"]
     parameters: MediaItemNotFoundParameters
     error_instance_id: str

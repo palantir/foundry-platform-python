@@ -104,6 +104,7 @@ class ActionTypeClient:
                 body_type=None,
                 response_type=ActionTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -156,6 +157,7 @@ class ActionTypeClient:
                 body_type=None,
                 response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -214,6 +216,7 @@ class ActionTypeClient:
                 body_type=None,
                 response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -276,6 +279,7 @@ class _ActionTypeClientRaw:
                 body_type=None,
                 response_type=ActionTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -328,6 +332,7 @@ class _ActionTypeClientRaw:
                 body_type=None,
                 response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -386,6 +391,7 @@ class _ActionTypeClientRaw:
                 body_type=None,
                 response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -448,6 +454,7 @@ class _ActionTypeClientStreaming:
                 body_type=None,
                 response_type=ActionTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -500,6 +507,7 @@ class _ActionTypeClientStreaming:
                 body_type=None,
                 response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -558,5 +566,6 @@ class _ActionTypeClientStreaming:
                 body_type=None,
                 response_type=ListActionTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

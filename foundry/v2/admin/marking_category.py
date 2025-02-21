@@ -32,6 +32,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._list_marking_categories_response import (
     ListMarkingCategoriesResponse,
 )  # NOQA
@@ -85,6 +86,9 @@ class MarkingCategoryClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: MarkingCategory
+
+        :raises GetMarkingCategoryPermissionDenied: You do not have permission to view the marking category.
+        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
         """
 
         return self._api_client.call_api(
@@ -104,6 +108,10 @@ class MarkingCategoryClient:
                 body_type=None,
                 response_type=MarkingCategory,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
+                },
             ),
         ).decode()
 
@@ -149,6 +157,7 @@ class MarkingCategoryClient:
                 body_type=None,
                 response_type=ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -200,6 +209,7 @@ class MarkingCategoryClient:
                 body_type=None,
                 response_type=ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -241,6 +251,9 @@ class _MarkingCategoryClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[MarkingCategory]
+
+        :raises GetMarkingCategoryPermissionDenied: You do not have permission to view the marking category.
+        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
         """
 
         return self._api_client.call_api(
@@ -260,6 +273,10 @@ class _MarkingCategoryClientRaw:
                 body_type=None,
                 response_type=MarkingCategory,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
+                },
             ),
         )
 
@@ -305,6 +322,7 @@ class _MarkingCategoryClientRaw:
                 body_type=None,
                 response_type=ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -356,6 +374,7 @@ class _MarkingCategoryClientRaw:
                 body_type=None,
                 response_type=ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -397,6 +416,9 @@ class _MarkingCategoryClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[MarkingCategory]
+
+        :raises GetMarkingCategoryPermissionDenied: You do not have permission to view the marking category.
+        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
         """
 
         return self._api_client.stream_api(
@@ -416,6 +438,10 @@ class _MarkingCategoryClientStreaming:
                 body_type=None,
                 response_type=MarkingCategory,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
+                },
             ),
         )
 
@@ -461,6 +487,7 @@ class _MarkingCategoryClientStreaming:
                 body_type=None,
                 response_type=ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -512,5 +539,6 @@ class _MarkingCategoryClientStreaming:
                 body_type=None,
                 response_type=ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

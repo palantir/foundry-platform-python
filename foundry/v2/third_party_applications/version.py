@@ -35,6 +35,7 @@ from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.third_party_applications import errors as third_party_applications_errors  # NOQA
 from foundry.v2.third_party_applications.models._list_versions_response import (
     ListVersionsResponse,
 )  # NOQA
@@ -86,6 +87,8 @@ class VersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises DeleteVersionPermissionDenied: Could not delete the Version.
         """
 
         return self._api_client.call_api(
@@ -102,6 +105,9 @@ class VersionClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteVersionPermissionDenied": third_party_applications_errors.DeleteVersionPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -125,6 +131,8 @@ class VersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Version
+
+        :raises VersionNotFound: The given Version could not be found.
         """
 
         return self._api_client.call_api(
@@ -143,6 +151,9 @@ class VersionClient:
                 body_type=None,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "VersionNotFound": third_party_applications_errors.VersionNotFound,
+                },
             ),
         ).decode()
 
@@ -191,6 +202,7 @@ class VersionClient:
                 body_type=None,
                 response_type=ListVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -245,6 +257,7 @@ class VersionClient:
                 body_type=None,
                 response_type=ListVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -271,6 +284,8 @@ class VersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Version
+
+        :raises UploadVersionPermissionDenied: Could not upload the Version.
         """
 
         return self._api_client.call_api(
@@ -291,6 +306,9 @@ class VersionClient:
                 body_type=bytes,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UploadVersionPermissionDenied": third_party_applications_errors.UploadVersionPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -324,6 +342,8 @@ class VersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Version
+
+        :raises UploadSnapshotVersionPermissionDenied: Could not uploadSnapshot the Version.
         """
 
         return self._api_client.call_api(
@@ -346,6 +366,9 @@ class VersionClient:
                 body_type=bytes,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UploadSnapshotVersionPermissionDenied": third_party_applications_errors.UploadSnapshotVersionPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -387,6 +410,8 @@ class _VersionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises DeleteVersionPermissionDenied: Could not delete the Version.
         """
 
         return self._api_client.call_api(
@@ -403,6 +428,9 @@ class _VersionClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteVersionPermissionDenied": third_party_applications_errors.DeleteVersionPermissionDenied,
+                },
             ),
         )
 
@@ -426,6 +454,8 @@ class _VersionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Version]
+
+        :raises VersionNotFound: The given Version could not be found.
         """
 
         return self._api_client.call_api(
@@ -444,6 +474,9 @@ class _VersionClientRaw:
                 body_type=None,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "VersionNotFound": third_party_applications_errors.VersionNotFound,
+                },
             ),
         )
 
@@ -492,6 +525,7 @@ class _VersionClientRaw:
                 body_type=None,
                 response_type=ListVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -546,6 +580,7 @@ class _VersionClientRaw:
                 body_type=None,
                 response_type=ListVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -572,6 +607,8 @@ class _VersionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Version]
+
+        :raises UploadVersionPermissionDenied: Could not upload the Version.
         """
 
         return self._api_client.call_api(
@@ -592,6 +629,9 @@ class _VersionClientRaw:
                 body_type=bytes,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UploadVersionPermissionDenied": third_party_applications_errors.UploadVersionPermissionDenied,
+                },
             ),
         )
 
@@ -625,6 +665,8 @@ class _VersionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Version]
+
+        :raises UploadSnapshotVersionPermissionDenied: Could not uploadSnapshot the Version.
         """
 
         return self._api_client.call_api(
@@ -647,6 +689,9 @@ class _VersionClientRaw:
                 body_type=bytes,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UploadSnapshotVersionPermissionDenied": third_party_applications_errors.UploadSnapshotVersionPermissionDenied,
+                },
             ),
         )
 
@@ -688,6 +733,8 @@ class _VersionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises DeleteVersionPermissionDenied: Could not delete the Version.
         """
 
         return self._api_client.stream_api(
@@ -704,6 +751,9 @@ class _VersionClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteVersionPermissionDenied": third_party_applications_errors.DeleteVersionPermissionDenied,
+                },
             ),
         )
 
@@ -727,6 +777,8 @@ class _VersionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Version]
+
+        :raises VersionNotFound: The given Version could not be found.
         """
 
         return self._api_client.stream_api(
@@ -745,6 +797,9 @@ class _VersionClientStreaming:
                 body_type=None,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "VersionNotFound": third_party_applications_errors.VersionNotFound,
+                },
             ),
         )
 
@@ -793,6 +848,7 @@ class _VersionClientStreaming:
                 body_type=None,
                 response_type=ListVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -847,6 +903,7 @@ class _VersionClientStreaming:
                 body_type=None,
                 response_type=ListVersionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -873,6 +930,8 @@ class _VersionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Version]
+
+        :raises UploadVersionPermissionDenied: Could not upload the Version.
         """
 
         return self._api_client.stream_api(
@@ -893,6 +952,9 @@ class _VersionClientStreaming:
                 body_type=bytes,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UploadVersionPermissionDenied": third_party_applications_errors.UploadVersionPermissionDenied,
+                },
             ),
         )
 
@@ -926,6 +988,8 @@ class _VersionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Version]
+
+        :raises UploadSnapshotVersionPermissionDenied: Could not uploadSnapshot the Version.
         """
 
         return self._api_client.stream_api(
@@ -948,5 +1012,8 @@ class _VersionClientStreaming:
                 body_type=bytes,
                 response_type=Version,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "UploadSnapshotVersionPermissionDenied": third_party_applications_errors.UploadSnapshotVersionPermissionDenied,
+                },
             ),
         )

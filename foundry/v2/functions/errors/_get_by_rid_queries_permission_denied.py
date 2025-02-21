@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class GetByRidQueriesPermissionDeniedParameters(TypedDict):
@@ -31,7 +30,7 @@ class GetByRidQueriesPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class GetByRidQueriesPermissionDenied(PalantirRPCException):
+class GetByRidQueriesPermissionDenied(PermissionDeniedError):
     name: Literal["GetByRidQueriesPermissionDenied"]
     parameters: GetByRidQueriesPermissionDeniedParameters
     error_instance_id: str

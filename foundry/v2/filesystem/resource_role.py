@@ -38,6 +38,7 @@ from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.filesystem import errors as filesystem_errors
 from foundry.v2.filesystem.models._list_resource_roles_response import (
     ListResourceRolesResponse,
 )  # NOQA
@@ -90,6 +91,8 @@ class ResourceRoleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
         """
 
         return self._api_client.call_api(
@@ -116,6 +119,9 @@ class ResourceRoleClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -171,6 +177,7 @@ class ResourceRoleClient:
                 body_type=None,
                 response_type=ListResourceRolesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -232,6 +239,7 @@ class ResourceRoleClient:
                 body_type=None,
                 response_type=ListResourceRolesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -258,6 +266,8 @@ class ResourceRoleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         """
 
         return self._api_client.call_api(
@@ -284,6 +294,9 @@ class ResourceRoleClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -328,6 +341,8 @@ class _ResourceRoleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
         """
 
         return self._api_client.call_api(
@@ -354,6 +369,9 @@ class _ResourceRoleClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
+                },
             ),
         )
 
@@ -409,6 +427,7 @@ class _ResourceRoleClientRaw:
                 body_type=None,
                 response_type=ListResourceRolesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -470,6 +489,7 @@ class _ResourceRoleClientRaw:
                 body_type=None,
                 response_type=ListResourceRolesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -496,6 +516,8 @@ class _ResourceRoleClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         """
 
         return self._api_client.call_api(
@@ -522,6 +544,9 @@ class _ResourceRoleClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
+                },
             ),
         )
 
@@ -566,6 +591,8 @@ class _ResourceRoleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
         """
 
         return self._api_client.stream_api(
@@ -592,6 +619,9 @@ class _ResourceRoleClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
+                },
             ),
         )
 
@@ -647,6 +677,7 @@ class _ResourceRoleClientStreaming:
                 body_type=None,
                 response_type=ListResourceRolesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -708,6 +739,7 @@ class _ResourceRoleClientStreaming:
                 body_type=None,
                 response_type=ListResourceRolesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -734,6 +766,8 @@ class _ResourceRoleClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         """
 
         return self._api_client.stream_api(
@@ -760,5 +794,8 @@ class _ResourceRoleClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
+                },
             ),
         )

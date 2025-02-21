@@ -19,11 +19,10 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry._core.utils import RID
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class ScheduleTriggerResourcesPermissionDeniedParameters(TypedDict):
@@ -35,7 +34,7 @@ class ScheduleTriggerResourcesPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ScheduleTriggerResourcesPermissionDenied(PalantirRPCException):
+class ScheduleTriggerResourcesPermissionDenied(PermissionDeniedError):
     name: Literal["ScheduleTriggerResourcesPermissionDenied"]
     parameters: ScheduleTriggerResourcesPermissionDeniedParameters
     error_instance_id: str

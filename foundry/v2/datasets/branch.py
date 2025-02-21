@@ -35,6 +35,7 @@ from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
+from foundry.v2.datasets import errors as datasets_errors
 from foundry.v2.datasets.models._branch import Branch
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
@@ -87,6 +88,10 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Branch
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -114,6 +119,11 @@ class BranchClient:
                 ),
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CreateBranchPermissionDenied": datasets_errors.CreateBranchPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         ).decode()
 
@@ -138,6 +148,10 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DeleteBranchPermissionDenied: The provided token does not have permission to delete the given branch from this dataset.
         """
 
         return self._api_client.call_api(
@@ -154,6 +168,11 @@ class BranchClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DeleteBranchPermissionDenied": datasets_errors.DeleteBranchPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -178,6 +197,10 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Branch
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -196,6 +219,11 @@ class BranchClient:
                 body_type=None,
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         ).decode()
 
@@ -223,6 +251,9 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ResourceIterator[Branch]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.iterate_api(
@@ -243,6 +274,10 @@ class BranchClient:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -270,6 +305,9 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ListBranchesResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         warnings.warn(
@@ -296,6 +334,10 @@ class BranchClient:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         ).decode()
 
@@ -341,6 +383,10 @@ class _BranchClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Branch]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -368,6 +414,11 @@ class _BranchClientRaw:
                 ),
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CreateBranchPermissionDenied": datasets_errors.CreateBranchPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -392,6 +443,10 @@ class _BranchClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DeleteBranchPermissionDenied: The provided token does not have permission to delete the given branch from this dataset.
         """
 
         return self._api_client.call_api(
@@ -408,6 +463,11 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DeleteBranchPermissionDenied": datasets_errors.DeleteBranchPermissionDenied,
+                },
             ),
         )
 
@@ -432,6 +492,10 @@ class _BranchClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Branch]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -450,6 +514,11 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -477,6 +546,9 @@ class _BranchClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListBranchesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -497,6 +569,10 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -524,6 +600,9 @@ class _BranchClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListBranchesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         warnings.warn(
@@ -550,6 +629,10 @@ class _BranchClientRaw:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -595,6 +678,10 @@ class _BranchClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Branch]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
@@ -622,6 +709,11 @@ class _BranchClientStreaming:
                 ),
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CreateBranchPermissionDenied": datasets_errors.CreateBranchPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -646,6 +738,10 @@ class _BranchClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DeleteBranchPermissionDenied: The provided token does not have permission to delete the given branch from this dataset.
         """
 
         return self._api_client.stream_api(
@@ -662,6 +758,11 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DeleteBranchPermissionDenied": datasets_errors.DeleteBranchPermissionDenied,
+                },
             ),
         )
 
@@ -686,6 +787,10 @@ class _BranchClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Branch]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
@@ -704,6 +809,11 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=Branch,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -731,6 +841,9 @@ class _BranchClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListBranchesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
@@ -751,6 +864,10 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )
 
@@ -778,6 +895,9 @@ class _BranchClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListBranchesResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         warnings.warn(
@@ -804,5 +924,9 @@ class _BranchClientStreaming:
                 body_type=None,
                 response_type=ListBranchesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
             ),
         )

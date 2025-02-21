@@ -34,6 +34,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._group_member import GroupMember
 from foundry.v2.admin.models._group_membership_expiration import GroupMembershipExpiration  # NOQA
 from foundry.v2.admin.models._list_group_members_response import ListGroupMembersResponse  # NOQA
@@ -86,6 +87,9 @@ class GroupMemberClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
@@ -112,6 +116,10 @@ class GroupMemberClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         ).decode()
 
@@ -169,6 +177,7 @@ class GroupMemberClient:
                 body_type=None,
                 response_type=ListGroupMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -232,6 +241,7 @@ class GroupMemberClient:
                 body_type=None,
                 response_type=ListGroupMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -255,6 +265,9 @@ class GroupMemberClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.call_api(
@@ -279,6 +292,10 @@ class GroupMemberClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -323,6 +340,9 @@ class _GroupMemberClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
@@ -349,6 +369,10 @@ class _GroupMemberClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         )
 
@@ -406,6 +430,7 @@ class _GroupMemberClientRaw:
                 body_type=None,
                 response_type=ListGroupMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -469,6 +494,7 @@ class _GroupMemberClientRaw:
                 body_type=None,
                 response_type=ListGroupMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -492,6 +518,9 @@ class _GroupMemberClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.call_api(
@@ -516,6 +545,10 @@ class _GroupMemberClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
+                },
             ),
         )
 
@@ -560,6 +593,9 @@ class _GroupMemberClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.stream_api(
@@ -586,6 +622,10 @@ class _GroupMemberClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         )
 
@@ -643,6 +683,7 @@ class _GroupMemberClientStreaming:
                 body_type=None,
                 response_type=ListGroupMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -706,6 +747,7 @@ class _GroupMemberClientStreaming:
                 body_type=None,
                 response_type=ListGroupMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -729,6 +771,9 @@ class _GroupMemberClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.stream_api(
@@ -753,5 +798,9 @@ class _GroupMemberClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
+                },
             ),
         )

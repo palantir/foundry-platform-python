@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._principal_id import PrincipalId
 from foundry.v2.core.models._realm import Realm
 
@@ -37,7 +36,7 @@ class CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters(TypedDict)
 
 
 @dataclass
-class CannotReplaceProviderInfoForPrincipalInProtectedRealm(PalantirRPCException):
+class CannotReplaceProviderInfoForPrincipalInProtectedRealm(BadRequestError):
     name: Literal["CannotReplaceProviderInfoForPrincipalInProtectedRealm"]
     parameters: CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters
     error_instance_id: str

@@ -31,6 +31,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._host_name import HostName
 from foundry.v2.admin.models._organization import Organization
 from foundry.v2.admin.models._organization_name import OrganizationName
@@ -79,6 +80,8 @@ class OrganizationClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Organization
+
+        :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.call_api(
@@ -98,6 +101,9 @@ class OrganizationClient:
                 body_type=None,
                 response_type=Organization,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                },
             ),
         ).decode()
 
@@ -130,6 +136,9 @@ class OrganizationClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Organization
+
+        :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
+        :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
 
         return self._api_client.call_api(
@@ -161,6 +170,10 @@ class OrganizationClient:
                 ),
                 response_type=Organization,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "InvalidHostName": admin_errors.InvalidHostName,
+                    "ReplaceOrganizationPermissionDenied": admin_errors.ReplaceOrganizationPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -202,6 +215,8 @@ class _OrganizationClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Organization]
+
+        :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.call_api(
@@ -221,6 +236,9 @@ class _OrganizationClientRaw:
                 body_type=None,
                 response_type=Organization,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                },
             ),
         )
 
@@ -253,6 +271,9 @@ class _OrganizationClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Organization]
+
+        :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
+        :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
 
         return self._api_client.call_api(
@@ -284,6 +305,10 @@ class _OrganizationClientRaw:
                 ),
                 response_type=Organization,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "InvalidHostName": admin_errors.InvalidHostName,
+                    "ReplaceOrganizationPermissionDenied": admin_errors.ReplaceOrganizationPermissionDenied,
+                },
             ),
         )
 
@@ -325,6 +350,8 @@ class _OrganizationClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Organization]
+
+        :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.stream_api(
@@ -344,6 +371,9 @@ class _OrganizationClientStreaming:
                 body_type=None,
                 response_type=Organization,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                },
             ),
         )
 
@@ -376,6 +406,9 @@ class _OrganizationClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Organization]
+
+        :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
+        :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
 
         return self._api_client.stream_api(
@@ -407,5 +440,9 @@ class _OrganizationClientStreaming:
                 ),
                 response_type=Organization,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "InvalidHostName": admin_errors.InvalidHostName,
+                    "ReplaceOrganizationPermissionDenied": admin_errors.ReplaceOrganizationPermissionDenied,
+                },
             ),
         )

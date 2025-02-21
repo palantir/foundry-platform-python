@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
 
 
@@ -34,7 +33,7 @@ class AddResourceRolesPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class AddResourceRolesPermissionDenied(PalantirRPCException):
+class AddResourceRolesPermissionDenied(PermissionDeniedError):
     name: Literal["AddResourceRolesPermissionDenied"]
     parameters: AddResourceRolesPermissionDeniedParameters
     error_instance_id: str

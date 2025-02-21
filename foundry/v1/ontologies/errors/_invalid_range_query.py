@@ -19,11 +19,10 @@ from dataclasses import dataclass
 from typing import Any
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidRangeQueryParameters(TypedDict):
@@ -33,21 +32,17 @@ class InvalidRangeQueryParameters(TypedDict):
 
     lt: NotRequired[Any]
     """Less than"""
-
     gt: NotRequired[Any]
     """Greater than"""
-
     lte: NotRequired[Any]
     """Less than or equal"""
-
     gte: NotRequired[Any]
     """Greater than or equal"""
-
     field: str
 
 
 @dataclass
-class InvalidRangeQuery(PalantirRPCException):
+class InvalidRangeQuery(BadRequestError):
     name: Literal["InvalidRangeQuery"]
     parameters: InvalidRangeQueryParameters
     error_instance_id: str

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class ConflictingMediaSetIdentifiersParameters(TypedDict):
@@ -31,7 +30,7 @@ class ConflictingMediaSetIdentifiersParameters(TypedDict):
 
 
 @dataclass
-class ConflictingMediaSetIdentifiers(PalantirRPCException):
+class ConflictingMediaSetIdentifiers(BadRequestError):
     name: Literal["ConflictingMediaSetIdentifiers"]
     parameters: ConflictingMediaSetIdentifiersParameters
     error_instance_id: str

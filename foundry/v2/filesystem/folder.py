@@ -36,6 +36,7 @@ from foundry._errors import handle_unexpected
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.filesystem import errors as filesystem_errors
 from foundry.v2.filesystem.models._folder import Folder
 from foundry.v2.filesystem.models._folder_rid import FolderRid
 from foundry.v2.filesystem.models._list_children_of_folder_response import (
@@ -117,6 +118,7 @@ class FolderClient:
                 body_type=None,
                 response_type=ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -177,6 +179,7 @@ class FolderClient:
                 body_type=None,
                 response_type=ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -203,6 +206,9 @@ class FolderClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Folder
+
+        :raises CreateFolderPermissionDenied: Could not create the Folder.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -230,6 +236,10 @@ class FolderClient:
                 ),
                 response_type=Folder,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         ).decode()
 
@@ -253,6 +263,8 @@ class FolderClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Folder
+
+        :raises FolderNotFound: The given Folder could not be found.
         """
 
         return self._api_client.call_api(
@@ -272,6 +284,9 @@ class FolderClient:
                 body_type=None,
                 response_type=Folder,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                },
             ),
         ).decode()
 
@@ -344,6 +359,7 @@ class _FolderClientRaw:
                 body_type=None,
                 response_type=ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -404,6 +420,7 @@ class _FolderClientRaw:
                 body_type=None,
                 response_type=ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -430,6 +447,9 @@ class _FolderClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Folder]
+
+        :raises CreateFolderPermissionDenied: Could not create the Folder.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -457,6 +477,10 @@ class _FolderClientRaw:
                 ),
                 response_type=Folder,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         )
 
@@ -480,6 +504,8 @@ class _FolderClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Folder]
+
+        :raises FolderNotFound: The given Folder could not be found.
         """
 
         return self._api_client.call_api(
@@ -499,6 +525,9 @@ class _FolderClientRaw:
                 body_type=None,
                 response_type=Folder,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                },
             ),
         )
 
@@ -571,6 +600,7 @@ class _FolderClientStreaming:
                 body_type=None,
                 response_type=ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -631,6 +661,7 @@ class _FolderClientStreaming:
                 body_type=None,
                 response_type=ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -657,6 +688,9 @@ class _FolderClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Folder]
+
+        :raises CreateFolderPermissionDenied: Could not create the Folder.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.stream_api(
@@ -684,6 +718,10 @@ class _FolderClientStreaming:
                 ),
                 response_type=Folder,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         )
 
@@ -707,6 +745,8 @@ class _FolderClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Folder]
+
+        :raises FolderNotFound: The given Folder could not be found.
         """
 
         return self._api_client.stream_api(
@@ -726,5 +766,8 @@ class _FolderClientStreaming:
                 body_type=None,
                 response_type=Folder,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                },
             ),
         )

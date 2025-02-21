@@ -40,6 +40,7 @@ from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.core.models._role_id import RoleId
+from foundry.v2.filesystem import errors as filesystem_errors
 from foundry.v2.filesystem.models._list_organizations_of_project_response import (
     ListOrganizationsOfProjectResponse,
 )  # NOQA
@@ -102,6 +103,8 @@ class ProjectClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
         """
 
         return self._api_client.call_api(
@@ -128,6 +131,9 @@ class ProjectClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddOrganizationsPermissionDenied": filesystem_errors.AddOrganizationsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -171,6 +177,15 @@ class ProjectClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Project
+
+        :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
+        :raises CreateProjectPermissionDenied: Could not create the Project.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
+        :raises ProjectCreationNotSupported: Project creation is not supported in the current user's space.
+        :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises SpaceNotFound: The referenced space cannot be found.
         """
 
         return self._api_client.call_api(
@@ -208,6 +223,16 @@ class ProjectClient:
                 ),
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
+                    "CreateProjectPermissionDenied": filesystem_errors.CreateProjectPermissionDenied,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
+                    "ProjectCreationNotSupported": filesystem_errors.ProjectCreationNotSupported,
+                    "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "SpaceNotFound": filesystem_errors.SpaceNotFound,
+                },
             ),
         ).decode()
 
@@ -243,6 +268,23 @@ class ProjectClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Project
+
+        :raises AddGroupToParentGroupPermissionDenied: The user is not authorized to add a a group to the parent group required to create the project from template.
+        :raises CreateGroupPermissionDenied: The user is not authorized to create the group in the organization required to create the project from template.
+        :raises CreateProjectFromTemplatePermissionDenied: Could not createFromTemplate the Project.
+        :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
+        :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
+        :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
+        :raises InvalidOrganizationHierarchy: The project created from template would have either no organizations in a marked space, or an organization which is not on the space.
+        :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
+        :raises InvalidPrincipalIdsForGroupTemplate: The template requested for project creation contains principal IDs that do not exist.
+        :raises InvalidVariable: A variable referenced in the request to create project from template is not defined on the template.
+        :raises InvalidVariableEnumOption: The value passed in the request to create project from template for an enum type variable is not a valid option.
+        :raises MissingVariableValue: A variable defined on the template requested for project creation does not have a value set in the request.
+        :raises NotAuthorizedToApplyOrganization: The user is not authorized to apply at least one of the organization markings required to create the project from template.
+        :raises ProjectTemplateNotFound: The project template RID referenced cannot be found.
+        :raises TemplateGroupNameConflict: Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups.
+        :raises TemplateMarkingNameConflict: Creating the project from template would attempt to create new markings with names conflicting either with other new markings, or existing markings.
         """
 
         return self._api_client.call_api(
@@ -278,6 +320,24 @@ class ProjectClient:
                 ),
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddGroupToParentGroupPermissionDenied": filesystem_errors.AddGroupToParentGroupPermissionDenied,
+                    "CreateGroupPermissionDenied": filesystem_errors.CreateGroupPermissionDenied,
+                    "CreateProjectFromTemplatePermissionDenied": filesystem_errors.CreateProjectFromTemplatePermissionDenied,
+                    "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
+                    "DefaultRolesNotInSpaceRoleSet": filesystem_errors.DefaultRolesNotInSpaceRoleSet,
+                    "InvalidDescription": filesystem_errors.InvalidDescription,
+                    "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
+                    "InvalidOrganizations": filesystem_errors.InvalidOrganizations,
+                    "InvalidPrincipalIdsForGroupTemplate": filesystem_errors.InvalidPrincipalIdsForGroupTemplate,
+                    "InvalidVariable": filesystem_errors.InvalidVariable,
+                    "InvalidVariableEnumOption": filesystem_errors.InvalidVariableEnumOption,
+                    "MissingVariableValue": filesystem_errors.MissingVariableValue,
+                    "NotAuthorizedToApplyOrganization": filesystem_errors.NotAuthorizedToApplyOrganization,
+                    "ProjectTemplateNotFound": filesystem_errors.ProjectTemplateNotFound,
+                    "TemplateGroupNameConflict": filesystem_errors.TemplateGroupNameConflict,
+                    "TemplateMarkingNameConflict": filesystem_errors.TemplateMarkingNameConflict,
+                },
             ),
         ).decode()
 
@@ -301,6 +361,8 @@ class ProjectClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Project
+
+        :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
@@ -320,6 +382,9 @@ class ProjectClient:
                 body_type=None,
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
+                },
             ),
         ).decode()
 
@@ -372,6 +437,7 @@ class ProjectClient:
                 body_type=None,
                 response_type=ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -430,6 +496,7 @@ class ProjectClient:
                 body_type=None,
                 response_type=ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -456,6 +523,8 @@ class ProjectClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
 
         return self._api_client.call_api(
@@ -482,6 +551,9 @@ class ProjectClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveOrganizationsPermissionDenied": filesystem_errors.RemoveOrganizationsPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -526,6 +598,8 @@ class _ProjectClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
         """
 
         return self._api_client.call_api(
@@ -552,6 +626,9 @@ class _ProjectClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddOrganizationsPermissionDenied": filesystem_errors.AddOrganizationsPermissionDenied,
+                },
             ),
         )
 
@@ -595,6 +672,15 @@ class _ProjectClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Project]
+
+        :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
+        :raises CreateProjectPermissionDenied: Could not create the Project.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
+        :raises ProjectCreationNotSupported: Project creation is not supported in the current user's space.
+        :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises SpaceNotFound: The referenced space cannot be found.
         """
 
         return self._api_client.call_api(
@@ -632,6 +718,16 @@ class _ProjectClientRaw:
                 ),
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
+                    "CreateProjectPermissionDenied": filesystem_errors.CreateProjectPermissionDenied,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
+                    "ProjectCreationNotSupported": filesystem_errors.ProjectCreationNotSupported,
+                    "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "SpaceNotFound": filesystem_errors.SpaceNotFound,
+                },
             ),
         )
 
@@ -667,6 +763,23 @@ class _ProjectClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Project]
+
+        :raises AddGroupToParentGroupPermissionDenied: The user is not authorized to add a a group to the parent group required to create the project from template.
+        :raises CreateGroupPermissionDenied: The user is not authorized to create the group in the organization required to create the project from template.
+        :raises CreateProjectFromTemplatePermissionDenied: Could not createFromTemplate the Project.
+        :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
+        :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
+        :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
+        :raises InvalidOrganizationHierarchy: The project created from template would have either no organizations in a marked space, or an organization which is not on the space.
+        :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
+        :raises InvalidPrincipalIdsForGroupTemplate: The template requested for project creation contains principal IDs that do not exist.
+        :raises InvalidVariable: A variable referenced in the request to create project from template is not defined on the template.
+        :raises InvalidVariableEnumOption: The value passed in the request to create project from template for an enum type variable is not a valid option.
+        :raises MissingVariableValue: A variable defined on the template requested for project creation does not have a value set in the request.
+        :raises NotAuthorizedToApplyOrganization: The user is not authorized to apply at least one of the organization markings required to create the project from template.
+        :raises ProjectTemplateNotFound: The project template RID referenced cannot be found.
+        :raises TemplateGroupNameConflict: Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups.
+        :raises TemplateMarkingNameConflict: Creating the project from template would attempt to create new markings with names conflicting either with other new markings, or existing markings.
         """
 
         return self._api_client.call_api(
@@ -702,6 +815,24 @@ class _ProjectClientRaw:
                 ),
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddGroupToParentGroupPermissionDenied": filesystem_errors.AddGroupToParentGroupPermissionDenied,
+                    "CreateGroupPermissionDenied": filesystem_errors.CreateGroupPermissionDenied,
+                    "CreateProjectFromTemplatePermissionDenied": filesystem_errors.CreateProjectFromTemplatePermissionDenied,
+                    "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
+                    "DefaultRolesNotInSpaceRoleSet": filesystem_errors.DefaultRolesNotInSpaceRoleSet,
+                    "InvalidDescription": filesystem_errors.InvalidDescription,
+                    "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
+                    "InvalidOrganizations": filesystem_errors.InvalidOrganizations,
+                    "InvalidPrincipalIdsForGroupTemplate": filesystem_errors.InvalidPrincipalIdsForGroupTemplate,
+                    "InvalidVariable": filesystem_errors.InvalidVariable,
+                    "InvalidVariableEnumOption": filesystem_errors.InvalidVariableEnumOption,
+                    "MissingVariableValue": filesystem_errors.MissingVariableValue,
+                    "NotAuthorizedToApplyOrganization": filesystem_errors.NotAuthorizedToApplyOrganization,
+                    "ProjectTemplateNotFound": filesystem_errors.ProjectTemplateNotFound,
+                    "TemplateGroupNameConflict": filesystem_errors.TemplateGroupNameConflict,
+                    "TemplateMarkingNameConflict": filesystem_errors.TemplateMarkingNameConflict,
+                },
             ),
         )
 
@@ -725,6 +856,8 @@ class _ProjectClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Project]
+
+        :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
@@ -744,6 +877,9 @@ class _ProjectClientRaw:
                 body_type=None,
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
+                },
             ),
         )
 
@@ -796,6 +932,7 @@ class _ProjectClientRaw:
                 body_type=None,
                 response_type=ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -854,6 +991,7 @@ class _ProjectClientRaw:
                 body_type=None,
                 response_type=ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -880,6 +1018,8 @@ class _ProjectClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
 
         return self._api_client.call_api(
@@ -906,6 +1046,9 @@ class _ProjectClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveOrganizationsPermissionDenied": filesystem_errors.RemoveOrganizationsPermissionDenied,
+                },
             ),
         )
 
@@ -950,6 +1093,8 @@ class _ProjectClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
         """
 
         return self._api_client.stream_api(
@@ -976,6 +1121,9 @@ class _ProjectClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddOrganizationsPermissionDenied": filesystem_errors.AddOrganizationsPermissionDenied,
+                },
             ),
         )
 
@@ -1019,6 +1167,15 @@ class _ProjectClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Project]
+
+        :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
+        :raises CreateProjectPermissionDenied: Could not create the Project.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
+        :raises ProjectCreationNotSupported: Project creation is not supported in the current user's space.
+        :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises SpaceNotFound: The referenced space cannot be found.
         """
 
         return self._api_client.stream_api(
@@ -1056,6 +1213,16 @@ class _ProjectClientStreaming:
                 ),
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
+                    "CreateProjectPermissionDenied": filesystem_errors.CreateProjectPermissionDenied,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
+                    "ProjectCreationNotSupported": filesystem_errors.ProjectCreationNotSupported,
+                    "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "SpaceNotFound": filesystem_errors.SpaceNotFound,
+                },
             ),
         )
 
@@ -1091,6 +1258,23 @@ class _ProjectClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Project]
+
+        :raises AddGroupToParentGroupPermissionDenied: The user is not authorized to add a a group to the parent group required to create the project from template.
+        :raises CreateGroupPermissionDenied: The user is not authorized to create the group in the organization required to create the project from template.
+        :raises CreateProjectFromTemplatePermissionDenied: Could not createFromTemplate the Project.
+        :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
+        :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
+        :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
+        :raises InvalidOrganizationHierarchy: The project created from template would have either no organizations in a marked space, or an organization which is not on the space.
+        :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
+        :raises InvalidPrincipalIdsForGroupTemplate: The template requested for project creation contains principal IDs that do not exist.
+        :raises InvalidVariable: A variable referenced in the request to create project from template is not defined on the template.
+        :raises InvalidVariableEnumOption: The value passed in the request to create project from template for an enum type variable is not a valid option.
+        :raises MissingVariableValue: A variable defined on the template requested for project creation does not have a value set in the request.
+        :raises NotAuthorizedToApplyOrganization: The user is not authorized to apply at least one of the organization markings required to create the project from template.
+        :raises ProjectTemplateNotFound: The project template RID referenced cannot be found.
+        :raises TemplateGroupNameConflict: Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups.
+        :raises TemplateMarkingNameConflict: Creating the project from template would attempt to create new markings with names conflicting either with other new markings, or existing markings.
         """
 
         return self._api_client.stream_api(
@@ -1126,6 +1310,24 @@ class _ProjectClientStreaming:
                 ),
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddGroupToParentGroupPermissionDenied": filesystem_errors.AddGroupToParentGroupPermissionDenied,
+                    "CreateGroupPermissionDenied": filesystem_errors.CreateGroupPermissionDenied,
+                    "CreateProjectFromTemplatePermissionDenied": filesystem_errors.CreateProjectFromTemplatePermissionDenied,
+                    "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
+                    "DefaultRolesNotInSpaceRoleSet": filesystem_errors.DefaultRolesNotInSpaceRoleSet,
+                    "InvalidDescription": filesystem_errors.InvalidDescription,
+                    "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
+                    "InvalidOrganizations": filesystem_errors.InvalidOrganizations,
+                    "InvalidPrincipalIdsForGroupTemplate": filesystem_errors.InvalidPrincipalIdsForGroupTemplate,
+                    "InvalidVariable": filesystem_errors.InvalidVariable,
+                    "InvalidVariableEnumOption": filesystem_errors.InvalidVariableEnumOption,
+                    "MissingVariableValue": filesystem_errors.MissingVariableValue,
+                    "NotAuthorizedToApplyOrganization": filesystem_errors.NotAuthorizedToApplyOrganization,
+                    "ProjectTemplateNotFound": filesystem_errors.ProjectTemplateNotFound,
+                    "TemplateGroupNameConflict": filesystem_errors.TemplateGroupNameConflict,
+                    "TemplateMarkingNameConflict": filesystem_errors.TemplateMarkingNameConflict,
+                },
             ),
         )
 
@@ -1149,6 +1351,8 @@ class _ProjectClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Project]
+
+        :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.stream_api(
@@ -1168,6 +1372,9 @@ class _ProjectClientStreaming:
                 body_type=None,
                 response_type=Project,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
+                },
             ),
         )
 
@@ -1220,6 +1427,7 @@ class _ProjectClientStreaming:
                 body_type=None,
                 response_type=ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1278,6 +1486,7 @@ class _ProjectClientStreaming:
                 body_type=None,
                 response_type=ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1304,6 +1513,8 @@ class _ProjectClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
 
         return self._api_client.stream_api(
@@ -1330,5 +1541,8 @@ class _ProjectClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveOrganizationsPermissionDenied": filesystem_errors.RemoveOrganizationsPermissionDenied,
+                },
             ),
         )

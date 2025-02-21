@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class BatchRequestSizeExceededLimitParameters(TypedDict):
@@ -31,13 +30,12 @@ class BatchRequestSizeExceededLimitParameters(TypedDict):
 
     MaximumBatchSize: int
     """The maximum size of batch requests that can be sent to this endpoint."""
-
     ProvidedBatchSize: int
     """The size of the batch request that was sent to this endpoint."""
 
 
 @dataclass
-class BatchRequestSizeExceededLimit(PalantirRPCException):
+class BatchRequestSizeExceededLimit(BadRequestError):
     name: Literal["BatchRequestSizeExceededLimit"]
     parameters: BatchRequestSizeExceededLimitParameters
     error_instance_id: str

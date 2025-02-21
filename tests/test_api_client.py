@@ -30,6 +30,7 @@ import pytest
 from foundry import BadRequestError
 from foundry import ConfidentialClientAuth
 from foundry import Config
+from foundry import ConflictError
 from foundry import ConnectionError
 from foundry import InternalServerError
 from foundry import NotFoundError
@@ -38,6 +39,7 @@ from foundry import PermissionDeniedError
 from foundry import ProxyError
 from foundry import RateLimitError
 from foundry import ReadTimeout
+from foundry import RequestEntityTooLargeError
 from foundry import StreamConsumedError
 from foundry import UnauthorizedError
 from foundry import UnprocessableEntityError
@@ -183,19 +185,7 @@ def call_api_helper(
         )
     )
 
-    return client.call_api(
-        RequestInfo(
-            method="POST",
-            resource_path="/abc",
-            query_params={},
-            header_params={},
-            path_params={},
-            body={},
-            body_type=Any,
-            response_type={},
-            request_timeout=None,
-        )
-    )
+    return client.call_api(RequestInfo.with_defaults("POST", "/abc"))
 
 
 def test_call_api_400():
@@ -230,6 +220,16 @@ def test_422_error():
 def test_429_error():
     with pytest.raises(RateLimitError):
         call_api_helper(status_code=429, data=EXAMPLE_ERROR)
+
+
+def test_413_error():
+    with pytest.raises(RequestEntityTooLargeError):
+        call_api_helper(status_code=413, data=EXAMPLE_ERROR)
+
+
+def test_409_error():
+    with pytest.raises(ConflictError):
+        call_api_helper(status_code=409, data=EXAMPLE_ERROR)
 
 
 def test_call_api_500():

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class BuildTargetsResolutionErrorParameters(TypedDict):
@@ -31,7 +30,7 @@ class BuildTargetsResolutionErrorParameters(TypedDict):
 
 
 @dataclass
-class BuildTargetsResolutionError(PalantirRPCException):
+class BuildTargetsResolutionError(BadRequestError):
     name: Literal["BuildTargetsResolutionError"]
     parameters: BuildTargetsResolutionErrorParameters
     error_instance_id: str

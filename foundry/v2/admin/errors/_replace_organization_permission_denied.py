@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
@@ -34,7 +33,7 @@ class ReplaceOrganizationPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ReplaceOrganizationPermissionDenied(PalantirRPCException):
+class ReplaceOrganizationPermissionDenied(PermissionDeniedError):
     name: Literal["ReplaceOrganizationPermissionDenied"]
     parameters: ReplaceOrganizationPermissionDeniedParameters
     error_instance_id: str

@@ -38,6 +38,7 @@ from foundry.v2.core.models._stream_schema import StreamSchema
 from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.streams import errors as streams_errors
 from foundry.v2.streams.models._compressed import Compressed
 from foundry.v2.streams.models._create_stream_request_stream_schema import (
     CreateStreamRequestStreamSchema,
@@ -109,6 +110,8 @@ class StreamClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Stream
+
+        :raises CreateStreamPermissionDenied: Could not create the Stream.
         """
 
         return self._api_client.call_api(
@@ -146,6 +149,9 @@ class StreamClient:
                 ),
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateStreamPermissionDenied": streams_errors.CreateStreamPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -174,6 +180,8 @@ class StreamClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Stream
+
+        :raises StreamNotFound: The given Stream could not be found.
         """
 
         return self._api_client.call_api(
@@ -194,6 +202,9 @@ class StreamClient:
                 body_type=None,
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "StreamNotFound": streams_errors.StreamNotFound,
+                },
             ),
         ).decode()
 
@@ -227,6 +238,8 @@ class StreamClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises PublishBinaryRecordToStreamPermissionDenied: Could not publishBinaryRecord the Stream.
         """
 
         return self._api_client.call_api(
@@ -248,6 +261,9 @@ class StreamClient:
                 body_type=bytes,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishBinaryRecordToStreamPermissionDenied": streams_errors.PublishBinaryRecordToStreamPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -282,6 +298,8 @@ class StreamClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises PublishRecordToStreamPermissionDenied: Could not publishRecord the Stream.
         """
 
         return self._api_client.call_api(
@@ -311,6 +329,9 @@ class StreamClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishRecordToStreamPermissionDenied": streams_errors.PublishRecordToStreamPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -345,6 +366,8 @@ class StreamClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises PublishRecordsToStreamPermissionDenied: Could not publishRecords the Stream.
         """
 
         return self._api_client.call_api(
@@ -374,6 +397,9 @@ class StreamClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishRecordsToStreamPermissionDenied": streams_errors.PublishRecordsToStreamPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -419,6 +445,8 @@ class StreamClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Stream
+
+        :raises ResetStreamPermissionDenied: Could not reset the Stream.
         """
 
         return self._api_client.call_api(
@@ -453,6 +481,9 @@ class StreamClient:
                 ),
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ResetStreamPermissionDenied": streams_errors.ResetStreamPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -510,6 +541,8 @@ class _StreamClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Stream]
+
+        :raises CreateStreamPermissionDenied: Could not create the Stream.
         """
 
         return self._api_client.call_api(
@@ -547,6 +580,9 @@ class _StreamClientRaw:
                 ),
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateStreamPermissionDenied": streams_errors.CreateStreamPermissionDenied,
+                },
             ),
         )
 
@@ -575,6 +611,8 @@ class _StreamClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Stream]
+
+        :raises StreamNotFound: The given Stream could not be found.
         """
 
         return self._api_client.call_api(
@@ -595,6 +633,9 @@ class _StreamClientRaw:
                 body_type=None,
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "StreamNotFound": streams_errors.StreamNotFound,
+                },
             ),
         )
 
@@ -628,6 +669,8 @@ class _StreamClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises PublishBinaryRecordToStreamPermissionDenied: Could not publishBinaryRecord the Stream.
         """
 
         return self._api_client.call_api(
@@ -649,6 +692,9 @@ class _StreamClientRaw:
                 body_type=bytes,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishBinaryRecordToStreamPermissionDenied": streams_errors.PublishBinaryRecordToStreamPermissionDenied,
+                },
             ),
         )
 
@@ -683,6 +729,8 @@ class _StreamClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises PublishRecordToStreamPermissionDenied: Could not publishRecord the Stream.
         """
 
         return self._api_client.call_api(
@@ -712,6 +760,9 @@ class _StreamClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishRecordToStreamPermissionDenied": streams_errors.PublishRecordToStreamPermissionDenied,
+                },
             ),
         )
 
@@ -746,6 +797,8 @@ class _StreamClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises PublishRecordsToStreamPermissionDenied: Could not publishRecords the Stream.
         """
 
         return self._api_client.call_api(
@@ -775,6 +828,9 @@ class _StreamClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishRecordsToStreamPermissionDenied": streams_errors.PublishRecordsToStreamPermissionDenied,
+                },
             ),
         )
 
@@ -820,6 +876,8 @@ class _StreamClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Stream]
+
+        :raises ResetStreamPermissionDenied: Could not reset the Stream.
         """
 
         return self._api_client.call_api(
@@ -854,6 +912,9 @@ class _StreamClientRaw:
                 ),
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ResetStreamPermissionDenied": streams_errors.ResetStreamPermissionDenied,
+                },
             ),
         )
 
@@ -911,6 +972,8 @@ class _StreamClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Stream]
+
+        :raises CreateStreamPermissionDenied: Could not create the Stream.
         """
 
         return self._api_client.stream_api(
@@ -948,6 +1011,9 @@ class _StreamClientStreaming:
                 ),
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateStreamPermissionDenied": streams_errors.CreateStreamPermissionDenied,
+                },
             ),
         )
 
@@ -976,6 +1042,8 @@ class _StreamClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Stream]
+
+        :raises StreamNotFound: The given Stream could not be found.
         """
 
         return self._api_client.stream_api(
@@ -996,6 +1064,9 @@ class _StreamClientStreaming:
                 body_type=None,
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "StreamNotFound": streams_errors.StreamNotFound,
+                },
             ),
         )
 
@@ -1029,6 +1100,8 @@ class _StreamClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises PublishBinaryRecordToStreamPermissionDenied: Could not publishBinaryRecord the Stream.
         """
 
         return self._api_client.stream_api(
@@ -1050,6 +1123,9 @@ class _StreamClientStreaming:
                 body_type=bytes,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishBinaryRecordToStreamPermissionDenied": streams_errors.PublishBinaryRecordToStreamPermissionDenied,
+                },
             ),
         )
 
@@ -1084,6 +1160,8 @@ class _StreamClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises PublishRecordToStreamPermissionDenied: Could not publishRecord the Stream.
         """
 
         return self._api_client.stream_api(
@@ -1113,6 +1191,9 @@ class _StreamClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishRecordToStreamPermissionDenied": streams_errors.PublishRecordToStreamPermissionDenied,
+                },
             ),
         )
 
@@ -1147,6 +1228,8 @@ class _StreamClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises PublishRecordsToStreamPermissionDenied: Could not publishRecords the Stream.
         """
 
         return self._api_client.stream_api(
@@ -1176,6 +1259,9 @@ class _StreamClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "PublishRecordsToStreamPermissionDenied": streams_errors.PublishRecordsToStreamPermissionDenied,
+                },
             ),
         )
 
@@ -1221,6 +1307,8 @@ class _StreamClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Stream]
+
+        :raises ResetStreamPermissionDenied: Could not reset the Stream.
         """
 
         return self._api_client.stream_api(
@@ -1255,5 +1343,8 @@ class _StreamClientStreaming:
                 ),
                 response_type=Stream,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ResetStreamPermissionDenied": streams_errors.ResetStreamPermissionDenied,
+                },
             ),
         )

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.filesystem.models._space_rid import SpaceRid
 
 
@@ -34,7 +33,7 @@ class GetSpaceResourceNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class GetSpaceResourceNotSupported(PalantirRPCException):
+class GetSpaceResourceNotSupported(BadRequestError):
     name: Literal["GetSpaceResourceNotSupported"]
     parameters: GetSpaceResourceNotSupportedParameters
     error_instance_id: str

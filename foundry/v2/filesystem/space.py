@@ -91,6 +91,7 @@ class SpaceClient:
                 body_type=None,
                 response_type=ListSpacesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -148,6 +149,7 @@ class _SpaceClientRaw:
                 body_type=None,
                 response_type=ListSpacesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -205,5 +207,6 @@ class _SpaceClientStreaming:
                 body_type=None,
                 response_type=ListSpacesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

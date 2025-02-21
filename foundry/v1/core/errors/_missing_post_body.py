@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class MissingPostBodyParameters(TypedDict):
@@ -31,7 +30,7 @@ class MissingPostBodyParameters(TypedDict):
 
 
 @dataclass
-class MissingPostBody(PalantirRPCException):
+class MissingPostBody(BadRequestError):
     name: Literal["MissingPostBody"]
     parameters: MissingPostBodyParameters
     error_instance_id: str

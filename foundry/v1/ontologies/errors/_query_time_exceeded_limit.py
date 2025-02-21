@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import InternalServerError
 from foundry.v1.ontologies.models._function_rid import FunctionRid
 from foundry.v1.ontologies.models._function_version import FunctionVersion
 
@@ -37,7 +36,7 @@ class QueryTimeExceededLimitParameters(TypedDict):
 
 
 @dataclass
-class QueryTimeExceededLimit(PalantirRPCException):
+class QueryTimeExceededLimit(InternalServerError):
     name: Literal["QueryTimeExceededLimit"]
     parameters: QueryTimeExceededLimitParameters
     error_instance_id: str

@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
 
 
@@ -34,7 +33,7 @@ class ScheduleNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ScheduleNotFound(PalantirRPCException):
+class ScheduleNotFound(NotFoundError):
     name: Literal["ScheduleNotFound"]
     parameters: ScheduleNotFoundParameters
     error_instance_id: str

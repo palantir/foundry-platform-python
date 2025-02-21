@@ -39,6 +39,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.aip_agents import errors as aip_agents_errors
 from foundry.v2.aip_agents.content import ContentClient
 from foundry.v2.aip_agents.models._agent_markdown_response import AgentMarkdownResponse
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
@@ -124,6 +125,17 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: SessionExchangeResult
+
+        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
+        :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
+        :raises ContextSizeExceededLimit: Failed to generate a response for a session because the context size of the LLM has been exceeded. Clients should either retry with a shorter message or create a new session and try re-sending the message.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
+        :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         """
 
         return self._api_client.call_api(
@@ -158,6 +170,18 @@ class SessionClient:
                 ),
                 response_type=SessionExchangeResult,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
+                    "BlockingContinueSessionPermissionDenied": aip_agents_errors.BlockingContinueSessionPermissionDenied,
+                    "ContextSizeExceededLimit": aip_agents_errors.ContextSizeExceededLimit,
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "InvalidParameter": aip_agents_errors.InvalidParameter,
+                    "InvalidParameterType": aip_agents_errors.InvalidParameterType,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
+                    "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
+                },
             ),
         ).decode()
 
@@ -193,6 +217,9 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: CancelSessionResponse
+
+        :raises CancelSessionFailedMessageNotInProgress: Unable to cancel the requested session exchange as no in-progress exchange was found for the provided message identifier. This is expected if no exchange was initiated with the provided message identifier through a `streamingContinue` request, or if the exchange for this identifier has already completed and cannot be canceled, or if the exchange has already been canceled. This error can also occur if the cancellation was requested immediately after requesting the exchange through a `streamingContinue` request, and the exchange has not started yet. Clients should handle these errors gracefully, and can reload the session content to get the latest conversation state.
+        :raises CancelSessionPermissionDenied: Could not cancel the Session.
         """
 
         return self._api_client.call_api(
@@ -223,6 +250,10 @@ class SessionClient:
                 ),
                 response_type=CancelSessionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CancelSessionFailedMessageNotInProgress": aip_agents_errors.CancelSessionFailedMessageNotInProgress,
+                    "CancelSessionPermissionDenied": aip_agents_errors.CancelSessionPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -251,6 +282,12 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Session
+
+        :raises CreateSessionPermissionDenied: Could not create the Session.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
         """
 
         return self._api_client.call_api(
@@ -278,6 +315,13 @@ class SessionClient:
                 ),
                 response_type=Session,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                },
             ),
         ).decode()
 
@@ -304,6 +348,8 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Session
+
+        :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.call_api(
@@ -324,6 +370,9 @@ class SessionClient:
                 body_type=None,
                 response_type=Session,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
+                },
             ),
         ).decode()
 
@@ -378,6 +427,7 @@ class SessionClient:
                 body_type=None,
                 response_type=ListSessionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -438,6 +488,7 @@ class SessionClient:
                 body_type=None,
                 response_type=ListSessionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -472,6 +523,11 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: AgentSessionRagContextResponse
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
         """
 
         return self._api_client.call_api(
@@ -504,6 +560,12 @@ class SessionClient:
                 ),
                 response_type=AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "GetRagContextForSessionPermissionDenied": aip_agents_errors.GetRagContextForSessionPermissionDenied,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                },
             ),
         ).decode()
 
@@ -556,6 +618,13 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: BinaryStream
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
         ...
 
@@ -602,6 +671,13 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
         ...
 
@@ -654,6 +730,13 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
         ...
 
@@ -705,6 +788,13 @@ class SessionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
 
         if stream:
@@ -750,6 +840,14 @@ class SessionClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "InvalidParameter": aip_agents_errors.InvalidParameter,
+                    "InvalidParameterType": aip_agents_errors.InvalidParameterType,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -809,6 +907,17 @@ class _SessionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[SessionExchangeResult]
+
+        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
+        :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
+        :raises ContextSizeExceededLimit: Failed to generate a response for a session because the context size of the LLM has been exceeded. Clients should either retry with a shorter message or create a new session and try re-sending the message.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
+        :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         """
 
         return self._api_client.call_api(
@@ -843,6 +952,18 @@ class _SessionClientRaw:
                 ),
                 response_type=SessionExchangeResult,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
+                    "BlockingContinueSessionPermissionDenied": aip_agents_errors.BlockingContinueSessionPermissionDenied,
+                    "ContextSizeExceededLimit": aip_agents_errors.ContextSizeExceededLimit,
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "InvalidParameter": aip_agents_errors.InvalidParameter,
+                    "InvalidParameterType": aip_agents_errors.InvalidParameterType,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
+                    "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
+                },
             ),
         )
 
@@ -878,6 +999,9 @@ class _SessionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[CancelSessionResponse]
+
+        :raises CancelSessionFailedMessageNotInProgress: Unable to cancel the requested session exchange as no in-progress exchange was found for the provided message identifier. This is expected if no exchange was initiated with the provided message identifier through a `streamingContinue` request, or if the exchange for this identifier has already completed and cannot be canceled, or if the exchange has already been canceled. This error can also occur if the cancellation was requested immediately after requesting the exchange through a `streamingContinue` request, and the exchange has not started yet. Clients should handle these errors gracefully, and can reload the session content to get the latest conversation state.
+        :raises CancelSessionPermissionDenied: Could not cancel the Session.
         """
 
         return self._api_client.call_api(
@@ -908,6 +1032,10 @@ class _SessionClientRaw:
                 ),
                 response_type=CancelSessionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CancelSessionFailedMessageNotInProgress": aip_agents_errors.CancelSessionFailedMessageNotInProgress,
+                    "CancelSessionPermissionDenied": aip_agents_errors.CancelSessionPermissionDenied,
+                },
             ),
         )
 
@@ -936,6 +1064,12 @@ class _SessionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Session]
+
+        :raises CreateSessionPermissionDenied: Could not create the Session.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
         """
 
         return self._api_client.call_api(
@@ -963,6 +1097,13 @@ class _SessionClientRaw:
                 ),
                 response_type=Session,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                },
             ),
         )
 
@@ -989,6 +1130,8 @@ class _SessionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Session]
+
+        :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.call_api(
@@ -1009,6 +1152,9 @@ class _SessionClientRaw:
                 body_type=None,
                 response_type=Session,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
+                },
             ),
         )
 
@@ -1063,6 +1209,7 @@ class _SessionClientRaw:
                 body_type=None,
                 response_type=ListSessionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1123,6 +1270,7 @@ class _SessionClientRaw:
                 body_type=None,
                 response_type=ListSessionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1157,6 +1305,11 @@ class _SessionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[AgentSessionRagContextResponse]
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
         """
 
         return self._api_client.call_api(
@@ -1189,6 +1342,12 @@ class _SessionClientRaw:
                 ),
                 response_type=AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "GetRagContextForSessionPermissionDenied": aip_agents_errors.GetRagContextForSessionPermissionDenied,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                },
             ),
         )
 
@@ -1234,6 +1393,13 @@ class _SessionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[bytes]
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
 
         return self._api_client.call_api(
@@ -1270,6 +1436,14 @@ class _SessionClientRaw:
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "InvalidParameter": aip_agents_errors.InvalidParameter,
+                    "InvalidParameterType": aip_agents_errors.InvalidParameterType,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,
+                },
             ),
         )
 
@@ -1329,6 +1503,17 @@ class _SessionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[SessionExchangeResult]
+
+        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
+        :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
+        :raises ContextSizeExceededLimit: Failed to generate a response for a session because the context size of the LLM has been exceeded. Clients should either retry with a shorter message or create a new session and try re-sending the message.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
+        :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         """
 
         return self._api_client.stream_api(
@@ -1363,6 +1548,18 @@ class _SessionClientStreaming:
                 ),
                 response_type=SessionExchangeResult,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
+                    "BlockingContinueSessionPermissionDenied": aip_agents_errors.BlockingContinueSessionPermissionDenied,
+                    "ContextSizeExceededLimit": aip_agents_errors.ContextSizeExceededLimit,
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "InvalidParameter": aip_agents_errors.InvalidParameter,
+                    "InvalidParameterType": aip_agents_errors.InvalidParameterType,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
+                    "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
+                },
             ),
         )
 
@@ -1398,6 +1595,9 @@ class _SessionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[CancelSessionResponse]
+
+        :raises CancelSessionFailedMessageNotInProgress: Unable to cancel the requested session exchange as no in-progress exchange was found for the provided message identifier. This is expected if no exchange was initiated with the provided message identifier through a `streamingContinue` request, or if the exchange for this identifier has already completed and cannot be canceled, or if the exchange has already been canceled. This error can also occur if the cancellation was requested immediately after requesting the exchange through a `streamingContinue` request, and the exchange has not started yet. Clients should handle these errors gracefully, and can reload the session content to get the latest conversation state.
+        :raises CancelSessionPermissionDenied: Could not cancel the Session.
         """
 
         return self._api_client.stream_api(
@@ -1428,6 +1628,10 @@ class _SessionClientStreaming:
                 ),
                 response_type=CancelSessionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CancelSessionFailedMessageNotInProgress": aip_agents_errors.CancelSessionFailedMessageNotInProgress,
+                    "CancelSessionPermissionDenied": aip_agents_errors.CancelSessionPermissionDenied,
+                },
             ),
         )
 
@@ -1456,6 +1660,12 @@ class _SessionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Session]
+
+        :raises CreateSessionPermissionDenied: Could not create the Session.
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
         """
 
         return self._api_client.stream_api(
@@ -1483,6 +1693,13 @@ class _SessionClientStreaming:
                 ),
                 response_type=Session,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                },
             ),
         )
 
@@ -1509,6 +1726,8 @@ class _SessionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Session]
+
+        :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.stream_api(
@@ -1529,6 +1748,9 @@ class _SessionClientStreaming:
                 body_type=None,
                 response_type=Session,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
+                },
             ),
         )
 
@@ -1583,6 +1805,7 @@ class _SessionClientStreaming:
                 body_type=None,
                 response_type=ListSessionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1643,6 +1866,7 @@ class _SessionClientStreaming:
                 body_type=None,
                 response_type=ListSessionsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1677,6 +1901,11 @@ class _SessionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[AgentSessionRagContextResponse]
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
         """
 
         return self._api_client.stream_api(
@@ -1709,6 +1938,12 @@ class _SessionClientStreaming:
                 ),
                 response_type=AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "GetRagContextForSessionPermissionDenied": aip_agents_errors.GetRagContextForSessionPermissionDenied,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                },
             ),
         )
 
@@ -1754,6 +1989,13 @@ class _SessionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[bytes]
+
+        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
 
         return self._api_client.stream_api(
@@ -1790,5 +2032,13 @@ class _SessionClientStreaming:
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "InvalidParameter": aip_agents_errors.InvalidParameter,
+                    "InvalidParameterType": aip_agents_errors.InvalidParameterType,
+                    "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
+                    "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,
+                },
             ),
         )

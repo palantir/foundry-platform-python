@@ -104,6 +104,7 @@ class QueryTypeClient:
                 body_type=None,
                 response_type=QueryTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -156,6 +157,7 @@ class QueryTypeClient:
                 body_type=None,
                 response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -214,6 +216,7 @@ class QueryTypeClient:
                 body_type=None,
                 response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -276,6 +279,7 @@ class _QueryTypeClientRaw:
                 body_type=None,
                 response_type=QueryTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -328,6 +332,7 @@ class _QueryTypeClientRaw:
                 body_type=None,
                 response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -386,6 +391,7 @@ class _QueryTypeClientRaw:
                 body_type=None,
                 response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -448,6 +454,7 @@ class _QueryTypeClientStreaming:
                 body_type=None,
                 response_type=QueryTypeV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -500,6 +507,7 @@ class _QueryTypeClientStreaming:
                 body_type=None,
                 response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -558,5 +566,6 @@ class _QueryTypeClientStreaming:
                 body_type=None,
                 response_type=ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry._core.utils import RID
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 
 
 class ParameterObjectSetRidNotFoundParameters(TypedDict):
@@ -34,7 +33,7 @@ class ParameterObjectSetRidNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ParameterObjectSetRidNotFound(PalantirRPCException):
+class ParameterObjectSetRidNotFound(NotFoundError):
     name: Literal["ParameterObjectSetRidNotFound"]
     parameters: ParameterObjectSetRidNotFoundParameters
     error_instance_id: str

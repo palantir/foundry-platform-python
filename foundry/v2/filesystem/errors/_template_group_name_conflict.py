@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import ConflictError
 from foundry.v2.core.models._group_name import GroupName
 
 
@@ -35,7 +34,7 @@ class TemplateGroupNameConflictParameters(TypedDict):
 
 
 @dataclass
-class TemplateGroupNameConflict(PalantirRPCException):
+class TemplateGroupNameConflict(ConflictError):
     name: Literal["TemplateGroupNameConflict"]
     parameters: TemplateGroupNameConflictParameters
     error_instance_id: str

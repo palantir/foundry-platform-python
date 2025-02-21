@@ -52,28 +52,4 @@ def test_falls_back_to_standard_if_parsing_fails():
         )
 
         assert len(w) == 1
-        assert not isinstance(error, BranchNotFound)
-        assert isinstance(error, PalantirRPCException)
-        assert error.name == "BranchNotFound"
-        assert error.parameters == {
-            "datasetRid": "ri.a.b.c.d",
-            "branchId": 123,
-        }
-
-
-def test_falls_back_to_standard_if_error_name_no_match():
-    error = deserialize_error(
-        {
-            "errorName": "DatasetNotFound",
-            "errorInstanceId": "123",
-            "parameters": {"datasetRid": "ri.a.b.c.d"},
-        },
-        {
-            "AbortTransactionPermissionDenied": AbortTransactionPermissionDenied,
-            "BranchNotFound": BranchNotFound,
-        },
-    )
-
-    assert isinstance(error, PalantirRPCException)
-    assert error.name == "DatasetNotFound"
-    assert error.parameters == {"datasetRid": "ri.a.b.c.d"}
+        assert error is None

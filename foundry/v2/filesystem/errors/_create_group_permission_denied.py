@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
@@ -35,7 +34,7 @@ class CreateGroupPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class CreateGroupPermissionDenied(PalantirRPCException):
+class CreateGroupPermissionDenied(PermissionDeniedError):
     name: Literal["CreateGroupPermissionDenied"]
     parameters: CreateGroupPermissionDeniedParameters
     error_instance_id: str

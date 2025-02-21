@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.ontologies.models._action_type_api_name import ActionTypeApiName
 from foundry.v2.ontologies.models._parameter_id import ParameterId
 
@@ -43,7 +42,7 @@ class ParametersNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ParametersNotFound(PalantirRPCException):
+class ParametersNotFound(BadRequestError):
     name: Literal["ParametersNotFound"]
     parameters: ParametersNotFoundParameters
     error_instance_id: str

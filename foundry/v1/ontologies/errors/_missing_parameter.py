@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._parameter_id import ParameterId
 
 
@@ -38,7 +37,7 @@ class MissingParameterParameters(TypedDict):
 
 
 @dataclass
-class MissingParameter(PalantirRPCException):
+class MissingParameter(BadRequestError):
     name: Literal["MissingParameter"]
     parameters: MissingParameterParameters
     error_instance_id: str

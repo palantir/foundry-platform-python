@@ -124,6 +124,7 @@ class ActionClient:
                 ),
                 response_type=ApplyActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -187,6 +188,7 @@ class ActionClient:
                 ),
                 response_type=BatchApplyActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -249,6 +251,7 @@ class ActionClient:
                 ),
                 response_type=ValidateActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -327,6 +330,7 @@ class _ActionClientRaw:
                 ),
                 response_type=ApplyActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -390,6 +394,7 @@ class _ActionClientRaw:
                 ),
                 response_type=BatchApplyActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -452,6 +457,7 @@ class _ActionClientRaw:
                 ),
                 response_type=ValidateActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -530,6 +536,7 @@ class _ActionClientStreaming:
                 ),
                 response_type=ApplyActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -593,6 +600,7 @@ class _ActionClientStreaming:
                 ),
                 response_type=BatchApplyActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -655,5 +663,6 @@ class _ActionClientStreaming:
                 ),
                 response_type=ValidateActionResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

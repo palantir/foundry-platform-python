@@ -34,6 +34,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.models._list_marking_members_response import (
     ListMarkingMembersResponse,
 )  # NOQA
@@ -91,6 +92,9 @@ class MarkingMemberClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
@@ -117,6 +121,10 @@ class MarkingMemberClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         ).decode()
 
@@ -151,6 +159,8 @@ class MarkingMemberClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ResourceIterator[MarkingMember]
+
+        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
         """
 
         return self._api_client.iterate_api(
@@ -173,6 +183,9 @@ class MarkingMemberClient:
                 body_type=None,
                 response_type=ListMarkingMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                },
             ),
         )
 
@@ -207,6 +220,8 @@ class MarkingMemberClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ListMarkingMembersResponse
+
+        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
         """
 
         warnings.warn(
@@ -235,6 +250,9 @@ class MarkingMemberClient:
                 body_type=None,
                 response_type=ListMarkingMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -261,6 +279,8 @@ class MarkingMemberClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.call_api(
@@ -287,6 +307,9 @@ class MarkingMemberClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -331,6 +354,9 @@ class _MarkingMemberClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
@@ -357,6 +383,10 @@ class _MarkingMemberClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         )
 
@@ -391,6 +421,8 @@ class _MarkingMemberClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListMarkingMembersResponse]
+
+        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
         """
 
         return self._api_client.call_api(
@@ -413,6 +445,9 @@ class _MarkingMemberClientRaw:
                 body_type=None,
                 response_type=ListMarkingMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                },
             ),
         )
 
@@ -447,6 +482,8 @@ class _MarkingMemberClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[ListMarkingMembersResponse]
+
+        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
         """
 
         warnings.warn(
@@ -475,6 +512,9 @@ class _MarkingMemberClientRaw:
                 body_type=None,
                 response_type=ListMarkingMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                },
             ),
         )
 
@@ -501,6 +541,8 @@ class _MarkingMemberClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.call_api(
@@ -527,6 +569,9 @@ class _MarkingMemberClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
+                },
             ),
         )
 
@@ -571,6 +616,9 @@ class _MarkingMemberClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.stream_api(
@@ -597,6 +645,10 @@ class _MarkingMemberClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         )
 
@@ -631,6 +683,8 @@ class _MarkingMemberClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListMarkingMembersResponse]
+
+        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
         """
 
         return self._api_client.stream_api(
@@ -653,6 +707,9 @@ class _MarkingMemberClientStreaming:
                 body_type=None,
                 response_type=ListMarkingMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                },
             ),
         )
 
@@ -687,6 +744,8 @@ class _MarkingMemberClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListMarkingMembersResponse]
+
+        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
         """
 
         warnings.warn(
@@ -715,6 +774,9 @@ class _MarkingMemberClientStreaming:
                 body_type=None,
                 response_type=ListMarkingMembersResponse,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                },
             ),
         )
 
@@ -741,6 +803,8 @@ class _MarkingMemberClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.stream_api(
@@ -767,5 +831,8 @@ class _MarkingMemberClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
+                },
             ),
         )

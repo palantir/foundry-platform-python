@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
 
 
@@ -34,7 +33,7 @@ class GetMarkingCategoryPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class GetMarkingCategoryPermissionDenied(PalantirRPCException):
+class GetMarkingCategoryPermissionDenied(PermissionDeniedError):
     name: Literal["GetMarkingCategoryPermissionDenied"]
     parameters: GetMarkingCategoryPermissionDeniedParameters
     error_instance_id: str

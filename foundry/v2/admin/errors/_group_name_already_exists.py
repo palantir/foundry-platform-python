@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class GroupNameAlreadyExistsParameters(TypedDict):
@@ -33,7 +32,7 @@ class GroupNameAlreadyExistsParameters(TypedDict):
 
 
 @dataclass
-class GroupNameAlreadyExists(PalantirRPCException):
+class GroupNameAlreadyExists(BadRequestError):
     name: Literal["GroupNameAlreadyExists"]
     parameters: GroupNameAlreadyExistsParameters
     error_instance_id: str

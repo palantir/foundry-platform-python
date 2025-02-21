@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.orchestration.models._cron_expression import CronExpression
 
 
@@ -34,7 +33,7 @@ class InvalidTimeTriggerParameters(TypedDict):
 
 
 @dataclass
-class InvalidTimeTrigger(PalantirRPCException):
+class InvalidTimeTrigger(BadRequestError):
     name: Literal["InvalidTimeTrigger"]
     parameters: InvalidTimeTriggerParameters
     error_instance_id: str

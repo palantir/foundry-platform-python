@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.core.models._principal_id import PrincipalId
 
 
@@ -34,7 +33,7 @@ class AddGroupMembersPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class AddGroupMembersPermissionDenied(PalantirRPCException):
+class AddGroupMembersPermissionDenied(PermissionDeniedError):
     name: Literal["AddGroupMembersPermissionDenied"]
     parameters: AddGroupMembersPermissionDeniedParameters
     error_instance_id: str

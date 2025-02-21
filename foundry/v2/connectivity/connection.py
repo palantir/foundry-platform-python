@@ -32,6 +32,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.connectivity import errors as connectivity_errors
 from foundry.v2.connectivity.file_import import FileImportClient
 from foundry.v2.connectivity.models._connection import Connection
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
@@ -120,6 +121,11 @@ class ConnectionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Connection
+
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises CreateConnectionPermissionDenied: Could not create the Connection.
+        :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
+        :raises PropertyCannotBeBlank: The specified property cannot be blank.
         """
 
         return self._api_client.call_api(
@@ -157,6 +163,12 @@ class ConnectionClient:
                 ),
                 response_type=Connection,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "CreateConnectionPermissionDenied": connectivity_errors.CreateConnectionPermissionDenied,
+                    "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                    "PropertyCannotBeBlank": connectivity_errors.PropertyCannotBeBlank,
+                },
             ),
         ).decode()
 
@@ -180,6 +192,10 @@ class ConnectionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Connection
+
+        :raises ConnectionNotFound: The given Connection could not be found.
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
         """
 
         return self._api_client.call_api(
@@ -199,6 +215,11 @@ class ConnectionClient:
                 body_type=None,
                 response_type=Connection,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                },
             ),
         ).decode()
 
@@ -236,6 +257,9 @@ class ConnectionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises SecretNamesDoNotExist: The secret names provided do not exist on the connection.
+        :raises UpdateSecretsForConnectionPermissionDenied: Could not update secrets for the Connection.
         """
 
         return self._api_client.call_api(
@@ -262,6 +286,10 @@ class ConnectionClient:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SecretNamesDoNotExist": connectivity_errors.SecretNamesDoNotExist,
+                    "UpdateSecretsForConnectionPermissionDenied": connectivity_errors.UpdateSecretsForConnectionPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -325,6 +353,11 @@ class _ConnectionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Connection]
+
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises CreateConnectionPermissionDenied: Could not create the Connection.
+        :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
+        :raises PropertyCannotBeBlank: The specified property cannot be blank.
         """
 
         return self._api_client.call_api(
@@ -362,6 +395,12 @@ class _ConnectionClientRaw:
                 ),
                 response_type=Connection,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "CreateConnectionPermissionDenied": connectivity_errors.CreateConnectionPermissionDenied,
+                    "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                    "PropertyCannotBeBlank": connectivity_errors.PropertyCannotBeBlank,
+                },
             ),
         )
 
@@ -385,6 +424,10 @@ class _ConnectionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Connection]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
         """
 
         return self._api_client.call_api(
@@ -404,6 +447,11 @@ class _ConnectionClientRaw:
                 body_type=None,
                 response_type=Connection,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                },
             ),
         )
 
@@ -441,6 +489,9 @@ class _ConnectionClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises SecretNamesDoNotExist: The secret names provided do not exist on the connection.
+        :raises UpdateSecretsForConnectionPermissionDenied: Could not update secrets for the Connection.
         """
 
         return self._api_client.call_api(
@@ -467,6 +518,10 @@ class _ConnectionClientRaw:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SecretNamesDoNotExist": connectivity_errors.SecretNamesDoNotExist,
+                    "UpdateSecretsForConnectionPermissionDenied": connectivity_errors.UpdateSecretsForConnectionPermissionDenied,
+                },
             ),
         )
 
@@ -530,6 +585,11 @@ class _ConnectionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Connection]
+
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises CreateConnectionPermissionDenied: Could not create the Connection.
+        :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
+        :raises PropertyCannotBeBlank: The specified property cannot be blank.
         """
 
         return self._api_client.stream_api(
@@ -567,6 +627,12 @@ class _ConnectionClientStreaming:
                 ),
                 response_type=Connection,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "CreateConnectionPermissionDenied": connectivity_errors.CreateConnectionPermissionDenied,
+                    "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                    "PropertyCannotBeBlank": connectivity_errors.PropertyCannotBeBlank,
+                },
             ),
         )
 
@@ -590,6 +656,10 @@ class _ConnectionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Connection]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
         """
 
         return self._api_client.stream_api(
@@ -609,6 +679,11 @@ class _ConnectionClientStreaming:
                 body_type=None,
                 response_type=Connection,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                },
             ),
         )
 
@@ -646,6 +721,9 @@ class _ConnectionClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises SecretNamesDoNotExist: The secret names provided do not exist on the connection.
+        :raises UpdateSecretsForConnectionPermissionDenied: Could not update secrets for the Connection.
         """
 
         return self._api_client.stream_api(
@@ -672,5 +750,9 @@ class _ConnectionClientStreaming:
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "SecretNamesDoNotExist": connectivity_errors.SecretNamesDoNotExist,
+                    "UpdateSecretsForConnectionPermissionDenied": connectivity_errors.UpdateSecretsForConnectionPermissionDenied,
+                },
             ),
         )

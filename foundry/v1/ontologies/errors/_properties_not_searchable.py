@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 
 
@@ -39,7 +38,7 @@ class PropertiesNotSearchableParameters(TypedDict):
 
 
 @dataclass
-class PropertiesNotSearchable(PalantirRPCException):
+class PropertiesNotSearchable(BadRequestError):
     name: Literal["PropertiesNotSearchable"]
     parameters: PropertiesNotSearchableParameters
     error_instance_id: str

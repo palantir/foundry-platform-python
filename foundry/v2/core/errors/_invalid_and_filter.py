@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidAndFilterParameters(TypedDict):
@@ -31,7 +30,7 @@ class InvalidAndFilterParameters(TypedDict):
 
 
 @dataclass
-class InvalidAndFilter(PalantirRPCException):
+class InvalidAndFilter(BadRequestError):
     name: Literal["InvalidAndFilter"]
     parameters: InvalidAndFilterParameters
     error_instance_id: str

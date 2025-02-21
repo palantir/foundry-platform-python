@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._table_import_rid import TableImportRid
 
@@ -37,7 +36,7 @@ class ExecuteTableImportPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ExecuteTableImportPermissionDenied(PalantirRPCException):
+class ExecuteTableImportPermissionDenied(PermissionDeniedError):
     name: Literal["ExecuteTableImportPermissionDenied"]
     parameters: ExecuteTableImportPermissionDeniedParameters
     error_instance_id: str

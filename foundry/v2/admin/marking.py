@@ -36,6 +36,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.admin import errors as admin_errors
 from foundry.v2.admin.marking_member import MarkingMemberClient
 from foundry.v2.admin.marking_role_assignment import MarkingRoleAssignmentClient
 from foundry.v2.admin.models._get_markings_batch_request_element import (
@@ -115,6 +116,11 @@ class MarkingClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Marking
+
+        :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
+        :raises CreateMarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
+        :raises CreateMarkingPermissionDenied: Could not create the Marking.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
@@ -150,6 +156,12 @@ class MarkingClient:
                 ),
                 response_type=Marking,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateMarkingMissingInitialAdminRole": admin_errors.CreateMarkingMissingInitialAdminRole,
+                    "CreateMarkingNameInCategoryAlreadyExists": admin_errors.CreateMarkingNameInCategoryAlreadyExists,
+                    "CreateMarkingPermissionDenied": admin_errors.CreateMarkingPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         ).decode()
 
@@ -173,6 +185,9 @@ class MarkingClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Marking
+
+        :raises GetMarkingPermissionDenied: You do not have permission to view the marking.
+        :raises MarkingNotFound: The given Marking could not be found.
         """
 
         return self._api_client.call_api(
@@ -192,6 +207,10 @@ class MarkingClient:
                 body_type=None,
                 response_type=Marking,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                },
             ),
         ).decode()
 
@@ -240,6 +259,7 @@ class MarkingClient:
                 ],
                 response_type=GetMarkingsBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -285,6 +305,7 @@ class MarkingClient:
                 body_type=None,
                 response_type=ListMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -336,6 +357,7 @@ class MarkingClient:
                 body_type=None,
                 response_type=ListMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -389,6 +411,11 @@ class _MarkingClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Marking]
+
+        :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
+        :raises CreateMarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
+        :raises CreateMarkingPermissionDenied: Could not create the Marking.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
@@ -424,6 +451,12 @@ class _MarkingClientRaw:
                 ),
                 response_type=Marking,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateMarkingMissingInitialAdminRole": admin_errors.CreateMarkingMissingInitialAdminRole,
+                    "CreateMarkingNameInCategoryAlreadyExists": admin_errors.CreateMarkingNameInCategoryAlreadyExists,
+                    "CreateMarkingPermissionDenied": admin_errors.CreateMarkingPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         )
 
@@ -447,6 +480,9 @@ class _MarkingClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Marking]
+
+        :raises GetMarkingPermissionDenied: You do not have permission to view the marking.
+        :raises MarkingNotFound: The given Marking could not be found.
         """
 
         return self._api_client.call_api(
@@ -466,6 +502,10 @@ class _MarkingClientRaw:
                 body_type=None,
                 response_type=Marking,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                },
             ),
         )
 
@@ -514,6 +554,7 @@ class _MarkingClientRaw:
                 ],
                 response_type=GetMarkingsBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -559,6 +600,7 @@ class _MarkingClientRaw:
                 body_type=None,
                 response_type=ListMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -610,6 +652,7 @@ class _MarkingClientRaw:
                 body_type=None,
                 response_type=ListMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -663,6 +706,11 @@ class _MarkingClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Marking]
+
+        :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
+        :raises CreateMarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
+        :raises CreateMarkingPermissionDenied: Could not create the Marking.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.stream_api(
@@ -698,6 +746,12 @@ class _MarkingClientStreaming:
                 ),
                 response_type=Marking,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateMarkingMissingInitialAdminRole": admin_errors.CreateMarkingMissingInitialAdminRole,
+                    "CreateMarkingNameInCategoryAlreadyExists": admin_errors.CreateMarkingNameInCategoryAlreadyExists,
+                    "CreateMarkingPermissionDenied": admin_errors.CreateMarkingPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
             ),
         )
 
@@ -721,6 +775,9 @@ class _MarkingClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Marking]
+
+        :raises GetMarkingPermissionDenied: You do not have permission to view the marking.
+        :raises MarkingNotFound: The given Marking could not be found.
         """
 
         return self._api_client.stream_api(
@@ -740,6 +797,10 @@ class _MarkingClientStreaming:
                 body_type=None,
                 response_type=Marking,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                },
             ),
         )
 
@@ -788,6 +849,7 @@ class _MarkingClientStreaming:
                 ],
                 response_type=GetMarkingsBatchResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -833,6 +895,7 @@ class _MarkingClientStreaming:
                 body_type=None,
                 response_type=ListMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -884,5 +947,6 @@ class _MarkingClientStreaming:
                 body_type=None,
                 response_type=ListMarkingsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

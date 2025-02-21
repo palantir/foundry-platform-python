@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.datasets.models._branch_name import BranchName
 
 
@@ -37,7 +36,7 @@ class ChangingBranchNameNotSupportedForImportsParameters(TypedDict):
 
 
 @dataclass
-class ChangingBranchNameNotSupportedForImports(PalantirRPCException):
+class ChangingBranchNameNotSupportedForImports(BadRequestError):
     name: Literal["ChangingBranchNameNotSupportedForImports"]
     parameters: ChangingBranchNameNotSupportedForImportsParameters
     error_instance_id: str

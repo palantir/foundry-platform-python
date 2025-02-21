@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 
 
@@ -36,7 +35,7 @@ class ChangingOutputDatasetNotSupportedForImportsParameters(TypedDict):
 
 
 @dataclass
-class ChangingOutputDatasetNotSupportedForImports(PalantirRPCException):
+class ChangingOutputDatasetNotSupportedForImports(BadRequestError):
     name: Literal["ChangingOutputDatasetNotSupportedForImports"]
     parameters: ChangingOutputDatasetNotSupportedForImportsParameters
     error_instance_id: str

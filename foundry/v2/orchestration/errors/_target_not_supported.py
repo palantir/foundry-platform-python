@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
 
 
@@ -37,7 +36,7 @@ class TargetNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class TargetNotSupported(PalantirRPCException):
+class TargetNotSupported(BadRequestError):
     name: Literal["TargetNotSupported"]
     parameters: TargetNotSupportedParameters
     error_instance_id: str

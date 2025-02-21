@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry._core.utils import Long
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class FileSizeLimitExceededParameters(TypedDict):
@@ -41,7 +40,7 @@ class FileSizeLimitExceededParameters(TypedDict):
 
 
 @dataclass
-class FileSizeLimitExceeded(PalantirRPCException):
+class FileSizeLimitExceeded(BadRequestError):
     name: Literal["FileSizeLimitExceeded"]
     parameters: FileSizeLimitExceededParameters
     error_instance_id: str

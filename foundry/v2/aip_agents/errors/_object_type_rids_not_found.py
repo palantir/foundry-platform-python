@@ -19,11 +19,10 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._session_rid import SessionRid
 from foundry.v2.ontologies.models._object_type_rid import ObjectTypeRid
@@ -42,12 +41,11 @@ class ObjectTypeRidsNotFoundParameters(TypedDict):
 
     sessionRid: NotRequired[SessionRid]
     """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
-
     objectTypeRids: List[ObjectTypeRid]
 
 
 @dataclass
-class ObjectTypeRidsNotFound(PalantirRPCException):
+class ObjectTypeRidsNotFound(NotFoundError):
     name: Literal["ObjectTypeRidsNotFound"]
     parameters: ObjectTypeRidsNotFoundParameters
     error_instance_id: str

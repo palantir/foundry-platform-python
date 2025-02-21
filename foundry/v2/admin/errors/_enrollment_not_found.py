@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.core.models._enrollment_rid import EnrollmentRid
 
 
@@ -34,7 +33,7 @@ class EnrollmentNotFoundParameters(TypedDict):
 
 
 @dataclass
-class EnrollmentNotFound(PalantirRPCException):
+class EnrollmentNotFound(NotFoundError):
     name: Literal["EnrollmentNotFound"]
     parameters: EnrollmentNotFoundParameters
     error_instance_id: str

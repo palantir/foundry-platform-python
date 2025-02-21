@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidSortOrderParameters(TypedDict):
@@ -36,7 +35,7 @@ class InvalidSortOrderParameters(TypedDict):
 
 
 @dataclass
-class InvalidSortOrder(PalantirRPCException):
+class InvalidSortOrder(BadRequestError):
     name: Literal["InvalidSortOrder"]
     parameters: InvalidSortOrderParameters
     error_instance_id: str

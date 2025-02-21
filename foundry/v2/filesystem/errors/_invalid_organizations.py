@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidOrganizationsParameters(TypedDict):
@@ -31,7 +30,7 @@ class InvalidOrganizationsParameters(TypedDict):
 
 
 @dataclass
-class InvalidOrganizations(PalantirRPCException):
+class InvalidOrganizations(BadRequestError):
     name: Literal["InvalidOrganizations"]
     parameters: InvalidOrganizationsParameters
     error_instance_id: str

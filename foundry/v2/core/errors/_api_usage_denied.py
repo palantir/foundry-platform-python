@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.core.models._operation_scope import OperationScope
 
 
@@ -35,7 +34,7 @@ class ApiUsageDeniedParameters(TypedDict):
 
 
 @dataclass
-class ApiUsageDenied(PalantirRPCException):
+class ApiUsageDenied(PermissionDeniedError):
     name: Literal["ApiUsageDenied"]
     parameters: ApiUsageDeniedParameters
     error_instance_id: str

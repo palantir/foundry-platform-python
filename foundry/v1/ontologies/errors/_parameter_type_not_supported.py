@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._parameter_id import ParameterId
 from foundry.v1.ontologies.models._value_type import ValueType
 
@@ -40,7 +39,7 @@ class ParameterTypeNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class ParameterTypeNotSupported(PalantirRPCException):
+class ParameterTypeNotSupported(BadRequestError):
     name: Literal["ParameterTypeNotSupported"]
     parameters: ParameterTypeNotSupportedParameters
     error_instance_id: str

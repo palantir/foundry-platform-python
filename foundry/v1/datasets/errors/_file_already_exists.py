@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.core.models._file_path import FilePath
 from foundry.v1.datasets.models._dataset_rid import DatasetRid
 from foundry.v1.datasets.models._transaction_rid import TransactionRid
@@ -40,7 +39,7 @@ class FileAlreadyExistsParameters(TypedDict):
 
 
 @dataclass
-class FileAlreadyExists(PalantirRPCException):
+class FileAlreadyExists(NotFoundError):
     name: Literal["FileAlreadyExists"]
     parameters: FileAlreadyExistsParameters
     error_instance_id: str

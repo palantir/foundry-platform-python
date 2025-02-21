@@ -133,6 +133,7 @@ class TimeSeriesPropertyV2Client:
                 body_type=None,
                 response_type=TimeSeriesPoint,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -195,6 +196,7 @@ class TimeSeriesPropertyV2Client:
                 body_type=None,
                 response_type=TimeSeriesPoint,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -437,6 +439,7 @@ class TimeSeriesPropertyV2Client:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -517,6 +520,7 @@ class _TimeSeriesPropertyV2ClientRaw:
                 body_type=None,
                 response_type=TimeSeriesPoint,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -579,6 +583,7 @@ class _TimeSeriesPropertyV2ClientRaw:
                 body_type=None,
                 response_type=TimeSeriesPoint,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -656,6 +661,7 @@ class _TimeSeriesPropertyV2ClientRaw:
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -736,6 +742,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 body_type=None,
                 response_type=TimeSeriesPoint,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -798,6 +805,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 body_type=None,
                 response_type=TimeSeriesPoint,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -875,5 +883,6 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

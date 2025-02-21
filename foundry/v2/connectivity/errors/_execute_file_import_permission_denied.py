@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._file_import_rid import FileImportRid
 
@@ -37,7 +36,7 @@ class ExecuteFileImportPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ExecuteFileImportPermissionDenied(PalantirRPCException):
+class ExecuteFileImportPermissionDenied(PermissionDeniedError):
     name: Literal["ExecuteFileImportPermissionDenied"]
     parameters: ExecuteFileImportPermissionDeniedParameters
     error_instance_id: str

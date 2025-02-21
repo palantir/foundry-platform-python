@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import InternalServerError
 
 
 class TableImportTypeNotSupportedParameters(TypedDict):
@@ -33,7 +32,7 @@ class TableImportTypeNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class TableImportTypeNotSupported(PalantirRPCException):
+class TableImportTypeNotSupported(InternalServerError):
     name: Literal["TableImportTypeNotSupported"]
     parameters: TableImportTypeNotSupportedParameters
     error_instance_id: str

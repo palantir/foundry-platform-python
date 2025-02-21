@@ -37,7 +37,9 @@ from foundry.v2.core.models._stream_schema import StreamSchema
 from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_name import DatasetName
+from foundry.v2.filesystem import errors as filesystem_errors
 from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry.v2.streams import errors as streams_errors
 from foundry.v2.streams.models._compressed import Compressed
 from foundry.v2.streams.models._dataset import Dataset
 from foundry.v2.streams.models._partitions_count import PartitionsCount
@@ -108,6 +110,9 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Dataset
+
+        :raises CreateStreamingDatasetPermissionDenied: Could not create the Dataset.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -145,6 +150,10 @@ class DatasetClient:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateStreamingDatasetPermissionDenied": streams_errors.CreateStreamingDatasetPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         ).decode()
 
@@ -207,6 +216,9 @@ class _DatasetClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Dataset]
+
+        :raises CreateStreamingDatasetPermissionDenied: Could not create the Dataset.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -244,6 +256,10 @@ class _DatasetClientRaw:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateStreamingDatasetPermissionDenied": streams_errors.CreateStreamingDatasetPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         )
 
@@ -306,6 +322,9 @@ class _DatasetClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Dataset]
+
+        :raises CreateStreamingDatasetPermissionDenied: Could not create the Dataset.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.stream_api(
@@ -343,5 +362,9 @@ class _DatasetClientStreaming:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateStreamingDatasetPermissionDenied": streams_errors.CreateStreamingDatasetPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         )

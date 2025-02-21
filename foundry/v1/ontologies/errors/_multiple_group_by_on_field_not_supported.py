@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class MultipleGroupByOnFieldNotSupportedParameters(TypedDict):
@@ -34,7 +33,7 @@ class MultipleGroupByOnFieldNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class MultipleGroupByOnFieldNotSupported(PalantirRPCException):
+class MultipleGroupByOnFieldNotSupported(BadRequestError):
     name: Literal["MultipleGroupByOnFieldNotSupported"]
     parameters: MultipleGroupByOnFieldNotSupportedParameters
     error_instance_id: str

@@ -123,6 +123,7 @@ class DatasetClient:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -172,6 +173,7 @@ class DatasetClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -212,6 +214,7 @@ class DatasetClient:
                 body_type=None,
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -263,6 +266,7 @@ class DatasetClient:
                 body_type=None,
                 response_type=Any,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -489,6 +493,7 @@ class DatasetClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -539,6 +544,7 @@ class DatasetClient:
                 body_type=Any,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -608,6 +614,7 @@ class _DatasetClientRaw:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -657,6 +664,7 @@ class _DatasetClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -697,6 +705,7 @@ class _DatasetClientRaw:
                 body_type=None,
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -748,6 +757,7 @@ class _DatasetClientRaw:
                 body_type=None,
                 response_type=Any,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -815,6 +825,7 @@ class _DatasetClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -865,6 +876,7 @@ class _DatasetClientRaw:
                 body_type=Any,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -934,6 +946,7 @@ class _DatasetClientStreaming:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -983,6 +996,7 @@ class _DatasetClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1023,6 +1037,7 @@ class _DatasetClientStreaming:
                 body_type=None,
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1074,6 +1089,7 @@ class _DatasetClientStreaming:
                 body_type=None,
                 response_type=Any,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1141,6 +1157,7 @@ class _DatasetClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1191,5 +1208,6 @@ class _DatasetClientStreaming:
                 body_type=Any,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

@@ -130,6 +130,7 @@ class FileClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -208,6 +209,7 @@ class FileClient:
                 body_type=None,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -292,6 +294,7 @@ class FileClient:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -382,6 +385,7 @@ class FileClient:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -662,6 +666,7 @@ class FileClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -740,6 +745,7 @@ class FileClient:
                 body_type=bytes,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -822,6 +828,7 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -900,6 +907,7 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -984,6 +992,7 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1074,6 +1083,7 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1153,6 +1163,7 @@ class _FileClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1231,6 +1242,7 @@ class _FileClientRaw:
                 body_type=bytes,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1313,6 +1325,7 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1391,6 +1404,7 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1475,6 +1489,7 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1565,6 +1580,7 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=ListFilesResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1644,6 +1660,7 @@ class _FileClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1722,5 +1739,6 @@ class _FileClientStreaming:
                 body_type=bytes,
                 response_type=File,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

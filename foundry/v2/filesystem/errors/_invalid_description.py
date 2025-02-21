@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidDescriptionParameters(TypedDict):
@@ -31,7 +30,7 @@ class InvalidDescriptionParameters(TypedDict):
 
 
 @dataclass
-class InvalidDescription(PalantirRPCException):
+class InvalidDescription(BadRequestError):
     name: Literal["InvalidDescription"]
     parameters: InvalidDescriptionParameters
     error_instance_id: str

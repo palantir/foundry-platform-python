@@ -34,6 +34,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.connectivity import errors as connectivity_errors
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._create_table_import_request_table_import_config import (
     CreateTableImportRequestTableImportConfig,
@@ -120,6 +121,11 @@ class TableImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: TableImport
+
+        :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises CreateTableImportPermissionDenied: Could not create the TableImport.
+        :raises TableImportNotSupportedForConnection: The specified connection does not support creating a table import with the specified config.
+        :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
@@ -160,6 +166,12 @@ class TableImportClient:
                 ),
                 response_type=TableImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "CreateTableImportPermissionDenied": connectivity_errors.CreateTableImportPermissionDenied,
+                    "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
+                    "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
+                },
             ),
         ).decode()
 
@@ -189,6 +201,8 @@ class TableImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises DeleteTableImportPermissionDenied: Could not delete the TableImport.
         """
 
         return self._api_client.call_api(
@@ -207,6 +221,9 @@ class TableImportClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteTableImportPermissionDenied": connectivity_errors.DeleteTableImportPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -235,6 +252,8 @@ class TableImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: BuildRid
+
+        :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
         """
 
         return self._api_client.call_api(
@@ -255,6 +274,9 @@ class TableImportClient:
                 body_type=None,
                 response_type=BuildRid,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -281,6 +303,9 @@ class TableImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: TableImport
+
+        :raises TableImportNotFound: The given TableImport could not be found.
+        :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
@@ -301,6 +326,10 @@ class TableImportClient:
                 body_type=None,
                 response_type=TableImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
+                    "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
+                },
             ),
         ).decode()
 
@@ -353,6 +382,7 @@ class TableImportClient:
                 body_type=None,
                 response_type=ListTableImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -411,6 +441,7 @@ class TableImportClient:
                 body_type=None,
                 response_type=ListTableImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -472,6 +503,11 @@ class _TableImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[TableImport]
+
+        :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises CreateTableImportPermissionDenied: Could not create the TableImport.
+        :raises TableImportNotSupportedForConnection: The specified connection does not support creating a table import with the specified config.
+        :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
@@ -512,6 +548,12 @@ class _TableImportClientRaw:
                 ),
                 response_type=TableImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "CreateTableImportPermissionDenied": connectivity_errors.CreateTableImportPermissionDenied,
+                    "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
+                    "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
+                },
             ),
         )
 
@@ -541,6 +583,8 @@ class _TableImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[None]
+
+        :raises DeleteTableImportPermissionDenied: Could not delete the TableImport.
         """
 
         return self._api_client.call_api(
@@ -559,6 +603,9 @@ class _TableImportClientRaw:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteTableImportPermissionDenied": connectivity_errors.DeleteTableImportPermissionDenied,
+                },
             ),
         )
 
@@ -587,6 +634,8 @@ class _TableImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[BuildRid]
+
+        :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
         """
 
         return self._api_client.call_api(
@@ -607,6 +656,9 @@ class _TableImportClientRaw:
                 body_type=None,
                 response_type=BuildRid,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
+                },
             ),
         )
 
@@ -633,6 +685,9 @@ class _TableImportClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[TableImport]
+
+        :raises TableImportNotFound: The given TableImport could not be found.
+        :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
@@ -653,6 +708,10 @@ class _TableImportClientRaw:
                 body_type=None,
                 response_type=TableImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
+                    "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
+                },
             ),
         )
 
@@ -705,6 +764,7 @@ class _TableImportClientRaw:
                 body_type=None,
                 response_type=ListTableImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -763,6 +823,7 @@ class _TableImportClientRaw:
                 body_type=None,
                 response_type=ListTableImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -824,6 +885,11 @@ class _TableImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[TableImport]
+
+        :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises CreateTableImportPermissionDenied: Could not create the TableImport.
+        :raises TableImportNotSupportedForConnection: The specified connection does not support creating a table import with the specified config.
+        :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.stream_api(
@@ -864,6 +930,12 @@ class _TableImportClientStreaming:
                 ),
                 response_type=TableImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "CreateTableImportPermissionDenied": connectivity_errors.CreateTableImportPermissionDenied,
+                    "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
+                    "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
+                },
             ),
         )
 
@@ -893,6 +965,8 @@ class _TableImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
+
+        :raises DeleteTableImportPermissionDenied: Could not delete the TableImport.
         """
 
         return self._api_client.stream_api(
@@ -911,6 +985,9 @@ class _TableImportClientStreaming:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DeleteTableImportPermissionDenied": connectivity_errors.DeleteTableImportPermissionDenied,
+                },
             ),
         )
 
@@ -939,6 +1016,8 @@ class _TableImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[BuildRid]
+
+        :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
         """
 
         return self._api_client.stream_api(
@@ -959,6 +1038,9 @@ class _TableImportClientStreaming:
                 body_type=None,
                 response_type=BuildRid,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
+                },
             ),
         )
 
@@ -985,6 +1067,9 @@ class _TableImportClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[TableImport]
+
+        :raises TableImportNotFound: The given TableImport could not be found.
+        :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.stream_api(
@@ -1005,6 +1090,10 @@ class _TableImportClientStreaming:
                 body_type=None,
                 response_type=TableImport,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
+                    "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
+                },
             ),
         )
 
@@ -1057,6 +1146,7 @@ class _TableImportClientStreaming:
                 body_type=None,
                 response_type=ListTableImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -1115,5 +1205,6 @@ class _TableImportClientStreaming:
                 body_type=None,
                 response_type=ListTableImportsResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

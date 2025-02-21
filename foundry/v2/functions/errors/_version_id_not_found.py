@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.functions.models._value_type_rid import ValueTypeRid
 from foundry.v2.functions.models._value_type_version_id import ValueTypeVersionId
 
@@ -37,7 +36,7 @@ class VersionIdNotFoundParameters(TypedDict):
 
 
 @dataclass
-class VersionIdNotFound(PalantirRPCException):
+class VersionIdNotFound(NotFoundError):
     name: Literal["VersionIdNotFound"]
     parameters: VersionIdNotFoundParameters
     error_instance_id: str

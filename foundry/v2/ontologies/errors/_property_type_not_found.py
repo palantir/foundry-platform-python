@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._property_api_name import PropertyApiName
 
@@ -38,7 +37,7 @@ class PropertyTypeNotFoundParameters(TypedDict):
 
 
 @dataclass
-class PropertyTypeNotFound(PalantirRPCException):
+class PropertyTypeNotFound(NotFoundError):
     name: Literal["PropertyTypeNotFound"]
     parameters: PropertyTypeNotFoundParameters
     error_instance_id: str

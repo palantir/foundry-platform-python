@@ -77,6 +77,18 @@ class QuerySetTypeDict(TypedDict):
     type: Literal["set"]
 
 
+class EntrySetTypeDict(TypedDict):
+    """EntrySetType"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    keyType: QueryDataTypeDict
+
+    valueType: QueryDataTypeDict
+
+    type: Literal["entrySet"]
+
+
 class QueryUnionTypeDict(TypedDict):
     """QueryUnionType"""
 
@@ -103,6 +115,7 @@ QueryDataTypeDict = Annotated[
         QueryStructTypeDict,
         QuerySetTypeDict,
         StringTypeDict,
+        EntrySetTypeDict,
         DoubleTypeDict,
         IntegerTypeDict,
         ThreeDimensionalAggregationDict,

@@ -111,6 +111,7 @@ class QueryClient:
                 ),
                 response_type=ExecuteQueryResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         ).decode()
 
@@ -184,6 +185,7 @@ class _QueryClientRaw:
                 ),
                 response_type=ExecuteQueryResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )
 
@@ -257,5 +259,6 @@ class _QueryClientStreaming:
                 ),
                 response_type=ExecuteQueryResponse,
                 request_timeout=request_timeout,
+                throwable_errors={},
             ),
         )

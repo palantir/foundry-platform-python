@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class SearchGroupsPermissionDeniedParameters(TypedDict):
@@ -31,7 +30,7 @@ class SearchGroupsPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class SearchGroupsPermissionDenied(PalantirRPCException):
+class SearchGroupsPermissionDenied(PermissionDeniedError):
     name: Literal["SearchGroupsPermissionDenied"]
     parameters: SearchGroupsPermissionDeniedParameters
     error_instance_id: str

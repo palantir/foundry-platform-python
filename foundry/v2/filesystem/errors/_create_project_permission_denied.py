@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class CreateProjectPermissionDeniedParameters(TypedDict):
@@ -31,7 +30,7 @@ class CreateProjectPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class CreateProjectPermissionDenied(PalantirRPCException):
+class CreateProjectPermissionDenied(PermissionDeniedError):
     name: Literal["CreateProjectPermissionDenied"]
     parameters: CreateProjectPermissionDeniedParameters
     error_instance_id: str

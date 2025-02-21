@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.datasets.models._dataset_rid import DatasetRid
 
 
@@ -34,7 +33,7 @@ class ColumnTypesNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class ColumnTypesNotSupported(PalantirRPCException):
+class ColumnTypesNotSupported(BadRequestError):
     name: Literal["ColumnTypesNotSupported"]
     parameters: ColumnTypesNotSupportedParameters
     error_instance_id: str

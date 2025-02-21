@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class GetByPathPermissionDeniedParameters(TypedDict):
@@ -31,7 +30,7 @@ class GetByPathPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class GetByPathPermissionDenied(PalantirRPCException):
+class GetByPathPermissionDenied(PermissionDeniedError):
     name: Literal["GetByPathPermissionDenied"]
     parameters: GetByPathPermissionDeniedParameters
     error_instance_id: str

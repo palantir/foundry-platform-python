@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class ParentAttachmentPermissionDeniedParameters(TypedDict):
@@ -31,7 +30,7 @@ class ParentAttachmentPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ParentAttachmentPermissionDenied(PalantirRPCException):
+class ParentAttachmentPermissionDenied(PermissionDeniedError):
     name: Literal["ParentAttachmentPermissionDenied"]
     parameters: ParentAttachmentPermissionDeniedParameters
     error_instance_id: str

@@ -18,11 +18,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v1.ontologies.models._interface_type_rid import InterfaceTypeRid
 
@@ -38,7 +37,7 @@ class InterfaceTypeNotFoundParameters(TypedDict):
 
 
 @dataclass
-class InterfaceTypeNotFound(PalantirRPCException):
+class InterfaceTypeNotFound(NotFoundError):
     name: Literal["InterfaceTypeNotFound"]
     parameters: InterfaceTypeNotFoundParameters
     error_instance_id: str

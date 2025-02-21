@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v1.ontologies.models._query_api_name import QueryApiName
 
 
@@ -34,7 +33,7 @@ class QueryNotFoundParameters(TypedDict):
 
 
 @dataclass
-class QueryNotFound(PalantirRPCException):
+class QueryNotFound(NotFoundError):
     name: Literal["QueryNotFound"]
     parameters: QueryNotFoundParameters
     error_instance_id: str

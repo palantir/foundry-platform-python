@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._media_set_rid import MediaSetRid
 
 
@@ -34,7 +33,7 @@ class InvalidMediaSetTriggerParameters(TypedDict):
 
 
 @dataclass
-class InvalidMediaSetTrigger(PalantirRPCException):
+class InvalidMediaSetTrigger(BadRequestError):
     name: Literal["InvalidMediaSetTrigger"]
     parameters: InvalidMediaSetTriggerParameters
     error_instance_id: str

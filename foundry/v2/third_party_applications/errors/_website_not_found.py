@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.third_party_applications.models._third_party_application_rid import (
     ThirdPartyApplicationRid,
 )  # NOQA
@@ -37,7 +36,7 @@ class WebsiteNotFoundParameters(TypedDict):
 
 
 @dataclass
-class WebsiteNotFound(PalantirRPCException):
+class WebsiteNotFound(NotFoundError):
     name: Literal["WebsiteNotFound"]
     parameters: WebsiteNotFoundParameters
     error_instance_id: str

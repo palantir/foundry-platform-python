@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.core.models._file_path import FilePath
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 
@@ -37,7 +36,7 @@ class FileNotFoundParameters(TypedDict):
 
 
 @dataclass
-class FileNotFound(PalantirRPCException):
+class FileNotFound(NotFoundError):
     name: Literal["FileNotFound"]
     parameters: FileNotFoundParameters
     error_instance_id: str

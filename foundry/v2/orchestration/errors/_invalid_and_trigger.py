@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidAndTriggerParameters(TypedDict):
@@ -31,7 +30,7 @@ class InvalidAndTriggerParameters(TypedDict):
 
 
 @dataclass
-class InvalidAndTrigger(PalantirRPCException):
+class InvalidAndTrigger(BadRequestError):
     name: Literal["InvalidAndTrigger"]
     parameters: InvalidAndTriggerParameters
     error_instance_id: str

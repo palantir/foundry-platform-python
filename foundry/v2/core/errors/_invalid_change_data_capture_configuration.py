@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class InvalidChangeDataCaptureConfigurationParameters(TypedDict):
@@ -31,7 +30,7 @@ class InvalidChangeDataCaptureConfigurationParameters(TypedDict):
 
 
 @dataclass
-class InvalidChangeDataCaptureConfiguration(PalantirRPCException):
+class InvalidChangeDataCaptureConfiguration(BadRequestError):
     name: Literal["InvalidChangeDataCaptureConfiguration"]
     parameters: InvalidChangeDataCaptureConfigurationParameters
     error_instance_id: str

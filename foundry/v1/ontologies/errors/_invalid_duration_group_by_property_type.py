@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v1.ontologies.models._property_api_name import PropertyApiName
 from foundry.v1.ontologies.models._value_type import ValueType
@@ -40,7 +39,7 @@ class InvalidDurationGroupByPropertyTypeParameters(TypedDict):
 
 
 @dataclass
-class InvalidDurationGroupByPropertyType(PalantirRPCException):
+class InvalidDurationGroupByPropertyType(BadRequestError):
     name: Literal["InvalidDurationGroupByPropertyType"]
     parameters: InvalidDurationGroupByPropertyTypeParameters
     error_instance_id: str

@@ -19,11 +19,10 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
 from foundry._core.utils import RID
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 
 
 class BuildInputsPermissionDeniedParameters(TypedDict):
@@ -35,7 +34,7 @@ class BuildInputsPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class BuildInputsPermissionDenied(PalantirRPCException):
+class BuildInputsPermissionDenied(PermissionDeniedError):
     name: Literal["BuildInputsPermissionDenied"]
     parameters: BuildInputsPermissionDeniedParameters
     error_instance_id: str

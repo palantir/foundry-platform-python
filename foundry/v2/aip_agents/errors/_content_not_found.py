@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import NotFoundError
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._session_rid import SessionRid
 
@@ -33,13 +32,12 @@ class ContentNotFoundParameters(TypedDict):
 
     agentRid: AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
-
     sessionRid: SessionRid
     """The Resource Identifier (RID) of the conversation session."""
 
 
 @dataclass
-class ContentNotFound(PalantirRPCException):
+class ContentNotFound(NotFoundError):
     name: Literal["ContentNotFound"]
     parameters: ContentNotFoundParameters
     error_instance_id: str

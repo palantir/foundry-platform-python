@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class MalformedPropertyFiltersParameters(TypedDict):
@@ -33,7 +32,7 @@ class MalformedPropertyFiltersParameters(TypedDict):
 
 
 @dataclass
-class MalformedPropertyFilters(PalantirRPCException):
+class MalformedPropertyFilters(BadRequestError):
     name: Literal["MalformedPropertyFilters"]
     parameters: MalformedPropertyFiltersParameters
     error_instance_id: str

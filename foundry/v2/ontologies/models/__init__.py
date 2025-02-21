@@ -608,12 +608,14 @@ from foundry.v2.ontologies.models._query_aggregation_value_type_dict import (
     QueryAggregationValueTypeDict,
 )  # NOQA
 from foundry.v2.ontologies.models._query_api_name import QueryApiName
+from foundry.v2.ontologies.models._query_data_type import EntrySetType
 from foundry.v2.ontologies.models._query_data_type import QueryArrayType
 from foundry.v2.ontologies.models._query_data_type import QueryDataType
 from foundry.v2.ontologies.models._query_data_type import QuerySetType
 from foundry.v2.ontologies.models._query_data_type import QueryStructField
 from foundry.v2.ontologies.models._query_data_type import QueryStructType
 from foundry.v2.ontologies.models._query_data_type import QueryUnionType
+from foundry.v2.ontologies.models._query_data_type_dict import EntrySetTypeDict
 from foundry.v2.ontologies.models._query_data_type_dict import QueryArrayTypeDict
 from foundry.v2.ontologies.models._query_data_type_dict import QueryDataTypeDict
 from foundry.v2.ontologies.models._query_data_type_dict import QuerySetTypeDict
@@ -923,6 +925,8 @@ __all__ = [
     "DoesNotIntersectPolygonQueryDict",
     "DoubleVector",
     "DoubleVectorDict",
+    "EntrySetType",
+    "EntrySetTypeDict",
     "EqualsQueryV2",
     "EqualsQueryV2Dict",
     "ExactDistinctAggregationV2",

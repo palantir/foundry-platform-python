@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 
 
 class ActionEditedPropertiesNotFoundParameters(TypedDict):
@@ -34,7 +33,7 @@ class ActionEditedPropertiesNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ActionEditedPropertiesNotFound(PalantirRPCException):
+class ActionEditedPropertiesNotFound(BadRequestError):
     name: Literal["ActionEditedPropertiesNotFound"]
     parameters: ActionEditedPropertiesNotFoundParameters
     error_instance_id: str

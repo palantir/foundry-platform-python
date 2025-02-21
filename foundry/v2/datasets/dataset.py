@@ -38,6 +38,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.datasets import errors as datasets_errors
 from foundry.v2.datasets.branch import BranchClient
 from foundry.v2.datasets.file import FileClient
 from foundry.v2.datasets.models._branch_name import BranchName
@@ -47,6 +48,7 @@ from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._table_export_format import TableExportFormat
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
 from foundry.v2.datasets.transaction import TransactionClient
+from foundry.v2.filesystem import errors as filesystem_errors
 from foundry.v2.filesystem.models._folder_rid import FolderRid
 
 
@@ -95,6 +97,8 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Dataset
+
+        :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         """
 
         return self._api_client.call_api(
@@ -120,6 +124,9 @@ class DatasetClient:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -140,6 +147,10 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Dataset
+
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -157,6 +168,11 @@ class DatasetClient:
                 body_type=None,
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         ).decode()
 
@@ -205,6 +221,14 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: BinaryStream
+
+        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
+        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
+        :raises ReadTableTimeout: The request to read the table timed out.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
         ...
 
@@ -247,6 +271,14 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+
+        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
+        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
+        :raises ReadTableTimeout: The request to read the table timed out.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
         ...
 
@@ -295,6 +327,14 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
+        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
+        :raises ReadTableTimeout: The request to read the table timed out.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
         ...
 
@@ -342,6 +382,14 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: Union[bytes, BinaryStream]
+
+        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
+        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
+        :raises ReadTableTimeout: The request to read the table timed out.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
 
         if stream:
@@ -375,6 +423,15 @@ class DatasetClient:
                 stream=stream,
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
+                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
+                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
+                    "ReadTableError": datasets_errors.ReadTableError,
+                    "ReadTableRowLimitExceeded": datasets_errors.ReadTableRowLimitExceeded,
+                    "ReadTableTimeout": datasets_errors.ReadTableTimeout,
+                    "SchemaNotFound": datasets_errors.SchemaNotFound,
+                },
             ),
         ).decode()
 
@@ -417,6 +474,8 @@ class _DatasetClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Dataset]
+
+        :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         """
 
         return self._api_client.call_api(
@@ -442,6 +501,9 @@ class _DatasetClientRaw:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
+                },
             ),
         )
 
@@ -462,6 +524,10 @@ class _DatasetClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[Dataset]
+
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -479,6 +545,11 @@ class _DatasetClientRaw:
                 body_type=None,
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         )
 
@@ -520,6 +591,14 @@ class _DatasetClientRaw:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: ApiResponse[bytes]
+
+        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
+        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
+        :raises ReadTableTimeout: The request to read the table timed out.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -544,6 +623,15 @@ class _DatasetClientRaw:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
+                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
+                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
+                    "ReadTableError": datasets_errors.ReadTableError,
+                    "ReadTableRowLimitExceeded": datasets_errors.ReadTableRowLimitExceeded,
+                    "ReadTableTimeout": datasets_errors.ReadTableTimeout,
+                    "SchemaNotFound": datasets_errors.SchemaNotFound,
+                },
             ),
         )
 
@@ -586,6 +674,8 @@ class _DatasetClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Dataset]
+
+        :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         """
 
         return self._api_client.stream_api(
@@ -611,6 +701,9 @@ class _DatasetClientStreaming:
                 ),
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
+                },
             ),
         )
 
@@ -631,6 +724,10 @@ class _DatasetClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[Dataset]
+
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.stream_api(
@@ -648,6 +745,11 @@ class _DatasetClientStreaming:
                 body_type=None,
                 response_type=Dataset,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
             ),
         )
 
@@ -689,6 +791,14 @@ class _DatasetClientStreaming:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: StreamingContextManager[bytes]
+
+        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
+        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
+        :raises ReadTableTimeout: The request to read the table timed out.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
@@ -713,5 +823,14 @@ class _DatasetClientStreaming:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
+                throwable_errors={
+                    "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
+                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
+                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
+                    "ReadTableError": datasets_errors.ReadTableError,
+                    "ReadTableRowLimitExceeded": datasets_errors.ReadTableRowLimitExceeded,
+                    "ReadTableTimeout": datasets_errors.ReadTableTimeout,
+                    "SchemaNotFound": datasets_errors.SchemaNotFound,
+                },
             ),
         )

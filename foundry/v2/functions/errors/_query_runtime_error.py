@@ -19,11 +19,10 @@ from dataclasses import dataclass
 from typing import Dict
 from typing import Literal
 
-import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.functions.models._function_rid import FunctionRid
 from foundry.v2.functions.models._function_version import FunctionVersion
 from foundry.v2.functions.models._query_runtime_error_parameter import (
@@ -48,7 +47,7 @@ class QueryRuntimeErrorParameters(TypedDict):
 
 
 @dataclass
-class QueryRuntimeError(PalantirRPCException):
+class QueryRuntimeError(BadRequestError):
     name: Literal["QueryRuntimeError"]
     parameters: QueryRuntimeErrorParameters
     error_instance_id: str

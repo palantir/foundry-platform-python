@@ -292,6 +292,7 @@ from foundry.v1.ontologies.models._query_aggregation_value_type_dict import (
     QueryAggregationValueTypeDict,
 )  # NOQA
 from foundry.v1.ontologies.models._query_api_name import QueryApiName
+from foundry.v1.ontologies.models._query_data_type_dict import EntrySetTypeDict
 from foundry.v1.ontologies.models._query_data_type_dict import QueryArrayTypeDict
 from foundry.v1.ontologies.models._query_data_type_dict import QueryDataTypeDict
 from foundry.v1.ontologies.models._query_data_type_dict import QuerySetTypeDict
@@ -435,6 +436,7 @@ __all__ = [
     "DeleteObjectRuleDict",
     "DerivedPropertyApiName",
     "Duration",
+    "EntrySetTypeDict",
     "EqualsQuery",
     "EqualsQueryDict",
     "ExecuteQueryResponse",

@@ -19,10 +19,9 @@ from dataclasses import dataclass
 from typing import List
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import BadRequestError
 from foundry.v2.core.models._distance_unit import DistanceUnit
 
 
@@ -37,7 +36,7 @@ class UnknownDistanceUnitParameters(TypedDict):
 
 
 @dataclass
-class UnknownDistanceUnit(PalantirRPCException):
+class UnknownDistanceUnit(BadRequestError):
     name: Literal["UnknownDistanceUnit"]
     parameters: UnknownDistanceUnitParameters
     error_instance_id: str

@@ -23,6 +23,7 @@ from foundry._core import StreamedApiResponse
 from foundry._core import StreamingContextManager
 from foundry._core import UserTokenAuth
 from foundry._errors import BadRequestError
+from foundry._errors import ConflictError
 from foundry._errors import ConnectionError
 from foundry._errors import ConnectTimeout
 from foundry._errors import EnvironmentNotConfigured
@@ -35,6 +36,7 @@ from foundry._errors import PermissionDeniedError
 from foundry._errors import ProxyError
 from foundry._errors import RateLimitError
 from foundry._errors import ReadTimeout
+from foundry._errors import RequestEntityTooLargeError
 from foundry._errors import SDKInternalError
 from foundry._errors import StreamConsumedError
 from foundry._errors import TimeoutError
@@ -72,6 +74,8 @@ __all__ = [
     "NotFoundError",
     "UnprocessableEntityError",
     "RateLimitError",
+    "RequestEntityTooLargeError",
+    "ConflictError",
     "InternalServerError",
     "SDKInternalError",
     "StreamConsumedError",

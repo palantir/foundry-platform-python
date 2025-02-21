@@ -18,10 +18,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-import pydantic
 from typing_extensions import TypedDict
 
-from foundry._errors import PalantirRPCException
+from foundry._errors import PermissionDeniedError
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 
 
@@ -37,7 +36,7 @@ class ViewObjectPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class ViewObjectPermissionDenied(PalantirRPCException):
+class ViewObjectPermissionDenied(PermissionDeniedError):
     name: Literal["ViewObjectPermissionDenied"]
     parameters: ViewObjectPermissionDeniedParameters
     error_instance_id: str
