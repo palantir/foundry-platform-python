@@ -78,7 +78,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**Build**
+**Optional[Build]**
 
 ### Example
 
@@ -121,7 +121,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Build  |  | application/json |
+**200** | Optional[Build]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

@@ -87,7 +87,7 @@ class TimeSeriesPropertyV2Client:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> TimeSeriesPoint:
+    ) -> Optional[TimeSeriesPoint]:
         """
         Get the first point of a time series property.
 
@@ -109,7 +109,7 @@ class TimeSeriesPropertyV2Client:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: TimeSeriesPoint
+        :rtype: Optional[TimeSeriesPoint]
         """
 
         return self._api_client.call_api(
@@ -131,7 +131,7 @@ class TimeSeriesPropertyV2Client:
                 },
                 body=None,
                 body_type=None,
-                response_type=TimeSeriesPoint,
+                response_type=Optional[TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -150,7 +150,7 @@ class TimeSeriesPropertyV2Client:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> TimeSeriesPoint:
+    ) -> Optional[TimeSeriesPoint]:
         """
         Get the last point of a time series property.
 
@@ -172,7 +172,7 @@ class TimeSeriesPropertyV2Client:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: TimeSeriesPoint
+        :rtype: Optional[TimeSeriesPoint]
         """
 
         return self._api_client.call_api(
@@ -194,7 +194,7 @@ class TimeSeriesPropertyV2Client:
                 },
                 body=None,
                 body_type=None,
-                response_type=TimeSeriesPoint,
+                response_type=Optional[TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -474,7 +474,7 @@ class _TimeSeriesPropertyV2ClientRaw:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[TimeSeriesPoint]:
+    ) -> ApiResponse[Optional[TimeSeriesPoint]]:
         """
         Get the first point of a time series property.
 
@@ -496,7 +496,7 @@ class _TimeSeriesPropertyV2ClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[TimeSeriesPoint]
+        :rtype: ApiResponse[Optional[TimeSeriesPoint]]
         """
 
         return self._api_client.call_api(
@@ -518,7 +518,7 @@ class _TimeSeriesPropertyV2ClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=TimeSeriesPoint,
+                response_type=Optional[TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -537,7 +537,7 @@ class _TimeSeriesPropertyV2ClientRaw:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[TimeSeriesPoint]:
+    ) -> ApiResponse[Optional[TimeSeriesPoint]]:
         """
         Get the last point of a time series property.
 
@@ -559,7 +559,7 @@ class _TimeSeriesPropertyV2ClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[TimeSeriesPoint]
+        :rtype: ApiResponse[Optional[TimeSeriesPoint]]
         """
 
         return self._api_client.call_api(
@@ -581,7 +581,7 @@ class _TimeSeriesPropertyV2ClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=TimeSeriesPoint,
+                response_type=Optional[TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -696,7 +696,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[TimeSeriesPoint]:
+    ) -> StreamingContextManager[Optional[TimeSeriesPoint]]:
         """
         Get the first point of a time series property.
 
@@ -718,7 +718,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[TimeSeriesPoint]
+        :rtype: StreamingContextManager[Optional[TimeSeriesPoint]]
         """
 
         return self._api_client.stream_api(
@@ -740,7 +740,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=TimeSeriesPoint,
+                response_type=Optional[TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -759,7 +759,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
         artifact_repository: Optional[ArtifactRepositoryRid] = None,
         package_name: Optional[SdkPackageName] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[TimeSeriesPoint]:
+    ) -> StreamingContextManager[Optional[TimeSeriesPoint]]:
         """
         Get the last point of a time series property.
 
@@ -781,7 +781,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[TimeSeriesPoint]
+        :rtype: StreamingContextManager[Optional[TimeSeriesPoint]]
         """
 
         return self._api_client.stream_api(
@@ -803,7 +803,7 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=TimeSeriesPoint,
+                response_type=Optional[TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

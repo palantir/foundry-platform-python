@@ -116,7 +116,7 @@ class ScheduleVersionClient:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Schedule:
+    ) -> Optional[Schedule]:
         """
 
         :param schedule_version_rid: scheduleVersionRid
@@ -126,7 +126,7 @@ class ScheduleVersionClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Schedule
+        :rtype: Optional[Schedule]
         """
 
         return self._api_client.call_api(
@@ -144,7 +144,7 @@ class ScheduleVersionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Schedule,
+                response_type=Optional[Schedule],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -224,7 +224,7 @@ class _ScheduleVersionClientRaw:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Schedule]:
+    ) -> ApiResponse[Optional[Schedule]]:
         """
 
         :param schedule_version_rid: scheduleVersionRid
@@ -234,7 +234,7 @@ class _ScheduleVersionClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Schedule]
+        :rtype: ApiResponse[Optional[Schedule]]
         """
 
         return self._api_client.call_api(
@@ -252,7 +252,7 @@ class _ScheduleVersionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Schedule,
+                response_type=Optional[Schedule],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -332,7 +332,7 @@ class _ScheduleVersionClientStreaming:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Schedule]:
+    ) -> StreamingContextManager[Optional[Schedule]]:
         """
 
         :param schedule_version_rid: scheduleVersionRid
@@ -342,7 +342,7 @@ class _ScheduleVersionClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Schedule]
+        :rtype: StreamingContextManager[Optional[Schedule]]
         """
 
         return self._api_client.stream_api(
@@ -360,7 +360,7 @@ class _ScheduleVersionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Schedule,
+                response_type=Optional[Schedule],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
