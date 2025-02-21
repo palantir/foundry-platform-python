@@ -2532,6 +2532,7 @@ Namespace | Name | Import |
 **Orchestration** | BuildTargetsNotFound | `from foundry.v2.orchestration.errors import BuildTargetsNotFound` |
 **Orchestration** | BuildTargetsPermissionDenied | `from foundry.v2.orchestration.errors import BuildTargetsPermissionDenied` |
 **Orchestration** | BuildTargetsResolutionError | `from foundry.v2.orchestration.errors import BuildTargetsResolutionError` |
+**Orchestration** | BuildTargetsUpToDate | `from foundry.v2.orchestration.errors import BuildTargetsUpToDate` |
 **Orchestration** | CancelBuildPermissionDenied | `from foundry.v2.orchestration.errors import CancelBuildPermissionDenied` |
 **Orchestration** | CreateBuildsPermissionDenied | `from foundry.v2.orchestration.errors import CreateBuildsPermissionDenied` |
 **Orchestration** | CreateSchedulePermissionDenied | `from foundry.v2.orchestration.errors import CreateSchedulePermissionDenied` |

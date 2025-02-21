@@ -25,7 +25,7 @@ Name | Type | Description  | Notes |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
-**TimeSeriesPoint**
+**Optional[TimeSeriesPoint]**
 
 ### Example
 
@@ -77,7 +77,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | TimeSeriesPoint  | Success response. | application/json |
+**200** | Optional[TimeSeriesPoint]  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -100,7 +100,7 @@ Name | Type | Description  | Notes |
 **package_name** | Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
-**TimeSeriesPoint**
+**Optional[TimeSeriesPoint]**
 
 ### Example
 
@@ -152,7 +152,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | TimeSeriesPoint  | Success response. | application/json |
+**200** | Optional[TimeSeriesPoint]  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

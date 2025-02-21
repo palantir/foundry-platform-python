@@ -19,7 +19,6 @@ import warnings
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Literal
 from typing import Optional
 from typing import Union
 
@@ -27,13 +26,10 @@ import pydantic
 from annotated_types import Len
 from typing_extensions import Annotated
 from typing_extensions import TypedDict
-from typing_extensions import deprecated
-from typing_extensions import overload
 
 from foundry._core import ApiClient
 from foundry._core import ApiResponse
 from foundry._core import Auth
-from foundry._core import BinaryStream
 from foundry._core import Config
 from foundry._core import RequestInfo
 from foundry._core import ResourceIterator
@@ -389,90 +385,6 @@ class UserClient:
             ),
         ).decode()
 
-    @overload
-    @deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def profile_picture(
-        self,
-        user_id: PrincipalId,
-        *,
-        stream: Literal[True],
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
-        """
-
-        :param user_id: userId
-        :type user_id: PrincipalId
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: BinaryStream
-
-        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
-        :raises InvalidProfilePicture: The user's profile picture is not a valid image
-        """
-        ...
-
-    @overload
-    def profile_picture(
-        self,
-        user_id: PrincipalId,
-        *,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> bytes:
-        """
-
-        :param user_id: userId
-        :type user_id: PrincipalId
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: bytes
-
-        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
-        :raises InvalidProfilePicture: The user's profile picture is not a valid image
-        """
-        ...
-
-    @overload
-    @deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def profile_picture(
-        self,
-        user_id: PrincipalId,
-        *,
-        stream: bool,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
-        """
-
-        :param user_id: userId
-        :type user_id: PrincipalId
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
-
-        :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
-        :raises InvalidProfilePicture: The user's profile picture is not a valid image
-        """
-        ...
-
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
@@ -480,33 +392,20 @@ class UserClient:
         self,
         user_id: PrincipalId,
         *,
-        stream: bool = False,
-        chunk_size: Optional[int] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+    ) -> Optional[bytes]:
         """
 
         :param user_id: userId
         :type user_id: PrincipalId
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: Optional[bytes]
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
-
-        if stream:
-            warnings.warn(
-                f"client.admin.User.profile_picture(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.admin.User.with_streaming_response.profile_picture(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             RequestInfo(
@@ -521,9 +420,7 @@ class UserClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
+                response_type=Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
@@ -920,7 +817,7 @@ class _UserClientRaw:
         user_id: PrincipalId,
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+    ) -> ApiResponse[Optional[bytes]]:
         """
 
         :param user_id: userId
@@ -928,7 +825,7 @@ class _UserClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: ApiResponse[Optional[bytes]]
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
@@ -947,7 +844,7 @@ class _UserClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=bytes,
+                response_type=Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
@@ -1344,7 +1241,7 @@ class _UserClientStreaming:
         user_id: PrincipalId,
         *,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+    ) -> StreamingContextManager[Optional[bytes]]:
         """
 
         :param user_id: userId
@@ -1352,7 +1249,7 @@ class _UserClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: StreamingContextManager[Optional[bytes]]
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
@@ -1371,7 +1268,7 @@ class _UserClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=bytes,
+                response_type=Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,

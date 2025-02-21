@@ -193,7 +193,7 @@ def admin_user_profile_picture(
     result = client.admin.User.profile_picture(
         user_id=user_id,
     )
-    click.echo(result)
+    click.echo(repr(result))
 
 
 @admin_user.command("search")

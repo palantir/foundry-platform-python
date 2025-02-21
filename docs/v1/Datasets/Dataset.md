@@ -194,7 +194,7 @@ Name | Type | Description  | Notes |
 **transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
 
 ### Return type
-**Any**
+**Optional[Any]**
 
 ### Example
 
@@ -240,7 +240,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Any  |  | application/json |
+**200** | Optional[Any]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
 

@@ -229,7 +229,7 @@ class DatasetClient:
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Any:
+    ) -> Optional[Any]:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
@@ -244,7 +244,7 @@ class DatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Any
+        :rtype: Optional[Any]
         """
 
         return self._api_client.call_api(
@@ -264,7 +264,7 @@ class DatasetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Any,
+                response_type=Optional[Any],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -720,7 +720,7 @@ class _DatasetClientRaw:
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Any]:
+    ) -> ApiResponse[Optional[Any]]:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
@@ -735,7 +735,7 @@ class _DatasetClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Any]
+        :rtype: ApiResponse[Optional[Any]]
         """
 
         return self._api_client.call_api(
@@ -755,7 +755,7 @@ class _DatasetClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Any,
+                response_type=Optional[Any],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -1052,7 +1052,7 @@ class _DatasetClientStreaming:
         preview: Optional[PreviewMode] = None,
         transaction_rid: Optional[TransactionRid] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Any]:
+    ) -> StreamingContextManager[Optional[Any]]:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
@@ -1067,7 +1067,7 @@ class _DatasetClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Any]
+        :rtype: StreamingContextManager[Optional[Any]]
         """
 
         return self._api_client.stream_api(
@@ -1087,7 +1087,7 @@ class _DatasetClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Any,
+                response_type=Optional[Any],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

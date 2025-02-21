@@ -71,7 +71,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**Schedule**
+**Optional[Schedule]**
 
 ### Example
 
@@ -111,7 +111,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Schedule  |  | application/json |
+**200** | Optional[Schedule]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

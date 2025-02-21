@@ -390,7 +390,7 @@ Name | Type | Description  | Notes |
 **user_id** | PrincipalId | userId |  |
 
 ### Return type
-**bytes**
+**Optional[bytes]**
 
 ### Example
 
@@ -427,7 +427,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | bytes  | The user's profile picture in binary format. The format is the original format uploaded by the user.  The response will contain a `Content-Type` header that can be used to identify the media type.  | application/octet-stream |
+**200** | Optional[bytes]  | The user's profile picture in binary format. The format is the original format uploaded by the user.  The response will contain a `Content-Type` header that can be used to identify the media type.  | application/octet-stream |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

@@ -120,7 +120,7 @@ class TransactionClient:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Build:
+    ) -> Optional[Build]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
@@ -135,7 +135,7 @@ class TransactionClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Build
+        :rtype: Optional[Build]
         """
 
         return self._api_client.call_api(
@@ -154,7 +154,7 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Build,
+                response_type=Optional[Build],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -396,7 +396,7 @@ class _TransactionClientRaw:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Build]:
+    ) -> ApiResponse[Optional[Build]]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
@@ -411,7 +411,7 @@ class _TransactionClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Build]
+        :rtype: ApiResponse[Optional[Build]]
         """
 
         return self._api_client.call_api(
@@ -430,7 +430,7 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Build,
+                response_type=Optional[Build],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -672,7 +672,7 @@ class _TransactionClientStreaming:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Build]:
+    ) -> StreamingContextManager[Optional[Build]]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
@@ -687,7 +687,7 @@ class _TransactionClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Build]
+        :rtype: StreamingContextManager[Optional[Build]]
         """
 
         return self._api_client.stream_api(
@@ -706,7 +706,7 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Build,
+                response_type=Optional[Build],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
