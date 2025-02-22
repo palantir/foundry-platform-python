@@ -315,8 +315,8 @@ __all__ = [
     "InvalidQueryParameterValue",
     "OntologySyncing",
     "PropertyTypeNotFound",
-    "InvalidPropertyType",
     "MarketplaceInstallationNotFound",
+    "InvalidPropertyType",
     "InvalidDurationGroupByPropertyType",
     "MissingParameter",
 ]
