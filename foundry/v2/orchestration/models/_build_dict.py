@@ -17,11 +17,11 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
-from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._build_status import BuildStatus
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._retry_backoff_duration_dict import (
@@ -36,7 +36,7 @@ class BuildDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: BuildRid
-    """The RID of a build."""
+    """The RID of a Build."""
 
     branchName: BranchName
     """The branch that the build is running on."""

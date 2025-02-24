@@ -19,12 +19,12 @@ from typing import cast
 
 import pydantic
 
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.core.models._created_by import CreatedBy
 from foundry.v2.core.models._created_time import CreatedTime
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
 from foundry.v2.orchestration.models._build_dict import BuildDict
-from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._build_status import BuildStatus
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
 from foundry.v2.orchestration.models._retry_backoff_duration import RetryBackoffDuration
@@ -36,7 +36,7 @@ class Build(pydantic.BaseModel):
 
     rid: BuildRid
 
-    """The RID of a build."""
+    """The RID of a Build."""
 
     branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
 

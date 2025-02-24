@@ -18,6 +18,9 @@ from foundry.v2.datasets.errors._abort_transaction_permission_denied import (
 )  # NOQA
 from foundry.v2.datasets.errors._branch_already_exists import BranchAlreadyExists
 from foundry.v2.datasets.errors._branch_not_found import BranchNotFound
+from foundry.v2.datasets.errors._build_transaction_permission_denied import (
+    BuildTransactionPermissionDenied,
+)  # NOQA
 from foundry.v2.datasets.errors._column_types_not_supported import ColumnTypesNotSupported  # NOQA
 from foundry.v2.datasets.errors._commit_transaction_permission_denied import (
     CommitTransactionPermissionDenied,
@@ -53,6 +56,9 @@ from foundry.v2.datasets.errors._get_file_content_permission_denied import (
 )  # NOQA
 from foundry.v2.datasets.errors._invalid_branch_name import InvalidBranchName
 from foundry.v2.datasets.errors._invalid_transaction_type import InvalidTransactionType
+from foundry.v2.datasets.errors._job_transaction_permission_denied import (
+    JobTransactionPermissionDenied,
+)  # NOQA
 from foundry.v2.datasets.errors._open_transaction_already_exists import (
     OpenTransactionAlreadyExists,
 )  # NOQA
@@ -79,6 +85,7 @@ __all__ = [
     "AbortTransactionPermissionDenied",
     "BranchAlreadyExists",
     "BranchNotFound",
+    "BuildTransactionPermissionDenied",
     "ColumnTypesNotSupported",
     "CommitTransactionPermissionDenied",
     "CreateBranchPermissionDenied",
@@ -96,6 +103,7 @@ __all__ = [
     "GetFileContentPermissionDenied",
     "InvalidBranchName",
     "InvalidTransactionType",
+    "JobTransactionPermissionDenied",
     "OpenTransactionAlreadyExists",
     "PutSchemaPermissionDenied",
     "ReadTableDatasetPermissionDenied",

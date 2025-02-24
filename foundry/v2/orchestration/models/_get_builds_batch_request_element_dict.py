@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-from foundry.v2.orchestration.models._build_rid import BuildRid
+from foundry.v2.core.models._build_rid import BuildRid
 
 
 class GetBuildsBatchRequestElementDict(TypedDict):
@@ -26,4 +26,4 @@ class GetBuildsBatchRequestElementDict(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     buildRid: BuildRid
-    """The RID of a build."""
+    """The RID of a Build."""

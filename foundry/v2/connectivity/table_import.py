@@ -52,12 +52,12 @@ from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
 from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
 from foundry.v2.connectivity.models._table_import_mode import TableImportMode
 from foundry.v2.connectivity.models._table_import_rid import TableImportRid
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.orchestration.models._build_rid import BuildRid
 
 
 class TableImportClient:

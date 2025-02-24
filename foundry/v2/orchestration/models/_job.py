@@ -19,9 +19,9 @@ from typing import cast
 
 import pydantic
 
-from foundry.v2.orchestration.models._build_rid import BuildRid
+from foundry.v2.core.models._build_rid import BuildRid
+from foundry.v2.core.models._job_rid import JobRid
 from foundry.v2.orchestration.models._job_dict import JobDict
-from foundry.v2.orchestration.models._job_rid import JobRid
 
 
 class Job(pydantic.BaseModel):

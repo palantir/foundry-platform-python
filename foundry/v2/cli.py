@@ -2739,6 +2739,31 @@ def datasets_dataset_transaction_get(
     click.echo(repr(result))
 
 
+@datasets_dataset_transaction.command("job")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("transaction_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def datasets_dataset_transaction_job(
+    client: foundry.v2.FoundryClient,
+    dataset_rid: str,
+    transaction_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+    given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
+    is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
+
+    """
+    result = client.datasets.Dataset.Transaction.job(
+        dataset_rid=dataset_rid,
+        transaction_rid=transaction_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @datasets_dataset.group("branch")
 def datasets_dataset_branch():
     pass
@@ -2869,18 +2894,48 @@ def filesystem_space():
 
 
 @filesystem_space.command("list")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
 def filesystem_space_list(
     client: foundry.v2.FoundryClient,
+    page_size: Optional[int],
+    page_token: Optional[str],
     preview: Optional[bool],
 ):
     """
     Lists all Spaces.
 
-
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.filesystem.Space.list(
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_space.command("page")
+@click.option("--page_size", type=int, required=False, help="""pageSize""")
+@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def filesystem_space_page(
+    client: foundry.v2.FoundryClient,
+    page_size: Optional[int],
+    page_token: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Lists all Spaces.
+
+    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+    """
+    result = client.filesystem.Space.page(
+        page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))

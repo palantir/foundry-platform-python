@@ -967,6 +967,7 @@ Namespace | Name | Import |
 **Core** | [BinaryTypeDict](docs/v2/Core/models/BinaryTypeDict.md) | `from foundry.v2.core.models import BinaryTypeDict` |
 **Core** | [BooleanType](docs/v2/Core/models/BooleanType.md) | `from foundry.v2.core.models import BooleanType` |
 **Core** | [BooleanTypeDict](docs/v2/Core/models/BooleanTypeDict.md) | `from foundry.v2.core.models import BooleanTypeDict` |
+**Core** | [BuildRid](docs/v2/Core/models/BuildRid.md) | `from foundry.v2.core.models import BuildRid` |
 **Core** | [ByteType](docs/v2/Core/models/ByteType.md) | `from foundry.v2.core.models import ByteType` |
 **Core** | [ByteTypeDict](docs/v2/Core/models/ByteTypeDict.md) | `from foundry.v2.core.models import ByteTypeDict` |
 **Core** | [ChangeDataCaptureConfiguration](docs/v2/Core/models/ChangeDataCaptureConfiguration.md) | `from foundry.v2.core.models import ChangeDataCaptureConfiguration` |
@@ -1032,6 +1033,7 @@ Namespace | Name | Import |
 **Core** | [GroupRid](docs/v2/Core/models/GroupRid.md) | `from foundry.v2.core.models import GroupRid` |
 **Core** | [IntegerType](docs/v2/Core/models/IntegerType.md) | `from foundry.v2.core.models import IntegerType` |
 **Core** | [IntegerTypeDict](docs/v2/Core/models/IntegerTypeDict.md) | `from foundry.v2.core.models import IntegerTypeDict` |
+**Core** | [JobRid](docs/v2/Core/models/JobRid.md) | `from foundry.v2.core.models import JobRid` |
 **Core** | [LmsEmbeddingModel](docs/v2/Core/models/LmsEmbeddingModel.md) | `from foundry.v2.core.models import LmsEmbeddingModel` |
 **Core** | [LmsEmbeddingModelDict](docs/v2/Core/models/LmsEmbeddingModelDict.md) | `from foundry.v2.core.models import LmsEmbeddingModelDict` |
 **Core** | [LmsEmbeddingModelValue](docs/v2/Core/models/LmsEmbeddingModelValue.md) | `from foundry.v2.core.models import LmsEmbeddingModelValue` |
@@ -1752,7 +1754,6 @@ Namespace | Name | Import |
 **Orchestration** | [Build](docs/v2/Orchestration/models/Build.md) | `from foundry.v2.orchestration.models import Build` |
 **Orchestration** | [BuildableRid](docs/v2/Orchestration/models/BuildableRid.md) | `from foundry.v2.orchestration.models import BuildableRid` |
 **Orchestration** | [BuildDict](docs/v2/Orchestration/models/BuildDict.md) | `from foundry.v2.orchestration.models import BuildDict` |
-**Orchestration** | [BuildRid](docs/v2/Orchestration/models/BuildRid.md) | `from foundry.v2.orchestration.models import BuildRid` |
 **Orchestration** | [BuildStatus](docs/v2/Orchestration/models/BuildStatus.md) | `from foundry.v2.orchestration.models import BuildStatus` |
 **Orchestration** | [BuildTarget](docs/v2/Orchestration/models/BuildTarget.md) | `from foundry.v2.orchestration.models import BuildTarget` |
 **Orchestration** | [BuildTargetDict](docs/v2/Orchestration/models/BuildTargetDict.md) | `from foundry.v2.orchestration.models import BuildTargetDict` |
@@ -1785,7 +1786,6 @@ Namespace | Name | Import |
 **Orchestration** | [GetBuildsBatchResponseDict](docs/v2/Orchestration/models/GetBuildsBatchResponseDict.md) | `from foundry.v2.orchestration.models import GetBuildsBatchResponseDict` |
 **Orchestration** | [Job](docs/v2/Orchestration/models/Job.md) | `from foundry.v2.orchestration.models import Job` |
 **Orchestration** | [JobDict](docs/v2/Orchestration/models/JobDict.md) | `from foundry.v2.orchestration.models import JobDict` |
-**Orchestration** | [JobRid](docs/v2/Orchestration/models/JobRid.md) | `from foundry.v2.orchestration.models import JobRid` |
 **Orchestration** | [JobSucceededTrigger](docs/v2/Orchestration/models/JobSucceededTrigger.md) | `from foundry.v2.orchestration.models import JobSucceededTrigger` |
 **Orchestration** | [JobSucceededTriggerDict](docs/v2/Orchestration/models/JobSucceededTriggerDict.md) | `from foundry.v2.orchestration.models import JobSucceededTriggerDict` |
 **Orchestration** | [ListRunsOfScheduleResponse](docs/v2/Orchestration/models/ListRunsOfScheduleResponse.md) | `from foundry.v2.orchestration.models import ListRunsOfScheduleResponse` |
@@ -2325,6 +2325,7 @@ Namespace | Name | Import |
 **Datasets** | AbortTransactionPermissionDenied | `from foundry.v2.datasets.errors import AbortTransactionPermissionDenied` |
 **Datasets** | BranchAlreadyExists | `from foundry.v2.datasets.errors import BranchAlreadyExists` |
 **Datasets** | BranchNotFound | `from foundry.v2.datasets.errors import BranchNotFound` |
+**Datasets** | BuildTransactionPermissionDenied | `from foundry.v2.datasets.errors import BuildTransactionPermissionDenied` |
 **Datasets** | ColumnTypesNotSupported | `from foundry.v2.datasets.errors import ColumnTypesNotSupported` |
 **Datasets** | CommitTransactionPermissionDenied | `from foundry.v2.datasets.errors import CommitTransactionPermissionDenied` |
 **Datasets** | CreateBranchPermissionDenied | `from foundry.v2.datasets.errors import CreateBranchPermissionDenied` |
@@ -2342,6 +2343,7 @@ Namespace | Name | Import |
 **Datasets** | GetFileContentPermissionDenied | `from foundry.v2.datasets.errors import GetFileContentPermissionDenied` |
 **Datasets** | InvalidBranchName | `from foundry.v2.datasets.errors import InvalidBranchName` |
 **Datasets** | InvalidTransactionType | `from foundry.v2.datasets.errors import InvalidTransactionType` |
+**Datasets** | JobTransactionPermissionDenied | `from foundry.v2.datasets.errors import JobTransactionPermissionDenied` |
 **Datasets** | OpenTransactionAlreadyExists | `from foundry.v2.datasets.errors import OpenTransactionAlreadyExists` |
 **Datasets** | PutSchemaPermissionDenied | `from foundry.v2.datasets.errors import PutSchemaPermissionDenied` |
 **Datasets** | ReadTableDatasetPermissionDenied | `from foundry.v2.datasets.errors import ReadTableDatasetPermissionDenied` |

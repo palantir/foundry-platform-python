@@ -19,7 +19,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry.v2.orchestration.models._build_rid import BuildRid
+from foundry.v2.core.models._build_rid import BuildRid
 
 
 class ScheduleRunSubmittedDict(TypedDict):

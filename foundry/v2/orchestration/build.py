@@ -34,6 +34,7 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -41,7 +42,6 @@ from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.orchestration import errors as orchestration_errors
 from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
 from foundry.v2.orchestration.models._build import Build
-from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._build_target import BuildTarget
 from foundry.v2.orchestration.models._build_target_dict import BuildTargetDict
 from foundry.v2.orchestration.models._fallback_branches import FallbackBranches

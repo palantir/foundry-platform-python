@@ -78,7 +78,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**Optional[Build]**
+**Optional[BuildRid]**
 
 ### Example
 
@@ -121,7 +121,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Optional[Build]  |  | application/json |
+**200** | Optional[BuildRid]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -317,6 +317,67 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Transaction  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
+is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid | datasetRid |  |
+**transaction_rid** | TransactionRid | transactionRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**Optional[JobRid]**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# DatasetRid | datasetRid
+dataset_rid = None
+# TransactionRid | transactionRid
+transaction_rid = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.datasets.Dataset.Transaction.job(
+        dataset_rid,
+        transaction_rid,
+        preview=preview,
+    )
+    print("The job response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Transaction.job: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Optional[JobRid]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
