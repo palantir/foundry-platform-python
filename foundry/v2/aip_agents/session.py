@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import warnings
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import List
@@ -40,7 +41,6 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.aip_agents import errors as aip_agents_errors
-from foundry.v2.aip_agents.content import ContentClient
 from foundry.v2.aip_agents.models._agent_markdown_response import AgentMarkdownResponse
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._agent_session_rag_context_response import (
@@ -80,12 +80,24 @@ class SessionClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _SessionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _SessionClientRaw(auth=auth, hostname=hostname, config=config)
-        self.Content = ContentClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def Content(self):
+        from foundry.v2.aip_agents.content import ContentClient
+
+        return ContentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -867,6 +879,9 @@ class _SessionClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -1463,6 +1478,9 @@ class _SessionClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

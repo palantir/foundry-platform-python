@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import warnings
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import List
@@ -46,7 +47,6 @@ from foundry.v2.filesystem.models._list_markings_of_resource_response import (
 from foundry.v2.filesystem.models._resource import Resource
 from foundry.v2.filesystem.models._resource_path import ResourcePath
 from foundry.v2.filesystem.models._resource_rid import ResourceRid
-from foundry.v2.filesystem.resource_role import ResourceRoleClient
 
 
 class ResourceClient:
@@ -64,12 +64,24 @@ class ResourceClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ResourceClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ResourceClientRaw(auth=auth, hostname=hostname, config=config)
-        self.Role = ResourceRoleClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def Role(self):
+        from foundry.v2.filesystem.resource_role import ResourceRoleClient
+
+        return ResourceRoleClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -596,6 +608,9 @@ class _ResourceClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -1123,6 +1138,9 @@ class _ResourceClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

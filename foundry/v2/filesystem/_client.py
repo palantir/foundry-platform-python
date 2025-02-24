@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,12 +35,46 @@ class FilesystemClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Folder(self):
         from foundry.v2.filesystem.folder import FolderClient
+
+        return FolderClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Project(self):
         from foundry.v2.filesystem.project import ProjectClient
+
+        return ProjectClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Resource(self):
         from foundry.v2.filesystem.resource import ResourceClient
+
+        return ResourceClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Space(self):
         from foundry.v2.filesystem.space import SpaceClient
 
-        self.Folder = FolderClient(auth=auth, hostname=hostname, config=config)
-        self.Project = ProjectClient(auth=auth, hostname=hostname, config=config)
-        self.Resource = ResourceClient(auth=auth, hostname=hostname, config=config)
-        self.Space = SpaceClient(auth=auth, hostname=hostname, config=config)
+        return SpaceClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )

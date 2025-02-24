@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import warnings
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -33,13 +34,11 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.aip_agents import errors as aip_agents_errors
-from foundry.v2.aip_agents.agent_version import AgentVersionClient
 from foundry.v2.aip_agents.models._agent import Agent
 from foundry.v2.aip_agents.models._agent_rid import AgentRid
 from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
 from foundry.v2.aip_agents.models._agents_sessions_page import AgentsSessionsPage
 from foundry.v2.aip_agents.models._session import Session
-from foundry.v2.aip_agents.session import SessionClient
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -60,13 +59,34 @@ class AgentClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _AgentClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _AgentClientRaw(auth=auth, hostname=hostname, config=config)
-        self.AgentVersion = AgentVersionClient(auth=auth, hostname=hostname, config=config)
-        self.Session = SessionClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def AgentVersion(self):
+        from foundry.v2.aip_agents.agent_version import AgentVersionClient
+
+        return AgentVersionClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Session(self):
+        from foundry.v2.aip_agents.session import SessionClient
+
+        return SessionClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -249,6 +269,9 @@ class _AgentClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -432,6 +455,9 @@ class _AgentClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

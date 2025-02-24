@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import warnings
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import List
@@ -39,15 +40,12 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.datasets import errors as datasets_errors
-from foundry.v2.datasets.branch import BranchClient
-from foundry.v2.datasets.file import FileClient
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset import Dataset
 from foundry.v2.datasets.models._dataset_name import DatasetName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._table_export_format import TableExportFormat
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
-from foundry.v2.datasets.transaction import TransactionClient
 from foundry.v2.filesystem import errors as filesystem_errors
 from foundry.v2.filesystem.models._folder_rid import FolderRid
 
@@ -67,14 +65,44 @@ class DatasetClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _DatasetClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _DatasetClientRaw(auth=auth, hostname=hostname, config=config)
-        self.Branch = BranchClient(auth=auth, hostname=hostname, config=config)
-        self.Transaction = TransactionClient(auth=auth, hostname=hostname, config=config)
-        self.File = FileClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def Branch(self):
+        from foundry.v2.datasets.branch import BranchClient
+
+        return BranchClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Transaction(self):
+        from foundry.v2.datasets.transaction import TransactionClient
+
+        return TransactionClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def File(self):
+        from foundry.v2.datasets.file import FileClient
+
+        return FileClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -451,6 +479,9 @@ class _DatasetClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -651,6 +682,9 @@ class _DatasetClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

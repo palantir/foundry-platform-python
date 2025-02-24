@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import warnings
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import List
@@ -37,7 +38,6 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.group_membership import GroupMembershipClient
 from foundry.v2.admin.models._get_user_markings_response import GetUserMarkingsResponse
 from foundry.v2.admin.models._get_users_batch_request_element import (
     GetUsersBatchRequestElement,
@@ -51,7 +51,6 @@ from foundry.v2.admin.models._search_users_response import SearchUsersResponse
 from foundry.v2.admin.models._user import User
 from foundry.v2.admin.models._user_search_filter import UserSearchFilter
 from foundry.v2.admin.models._user_search_filter_dict import UserSearchFilterDict
-from foundry.v2.admin.user_provider_info import UserProviderInfoClient
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
@@ -73,13 +72,34 @@ class UserClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _UserClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _UserClientRaw(auth=auth, hostname=hostname, config=config)
-        self.ProviderInfo = UserProviderInfoClient(auth=auth, hostname=hostname, config=config)
-        self.GroupMembership = GroupMembershipClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def ProviderInfo(self):
+        from foundry.v2.admin.user_provider_info import UserProviderInfoClient
+
+        return UserProviderInfoClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def GroupMembership(self):
+        from foundry.v2.admin.group_membership import GroupMembershipClient
+
+        return GroupMembershipClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -503,6 +523,9 @@ class _UserClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -927,6 +950,9 @@ class _UserClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

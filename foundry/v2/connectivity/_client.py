@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,6 +35,16 @@ class ConnectivityClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Connection(self):
         from foundry.v2.connectivity.connection import ConnectionClient
 
-        self.Connection = ConnectionClient(auth=auth, hostname=hostname, config=config)
+        return ConnectionClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )

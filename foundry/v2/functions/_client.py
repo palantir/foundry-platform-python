@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,8 +35,26 @@ class FunctionsClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Query(self):
         from foundry.v2.functions.query import QueryClient
+
+        return QueryClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def ValueType(self):
         from foundry.v2.functions.value_type import ValueTypeClient
 
-        self.Query = QueryClient(auth=auth, hostname=hostname, config=config)
-        self.ValueType = ValueTypeClient(auth=auth, hostname=hostname, config=config)
+        return ValueTypeClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )

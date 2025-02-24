@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,12 +35,46 @@ class OrchestrationClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Build(self):
         from foundry.v2.orchestration.build import BuildClient
+
+        return BuildClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Job(self):
         from foundry.v2.orchestration.job import JobClient
+
+        return JobClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Schedule(self):
         from foundry.v2.orchestration.schedule import ScheduleClient
+
+        return ScheduleClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def ScheduleVersion(self):
         from foundry.v2.orchestration.schedule_version import ScheduleVersionClient
 
-        self.Build = BuildClient(auth=auth, hostname=hostname, config=config)
-        self.Job = JobClient(auth=auth, hostname=hostname, config=config)
-        self.Schedule = ScheduleClient(auth=auth, hostname=hostname, config=config)
-        self.ScheduleVersion = ScheduleVersionClient(auth=auth, hostname=hostname, config=config)
+        return ScheduleVersionClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )

@@ -361,7 +361,7 @@ def test_config_shared_with_auth():
     assert auth._config == config
 
 
-def test_config_shared_with_auth():
+def test_client_hostname_prioritized():
     config = Config(timeout=1)
     auth = ConfidentialClientAuth(client_id="foo", client_secret="bar", hostname="localhost:9876")
 

@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import warnings
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import List
@@ -37,8 +38,6 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.group_member import GroupMemberClient
-from foundry.v2.admin.group_provider_info import GroupProviderInfoClient
 from foundry.v2.admin.models._attribute_name import AttributeName
 from foundry.v2.admin.models._attribute_values import AttributeValues
 from foundry.v2.admin.models._get_groups_batch_request_element import (
@@ -75,13 +74,34 @@ class GroupClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _GroupClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _GroupClientRaw(auth=auth, hostname=hostname, config=config)
-        self.ProviderInfo = GroupProviderInfoClient(auth=auth, hostname=hostname, config=config)
-        self.GroupMember = GroupMemberClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def ProviderInfo(self):
+        from foundry.v2.admin.group_provider_info import GroupProviderInfoClient
+
+        return GroupProviderInfoClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def GroupMember(self):
+        from foundry.v2.admin.group_member import GroupMemberClient
+
+        return GroupMemberClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -444,6 +464,9 @@ class _GroupClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -807,6 +830,9 @@ class _GroupClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
