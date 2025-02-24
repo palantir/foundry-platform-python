@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -33,7 +34,6 @@ from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.connectivity import errors as connectivity_errors
-from foundry.v2.connectivity.file_import import FileImportClient
 from foundry.v2.connectivity.models._connection import Connection
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
@@ -51,7 +51,6 @@ from foundry.v2.connectivity.models._create_connection_request_runtime_platform_
 )  # NOQA
 from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
 from foundry.v2.connectivity.models._secret_name import SecretName
-from foundry.v2.connectivity.table_import import TableImportClient
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.filesystem.models._folder_rid import FolderRid
 
@@ -71,13 +70,34 @@ class ConnectionClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ConnectionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ConnectionClientRaw(auth=auth, hostname=hostname, config=config)
-        self.FileImport = FileImportClient(auth=auth, hostname=hostname, config=config)
-        self.TableImport = TableImportClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def FileImport(self):
+        from foundry.v2.connectivity.file_import import FileImportClient
+
+        return FileImportClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def TableImport(self):
+        from foundry.v2.connectivity.table_import import TableImportClient
+
+        return TableImportClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -309,6 +329,9 @@ class _ConnectionClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -541,6 +564,9 @@ class _ConnectionClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,32 +35,106 @@ class OntologiesClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Action(self):
         from foundry.v2.ontologies.action import ActionClient
+
+        return ActionClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Attachment(self):
         from foundry.v2.ontologies.attachment import AttachmentClient
+
+        return AttachmentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def AttachmentProperty(self):
         from foundry.v2.ontologies.attachment_property import AttachmentPropertyClient
+
+        return AttachmentPropertyClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def LinkedObject(self):
         from foundry.v2.ontologies.linked_object import LinkedObjectClient
+
+        return LinkedObjectClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Ontology(self):
         from foundry.v2.ontologies.ontology import OntologyClient
+
+        return OntologyClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def OntologyInterface(self):
         from foundry.v2.ontologies.ontology_interface import OntologyInterfaceClient
+
+        return OntologyInterfaceClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def OntologyObject(self):
         from foundry.v2.ontologies.ontology_object import OntologyObjectClient
+
+        return OntologyObjectClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def OntologyObjectSet(self):
         from foundry.v2.ontologies.ontology_object_set import OntologyObjectSetClient
+
+        return OntologyObjectSetClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Query(self):
         from foundry.v2.ontologies.query import QueryClient
+
+        return QueryClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def TimeSeriesPropertyV2(self):
         from foundry.v2.ontologies.time_series_property_v2 import TimeSeriesPropertyV2Client  # NOQA
 
-        self.Action = ActionClient(auth=auth, hostname=hostname, config=config)
-        self.Attachment = AttachmentClient(auth=auth, hostname=hostname, config=config)
-        self.AttachmentProperty = AttachmentPropertyClient(
-            auth=auth, hostname=hostname, config=config
-        )
-        self.LinkedObject = LinkedObjectClient(auth=auth, hostname=hostname, config=config)
-        self.Ontology = OntologyClient(auth=auth, hostname=hostname, config=config)
-        self.OntologyInterface = OntologyInterfaceClient(
-            auth=auth, hostname=hostname, config=config
-        )
-        self.OntologyObject = OntologyObjectClient(auth=auth, hostname=hostname, config=config)
-        self.OntologyObjectSet = OntologyObjectSetClient(
-            auth=auth, hostname=hostname, config=config
-        )
-        self.Query = QueryClient(auth=auth, hostname=hostname, config=config)
-        self.TimeSeriesPropertyV2 = TimeSeriesPropertyV2Client(
-            auth=auth, hostname=hostname, config=config
+        return TimeSeriesPropertyV2Client(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
         )

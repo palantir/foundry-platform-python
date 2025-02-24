@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,12 +35,46 @@ class OntologiesClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Action(self):
         from foundry.v1.ontologies.action import ActionClient
+
+        return ActionClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Ontology(self):
         from foundry.v1.ontologies.ontology import OntologyClient
+
+        return OntologyClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def OntologyObject(self):
         from foundry.v1.ontologies.ontology_object import OntologyObjectClient
+
+        return OntologyObjectClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Query(self):
         from foundry.v1.ontologies.query import QueryClient
 
-        self.Action = ActionClient(auth=auth, hostname=hostname, config=config)
-        self.Ontology = OntologyClient(auth=auth, hostname=hostname, config=config)
-        self.OntologyObject = OntologyObjectClient(auth=auth, hostname=hostname, config=config)
-        self.Query = QueryClient(auth=auth, hostname=hostname, config=config)
+        return QueryClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )

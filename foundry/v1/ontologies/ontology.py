@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -30,12 +31,9 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
-from foundry.v1.ontologies.action_type import ActionTypeClient
 from foundry.v1.ontologies.models._list_ontologies_response import ListOntologiesResponse  # NOQA
 from foundry.v1.ontologies.models._ontology import Ontology
 from foundry.v1.ontologies.models._ontology_rid import OntologyRid
-from foundry.v1.ontologies.object_type import ObjectTypeClient
-from foundry.v1.ontologies.query_type import QueryTypeClient
 
 
 class OntologyClient:
@@ -53,14 +51,44 @@ class OntologyClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _OntologyClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _OntologyClientRaw(auth=auth, hostname=hostname, config=config)
-        self.ActionType = ActionTypeClient(auth=auth, hostname=hostname, config=config)
-        self.ObjectType = ObjectTypeClient(auth=auth, hostname=hostname, config=config)
-        self.QueryType = QueryTypeClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def ActionType(self):
+        from foundry.v1.ontologies.action_type import ActionTypeClient
+
+        return ActionTypeClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def ObjectType(self):
+        from foundry.v1.ontologies.object_type import ObjectTypeClient
+
+        return ObjectTypeClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def QueryType(self):
+        from foundry.v1.ontologies.query_type import QueryTypeClient
+
+        return QueryTypeClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -155,6 +183,9 @@ class _OntologyClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -250,6 +281,9 @@ class _OntologyClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

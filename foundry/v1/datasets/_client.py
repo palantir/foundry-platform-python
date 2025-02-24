@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,6 +35,16 @@ class DatasetsClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Dataset(self):
         from foundry.v1.datasets.dataset import DatasetClient
 
-        self.Dataset = DatasetClient(auth=auth, hostname=hostname, config=config)
+        return DatasetClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )

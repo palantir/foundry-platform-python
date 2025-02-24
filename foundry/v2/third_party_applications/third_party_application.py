@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from functools import cached_property
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -38,7 +39,6 @@ from foundry.v2.third_party_applications.models._third_party_application import 
 from foundry.v2.third_party_applications.models._third_party_application_rid import (
     ThirdPartyApplicationRid,
 )  # NOQA
-from foundry.v2.third_party_applications.website import WebsiteClient
 
 
 class ThirdPartyApplicationClient:
@@ -56,6 +56,9 @@ class ThirdPartyApplicationClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ThirdPartyApplicationClientStreaming(
             auth=auth, hostname=hostname, config=config
@@ -63,7 +66,16 @@ class ThirdPartyApplicationClient:
         self.with_raw_response = _ThirdPartyApplicationClientRaw(
             auth=auth, hostname=hostname, config=config
         )
-        self.Website = WebsiteClient(auth=auth, hostname=hostname, config=config)
+
+    @cached_property
+    def Website(self):
+        from foundry.v2.third_party_applications.website import WebsiteClient
+
+        return WebsiteClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @maybe_ignore_preview
     @pydantic.validate_call
@@ -128,6 +140,9 @@ class _ThirdPartyApplicationClientRaw:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview
@@ -193,6 +208,9 @@ class _ThirdPartyApplicationClientStreaming:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
         self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
 
     @maybe_ignore_preview

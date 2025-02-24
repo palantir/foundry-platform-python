@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from functools import cached_property
 from typing import Optional
 
 from foundry._core import Auth
@@ -34,16 +35,66 @@ class AdminClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+
+    @cached_property
+    def Enrollment(self):
         from foundry.v2.admin.enrollment import EnrollmentClient
+
+        return EnrollmentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Group(self):
         from foundry.v2.admin.group import GroupClient
+
+        return GroupClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Marking(self):
         from foundry.v2.admin.marking import MarkingClient
+
+        return MarkingClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def MarkingCategory(self):
         from foundry.v2.admin.marking_category import MarkingCategoryClient
+
+        return MarkingCategoryClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def Organization(self):
         from foundry.v2.admin.organization import OrganizationClient
+
+        return OrganizationClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def User(self):
         from foundry.v2.admin.user import UserClient
 
-        self.Enrollment = EnrollmentClient(auth=auth, hostname=hostname, config=config)
-        self.Group = GroupClient(auth=auth, hostname=hostname, config=config)
-        self.Marking = MarkingClient(auth=auth, hostname=hostname, config=config)
-        self.MarkingCategory = MarkingCategoryClient(auth=auth, hostname=hostname, config=config)
-        self.Organization = OrganizationClient(auth=auth, hostname=hostname, config=config)
-        self.User = UserClient(auth=auth, hostname=hostname, config=config)
+        return UserClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
