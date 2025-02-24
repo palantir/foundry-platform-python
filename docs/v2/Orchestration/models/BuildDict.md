@@ -5,7 +5,7 @@ Build
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | BuildRid | Yes | The RID of a build. |
+**rid** | BuildRid | Yes | The RID of a Build. |
 **branchName** | BranchName | Yes | The branch that the build is running on. |
 **createdTime** | CreatedTime | Yes | The timestamp that the build was created. |
 **createdBy** | CreatedBy | Yes | The user who created the build. |

@@ -20,7 +20,7 @@ from typing import cast
 
 import pydantic
 
-from foundry.v2.orchestration.models._build_rid import BuildRid
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._schedule_run_submitted_dict import (
     ScheduleRunSubmittedDict,
 )  # NOQA

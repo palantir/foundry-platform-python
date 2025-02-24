@@ -30,10 +30,10 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.core.models._job_rid import JobRid
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.orchestration import errors as orchestration_errors
 from foundry.v2.orchestration.models._job import Job
-from foundry.v2.orchestration.models._job_rid import JobRid
 
 
 class JobClient:

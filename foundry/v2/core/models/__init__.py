@@ -21,6 +21,7 @@ from foundry.v2.core.models._binary_type import BinaryType
 from foundry.v2.core.models._binary_type_dict import BinaryTypeDict
 from foundry.v2.core.models._boolean_type import BooleanType
 from foundry.v2.core.models._boolean_type_dict import BooleanTypeDict
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.core.models._byte_type import ByteType
 from foundry.v2.core.models._byte_type_dict import ByteTypeDict
 from foundry.v2.core.models._change_data_capture_configuration import (
@@ -102,6 +103,7 @@ from foundry.v2.core.models._group_name import GroupName
 from foundry.v2.core.models._group_rid import GroupRid
 from foundry.v2.core.models._integer_type import IntegerType
 from foundry.v2.core.models._integer_type_dict import IntegerTypeDict
+from foundry.v2.core.models._job_rid import JobRid
 from foundry.v2.core.models._lms_embedding_model import LmsEmbeddingModel
 from foundry.v2.core.models._lms_embedding_model_dict import LmsEmbeddingModelDict
 from foundry.v2.core.models._lms_embedding_model_value import LmsEmbeddingModelValue
@@ -184,6 +186,7 @@ __all__ = [
     "BinaryTypeDict",
     "BooleanType",
     "BooleanTypeDict",
+    "BuildRid",
     "ByteType",
     "ByteTypeDict",
     "ChangeDataCaptureConfiguration",
@@ -249,6 +252,7 @@ __all__ = [
     "GroupRid",
     "IntegerType",
     "IntegerTypeDict",
+    "JobRid",
     "LmsEmbeddingModel",
     "LmsEmbeddingModelDict",
     "LmsEmbeddingModelValue",

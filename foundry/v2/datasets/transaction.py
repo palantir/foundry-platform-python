@@ -31,6 +31,8 @@ from foundry._core import RequestInfo
 from foundry._core import StreamingContextManager
 from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
+from foundry.v2.core.models._build_rid import BuildRid
+from foundry.v2.core.models._job_rid import JobRid
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets import errors as datasets_errors
 from foundry.v2.datasets.models._branch_name import BranchName
@@ -38,7 +40,6 @@ from foundry.v2.datasets.models._dataset_rid import DatasetRid
 from foundry.v2.datasets.models._transaction import Transaction
 from foundry.v2.datasets.models._transaction_rid import TransactionRid
 from foundry.v2.datasets.models._transaction_type import TransactionType
-from foundry.v2.orchestration.models._build import Build
 
 
 class TransactionClient:
@@ -120,7 +121,7 @@ class TransactionClient:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Optional[Build]:
+    ) -> Optional[BuildRid]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
@@ -135,7 +136,9 @@ class TransactionClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Optional[Build]
+        :rtype: Optional[BuildRid]
+
+        :raises BuildTransactionPermissionDenied: Could not build the Transaction.
         """
 
         return self._api_client.call_api(
@@ -154,9 +157,11 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[Build],
+                response_type=Optional[BuildRid],
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BuildTransactionPermissionDenied": datasets_errors.BuildTransactionPermissionDenied,
+                },
             ),
         ).decode()
 
@@ -316,6 +321,60 @@ class TransactionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
+            ),
+        ).decode()
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def job(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Optional[JobRid]:
+        """
+        Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+        given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
+        is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Optional[JobRid]
+
+        :raises JobTransactionPermissionDenied: Could not job the Transaction.
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/job",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Optional[JobRid],
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "JobTransactionPermissionDenied": datasets_errors.JobTransactionPermissionDenied,
                 },
             ),
         ).decode()
@@ -396,7 +455,7 @@ class _TransactionClientRaw:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Optional[Build]]:
+    ) -> ApiResponse[Optional[BuildRid]]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
@@ -411,7 +470,9 @@ class _TransactionClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Optional[Build]]
+        :rtype: ApiResponse[Optional[BuildRid]]
+
+        :raises BuildTransactionPermissionDenied: Could not build the Transaction.
         """
 
         return self._api_client.call_api(
@@ -430,9 +491,11 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[Build],
+                response_type=Optional[BuildRid],
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BuildTransactionPermissionDenied": datasets_errors.BuildTransactionPermissionDenied,
+                },
             ),
         )
 
@@ -592,6 +655,60 @@ class _TransactionClientRaw:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def job(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[Optional[JobRid]]:
+        """
+        Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+        given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
+        is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[Optional[JobRid]]
+
+        :raises JobTransactionPermissionDenied: Could not job the Transaction.
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/job",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Optional[JobRid],
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "JobTransactionPermissionDenied": datasets_errors.JobTransactionPermissionDenied,
                 },
             ),
         )
@@ -672,7 +789,7 @@ class _TransactionClientStreaming:
         *,
         preview: Optional[PreviewMode] = None,
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Optional[Build]]:
+    ) -> StreamingContextManager[Optional[BuildRid]]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
@@ -687,7 +804,9 @@ class _TransactionClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Optional[Build]]
+        :rtype: StreamingContextManager[Optional[BuildRid]]
+
+        :raises BuildTransactionPermissionDenied: Could not build the Transaction.
         """
 
         return self._api_client.stream_api(
@@ -706,9 +825,11 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[Build],
+                response_type=Optional[BuildRid],
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BuildTransactionPermissionDenied": datasets_errors.BuildTransactionPermissionDenied,
+                },
             ),
         )
 
@@ -868,6 +989,60 @@ class _TransactionClientStreaming:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def job(
+        self,
+        dataset_rid: DatasetRid,
+        transaction_rid: TransactionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[Optional[JobRid]]:
+        """
+        Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+        given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
+        is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
+
+        :param dataset_rid: datasetRid
+        :type dataset_rid: DatasetRid
+        :param transaction_rid: transactionRid
+        :type transaction_rid: TransactionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[Optional[JobRid]]
+
+        :raises JobTransactionPermissionDenied: Could not job the Transaction.
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/job",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "transactionRid": transaction_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=Optional[JobRid],
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "JobTransactionPermissionDenied": datasets_errors.JobTransactionPermissionDenied,
                 },
             ),
         )

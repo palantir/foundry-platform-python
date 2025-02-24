@@ -18,4 +18,4 @@ from __future__ import annotations
 from foundry._core.utils import RID
 
 BuildRid = RID
-"""The RID of a build."""
+"""The RID of a Build."""

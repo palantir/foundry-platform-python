@@ -9,6 +9,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"BLOBSTER_CODE"` |
 | `"BLOBSTER_DOCUMENT"` |
 | `"BLOBSTER_IMAGE"` |
+| `"BLOBSTER_SPREADSHEET"` |
 | `"CARBON_WORKSPACE"` |
 | `"COMPASS_FOLDER"` |
 | `"COMPASS_WEB_LINK"` |

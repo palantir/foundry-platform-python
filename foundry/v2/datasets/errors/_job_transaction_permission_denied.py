@@ -20,24 +20,26 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._job_rid import JobRid
+from foundry._errors import PermissionDeniedError
+from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.datasets.models._transaction_rid import TransactionRid
 
 
-class JobNotFoundParameters(TypedDict):
-    """The given Job could not be found."""
+class JobTransactionPermissionDeniedParameters(TypedDict):
+    """Could not job the Transaction."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    jobRid: JobRid
-    """The RID of a Job."""
+    datasetRid: DatasetRid
+
+    transactionRid: TransactionRid
 
 
 @dataclass
-class JobNotFound(NotFoundError):
-    name: Literal["JobNotFound"]
-    parameters: JobNotFoundParameters
+class JobTransactionPermissionDenied(PermissionDeniedError):
+    name: Literal["JobTransactionPermissionDenied"]
+    parameters: JobTransactionPermissionDeniedParameters
     error_instance_id: str
 
 
-__all__ = ["JobNotFound"]
+__all__ = ["JobTransactionPermissionDenied"]

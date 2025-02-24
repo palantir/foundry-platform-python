@@ -21,7 +21,7 @@ from typing import Literal
 from typing_extensions import TypedDict
 
 from foundry._errors import NotFoundError
-from foundry.v2.orchestration.models._build_rid import BuildRid
+from foundry.v2.core.models._build_rid import BuildRid
 
 
 class BuildNotFoundParameters(TypedDict):
@@ -30,7 +30,7 @@ class BuildNotFoundParameters(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     buildRid: BuildRid
-    """The RID of a build."""
+    """The RID of a Build."""
 
 
 @dataclass

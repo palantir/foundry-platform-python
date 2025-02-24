@@ -46,12 +46,12 @@ from foundry.v2.connectivity.models._file_import_rid import FileImportRid
 from foundry.v2.connectivity.models._list_file_imports_response import (
     ListFileImportsResponse,
 )  # NOQA
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.core.models._page_size import PageSize
 from foundry.v2.core.models._page_token import PageToken
 from foundry.v2.core.models._preview_mode import PreviewMode
 from foundry.v2.datasets.models._branch_name import BranchName
 from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.orchestration.models._build_rid import BuildRid
 
 
 class FileImportClient:

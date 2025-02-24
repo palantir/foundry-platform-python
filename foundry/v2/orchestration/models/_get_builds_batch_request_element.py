@@ -19,7 +19,7 @@ from typing import cast
 
 import pydantic
 
-from foundry.v2.orchestration.models._build_rid import BuildRid
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._get_builds_batch_request_element_dict import (
     GetBuildsBatchRequestElementDict,
 )  # NOQA
@@ -30,7 +30,7 @@ class GetBuildsBatchRequestElement(pydantic.BaseModel):
 
     build_rid: BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
 
-    """The RID of a build."""
+    """The RID of a Build."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
 

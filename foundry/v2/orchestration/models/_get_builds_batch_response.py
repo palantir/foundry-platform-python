@@ -20,8 +20,8 @@ from typing import cast
 
 import pydantic
 
+from foundry.v2.core.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._build import Build
-from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._get_builds_batch_response_dict import (
     GetBuildsBatchResponseDict,
 )  # NOQA

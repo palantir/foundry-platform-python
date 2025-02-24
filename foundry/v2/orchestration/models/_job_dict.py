@@ -17,8 +17,8 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-from foundry.v2.orchestration.models._build_rid import BuildRid
-from foundry.v2.orchestration.models._job_rid import JobRid
+from foundry.v2.core.models._build_rid import BuildRid
+from foundry.v2.core.models._job_rid import JobRid
 
 
 class JobDict(TypedDict):

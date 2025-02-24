@@ -18,7 +18,6 @@ from foundry.v2.orchestration.models._action import Action
 from foundry.v2.orchestration.models._action_dict import ActionDict
 from foundry.v2.orchestration.models._build import Build
 from foundry.v2.orchestration.models._build_dict import BuildDict
-from foundry.v2.orchestration.models._build_rid import BuildRid
 from foundry.v2.orchestration.models._build_status import BuildStatus
 from foundry.v2.orchestration.models._build_target import BuildTarget
 from foundry.v2.orchestration.models._build_target_dict import BuildTargetDict
@@ -94,7 +93,6 @@ from foundry.v2.orchestration.models._get_builds_batch_response_dict import (
 )  # NOQA
 from foundry.v2.orchestration.models._job import Job
 from foundry.v2.orchestration.models._job_dict import JobDict
-from foundry.v2.orchestration.models._job_rid import JobRid
 from foundry.v2.orchestration.models._job_succeeded_trigger import JobSucceededTrigger
 from foundry.v2.orchestration.models._job_succeeded_trigger_dict import (
     JobSucceededTriggerDict,
@@ -279,7 +277,6 @@ __all__ = [
     "AndTriggerDict",
     "Build",
     "BuildDict",
-    "BuildRid",
     "BuildStatus",
     "BuildTarget",
     "BuildTargetDict",
@@ -313,7 +310,6 @@ __all__ = [
     "GetBuildsBatchResponseDict",
     "Job",
     "JobDict",
-    "JobRid",
     "JobSucceededTrigger",
     "JobSucceededTriggerDict",
     "ListRunsOfScheduleResponse",
