@@ -133,6 +133,7 @@
         "Geo": true,
         "Filesystem": true,
         "MediaSets": true,
+        "SqlQueries": true,
         "Ontologies": [
           "getOntologyV2",
           "getOntologyFullMetadata",
