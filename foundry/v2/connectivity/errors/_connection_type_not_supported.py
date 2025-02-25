@@ -20,7 +20,7 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry._errors import InternalServerError
+from foundry._errors import BadRequestError
 
 
 class ConnectionTypeNotSupportedParameters(TypedDict):
@@ -32,7 +32,7 @@ class ConnectionTypeNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class ConnectionTypeNotSupported(InternalServerError):
+class ConnectionTypeNotSupported(BadRequestError):
     name: Literal["ConnectionTypeNotSupported"]
     parameters: ConnectionTypeNotSupportedParameters
     error_instance_id: str

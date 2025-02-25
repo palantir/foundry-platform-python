@@ -15,6 +15,7 @@
 
 from __future__ import annotations
 
+from typing import Literal
 from typing import cast
 
 import pydantic
@@ -29,6 +30,8 @@ class BasicCredentials(pydantic.BaseModel):
     username: str
 
     password: EncryptedProperty
+
+    type: Literal["basic"] = "basic"
 
     model_config = {"extra": "allow", "populate_by_name": True}
 

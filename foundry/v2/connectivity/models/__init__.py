@@ -18,6 +18,10 @@ from foundry.v2.connectivity.models._agent_proxy_runtime_dict import AgentProxyR
 from foundry.v2.connectivity.models._agent_rid import AgentRid
 from foundry.v2.connectivity.models._agent_worker_runtime import AgentWorkerRuntime
 from foundry.v2.connectivity.models._agent_worker_runtime_dict import AgentWorkerRuntimeDict  # NOQA
+from foundry.v2.connectivity.models._api_key_authentication import ApiKeyAuthentication
+from foundry.v2.connectivity.models._api_key_authentication_dict import (
+    ApiKeyAuthenticationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._as_plaintext_value import AsPlaintextValue
 from foundry.v2.connectivity.models._as_plaintext_value_dict import AsPlaintextValueDict
 from foundry.v2.connectivity.models._as_secret_name import AsSecretName
@@ -26,6 +30,8 @@ from foundry.v2.connectivity.models._aws_access_key import AwsAccessKey
 from foundry.v2.connectivity.models._aws_access_key_dict import AwsAccessKeyDict
 from foundry.v2.connectivity.models._basic_credentials import BasicCredentials
 from foundry.v2.connectivity.models._basic_credentials_dict import BasicCredentialsDict
+from foundry.v2.connectivity.models._bearer_token import BearerToken
+from foundry.v2.connectivity.models._bearer_token_dict import BearerTokenDict
 from foundry.v2.connectivity.models._cloud_identity import CloudIdentity
 from foundry.v2.connectivity.models._cloud_identity_dict import CloudIdentityDict
 from foundry.v2.connectivity.models._cloud_identity_rid import CloudIdentityRid
@@ -61,6 +67,18 @@ from foundry.v2.connectivity.models._create_connection_request_direct_connection
 from foundry.v2.connectivity.models._create_connection_request_direct_connection_runtime_dict import (
     CreateConnectionRequestDirectConnectionRuntimeDict,
 )  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_rest_connection_additional_secrets import (
+    CreateConnectionRequestRestConnectionAdditionalSecrets,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_rest_connection_additional_secrets_dict import (
+    CreateConnectionRequestRestConnectionAdditionalSecretsDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_rest_connection_configuration import (
+    CreateConnectionRequestRestConnectionConfiguration,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_rest_connection_configuration_dict import (
+    CreateConnectionRequestRestConnectionConfigurationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_runtime_platform import (
     CreateConnectionRequestRuntimePlatform,
 )  # NOQA
@@ -72,6 +90,18 @@ from foundry.v2.connectivity.models._create_connection_request_s3_connection_con
 )  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_s3_connection_configuration_dict import (
     CreateConnectionRequestS3ConnectionConfigurationDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_secrets_names import (
+    CreateConnectionRequestSecretsNames,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_secrets_names_dict import (
+    CreateConnectionRequestSecretsNamesDict,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_secrets_with_plaintext_values import (
+    CreateConnectionRequestSecretsWithPlaintextValues,
+)  # NOQA
+from foundry.v2.connectivity.models._create_connection_request_secrets_with_plaintext_values_dict import (
+    CreateConnectionRequestSecretsWithPlaintextValuesDict,
 )  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_jdbc_import_config import (
     CreateTableImportRequestJdbcImportConfig,
@@ -115,6 +145,8 @@ from foundry.v2.connectivity.models._direct_connection_runtime import (
 from foundry.v2.connectivity.models._direct_connection_runtime_dict import (
     DirectConnectionRuntimeDict,
 )  # NOQA
+from foundry.v2.connectivity.models._domain import Domain
+from foundry.v2.connectivity.models._domain_dict import DomainDict
 from foundry.v2.connectivity.models._encrypted_property import EncryptedProperty
 from foundry.v2.connectivity.models._encrypted_property_dict import EncryptedPropertyDict  # NOQA
 from foundry.v2.connectivity.models._file_any_path_matches_filter import (
@@ -169,6 +201,8 @@ from foundry.v2.connectivity.models._files_count_limit_filter import FilesCountL
 from foundry.v2.connectivity.models._files_count_limit_filter_dict import (
     FilesCountLimitFilterDict,
 )  # NOQA
+from foundry.v2.connectivity.models._header_api_key import HeaderApiKey
+from foundry.v2.connectivity.models._header_api_key_dict import HeaderApiKeyDict
 from foundry.v2.connectivity.models._jdbc_import_config import JdbcImportConfig
 from foundry.v2.connectivity.models._jdbc_import_config_dict import JdbcImportConfigDict
 from foundry.v2.connectivity.models._list_file_imports_response import (
@@ -206,7 +240,37 @@ from foundry.v2.connectivity.models._postgre_sql_import_config_dict import (
     PostgreSqlImportConfigDict,
 )  # NOQA
 from foundry.v2.connectivity.models._protocol import Protocol
+from foundry.v2.connectivity.models._query_parameter_api_key import QueryParameterApiKey
+from foundry.v2.connectivity.models._query_parameter_api_key_dict import (
+    QueryParameterApiKeyDict,
+)  # NOQA
 from foundry.v2.connectivity.models._region import Region
+from foundry.v2.connectivity.models._rest_authentication_mode import RestAuthenticationMode  # NOQA
+from foundry.v2.connectivity.models._rest_authentication_mode_dict import (
+    RestAuthenticationModeDict,
+)  # NOQA
+from foundry.v2.connectivity.models._rest_connection_additional_secrets import (
+    RestConnectionAdditionalSecrets,
+)  # NOQA
+from foundry.v2.connectivity.models._rest_connection_additional_secrets_dict import (
+    RestConnectionAdditionalSecretsDict,
+)  # NOQA
+from foundry.v2.connectivity.models._rest_connection_configuration import (
+    RestConnectionConfiguration,
+)  # NOQA
+from foundry.v2.connectivity.models._rest_connection_configuration_dict import (
+    RestConnectionConfigurationDict,
+)  # NOQA
+from foundry.v2.connectivity.models._rest_connection_o_auth2 import RestConnectionOAuth2
+from foundry.v2.connectivity.models._rest_connection_o_auth2_dict import (
+    RestConnectionOAuth2Dict,
+)  # NOQA
+from foundry.v2.connectivity.models._rest_request_api_key_location import (
+    RestRequestApiKeyLocation,
+)  # NOQA
+from foundry.v2.connectivity.models._rest_request_api_key_location_dict import (
+    RestRequestApiKeyLocationDict,
+)  # NOQA
 from foundry.v2.connectivity.models._runtime_platform import RuntimePlatform
 from foundry.v2.connectivity.models._runtime_platform_dict import RuntimePlatformDict
 from foundry.v2.connectivity.models._s3_authentication_mode import S3AuthenticationMode
@@ -226,6 +290,14 @@ from foundry.v2.connectivity.models._s3_proxy_configuration_dict import (
     S3ProxyConfigurationDict,
 )  # NOQA
 from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry.v2.connectivity.models._secrets_names import SecretsNames
+from foundry.v2.connectivity.models._secrets_names_dict import SecretsNamesDict
+from foundry.v2.connectivity.models._secrets_with_plaintext_values import (
+    SecretsWithPlaintextValues,
+)  # NOQA
+from foundry.v2.connectivity.models._secrets_with_plaintext_values_dict import (
+    SecretsWithPlaintextValuesDict,
+)  # NOQA
 from foundry.v2.connectivity.models._sts_role_configuration import StsRoleConfiguration
 from foundry.v2.connectivity.models._sts_role_configuration_dict import (
     StsRoleConfigurationDict,
@@ -240,6 +312,7 @@ from foundry.v2.connectivity.models._table_import_dict import TableImportDict
 from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
 from foundry.v2.connectivity.models._table_import_mode import TableImportMode
 from foundry.v2.connectivity.models._table_import_rid import TableImportRid
+from foundry.v2.connectivity.models._uri_scheme import UriScheme
 
 __all__ = [
     "AgentProxyRuntime",
@@ -247,6 +320,8 @@ __all__ = [
     "AgentRid",
     "AgentWorkerRuntime",
     "AgentWorkerRuntimeDict",
+    "ApiKeyAuthentication",
+    "ApiKeyAuthenticationDict",
     "AsPlaintextValue",
     "AsPlaintextValueDict",
     "AsSecretName",
@@ -255,6 +330,8 @@ __all__ = [
     "AwsAccessKeyDict",
     "BasicCredentials",
     "BasicCredentialsDict",
+    "BearerToken",
+    "BearerTokenDict",
     "CloudIdentity",
     "CloudIdentityDict",
     "CloudIdentityRid",
@@ -272,10 +349,18 @@ __all__ = [
     "CreateConnectionRequestConnectionConfigurationDict",
     "CreateConnectionRequestDirectConnectionRuntime",
     "CreateConnectionRequestDirectConnectionRuntimeDict",
+    "CreateConnectionRequestRestConnectionAdditionalSecrets",
+    "CreateConnectionRequestRestConnectionAdditionalSecretsDict",
+    "CreateConnectionRequestRestConnectionConfiguration",
+    "CreateConnectionRequestRestConnectionConfigurationDict",
     "CreateConnectionRequestRuntimePlatform",
     "CreateConnectionRequestRuntimePlatformDict",
     "CreateConnectionRequestS3ConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfigurationDict",
+    "CreateConnectionRequestSecretsNames",
+    "CreateConnectionRequestSecretsNamesDict",
+    "CreateConnectionRequestSecretsWithPlaintextValues",
+    "CreateConnectionRequestSecretsWithPlaintextValuesDict",
     "CreateTableImportRequestJdbcImportConfig",
     "CreateTableImportRequestJdbcImportConfigDict",
     "CreateTableImportRequestMicrosoftAccessImportConfig",
@@ -290,6 +375,8 @@ __all__ = [
     "CreateTableImportRequestTableImportConfigDict",
     "DirectConnectionRuntime",
     "DirectConnectionRuntimeDict",
+    "Domain",
+    "DomainDict",
     "EncryptedProperty",
     "EncryptedPropertyDict",
     "FileAnyPathMatchesFilter",
@@ -318,6 +405,8 @@ __all__ = [
     "FileSizeFilterDict",
     "FilesCountLimitFilter",
     "FilesCountLimitFilterDict",
+    "HeaderApiKey",
+    "HeaderApiKeyDict",
     "JdbcImportConfig",
     "JdbcImportConfigDict",
     "ListFileImportsResponse",
@@ -337,7 +426,19 @@ __all__ = [
     "PostgreSqlImportConfig",
     "PostgreSqlImportConfigDict",
     "Protocol",
+    "QueryParameterApiKey",
+    "QueryParameterApiKeyDict",
     "Region",
+    "RestAuthenticationMode",
+    "RestAuthenticationModeDict",
+    "RestConnectionAdditionalSecrets",
+    "RestConnectionAdditionalSecretsDict",
+    "RestConnectionConfiguration",
+    "RestConnectionConfigurationDict",
+    "RestConnectionOAuth2",
+    "RestConnectionOAuth2Dict",
+    "RestRequestApiKeyLocation",
+    "RestRequestApiKeyLocationDict",
     "RuntimePlatform",
     "RuntimePlatformDict",
     "S3AuthenticationMode",
@@ -349,6 +450,10 @@ __all__ = [
     "S3ProxyConfiguration",
     "S3ProxyConfigurationDict",
     "SecretName",
+    "SecretsNames",
+    "SecretsNamesDict",
+    "SecretsWithPlaintextValues",
+    "SecretsWithPlaintextValuesDict",
     "StsRoleConfiguration",
     "StsRoleConfigurationDict",
     "TableImport",
@@ -359,4 +464,5 @@ __all__ = [
     "TableImportDisplayName",
     "TableImportMode",
     "TableImportRid",
+    "UriScheme",
 ]

@@ -13,6 +13,9 @@
 #  limitations under the License.
 
 
+from foundry.v2.connectivity.errors._additional_secrets_must_be_specified_as_plaintext_value_map import (
+    AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap,
+)  # NOQA
 from foundry.v2.connectivity.errors._changing_branch_name_not_supported_for_imports import (
     ChangingBranchNameNotSupportedForImports,
 )  # NOQA
@@ -40,6 +43,9 @@ from foundry.v2.connectivity.errors._delete_file_import_permission_denied import
 )  # NOQA
 from foundry.v2.connectivity.errors._delete_table_import_permission_denied import (
     DeleteTableImportPermissionDenied,
+)  # NOQA
+from foundry.v2.connectivity.errors._domain_must_use_https_with_authentication import (
+    DomainMustUseHttpsWithAuthentication,
 )  # NOQA
 from foundry.v2.connectivity.errors._encrypted_property_must_be_specified_as_plaintext_value import (
     EncryptedPropertyMustBeSpecifiedAsPlaintextValue,
@@ -79,6 +85,7 @@ from foundry.v2.connectivity.errors._parent_folder_not_found_for_connection impo
     ParentFolderNotFoundForConnection,
 )  # NOQA
 from foundry.v2.connectivity.errors._property_cannot_be_blank import PropertyCannotBeBlank  # NOQA
+from foundry.v2.connectivity.errors._property_cannot_be_empty import PropertyCannotBeEmpty  # NOQA
 from foundry.v2.connectivity.errors._replace_file_import_permission_denied import (
     ReplaceFileImportPermissionDenied,
 )  # NOQA
@@ -95,6 +102,7 @@ from foundry.v2.connectivity.errors._update_secrets_for_connection_permission_de
 )  # NOQA
 
 __all__ = [
+    "AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap",
     "ChangingBranchNameNotSupportedForImports",
     "ChangingOutputDatasetNotSupportedForImports",
     "ConnectionDetailsNotDetermined",
@@ -105,6 +113,7 @@ __all__ = [
     "CreateTableImportPermissionDenied",
     "DeleteFileImportPermissionDenied",
     "DeleteTableImportPermissionDenied",
+    "DomainMustUseHttpsWithAuthentication",
     "EncryptedPropertyMustBeSpecifiedAsPlaintextValue",
     "ExecuteFileImportPermissionDenied",
     "ExecuteTableImportPermissionDenied",
@@ -119,6 +128,7 @@ __all__ = [
     "FilesCountLimitFilterInvalidLimit",
     "ParentFolderNotFoundForConnection",
     "PropertyCannotBeBlank",
+    "PropertyCannotBeEmpty",
     "ReplaceFileImportPermissionDenied",
     "SecretNamesDoNotExist",
     "TableImportNotFound",

@@ -15,9 +15,23 @@
 
 from __future__ import annotations
 
+from typing import Union
+
+import pydantic
+from typing_extensions import Annotated
+
+from foundry.v2.connectivity.models._create_connection_request_rest_connection_configuration import (
+    CreateConnectionRequestRestConnectionConfiguration,
+)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_s3_connection_configuration import (
     CreateConnectionRequestS3ConnectionConfiguration,
 )  # NOQA
 
-CreateConnectionRequestConnectionConfiguration = CreateConnectionRequestS3ConnectionConfiguration
+CreateConnectionRequestConnectionConfiguration = Annotated[
+    Union[
+        CreateConnectionRequestS3ConnectionConfiguration,
+        CreateConnectionRequestRestConnectionConfiguration,
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """CreateConnectionRequestConnectionConfiguration"""
