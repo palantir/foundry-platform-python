@@ -27,11 +27,13 @@ from foundry.v2.ontologies.models._interface_link_type import InterfaceLinkType
 from foundry.v2.ontologies.models._interface_link_type_api_name import (
     InterfaceLinkTypeApiName,
 )  # NOQA
+from foundry.v2.ontologies.models._interface_shared_property_type import (
+    InterfaceSharedPropertyType,
+)  # NOQA
 from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v2.ontologies.models._interface_type_dict import InterfaceTypeDict
 from foundry.v2.ontologies.models._interface_type_rid import InterfaceTypeRid
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v2.ontologies.models._shared_property_type import SharedPropertyType
 from foundry.v2.ontologies.models._shared_property_type_api_name import (
     SharedPropertyTypeApiName,
 )  # NOQA
@@ -50,14 +52,14 @@ class InterfaceType(pydantic.BaseModel):
 
     """The description of the interface."""
 
-    properties: Dict[SharedPropertyTypeApiName, SharedPropertyType]
+    properties: Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyType]
 
     """
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
     set of properties the interface has. A shared property type must be unique across all of the properties.
     """
 
-    all_properties: Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("allProperties"))  # type: ignore[literal-required]
+    all_properties: Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyType] = pydantic.Field(alias=str("allProperties"))  # type: ignore[literal-required]
 
     """
     A map from a shared property type API name to the corresponding shared property type. The map describes the 

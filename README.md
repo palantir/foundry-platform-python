@@ -1451,6 +1451,8 @@ Namespace | Name | Import |
 **Ontologies** | [InterfaceLinkTypeLinkedEntityApiName](docs/v2/Ontologies/models/InterfaceLinkTypeLinkedEntityApiName.md) | `from foundry.v2.ontologies.models import InterfaceLinkTypeLinkedEntityApiName` |
 **Ontologies** | [InterfaceLinkTypeLinkedEntityApiNameDict](docs/v2/Ontologies/models/InterfaceLinkTypeLinkedEntityApiNameDict.md) | `from foundry.v2.ontologies.models import InterfaceLinkTypeLinkedEntityApiNameDict` |
 **Ontologies** | [InterfaceLinkTypeRid](docs/v2/Ontologies/models/InterfaceLinkTypeRid.md) | `from foundry.v2.ontologies.models import InterfaceLinkTypeRid` |
+**Ontologies** | [InterfaceSharedPropertyType](docs/v2/Ontologies/models/InterfaceSharedPropertyType.md) | `from foundry.v2.ontologies.models import InterfaceSharedPropertyType` |
+**Ontologies** | [InterfaceSharedPropertyTypeDict](docs/v2/Ontologies/models/InterfaceSharedPropertyTypeDict.md) | `from foundry.v2.ontologies.models import InterfaceSharedPropertyTypeDict` |
 **Ontologies** | [InterfaceType](docs/v2/Ontologies/models/InterfaceType.md) | `from foundry.v2.ontologies.models import InterfaceType` |
 **Ontologies** | [InterfaceTypeApiName](docs/v2/Ontologies/models/InterfaceTypeApiName.md) | `from foundry.v2.ontologies.models import InterfaceTypeApiName` |
 **Ontologies** | [InterfaceTypeDict](docs/v2/Ontologies/models/InterfaceTypeDict.md) | `from foundry.v2.ontologies.models import InterfaceTypeDict` |

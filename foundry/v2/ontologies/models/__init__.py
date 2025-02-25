@@ -293,6 +293,12 @@ from foundry.v2.ontologies.models._interface_link_type_linked_entity_api_name_di
     InterfaceLinkTypeLinkedEntityApiNameDict,
 )  # NOQA
 from foundry.v2.ontologies.models._interface_link_type_rid import InterfaceLinkTypeRid
+from foundry.v2.ontologies.models._interface_shared_property_type import (
+    InterfaceSharedPropertyType,
+)  # NOQA
+from foundry.v2.ontologies.models._interface_shared_property_type_dict import (
+    InterfaceSharedPropertyTypeDict,
+)  # NOQA
 from foundry.v2.ontologies.models._interface_type import InterfaceType
 from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v2.ontologies.models._interface_type_dict import InterfaceTypeDict
@@ -960,6 +966,8 @@ __all__ = [
     "InterfaceLinkTypeLinkedEntityApiName",
     "InterfaceLinkTypeLinkedEntityApiNameDict",
     "InterfaceLinkTypeRid",
+    "InterfaceSharedPropertyType",
+    "InterfaceSharedPropertyTypeDict",
     "InterfaceType",
     "InterfaceTypeApiName",
     "InterfaceTypeDict",

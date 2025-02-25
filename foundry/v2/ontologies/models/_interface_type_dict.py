@@ -26,13 +26,15 @@ from foundry.v2.ontologies.models._interface_link_type_api_name import (
     InterfaceLinkTypeApiName,
 )  # NOQA
 from foundry.v2.ontologies.models._interface_link_type_dict import InterfaceLinkTypeDict
+from foundry.v2.ontologies.models._interface_shared_property_type_dict import (
+    InterfaceSharedPropertyTypeDict,
+)  # NOQA
 from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
 from foundry.v2.ontologies.models._interface_type_rid import InterfaceTypeRid
 from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
 from foundry.v2.ontologies.models._shared_property_type_api_name import (
     SharedPropertyTypeApiName,
 )  # NOQA
-from foundry.v2.ontologies.models._shared_property_type_dict import SharedPropertyTypeDict  # NOQA
 
 
 class InterfaceTypeDict(TypedDict):
@@ -49,13 +51,13 @@ class InterfaceTypeDict(TypedDict):
     description: NotRequired[str]
     """The description of the interface."""
 
-    properties: Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]
+    properties: Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict]
     """
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
     set of properties the interface has. A shared property type must be unique across all of the properties.
     """
 
-    allProperties: Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]
+    allProperties: Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict]
     """
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
     set of properties the interface has, including properties from all directly and indirectly extended 
