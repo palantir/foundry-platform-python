@@ -845,6 +845,8 @@ Namespace | Name | Import |
 **Connectivity** | [AgentRid](docs/v2/Connectivity/models/AgentRid.md) | `from foundry.v2.connectivity.models import AgentRid` |
 **Connectivity** | [AgentWorkerRuntime](docs/v2/Connectivity/models/AgentWorkerRuntime.md) | `from foundry.v2.connectivity.models import AgentWorkerRuntime` |
 **Connectivity** | [AgentWorkerRuntimeDict](docs/v2/Connectivity/models/AgentWorkerRuntimeDict.md) | `from foundry.v2.connectivity.models import AgentWorkerRuntimeDict` |
+**Connectivity** | [ApiKeyAuthentication](docs/v2/Connectivity/models/ApiKeyAuthentication.md) | `from foundry.v2.connectivity.models import ApiKeyAuthentication` |
+**Connectivity** | [ApiKeyAuthenticationDict](docs/v2/Connectivity/models/ApiKeyAuthenticationDict.md) | `from foundry.v2.connectivity.models import ApiKeyAuthenticationDict` |
 **Connectivity** | [AsPlaintextValue](docs/v2/Connectivity/models/AsPlaintextValue.md) | `from foundry.v2.connectivity.models import AsPlaintextValue` |
 **Connectivity** | [AsPlaintextValueDict](docs/v2/Connectivity/models/AsPlaintextValueDict.md) | `from foundry.v2.connectivity.models import AsPlaintextValueDict` |
 **Connectivity** | [AsSecretName](docs/v2/Connectivity/models/AsSecretName.md) | `from foundry.v2.connectivity.models import AsSecretName` |
@@ -853,6 +855,8 @@ Namespace | Name | Import |
 **Connectivity** | [AwsAccessKeyDict](docs/v2/Connectivity/models/AwsAccessKeyDict.md) | `from foundry.v2.connectivity.models import AwsAccessKeyDict` |
 **Connectivity** | [BasicCredentials](docs/v2/Connectivity/models/BasicCredentials.md) | `from foundry.v2.connectivity.models import BasicCredentials` |
 **Connectivity** | [BasicCredentialsDict](docs/v2/Connectivity/models/BasicCredentialsDict.md) | `from foundry.v2.connectivity.models import BasicCredentialsDict` |
+**Connectivity** | [BearerToken](docs/v2/Connectivity/models/BearerToken.md) | `from foundry.v2.connectivity.models import BearerToken` |
+**Connectivity** | [BearerTokenDict](docs/v2/Connectivity/models/BearerTokenDict.md) | `from foundry.v2.connectivity.models import BearerTokenDict` |
 **Connectivity** | [CloudIdentity](docs/v2/Connectivity/models/CloudIdentity.md) | `from foundry.v2.connectivity.models import CloudIdentity` |
 **Connectivity** | [CloudIdentityDict](docs/v2/Connectivity/models/CloudIdentityDict.md) | `from foundry.v2.connectivity.models import CloudIdentityDict` |
 **Connectivity** | [CloudIdentityRid](docs/v2/Connectivity/models/CloudIdentityRid.md) | `from foundry.v2.connectivity.models import CloudIdentityRid` |
@@ -870,10 +874,18 @@ Namespace | Name | Import |
 **Connectivity** | [CreateConnectionRequestConnectionConfigurationDict](docs/v2/Connectivity/models/CreateConnectionRequestConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestConnectionConfigurationDict` |
 **Connectivity** | [CreateConnectionRequestDirectConnectionRuntime](docs/v2/Connectivity/models/CreateConnectionRequestDirectConnectionRuntime.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestDirectConnectionRuntime` |
 **Connectivity** | [CreateConnectionRequestDirectConnectionRuntimeDict](docs/v2/Connectivity/models/CreateConnectionRequestDirectConnectionRuntimeDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestDirectConnectionRuntimeDict` |
+**Connectivity** | [CreateConnectionRequestRestConnectionAdditionalSecrets](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionAdditionalSecrets.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRestConnectionAdditionalSecrets` |
+**Connectivity** | [CreateConnectionRequestRestConnectionAdditionalSecretsDict](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionAdditionalSecretsDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRestConnectionAdditionalSecretsDict` |
+**Connectivity** | [CreateConnectionRequestRestConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionConfiguration.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRestConnectionConfiguration` |
+**Connectivity** | [CreateConnectionRequestRestConnectionConfigurationDict](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRestConnectionConfigurationDict` |
 **Connectivity** | [CreateConnectionRequestRuntimePlatform](docs/v2/Connectivity/models/CreateConnectionRequestRuntimePlatform.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRuntimePlatform` |
 **Connectivity** | [CreateConnectionRequestRuntimePlatformDict](docs/v2/Connectivity/models/CreateConnectionRequestRuntimePlatformDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRuntimePlatformDict` |
 **Connectivity** | [CreateConnectionRequestS3ConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestS3ConnectionConfiguration.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestS3ConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestS3ConnectionConfigurationDict](docs/v2/Connectivity/models/CreateConnectionRequestS3ConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestS3ConnectionConfigurationDict` |
+**Connectivity** | [CreateConnectionRequestSecretsNames](docs/v2/Connectivity/models/CreateConnectionRequestSecretsNames.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestSecretsNames` |
+**Connectivity** | [CreateConnectionRequestSecretsNamesDict](docs/v2/Connectivity/models/CreateConnectionRequestSecretsNamesDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestSecretsNamesDict` |
+**Connectivity** | [CreateConnectionRequestSecretsWithPlaintextValues](docs/v2/Connectivity/models/CreateConnectionRequestSecretsWithPlaintextValues.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestSecretsWithPlaintextValues` |
+**Connectivity** | [CreateConnectionRequestSecretsWithPlaintextValuesDict](docs/v2/Connectivity/models/CreateConnectionRequestSecretsWithPlaintextValuesDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestSecretsWithPlaintextValuesDict` |
 **Connectivity** | [CreateTableImportRequestJdbcImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestJdbcImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestJdbcImportConfig` |
 **Connectivity** | [CreateTableImportRequestJdbcImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestJdbcImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestJdbcImportConfigDict` |
 **Connectivity** | [CreateTableImportRequestMicrosoftAccessImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestMicrosoftAccessImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestMicrosoftAccessImportConfig` |
@@ -888,6 +900,8 @@ Namespace | Name | Import |
 **Connectivity** | [CreateTableImportRequestTableImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfigDict` |
 **Connectivity** | [DirectConnectionRuntime](docs/v2/Connectivity/models/DirectConnectionRuntime.md) | `from foundry.v2.connectivity.models import DirectConnectionRuntime` |
 **Connectivity** | [DirectConnectionRuntimeDict](docs/v2/Connectivity/models/DirectConnectionRuntimeDict.md) | `from foundry.v2.connectivity.models import DirectConnectionRuntimeDict` |
+**Connectivity** | [Domain](docs/v2/Connectivity/models/Domain.md) | `from foundry.v2.connectivity.models import Domain` |
+**Connectivity** | [DomainDict](docs/v2/Connectivity/models/DomainDict.md) | `from foundry.v2.connectivity.models import DomainDict` |
 **Connectivity** | [EncryptedProperty](docs/v2/Connectivity/models/EncryptedProperty.md) | `from foundry.v2.connectivity.models import EncryptedProperty` |
 **Connectivity** | [EncryptedPropertyDict](docs/v2/Connectivity/models/EncryptedPropertyDict.md) | `from foundry.v2.connectivity.models import EncryptedPropertyDict` |
 **Connectivity** | [FileAnyPathMatchesFilter](docs/v2/Connectivity/models/FileAnyPathMatchesFilter.md) | `from foundry.v2.connectivity.models import FileAnyPathMatchesFilter` |
@@ -916,6 +930,8 @@ Namespace | Name | Import |
 **Connectivity** | [FilesCountLimitFilterDict](docs/v2/Connectivity/models/FilesCountLimitFilterDict.md) | `from foundry.v2.connectivity.models import FilesCountLimitFilterDict` |
 **Connectivity** | [FileSizeFilter](docs/v2/Connectivity/models/FileSizeFilter.md) | `from foundry.v2.connectivity.models import FileSizeFilter` |
 **Connectivity** | [FileSizeFilterDict](docs/v2/Connectivity/models/FileSizeFilterDict.md) | `from foundry.v2.connectivity.models import FileSizeFilterDict` |
+**Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry.v2.connectivity.models import HeaderApiKey` |
+**Connectivity** | [HeaderApiKeyDict](docs/v2/Connectivity/models/HeaderApiKeyDict.md) | `from foundry.v2.connectivity.models import HeaderApiKeyDict` |
 **Connectivity** | [JdbcImportConfig](docs/v2/Connectivity/models/JdbcImportConfig.md) | `from foundry.v2.connectivity.models import JdbcImportConfig` |
 **Connectivity** | [JdbcImportConfigDict](docs/v2/Connectivity/models/JdbcImportConfigDict.md) | `from foundry.v2.connectivity.models import JdbcImportConfigDict` |
 **Connectivity** | [ListFileImportsResponse](docs/v2/Connectivity/models/ListFileImportsResponse.md) | `from foundry.v2.connectivity.models import ListFileImportsResponse` |
@@ -935,7 +951,19 @@ Namespace | Name | Import |
 **Connectivity** | [PostgreSqlImportConfig](docs/v2/Connectivity/models/PostgreSqlImportConfig.md) | `from foundry.v2.connectivity.models import PostgreSqlImportConfig` |
 **Connectivity** | [PostgreSqlImportConfigDict](docs/v2/Connectivity/models/PostgreSqlImportConfigDict.md) | `from foundry.v2.connectivity.models import PostgreSqlImportConfigDict` |
 **Connectivity** | [Protocol](docs/v2/Connectivity/models/Protocol.md) | `from foundry.v2.connectivity.models import Protocol` |
+**Connectivity** | [QueryParameterApiKey](docs/v2/Connectivity/models/QueryParameterApiKey.md) | `from foundry.v2.connectivity.models import QueryParameterApiKey` |
+**Connectivity** | [QueryParameterApiKeyDict](docs/v2/Connectivity/models/QueryParameterApiKeyDict.md) | `from foundry.v2.connectivity.models import QueryParameterApiKeyDict` |
 **Connectivity** | [Region](docs/v2/Connectivity/models/Region.md) | `from foundry.v2.connectivity.models import Region` |
+**Connectivity** | [RestAuthenticationMode](docs/v2/Connectivity/models/RestAuthenticationMode.md) | `from foundry.v2.connectivity.models import RestAuthenticationMode` |
+**Connectivity** | [RestAuthenticationModeDict](docs/v2/Connectivity/models/RestAuthenticationModeDict.md) | `from foundry.v2.connectivity.models import RestAuthenticationModeDict` |
+**Connectivity** | [RestConnectionAdditionalSecrets](docs/v2/Connectivity/models/RestConnectionAdditionalSecrets.md) | `from foundry.v2.connectivity.models import RestConnectionAdditionalSecrets` |
+**Connectivity** | [RestConnectionAdditionalSecretsDict](docs/v2/Connectivity/models/RestConnectionAdditionalSecretsDict.md) | `from foundry.v2.connectivity.models import RestConnectionAdditionalSecretsDict` |
+**Connectivity** | [RestConnectionConfiguration](docs/v2/Connectivity/models/RestConnectionConfiguration.md) | `from foundry.v2.connectivity.models import RestConnectionConfiguration` |
+**Connectivity** | [RestConnectionConfigurationDict](docs/v2/Connectivity/models/RestConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import RestConnectionConfigurationDict` |
+**Connectivity** | [RestConnectionOAuth2](docs/v2/Connectivity/models/RestConnectionOAuth2.md) | `from foundry.v2.connectivity.models import RestConnectionOAuth2` |
+**Connectivity** | [RestConnectionOAuth2Dict](docs/v2/Connectivity/models/RestConnectionOAuth2Dict.md) | `from foundry.v2.connectivity.models import RestConnectionOAuth2Dict` |
+**Connectivity** | [RestRequestApiKeyLocation](docs/v2/Connectivity/models/RestRequestApiKeyLocation.md) | `from foundry.v2.connectivity.models import RestRequestApiKeyLocation` |
+**Connectivity** | [RestRequestApiKeyLocationDict](docs/v2/Connectivity/models/RestRequestApiKeyLocationDict.md) | `from foundry.v2.connectivity.models import RestRequestApiKeyLocationDict` |
 **Connectivity** | [RuntimePlatform](docs/v2/Connectivity/models/RuntimePlatform.md) | `from foundry.v2.connectivity.models import RuntimePlatform` |
 **Connectivity** | [RuntimePlatformDict](docs/v2/Connectivity/models/RuntimePlatformDict.md) | `from foundry.v2.connectivity.models import RuntimePlatformDict` |
 **Connectivity** | [S3AuthenticationMode](docs/v2/Connectivity/models/S3AuthenticationMode.md) | `from foundry.v2.connectivity.models import S3AuthenticationMode` |
@@ -947,6 +975,10 @@ Namespace | Name | Import |
 **Connectivity** | [S3ProxyConfiguration](docs/v2/Connectivity/models/S3ProxyConfiguration.md) | `from foundry.v2.connectivity.models import S3ProxyConfiguration` |
 **Connectivity** | [S3ProxyConfigurationDict](docs/v2/Connectivity/models/S3ProxyConfigurationDict.md) | `from foundry.v2.connectivity.models import S3ProxyConfigurationDict` |
 **Connectivity** | [SecretName](docs/v2/Connectivity/models/SecretName.md) | `from foundry.v2.connectivity.models import SecretName` |
+**Connectivity** | [SecretsNames](docs/v2/Connectivity/models/SecretsNames.md) | `from foundry.v2.connectivity.models import SecretsNames` |
+**Connectivity** | [SecretsNamesDict](docs/v2/Connectivity/models/SecretsNamesDict.md) | `from foundry.v2.connectivity.models import SecretsNamesDict` |
+**Connectivity** | [SecretsWithPlaintextValues](docs/v2/Connectivity/models/SecretsWithPlaintextValues.md) | `from foundry.v2.connectivity.models import SecretsWithPlaintextValues` |
+**Connectivity** | [SecretsWithPlaintextValuesDict](docs/v2/Connectivity/models/SecretsWithPlaintextValuesDict.md) | `from foundry.v2.connectivity.models import SecretsWithPlaintextValuesDict` |
 **Connectivity** | [StsRoleConfiguration](docs/v2/Connectivity/models/StsRoleConfiguration.md) | `from foundry.v2.connectivity.models import StsRoleConfiguration` |
 **Connectivity** | [StsRoleConfigurationDict](docs/v2/Connectivity/models/StsRoleConfigurationDict.md) | `from foundry.v2.connectivity.models import StsRoleConfigurationDict` |
 **Connectivity** | [TableImport](docs/v2/Connectivity/models/TableImport.md) | `from foundry.v2.connectivity.models import TableImport` |
@@ -957,6 +989,7 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportDisplayName](docs/v2/Connectivity/models/TableImportDisplayName.md) | `from foundry.v2.connectivity.models import TableImportDisplayName` |
 **Connectivity** | [TableImportMode](docs/v2/Connectivity/models/TableImportMode.md) | `from foundry.v2.connectivity.models import TableImportMode` |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry.v2.connectivity.models import TableImportRid` |
+**Connectivity** | [UriScheme](docs/v2/Connectivity/models/UriScheme.md) | `from foundry.v2.connectivity.models import UriScheme` |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry.v2.core.models import AnyType` |
 **Core** | [AnyTypeDict](docs/v2/Core/models/AnyTypeDict.md) | `from foundry.v2.core.models import AnyTypeDict` |
 **Core** | [ArrayFieldType](docs/v2/Core/models/ArrayFieldType.md) | `from foundry.v2.core.models import ArrayFieldType` |
@@ -2275,6 +2308,7 @@ Namespace | Name | Import |
 **AipAgents** | SessionExecutionFailed | `from foundry.v2.aip_agents.errors import SessionExecutionFailed` |
 **AipAgents** | SessionNotFound | `from foundry.v2.aip_agents.errors import SessionNotFound` |
 **AipAgents** | StreamingContinueSessionPermissionDenied | `from foundry.v2.aip_agents.errors import StreamingContinueSessionPermissionDenied` |
+**Connectivity** | AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap | `from foundry.v2.connectivity.errors import AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap` |
 **Connectivity** | ChangingBranchNameNotSupportedForImports | `from foundry.v2.connectivity.errors import ChangingBranchNameNotSupportedForImports` |
 **Connectivity** | ChangingOutputDatasetNotSupportedForImports | `from foundry.v2.connectivity.errors import ChangingOutputDatasetNotSupportedForImports` |
 **Connectivity** | ConnectionDetailsNotDetermined | `from foundry.v2.connectivity.errors import ConnectionDetailsNotDetermined` |
@@ -2285,6 +2319,7 @@ Namespace | Name | Import |
 **Connectivity** | CreateTableImportPermissionDenied | `from foundry.v2.connectivity.errors import CreateTableImportPermissionDenied` |
 **Connectivity** | DeleteFileImportPermissionDenied | `from foundry.v2.connectivity.errors import DeleteFileImportPermissionDenied` |
 **Connectivity** | DeleteTableImportPermissionDenied | `from foundry.v2.connectivity.errors import DeleteTableImportPermissionDenied` |
+**Connectivity** | DomainMustUseHttpsWithAuthentication | `from foundry.v2.connectivity.errors import DomainMustUseHttpsWithAuthentication` |
 **Connectivity** | EncryptedPropertyMustBeSpecifiedAsPlaintextValue | `from foundry.v2.connectivity.errors import EncryptedPropertyMustBeSpecifiedAsPlaintextValue` |
 **Connectivity** | ExecuteFileImportPermissionDenied | `from foundry.v2.connectivity.errors import ExecuteFileImportPermissionDenied` |
 **Connectivity** | ExecuteTableImportPermissionDenied | `from foundry.v2.connectivity.errors import ExecuteTableImportPermissionDenied` |
@@ -2299,6 +2334,7 @@ Namespace | Name | Import |
 **Connectivity** | FileSizeFilterMissingGreaterThanAndLessThan | `from foundry.v2.connectivity.errors import FileSizeFilterMissingGreaterThanAndLessThan` |
 **Connectivity** | ParentFolderNotFoundForConnection | `from foundry.v2.connectivity.errors import ParentFolderNotFoundForConnection` |
 **Connectivity** | PropertyCannotBeBlank | `from foundry.v2.connectivity.errors import PropertyCannotBeBlank` |
+**Connectivity** | PropertyCannotBeEmpty | `from foundry.v2.connectivity.errors import PropertyCannotBeEmpty` |
 **Connectivity** | ReplaceFileImportPermissionDenied | `from foundry.v2.connectivity.errors import ReplaceFileImportPermissionDenied` |
 **Connectivity** | SecretNamesDoNotExist | `from foundry.v2.connectivity.errors import SecretNamesDoNotExist` |
 **Connectivity** | TableImportNotFound | `from foundry.v2.connectivity.errors import TableImportNotFound` |

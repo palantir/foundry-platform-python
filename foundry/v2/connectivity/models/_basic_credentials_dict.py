@@ -15,6 +15,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from typing_extensions import TypedDict
 
 from foundry.v2.connectivity.models._encrypted_property_dict import EncryptedPropertyDict  # NOQA
@@ -28,3 +30,5 @@ class BasicCredentialsDict(TypedDict):
     username: str
 
     password: EncryptedPropertyDict
+
+    type: Literal["basic"]
