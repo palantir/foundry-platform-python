@@ -9,8 +9,8 @@ Represents an interface type in the Ontology.
 **api_name** | InterfaceTypeApiName | Yes |  |
 **display_name** | DisplayName | Yes |  |
 **description** | Optional[str] | No | The description of the interface. |
-**properties** | Dict[SharedPropertyTypeApiName, SharedPropertyType] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has. A shared property type must be unique across all of the properties.  |
-**all_properties** | Dict[SharedPropertyTypeApiName, SharedPropertyType] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has, including properties from all directly and indirectly extended  interfaces.  |
+**properties** | Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyType] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has. A shared property type must be unique across all of the properties.  |
+**all_properties** | Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyType] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has, including properties from all directly and indirectly extended  interfaces.  |
 **extends_interfaces** | List[InterfaceTypeApiName] | Yes | A list of interface API names that this interface extends. An interface can extend other interfaces to  inherit their properties.  |
 **all_extends_interfaces** | List[InterfaceTypeApiName] | Yes | A list of interface API names that this interface extends, both directly and indirectly.  |
 **implemented_by_object_types** | List[ObjectTypeApiName] | Yes | A list of object API names that implement this interface.  |
