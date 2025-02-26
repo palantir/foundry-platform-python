@@ -13,8 +13,32 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1089.0"
+from dataclasses import dataclass
+from typing import Literal
+
+from typing_extensions import TypedDict
+
+from foundry._errors import InternalServerError
+from foundry.v2.sql_queries.models._query_id import QueryId
+
+
+class QueryFailedParameters(TypedDict):
+    """The query failed."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    queryId: QueryId
+
+    errorMessage: str
+
+
+@dataclass
+class QueryFailed(InternalServerError):
+    name: Literal["QueryFailed"]
+    parameters: QueryFailedParameters
+    error_instance_id: str
+
+
+__all__ = ["QueryFailed"]

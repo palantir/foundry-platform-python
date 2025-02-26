@@ -13,8 +13,30 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1089.0"
+from dataclasses import dataclass
+from typing import Literal
+
+from typing_extensions import TypedDict
+
+from foundry._errors import BadRequestError
+from foundry.v2.sql_queries.models._query_id import QueryId
+
+
+class QueryRunningParameters(TypedDict):
+    """The query is running."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    queryId: QueryId
+
+
+@dataclass
+class QueryRunning(BadRequestError):
+    name: Literal["QueryRunning"]
+    parameters: QueryRunningParameters
+    error_instance_id: str
+
+
+__all__ = ["QueryRunning"]

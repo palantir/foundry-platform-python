@@ -13,8 +13,19 @@
 #  limitations under the License.
 
 
-# The version is set during the publishing step (since we can't know the version in advance)
-# using the autorelease bot
-__version__ = "0.0.0"
+from __future__ import annotations
 
-__openapi_document_version__ = "1.1089.0"
+from typing import Literal
+
+from typing_extensions import TypedDict
+
+
+class FailedQueryStatusDict(TypedDict):
+    """FailedQueryStatus"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    errorMessage: str
+    """An error message describing why the query failed."""
+
+    type: Literal["failed"]

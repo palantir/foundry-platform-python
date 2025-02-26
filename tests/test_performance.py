@@ -259,6 +259,26 @@ def test_orchestration_v2_models_import_performance():
     assert init_and_access_time < 0.5
 
 
+def test_sql_queries_v2_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry.v2.FoundryClient(foundry.UserTokenAuth(token='token'), hostname='localhost').sql_queries",
+        setup="import sys; sys.modules.pop('foundry.v2', None);import foundry; import foundry.v2",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_sql_queries_v2_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry.v2.sql_queries.models",
+        setup="import sys; sys.modules.pop('foundry.v2.sql_queries.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
 def test_streams_v2_client_access_performance():
     init_and_access_time = timeit.timeit(
         stmt="foundry.v2.FoundryClient(foundry.UserTokenAuth(token='token'), hostname='localhost').streams",
