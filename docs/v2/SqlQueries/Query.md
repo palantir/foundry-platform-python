@@ -34,14 +34,14 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.cancel_query(
+    api_response = foundry_client.sql_queries.Query.cancel(
         query_id,
         preview=preview,
     )
-    print("The cancel_query response:\n")
+    print("The cancel response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Query.cancel_query: %s\n" % e)
+    print("HTTP error when calling Query.cancel: %s\n" % e)
 
 ```
 
@@ -92,15 +92,15 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.execute_query(
+    api_response = foundry_client.sql_queries.Query.execute(
         query=query,
         fallback_branch_ids=fallback_branch_ids,
         preview=preview,
     )
-    print("The execute_query response:\n")
+    print("The execute response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Query.execute_query: %s\n" % e)
+    print("HTTP error when calling Query.execute: %s\n" % e)
 
 ```
 

@@ -16,28 +16,31 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import List
 from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.sql_queries.models._query_id import QueryId
+from foundry._errors import BadRequestError
+from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
-class CancelQueryPermissionDeniedParameters(TypedDict):
-    """Could not cancel the Query."""
+class OrganizationCannotBeRemovedParameters(TypedDict):
+    """
+    An organization cannot be removed from a project if it would result in a project with no organizations
+    under a space marked with an organization.
+    """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: QueryId
-    """The id of a query."""
+    organizationRids: List[OrganizationRid]
 
 
 @dataclass
-class CancelQueryPermissionDenied(PermissionDeniedError):
-    name: Literal["CancelQueryPermissionDenied"]
-    parameters: CancelQueryPermissionDeniedParameters
+class OrganizationCannotBeRemoved(BadRequestError):
+    name: Literal["OrganizationCannotBeRemoved"]
+    parameters: OrganizationCannotBeRemovedParameters
     error_instance_id: str
 
 
-__all__ = ["CancelQueryPermissionDenied"]
+__all__ = ["OrganizationCannotBeRemoved"]

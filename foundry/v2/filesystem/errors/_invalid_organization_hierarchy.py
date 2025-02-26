@@ -26,7 +26,11 @@ from foundry.v2.core.models._organization_rid import OrganizationRid
 
 
 class InvalidOrganizationHierarchyParameters(TypedDict):
-    """The project created from template would have either no organizations in a marked space, or an organization which is not on the space."""
+    """
+    Organizations on a project must also exist on the parent space. This error is thrown if the configuration
+    of a project's organizations (on creation or subsequently) results in the project being marked with either
+    no organizations in a marked space, or with an organization that is not present on the parent space.
+    """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

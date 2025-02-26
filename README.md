@@ -2438,6 +2438,7 @@ Namespace | Name | Import |
 **Filesystem** | MissingDisplayName | `from foundry.v2.filesystem.errors import MissingDisplayName` |
 **Filesystem** | MissingVariableValue | `from foundry.v2.filesystem.errors import MissingVariableValue` |
 **Filesystem** | NotAuthorizedToApplyOrganization | `from foundry.v2.filesystem.errors import NotAuthorizedToApplyOrganization` |
+**Filesystem** | OrganizationCannotBeRemoved | `from foundry.v2.filesystem.errors import OrganizationCannotBeRemoved` |
 **Filesystem** | OrganizationMarkingNotOnSpace | `from foundry.v2.filesystem.errors import OrganizationMarkingNotOnSpace` |
 **Filesystem** | OrganizationMarkingNotSupported | `from foundry.v2.filesystem.errors import OrganizationMarkingNotSupported` |
 **Filesystem** | OrganizationsNotFound | `from foundry.v2.filesystem.errors import OrganizationsNotFound` |
@@ -2498,6 +2499,7 @@ Namespace | Name | Import |
 **Ontologies** | FunctionExecutionFailed | `from foundry.v2.ontologies.errors import FunctionExecutionFailed` |
 **Ontologies** | FunctionExecutionTimedOut | `from foundry.v2.ontologies.errors import FunctionExecutionTimedOut` |
 **Ontologies** | FunctionInvalidInput | `from foundry.v2.ontologies.errors import FunctionInvalidInput` |
+**Ontologies** | HighScaleComputationNotEnabled | `from foundry.v2.ontologies.errors import HighScaleComputationNotEnabled` |
 **Ontologies** | InterfaceTypeNotFound | `from foundry.v2.ontologies.errors import InterfaceTypeNotFound` |
 **Ontologies** | InterfaceTypesNotFound | `from foundry.v2.ontologies.errors import InterfaceTypesNotFound` |
 **Ontologies** | InvalidAggregationOrdering | `from foundry.v2.ontologies.errors import InvalidAggregationOrdering` |
@@ -2709,6 +2711,7 @@ Namespace | Name | Import |
 **Ontologies** | FunctionExecutionFailed | `from foundry.v1.ontologies.errors import FunctionExecutionFailed` |
 **Ontologies** | FunctionExecutionTimedOut | `from foundry.v1.ontologies.errors import FunctionExecutionTimedOut` |
 **Ontologies** | FunctionInvalidInput | `from foundry.v1.ontologies.errors import FunctionInvalidInput` |
+**Ontologies** | HighScaleComputationNotEnabled | `from foundry.v1.ontologies.errors import HighScaleComputationNotEnabled` |
 **Ontologies** | InterfaceTypeNotFound | `from foundry.v1.ontologies.errors import InterfaceTypeNotFound` |
 **Ontologies** | InterfaceTypesNotFound | `from foundry.v1.ontologies.errors import InterfaceTypesNotFound` |
 **Ontologies** | InvalidAggregationOrdering | `from foundry.v1.ontologies.errors import InvalidAggregationOrdering` |

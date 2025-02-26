@@ -73,7 +73,7 @@ class QueryClient:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
-    def cancel_query(
+    def cancel(
         self,
         query_id: QueryId,
         *,
@@ -92,14 +92,14 @@ class QueryClient:
         :return: Returns the result object.
         :rtype: None
 
-        :raises CancelQueryPermissionDenied: Could not cancelQuery the Query.
+        :raises CancelQueryPermissionDenied: Could not cancel the Query.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
         """
 
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/{queryId}/cancelQuery",
+                resource_path="/v2/sqlQueries/queries/{queryId}/cancel",
                 query_params={
                     "preview": preview,
                 },
@@ -121,7 +121,7 @@ class QueryClient:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
-    def execute_query(
+    def execute(
         self,
         *,
         query: str,
@@ -143,7 +143,7 @@ class QueryClient:
         :return: Returns the result object.
         :rtype: QueryStatus
 
-        :raises ExecuteQueryPermissionDenied: Could not executeQuery the Query.
+        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
         :raises QueryParseError: The query cannot be parsed.
         :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
@@ -151,7 +151,7 @@ class QueryClient:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/executeQuery",
+                resource_path="/v2/sqlQueries/queries/execute",
                 query_params={
                     "preview": preview,
                 },
@@ -430,7 +430,7 @@ class _QueryClientRaw:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
-    def cancel_query(
+    def cancel(
         self,
         query_id: QueryId,
         *,
@@ -449,14 +449,14 @@ class _QueryClientRaw:
         :return: Returns the result object.
         :rtype: ApiResponse[None]
 
-        :raises CancelQueryPermissionDenied: Could not cancelQuery the Query.
+        :raises CancelQueryPermissionDenied: Could not cancel the Query.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
         """
 
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/{queryId}/cancelQuery",
+                resource_path="/v2/sqlQueries/queries/{queryId}/cancel",
                 query_params={
                     "preview": preview,
                 },
@@ -478,7 +478,7 @@ class _QueryClientRaw:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
-    def execute_query(
+    def execute(
         self,
         *,
         query: str,
@@ -500,7 +500,7 @@ class _QueryClientRaw:
         :return: Returns the result object.
         :rtype: ApiResponse[QueryStatus]
 
-        :raises ExecuteQueryPermissionDenied: Could not executeQuery the Query.
+        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
         :raises QueryParseError: The query cannot be parsed.
         :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
@@ -508,7 +508,7 @@ class _QueryClientRaw:
         return self._api_client.call_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/executeQuery",
+                resource_path="/v2/sqlQueries/queries/execute",
                 query_params={
                     "preview": preview,
                 },
@@ -667,7 +667,7 @@ class _QueryClientStreaming:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
-    def cancel_query(
+    def cancel(
         self,
         query_id: QueryId,
         *,
@@ -686,14 +686,14 @@ class _QueryClientStreaming:
         :return: Returns the result object.
         :rtype: StreamingContextManager[None]
 
-        :raises CancelQueryPermissionDenied: Could not cancelQuery the Query.
+        :raises CancelQueryPermissionDenied: Could not cancel the Query.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
         """
 
         return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/{queryId}/cancelQuery",
+                resource_path="/v2/sqlQueries/queries/{queryId}/cancel",
                 query_params={
                     "preview": preview,
                 },
@@ -715,7 +715,7 @@ class _QueryClientStreaming:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
-    def execute_query(
+    def execute(
         self,
         *,
         query: str,
@@ -737,7 +737,7 @@ class _QueryClientStreaming:
         :return: Returns the result object.
         :rtype: StreamingContextManager[QueryStatus]
 
-        :raises ExecuteQueryPermissionDenied: Could not executeQuery the Query.
+        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
         :raises QueryParseError: The query cannot be parsed.
         :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
@@ -745,7 +745,7 @@ class _QueryClientStreaming:
         return self._api_client.stream_api(
             RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/executeQuery",
+                resource_path="/v2/sqlQueries/queries/execute",
                 query_params={
                     "preview": preview,
                 },

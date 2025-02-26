@@ -6010,11 +6010,11 @@ def sql_queries_query():
     pass
 
 
-@sql_queries_query.command("cancel_query")
+@sql_queries_query.command("cancel")
 @click.argument("query_id", type=str, required=True)
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def sql_queries_query_cancel_query(
+def sql_queries_query_cancel(
     client: foundry.v2.FoundryClient,
     query_id: str,
     preview: Optional[bool],
@@ -6023,14 +6023,14 @@ def sql_queries_query_cancel_query(
     Cancels a query. If the query is no longer running this is effectively a no-op.
 
     """
-    result = client.sql_queries.Query.cancel_query(
+    result = client.sql_queries.Query.cancel(
         query_id=query_id,
         preview=preview,
     )
     click.echo(repr(result))
 
 
-@sql_queries_query.command("execute_query")
+@sql_queries_query.command("execute")
 @click.option(
     "--query",
     type=str,
@@ -6052,7 +6052,7 @@ provided that exists. If no fallback branches are provided the default branch is
 )
 @click.option("--preview", type=bool, required=False, help="""preview""")
 @click.pass_obj
-def sql_queries_query_execute_query(
+def sql_queries_query_execute(
     client: foundry.v2.FoundryClient,
     query: str,
     fallback_branch_ids: Optional[str],
@@ -6062,7 +6062,7 @@ def sql_queries_query_execute_query(
     Executes a new query. Only the user that invoked the query can operate on the query.
 
     """
-    result = client.sql_queries.Query.execute_query(
+    result = client.sql_queries.Query.execute(
         query=query,
         fallback_branch_ids=(
             None if fallback_branch_ids is None else json.loads(fallback_branch_ids)
