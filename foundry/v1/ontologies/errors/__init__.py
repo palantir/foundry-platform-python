@@ -66,6 +66,9 @@ from foundry.v1.ontologies.errors._function_execution_timed_out import (
     FunctionExecutionTimedOut,
 )  # NOQA
 from foundry.v1.ontologies.errors._function_invalid_input import FunctionInvalidInput
+from foundry.v1.ontologies.errors._high_scale_computation_not_enabled import (
+    HighScaleComputationNotEnabled,
+)  # NOQA
 from foundry.v1.ontologies.errors._interface_type_not_found import InterfaceTypeNotFound
 from foundry.v1.ontologies.errors._interface_types_not_found import InterfaceTypesNotFound  # NOQA
 from foundry.v1.ontologies.errors._invalid_aggregation_ordering import (
@@ -225,6 +228,7 @@ __all__ = [
     "InvalidDurationGroupByValue",
     "PropertiesNotFilterable",
     "ParametersNotFound",
+    "HighScaleComputationNotEnabled",
     "AggregationNestedObjectSetSizeExceededLimit",
     "ApplyActionFailed",
     "PropertyTypesSearchNotSupported",

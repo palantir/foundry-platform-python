@@ -279,7 +279,7 @@ class ProjectClient:
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
         :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
-        :raises InvalidOrganizationHierarchy: The project created from template would have either no organizations in a marked space, or an organization which is not on the space.
+        :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
         :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
         :raises InvalidPrincipalIdsForGroupTemplate: The template requested for project creation contains principal IDs that do not exist.
         :raises InvalidVariable: A variable referenced in the request to create project from template is not defined on the template.
@@ -777,7 +777,7 @@ class _ProjectClientRaw:
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
         :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
-        :raises InvalidOrganizationHierarchy: The project created from template would have either no organizations in a marked space, or an organization which is not on the space.
+        :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
         :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
         :raises InvalidPrincipalIdsForGroupTemplate: The template requested for project creation contains principal IDs that do not exist.
         :raises InvalidVariable: A variable referenced in the request to create project from template is not defined on the template.
@@ -1275,7 +1275,7 @@ class _ProjectClientStreaming:
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
         :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
-        :raises InvalidOrganizationHierarchy: The project created from template would have either no organizations in a marked space, or an organization which is not on the space.
+        :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
         :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
         :raises InvalidPrincipalIdsForGroupTemplate: The template requested for project creation contains principal IDs that do not exist.
         :raises InvalidVariable: A variable referenced in the request to create project from template is not defined on the template.

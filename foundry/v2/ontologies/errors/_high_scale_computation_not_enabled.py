@@ -20,24 +20,20 @@ from typing import Literal
 
 from typing_extensions import TypedDict
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.sql_queries.models._query_id import QueryId
+from foundry._errors import InternalServerError
 
 
-class CancelQueryPermissionDeniedParameters(TypedDict):
-    """Could not cancel the Query."""
+class HighScaleComputationNotEnabledParameters(TypedDict):
+    """High-scale compute was required for this Ontology query but is not enabled on this enrollment."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: QueryId
-    """The id of a query."""
-
 
 @dataclass
-class CancelQueryPermissionDenied(PermissionDeniedError):
-    name: Literal["CancelQueryPermissionDenied"]
-    parameters: CancelQueryPermissionDeniedParameters
+class HighScaleComputationNotEnabled(InternalServerError):
+    name: Literal["HighScaleComputationNotEnabled"]
+    parameters: HighScaleComputationNotEnabledParameters
     error_instance_id: str
 
 
-__all__ = ["CancelQueryPermissionDenied"]
+__all__ = ["HighScaleComputationNotEnabled"]

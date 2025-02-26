@@ -91,6 +91,9 @@ from foundry.v2.filesystem.errors._missing_variable_value import MissingVariable
 from foundry.v2.filesystem.errors._not_authorized_to_apply_organization import (
     NotAuthorizedToApplyOrganization,
 )  # NOQA
+from foundry.v2.filesystem.errors._organization_cannot_be_removed import (
+    OrganizationCannotBeRemoved,
+)  # NOQA
 from foundry.v2.filesystem.errors._organization_marking_not_on_space import (
     OrganizationMarkingNotOnSpace,
 )  # NOQA
@@ -182,6 +185,7 @@ __all__ = [
     "MissingDisplayName",
     "MissingVariableValue",
     "NotAuthorizedToApplyOrganization",
+    "OrganizationCannotBeRemoved",
     "OrganizationMarkingNotOnSpace",
     "OrganizationMarkingNotSupported",
     "OrganizationsNotFound",

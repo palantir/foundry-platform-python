@@ -24,7 +24,7 @@ from foundry._errors import PermissionDeniedError
 
 
 class ExecuteQueryPermissionDeniedParameters(TypedDict):
-    """Could not executeQuery the Query."""
+    """Could not execute the Query."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
