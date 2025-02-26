@@ -43,6 +43,7 @@ class FoundryClient:
         from foundry.v2.media_sets._client import MediaSetsClient
         from foundry.v2.ontologies._client import OntologiesClient
         from foundry.v2.orchestration._client import OrchestrationClient
+        from foundry.v2.sql_queries._client import SqlQueriesClient
         from foundry.v2.streams._client import StreamsClient
         from foundry.v2.third_party_applications._client import ThirdPartyApplicationsClient  # NOQA
 
@@ -55,6 +56,7 @@ class FoundryClient:
         self.media_sets = MediaSetsClient(auth=auth, hostname=hostname, config=config)
         self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)
         self.orchestration = OrchestrationClient(auth=auth, hostname=hostname, config=config)
+        self.sql_queries = SqlQueriesClient(auth=auth, hostname=hostname, config=config)
         self.streams = StreamsClient(auth=auth, hostname=hostname, config=config)
         self.third_party_applications = ThirdPartyApplicationsClient(
             auth=auth, hostname=hostname, config=config

@@ -6000,6 +6000,119 @@ def orchestration_build_search(
     click.echo(repr(result))
 
 
+@cli.group("sql_queries")
+def sql_queries():
+    pass
+
+
+@sql_queries.group("query")
+def sql_queries_query():
+    pass
+
+
+@sql_queries_query.command("cancel_query")
+@click.argument("query_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def sql_queries_query_cancel_query(
+    client: foundry.v2.FoundryClient,
+    query_id: str,
+    preview: Optional[bool],
+):
+    """
+    Cancels a query. If the query is no longer running this is effectively a no-op.
+
+    """
+    result = client.sql_queries.Query.cancel_query(
+        query_id=query_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@sql_queries_query.command("execute_query")
+@click.option(
+    "--query",
+    type=str,
+    required=True,
+    help="""The SQL query to execute. Queries should confirm to the
+[Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT
+queries only.
+""",
+)
+@click.option(
+    "--fallback_branch_ids",
+    type=str,
+    required=False,
+    help="""The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a
+is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch
+provided that exists. If no fallback branches are provided the default branch is used. This is
+`master` for most enrollments.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def sql_queries_query_execute_query(
+    client: foundry.v2.FoundryClient,
+    query: str,
+    fallback_branch_ids: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Executes a new query. Only the user that invoked the query can operate on the query.
+
+    """
+    result = client.sql_queries.Query.execute_query(
+        query=query,
+        fallback_branch_ids=(
+            None if fallback_branch_ids is None else json.loads(fallback_branch_ids)
+        ),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@sql_queries_query.command("get_results")
+@click.argument("query_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def sql_queries_query_get_results(
+    client: foundry.v2.FoundryClient,
+    query_id: str,
+    preview: Optional[bool],
+):
+    """
+    Gets the results of a query. This endpoint implements long polling and requests will time out after
+    one minute.
+
+    """
+    result = client.sql_queries.Query.get_results(
+        query_id=query_id,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@sql_queries_query.command("get_status")
+@click.argument("query_id", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def sql_queries_query_get_status(
+    client: foundry.v2.FoundryClient,
+    query_id: str,
+    preview: Optional[bool],
+):
+    """
+    Gets the status of a query.
+
+    """
+    result = client.sql_queries.Query.get_status(
+        query_id=query_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("streams")
 def streams():
     pass

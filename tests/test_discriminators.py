@@ -31,6 +31,7 @@ from foundry.v2.geo import models as models_geo_v2
 from foundry.v2.media_sets import models as models_media_sets_v2
 from foundry.v2.ontologies import models as models_ontologies_v2
 from foundry.v2.orchestration import models as models_orchestration_v2
+from foundry.v2.sql_queries import models as models_sql_queries_v2
 from foundry.v2.streams import models as models_streams_v2
 from foundry.v2.third_party_applications import models as models_third_party_applications_v2  # NOQA
 
@@ -57,6 +58,7 @@ def test_can_validate_types():
         *[(models_media_sets_v2, model_name) for model_name in dir(models_media_sets_v2)],
         *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
         *[(models_orchestration_v2, model_name) for model_name in dir(models_orchestration_v2)],
+        *[(models_sql_queries_v2, model_name) for model_name in dir(models_sql_queries_v2)],
         *[(models_streams_v2, model_name) for model_name in dir(models_streams_v2)],
         *[
             (models_third_party_applications_v2, model_name)
