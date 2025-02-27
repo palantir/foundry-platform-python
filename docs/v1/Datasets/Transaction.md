@@ -1,11 +1,11 @@
 # Transaction
 
-Method | HTTP request |
-------------- | ------------- |
-[**abort**](#abort) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/abort |
-[**commit**](#commit) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/commit |
-[**create**](#create) | **POST** /v1/datasets/{datasetRid}/transactions |
-[**get**](#get) | **GET** /v1/datasets/{datasetRid}/transactions/{transactionRid} |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**abort**](#abort) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/abort | Stable |
+[**commit**](#commit) | **POST** /v1/datasets/{datasetRid}/transactions/{transactionRid}/commit | Stable |
+[**create**](#create) | **POST** /v1/datasets/{datasetRid}/transactions | Stable |
+[**get**](#get) | **GET** /v1/datasets/{datasetRid}/transactions/{transactionRid} | Stable |
 
 # **abort**
 Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is

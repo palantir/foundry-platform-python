@@ -1,10 +1,11 @@
 # OntologyObjectSet
 
-Method | HTTP request |
-------------- | ------------- |
-[**aggregate**](#aggregate) | **POST** /v2/ontologies/{ontology}/objectSets/aggregate |
-[**create_temporary**](#create_temporary) | **POST** /v2/ontologies/{ontology}/objectSets/createTemporary |
-[**load**](#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**aggregate**](#aggregate) | **POST** /v2/ontologies/{ontology}/objectSets/aggregate | Stable |
+[**create_temporary**](#create_temporary) | **POST** /v2/ontologies/{ontology}/objectSets/createTemporary | Public Beta |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/objectSets/{objectSetRid} | Private Beta |
+[**load**](#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects | Stable |
 
 # **aggregate**
 Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.        
@@ -143,6 +144,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Gets the definition of the `ObjectSet` with the given RID.        
 
 Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.

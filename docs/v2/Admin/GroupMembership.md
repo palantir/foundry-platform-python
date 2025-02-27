@@ -1,9 +1,9 @@
 # GroupMembership
 
-Method | HTTP request |
-------------- | ------------- |
-[**list**](#list) | **GET** /v2/admin/users/{userId}/groupMemberships |
-[**page**](#page) | **GET** /v2/admin/users/{userId}/groupMemberships |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**list**](#list) | **GET** /v2/admin/users/{userId}/groupMemberships | Stable |
+[**page**](#page) | **GET** /v2/admin/users/{userId}/groupMemberships | Stable |
 
 # **list**
 Lists all Groups a given User is a member of.

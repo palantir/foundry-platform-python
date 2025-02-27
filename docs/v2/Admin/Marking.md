@@ -1,12 +1,12 @@
 # Marking
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/admin/markings |
-[**get**](#get) | **GET** /v2/admin/markings/{markingId} |
-[**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch |
-[**list**](#list) | **GET** /v2/admin/markings |
-[**page**](#page) | **GET** /v2/admin/markings |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/admin/markings | Public Beta |
+[**get**](#get) | **GET** /v2/admin/markings/{markingId} | Public Beta |
+[**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch | Public Beta |
+[**list**](#list) | **GET** /v2/admin/markings | Public Beta |
+[**page**](#page) | **GET** /v2/admin/markings | Public Beta |
 
 # **create**
 Creates a new Marking.

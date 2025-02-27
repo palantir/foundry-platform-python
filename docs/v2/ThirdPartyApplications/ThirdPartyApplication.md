@@ -1,8 +1,10 @@
 # ThirdPartyApplication
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid} | Private Beta |
 
+# **get**
 Get the ThirdPartyApplication with the specified rid.
 
 ### Parameters

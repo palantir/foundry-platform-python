@@ -1,12 +1,13 @@
 # OntologyObject
 
-Method | HTTP request |
-------------- | ------------- |
-[**aggregate**](#aggregate) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/aggregate |
-[**get**](#get) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey} |
-[**list**](#list) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
-[**page**](#page) | **GET** /v2/ontologies/{ontology}/objects/{objectType} |
-[**search**](#search) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/search |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**aggregate**](#aggregate) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/aggregate | Stable |
+[**count**](#count) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/count | Private Beta |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey} | Stable |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/objects/{objectType} | Stable |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/objects/{objectType} | Stable |
+[**search**](#search) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/search | Stable |
 
 # **aggregate**
 Perform functions on object fields in the specified ontology and object type.
@@ -100,6 +101,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **count**
 Returns a count of the objects of the given object type.
 
 Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.

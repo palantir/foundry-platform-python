@@ -1,13 +1,13 @@
 # Stream
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/streams/datasets/{datasetRid}/streams |
-[**get**](#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} |
-[**publish_binary_record**](#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord |
-[**publish_record**](#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord |
-[**publish_records**](#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords |
-[**reset**](#reset) | **POST** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/streams/datasets/{datasetRid}/streams | Public Beta |
+[**get**](#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} | Public Beta |
+[**publish_binary_record**](#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord | Public Beta |
+[**publish_record**](#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord | Public Beta |
+[**publish_records**](#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords | Public Beta |
+[**reset**](#reset) | **POST** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset | Public Beta |
 
 # **create**
 Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.

@@ -1,10 +1,10 @@
 # Dataset
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/datasets |
-[**get**](#get) | **GET** /v2/datasets/{datasetRid} |
-[**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/datasets | Stable |
+[**get**](#get) | **GET** /v2/datasets/{datasetRid} | Stable |
+[**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable | Stable |
 
 # **create**
 Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.

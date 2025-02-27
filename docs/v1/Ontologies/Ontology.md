@@ -1,9 +1,9 @@
 # Ontology
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v1/ontologies/{ontologyRid} |
-[**list**](#list) | **GET** /v1/ontologies |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v1/ontologies/{ontologyRid} | Stable |
+[**list**](#list) | **GET** /v1/ontologies | Stable |
 
 # **get**
 Gets a specific ontology with the given Ontology RID.

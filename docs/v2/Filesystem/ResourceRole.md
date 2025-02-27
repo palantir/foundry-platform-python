@@ -1,8 +1,13 @@
 # ResourceRole
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**add**](#add) | **POST** /v2/filesystem/resources/{resourceRid}/roles/add | Private Beta |
+[**list**](#list) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Private Beta |
+[**page**](#page) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Private Beta |
+[**remove**](#remove) | **POST** /v2/filesystem/resources/{resourceRid}/roles/remove | Private Beta |
 
+# **add**
 
 
 ### Parameters
@@ -61,6 +66,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **list**
 List the roles on a resource.
 
 
@@ -127,6 +133,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **page**
 List the roles on a resource.
 
 
@@ -194,6 +201,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **remove**
 
 
 ### Parameters

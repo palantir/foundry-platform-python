@@ -1,12 +1,13 @@
 # Version
 
-Method | HTTP request |
-------------- | ------------- |
-[**delete**](#delete) | **DELETE** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} |
-[**get**](#get) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} |
-[**list**](#list) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions |
-[**page**](#page) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions |
-[**upload**](#upload) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/upload |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**delete**](#delete) | **DELETE** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} | Stable |
+[**get**](#get) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} | Stable |
+[**list**](#list) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions | Stable |
+[**page**](#page) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions | Stable |
+[**upload**](#upload) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/upload | Stable |
+[**upload_snapshot**](#upload_snapshot) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/uploadSnapshot | Private Beta |
 
 # **delete**
 Delete the Version with the specified version.
@@ -318,6 +319,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **upload_snapshot**
 Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
 
 

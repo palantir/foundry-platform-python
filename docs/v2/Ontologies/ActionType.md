@@ -1,10 +1,10 @@
 # ActionType
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
-[**list**](#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
-[**page**](#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} | Stable |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/actionTypes | Stable |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/actionTypes | Stable |
 
 # **get**
 Gets a specific action type with the given API name.

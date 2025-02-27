@@ -1,8 +1,11 @@
 # Host
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**list**](#list) | **GET** /v2/admin/enrollments/{enrollmentRid}/hosts | Private Beta |
+[**page**](#page) | **GET** /v2/admin/enrollments/{enrollmentRid}/hosts | Private Beta |
 
+# **list**
 Lists all Hosts.
 
 This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
@@ -66,6 +69,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **page**
 Lists all Hosts.
 
 This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.

@@ -1,8 +1,10 @@
 # ValueType
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/functions/valueTypes/{valueTypeRid} | Private Beta |
 
+# **get**
 Gets a specific value type with the given RID. The latest version is returned.
 
 

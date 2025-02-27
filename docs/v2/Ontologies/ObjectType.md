@@ -1,13 +1,13 @@
 # ObjectType
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
-[**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
-[**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
-[**list_outgoing_link_types**](#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
-[**page**](#page) | **GET** /v2/ontologies/{ontology}/objectTypes |
-[**page_outgoing_link_types**](#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} | Stable |
+[**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} | Stable |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes | Stable |
+[**list_outgoing_link_types**](#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes | Stable |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/objectTypes | Stable |
+[**page_outgoing_link_types**](#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes | Stable |
 
 # **get**
 Gets a specific object type with the given API name.

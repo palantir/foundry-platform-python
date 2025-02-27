@@ -1,10 +1,10 @@
 # Action
 
-Method | HTTP request |
-------------- | ------------- |
-[**apply**](#apply) | **POST** /v1/ontologies/{ontologyRid}/actions/{actionType}/apply |
-[**apply_batch**](#apply_batch) | **POST** /v1/ontologies/{ontologyRid}/actions/{actionType}/applyBatch |
-[**validate**](#validate) | **POST** /v1/ontologies/{ontologyRid}/actions/{actionType}/validate |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**apply**](#apply) | **POST** /v1/ontologies/{ontologyRid}/actions/{actionType}/apply | Stable |
+[**apply_batch**](#apply_batch) | **POST** /v1/ontologies/{ontologyRid}/actions/{actionType}/applyBatch | Stable |
+[**validate**](#validate) | **POST** /v1/ontologies/{ontologyRid}/actions/{actionType}/validate | Stable |
 
 # **apply**
 Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take

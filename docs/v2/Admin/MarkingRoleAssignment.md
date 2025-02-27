@@ -1,11 +1,11 @@
 # MarkingRoleAssignment
 
-Method | HTTP request |
-------------- | ------------- |
-[**add**](#add) | **POST** /v2/admin/markings/{markingId}/roleAssignments/add |
-[**list**](#list) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
-[**page**](#page) | **GET** /v2/admin/markings/{markingId}/roleAssignments |
-[**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/roleAssignments/remove |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**add**](#add) | **POST** /v2/admin/markings/{markingId}/roleAssignments/add | Public Beta |
+[**list**](#list) | **GET** /v2/admin/markings/{markingId}/roleAssignments | Public Beta |
+[**page**](#page) | **GET** /v2/admin/markings/{markingId}/roleAssignments | Public Beta |
+[**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/roleAssignments/remove | Public Beta |
 
 # **add**
 

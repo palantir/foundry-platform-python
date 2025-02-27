@@ -1,14 +1,14 @@
 # MediaSet
 
-Method | HTTP request |
-------------- | ------------- |
-[**abort**](#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort |
-[**commit**](#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit |
-[**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions |
-[**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} |
-[**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content |
-[**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference |
-[**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**abort**](#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort | Public Beta |
+[**commit**](#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit | Public Beta |
+[**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions | Public Beta |
+[**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} | Public Beta |
+[**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Public Beta |
+[**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
+[**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
 
 # **abort**
 Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.

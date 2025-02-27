@@ -1,8 +1,10 @@
 # VersionId
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/functions/valueTypes/{valueTypeRid}/versionIds/{versionIdVersionId} | Private Beta |
 
+# **get**
 Gets a specific value type with the given RID. The specified version is returned.
 
 

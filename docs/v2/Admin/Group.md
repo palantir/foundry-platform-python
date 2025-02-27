@@ -1,14 +1,14 @@
 # Group
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/admin/groups |
-[**delete**](#delete) | **DELETE** /v2/admin/groups/{groupId} |
-[**get**](#get) | **GET** /v2/admin/groups/{groupId} |
-[**get_batch**](#get_batch) | **POST** /v2/admin/groups/getBatch |
-[**list**](#list) | **GET** /v2/admin/groups |
-[**page**](#page) | **GET** /v2/admin/groups |
-[**search**](#search) | **POST** /v2/admin/groups/search |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/admin/groups | Stable |
+[**delete**](#delete) | **DELETE** /v2/admin/groups/{groupId} | Stable |
+[**get**](#get) | **GET** /v2/admin/groups/{groupId} | Stable |
+[**get_batch**](#get_batch) | **POST** /v2/admin/groups/getBatch | Stable |
+[**list**](#list) | **GET** /v2/admin/groups | Stable |
+[**page**](#page) | **GET** /v2/admin/groups | Stable |
+[**search**](#search) | **POST** /v2/admin/groups/search | Stable |
 
 # **create**
 Creates a new Group.

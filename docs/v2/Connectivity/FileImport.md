@@ -1,13 +1,14 @@
 # FileImport
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports |
-[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
-[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute |
-[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
-[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports |
-[**page**](#page) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
+[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
+[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute | Public Beta |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
+[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
+[**page**](#page) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
+[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Private Beta |
 
 # **create**
 Creates a new FileImport.
@@ -399,6 +400,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **replace**
 Replace the FileImport with the specified rid.
 
 ### Parameters

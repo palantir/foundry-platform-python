@@ -1,15 +1,15 @@
 # Session
 
-Method | HTTP request |
-------------- | ------------- |
-[**blocking_continue**](#blocking_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/blockingContinue |
-[**cancel**](#cancel) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/cancel |
-[**create**](#create) | **POST** /v2/aipAgents/agents/{agentRid}/sessions |
-[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid} |
-[**list**](#list) | **GET** /v2/aipAgents/agents/{agentRid}/sessions |
-[**page**](#page) | **GET** /v2/aipAgents/agents/{agentRid}/sessions |
-[**rag_context**](#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext |
-[**streaming_continue**](#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**blocking_continue**](#blocking_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/blockingContinue | Public Beta |
+[**cancel**](#cancel) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/cancel | Public Beta |
+[**create**](#create) | **POST** /v2/aipAgents/agents/{agentRid}/sessions | Public Beta |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid} | Public Beta |
+[**list**](#list) | **GET** /v2/aipAgents/agents/{agentRid}/sessions | Public Beta |
+[**page**](#page) | **GET** /v2/aipAgents/agents/{agentRid}/sessions | Public Beta |
+[**rag_context**](#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext | Public Beta |
+[**streaming_continue**](#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue | Public Beta |
 
 # **blocking_continue**
 Continue a conversation session with an Agent, or add the first exchange to a session after creation.

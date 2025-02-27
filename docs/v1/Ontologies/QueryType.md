@@ -1,10 +1,10 @@
 # QueryType
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v1/ontologies/{ontologyRid}/queryTypes/{queryApiName} |
-[**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
-[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/queryTypes |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v1/ontologies/{ontologyRid}/queryTypes/{queryApiName} | Stable |
+[**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/queryTypes | Stable |
+[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/queryTypes | Stable |
 
 # **get**
 Gets a specific query type with the given API name.

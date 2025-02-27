@@ -1,8 +1,10 @@
 # Job
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/orchestration/jobs/{jobRid} | Private Beta |
 
+# **get**
 Get the Job with the specified rid.
 
 ### Parameters

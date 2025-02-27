@@ -1,8 +1,8 @@
 # Content
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/content |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/content | Public Beta |
 
 # **get**
 Get the conversation content for a session between the calling user and an Agent.

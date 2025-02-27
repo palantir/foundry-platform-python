@@ -1,10 +1,10 @@
 # Website
 
-Method | HTTP request |
-------------- | ------------- |
-[**deploy**](#deploy) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/deploy |
-[**get**](#get) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website |
-[**undeploy**](#undeploy) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/undeploy |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**deploy**](#deploy) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/deploy | Stable |
+[**get**](#get) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website | Stable |
+[**undeploy**](#undeploy) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/undeploy | Stable |
 
 # **deploy**
 Deploy a version of the Website.

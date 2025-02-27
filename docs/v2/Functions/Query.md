@@ -1,8 +1,12 @@
 # Query
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**execute**](#execute) | **POST** /v2/functions/queries/{queryApiName}/execute | Private Beta |
+[**get**](#get) | **GET** /v2/functions/queries/{queryApiName} | Private Beta |
+[**get_by_rid**](#get_by_rid) | **POST** /v2/functions/queries/getByRid | Private Beta |
 
+# **execute**
 Executes a Query using the given parameters.
 
 Optional parameters do not need to be supplied.
@@ -64,6 +68,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Gets a specific query type with the given API name.
 
 
@@ -119,6 +124,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_by_rid**
 Gets a specific query type with the given RID.
 
 

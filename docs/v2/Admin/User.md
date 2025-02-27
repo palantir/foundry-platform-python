@@ -1,16 +1,16 @@
 # User
 
-Method | HTTP request |
-------------- | ------------- |
-[**delete**](#delete) | **DELETE** /v2/admin/users/{userId} |
-[**get**](#get) | **GET** /v2/admin/users/{userId} |
-[**get_batch**](#get_batch) | **POST** /v2/admin/users/getBatch |
-[**get_current**](#get_current) | **GET** /v2/admin/users/getCurrent |
-[**get_markings**](#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings |
-[**list**](#list) | **GET** /v2/admin/users |
-[**page**](#page) | **GET** /v2/admin/users |
-[**profile_picture**](#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture |
-[**search**](#search) | **POST** /v2/admin/users/search |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**delete**](#delete) | **DELETE** /v2/admin/users/{userId} | Stable |
+[**get**](#get) | **GET** /v2/admin/users/{userId} | Stable |
+[**get_batch**](#get_batch) | **POST** /v2/admin/users/getBatch | Stable |
+[**get_current**](#get_current) | **GET** /v2/admin/users/getCurrent | Stable |
+[**get_markings**](#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings | Public Beta |
+[**list**](#list) | **GET** /v2/admin/users | Stable |
+[**page**](#page) | **GET** /v2/admin/users | Stable |
+[**profile_picture**](#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture | Stable |
+[**search**](#search) | **POST** /v2/admin/users/search | Stable |
 
 # **delete**
 Delete the User with the specified id.

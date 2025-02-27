@@ -1,9 +1,9 @@
 # Ontology
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/ontologies/{ontology} |
-[**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/ontologies/{ontology} | Stable |
+[**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata | Public Beta |
 
 # **get**
 Gets a specific ontology with the given Ontology RID.
