@@ -1,16 +1,16 @@
 # Schedule
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/orchestration/schedules |
-[**delete**](#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} |
-[**get**](#get) | **GET** /v2/orchestration/schedules/{scheduleRid} |
-[**pause**](#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause |
-[**replace**](#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} |
-[**run**](#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run |
-[**runs**](#runs) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs |
-[**runs_page**](#runs_page) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs |
-[**unpause**](#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/orchestration/schedules | Public Beta |
+[**delete**](#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
+[**get**](#get) | **GET** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
+[**pause**](#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause | Public Beta |
+[**replace**](#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
+[**run**](#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run | Public Beta |
+[**runs**](#runs) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs | Public Beta |
+[**runs_page**](#runs_page) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs | Public Beta |
+[**unpause**](#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause | Public Beta |
 
 # **create**
 Creates a new Schedule.

@@ -1,10 +1,10 @@
 # LinkedObject
 
-Method | HTTP request |
-------------- | ------------- |
-[**get_linked_object**](#get_linked_object) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} |
-[**list_linked_objects**](#list_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
-[**page_linked_objects**](#page_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get_linked_object**](#get_linked_object) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} | Stable |
+[**list_linked_objects**](#list_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} | Stable |
+[**page_linked_objects**](#page_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} | Stable |
 
 # **get_linked_object**
 Get a specific linked object that originates from another object.

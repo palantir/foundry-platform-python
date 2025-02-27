@@ -1,10 +1,10 @@
 # Agent
 
-Method | HTTP request |
-------------- | ------------- |
-[**all_sessions**](#all_sessions) | **GET** /v2/aipAgents/agents/allSessions |
-[**all_sessions_page**](#all_sessions_page) | **GET** /v2/aipAgents/agents/allSessions |
-[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid} |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**all_sessions**](#all_sessions) | **GET** /v2/aipAgents/agents/allSessions | Public Beta |
+[**all_sessions_page**](#all_sessions_page) | **GET** /v2/aipAgents/agents/allSessions | Public Beta |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid} | Public Beta |
 
 # **all_sessions**
 List all conversation sessions between the calling user and all accessible Agents that were created by this client.

@@ -1,10 +1,10 @@
 # AgentVersion
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions/{agentVersionString} |
-[**list**](#list) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions |
-[**page**](#page) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions/{agentVersionString} | Public Beta |
+[**list**](#list) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions | Public Beta |
+[**page**](#page) | **GET** /v2/aipAgents/agents/{agentRid}/agentVersions | Public Beta |
 
 # **get**
 Get version details for an AIP Agent.

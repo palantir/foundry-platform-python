@@ -1,10 +1,10 @@
 # TimeSeriesPropertyV2
 
-Method | HTTP request |
-------------- | ------------- |
-[**get_first_point**](#get_first_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint |
-[**get_last_point**](#get_last_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint |
-[**stream_points**](#stream_points) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get_first_point**](#get_first_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint | Stable |
+[**get_last_point**](#get_last_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint | Stable |
+[**stream_points**](#stream_points) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints | Stable |
 
 # **get_first_point**
 Get the first point of a time series property.

@@ -1,10 +1,10 @@
 # MarkingCategory
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/admin/markingCategories/{markingCategoryId} |
-[**list**](#list) | **GET** /v2/admin/markingCategories |
-[**page**](#page) | **GET** /v2/admin/markingCategories |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/admin/markingCategories/{markingCategoryId} | Public Beta |
+[**list**](#list) | **GET** /v2/admin/markingCategories | Public Beta |
+[**page**](#page) | **GET** /v2/admin/markingCategories | Public Beta |
 
 # **get**
 Get the MarkingCategory with the specified id.

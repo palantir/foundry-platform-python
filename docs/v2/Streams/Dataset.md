@@ -1,8 +1,8 @@
 # Dataset
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/streams/datasets/create |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/streams/datasets/create | Public Beta |
 
 # **create**
 Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the

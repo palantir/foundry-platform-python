@@ -1,11 +1,11 @@
 # MarkingMember
 
-Method | HTTP request |
-------------- | ------------- |
-[**add**](#add) | **POST** /v2/admin/markings/{markingId}/markingMembers/add |
-[**list**](#list) | **GET** /v2/admin/markings/{markingId}/markingMembers |
-[**page**](#page) | **GET** /v2/admin/markings/{markingId}/markingMembers |
-[**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/markingMembers/remove |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**add**](#add) | **POST** /v2/admin/markings/{markingId}/markingMembers/add | Public Beta |
+[**list**](#list) | **GET** /v2/admin/markings/{markingId}/markingMembers | Public Beta |
+[**page**](#page) | **GET** /v2/admin/markings/{markingId}/markingMembers | Public Beta |
+[**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/markingMembers/remove | Public Beta |
 
 # **add**
 

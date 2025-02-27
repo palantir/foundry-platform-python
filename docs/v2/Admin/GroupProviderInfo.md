@@ -1,9 +1,9 @@
 # GroupProviderInfo
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/admin/groups/{groupId}/providerInfo |
-[**replace**](#replace) | **PUT** /v2/admin/groups/{groupId}/providerInfo |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/admin/groups/{groupId}/providerInfo | Public Beta |
+[**replace**](#replace) | **PUT** /v2/admin/groups/{groupId}/providerInfo | Public Beta |
 
 # **get**
 Get the GroupProviderInfo.

@@ -1,11 +1,11 @@
 # Folder
 
-Method | HTTP request |
-------------- | ------------- |
-[**children**](#children) | **GET** /v2/filesystem/folders/{folderRid}/children |
-[**children_page**](#children_page) | **GET** /v2/filesystem/folders/{folderRid}/children |
-[**create**](#create) | **POST** /v2/filesystem/folders |
-[**get**](#get) | **GET** /v2/filesystem/folders/{folderRid} |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**children**](#children) | **GET** /v2/filesystem/folders/{folderRid}/children | Public Beta |
+[**children_page**](#children_page) | **GET** /v2/filesystem/folders/{folderRid}/children | Public Beta |
+[**create**](#create) | **POST** /v2/filesystem/folders | Public Beta |
+[**get**](#get) | **GET** /v2/filesystem/folders/{folderRid} | Public Beta |
 
 # **children**
 List all child Resources of the Folder.

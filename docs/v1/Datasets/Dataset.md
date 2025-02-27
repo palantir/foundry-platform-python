@@ -1,10 +1,13 @@
 # Dataset
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v1/datasets |
-[**get**](#get) | **GET** /v1/datasets/{datasetRid} |
-[**read**](#read) | **GET** /v1/datasets/{datasetRid}/readTable |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v1/datasets | Stable |
+[**delete_schema**](#delete_schema) | **DELETE** /v1/datasets/{datasetRid}/schema | Private Beta |
+[**get**](#get) | **GET** /v1/datasets/{datasetRid} | Stable |
+[**get_schema**](#get_schema) | **GET** /v1/datasets/{datasetRid}/schema | Private Beta |
+[**read**](#read) | **GET** /v1/datasets/{datasetRid}/readTable | Stable |
+[**replace_schema**](#replace_schema) | **PUT** /v1/datasets/{datasetRid}/schema | Private Beta |
 
 # **create**
 Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
@@ -64,6 +67,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
 
+# **delete_schema**
 Deletes the Schema from a Dataset and Branch.
 
 
@@ -181,6 +185,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
 
+# **get_schema**
 Retrieves the Schema for a Dataset and Branch, if it exists.
 
 
@@ -381,6 +386,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
 
+# **replace_schema**
 Puts a Schema on an existing Dataset and Branch.
 
 

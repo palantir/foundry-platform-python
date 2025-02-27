@@ -1,15 +1,15 @@
 # OntologyObject
 
-Method | HTTP request |
-------------- | ------------- |
-[**aggregate**](#aggregate) | **POST** /v1/ontologies/{ontologyRid}/objects/{objectType}/aggregate |
-[**get**](#get) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey} |
-[**get_linked_object**](#get_linked_object) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} |
-[**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType} |
-[**list_linked_objects**](#list_linked_objects) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType} |
-[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType} |
-[**page_linked_objects**](#page_linked_objects) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType} |
-[**search**](#search) | **POST** /v1/ontologies/{ontologyRid}/objects/{objectType}/search |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**aggregate**](#aggregate) | **POST** /v1/ontologies/{ontologyRid}/objects/{objectType}/aggregate | Stable |
+[**get**](#get) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey} | Stable |
+[**get_linked_object**](#get_linked_object) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} | Stable |
+[**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType} | Stable |
+[**list_linked_objects**](#list_linked_objects) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType} | Stable |
+[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType} | Stable |
+[**page_linked_objects**](#page_linked_objects) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType} | Stable |
+[**search**](#search) | **POST** /v1/ontologies/{ontologyRid}/objects/{objectType}/search | Stable |
 
 # **aggregate**
 Perform functions on object fields in the specified ontology and object type.

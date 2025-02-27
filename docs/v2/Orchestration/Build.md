@@ -1,11 +1,12 @@
 # Build
 
-Method | HTTP request |
-------------- | ------------- |
-[**cancel**](#cancel) | **POST** /v2/orchestration/builds/{buildRid}/cancel |
-[**create**](#create) | **POST** /v2/orchestration/builds/create |
-[**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} |
-[**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**cancel**](#cancel) | **POST** /v2/orchestration/builds/{buildRid}/cancel | Public Beta |
+[**create**](#create) | **POST** /v2/orchestration/builds/create | Public Beta |
+[**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} | Public Beta |
+[**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch | Public Beta |
+[**search**](#search) | **POST** /v2/orchestration/builds/search | Private Beta |
 
 # **cancel**
 Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
@@ -258,6 +259,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **search**
 Search for Builds.
 
 ### Parameters

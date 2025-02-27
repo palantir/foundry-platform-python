@@ -1,9 +1,9 @@
 # ScheduleVersion
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid} |
-[**schedule**](#schedule) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid} | Public Beta |
+[**schedule**](#schedule) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule | Public Beta |
 
 # **get**
 Get the ScheduleVersion with the specified rid.

@@ -1,10 +1,10 @@
 # Attachment
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/ontologies/attachments/{attachmentRid} |
-[**read**](#read) | **GET** /v2/ontologies/attachments/{attachmentRid}/content |
-[**upload**](#upload) | **POST** /v2/ontologies/attachments/upload |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/ontologies/attachments/{attachmentRid} | Stable |
+[**read**](#read) | **GET** /v2/ontologies/attachments/{attachmentRid}/content | Stable |
+[**upload**](#upload) | **POST** /v2/ontologies/attachments/upload | Stable |
 
 # **get**
 Get the metadata of an attachment.

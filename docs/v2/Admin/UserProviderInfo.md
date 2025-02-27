@@ -1,9 +1,9 @@
 # UserProviderInfo
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/admin/users/{userId}/providerInfo |
-[**replace**](#replace) | **PUT** /v2/admin/users/{userId}/providerInfo |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/admin/users/{userId}/providerInfo | Public Beta |
+[**replace**](#replace) | **PUT** /v2/admin/users/{userId}/providerInfo | Public Beta |
 
 # **get**
 Get the UserProviderInfo.

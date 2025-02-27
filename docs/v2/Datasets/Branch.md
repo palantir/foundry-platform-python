@@ -1,12 +1,12 @@
 # Branch
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/datasets/{datasetRid}/branches |
-[**delete**](#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchName} |
-[**get**](#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchName} |
-[**list**](#list) | **GET** /v2/datasets/{datasetRid}/branches |
-[**page**](#page) | **GET** /v2/datasets/{datasetRid}/branches |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/datasets/{datasetRid}/branches | Stable |
+[**delete**](#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchName} | Stable |
+[**get**](#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchName} | Stable |
+[**list**](#list) | **GET** /v2/datasets/{datasetRid}/branches | Stable |
+[**page**](#page) | **GET** /v2/datasets/{datasetRid}/branches | Stable |
 
 # **create**
 Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.

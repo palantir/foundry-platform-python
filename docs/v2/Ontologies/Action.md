@@ -1,9 +1,9 @@
 # Action
 
-Method | HTTP request |
-------------- | ------------- |
-[**apply**](#apply) | **POST** /v2/ontologies/{ontology}/actions/{action}/apply |
-[**apply_batch**](#apply_batch) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyBatch |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**apply**](#apply) | **POST** /v2/ontologies/{ontology}/actions/{action}/apply | Stable |
+[**apply_batch**](#apply_batch) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyBatch | Stable |
 
 # **apply**
 Applies an action using the given parameters. 

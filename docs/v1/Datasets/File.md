@@ -1,13 +1,13 @@
 # File
 
-Method | HTTP request |
-------------- | ------------- |
-[**delete**](#delete) | **DELETE** /v1/datasets/{datasetRid}/files/{filePath} |
-[**get**](#get) | **GET** /v1/datasets/{datasetRid}/files/{filePath} |
-[**list**](#list) | **GET** /v1/datasets/{datasetRid}/files |
-[**page**](#page) | **GET** /v1/datasets/{datasetRid}/files |
-[**read**](#read) | **GET** /v1/datasets/{datasetRid}/files/{filePath}/content |
-[**upload**](#upload) | **POST** /v1/datasets/{datasetRid}/files:upload |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**delete**](#delete) | **DELETE** /v1/datasets/{datasetRid}/files/{filePath} | Stable |
+[**get**](#get) | **GET** /v1/datasets/{datasetRid}/files/{filePath} | Stable |
+[**list**](#list) | **GET** /v1/datasets/{datasetRid}/files | Stable |
+[**page**](#page) | **GET** /v1/datasets/{datasetRid}/files | Stable |
+[**read**](#read) | **GET** /v1/datasets/{datasetRid}/files/{filePath}/content | Stable |
+[**upload**](#upload) | **POST** /v1/datasets/{datasetRid}/files:upload | Stable |
 
 # **delete**
 Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default 

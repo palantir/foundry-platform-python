@@ -1,8 +1,13 @@
 # Query
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**cancel**](#cancel) | **POST** /v2/sqlQueries/queries/{queryId}/cancel | Private Beta |
+[**execute**](#execute) | **POST** /v2/sqlQueries/queries/execute | Private Beta |
+[**get_results**](#get_results) | **GET** /v2/sqlQueries/queries/{queryId}/getResults | Private Beta |
+[**get_status**](#get_status) | **GET** /v2/sqlQueries/queries/{queryId}/getStatus | Private Beta |
 
+# **cancel**
 Cancels a query. If the query is no longer running this is effectively a no-op.
 
 
@@ -58,6 +63,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **execute**
 Executes a new query. Only the user that invoked the query can operate on the query.
 
 
@@ -117,6 +123,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_results**
 Gets the results of a query. This endpoint implements long polling and requests will time out after
 one minute.
 
@@ -173,6 +180,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_status**
 Gets the status of a query.
 
 

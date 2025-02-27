@@ -1,9 +1,12 @@
 # Connection
 
-Method | HTTP request |
-------------- | ------------- |
-[**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/connectivity/connections | Private Beta |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Private Beta |
+[**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Public Beta |
 
+# **create**
 Creates a new Connection.
 Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
 secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
@@ -78,6 +81,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Get the Connection with the specified rid.
 
 ### Parameters

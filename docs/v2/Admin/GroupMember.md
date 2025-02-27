@@ -1,11 +1,11 @@
 # GroupMember
 
-Method | HTTP request |
-------------- | ------------- |
-[**add**](#add) | **POST** /v2/admin/groups/{groupId}/groupMembers/add |
-[**list**](#list) | **GET** /v2/admin/groups/{groupId}/groupMembers |
-[**page**](#page) | **GET** /v2/admin/groups/{groupId}/groupMembers |
-[**remove**](#remove) | **POST** /v2/admin/groups/{groupId}/groupMembers/remove |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**add**](#add) | **POST** /v2/admin/groups/{groupId}/groupMembers/add | Stable |
+[**list**](#list) | **GET** /v2/admin/groups/{groupId}/groupMembers | Stable |
+[**page**](#page) | **GET** /v2/admin/groups/{groupId}/groupMembers | Stable |
+[**remove**](#remove) | **POST** /v2/admin/groups/{groupId}/groupMembers/remove | Stable |
 
 # **add**
 

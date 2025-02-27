@@ -1,8 +1,8 @@
 # Query
 
-Method | HTTP request |
-------------- | ------------- |
-[**execute**](#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**execute**](#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute | Stable |
 
 # **execute**
 Executes a Query using the given parameters.

@@ -1,11 +1,11 @@
 # AttachmentProperty
 
-Method | HTTP request |
-------------- | ------------- |
-[**get_attachment**](#get_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property} |
-[**get_attachment_by_rid**](#get_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid} |
-[**read_attachment**](#read_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content |
-[**read_attachment_by_rid**](#read_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get_attachment**](#get_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property} | Stable |
+[**get_attachment_by_rid**](#get_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid} | Stable |
+[**read_attachment**](#read_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content | Stable |
+[**read_attachment_by_rid**](#read_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content | Stable |
 
 # **get_attachment**
 Get the metadata of attachments parented to the given object.

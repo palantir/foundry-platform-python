@@ -1,13 +1,13 @@
 # File
 
-Method | HTTP request |
-------------- | ------------- |
-[**content**](#content) | **GET** /v2/datasets/{datasetRid}/files/{filePath}/content |
-[**delete**](#delete) | **DELETE** /v2/datasets/{datasetRid}/files/{filePath} |
-[**get**](#get) | **GET** /v2/datasets/{datasetRid}/files/{filePath} |
-[**list**](#list) | **GET** /v2/datasets/{datasetRid}/files |
-[**page**](#page) | **GET** /v2/datasets/{datasetRid}/files |
-[**upload**](#upload) | **POST** /v2/datasets/{datasetRid}/files/{filePath}/upload |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**content**](#content) | **GET** /v2/datasets/{datasetRid}/files/{filePath}/content | Stable |
+[**delete**](#delete) | **DELETE** /v2/datasets/{datasetRid}/files/{filePath} | Stable |
+[**get**](#get) | **GET** /v2/datasets/{datasetRid}/files/{filePath} | Stable |
+[**list**](#list) | **GET** /v2/datasets/{datasetRid}/files | Stable |
+[**page**](#page) | **GET** /v2/datasets/{datasetRid}/files | Stable |
+[**upload**](#upload) | **POST** /v2/datasets/{datasetRid}/files/{filePath}/upload | Stable |
 
 # **content**
 Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest

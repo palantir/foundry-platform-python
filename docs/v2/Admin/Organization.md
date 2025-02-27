@@ -1,9 +1,9 @@
 # Organization
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/admin/organizations/{organizationRid} |
-[**replace**](#replace) | **PUT** /v2/admin/organizations/{organizationRid} |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**get**](#get) | **GET** /v2/admin/organizations/{organizationRid} | Public Beta |
+[**replace**](#replace) | **PUT** /v2/admin/organizations/{organizationRid} | Public Beta |
 
 # **get**
 Get the Organization with the specified rid.

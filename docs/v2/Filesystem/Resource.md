@@ -1,8 +1,19 @@
 # Resource
 
-Method | HTTP request |
-------------- | ------------- |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**add_markings**](#add_markings) | **POST** /v2/filesystem/resources/{resourceRid}/addMarkings | Private Beta |
+[**delete**](#delete) | **DELETE** /v2/filesystem/resources/{resourceRid} | Private Beta |
+[**get**](#get) | **GET** /v2/filesystem/resources/{resourceRid} | Private Beta |
+[**get_access_requirements**](#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements | Private Beta |
+[**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Private Beta |
+[**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Private Beta |
+[**markings_page**](#markings_page) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Private Beta |
+[**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Private Beta |
+[**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Private Beta |
+[**restore**](#restore) | **POST** /v2/filesystem/resources/{resourceRid}/restore | Private Beta |
 
+# **add_markings**
 Adds a list of Markings to a resource.
 
 ### Parameters
@@ -61,6 +72,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **delete**
 Move the given resource to the trash. Following this operation, the resource can be restored, using the
 `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
@@ -117,6 +129,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Get the Resource with the specified rid.
 
 ### Parameters
@@ -171,6 +184,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_access_requirements**
 Returns a list of access requirements a user needs in order to view a resource. Access requirements are
 composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
@@ -227,6 +241,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_by_path**
 Get a Resource by its absolute path.
 
 ### Parameters
@@ -281,6 +296,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **markings**
 List of Markings directly applied to a resource. The number of Markings on a resource is typically small 
 so the `pageSize` and `pageToken` parameters are not required.
 
@@ -344,6 +360,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **markings_page**
 List of Markings directly applied to a resource. The number of Markings on a resource is typically small 
 so the `pageSize` and `pageToken` parameters are not required.
 
@@ -408,6 +425,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **permanently_delete**
 Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
 `ResourceNotTrashed` error will be thrown.
 
@@ -464,6 +482,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **remove_markings**
 Removes Markings from a resource.
 
 ### Parameters
@@ -522,6 +541,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **restore**
 Restore the given resource and any directly trashed ancestors from the trash. If the resource is not
 trashed, this operation will be ignored.
 

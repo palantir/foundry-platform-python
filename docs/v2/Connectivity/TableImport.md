@@ -1,13 +1,13 @@
 # TableImport
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports |
-[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
-[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute |
-[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
-[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports |
-[**page**](#page) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
+[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
+[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute | Public Beta |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
+[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
+[**page**](#page) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
 
 # **create**
 Creates a new TableImport.

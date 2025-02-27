@@ -1,11 +1,13 @@
 # OntologyInterface
 
-Method | HTTP request |
-------------- | ------------- |
-[**get**](#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} |
-[**list**](#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
-[**page**](#page) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**aggregate**](#aggregate) | **POST** /v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate | Private Beta |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} | Public Beta |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes | Public Beta |
+[**page**](#page) | **GET** /v2/ontologies/{ontology}/interfaceTypes | Public Beta |
 
+# **aggregate**
 :::callout{theme=warning title=Warning}
 This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
 sets.

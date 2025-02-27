@@ -1,9 +1,16 @@
 # Project
 
-Method | HTTP request |
-------------- | ------------- |
-[**create**](#create) | **POST** /v2/filesystem/projects/create |
+Method | HTTP request | Release Stage |
+------------- | ------------- | ----- |
+[**add_organizations**](#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations | Private Beta |
+[**create**](#create) | **POST** /v2/filesystem/projects/create | Public Beta |
+[**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Private Beta |
+[**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Private Beta |
+[**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Private Beta |
+[**organizations_page**](#organizations_page) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Private Beta |
+[**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Private Beta |
 
+# **add_organizations**
 Adds a list of Organizations to a Project.
 
 ### Parameters
@@ -146,6 +153,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **create_from_template**
 Creates a project from a project template.
 
 ### Parameters
@@ -216,6 +224,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get**
 Get the Project with the specified rid.
 
 ### Parameters
@@ -270,6 +279,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **organizations**
 List of Organizations directly applied to a Project. The number of Organizations on a Project is 
 typically small so the `pageSize` and `pageToken` parameters are not required.
 
@@ -333,6 +343,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **organizations_page**
 List of Organizations directly applied to a Project. The number of Organizations on a Project is 
 typically small so the `pageSize` and `pageToken` parameters are not required.
 
@@ -397,6 +408,7 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **remove_organizations**
 Removes Organizations from a Project.
 
 ### Parameters
