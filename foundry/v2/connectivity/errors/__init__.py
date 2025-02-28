@@ -81,6 +81,9 @@ from foundry.v2.connectivity.errors._file_size_filter_missing_greater_than_and_l
 from foundry.v2.connectivity.errors._files_count_limit_filter_invalid_limit import (
     FilesCountLimitFilterInvalidLimit,
 )  # NOQA
+from foundry.v2.connectivity.errors._get_configuration_permission_denied import (
+    GetConfigurationPermissionDenied,
+)  # NOQA
 from foundry.v2.connectivity.errors._parent_folder_not_found_for_connection import (
     ParentFolderNotFoundForConnection,
 )  # NOQA
@@ -126,6 +129,7 @@ __all__ = [
     "FileSizeFilterLessThanMustBeOneByteOrLarger",
     "FileSizeFilterMissingGreaterThanAndLessThan",
     "FilesCountLimitFilterInvalidLimit",
+    "GetConfigurationPermissionDenied",
     "ParentFolderNotFoundForConnection",
     "PropertyCannotBeBlank",
     "PropertyCannotBeEmpty",

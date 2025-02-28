@@ -402,6 +402,7 @@ class GroupClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchGroupsResponse:
         """
+        Perform a case-insensitive prefix search for groups based on group name.
 
         :param where:
         :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
@@ -768,6 +769,7 @@ class _GroupClientRaw:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[SearchGroupsResponse]:
         """
+        Perform a case-insensitive prefix search for groups based on group name.
 
         :param where:
         :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
@@ -1134,6 +1136,7 @@ class _GroupClientStreaming:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[SearchGroupsResponse]:
         """
+        Perform a case-insensitive prefix search for groups based on group name.
 
         :param where:
         :type where: Union[GroupSearchFilter, GroupSearchFilterDict]

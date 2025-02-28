@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/connectivity/connections | Private Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Private Beta |
+[**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Private Beta |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Public Beta |
 
 # **create**
@@ -133,6 +134,63 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Connection  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_configuration**
+Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid | connectionRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+
+### Return type
+**ConnectionConfiguration**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# ConnectionRid | connectionRid
+connection_rid = None
+# Optional[PreviewMode] | preview
+preview = None
+
+
+try:
+    api_response = foundry_client.connectivity.Connection.get_configuration(
+        connection_rid,
+        preview=preview,
+    )
+    print("The get_configuration response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Connection.get_configuration: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ConnectionConfiguration  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
