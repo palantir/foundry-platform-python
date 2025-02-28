@@ -432,6 +432,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **search**
+Perform a case-insensitive prefix search for users based on username, given name and family name.
 
 
 ### Parameters

@@ -207,7 +207,10 @@ def admin_user_search(
     page_size: Optional[int],
     page_token: Optional[str],
 ):
-    """ """
+    """
+    Perform a case-insensitive prefix search for users based on username, given name and family name.
+
+    """
     result = client.admin.User.search(
         where=json.loads(where),
         page_size=page_size,
@@ -947,7 +950,10 @@ def admin_group_search(
     page_size: Optional[int],
     page_token: Optional[str],
 ):
-    """ """
+    """
+    Perform a case-insensitive prefix search for groups based on group name.
+
+    """
     result = client.admin.Group.search(
         where=json.loads(where),
         page_size=page_size,
@@ -1790,6 +1796,27 @@ def connectivity_connection_get(
     Get the Connection with the specified rid.
     """
     result = client.connectivity.Connection.get(
+        connection_rid=connection_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection.command("get_configuration")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def connectivity_connection_get_configuration(
+    client: foundry.v2.FoundryClient,
+    connection_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+    This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
+
+    """
+    result = client.connectivity.Connection.get_configuration(
         connection_rid=connection_rid,
         preview=preview,
     )

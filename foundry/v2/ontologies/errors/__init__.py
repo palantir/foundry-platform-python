@@ -223,8 +223,8 @@ from foundry.v2.ontologies.errors._view_object_permission_denied import (
 __all__ = [
     "ActionTypeNotFound",
     "MarketplaceLinkMappingNotFound",
-    "InvalidAggregationRangeValue",
     "MalformedPropertyFilters",
+    "InvalidAggregationRangeValue",
     "ObjectTypeNotSynced",
     "OntologyEditsExceededLimit",
     "ActionParameterObjectTypeNotFound",
@@ -319,8 +319,8 @@ __all__ = [
     "InvalidQueryParameterValue",
     "OntologySyncing",
     "PropertyTypeNotFound",
-    "InvalidPropertyType",
     "MarketplaceInstallationNotFound",
+    "InvalidPropertyType",
     "InvalidDurationGroupByPropertyType",
     "MissingParameter",
 ]

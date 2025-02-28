@@ -2343,6 +2343,7 @@ Namespace | Name | Import |
 **Connectivity** | FileSizeFilterInvalidGreaterThanAndLessThanRange | `from foundry.v2.connectivity.errors import FileSizeFilterInvalidGreaterThanAndLessThanRange` |
 **Connectivity** | FileSizeFilterLessThanMustBeOneByteOrLarger | `from foundry.v2.connectivity.errors import FileSizeFilterLessThanMustBeOneByteOrLarger` |
 **Connectivity** | FileSizeFilterMissingGreaterThanAndLessThan | `from foundry.v2.connectivity.errors import FileSizeFilterMissingGreaterThanAndLessThan` |
+**Connectivity** | GetConfigurationPermissionDenied | `from foundry.v2.connectivity.errors import GetConfigurationPermissionDenied` |
 **Connectivity** | ParentFolderNotFoundForConnection | `from foundry.v2.connectivity.errors import ParentFolderNotFoundForConnection` |
 **Connectivity** | PropertyCannotBeBlank | `from foundry.v2.connectivity.errors import PropertyCannotBeBlank` |
 **Connectivity** | PropertyCannotBeEmpty | `from foundry.v2.connectivity.errors import PropertyCannotBeEmpty` |

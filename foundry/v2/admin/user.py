@@ -461,6 +461,7 @@ class UserClient:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> SearchUsersResponse:
         """
+        Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
         :type where: Union[UserSearchFilter, UserSearchFilterDict]
@@ -888,6 +889,7 @@ class _UserClientRaw:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> ApiResponse[SearchUsersResponse]:
         """
+        Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
         :type where: Union[UserSearchFilter, UserSearchFilterDict]
@@ -1315,6 +1317,7 @@ class _UserClientStreaming:
         request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
     ) -> StreamingContextManager[SearchUsersResponse]:
         """
+        Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
         :type where: Union[UserSearchFilter, UserSearchFilterDict]

@@ -35,6 +35,7 @@ from foundry._core.utils import maybe_ignore_preview
 from foundry._errors import handle_unexpected
 from foundry.v2.connectivity import errors as connectivity_errors
 from foundry.v2.connectivity.models._connection import Connection
+from foundry.v2.connectivity.models._connection_configuration import ConnectionConfiguration  # NOQA
 from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
 from foundry.v2.connectivity.models._connection_rid import ConnectionRid
 from foundry.v2.connectivity.models._create_connection_request_connection_configuration import (
@@ -239,6 +240,57 @@ class ConnectionClient:
                     "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                },
+            ),
+        ).decode()
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_configuration(
+        self,
+        connection_rid: ConnectionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ConnectionConfiguration:
+        """
+        Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+        This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
+
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ConnectionConfiguration
+
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ConnectionConfiguration,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "GetConfigurationPermissionDenied": connectivity_errors.GetConfigurationPermissionDenied,
                 },
             ),
         ).decode()
@@ -481,6 +533,57 @@ class _ConnectionClientRaw:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
+    def get_configuration(
+        self,
+        connection_rid: ConnectionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[ConnectionConfiguration]:
+        """
+        Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+        This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
+
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[ConnectionConfiguration]
+
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ConnectionConfiguration,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "GetConfigurationPermissionDenied": connectivity_errors.GetConfigurationPermissionDenied,
+                },
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
     def update_secrets(
         self,
         connection_rid: ConnectionRid,
@@ -709,6 +812,57 @@ class _ConnectionClientStreaming:
                     "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
+                },
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def get_configuration(
+        self,
+        connection_rid: ConnectionRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[ConnectionConfiguration]:
+        """
+        Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+        This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
+
+        :param connection_rid: connectionRid
+        :type connection_rid: ConnectionRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[ConnectionConfiguration]
+
+        :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
+        :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ConnectionConfiguration,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
+                    "GetConfigurationPermissionDenied": connectivity_errors.GetConfigurationPermissionDenied,
                 },
             ),
         )
