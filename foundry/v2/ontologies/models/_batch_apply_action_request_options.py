@@ -23,13 +23,13 @@ import pydantic
 from foundry.v2.ontologies.models._batch_apply_action_request_options_dict import (
     BatchApplyActionRequestOptionsDict,
 )  # NOQA
-from foundry.v2.ontologies.models._return_edits_mode import ReturnEditsMode
+from foundry.v2.ontologies.models._batch_return_edits_mode import BatchReturnEditsMode
 
 
 class BatchApplyActionRequestOptions(pydantic.BaseModel):
     """BatchApplyActionRequestOptions"""
 
-    return_edits: Optional[ReturnEditsMode] = pydantic.Field(alias=str("returnEdits"), default=None)  # type: ignore[literal-required]
+    return_edits: Optional[BatchReturnEditsMode] = pydantic.Field(alias=str("returnEdits"), default=None)  # type: ignore[literal-required]
 
     model_config = {"extra": "allow", "populate_by_name": True}
 

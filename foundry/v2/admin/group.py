@@ -132,7 +132,7 @@ class GroupClient:
 
         :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
-        :raises InvalidGroupOrganizations: You must provide at least one Organization RID for a group
+        :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
         """
 
         return self._api_client.call_api(
@@ -499,7 +499,7 @@ class _GroupClientRaw:
 
         :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
-        :raises InvalidGroupOrganizations: You must provide at least one Organization RID for a group
+        :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
         """
 
         return self._api_client.call_api(
@@ -866,7 +866,7 @@ class _GroupClientStreaming:
 
         :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
-        :raises InvalidGroupOrganizations: You must provide at least one Organization RID for a group
+        :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
         """
 
         return self._api_client.stream_api(

@@ -17,5 +17,5 @@ from __future__ import annotations
 
 from typing import Literal
 
-ReturnEditsMode = Literal["ALL", "NONE"]
+ReturnEditsMode = Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
 """ReturnEditsMode"""

@@ -22,10 +22,10 @@ from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 from foundry._core.utils import RID
-from foundry.v2.connectivity.models._create_connection_request_rest_connection_additional_secrets_dict import (
-    CreateConnectionRequestRestConnectionAdditionalSecretsDict,
-)  # NOQA
 from foundry.v2.connectivity.models._domain_dict import DomainDict
+from foundry.v2.connectivity.models._rest_connection_additional_secrets_dict import (
+    RestConnectionAdditionalSecretsDict,
+)  # NOQA
 
 
 class CreateConnectionRequestRestConnectionConfigurationDict(TypedDict):
@@ -33,8 +33,11 @@ class CreateConnectionRequestRestConnectionConfigurationDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    additionalSecrets: CreateConnectionRequestRestConnectionAdditionalSecretsDict
-    """Additional secrets that can be referenced in code and webhook configurations."""
+    additionalSecrets: NotRequired[RestConnectionAdditionalSecretsDict]
+    """
+    Additional secrets that can be referenced in code and webhook configurations.
+    If not provided, no additional secrets will be created.
+    """
 
     oauth2ClientRid: NotRequired[RID]
     """

@@ -15,21 +15,24 @@
 
 from __future__ import annotations
 
-from typing import Dict
-from typing import Literal
+from datetime import datetime
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
-from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry.v2.admin.models._certificate_usage_type import CertificateUsageType
 
 
-class CreateConnectionRequestSecretsWithPlaintextValuesDict(TypedDict):
-    """CreateConnectionRequestSecretsWithPlaintextValues"""
+class CertificateInfoDict(TypedDict):
+    """CertificateInfo"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    secrets: Dict[SecretName, PlaintextValue]
-    """The additional secrets that can be referenced in code and webhook configurations."""
+    pemCertificate: str
+    """The certificate, in PEM format."""
 
-    type: Literal["asSecretsWithPlaintextValues"]
+    commonName: NotRequired[str]
+
+    expiryDate: datetime
+
+    usageType: CertificateUsageType

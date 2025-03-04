@@ -22,6 +22,9 @@ from foundry.v2.admin.errors._add_marking_members_permission_denied import (
 from foundry.v2.admin.errors._add_marking_role_assignments_permission_denied import (
     AddMarkingRoleAssignmentsPermissionDenied,
 )  # NOQA
+from foundry.v2.admin.errors._authentication_provider_not_found import (
+    AuthenticationProviderNotFound,
+)  # NOQA
 from foundry.v2.admin.errors._cannot_replace_provider_info_for_principal_in_protected_realm import (
     CannotReplaceProviderInfoForPrincipalInProtectedRealm,
 )  # NOQA
@@ -87,6 +90,12 @@ from foundry.v2.admin.errors._list_marking_role_assignments_permission_denied im
 from foundry.v2.admin.errors._marking_category_not_found import MarkingCategoryNotFound
 from foundry.v2.admin.errors._marking_not_found import MarkingNotFound
 from foundry.v2.admin.errors._organization_not_found import OrganizationNotFound
+from foundry.v2.admin.errors._preregister_group_permission_denied import (
+    PreregisterGroupPermissionDenied,
+)  # NOQA
+from foundry.v2.admin.errors._preregister_user_permission_denied import (
+    PreregisterUserPermissionDenied,
+)  # NOQA
 from foundry.v2.admin.errors._principal_not_found import PrincipalNotFound
 from foundry.v2.admin.errors._profile_picture_not_found import ProfilePictureNotFound
 from foundry.v2.admin.errors._remove_group_members_permission_denied import (
@@ -123,6 +132,7 @@ __all__ = [
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
+    "AuthenticationProviderNotFound",
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
     "CreateGroupPermissionDenied",
     "CreateMarkingMissingInitialAdminRole",
@@ -152,6 +162,8 @@ __all__ = [
     "MarkingCategoryNotFound",
     "MarkingNotFound",
     "OrganizationNotFound",
+    "PreregisterGroupPermissionDenied",
+    "PreregisterUserPermissionDenied",
     "PrincipalNotFound",
     "ProfilePictureNotFound",
     "RemoveGroupMembersPermissionDenied",

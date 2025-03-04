@@ -15,26 +15,31 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import List
+from typing import Optional
 from typing import cast
 
 import pydantic
 
-from foundry.v2.connectivity.models._create_connection_request_secrets_names_dict import (
-    CreateConnectionRequestSecretsNamesDict,
+from foundry.v2.admin.models._authentication_provider import AuthenticationProvider
+from foundry.v2.admin.models._list_authentication_providers_response_dict import (
+    ListAuthenticationProvidersResponseDict,
 )  # NOQA
+from foundry.v2.core.models._page_token import PageToken
 
 
-class CreateConnectionRequestSecretsNames(pydantic.BaseModel):
-    """CreateConnectionRequestSecretsNames"""
+class ListAuthenticationProvidersResponse(pydantic.BaseModel):
+    """ListAuthenticationProvidersResponse"""
 
-    type: Literal["asSecretsNames"] = "asSecretsNames"
+    data: List[AuthenticationProvider]
+
+    next_page_token: Optional[PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> CreateConnectionRequestSecretsNamesDict:
+    def to_dict(self) -> ListAuthenticationProvidersResponseDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            CreateConnectionRequestSecretsNamesDict,
+            ListAuthenticationProvidersResponseDict,
             self.model_dump(by_alias=True, exclude_none=True),
         )

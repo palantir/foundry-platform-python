@@ -5,6 +5,7 @@ ReturnEditsMode
 | **Value** |
 | --------- |
 | `"ALL"` |
+| `"ALL_V2_WITH_DELETIONS"` |
 | `"NONE"` |
 
 

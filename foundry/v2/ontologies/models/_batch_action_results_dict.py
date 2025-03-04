@@ -20,18 +20,12 @@ from typing import Union
 import pydantic
 from typing_extensions import Annotated
 
-from foundry.v2.connectivity.models._create_connection_request_secrets_names import (
-    CreateConnectionRequestSecretsNames,
+from foundry.v2.ontologies.models._batch_action_object_edits_dict import (
+    BatchActionObjectEditsDict,
 )  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_secrets_with_plaintext_values import (
-    CreateConnectionRequestSecretsWithPlaintextValues,
-)  # NOQA
+from foundry.v2.ontologies.models._object_type_edits_dict import ObjectTypeEditsDict
 
-CreateConnectionRequestRestConnectionAdditionalSecrets = Annotated[
-    Union[CreateConnectionRequestSecretsWithPlaintextValues, CreateConnectionRequestSecretsNames],
-    pydantic.Field(discriminator="type"),
+BatchActionResultsDict = Annotated[
+    Union[BatchActionObjectEditsDict, ObjectTypeEditsDict], pydantic.Field(discriminator="type")
 ]
-"""
-When creating or updating additional secrets, use SecretsWithPlaintextValues.
-When fetching the RestConnectionConfiguration, SecretsNames will be provided.
-"""
+"""BatchActionResults"""

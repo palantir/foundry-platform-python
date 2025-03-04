@@ -130,6 +130,16 @@ from foundry.v2.ontologies.models._attachment_v2 import AttachmentV2
 from foundry.v2.ontologies.models._attachment_v2_dict import AttachmentV2Dict
 from foundry.v2.ontologies.models._avg_aggregation_v2 import AvgAggregationV2
 from foundry.v2.ontologies.models._avg_aggregation_v2_dict import AvgAggregationV2Dict
+from foundry.v2.ontologies.models._batch_action_object_edit import BatchActionObjectEdit
+from foundry.v2.ontologies.models._batch_action_object_edit_dict import (
+    BatchActionObjectEditDict,
+)  # NOQA
+from foundry.v2.ontologies.models._batch_action_object_edits import BatchActionObjectEdits  # NOQA
+from foundry.v2.ontologies.models._batch_action_object_edits_dict import (
+    BatchActionObjectEditsDict,
+)  # NOQA
+from foundry.v2.ontologies.models._batch_action_results import BatchActionResults
+from foundry.v2.ontologies.models._batch_action_results_dict import BatchActionResultsDict  # NOQA
 from foundry.v2.ontologies.models._batch_apply_action_request_item import (
     BatchApplyActionRequestItem,
 )  # NOQA
@@ -148,6 +158,7 @@ from foundry.v2.ontologies.models._batch_apply_action_response_v2 import (
 from foundry.v2.ontologies.models._batch_apply_action_response_v2_dict import (
     BatchApplyActionResponseV2Dict,
 )  # NOQA
+from foundry.v2.ontologies.models._batch_return_edits_mode import BatchReturnEditsMode
 from foundry.v2.ontologies.models._blueprint_icon import BlueprintIcon
 from foundry.v2.ontologies.models._blueprint_icon_dict import BlueprintIconDict
 from foundry.v2.ontologies.models._bounding_box_value import BoundingBoxValue
@@ -207,8 +218,12 @@ from foundry.v2.ontologies.models._delete_interface_object_rule import (
 from foundry.v2.ontologies.models._delete_interface_object_rule_dict import (
     DeleteInterfaceObjectRuleDict,
 )  # NOQA
+from foundry.v2.ontologies.models._delete_link import DeleteLink
+from foundry.v2.ontologies.models._delete_link_dict import DeleteLinkDict
 from foundry.v2.ontologies.models._delete_link_rule import DeleteLinkRule
 from foundry.v2.ontologies.models._delete_link_rule_dict import DeleteLinkRuleDict
+from foundry.v2.ontologies.models._delete_object import DeleteObject
+from foundry.v2.ontologies.models._delete_object_dict import DeleteObjectDict
 from foundry.v2.ontologies.models._delete_object_rule import DeleteObjectRule
 from foundry.v2.ontologies.models._delete_object_rule_dict import DeleteObjectRuleDict
 from foundry.v2.ontologies.models._deprecated_property_type_status import (
@@ -877,12 +892,19 @@ __all__ = [
     "AttachmentV2Dict",
     "AvgAggregationV2",
     "AvgAggregationV2Dict",
+    "BatchActionObjectEdit",
+    "BatchActionObjectEditDict",
+    "BatchActionObjectEdits",
+    "BatchActionObjectEditsDict",
+    "BatchActionResults",
+    "BatchActionResultsDict",
     "BatchApplyActionRequestItem",
     "BatchApplyActionRequestItemDict",
     "BatchApplyActionRequestOptions",
     "BatchApplyActionRequestOptionsDict",
     "BatchApplyActionResponseV2",
     "BatchApplyActionResponseV2Dict",
+    "BatchReturnEditsMode",
     "BlueprintIcon",
     "BlueprintIconDict",
     "BoundingBoxValue",
@@ -916,8 +938,12 @@ __all__ = [
     "DataValue",
     "DeleteInterfaceObjectRule",
     "DeleteInterfaceObjectRuleDict",
+    "DeleteLink",
+    "DeleteLinkDict",
     "DeleteLinkRule",
     "DeleteLinkRuleDict",
+    "DeleteObject",
+    "DeleteObjectDict",
     "DeleteObjectRule",
     "DeleteObjectRuleDict",
     "DeprecatedPropertyTypeStatus",

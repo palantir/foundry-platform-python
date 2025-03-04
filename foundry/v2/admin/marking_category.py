@@ -91,7 +91,7 @@ class MarkingCategoryClient:
         :return: Returns the result object.
         :rtype: MarkingCategory
 
-        :raises GetMarkingCategoryPermissionDenied: You do not have permission to view the marking category.
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
         :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
         """
 
@@ -259,7 +259,7 @@ class _MarkingCategoryClientRaw:
         :return: Returns the result object.
         :rtype: ApiResponse[MarkingCategory]
 
-        :raises GetMarkingCategoryPermissionDenied: You do not have permission to view the marking category.
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
         :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
         """
 
@@ -427,7 +427,7 @@ class _MarkingCategoryClientStreaming:
         :return: Returns the result object.
         :rtype: StreamingContextManager[MarkingCategory]
 
-        :raises GetMarkingCategoryPermissionDenied: You do not have permission to view the marking category.
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
         :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
         """
 

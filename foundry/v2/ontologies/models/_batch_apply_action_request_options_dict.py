@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry.v2.ontologies.models._return_edits_mode import ReturnEditsMode
+from foundry.v2.ontologies.models._batch_return_edits_mode import BatchReturnEditsMode
 
 
 class BatchApplyActionRequestOptionsDict(TypedDict):
@@ -26,4 +26,4 @@ class BatchApplyActionRequestOptionsDict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    returnEdits: NotRequired[ReturnEditsMode]
+    returnEdits: NotRequired[BatchReturnEditsMode]

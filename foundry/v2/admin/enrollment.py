@@ -71,6 +71,16 @@ class EnrollmentClient:
             config=self._config,
         )
 
+    @cached_property
+    def AuthenticationProvider(self):
+        from foundry.v2.admin.authentication_provider import AuthenticationProviderClient  # NOQA
+
+        return AuthenticationProviderClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected

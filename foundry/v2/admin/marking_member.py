@@ -164,7 +164,7 @@ class MarkingMemberClient:
         :return: Returns the result object.
         :rtype: ResourceIterator[MarkingMember]
 
-        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
+        :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         return self._api_client.iterate_api(
@@ -225,7 +225,7 @@ class MarkingMemberClient:
         :return: Returns the result object.
         :rtype: ListMarkingMembersResponse
 
-        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
+        :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         warnings.warn(
@@ -429,7 +429,7 @@ class _MarkingMemberClientRaw:
         :return: Returns the result object.
         :rtype: ApiResponse[ListMarkingMembersResponse]
 
-        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
+        :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         return self._api_client.call_api(
@@ -490,7 +490,7 @@ class _MarkingMemberClientRaw:
         :return: Returns the result object.
         :rtype: ApiResponse[ListMarkingMembersResponse]
 
-        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
+        :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         warnings.warn(
@@ -694,7 +694,7 @@ class _MarkingMemberClientStreaming:
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListMarkingMembersResponse]
 
-        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
+        :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         return self._api_client.stream_api(
@@ -755,7 +755,7 @@ class _MarkingMemberClientStreaming:
         :return: Returns the result object.
         :rtype: StreamingContextManager[ListMarkingMembersResponse]
 
-        :raises ListMarkingMembersPermissionDenied: You do not have permission to list the members of this marking.
+        :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         warnings.warn(

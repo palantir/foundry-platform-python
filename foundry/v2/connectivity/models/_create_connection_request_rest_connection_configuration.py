@@ -23,21 +23,24 @@ from typing import cast
 import pydantic
 
 from foundry._core.utils import RID
-from foundry.v2.connectivity.models._create_connection_request_rest_connection_additional_secrets import (
-    CreateConnectionRequestRestConnectionAdditionalSecrets,
-)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_rest_connection_configuration_dict import (
     CreateConnectionRequestRestConnectionConfigurationDict,
 )  # NOQA
 from foundry.v2.connectivity.models._domain import Domain
+from foundry.v2.connectivity.models._rest_connection_additional_secrets import (
+    RestConnectionAdditionalSecrets,
+)  # NOQA
 
 
 class CreateConnectionRequestRestConnectionConfiguration(pydantic.BaseModel):
     """CreateConnectionRequestRestConnectionConfiguration"""
 
-    additional_secrets: CreateConnectionRequestRestConnectionAdditionalSecrets = pydantic.Field(alias=str("additionalSecrets"))  # type: ignore[literal-required]
+    additional_secrets: Optional[RestConnectionAdditionalSecrets] = pydantic.Field(alias=str("additionalSecrets"), default=None)  # type: ignore[literal-required]
 
-    """Additional secrets that can be referenced in code and webhook configurations."""
+    """
+    Additional secrets that can be referenced in code and webhook configurations.
+    If not provided, no additional secrets will be created.
+    """
 
     oauth2_client_rid: Optional[RID] = pydantic.Field(alias=str("oauth2ClientRid"), default=None)  # type: ignore[literal-required]
 

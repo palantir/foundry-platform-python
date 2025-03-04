@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
-from foundry.v2.ontologies.models._action_results_dict import ActionResultsDict
+from foundry.v2.ontologies.models._batch_action_results_dict import BatchActionResultsDict  # NOQA
 
 
 class BatchApplyActionResponseV2Dict(TypedDict):
@@ -26,4 +26,4 @@ class BatchApplyActionResponseV2Dict(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    edits: NotRequired[ActionResultsDict]
+    edits: NotRequired[BatchActionResultsDict]

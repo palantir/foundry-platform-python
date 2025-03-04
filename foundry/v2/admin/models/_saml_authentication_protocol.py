@@ -15,33 +15,30 @@
 
 from __future__ import annotations
 
-from typing import Dict
 from typing import Literal
 from typing import cast
 
 import pydantic
 
-from foundry.v2.connectivity.models._create_connection_request_secrets_with_plaintext_values_dict import (
-    CreateConnectionRequestSecretsWithPlaintextValuesDict,
+from foundry.v2.admin.models._saml_authentication_protocol_dict import (
+    SamlAuthenticationProtocolDict,
 )  # NOQA
-from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
-from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry.v2.admin.models._saml_service_provider_metadata import (
+    SamlServiceProviderMetadata,
+)  # NOQA
 
 
-class CreateConnectionRequestSecretsWithPlaintextValues(pydantic.BaseModel):
-    """CreateConnectionRequestSecretsWithPlaintextValues"""
+class SamlAuthenticationProtocol(pydantic.BaseModel):
+    """SamlAuthenticationProtocol"""
 
-    secrets: Dict[SecretName, PlaintextValue]
+    service_provider_metadata: SamlServiceProviderMetadata = pydantic.Field(alias=str("serviceProviderMetadata"))  # type: ignore[literal-required]
 
-    """The additional secrets that can be referenced in code and webhook configurations."""
-
-    type: Literal["asSecretsWithPlaintextValues"] = "asSecretsWithPlaintextValues"
+    type: Literal["saml"] = "saml"
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> CreateConnectionRequestSecretsWithPlaintextValuesDict:
+    def to_dict(self) -> SamlAuthenticationProtocolDict:
         """Return the dictionary representation of the model using the field aliases."""
         return cast(
-            CreateConnectionRequestSecretsWithPlaintextValuesDict,
-            self.model_dump(by_alias=True, exclude_none=True),
+            SamlAuthenticationProtocolDict, self.model_dump(by_alias=True, exclude_none=True)
         )

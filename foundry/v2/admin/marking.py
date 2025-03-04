@@ -204,7 +204,7 @@ class MarkingClient:
         :return: Returns the result object.
         :rtype: Marking
 
-        :raises GetMarkingPermissionDenied: You do not have permission to view the marking.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
         """
 
@@ -502,7 +502,7 @@ class _MarkingClientRaw:
         :return: Returns the result object.
         :rtype: ApiResponse[Marking]
 
-        :raises GetMarkingPermissionDenied: You do not have permission to view the marking.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
         """
 
@@ -800,7 +800,7 @@ class _MarkingClientStreaming:
         :return: Returns the result object.
         :rtype: StreamingContextManager[Marking]
 
-        :raises GetMarkingPermissionDenied: You do not have permission to view the marking.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
         """
 
