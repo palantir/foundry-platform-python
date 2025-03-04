@@ -1162,6 +1162,144 @@ def admin_enrollment_get_current(
     click.echo(repr(result))
 
 
+@admin_enrollment.group("authentication_provider")
+def admin_enrollment_authentication_provider():
+    pass
+
+
+@admin_enrollment_authentication_provider.command("get")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.argument("authentication_provider_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_authentication_provider_get(
+    client: foundry.v2.FoundryClient,
+    enrollment_rid: str,
+    authentication_provider_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Get the AuthenticationProvider with the specified rid.
+    """
+    result = client.admin.Enrollment.AuthenticationProvider.get(
+        enrollment_rid=enrollment_rid,
+        authentication_provider_rid=authentication_provider_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment_authentication_provider.command("list")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_authentication_provider_list(
+    client: foundry.v2.FoundryClient,
+    enrollment_rid: str,
+    preview: Optional[bool],
+):
+    """
+    Lists all AuthenticationProviders.
+
+
+    """
+    result = client.admin.Enrollment.AuthenticationProvider.list(
+        enrollment_rid=enrollment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment_authentication_provider.command("preregister_group")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.argument("authentication_provider_rid", type=str, required=True)
+@click.option("--name", type=str, required=True, help="""""")
+@click.option(
+    "--organizations",
+    type=str,
+    required=True,
+    help="""The RIDs of the Organizations that can view this group.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_authentication_provider_preregister_group(
+    client: foundry.v2.FoundryClient,
+    enrollment_rid: str,
+    authentication_provider_rid: str,
+    name: str,
+    organizations: str,
+    preview: Optional[bool],
+):
+    """
+    Register a Group with a given name before any users with this group log in through this Authentication Provider.
+    Preregistered groups can be used anywhere other groups are used in the platform.
+
+    """
+    result = client.admin.Enrollment.AuthenticationProvider.preregister_group(
+        enrollment_rid=enrollment_rid,
+        authentication_provider_rid=authentication_provider_rid,
+        name=name,
+        organizations=json.loads(organizations),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment_authentication_provider.command("preregister_user")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.argument("authentication_provider_rid", type=str, required=True)
+@click.option(
+    "--organization",
+    type=str,
+    required=True,
+    help="""The RID of the user's primary Organization. This may be changed when the user logs in for the first
+time depending on any configured Organization assignment rules.
+""",
+)
+@click.option(
+    "--username",
+    type=str,
+    required=True,
+    help="""The new user's username. This must match one of the provider's supported username patterns.""",
+)
+@click.option("--attributes", type=str, required=False, help="""""")
+@click.option("--email", type=str, required=False, help="""""")
+@click.option("--family_name", type=str, required=False, help="""""")
+@click.option("--given_name", type=str, required=False, help="""""")
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.pass_obj
+def admin_enrollment_authentication_provider_preregister_user(
+    client: foundry.v2.FoundryClient,
+    enrollment_rid: str,
+    authentication_provider_rid: str,
+    organization: str,
+    username: str,
+    attributes: Optional[str],
+    email: Optional[str],
+    family_name: Optional[str],
+    given_name: Optional[str],
+    preview: Optional[bool],
+):
+    """
+    Register a User with a given username before they log in to the platform for the first time through this
+    Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
+
+    """
+    result = client.admin.Enrollment.AuthenticationProvider.preregister_user(
+        enrollment_rid=enrollment_rid,
+        authentication_provider_rid=authentication_provider_rid,
+        organization=organization,
+        username=username,
+        attributes=None if attributes is None else json.loads(attributes),
+        email=email,
+        family_name=family_name,
+        given_name=given_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_enrollment.group("host")
 def admin_enrollment_host():
     pass

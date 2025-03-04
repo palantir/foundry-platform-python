@@ -15,14 +15,31 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Literal
 
 from typing_extensions import TypedDict
 
+from foundry._errors import PermissionDeniedError
+from foundry.v2.admin.models._authentication_provider_rid import AuthenticationProviderRid  # NOQA
+from foundry.v2.core.models._enrollment_rid import EnrollmentRid
 
-class CreateConnectionRequestSecretsNamesDict(TypedDict):
-    """CreateConnectionRequestSecretsNames"""
+
+class PreregisterGroupPermissionDeniedParameters(TypedDict):
+    """Could not preregisterGroup the AuthenticationProvider."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    type: Literal["asSecretsNames"]
+    enrollmentRid: EnrollmentRid
+
+    authenticationProviderRid: AuthenticationProviderRid
+
+
+@dataclass
+class PreregisterGroupPermissionDenied(PermissionDeniedError):
+    name: Literal["PreregisterGroupPermissionDenied"]
+    parameters: PreregisterGroupPermissionDeniedParameters
+    error_instance_id: str
+
+
+__all__ = ["PreregisterGroupPermissionDenied"]

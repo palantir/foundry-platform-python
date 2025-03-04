@@ -42,9 +42,12 @@ class RestConnectionConfiguration(pydantic.BaseModel):
     At least one domain must be specified.
     """
 
-    additional_secrets: RestConnectionAdditionalSecrets = pydantic.Field(alias=str("additionalSecrets"))  # type: ignore[literal-required]
+    additional_secrets: Optional[RestConnectionAdditionalSecrets] = pydantic.Field(alias=str("additionalSecrets"), default=None)  # type: ignore[literal-required]
 
-    """Additional secrets that can be referenced in code and webhook configurations."""
+    """
+    Additional secrets that can be referenced in code and webhook configurations.
+    If not provided, no additional secrets will be created.
+    """
 
     oauth2_client_rid: Optional[RID] = pydantic.Field(alias=str("oauth2ClientRid"), default=None)  # type: ignore[literal-required]
 

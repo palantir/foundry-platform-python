@@ -25,7 +25,7 @@ from foundry.v2.core.models._marking_id import MarkingId
 
 
 class ListMarkingMembersPermissionDeniedParameters(TypedDict):
-    """You do not have permission to list the members of this marking."""
+    """The provided token does not have permission to list the members of this marking."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

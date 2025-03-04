@@ -24,7 +24,7 @@ from foundry._errors import BadRequestError
 
 
 class InvalidGroupOrganizationsParameters(TypedDict):
-    """You must provide at least one Organization RID for a group"""
+    """At least one Organization RID must be provided for a group"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

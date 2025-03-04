@@ -39,8 +39,11 @@ class RestConnectionConfigurationDict(TypedDict):
     At least one domain must be specified.
     """
 
-    additionalSecrets: RestConnectionAdditionalSecretsDict
-    """Additional secrets that can be referenced in code and webhook configurations."""
+    additionalSecrets: NotRequired[RestConnectionAdditionalSecretsDict]
+    """
+    Additional secrets that can be referenced in code and webhook configurations.
+    If not provided, no additional secrets will be created.
+    """
 
     oauth2ClientRid: NotRequired[RID]
     """

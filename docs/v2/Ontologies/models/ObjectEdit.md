@@ -10,7 +10,9 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 ModifyObject | modifyObject
+DeleteObject | deleteObject
 AddObject | addObject
+DeleteLink | deleteLink
 AddLink | addLink
 
 

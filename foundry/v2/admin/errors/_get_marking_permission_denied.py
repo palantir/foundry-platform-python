@@ -25,7 +25,7 @@ from foundry.v2.core.models._marking_id import MarkingId
 
 
 class GetMarkingPermissionDeniedParameters(TypedDict):
-    """You do not have permission to view the marking."""
+    """The provided token does not have permission to view the marking."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

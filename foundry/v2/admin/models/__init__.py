@@ -16,6 +16,18 @@
 from foundry.v2.admin.models._attribute_name import AttributeName
 from foundry.v2.admin.models._attribute_value import AttributeValue
 from foundry.v2.admin.models._attribute_values import AttributeValues
+from foundry.v2.admin.models._authentication_protocol import AuthenticationProtocol
+from foundry.v2.admin.models._authentication_protocol_dict import AuthenticationProtocolDict  # NOQA
+from foundry.v2.admin.models._authentication_provider import AuthenticationProvider
+from foundry.v2.admin.models._authentication_provider_dict import AuthenticationProviderDict  # NOQA
+from foundry.v2.admin.models._authentication_provider_enabled import (
+    AuthenticationProviderEnabled,
+)  # NOQA
+from foundry.v2.admin.models._authentication_provider_name import AuthenticationProviderName  # NOQA
+from foundry.v2.admin.models._authentication_provider_rid import AuthenticationProviderRid  # NOQA
+from foundry.v2.admin.models._certificate_info import CertificateInfo
+from foundry.v2.admin.models._certificate_info_dict import CertificateInfoDict
+from foundry.v2.admin.models._certificate_usage_type import CertificateUsageType
 from foundry.v2.admin.models._enrollment import Enrollment
 from foundry.v2.admin.models._enrollment_dict import EnrollmentDict
 from foundry.v2.admin.models._enrollment_name import EnrollmentName
@@ -66,6 +78,12 @@ from foundry.v2.admin.models._group_search_filter_dict import GroupSearchFilterD
 from foundry.v2.admin.models._host import Host
 from foundry.v2.admin.models._host_dict import HostDict
 from foundry.v2.admin.models._host_name import HostName
+from foundry.v2.admin.models._list_authentication_providers_response import (
+    ListAuthenticationProvidersResponse,
+)  # NOQA
+from foundry.v2.admin.models._list_authentication_providers_response_dict import (
+    ListAuthenticationProvidersResponseDict,
+)  # NOQA
 from foundry.v2.admin.models._list_group_members_response import ListGroupMembersResponse  # NOQA
 from foundry.v2.admin.models._list_group_members_response_dict import (
     ListGroupMembersResponseDict,
@@ -118,11 +136,25 @@ from foundry.v2.admin.models._marking_role_assignment_dict import MarkingRoleAss
 from foundry.v2.admin.models._marking_role_update import MarkingRoleUpdate
 from foundry.v2.admin.models._marking_role_update_dict import MarkingRoleUpdateDict
 from foundry.v2.admin.models._marking_type import MarkingType
+from foundry.v2.admin.models._oidc_authentication_protocol import OidcAuthenticationProtocol  # NOQA
+from foundry.v2.admin.models._oidc_authentication_protocol_dict import (
+    OidcAuthenticationProtocolDict,
+)  # NOQA
 from foundry.v2.admin.models._organization import Organization
 from foundry.v2.admin.models._organization_dict import OrganizationDict
 from foundry.v2.admin.models._organization_name import OrganizationName
 from foundry.v2.admin.models._principal_filter_type import PrincipalFilterType
 from foundry.v2.admin.models._provider_id import ProviderId
+from foundry.v2.admin.models._saml_authentication_protocol import SamlAuthenticationProtocol  # NOQA
+from foundry.v2.admin.models._saml_authentication_protocol_dict import (
+    SamlAuthenticationProtocolDict,
+)  # NOQA
+from foundry.v2.admin.models._saml_service_provider_metadata import (
+    SamlServiceProviderMetadata,
+)  # NOQA
+from foundry.v2.admin.models._saml_service_provider_metadata_dict import (
+    SamlServiceProviderMetadataDict,
+)  # NOQA
 from foundry.v2.admin.models._search_groups_response import SearchGroupsResponse
 from foundry.v2.admin.models._search_groups_response_dict import SearchGroupsResponseDict  # NOQA
 from foundry.v2.admin.models._search_users_response import SearchUsersResponse
@@ -139,6 +171,16 @@ __all__ = [
     "AttributeName",
     "AttributeValue",
     "AttributeValues",
+    "AuthenticationProtocol",
+    "AuthenticationProtocolDict",
+    "AuthenticationProvider",
+    "AuthenticationProviderDict",
+    "AuthenticationProviderEnabled",
+    "AuthenticationProviderName",
+    "AuthenticationProviderRid",
+    "CertificateInfo",
+    "CertificateInfoDict",
+    "CertificateUsageType",
     "Enrollment",
     "EnrollmentDict",
     "EnrollmentName",
@@ -171,6 +213,8 @@ __all__ = [
     "Host",
     "HostDict",
     "HostName",
+    "ListAuthenticationProvidersResponse",
+    "ListAuthenticationProvidersResponseDict",
     "ListGroupMembersResponse",
     "ListGroupMembersResponseDict",
     "ListGroupMembershipsResponse",
@@ -205,11 +249,17 @@ __all__ = [
     "MarkingRoleUpdate",
     "MarkingRoleUpdateDict",
     "MarkingType",
+    "OidcAuthenticationProtocol",
+    "OidcAuthenticationProtocolDict",
     "Organization",
     "OrganizationDict",
     "OrganizationName",
     "PrincipalFilterType",
     "ProviderId",
+    "SamlAuthenticationProtocol",
+    "SamlAuthenticationProtocolDict",
+    "SamlServiceProviderMetadata",
+    "SamlServiceProviderMetadataDict",
     "SearchGroupsResponse",
     "SearchGroupsResponseDict",
     "SearchUsersResponse",

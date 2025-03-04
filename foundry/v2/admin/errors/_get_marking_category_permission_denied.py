@@ -25,7 +25,7 @@ from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
 
 
 class GetMarkingCategoryPermissionDeniedParameters(TypedDict):
-    """You do not have permission to view the marking category."""
+    """The provided token does not have permission to view the marking category."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

@@ -67,12 +67,6 @@ from foundry.v2.connectivity.models._create_connection_request_direct_connection
 from foundry.v2.connectivity.models._create_connection_request_direct_connection_runtime_dict import (
     CreateConnectionRequestDirectConnectionRuntimeDict,
 )  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_rest_connection_additional_secrets import (
-    CreateConnectionRequestRestConnectionAdditionalSecrets,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_rest_connection_additional_secrets_dict import (
-    CreateConnectionRequestRestConnectionAdditionalSecretsDict,
-)  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_rest_connection_configuration import (
     CreateConnectionRequestRestConnectionConfiguration,
 )  # NOQA
@@ -90,18 +84,6 @@ from foundry.v2.connectivity.models._create_connection_request_s3_connection_con
 )  # NOQA
 from foundry.v2.connectivity.models._create_connection_request_s3_connection_configuration_dict import (
     CreateConnectionRequestS3ConnectionConfigurationDict,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_secrets_names import (
-    CreateConnectionRequestSecretsNames,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_secrets_names_dict import (
-    CreateConnectionRequestSecretsNamesDict,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_secrets_with_plaintext_values import (
-    CreateConnectionRequestSecretsWithPlaintextValues,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_secrets_with_plaintext_values_dict import (
-    CreateConnectionRequestSecretsWithPlaintextValuesDict,
 )  # NOQA
 from foundry.v2.connectivity.models._create_table_import_request_jdbc_import_config import (
     CreateTableImportRequestJdbcImportConfig,
@@ -349,18 +331,12 @@ __all__ = [
     "CreateConnectionRequestConnectionConfigurationDict",
     "CreateConnectionRequestDirectConnectionRuntime",
     "CreateConnectionRequestDirectConnectionRuntimeDict",
-    "CreateConnectionRequestRestConnectionAdditionalSecrets",
-    "CreateConnectionRequestRestConnectionAdditionalSecretsDict",
     "CreateConnectionRequestRestConnectionConfiguration",
     "CreateConnectionRequestRestConnectionConfigurationDict",
     "CreateConnectionRequestRuntimePlatform",
     "CreateConnectionRequestRuntimePlatformDict",
     "CreateConnectionRequestS3ConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfigurationDict",
-    "CreateConnectionRequestSecretsNames",
-    "CreateConnectionRequestSecretsNamesDict",
-    "CreateConnectionRequestSecretsWithPlaintextValues",
-    "CreateConnectionRequestSecretsWithPlaintextValuesDict",
     "CreateTableImportRequestJdbcImportConfig",
     "CreateTableImportRequestJdbcImportConfigDict",
     "CreateTableImportRequestMicrosoftAccessImportConfig",

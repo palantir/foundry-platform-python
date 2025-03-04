@@ -20,7 +20,7 @@ from typing import cast
 
 import pydantic
 
-from foundry.v2.ontologies.models._action_results import ActionResults
+from foundry.v2.ontologies.models._batch_action_results import BatchActionResults
 from foundry.v2.ontologies.models._batch_apply_action_response_v2_dict import (
     BatchApplyActionResponseV2Dict,
 )  # NOQA
@@ -29,7 +29,7 @@ from foundry.v2.ontologies.models._batch_apply_action_response_v2_dict import (
 class BatchApplyActionResponseV2(pydantic.BaseModel):
     """BatchApplyActionResponseV2"""
 
-    edits: Optional[ActionResults] = None
+    edits: Optional[BatchActionResults] = None
 
     model_config = {"extra": "allow", "populate_by_name": True}
 

@@ -20,21 +20,11 @@ from typing import Union
 import pydantic
 from typing_extensions import Annotated
 
-from foundry.v2.connectivity.models._create_connection_request_secrets_names_dict import (
-    CreateConnectionRequestSecretsNamesDict,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_secrets_with_plaintext_values_dict import (
-    CreateConnectionRequestSecretsWithPlaintextValuesDict,
-)  # NOQA
+from foundry.v2.admin.models._oidc_authentication_protocol import OidcAuthenticationProtocol  # NOQA
+from foundry.v2.admin.models._saml_authentication_protocol import SamlAuthenticationProtocol  # NOQA
 
-CreateConnectionRequestRestConnectionAdditionalSecretsDict = Annotated[
-    Union[
-        CreateConnectionRequestSecretsWithPlaintextValuesDict,
-        CreateConnectionRequestSecretsNamesDict,
-    ],
+AuthenticationProtocol = Annotated[
+    Union[SamlAuthenticationProtocol, OidcAuthenticationProtocol],
     pydantic.Field(discriminator="type"),
 ]
-"""
-When creating or updating additional secrets, use SecretsWithPlaintextValues.
-When fetching the RestConnectionConfiguration, SecretsNames will be provided.
-"""
+"""AuthenticationProtocol"""
