@@ -27,6 +27,7 @@ from unittest.mock import patch
 import httpx
 import pytest
 
+from foundry import ApiNotFoundError
 from foundry import BadRequestError
 from foundry import ConfidentialClientAuth
 from foundry import Config
@@ -373,3 +374,19 @@ def test_client_hostname_prioritized():
 
         # And make sure the user receives a warning
         assert len(w) == 1
+
+
+def test_empty_404_error():
+    with pytest.raises(ApiNotFoundError):
+        client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
+
+        client._session.send = Mock(
+            return_value=AttrDict(
+                status_code=404,
+                headers={},
+                content=b"",
+                text="",
+            )
+        )
+
+        client.call_api(RequestInfo.with_defaults("POST", "/abc"))

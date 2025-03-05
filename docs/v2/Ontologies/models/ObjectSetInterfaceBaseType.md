@@ -5,7 +5,8 @@ ObjectSetInterfaceBaseType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**interface_type** | str | Yes | An object set with objects that implement the interface with the given interface API name. The objects in  the object set will only have properties that implement properties of the given interface. This is currently  unsupported and an exception will be thrown if used.  |
+**interface_type** | str | Yes | An object set with objects that implement the interface with the given interface API name. The objects in  the object set will only have properties that implement properties of the given interface, unless you set the includeAllBaseObjectProperties flag.  |
+**include_all_base_object_properties** | Optional[bool] | No | A flag that will return all of the underlying object properties for the objects that implement the interface.  This includes properties that don't explicitly implement an SPT on the interface.  |
 **type** | Literal["interfaceBase"] | Yes | None |
 
 

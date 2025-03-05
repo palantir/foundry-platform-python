@@ -43,6 +43,7 @@ from foundry._core.binary_stream import BinaryStream
 from foundry._core.config import Config
 from foundry._core.http_client import HttpClient
 from foundry._core.resource_iterator import ResourceIterator
+from foundry._errors import ApiNotFoundError
 from foundry._errors import BadRequestError
 from foundry._errors import ConflictError
 from foundry._errors import ConnectionError
@@ -397,6 +398,20 @@ class ApiClient:
     def _check_for_errors(self, req: RequestInfo, res: httpx.Response):
         if 200 <= res.status_code <= 299:
             return
+
+        # If the user is streaming back the response, we need to make sure we
+        # wait for the entire response to be streamed back before we can access
+        # the content. If we don't do this, accessing "text" or calling ".json()"
+        # will raise an exception.
+        if req.stream:
+            res.read()
+
+        if res.status_code == 404 and res.text == "":
+            raise ApiNotFoundError(
+                f'The reqeust to "{req.resource_path}" returned a 404 status code '
+                "with no response body. This likely indicates that the API is not yet "
+                "available on your Foundry instance."
+            )
 
         try:
             error_json = res.json()

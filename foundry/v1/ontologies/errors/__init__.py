@@ -221,8 +221,8 @@ from foundry.v1.ontologies.errors._view_object_permission_denied import (
 )  # NOQA
 
 __all__ = [
-    "InvalidAggregationRangeValue",
     "MalformedPropertyFilters",
+    "InvalidAggregationRangeValue",
     "ActionParameterInterfaceTypeNotFound",
     "MarketplaceObjectMappingNotFound",
     "InvalidDurationGroupByValue",
