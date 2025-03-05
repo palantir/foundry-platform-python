@@ -2,13 +2,13 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add_organizations**](#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations | Private Beta |
+[**add_organizations**](#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations | Public Beta |
 [**create**](#create) | **POST** /v2/filesystem/projects/create | Public Beta |
 [**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Private Beta |
-[**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Private Beta |
-[**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Private Beta |
-[**organizations_page**](#organizations_page) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Private Beta |
-[**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Private Beta |
+[**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Public Beta |
+[**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
+[**organizations_page**](#organizations_page) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
+[**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Public Beta |
 
 # **add_organizations**
 Adds a list of Organizations to a Project.

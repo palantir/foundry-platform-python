@@ -2,16 +2,16 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add_markings**](#add_markings) | **POST** /v2/filesystem/resources/{resourceRid}/addMarkings | Private Beta |
-[**delete**](#delete) | **DELETE** /v2/filesystem/resources/{resourceRid} | Private Beta |
-[**get**](#get) | **GET** /v2/filesystem/resources/{resourceRid} | Private Beta |
-[**get_access_requirements**](#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements | Private Beta |
-[**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Private Beta |
-[**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Private Beta |
-[**markings_page**](#markings_page) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Private Beta |
-[**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Private Beta |
-[**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Private Beta |
-[**restore**](#restore) | **POST** /v2/filesystem/resources/{resourceRid}/restore | Private Beta |
+[**add_markings**](#add_markings) | **POST** /v2/filesystem/resources/{resourceRid}/addMarkings | Public Beta |
+[**delete**](#delete) | **DELETE** /v2/filesystem/resources/{resourceRid} | Public Beta |
+[**get**](#get) | **GET** /v2/filesystem/resources/{resourceRid} | Public Beta |
+[**get_access_requirements**](#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements | Public Beta |
+[**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Public Beta |
+[**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Public Beta |
+[**markings_page**](#markings_page) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Public Beta |
+[**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Public Beta |
+[**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Public Beta |
+[**restore**](#restore) | **POST** /v2/filesystem/resources/{resourceRid}/restore | Public Beta |
 
 # **add_markings**
 Adds a list of Markings to a resource.
