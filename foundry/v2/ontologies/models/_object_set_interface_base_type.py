@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from typing import Literal
+from typing import Optional
 from typing import cast
 
 import pydantic
@@ -32,8 +33,14 @@ class ObjectSetInterfaceBaseType(pydantic.BaseModel):
 
     """
     An object set with objects that implement the interface with the given interface API name. The objects in 
-    the object set will only have properties that implement properties of the given interface. This is currently 
-    unsupported and an exception will be thrown if used.
+    the object set will only have properties that implement properties of the given interface, unless you set the includeAllBaseObjectProperties flag.
+    """
+
+    include_all_base_object_properties: Optional[bool] = pydantic.Field(alias=str("includeAllBaseObjectProperties"), default=None)  # type: ignore[literal-required]
+
+    """
+    A flag that will return all of the underlying object properties for the objects that implement the interface. 
+    This includes properties that don't explicitly implement an SPT on the interface.
     """
 
     type: Literal["interfaceBase"] = "interfaceBase"

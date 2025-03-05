@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from foundry._errors.api_not_found import ApiNotFoundError
 from foundry._errors.connection_error import ConnectionError
 from foundry._errors.connection_error import ProxyError
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured

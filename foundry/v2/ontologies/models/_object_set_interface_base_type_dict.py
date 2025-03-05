@@ -17,6 +17,7 @@ from __future__ import annotations
 
 from typing import Literal
 
+from typing_extensions import NotRequired
 from typing_extensions import TypedDict
 
 
@@ -28,8 +29,13 @@ class ObjectSetInterfaceBaseTypeDict(TypedDict):
     interfaceType: str
     """
     An object set with objects that implement the interface with the given interface API name. The objects in 
-    the object set will only have properties that implement properties of the given interface. This is currently 
-    unsupported and an exception will be thrown if used.
+    the object set will only have properties that implement properties of the given interface, unless you set the includeAllBaseObjectProperties flag.
+    """
+
+    includeAllBaseObjectProperties: NotRequired[bool]
+    """
+    A flag that will return all of the underlying object properties for the objects that implement the interface. 
+    This includes properties that don't explicitly implement an SPT on the interface.
     """
 
     type: Literal["interfaceBase"]

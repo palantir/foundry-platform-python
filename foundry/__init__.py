@@ -22,6 +22,7 @@ from foundry._core import ResourceIterator
 from foundry._core import StreamedApiResponse
 from foundry._core import StreamingContextManager
 from foundry._core import UserTokenAuth
+from foundry._errors import ApiNotFoundError
 from foundry._errors import BadRequestError
 from foundry._errors import ConflictError
 from foundry._errors import ConnectionError
@@ -83,4 +84,5 @@ __all__ = [
     "ReadTimeout",
     "WriteTimeout",
     "TimeoutError",
+    "ApiNotFoundError",
 ]
