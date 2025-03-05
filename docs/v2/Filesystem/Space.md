@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**list**](#list) | **GET** /v2/filesystem/spaces | Private Beta |
-[**page**](#page) | **GET** /v2/filesystem/spaces | Private Beta |
+[**list**](#list) | **GET** /v2/filesystem/spaces | Public Beta |
+[**page**](#page) | **GET** /v2/filesystem/spaces | Public Beta |
 
 # **list**
 Lists all Spaces.

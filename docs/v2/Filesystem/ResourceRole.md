@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add**](#add) | **POST** /v2/filesystem/resources/{resourceRid}/roles/add | Private Beta |
-[**list**](#list) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Private Beta |
-[**page**](#page) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Private Beta |
-[**remove**](#remove) | **POST** /v2/filesystem/resources/{resourceRid}/roles/remove | Private Beta |
+[**add**](#add) | **POST** /v2/filesystem/resources/{resourceRid}/roles/add | Public Beta |
+[**list**](#list) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Public Beta |
+[**page**](#page) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Public Beta |
+[**remove**](#remove) | **POST** /v2/filesystem/resources/{resourceRid}/roles/remove | Public Beta |
 
 # **add**
 
