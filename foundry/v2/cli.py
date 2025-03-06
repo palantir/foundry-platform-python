@@ -4011,6 +4011,34 @@ def media_sets_media_set_read(
     click.echo(result)
 
 
+@media_sets_media_set.command("read_original")
+@click.argument("media_set_rid", type=str, required=True)
+@click.argument("media_item_rid", type=str, required=True)
+@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option("--read_token", type=str, required=False, help="""ReadToken""")
+@click.pass_obj
+def media_sets_media_set_read_original(
+    client: foundry.v2.FoundryClient,
+    media_set_rid: str,
+    media_item_rid: str,
+    preview: Optional[bool],
+    read_token: Optional[str],
+):
+    """
+    Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+    """
+    result = client.media_sets.MediaSet.read_original(
+        media_set_rid=media_set_rid,
+        media_item_rid=media_item_rid,
+        preview=preview,
+        read_token=read_token,
+    )
+    click.echo(result)
+
+
 @media_sets_media_set.command("reference")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
