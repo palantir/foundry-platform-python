@@ -457,6 +457,186 @@ class MediaSetClient:
             ),
         ).decode()
 
+    @overload
+    @deprecated(
+        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
+    )
+    def read_original(
+        self,
+        media_set_rid: MediaSetRid,
+        media_item_rid: MediaItemRid,
+        *,
+        stream: Literal[True],
+        preview: Optional[PreviewMode] = None,
+        read_token: Optional[MediaItemReadToken] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> BinaryStream:
+        """
+        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: mediaSetRid
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: mediaItemRid
+        :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param read_token: ReadToken
+        :type read_token: Optional[MediaItemReadToken]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: BinaryStream
+        """
+        ...
+
+    @overload
+    def read_original(
+        self,
+        media_set_rid: MediaSetRid,
+        media_item_rid: MediaItemRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        read_token: Optional[MediaItemReadToken] = None,
+        stream: Literal[False] = False,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> bytes:
+        """
+        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: mediaSetRid
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: mediaItemRid
+        :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param read_token: ReadToken
+        :type read_token: Optional[MediaItemReadToken]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: bytes
+        """
+        ...
+
+    @overload
+    @deprecated(
+        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
+    )
+    def read_original(
+        self,
+        media_set_rid: MediaSetRid,
+        media_item_rid: MediaItemRid,
+        *,
+        stream: bool,
+        preview: Optional[PreviewMode] = None,
+        read_token: Optional[MediaItemReadToken] = None,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: mediaSetRid
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: mediaItemRid
+        :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param read_token: ReadToken
+        :type read_token: Optional[MediaItemReadToken]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
+        """
+        ...
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def read_original(
+        self,
+        media_set_rid: MediaSetRid,
+        media_item_rid: MediaItemRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        read_token: Optional[MediaItemReadToken] = None,
+        stream: bool = False,
+        chunk_size: Optional[int] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> Union[bytes, BinaryStream]:
+        """
+        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: mediaSetRid
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: mediaItemRid
+        :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param read_token: ReadToken
+        :type read_token: Optional[MediaItemReadToken]
+        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
+        :type stream: bool
+        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
+        :type chunk_size: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: Union[bytes, BinaryStream]
+        """
+
+        if stream:
+            warnings.warn(
+                f"client.media_sets.MediaSet.read_original(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.media_sets.MediaSet.with_streaming_response.read_original(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "*/*",
+                },
+                body=None,
+                body_type=None,
+                response_type=bytes,
+                stream=stream,
+                chunk_size=chunk_size,
+                request_timeout=request_timeout,
+                throwable_errors={},
+            ),
+        ).decode()
+
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
@@ -861,6 +1041,60 @@ class _MediaSetClientRaw:
     @maybe_ignore_preview
     @pydantic.validate_call
     @handle_unexpected
+    def read_original(
+        self,
+        media_set_rid: MediaSetRid,
+        media_item_rid: MediaItemRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        read_token: Optional[MediaItemReadToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> ApiResponse[bytes]:
+        """
+        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: mediaSetRid
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: mediaItemRid
+        :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param read_token: ReadToken
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ApiResponse[bytes]
+        """
+
+        return self._api_client.call_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "*/*",
+                },
+                body=None,
+                body_type=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={},
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
     def reference(
         self,
         media_set_rid: MediaSetRid,
@@ -1240,6 +1474,60 @@ class _MediaSetClientStreaming:
             RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "*/*",
+                },
+                body=None,
+                body_type=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={},
+            ),
+        )
+
+    @maybe_ignore_preview
+    @pydantic.validate_call
+    @handle_unexpected
+    def read_original(
+        self,
+        media_set_rid: MediaSetRid,
+        media_item_rid: MediaItemRid,
+        *,
+        preview: Optional[PreviewMode] = None,
+        read_token: Optional[MediaItemReadToken] = None,
+        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+    ) -> StreamingContextManager[bytes]:
+        """
+        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: mediaSetRid
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: mediaItemRid
+        :type media_item_rid: MediaItemRid
+        :param preview: preview
+        :type preview: Optional[PreviewMode]
+        :param read_token: ReadToken
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: StreamingContextManager[bytes]
+        """
+
+        return self._api_client.stream_api(
+            RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
                 query_params={
                     "preview": preview,
                 },

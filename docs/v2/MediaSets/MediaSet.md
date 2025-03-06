@@ -7,6 +7,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions | Public Beta |
 [**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} | Public Beta |
 [**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Public Beta |
+[**read_original**](#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original | Public Beta |
 [**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
 
@@ -312,6 +313,72 @@ try:
     pprint(api_response)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling MediaSet.read: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | bytes  | The content stream. | */* |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **read_original**
+Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**media_item_rid** | MediaItemRid | mediaItemRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**read_token** | Optional[MediaItemReadToken] | ReadToken | [optional] |
+
+### Return type
+**bytes**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# MediaSetRid | mediaSetRid
+media_set_rid = None
+# MediaItemRid | mediaItemRid
+media_item_rid = None
+# Optional[PreviewMode] | preview
+preview = None
+# Optional[MediaItemReadToken] | ReadToken
+read_token = None
+
+
+try:
+    api_response = foundry_client.media_sets.MediaSet.read_original(
+        media_set_rid,
+        media_item_rid,
+        preview=preview,
+        read_token=read_token,
+    )
+    print("The read_original response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.read_original: %s\n" % e)
 
 ```
 
