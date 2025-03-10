@@ -213,9 +213,9 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-from foundry.v2.core import models as core_models
-from foundry.v2.datasets import models as datasets_models
-from foundry.v2.filesystem import models as filesystem_models
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.datasets import models as datasets_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 __all__ = [
     "Compressed",

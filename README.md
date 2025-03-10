@@ -1092,8 +1092,6 @@ Namespace | Name | Import |
 **Core** | [FolderRid](docs/v2/Core/models/FolderRid.md) | `from foundry.v2.core.models import FolderRid` |
 **Core** | [FoundryLiveDeployment](docs/v2/Core/models/FoundryLiveDeployment.md) | `from foundry.v2.core.models import FoundryLiveDeployment` |
 **Core** | [FoundryLiveDeploymentDict](docs/v2/Core/models/FoundryLiveDeploymentDict.md) | `from foundry.v2.core.models import FoundryLiveDeploymentDict` |
-**Core** | [FullRowChangeDataCaptureConfiguration](docs/v2/Core/models/FullRowChangeDataCaptureConfiguration.md) | `from foundry.v2.core.models import FullRowChangeDataCaptureConfiguration` |
-**Core** | [FullRowChangeDataCaptureConfigurationDict](docs/v2/Core/models/FullRowChangeDataCaptureConfigurationDict.md) | `from foundry.v2.core.models import FullRowChangeDataCaptureConfigurationDict` |
 **Core** | [GeoPointType](docs/v2/Core/models/GeoPointType.md) | `from foundry.v2.core.models import GeoPointType` |
 **Core** | [GeoPointTypeDict](docs/v2/Core/models/GeoPointTypeDict.md) | `from foundry.v2.core.models import GeoPointTypeDict` |
 **Core** | [GeoShapeType](docs/v2/Core/models/GeoShapeType.md) | `from foundry.v2.core.models import GeoShapeType` |
@@ -1125,8 +1123,6 @@ Namespace | Name | Import |
 **Core** | [MediaSetRid](docs/v2/Core/models/MediaSetRid.md) | `from foundry.v2.core.models import MediaSetRid` |
 **Core** | [MediaSetViewItem](docs/v2/Core/models/MediaSetViewItem.md) | `from foundry.v2.core.models import MediaSetViewItem` |
 **Core** | [MediaSetViewItemDict](docs/v2/Core/models/MediaSetViewItemDict.md) | `from foundry.v2.core.models import MediaSetViewItemDict` |
-**Core** | [MediaSetViewItemWrapper](docs/v2/Core/models/MediaSetViewItemWrapper.md) | `from foundry.v2.core.models import MediaSetViewItemWrapper` |
-**Core** | [MediaSetViewItemWrapperDict](docs/v2/Core/models/MediaSetViewItemWrapperDict.md) | `from foundry.v2.core.models import MediaSetViewItemWrapperDict` |
 **Core** | [MediaSetViewRid](docs/v2/Core/models/MediaSetViewRid.md) | `from foundry.v2.core.models import MediaSetViewRid` |
 **Core** | [MediaType](docs/v2/Core/models/MediaType.md) | `from foundry.v2.core.models import MediaType` |
 **Core** | [NullType](docs/v2/Core/models/NullType.md) | `from foundry.v2.core.models import NullType` |
@@ -1332,11 +1328,7 @@ Namespace | Name | Import |
 **Functions** | [VersionIdDict](docs/v2/Functions/models/VersionIdDict.md) | `from foundry.v2.functions.models import VersionIdDict` |
 **Geo** | [BBox](docs/v2/Geo/models/BBox.md) | `from foundry.v2.geo.models import BBox` |
 **Geo** | [Coordinate](docs/v2/Geo/models/Coordinate.md) | `from foundry.v2.geo.models import Coordinate` |
-**Geo** | [GeoPoint](docs/v2/Geo/models/GeoPoint.md) | `from foundry.v2.geo.models import GeoPoint` |
-**Geo** | [GeoPointDict](docs/v2/Geo/models/GeoPointDict.md) | `from foundry.v2.geo.models import GeoPointDict` |
 **Geo** | [LinearRing](docs/v2/Geo/models/LinearRing.md) | `from foundry.v2.geo.models import LinearRing` |
-**Geo** | [Polygon](docs/v2/Geo/models/Polygon.md) | `from foundry.v2.geo.models import Polygon` |
-**Geo** | [PolygonDict](docs/v2/Geo/models/PolygonDict.md) | `from foundry.v2.geo.models import PolygonDict` |
 **Geo** | [Position](docs/v2/Geo/models/Position.md) | `from foundry.v2.geo.models import Position` |
 **MediaSets** | [BranchName](docs/v2/MediaSets/models/BranchName.md) | `from foundry.v2.media_sets.models import BranchName` |
 **MediaSets** | [BranchRid](docs/v2/MediaSets/models/BranchRid.md) | `from foundry.v2.media_sets.models import BranchRid` |
@@ -1430,8 +1422,6 @@ Namespace | Name | Import |
 **Ontologies** | [BatchApplyActionResponseV2](docs/v2/Ontologies/models/BatchApplyActionResponseV2.md) | `from foundry.v2.ontologies.models import BatchApplyActionResponseV2` |
 **Ontologies** | [BatchApplyActionResponseV2Dict](docs/v2/Ontologies/models/BatchApplyActionResponseV2Dict.md) | `from foundry.v2.ontologies.models import BatchApplyActionResponseV2Dict` |
 **Ontologies** | [BatchReturnEditsMode](docs/v2/Ontologies/models/BatchReturnEditsMode.md) | `from foundry.v2.ontologies.models import BatchReturnEditsMode` |
-**Ontologies** | [BlueprintIcon](docs/v2/Ontologies/models/BlueprintIcon.md) | `from foundry.v2.ontologies.models import BlueprintIcon` |
-**Ontologies** | [BlueprintIconDict](docs/v2/Ontologies/models/BlueprintIconDict.md) | `from foundry.v2.ontologies.models import BlueprintIconDict` |
 **Ontologies** | [BoundingBoxValue](docs/v2/Ontologies/models/BoundingBoxValue.md) | `from foundry.v2.ontologies.models import BoundingBoxValue` |
 **Ontologies** | [BoundingBoxValueDict](docs/v2/Ontologies/models/BoundingBoxValueDict.md) | `from foundry.v2.ontologies.models import BoundingBoxValueDict` |
 **Ontologies** | [CenterPoint](docs/v2/Ontologies/models/CenterPoint.md) | `from foundry.v2.ontologies.models import CenterPoint` |

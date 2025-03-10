@@ -950,12 +950,34 @@ class ReplaceScheduleRequestUserScopeDict(typing_extensions.TypedDict):
     type: typing.Literal["user"]
 
 
-RetryBackoffDuration = "core_models.Duration"
-"""The duration to wait before retrying after a Job fails."""
+class RetryBackoffDuration(pydantic.BaseModel):
+    """The duration to wait before retrying after a Job fails."""
+
+    value: int
+    """The duration value."""
+
+    unit: core_models.TimeUnit
+    """The unit of duration."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "RetryBackoffDurationDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            RetryBackoffDurationDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
 
 
-RetryBackoffDurationDict = "core_models.DurationDict"
-"""The duration to wait before retrying after a Job fails."""
+class RetryBackoffDurationDict(typing_extensions.TypedDict):
+    """The duration to wait before retrying after a Job fails."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: int
+    """The duration value."""
+
+    unit: core_models.TimeUnit
+    """The unit of duration."""
 
 
 RetryCount = int
@@ -1642,9 +1664,9 @@ class UserScopeDict(typing_extensions.TypedDict):
     type: typing.Literal["user"]
 
 
-from foundry.v2.core import models as core_models
-from foundry.v2.datasets import models as datasets_models
-from foundry.v2.filesystem import models as filesystem_models
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.datasets import models as datasets_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 __all__ = [
     "AbortOnFailure",

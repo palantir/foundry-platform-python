@@ -132,7 +132,7 @@ class WebsiteDict(typing_extensions.TypedDict):
     """The subdomains from which the Website is currently served."""
 
 
-from foundry.v2.core import models as core_models
+from foundry.v2.core import models as core_models  # noqa: E402
 
 __all__ = [
     "ListVersionsResponse",

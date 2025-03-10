@@ -913,9 +913,9 @@ class UserTextInputDict(typing_extensions.TypedDict):
     """The user message text."""
 
 
-from foundry.v2.core import models as core_models
-from foundry.v2.functions import models as functions_models
-from foundry.v2.ontologies import models as ontologies_models
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.functions import models as functions_models  # noqa: E402
+from foundry.v2.ontologies import models as ontologies_models  # noqa: E402
 
 __all__ = [
     "Agent",

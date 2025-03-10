@@ -724,7 +724,7 @@ UsageAccountRid = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-from foundry.v2.core import models as core_models
+from foundry.v2.core import models as core_models  # noqa: E402
 
 __all__ = [
     "AccessRequirements",

@@ -1197,7 +1197,7 @@ UserUsername = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-from foundry.v2.core import models as core_models
+from foundry.v2.core import models as core_models  # noqa: E402
 
 __all__ = [
     "AttributeName",

@@ -969,43 +969,6 @@ BatchReturnEditsMode = typing.Literal["ALL", "NONE"]
 """BatchReturnEditsMode"""
 
 
-class BlueprintIcon(pydantic.BaseModel):
-    """BlueprintIcon"""
-
-    color: str
-    """A hexadecimal color code."""
-
-    name: str
-    """
-    The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 
-    Used to specify the Blueprint icon to represent the object type in a React app.
-    """
-
-    type: typing.Literal["blueprint"] = "blueprint"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "BlueprintIconDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BlueprintIconDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BlueprintIconDict(typing_extensions.TypedDict):
-    """BlueprintIcon"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    color: str
-    """A hexadecimal color code."""
-
-    name: str
-    """
-    The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 
-    Used to specify the Blueprint icon to represent the object type in a React app.
-    """
-
-    type: typing.Literal["blueprint"]
-
-
 class BoundingBoxValue(pydantic.BaseModel):
     """The top left and bottom right coordinate points that make up the bounding box."""
 
@@ -1048,12 +1011,27 @@ class CenterPointDict(typing_extensions.TypedDict):
     distance: core_models.DistanceDict
 
 
-CenterPointTypes = "geo_models.GeoPoint"
-"""CenterPointTypes"""
+class CenterPointTypes(pydantic.BaseModel):
+    """CenterPointTypes"""
+
+    coordinates: geo_models.Position
+    bbox: typing.Optional[geo_models.BBox] = None
+    type: typing.Literal["Point"] = "Point"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CenterPointTypesDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(CenterPointTypesDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
-CenterPointTypesDict = "geo_models.GeoPointDict"
-"""CenterPointTypes"""
+class CenterPointTypesDict(typing_extensions.TypedDict):
+    """CenterPointTypes"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    coordinates: geo_models.Position
+    bbox: typing_extensions.NotRequired[geo_models.BBox]
+    type: typing.Literal["Point"]
 
 
 class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
@@ -2066,12 +2044,41 @@ class GteQueryV2Dict(typing_extensions.TypedDict):
     type: typing.Literal["gte"]
 
 
-Icon = BlueprintIcon
-"""A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
+class Icon(pydantic.BaseModel):
+    """A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
+
+    color: str
+    """A hexadecimal color code."""
+
+    name: str
+    """
+    The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 
+    Used to specify the Blueprint icon to represent the object type in a React app.
+    """
+
+    type: typing.Literal["blueprint"] = "blueprint"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "IconDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(IconDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
-IconDict = BlueprintIconDict
-"""A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
+class IconDict(typing_extensions.TypedDict):
+    """A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    color: str
+    """A hexadecimal color code."""
+
+    name: str
+    """
+    The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 
+    Used to specify the Blueprint icon to represent the object type in a React app.
+    """
+
+    type: typing.Literal["blueprint"]
 
 
 class InQuery(pydantic.BaseModel):
@@ -2916,11 +2923,47 @@ class MaxAggregationV2Dict(typing_extensions.TypedDict):
     type: typing.Literal["max"]
 
 
-MethodObjectSet = "ObjectSet"
+MethodObjectSet = typing_extensions.Annotated[
+    typing.Union[
+        "ObjectSetSearchAroundType",
+        "ObjectSetStaticType",
+        "ObjectSetIntersectionType",
+        "ObjectSetWithPropertiesType",
+        "ObjectSetSubtractType",
+        "ObjectSetNearestNeighborsType",
+        "ObjectSetUnionType",
+        "ObjectSetAsTypeType",
+        "ObjectSetMethodInputType",
+        "ObjectSetReferenceType",
+        "ObjectSetFilterType",
+        "ObjectSetInterfaceBaseType",
+        "ObjectSetAsBaseObjectTypesType",
+        "ObjectSetBaseType",
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """MethodObjectSet"""
 
 
-MethodObjectSetDict = "ObjectSetDict"
+MethodObjectSetDict = typing_extensions.Annotated[
+    typing.Union[
+        "ObjectSetSearchAroundTypeDict",
+        "ObjectSetStaticTypeDict",
+        "ObjectSetIntersectionTypeDict",
+        "ObjectSetWithPropertiesTypeDict",
+        "ObjectSetSubtractTypeDict",
+        "ObjectSetNearestNeighborsTypeDict",
+        "ObjectSetUnionTypeDict",
+        "ObjectSetAsTypeTypeDict",
+        "ObjectSetMethodInputTypeDict",
+        "ObjectSetReferenceTypeDict",
+        "ObjectSetFilterTypeDict",
+        "ObjectSetInterfaceBaseTypeDict",
+        "ObjectSetAsBaseObjectTypesTypeDict",
+        "ObjectSetBaseTypeDict",
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """MethodObjectSet"""
 
 
@@ -4471,12 +4514,27 @@ class ParameterOptionDict(typing_extensions.TypedDict):
     """An allowed configured value for a parameter within an action."""
 
 
-PolygonValue = "geo_models.Polygon"
-"""PolygonValue"""
+class PolygonValue(pydantic.BaseModel):
+    """PolygonValue"""
+
+    coordinates: typing.List[geo_models.LinearRing]
+    bbox: typing.Optional[geo_models.BBox] = None
+    type: typing.Literal["Polygon"] = "Polygon"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "PolygonValueDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(PolygonValueDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
-PolygonValueDict = "geo_models.PolygonDict"
-"""PolygonValue"""
+class PolygonValueDict(typing_extensions.TypedDict):
+    """PolygonValue"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    coordinates: typing.List[geo_models.LinearRing]
+    bbox: typing_extensions.NotRequired[geo_models.BBox]
+    type: typing.Literal["Polygon"]
 
 
 PrimaryKeyValue = typing.Any
@@ -6125,12 +6183,29 @@ structs.
 """
 
 
-WithinBoundingBoxPoint = "geo_models.GeoPoint"
-"""WithinBoundingBoxPoint"""
+class WithinBoundingBoxPoint(pydantic.BaseModel):
+    """WithinBoundingBoxPoint"""
+
+    coordinates: geo_models.Position
+    bbox: typing.Optional[geo_models.BBox] = None
+    type: typing.Literal["Point"] = "Point"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "WithinBoundingBoxPointDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            WithinBoundingBoxPointDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
 
 
-WithinBoundingBoxPointDict = "geo_models.GeoPointDict"
-"""WithinBoundingBoxPoint"""
+class WithinBoundingBoxPointDict(typing_extensions.TypedDict):
+    """WithinBoundingBoxPoint"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    coordinates: geo_models.Position
+    bbox: typing_extensions.NotRequired[geo_models.BBox]
+    type: typing.Literal["Point"]
 
 
 class WithinBoundingBoxQuery(pydantic.BaseModel):
@@ -6238,8 +6313,8 @@ class WithinPolygonQueryDict(typing_extensions.TypedDict):
     type: typing.Literal["withinPolygon"]
 
 
-from foundry.v2.core import models as core_models
-from foundry.v2.geo import models as geo_models
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.geo import models as geo_models  # noqa: E402
 
 __all__ = [
     "AbsoluteTimeRange",
@@ -6324,8 +6399,6 @@ __all__ = [
     "BatchApplyActionResponseV2",
     "BatchApplyActionResponseV2Dict",
     "BatchReturnEditsMode",
-    "BlueprintIcon",
-    "BlueprintIconDict",
     "BoundingBoxValue",
     "BoundingBoxValueDict",
     "CenterPoint",

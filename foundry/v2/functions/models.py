@@ -1033,7 +1033,7 @@ class VersionIdDict(typing_extensions.TypedDict):
     baseType: typing_extensions.NotRequired[ValueTypeDataTypeDict]
 
 
-from foundry.v2.core import models as core_models
+from foundry.v2.core import models as core_models  # noqa: E402
 
 __all__ = [
     "DataValue",
