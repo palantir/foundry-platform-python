@@ -7,14 +7,14 @@ Resource
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ResourceRid | Yes |  |
 **displayName** | ResourceDisplayName | Yes | The display name of the Resource |
-**description** | NotRequired[str] | No | The description of the Resource |
-**documentation** | NotRequired[str] | No | The documentation associated with the Resource |
+**description** | typing_extensions.NotRequired[str] | No | The description of the Resource |
+**documentation** | typing_extensions.NotRequired[str] | No | The documentation associated with the Resource |
 **path** | ResourcePath | Yes | The full path to the resource, including the resource name itself |
 **type** | ResourceType | Yes | The type of the Resource derived from the Resource Identifier (RID). |
-**createdBy** | CreatedBy | Yes | The user that created the Resource. |
-**updatedBy** | UpdatedBy | Yes | The user that last updated the Resource. |
-**createdTime** | CreatedTime | Yes | The timestamp that the Resource was last created. |
-**updatedTime** | UpdatedTime | Yes | The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For top level folders (spaces and projects), this is not updated by child updates for performance reasons.  |
+**createdBy** | core_models.CreatedBy | Yes | The user that created the Resource. |
+**updatedBy** | core_models.UpdatedBy | Yes | The user that last updated the Resource. |
+**createdTime** | core_models.CreatedTime | Yes | The timestamp that the Resource was last created. |
+**updatedTime** | core_models.UpdatedTime | Yes | The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For top level folders (spaces and projects), this is not updated by child updates for performance reasons.  |
 **trashStatus** | TrashStatus | Yes | The trash status of the Resource. If trashed, this could either be because the Resource itself has been trashed or because one of its ancestors has been trashed.  |
 **parentFolderRid** | FolderRid | Yes | The parent folder Resource Identifier (RID). For projects, this will be the Space RID. |
 **projectRid** | ProjectRid | Yes | The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a Project, this value will still be populated with the Project RID.  |

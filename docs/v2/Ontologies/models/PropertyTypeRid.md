@@ -4,7 +4,7 @@ PropertyTypeRid
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

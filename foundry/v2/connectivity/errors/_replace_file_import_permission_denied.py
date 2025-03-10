@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._file_import_rid import FileImportRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class ReplaceFileImportPermissionDeniedParameters(TypedDict):
+class ReplaceFileImportPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the FileImport."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fileImportRid: FileImportRid
+    fileImportRid: connectivity_models.FileImportRid
 
-    connectionRid: ConnectionRid
+    connectionRid: connectivity_models.ConnectionRid
 
 
 @dataclass
-class ReplaceFileImportPermissionDenied(PermissionDeniedError):
-    name: Literal["ReplaceFileImportPermissionDenied"]
+class ReplaceFileImportPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceFileImportPermissionDenied"]
     parameters: ReplaceFileImportPermissionDeniedParameters
     error_instance_id: str
 

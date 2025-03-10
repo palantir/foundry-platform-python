@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._property_id import PropertyId
-from foundry.v1.ontologies.models._value_type import ValueType
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class PropertyApiNameNotFoundParameters(TypedDict):
+class PropertyApiNameNotFoundParameters(typing_extensions.TypedDict):
     """
     A property that was required to have an API name, such as a primary key, is missing one. You can set an API
     name for it using the **Ontology Manager**.
@@ -33,14 +30,14 @@ class PropertyApiNameNotFoundParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    propertyId: PropertyId
+    propertyId: ontologies_models.PropertyId
 
-    propertyBaseType: ValueType
+    propertyBaseType: ontologies_models.ValueType
 
 
 @dataclass
-class PropertyApiNameNotFound(BadRequestError):
-    name: Literal["PropertyApiNameNotFound"]
+class PropertyApiNameNotFound(errors.BadRequestError):
+    name: typing.Literal["PropertyApiNameNotFound"]
     parameters: PropertyApiNameNotFoundParameters
     error_instance_id: str
 

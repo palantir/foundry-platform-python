@@ -13,21 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import RID
-from foundry._errors import NotFoundError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class FunctionLocatorNotFoundParameters(TypedDict):
+class FunctionLocatorNotFoundParameters(typing_extensions.TypedDict):
     """
     The specified function locator is configured for use by the Agent but could not be found.
     The function type or version may not exist or the client token does not have access.
@@ -35,18 +31,18 @@ class FunctionLocatorNotFoundParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
-    sessionRid: NotRequired[SessionRid]
+    sessionRid: typing_extensions.NotRequired[aip_agents_models.SessionRid]
     """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
-    functionRid: RID
+    functionRid: core.RID
 
     functionVersion: str
 
 
 @dataclass
-class FunctionLocatorNotFound(NotFoundError):
-    name: Literal["FunctionLocatorNotFound"]
+class FunctionLocatorNotFound(errors.NotFoundError):
+    name: typing.Literal["FunctionLocatorNotFound"]
     parameters: FunctionLocatorNotFoundParameters
     error_instance_id: str
 

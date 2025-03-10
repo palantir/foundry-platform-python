@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._field_name import FieldName
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class InvalidFieldSchemaParameters(TypedDict):
+class InvalidFieldSchemaParameters(typing_extensions.TypedDict):
     """The field schema failed validations"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fieldName: NotRequired[FieldName]
+    fieldName: typing_extensions.NotRequired[core_models.FieldName]
 
     message: str
 
 
 @dataclass
-class InvalidFieldSchema(BadRequestError):
-    name: Literal["InvalidFieldSchema"]
+class InvalidFieldSchema(errors.BadRequestError):
+    name: typing.Literal["InvalidFieldSchema"]
     parameters: InvalidFieldSchemaParameters
     error_instance_id: str
 

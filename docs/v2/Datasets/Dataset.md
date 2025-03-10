@@ -15,7 +15,7 @@ Creates a new Dataset. A default branch - `master` for most enrollments - will b
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **name** | DatasetName |  |  |
-**parent_folder_rid** | FolderRid |  |  |
+**parent_folder_rid** | filesystem_models.FolderRid |  |  |
 
 ### Return type
 **Dataset**
@@ -33,7 +33,7 @@ foundry_client = FoundryClient(
 
 # DatasetName |
 name = "My Dataset"
-# FolderRid |
+# filesystem_models.FolderRid |
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 
 
@@ -125,11 +125,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **format** | TableExportFormat | format |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**columns** | Optional[List[str]] | columns | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**row_limit** | Optional[int] | rowLimit | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**columns** | typing.Optional[typing.List[str]] | columns | [optional] |
+**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
+**row_limit** | typing.Optional[int] | rowLimit | [optional] |
+**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **bytes**
@@ -149,15 +149,15 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TableExportFormat | format
 format = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[List[str]] | columns
+# typing.Optional[typing.List[str]] | columns
 columns = ["id", "firstName", "lastName"]
-# Optional[TransactionRid] | endTransactionRid
+# typing.Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[int] | rowLimit
+# typing.Optional[int] | rowLimit
 row_limit = None
-# Optional[TransactionRid] | startTransactionRid
+# typing.Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 

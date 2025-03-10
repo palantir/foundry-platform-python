@@ -5,9 +5,9 @@ ISO 8601 timestamps forming a range for a time series query. Start is inclusive 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**start_time** | Optional[datetime] | No |  |
-**end_time** | Optional[datetime] | No |  |
-**type** | Literal["absolute"] | Yes | None |
+**start_time** | typing.Optional[datetime] | No |  |
+**end_time** | typing.Optional[datetime] | No |  |
+**type** | typing.Literal["absolute"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -4,7 +4,7 @@ The unique resource identifier of an object type, useful for interacting with ot
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

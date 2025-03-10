@@ -17,8 +17,8 @@ Optional parameters do not need to be supplied.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query_api_name** | QueryApiName | queryApiName |  |
-**parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**parameters** | typing.Dict[ParameterId, typing.Optional[DataValue]] |  |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -36,9 +36,9 @@ foundry_client = FoundryClient(
 
 # QueryApiName | queryApiName
 query_api_name = None
-# Dict[ParameterId, Optional[DataValue]] |
+# typing.Dict[ParameterId, typing.Optional[DataValue]] |
 parameters = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -77,7 +77,7 @@ Gets a specific query type with the given API name.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query_api_name** | QueryApiName | queryApiName |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Query**
@@ -95,7 +95,7 @@ foundry_client = FoundryClient(
 
 # QueryApiName | queryApiName
 query_api_name = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -133,7 +133,7 @@ Gets a specific query type with the given RID.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **rid** | FunctionRid |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Query**
@@ -151,7 +151,7 @@ foundry_client = FoundryClient(
 
 # FunctionRid |
 rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

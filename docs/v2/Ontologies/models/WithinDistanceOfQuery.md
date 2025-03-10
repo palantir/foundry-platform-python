@@ -8,10 +8,10 @@ must be supplied, but not both.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | Optional[PropertyApiName] | No |  |
-**property_identifier** | Optional[PropertyIdentifier] | No |  |
+**field** | typing.Optional[PropertyApiName] | No |  |
+**property_identifier** | typing.Optional[PropertyIdentifier] | No |  |
 **value** | CenterPoint | Yes |  |
-**type** | Literal["withinDistanceOf"] | Yes | None |
+**type** | typing.Literal["withinDistanceOf"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

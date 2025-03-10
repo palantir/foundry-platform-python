@@ -29,7 +29,7 @@ Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer
 
 ## Type
 ```python
-Any
+typing.Any
 ```
 
 

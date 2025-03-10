@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
-from foundry.v2.ontologies.models._value_type import ValueType
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class InvalidPropertyTypeParameters(TypedDict):
+class InvalidPropertyTypeParameters(typing_extensions.TypedDict):
     """The given property type is not of the expected type."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    propertyBaseType: ValueType
+    propertyBaseType: ontologies_models.ValueType
 
-    property: PropertyApiName
+    property: ontologies_models.PropertyApiName
 
 
 @dataclass
-class InvalidPropertyType(BadRequestError):
-    name: Literal["InvalidPropertyType"]
+class InvalidPropertyType(errors.BadRequestError):
+    name: typing.Literal["InvalidPropertyType"]
     parameters: InvalidPropertyTypeParameters
     error_instance_id: str
 

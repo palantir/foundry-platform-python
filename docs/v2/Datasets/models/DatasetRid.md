@@ -5,7 +5,7 @@ The Resource Identifier (RID) of a Dataset.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

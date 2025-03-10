@@ -17,7 +17,7 @@ and `relative/subfolder/exclude-file.txt` will be excluded from the import.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **regex** | str | Yes | Must be written to match the paths relative to the root of the source, even if a subfolder is specified.  |
-**type** | Literal["pathNotMatchesFilter"] | Yes | None |
+**type** | typing.Literal["pathNotMatchesFilter"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

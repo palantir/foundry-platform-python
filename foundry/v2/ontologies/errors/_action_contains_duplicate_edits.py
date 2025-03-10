@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
+from foundry import _errors as errors
 
 
-class ActionContainsDuplicateEditsParameters(TypedDict):
+class ActionContainsDuplicateEditsParameters(typing_extensions.TypedDict):
     """The given action request has multiple edits on the same object."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class ActionContainsDuplicateEdits(ConflictError):
-    name: Literal["ActionContainsDuplicateEdits"]
+class ActionContainsDuplicateEdits(errors.ConflictError):
+    name: typing.Literal["ActionContainsDuplicateEdits"]
     parameters: ActionContainsDuplicateEditsParameters
     error_instance_id: str
 

@@ -5,7 +5,7 @@ The Resource Identifier (RID) of a Cloud Identity.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

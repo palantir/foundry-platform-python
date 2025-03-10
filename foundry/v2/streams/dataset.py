@@ -13,38 +13,20 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.core.models._stream_schema import StreamSchema
-from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_name import DatasetName
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 from foundry.v2.filesystem import errors as filesystem_errors
-from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry.v2.filesystem import models as filesystem_models
 from foundry.v2.streams import errors as streams_errors
-from foundry.v2.streams.models._compressed import Compressed
-from foundry.v2.streams.models._dataset import Dataset
-from foundry.v2.streams.models._partitions_count import PartitionsCount
-from foundry.v2.streams.models._stream_type import StreamType
+from foundry.v2.streams import models as streams_models
 
 
 class DatasetClient:
@@ -58,14 +40,14 @@ class DatasetClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _DatasetClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -81,54 +63,54 @@ class DatasetClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        name: DatasetName,
-        parent_folder_rid: FolderRid,
-        schema: Union[StreamSchema, StreamSchemaDict],
-        branch_name: Optional[BranchName] = None,
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Dataset:
+        name: datasets_models.DatasetName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict],
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> streams_models.Dataset:
         """
         Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
         default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
         [streams](/docs/foundry/data-integration/streams/) user documentation.
 
         :param name:
-        :type name: DatasetName
+        :type name: datasets_models.DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param schema: The Foundry schema to apply to the new stream.
-        :type schema: Union[StreamSchema, StreamSchemaDict]
+        :type schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: Optional[Compressed]
+        :type compressed: typing.Optional[streams_models.Compressed]
         :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
-        :type partitions_count: Optional[PartitionsCount]
+        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: Optional[StreamType]
+        :type stream_type: typing.Optional[streams_models.StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Dataset
+        :rtype: streams_models.Dataset
 
         :raises CreateStreamingDatasetPermissionDenied: Could not create the Dataset.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/create",
                 query_params={
@@ -148,19 +130,21 @@ class DatasetClient:
                     "streamType": stream_type,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": DatasetName,
-                        "parentFolderRid": FolderRid,
-                        "schema": Union[StreamSchema, StreamSchemaDict],
-                        "branchName": Optional[BranchName],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "compressed": Optional[Compressed],
+                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "schema": typing.Union[
+                            core_models.StreamSchema, core_models.StreamSchemaDict
+                        ],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Dataset,
+                response_type=streams_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateStreamingDatasetPermissionDenied": streams_errors.CreateStreamingDatasetPermissionDenied,
@@ -181,63 +165,63 @@ class _DatasetClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        name: DatasetName,
-        parent_folder_rid: FolderRid,
-        schema: Union[StreamSchema, StreamSchemaDict],
-        branch_name: Optional[BranchName] = None,
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Dataset]:
+        name: datasets_models.DatasetName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict],
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[streams_models.Dataset]:
         """
         Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
         default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
         [streams](/docs/foundry/data-integration/streams/) user documentation.
 
         :param name:
-        :type name: DatasetName
+        :type name: datasets_models.DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param schema: The Foundry schema to apply to the new stream.
-        :type schema: Union[StreamSchema, StreamSchemaDict]
+        :type schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: Optional[Compressed]
+        :type compressed: typing.Optional[streams_models.Compressed]
         :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
-        :type partitions_count: Optional[PartitionsCount]
+        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: Optional[StreamType]
+        :type stream_type: typing.Optional[streams_models.StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Dataset]
+        :rtype: core.ApiResponse[streams_models.Dataset]
 
         :raises CreateStreamingDatasetPermissionDenied: Could not create the Dataset.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/create",
                 query_params={
@@ -257,19 +241,21 @@ class _DatasetClientRaw:
                     "streamType": stream_type,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": DatasetName,
-                        "parentFolderRid": FolderRid,
-                        "schema": Union[StreamSchema, StreamSchemaDict],
-                        "branchName": Optional[BranchName],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "compressed": Optional[Compressed],
+                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "schema": typing.Union[
+                            core_models.StreamSchema, core_models.StreamSchemaDict
+                        ],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Dataset,
+                response_type=streams_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateStreamingDatasetPermissionDenied": streams_errors.CreateStreamingDatasetPermissionDenied,
@@ -290,63 +276,63 @@ class _DatasetClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        name: DatasetName,
-        parent_folder_rid: FolderRid,
-        schema: Union[StreamSchema, StreamSchemaDict],
-        branch_name: Optional[BranchName] = None,
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Dataset]:
+        name: datasets_models.DatasetName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict],
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[streams_models.Dataset]:
         """
         Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
         default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
         [streams](/docs/foundry/data-integration/streams/) user documentation.
 
         :param name:
-        :type name: DatasetName
+        :type name: datasets_models.DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param schema: The Foundry schema to apply to the new stream.
-        :type schema: Union[StreamSchema, StreamSchemaDict]
+        :type schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: Optional[Compressed]
+        :type compressed: typing.Optional[streams_models.Compressed]
         :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
-        :type partitions_count: Optional[PartitionsCount]
+        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: Optional[StreamType]
+        :type stream_type: typing.Optional[streams_models.StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Dataset]
+        :rtype: core.StreamingContextManager[streams_models.Dataset]
 
         :raises CreateStreamingDatasetPermissionDenied: Could not create the Dataset.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/create",
                 query_params={
@@ -366,19 +352,21 @@ class _DatasetClientStreaming:
                     "streamType": stream_type,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": DatasetName,
-                        "parentFolderRid": FolderRid,
-                        "schema": Union[StreamSchema, StreamSchemaDict],
-                        "branchName": Optional[BranchName],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "compressed": Optional[Compressed],
+                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "schema": typing.Union[
+                            core_models.StreamSchema, core_models.StreamSchemaDict
+                        ],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Dataset,
+                response_type=streams_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateStreamingDatasetPermissionDenied": streams_errors.CreateStreamingDatasetPermissionDenied,

@@ -5,7 +5,7 @@ An identifier which represents a transaction on a media set.
 
 ## Type
 ```python
-UUID
+core.UUID
 ```
 
 

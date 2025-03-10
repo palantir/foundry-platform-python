@@ -5,7 +5,7 @@ The Resource Identifier (RID) of a Transaction.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

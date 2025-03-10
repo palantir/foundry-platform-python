@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.filesystem.models._project_rid import ProjectRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class ProjectNotFoundParameters(TypedDict):
+class ProjectNotFoundParameters(typing_extensions.TypedDict):
     """The given Project could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    projectRid: ProjectRid
+    projectRid: filesystem_models.ProjectRid
 
 
 @dataclass
-class ProjectNotFound(NotFoundError):
-    name: Literal["ProjectNotFound"]
+class ProjectNotFound(errors.NotFoundError):
+    name: typing.Literal["ProjectNotFound"]
     parameters: ProjectNotFoundParameters
     error_instance_id: str
 

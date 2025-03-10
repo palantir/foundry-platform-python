@@ -13,42 +13,34 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Dict
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._function_rid import FunctionRid
-from foundry.v1.ontologies.models._function_version import FunctionVersion
-from foundry.v1.ontologies.models._query_runtime_error_parameter import (
-    QueryRuntimeErrorParameter,
-)  # NOQA
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class QueryRuntimeErrorParameters(TypedDict):
+class QueryRuntimeErrorParameters(typing_extensions.TypedDict):
     """The authored `Query` failed to execute because of a runtime error."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
+    functionRid: ontologies_models.FunctionRid
 
-    functionVersion: FunctionVersion
+    functionVersion: ontologies_models.FunctionVersion
 
-    message: NotRequired[str]
+    message: typing_extensions.NotRequired[str]
 
-    stacktrace: NotRequired[str]
+    stacktrace: typing_extensions.NotRequired[str]
 
-    parameters: Dict[QueryRuntimeErrorParameter, str]
+    parameters: typing.Dict[ontologies_models.QueryRuntimeErrorParameter, str]
 
 
 @dataclass
-class QueryRuntimeError(BadRequestError):
-    name: Literal["QueryRuntimeError"]
+class QueryRuntimeError(errors.BadRequestError):
+    name: typing.Literal["QueryRuntimeError"]
     parameters: QueryRuntimeErrorParameters
     error_instance_id: str
 

@@ -13,37 +13,33 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._file_path import FilePath
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 
 
-class FileNotFoundOnTransactionRangeParameters(TypedDict):
+class FileNotFoundOnTransactionRangeParameters(typing_extensions.TypedDict):
     """The requested file could not be found on the given transaction range, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    startTransactionRid: NotRequired[TransactionRid]
+    startTransactionRid: typing_extensions.NotRequired[datasets_models.TransactionRid]
 
-    endTransactionRid: TransactionRid
+    endTransactionRid: datasets_models.TransactionRid
 
-    path: FilePath
+    path: core_models.FilePath
 
 
 @dataclass
-class FileNotFoundOnTransactionRange(NotFoundError):
-    name: Literal["FileNotFoundOnTransactionRange"]
+class FileNotFoundOnTransactionRange(errors.NotFoundError):
+    name: typing.Literal["FileNotFoundOnTransactionRange"]
     parameters: FileNotFoundOnTransactionRangeParameters
     error_instance_id: str
 

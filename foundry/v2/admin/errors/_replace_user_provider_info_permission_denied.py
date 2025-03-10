@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class ReplaceUserProviderInfoPermissionDeniedParameters(TypedDict):
+class ReplaceUserProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the UserProviderInfo."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: PrincipalId
+    userId: core_models.PrincipalId
 
 
 @dataclass
-class ReplaceUserProviderInfoPermissionDenied(PermissionDeniedError):
-    name: Literal["ReplaceUserProviderInfoPermissionDenied"]
+class ReplaceUserProviderInfoPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceUserProviderInfoPermissionDenied"]
     parameters: ReplaceUserProviderInfoPermissionDeniedParameters
     error_instance_id: str
 

@@ -14,13 +14,13 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | EnrollmentRid | enrollmentRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**enrollment_rid** | core_models.EnrollmentRid | enrollmentRid |  |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[Host]**
+**ListHostsResponse**
 
 ### Example
 
@@ -33,13 +33,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# EnrollmentRid | enrollmentRid
+# core_models.EnrollmentRid | enrollmentRid
 enrollment_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -78,10 +78,10 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | EnrollmentRid | enrollmentRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**enrollment_rid** | core_models.EnrollmentRid | enrollmentRid |  |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListHostsResponse**
@@ -97,13 +97,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# EnrollmentRid | enrollmentRid
+# core_models.EnrollmentRid | enrollmentRid
 enrollment_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

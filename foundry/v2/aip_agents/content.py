@@ -13,29 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.aip_agents import errors as aip_agents_errors
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._content import Content
-from foundry.v2.aip_agents.models._session_rid import SessionRid
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.aip_agents import models as aip_agents_models
+from foundry.v2.core import models as core_models
 
 
 class ContentClient:
@@ -49,48 +36,48 @@ class ContentClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ContentClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ContentClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Content:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.Content:
         """
         Get the conversation content for a session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Content
+        :rtype: aip_agents_models.Content
 
         :raises ContentNotFound: The given Content could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/content",
                 query_params={
@@ -105,7 +92,7 @@ class ContentClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Content,
+                response_type=aip_agents_models.Content,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ContentNotFound": aip_agents_errors.ContentNotFound,
@@ -125,44 +112,44 @@ class _ContentClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Content]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.Content]:
         """
         Get the conversation content for a session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Content]
+        :rtype: core.ApiResponse[aip_agents_models.Content]
 
         :raises ContentNotFound: The given Content could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/content",
                 query_params={
@@ -177,7 +164,7 @@ class _ContentClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Content,
+                response_type=aip_agents_models.Content,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ContentNotFound": aip_agents_errors.ContentNotFound,
@@ -197,44 +184,44 @@ class _ContentClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Content]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.Content]:
         """
         Get the conversation content for a session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Content]
+        :rtype: core.StreamingContextManager[aip_agents_models.Content]
 
         :raises ContentNotFound: The given Content could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/content",
                 query_params={
@@ -249,7 +236,7 @@ class _ContentClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Content,
+                response_type=aip_agents_models.Content,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ContentNotFound": aip_agents_errors.ContentNotFound,

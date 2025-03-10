@@ -13,21 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Dict
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
-from foundry.v2.ontologies.models._property_filter import PropertyFilter
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class PropertyTypesSearchNotSupportedParameters(TypedDict):
+class PropertyTypesSearchNotSupportedParameters(typing_extensions.TypedDict):
     """
     The search on the property types are not supported. See the `Search Objects` documentation for
     a list of supported search queries on different property types.
@@ -35,12 +30,14 @@ class PropertyTypesSearchNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parameters: Dict[PropertyFilter, List[PropertyApiName]]
+    parameters: typing.Dict[
+        ontologies_models.PropertyFilter, typing.List[ontologies_models.PropertyApiName]
+    ]
 
 
 @dataclass
-class PropertyTypesSearchNotSupported(BadRequestError):
-    name: Literal["PropertyTypesSearchNotSupported"]
+class PropertyTypesSearchNotSupported(errors.BadRequestError):
+    name: typing.Literal["PropertyTypesSearchNotSupported"]
     parameters: PropertyTypesSearchNotSupportedParameters
     error_instance_id: str
 

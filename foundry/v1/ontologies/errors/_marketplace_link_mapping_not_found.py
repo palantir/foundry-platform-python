@@ -13,34 +13,30 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
-from foundry.v1.ontologies.models._sdk_package_name import SdkPackageName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class MarketplaceLinkMappingNotFoundParameters(TypedDict):
+class MarketplaceLinkMappingNotFoundParameters(typing_extensions.TypedDict):
     """The given link could not be mapped to a Marketplace installation."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    linkType: LinkTypeApiName
+    linkType: ontologies_models.LinkTypeApiName
 
-    artifactRepository: ArtifactRepositoryRid
+    artifactRepository: ontologies_models.ArtifactRepositoryRid
 
-    packageName: SdkPackageName
+    packageName: ontologies_models.SdkPackageName
 
 
 @dataclass
-class MarketplaceLinkMappingNotFound(NotFoundError):
-    name: Literal["MarketplaceLinkMappingNotFound"]
+class MarketplaceLinkMappingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceLinkMappingNotFound"]
     parameters: MarketplaceLinkMappingNotFoundParameters
     error_instance_id: str
 

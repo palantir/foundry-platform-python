@@ -10,7 +10,7 @@ the entire new state of that row to the stream.
 | ------------ | ------------- | ------------- | ------------- |
 **deletion_field_name** | FieldName | Yes | The name of a boolean field in the schema that indicates whether or not a row has been deleted.  |
 **ordering_field_name** | FieldName | Yes | The name of an ordering field that determines the newest state for a row in the dataset.   The ordering field can only be of the following types: - Byte - Date - Decimal - Integer - Long - Short - String - Timestamp  |
-**type** | Literal["fullRow"] | Yes | None |
+**type** | typing.Literal["fullRow"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

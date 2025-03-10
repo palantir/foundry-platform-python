@@ -13,38 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.filesystem import errors as filesystem_errors
-from foundry.v2.filesystem.models._folder import Folder
-from foundry.v2.filesystem.models._folder_rid import FolderRid
-from foundry.v2.filesystem.models._list_children_of_folder_response import (
-    ListChildrenOfFolderResponse,
-)  # NOQA
-from foundry.v2.filesystem.models._resource import Resource
-from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
+from foundry.v2.filesystem import models as filesystem_models
 
 
 class FolderClient:
@@ -58,31 +37,31 @@ class FolderClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _FolderClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _FolderClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def children(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[Resource]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[filesystem_models.Resource]:
         """
         List all child Resources of the Folder.
 
@@ -90,21 +69,21 @@ class FolderClient:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[Resource]
+        :rtype: core.ResourceIterator[filesystem_models.Resource]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}/children",
                 query_params={
@@ -120,24 +99,24 @@ class FolderClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListChildrenOfFolderResponse,
+                response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def children_page(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListChildrenOfFolderResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.ListChildrenOfFolderResponse:
         """
         List all child Resources of the Folder.
 
@@ -145,17 +124,17 @@ class FolderClient:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListChildrenOfFolderResponse
+        :rtype: filesystem_models.ListChildrenOfFolderResponse
         """
 
         warnings.warn(
@@ -165,7 +144,7 @@ class FolderClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}/children",
                 query_params={
@@ -181,42 +160,42 @@ class FolderClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListChildrenOfFolderResponse,
+                response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        display_name: ResourceDisplayName,
-        parent_folder_rid: FolderRid,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Folder:
+        display_name: filesystem_models.ResourceDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.Folder:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: ResourceDisplayName
+        :type display_name: filesystem_models.ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Folder
+        :rtype: filesystem_models.Folder
 
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/folders",
                 query_params={
@@ -231,14 +210,14 @@ class FolderClient:
                     "parentFolderRid": parent_folder_rid,
                     "displayName": display_name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": FolderRid,
-                        "displayName": ResourceDisplayName,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "displayName": filesystem_models.ResourceDisplayName,
                     },
                 ),
-                response_type=Folder,
+                response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
@@ -247,32 +226,32 @@ class FolderClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Folder:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.Folder:
         """
         Get the Folder with the specified rid.
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Folder
+        :rtype: filesystem_models.Folder
 
         :raises FolderNotFound: The given Folder could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}",
                 query_params={
@@ -286,7 +265,7 @@ class FolderClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Folder,
+                response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FolderNotFound": filesystem_errors.FolderNotFound,
@@ -306,27 +285,27 @@ class _FolderClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def children(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListChildrenOfFolderResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.ListChildrenOfFolderResponse]:
         """
         List all child Resources of the Folder.
 
@@ -334,21 +313,21 @@ class _FolderClientRaw:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListChildrenOfFolderResponse]
+        :rtype: core.ApiResponse[filesystem_models.ListChildrenOfFolderResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}/children",
                 query_params={
@@ -364,24 +343,24 @@ class _FolderClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListChildrenOfFolderResponse,
+                response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def children_page(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListChildrenOfFolderResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.ListChildrenOfFolderResponse]:
         """
         List all child Resources of the Folder.
 
@@ -389,17 +368,17 @@ class _FolderClientRaw:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListChildrenOfFolderResponse]
+        :rtype: core.ApiResponse[filesystem_models.ListChildrenOfFolderResponse]
         """
 
         warnings.warn(
@@ -409,7 +388,7 @@ class _FolderClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}/children",
                 query_params={
@@ -425,42 +404,42 @@ class _FolderClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListChildrenOfFolderResponse,
+                response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        display_name: ResourceDisplayName,
-        parent_folder_rid: FolderRid,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Folder]:
+        display_name: filesystem_models.ResourceDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.Folder]:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: ResourceDisplayName
+        :type display_name: filesystem_models.ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Folder]
+        :rtype: core.ApiResponse[filesystem_models.Folder]
 
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/folders",
                 query_params={
@@ -475,14 +454,14 @@ class _FolderClientRaw:
                     "parentFolderRid": parent_folder_rid,
                     "displayName": display_name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": FolderRid,
-                        "displayName": ResourceDisplayName,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "displayName": filesystem_models.ResourceDisplayName,
                     },
                 ),
-                response_type=Folder,
+                response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
@@ -491,32 +470,32 @@ class _FolderClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Folder]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.Folder]:
         """
         Get the Folder with the specified rid.
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Folder]
+        :rtype: core.ApiResponse[filesystem_models.Folder]
 
         :raises FolderNotFound: The given Folder could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}",
                 query_params={
@@ -530,7 +509,7 @@ class _FolderClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Folder,
+                response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FolderNotFound": filesystem_errors.FolderNotFound,
@@ -550,27 +529,27 @@ class _FolderClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def children(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListChildrenOfFolderResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.ListChildrenOfFolderResponse]:
         """
         List all child Resources of the Folder.
 
@@ -578,21 +557,21 @@ class _FolderClientStreaming:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListChildrenOfFolderResponse]
+        :rtype: core.StreamingContextManager[filesystem_models.ListChildrenOfFolderResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}/children",
                 query_params={
@@ -608,24 +587,24 @@ class _FolderClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListChildrenOfFolderResponse,
+                response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def children_page(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListChildrenOfFolderResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.ListChildrenOfFolderResponse]:
         """
         List all child Resources of the Folder.
 
@@ -633,17 +612,17 @@ class _FolderClientStreaming:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListChildrenOfFolderResponse]
+        :rtype: core.StreamingContextManager[filesystem_models.ListChildrenOfFolderResponse]
         """
 
         warnings.warn(
@@ -653,7 +632,7 @@ class _FolderClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}/children",
                 query_params={
@@ -669,42 +648,42 @@ class _FolderClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListChildrenOfFolderResponse,
+                response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        display_name: ResourceDisplayName,
-        parent_folder_rid: FolderRid,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Folder]:
+        display_name: filesystem_models.ResourceDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.Folder]:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: ResourceDisplayName
+        :type display_name: filesystem_models.ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Folder]
+        :rtype: core.StreamingContextManager[filesystem_models.Folder]
 
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/folders",
                 query_params={
@@ -719,14 +698,14 @@ class _FolderClientStreaming:
                     "parentFolderRid": parent_folder_rid,
                     "displayName": display_name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": FolderRid,
-                        "displayName": ResourceDisplayName,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "displayName": filesystem_models.ResourceDisplayName,
                     },
                 ),
-                response_type=Folder,
+                response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
@@ -735,32 +714,32 @@ class _FolderClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        folder_rid: FolderRid,
+        folder_rid: filesystem_models.FolderRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Folder]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.Folder]:
         """
         Get the Folder with the specified rid.
         :param folder_rid: folderRid
-        :type folder_rid: FolderRid
+        :type folder_rid: filesystem_models.FolderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Folder]
+        :rtype: core.StreamingContextManager[filesystem_models.Folder]
 
         :raises FolderNotFound: The given Folder could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}",
                 query_params={
@@ -774,7 +753,7 @@ class _FolderClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Folder,
+                response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FolderNotFound": filesystem_errors.FolderNotFound,

@@ -10,7 +10,7 @@ object set. This is currently unsupported and an exception will be thrown if use
 | ------------ | ------------- | ------------- | ------------- |
 **entityType** | str | Yes | An object type or interface type API name.  |
 **objectSet** | ObjectSetDict | Yes |  |
-**type** | Literal["asType"] | Yes | None |
+**type** | typing.Literal["asType"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

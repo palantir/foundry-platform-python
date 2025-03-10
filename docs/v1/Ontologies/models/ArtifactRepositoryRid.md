@@ -4,7 +4,7 @@ ArtifactRepositoryRid
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

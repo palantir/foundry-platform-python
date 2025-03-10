@@ -13,30 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._function_rid import FunctionRid
-from foundry.v2.ontologies.models._function_version import FunctionVersion
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class FunctionInvalidInputParameters(TypedDict):
+class FunctionInvalidInputParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
+    functionRid: ontologies_models.FunctionRid
 
-    functionVersion: FunctionVersion
+    functionVersion: ontologies_models.FunctionVersion
 
 
 @dataclass
-class FunctionInvalidInput(BadRequestError):
-    name: Literal["FunctionInvalidInput"]
+class FunctionInvalidInput(errors.BadRequestError):
+    name: typing.Literal["FunctionInvalidInput"]
     parameters: FunctionInvalidInputParameters
     error_instance_id: str
 

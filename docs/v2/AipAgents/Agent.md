@@ -15,12 +15,12 @@ Sessions are returned in order of most recently updated first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[Session]**
+**AgentsSessionsPage**
 
 ### Example
 
@@ -33,11 +33,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -75,9 +75,9 @@ Sessions are returned in order of most recently updated first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **AgentsSessionsPage**
@@ -93,11 +93,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -135,8 +135,8 @@ Get details for an AIP Agent.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**version** | Optional[AgentVersionString] | version | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**version** | typing.Optional[AgentVersionString] | version | [optional] |
 
 ### Return type
 **Agent**
@@ -154,9 +154,9 @@ foundry_client = FoundryClient(
 
 # AgentRid | agentRid
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[AgentVersionString] | version
+# typing.Optional[AgentVersionString] | version
 version = None
 
 

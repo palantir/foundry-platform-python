@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class CreateStreamPermissionDeniedParameters(TypedDict):
+class CreateStreamPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Stream."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    streamBranchName: BranchName
+    streamBranchName: datasets_models.BranchName
 
 
 @dataclass
-class CreateStreamPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateStreamPermissionDenied"]
+class CreateStreamPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateStreamPermissionDenied"]
     parameters: CreateStreamPermissionDeniedParameters
     error_instance_id: str
 

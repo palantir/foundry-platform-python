@@ -4,7 +4,7 @@ The Resource Identifier (RID) of a Media Set in Foundry.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

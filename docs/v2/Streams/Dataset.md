@@ -14,14 +14,14 @@ default branch ('master' for most enrollments). For more information on streamin
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**name** | DatasetName |  |  |
-**parent_folder_rid** | FolderRid |  |  |
-**schema** | Union[StreamSchema, StreamSchemaDict] | The Foundry schema to apply to the new stream.  |  |
-**branch_name** | Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).  | [optional] |
-**compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
-**partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**stream_type** | Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  | [optional] |
+**name** | datasets_models.DatasetName |  |  |
+**parent_folder_rid** | filesystem_models.FolderRid |  |  |
+**schema** | typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict] | The Foundry schema to apply to the new stream.  |  |
+**branch_name** | typing.Optional[datasets_models.BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).  | [optional] |
+**compressed** | typing.Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
+**partitions_count** | typing.Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.  | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**stream_type** | typing.Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  | [optional] |
 
 ### Return type
 **Dataset**
@@ -37,21 +37,21 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetName |
+# datasets_models.DatasetName |
 name = "My Dataset"
-# FolderRid |
+# filesystem_models.FolderRid |
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
-# Union[StreamSchema, StreamSchemaDict] | The Foundry schema to apply to the new stream.
+# typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict] | The Foundry schema to apply to the new stream.
 schema = None
-# Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
+# typing.Optional[datasets_models.BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
 branch_name = "master"
-# Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.
+# typing.Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.
 compressed = False
-# Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
+# typing.Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
 partitions_count = 1
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+# typing.Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
 stream_type = "LOW_LATENCY"
 
 

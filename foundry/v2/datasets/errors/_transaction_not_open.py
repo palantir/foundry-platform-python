@@ -13,34 +13,30 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
-from foundry.v2.datasets.models._transaction_status import TransactionStatus
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class TransactionNotOpenParameters(TypedDict):
+class TransactionNotOpenParameters(typing_extensions.TypedDict):
     """The given transaction is not open."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    transactionRid: TransactionRid
+    transactionRid: datasets_models.TransactionRid
 
-    transactionStatus: TransactionStatus
+    transactionStatus: datasets_models.TransactionStatus
 
 
 @dataclass
-class TransactionNotOpen(BadRequestError):
-    name: Literal["TransactionNotOpen"]
+class TransactionNotOpen(errors.BadRequestError):
+    name: typing.Literal["TransactionNotOpen"]
     parameters: TransactionNotOpenParameters
     error_instance_id: str
 

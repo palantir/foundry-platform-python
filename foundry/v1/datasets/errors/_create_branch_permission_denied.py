@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v1.datasets.models._branch_id import BranchId
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v1.datasets import models as datasets_models
 
 
-class CreateBranchPermissionDeniedParameters(TypedDict):
+class CreateBranchPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to create a branch of this dataset."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    branchId: BranchId
+    branchId: datasets_models.BranchId
 
 
 @dataclass
-class CreateBranchPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateBranchPermissionDenied"]
+class CreateBranchPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateBranchPermissionDenied"]
     parameters: CreateBranchPermissionDeniedParameters
     error_instance_id: str
 

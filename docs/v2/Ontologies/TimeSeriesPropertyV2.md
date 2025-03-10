@@ -21,11 +21,11 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
-**Optional[TimeSeriesPoint]**
+**typing.Optional[TimeSeriesPoint]**
 
 ### Example
 
@@ -46,9 +46,9 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | property
 property = "performance"
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -77,7 +77,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Optional[TimeSeriesPoint]  | Success response. | application/json |
+**200** | typing.Optional[TimeSeriesPoint]  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -96,11 +96,11 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
-**Optional[TimeSeriesPoint]**
+**typing.Optional[TimeSeriesPoint]**
 
 ### Example
 
@@ -121,9 +121,9 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | property
 property = "performance"
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -152,7 +152,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Optional[TimeSeriesPoint]  | Success response. | application/json |
+**200** | typing.Optional[TimeSeriesPoint]  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -171,10 +171,10 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**format** | Optional[StreamingOutputFormat] | format | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**range** | Optional[Union[TimeRange, TimeRangeDict]] |  | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**format** | typing.Optional[StreamingOutputFormat] | format | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**range** | typing.Optional[typing.Union[TimeRange, TimeRangeDict]] |  | [optional] |
 
 ### Return type
 **bytes**
@@ -198,13 +198,13 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | property
 property = None
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[StreamingOutputFormat] | format
+# typing.Optional[StreamingOutputFormat] | format
 format = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[Union[TimeRange, TimeRangeDict]] |
+# typing.Optional[typing.Union[TimeRange, TimeRangeDict]] |
 range = {
     "type": "relative",
     "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},

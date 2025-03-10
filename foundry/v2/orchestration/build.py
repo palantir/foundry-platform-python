@@ -13,64 +13,18 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
+import typing
 
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
-
+import annotated_types
 import pydantic
-from annotated_types import Len
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._build_rid import BuildRid
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.datasets.models._branch_name import BranchName
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 from foundry.v2.orchestration import errors as orchestration_errors
-from foundry.v2.orchestration.models._abort_on_failure import AbortOnFailure
-from foundry.v2.orchestration.models._build import Build
-from foundry.v2.orchestration.models._build_target import BuildTarget
-from foundry.v2.orchestration.models._build_target_dict import BuildTargetDict
-from foundry.v2.orchestration.models._fallback_branches import FallbackBranches
-from foundry.v2.orchestration.models._force_build import ForceBuild
-from foundry.v2.orchestration.models._get_builds_batch_request_element import (
-    GetBuildsBatchRequestElement,
-)  # NOQA
-from foundry.v2.orchestration.models._get_builds_batch_request_element_dict import (
-    GetBuildsBatchRequestElementDict,
-)  # NOQA
-from foundry.v2.orchestration.models._get_builds_batch_response import (
-    GetBuildsBatchResponse,
-)  # NOQA
-from foundry.v2.orchestration.models._notifications_enabled import NotificationsEnabled
-from foundry.v2.orchestration.models._retry_backoff_duration import RetryBackoffDuration
-from foundry.v2.orchestration.models._retry_backoff_duration_dict import (
-    RetryBackoffDurationDict,
-)  # NOQA
-from foundry.v2.orchestration.models._retry_count import RetryCount
-from foundry.v2.orchestration.models._search_builds_filter import SearchBuildsFilter
-from foundry.v2.orchestration.models._search_builds_filter_dict import (
-    SearchBuildsFilterDict,
-)  # NOQA
-from foundry.v2.orchestration.models._search_builds_order_by import SearchBuildsOrderBy
-from foundry.v2.orchestration.models._search_builds_order_by_dict import (
-    SearchBuildsOrderByDict,
-)  # NOQA
-from foundry.v2.orchestration.models._search_builds_response import SearchBuildsResponse
+from foundry.v2.orchestration import models as orchestration_models
 
 
 class BuildClient:
@@ -84,36 +38,36 @@ class BuildClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _BuildClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _BuildClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def cancel(
         self,
-        build_rid: BuildRid,
+        build_rid: core_models.BuildRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
         :param build_rid: buildRid
-        :type build_rid: BuildRid
+        :type build_rid: core_models.BuildRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -123,7 +77,7 @@ class BuildClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/{buildRid}/cancel",
                 query_params={
@@ -143,55 +97,60 @@ class BuildClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        fallback_branches: FallbackBranches,
-        target: Union[BuildTarget, BuildTargetDict],
-        abort_on_failure: Optional[AbortOnFailure] = None,
-        branch_name: Optional[BranchName] = None,
-        force_build: Optional[ForceBuild] = None,
-        notifications_enabled: Optional[NotificationsEnabled] = None,
-        preview: Optional[PreviewMode] = None,
-        retry_backoff_duration: Optional[
-            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+        fallback_branches: orchestration_models.FallbackBranches,
+        target: typing.Union[
+            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
+        ],
+        abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        force_build: typing.Optional[orchestration_models.ForceBuild] = None,
+        notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        retry_backoff_duration: typing.Optional[
+            typing.Union[
+                orchestration_models.RetryBackoffDuration,
+                orchestration_models.RetryBackoffDurationDict,
+            ]
         ] = None,
-        retry_count: Optional[RetryCount] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Build:
+        retry_count: typing.Optional[orchestration_models.RetryCount] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.Build:
         """
 
         :param fallback_branches:
-        :type fallback_branches: FallbackBranches
+        :type fallback_branches: orchestration_models.FallbackBranches
         :param target: The targets of the schedule.
-        :type target: Union[BuildTarget, BuildTargetDict]
+        :type target: typing.Union[orchestration_models.BuildTarget, orchestration_models.BuildTargetDict]
         :param abort_on_failure:
-        :type abort_on_failure: Optional[AbortOnFailure]
+        :type abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure]
         :param branch_name: The target branch the build should run on.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param force_build:
-        :type force_build: Optional[ForceBuild]
+        :type force_build: typing.Optional[orchestration_models.ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
-        :type notifications_enabled: Optional[NotificationsEnabled]
+        :type notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
+        :type retry_backoff_duration: typing.Optional[typing.Union[orchestration_models.RetryBackoffDuration, orchestration_models.RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
-        :type retry_count: Optional[RetryCount]
+        :type retry_count: typing.Optional[orchestration_models.RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Build
+        :rtype: orchestration_models.Build
 
         :raises CreateBuildsPermissionDenied: Could not create the Build.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/create",
                 query_params={
@@ -212,22 +171,29 @@ class BuildClient:
                     "abortOnFailure": abort_on_failure,
                     "notificationsEnabled": notifications_enabled,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "target": Union[BuildTarget, BuildTargetDict],
-                        "branchName": Optional[BranchName],
-                        "fallbackBranches": FallbackBranches,
-                        "forceBuild": Optional[ForceBuild],
-                        "retryCount": Optional[RetryCount],
-                        "retryBackoffDuration": Optional[
-                            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+                        "target": typing.Union[
+                            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
                         ],
-                        "abortOnFailure": Optional[AbortOnFailure],
-                        "notificationsEnabled": Optional[NotificationsEnabled],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "fallbackBranches": orchestration_models.FallbackBranches,
+                        "forceBuild": typing.Optional[orchestration_models.ForceBuild],
+                        "retryCount": typing.Optional[orchestration_models.RetryCount],
+                        "retryBackoffDuration": typing.Optional[
+                            typing.Union[
+                                orchestration_models.RetryBackoffDuration,
+                                orchestration_models.RetryBackoffDurationDict,
+                            ]
+                        ],
+                        "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
+                        "notificationsEnabled": typing.Optional[
+                            orchestration_models.NotificationsEnabled
+                        ],
                     },
                 ),
-                response_type=Build,
+                response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateBuildsPermissionDenied": orchestration_errors.CreateBuildsPermissionDenied,
@@ -235,32 +201,32 @@ class BuildClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        build_rid: BuildRid,
+        build_rid: core_models.BuildRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Build:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.Build:
         """
         Get the Build with the specified rid.
         :param build_rid: buildRid
-        :type build_rid: BuildRid
+        :type build_rid: core_models.BuildRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Build
+        :rtype: orchestration_models.Build
 
         :raises BuildNotFound: The given Build could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/builds/{buildRid}",
                 query_params={
@@ -274,7 +240,7 @@ class BuildClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Build,
+                response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildNotFound": orchestration_errors.BuildNotFound,
@@ -282,35 +248,40 @@ class BuildClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]],
-            Len(min_length=1, max_length=100),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    orchestration_models.GetBuildsBatchRequestElement,
+                    orchestration_models.GetBuildsBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=100),
         ],
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> GetBuildsBatchResponse:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.GetBuildsBatchResponse:
         """
         Execute multiple get requests on Build.
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)]
+        :type body: typing_extensions.Annotated[typing.List[typing.Union[orchestration_models.GetBuildsBatchRequestElement, orchestration_models.GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: GetBuildsBatchResponse
+        :rtype: orchestration_models.GetBuildsBatchResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/getBatch",
                 query_params={
@@ -322,50 +293,58 @@ class BuildClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)
+                body_type=typing_extensions.Annotated[
+                    typing.List[orchestration_models.GetBuildsBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=100),
                 ],
-                response_type=GetBuildsBatchResponse,
+                response_type=orchestration_models.GetBuildsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[SearchBuildsFilter, SearchBuildsFilterDict],
-        order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> SearchBuildsResponse:
+        where: typing.Union[
+            orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict
+        ],
+        order_by: typing.Optional[
+            typing.Union[
+                orchestration_models.SearchBuildsOrderBy,
+                orchestration_models.SearchBuildsOrderByDict,
+            ]
+        ] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.SearchBuildsResponse:
         """
         Search for Builds.
         :param where:
-        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
+        :type where: typing.Union[orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
+        :type order_by: typing.Optional[typing.Union[orchestration_models.SearchBuildsOrderBy, orchestration_models.SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: SearchBuildsResponse
+        :rtype: orchestration_models.SearchBuildsResponse
 
         :raises SearchBuildsPermissionDenied: Could not search the Build.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/search",
                 query_params={
@@ -382,16 +361,24 @@ class BuildClient:
                     "pageToken": page_token,
                     "pageSize": page_size,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[SearchBuildsFilter, SearchBuildsFilterDict],
-                        "orderBy": Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]],
-                        "pageToken": Optional[PageToken],
-                        "pageSize": Optional[PageSize],
+                        "where": typing.Union[
+                            orchestration_models.SearchBuildsFilter,
+                            orchestration_models.SearchBuildsFilterDict,
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                orchestration_models.SearchBuildsOrderBy,
+                                orchestration_models.SearchBuildsOrderByDict,
+                            ]
+                        ],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
                     },
                 ),
-                response_type=SearchBuildsResponse,
+                response_type=orchestration_models.SearchBuildsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchBuildsPermissionDenied": orchestration_errors.SearchBuildsPermissionDenied,
@@ -411,42 +398,42 @@ class _BuildClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def cancel(
         self,
-        build_rid: BuildRid,
+        build_rid: core_models.BuildRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
         :param build_rid: buildRid
-        :type build_rid: BuildRid
+        :type build_rid: core_models.BuildRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises CancelBuildPermissionDenied: Could not cancel the Build.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/{buildRid}/cancel",
                 query_params={
@@ -466,55 +453,60 @@ class _BuildClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        fallback_branches: FallbackBranches,
-        target: Union[BuildTarget, BuildTargetDict],
-        abort_on_failure: Optional[AbortOnFailure] = None,
-        branch_name: Optional[BranchName] = None,
-        force_build: Optional[ForceBuild] = None,
-        notifications_enabled: Optional[NotificationsEnabled] = None,
-        preview: Optional[PreviewMode] = None,
-        retry_backoff_duration: Optional[
-            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+        fallback_branches: orchestration_models.FallbackBranches,
+        target: typing.Union[
+            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
+        ],
+        abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        force_build: typing.Optional[orchestration_models.ForceBuild] = None,
+        notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        retry_backoff_duration: typing.Optional[
+            typing.Union[
+                orchestration_models.RetryBackoffDuration,
+                orchestration_models.RetryBackoffDurationDict,
+            ]
         ] = None,
-        retry_count: Optional[RetryCount] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Build]:
+        retry_count: typing.Optional[orchestration_models.RetryCount] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.Build]:
         """
 
         :param fallback_branches:
-        :type fallback_branches: FallbackBranches
+        :type fallback_branches: orchestration_models.FallbackBranches
         :param target: The targets of the schedule.
-        :type target: Union[BuildTarget, BuildTargetDict]
+        :type target: typing.Union[orchestration_models.BuildTarget, orchestration_models.BuildTargetDict]
         :param abort_on_failure:
-        :type abort_on_failure: Optional[AbortOnFailure]
+        :type abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure]
         :param branch_name: The target branch the build should run on.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param force_build:
-        :type force_build: Optional[ForceBuild]
+        :type force_build: typing.Optional[orchestration_models.ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
-        :type notifications_enabled: Optional[NotificationsEnabled]
+        :type notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
+        :type retry_backoff_duration: typing.Optional[typing.Union[orchestration_models.RetryBackoffDuration, orchestration_models.RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
-        :type retry_count: Optional[RetryCount]
+        :type retry_count: typing.Optional[orchestration_models.RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Build]
+        :rtype: core.ApiResponse[orchestration_models.Build]
 
         :raises CreateBuildsPermissionDenied: Could not create the Build.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/create",
                 query_params={
@@ -535,22 +527,29 @@ class _BuildClientRaw:
                     "abortOnFailure": abort_on_failure,
                     "notificationsEnabled": notifications_enabled,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "target": Union[BuildTarget, BuildTargetDict],
-                        "branchName": Optional[BranchName],
-                        "fallbackBranches": FallbackBranches,
-                        "forceBuild": Optional[ForceBuild],
-                        "retryCount": Optional[RetryCount],
-                        "retryBackoffDuration": Optional[
-                            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+                        "target": typing.Union[
+                            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
                         ],
-                        "abortOnFailure": Optional[AbortOnFailure],
-                        "notificationsEnabled": Optional[NotificationsEnabled],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "fallbackBranches": orchestration_models.FallbackBranches,
+                        "forceBuild": typing.Optional[orchestration_models.ForceBuild],
+                        "retryCount": typing.Optional[orchestration_models.RetryCount],
+                        "retryBackoffDuration": typing.Optional[
+                            typing.Union[
+                                orchestration_models.RetryBackoffDuration,
+                                orchestration_models.RetryBackoffDurationDict,
+                            ]
+                        ],
+                        "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
+                        "notificationsEnabled": typing.Optional[
+                            orchestration_models.NotificationsEnabled
+                        ],
                     },
                 ),
-                response_type=Build,
+                response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateBuildsPermissionDenied": orchestration_errors.CreateBuildsPermissionDenied,
@@ -558,32 +557,32 @@ class _BuildClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        build_rid: BuildRid,
+        build_rid: core_models.BuildRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Build]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.Build]:
         """
         Get the Build with the specified rid.
         :param build_rid: buildRid
-        :type build_rid: BuildRid
+        :type build_rid: core_models.BuildRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Build]
+        :rtype: core.ApiResponse[orchestration_models.Build]
 
         :raises BuildNotFound: The given Build could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/builds/{buildRid}",
                 query_params={
@@ -597,7 +596,7 @@ class _BuildClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Build,
+                response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildNotFound": orchestration_errors.BuildNotFound,
@@ -605,35 +604,40 @@ class _BuildClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]],
-            Len(min_length=1, max_length=100),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    orchestration_models.GetBuildsBatchRequestElement,
+                    orchestration_models.GetBuildsBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=100),
         ],
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[GetBuildsBatchResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.GetBuildsBatchResponse]:
         """
         Execute multiple get requests on Build.
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)]
+        :type body: typing_extensions.Annotated[typing.List[typing.Union[orchestration_models.GetBuildsBatchRequestElement, orchestration_models.GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[GetBuildsBatchResponse]
+        :rtype: core.ApiResponse[orchestration_models.GetBuildsBatchResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/getBatch",
                 query_params={
@@ -645,50 +649,58 @@ class _BuildClientRaw:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)
+                body_type=typing_extensions.Annotated[
+                    typing.List[orchestration_models.GetBuildsBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=100),
                 ],
-                response_type=GetBuildsBatchResponse,
+                response_type=orchestration_models.GetBuildsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[SearchBuildsFilter, SearchBuildsFilterDict],
-        order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[SearchBuildsResponse]:
+        where: typing.Union[
+            orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict
+        ],
+        order_by: typing.Optional[
+            typing.Union[
+                orchestration_models.SearchBuildsOrderBy,
+                orchestration_models.SearchBuildsOrderByDict,
+            ]
+        ] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.SearchBuildsResponse]:
         """
         Search for Builds.
         :param where:
-        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
+        :type where: typing.Union[orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
+        :type order_by: typing.Optional[typing.Union[orchestration_models.SearchBuildsOrderBy, orchestration_models.SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[SearchBuildsResponse]
+        :rtype: core.ApiResponse[orchestration_models.SearchBuildsResponse]
 
         :raises SearchBuildsPermissionDenied: Could not search the Build.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/search",
                 query_params={
@@ -705,16 +717,24 @@ class _BuildClientRaw:
                     "pageToken": page_token,
                     "pageSize": page_size,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[SearchBuildsFilter, SearchBuildsFilterDict],
-                        "orderBy": Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]],
-                        "pageToken": Optional[PageToken],
-                        "pageSize": Optional[PageSize],
+                        "where": typing.Union[
+                            orchestration_models.SearchBuildsFilter,
+                            orchestration_models.SearchBuildsFilterDict,
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                orchestration_models.SearchBuildsOrderBy,
+                                orchestration_models.SearchBuildsOrderByDict,
+                            ]
+                        ],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
                     },
                 ),
-                response_type=SearchBuildsResponse,
+                response_type=orchestration_models.SearchBuildsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchBuildsPermissionDenied": orchestration_errors.SearchBuildsPermissionDenied,
@@ -734,42 +754,42 @@ class _BuildClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def cancel(
         self,
-        build_rid: BuildRid,
+        build_rid: core_models.BuildRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
         :param build_rid: buildRid
-        :type build_rid: BuildRid
+        :type build_rid: core_models.BuildRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises CancelBuildPermissionDenied: Could not cancel the Build.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/{buildRid}/cancel",
                 query_params={
@@ -789,55 +809,60 @@ class _BuildClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        fallback_branches: FallbackBranches,
-        target: Union[BuildTarget, BuildTargetDict],
-        abort_on_failure: Optional[AbortOnFailure] = None,
-        branch_name: Optional[BranchName] = None,
-        force_build: Optional[ForceBuild] = None,
-        notifications_enabled: Optional[NotificationsEnabled] = None,
-        preview: Optional[PreviewMode] = None,
-        retry_backoff_duration: Optional[
-            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+        fallback_branches: orchestration_models.FallbackBranches,
+        target: typing.Union[
+            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
+        ],
+        abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        force_build: typing.Optional[orchestration_models.ForceBuild] = None,
+        notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        retry_backoff_duration: typing.Optional[
+            typing.Union[
+                orchestration_models.RetryBackoffDuration,
+                orchestration_models.RetryBackoffDurationDict,
+            ]
         ] = None,
-        retry_count: Optional[RetryCount] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Build]:
+        retry_count: typing.Optional[orchestration_models.RetryCount] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.Build]:
         """
 
         :param fallback_branches:
-        :type fallback_branches: FallbackBranches
+        :type fallback_branches: orchestration_models.FallbackBranches
         :param target: The targets of the schedule.
-        :type target: Union[BuildTarget, BuildTargetDict]
+        :type target: typing.Union[orchestration_models.BuildTarget, orchestration_models.BuildTargetDict]
         :param abort_on_failure:
-        :type abort_on_failure: Optional[AbortOnFailure]
+        :type abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure]
         :param branch_name: The target branch the build should run on.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param force_build:
-        :type force_build: Optional[ForceBuild]
+        :type force_build: typing.Optional[orchestration_models.ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
-        :type notifications_enabled: Optional[NotificationsEnabled]
+        :type notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
+        :type retry_backoff_duration: typing.Optional[typing.Union[orchestration_models.RetryBackoffDuration, orchestration_models.RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
-        :type retry_count: Optional[RetryCount]
+        :type retry_count: typing.Optional[orchestration_models.RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Build]
+        :rtype: core.StreamingContextManager[orchestration_models.Build]
 
         :raises CreateBuildsPermissionDenied: Could not create the Build.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/create",
                 query_params={
@@ -858,22 +883,29 @@ class _BuildClientStreaming:
                     "abortOnFailure": abort_on_failure,
                     "notificationsEnabled": notifications_enabled,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "target": Union[BuildTarget, BuildTargetDict],
-                        "branchName": Optional[BranchName],
-                        "fallbackBranches": FallbackBranches,
-                        "forceBuild": Optional[ForceBuild],
-                        "retryCount": Optional[RetryCount],
-                        "retryBackoffDuration": Optional[
-                            Union[RetryBackoffDuration, RetryBackoffDurationDict]
+                        "target": typing.Union[
+                            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
                         ],
-                        "abortOnFailure": Optional[AbortOnFailure],
-                        "notificationsEnabled": Optional[NotificationsEnabled],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "fallbackBranches": orchestration_models.FallbackBranches,
+                        "forceBuild": typing.Optional[orchestration_models.ForceBuild],
+                        "retryCount": typing.Optional[orchestration_models.RetryCount],
+                        "retryBackoffDuration": typing.Optional[
+                            typing.Union[
+                                orchestration_models.RetryBackoffDuration,
+                                orchestration_models.RetryBackoffDurationDict,
+                            ]
+                        ],
+                        "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
+                        "notificationsEnabled": typing.Optional[
+                            orchestration_models.NotificationsEnabled
+                        ],
                     },
                 ),
-                response_type=Build,
+                response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateBuildsPermissionDenied": orchestration_errors.CreateBuildsPermissionDenied,
@@ -881,32 +913,32 @@ class _BuildClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        build_rid: BuildRid,
+        build_rid: core_models.BuildRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Build]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.Build]:
         """
         Get the Build with the specified rid.
         :param build_rid: buildRid
-        :type build_rid: BuildRid
+        :type build_rid: core_models.BuildRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Build]
+        :rtype: core.StreamingContextManager[orchestration_models.Build]
 
         :raises BuildNotFound: The given Build could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/builds/{buildRid}",
                 query_params={
@@ -920,7 +952,7 @@ class _BuildClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Build,
+                response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildNotFound": orchestration_errors.BuildNotFound,
@@ -928,35 +960,40 @@ class _BuildClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]],
-            Len(min_length=1, max_length=100),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    orchestration_models.GetBuildsBatchRequestElement,
+                    orchestration_models.GetBuildsBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=100),
         ],
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[GetBuildsBatchResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.GetBuildsBatchResponse]:
         """
         Execute multiple get requests on Build.
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)]
+        :type body: typing_extensions.Annotated[typing.List[typing.Union[orchestration_models.GetBuildsBatchRequestElement, orchestration_models.GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[GetBuildsBatchResponse]
+        :rtype: core.StreamingContextManager[orchestration_models.GetBuildsBatchResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/getBatch",
                 query_params={
@@ -968,50 +1005,58 @@ class _BuildClientStreaming:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetBuildsBatchRequestElementDict], Len(min_length=1, max_length=100)
+                body_type=typing_extensions.Annotated[
+                    typing.List[orchestration_models.GetBuildsBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=100),
                 ],
-                response_type=GetBuildsBatchResponse,
+                response_type=orchestration_models.GetBuildsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[SearchBuildsFilter, SearchBuildsFilterDict],
-        order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[SearchBuildsResponse]:
+        where: typing.Union[
+            orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict
+        ],
+        order_by: typing.Optional[
+            typing.Union[
+                orchestration_models.SearchBuildsOrderBy,
+                orchestration_models.SearchBuildsOrderByDict,
+            ]
+        ] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.SearchBuildsResponse]:
         """
         Search for Builds.
         :param where:
-        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
+        :type where: typing.Union[orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
+        :type order_by: typing.Optional[typing.Union[orchestration_models.SearchBuildsOrderBy, orchestration_models.SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[SearchBuildsResponse]
+        :rtype: core.StreamingContextManager[orchestration_models.SearchBuildsResponse]
 
         :raises SearchBuildsPermissionDenied: Could not search the Build.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/search",
                 query_params={
@@ -1028,16 +1073,24 @@ class _BuildClientStreaming:
                     "pageToken": page_token,
                     "pageSize": page_size,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[SearchBuildsFilter, SearchBuildsFilterDict],
-                        "orderBy": Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]],
-                        "pageToken": Optional[PageToken],
-                        "pageSize": Optional[PageSize],
+                        "where": typing.Union[
+                            orchestration_models.SearchBuildsFilter,
+                            orchestration_models.SearchBuildsFilterDict,
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                orchestration_models.SearchBuildsOrderBy,
+                                orchestration_models.SearchBuildsOrderByDict,
+                            ]
+                        ],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
                     },
                 ),
-                response_type=SearchBuildsResponse,
+                response_type=orchestration_models.SearchBuildsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchBuildsPermissionDenied": orchestration_errors.SearchBuildsPermissionDenied,

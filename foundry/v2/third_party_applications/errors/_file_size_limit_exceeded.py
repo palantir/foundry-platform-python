@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import Long
-from foundry._errors import BadRequestError
+from foundry import _core as core
+from foundry import _errors as errors
 
 
-class FileSizeLimitExceededParameters(TypedDict):
+class FileSizeLimitExceededParameters(typing_extensions.TypedDict):
     """
     A file inside the .zip archive is too big. You must ensure that all files inside
     the .zip archive are within the limit.
@@ -32,16 +30,16 @@ class FileSizeLimitExceededParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fileSizeBytesLimit: Long
+    fileSizeBytesLimit: core.Long
 
-    currentFileSizeBytes: Long
+    currentFileSizeBytes: core.Long
 
     currentFilePath: str
 
 
 @dataclass
-class FileSizeLimitExceeded(BadRequestError):
-    name: Literal["FileSizeLimitExceeded"]
+class FileSizeLimitExceeded(errors.BadRequestError):
+    name: typing.Literal["FileSizeLimitExceeded"]
     parameters: FileSizeLimitExceededParameters
     error_instance_id: str
 

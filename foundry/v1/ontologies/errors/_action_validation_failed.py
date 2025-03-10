@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._action_type_api_name import ActionTypeApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class ActionValidationFailedParameters(TypedDict):
+class ActionValidationFailedParameters(typing_extensions.TypedDict):
     """
     The validation failed for the given action parameters. Please use the `validateAction` endpoint for more
     details.
@@ -32,12 +30,12 @@ class ActionValidationFailedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    actionType: ActionTypeApiName
+    actionType: ontologies_models.ActionTypeApiName
 
 
 @dataclass
-class ActionValidationFailed(BadRequestError):
-    name: Literal["ActionValidationFailed"]
+class ActionValidationFailed(errors.BadRequestError):
+    name: typing.Literal["ActionValidationFailed"]
     parameters: ActionValidationFailedParameters
     error_instance_id: str
 

@@ -6,8 +6,8 @@ Divides objects into groups according to specified ranges.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**ranges** | List[AggregationRangeV2] | Yes |  |
-**type** | Literal["ranges"] | Yes | None |
+**ranges** | typing.List[AggregationRangeV2] | Yes |  |
+**type** | typing.Literal["ranges"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

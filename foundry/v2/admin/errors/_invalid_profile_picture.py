@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class InvalidProfilePictureParameters(TypedDict):
+class InvalidProfilePictureParameters(typing_extensions.TypedDict):
     """The user's profile picture is not a valid image"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: PrincipalId
+    userId: core_models.PrincipalId
 
 
 @dataclass
-class InvalidProfilePicture(BadRequestError):
-    name: Literal["InvalidProfilePicture"]
+class InvalidProfilePicture(errors.BadRequestError):
+    name: typing.Literal["InvalidProfilePicture"]
     parameters: InvalidProfilePictureParameters
     error_instance_id: str
 

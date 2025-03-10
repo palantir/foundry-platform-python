@@ -13,30 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class TableImportNotSupportedForConnectionParameters(TypedDict):
+class TableImportNotSupportedForConnectionParameters(typing_extensions.TypedDict):
     """The specified connection does not support creating a table import with the specified config."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    connectionRid: ConnectionRid
+    connectionRid: connectivity_models.ConnectionRid
 
     tableImportType: str
 
 
 @dataclass
-class TableImportNotSupportedForConnection(BadRequestError):
-    name: Literal["TableImportNotSupportedForConnection"]
+class TableImportNotSupportedForConnection(errors.BadRequestError):
+    name: typing.Literal["TableImportNotSupportedForConnection"]
     parameters: TableImportNotSupportedForConnectionParameters
     error_instance_id: str
 

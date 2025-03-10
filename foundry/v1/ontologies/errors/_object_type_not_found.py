@@ -13,32 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v1.ontologies.models._object_type_rid import ObjectTypeRid
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class ObjectTypeNotFoundParameters(TypedDict):
+class ObjectTypeNotFoundParameters(typing_extensions.TypedDict):
     """The requested object type is not found, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: NotRequired[ObjectTypeApiName]
+    objectType: typing_extensions.NotRequired[ontologies_models.ObjectTypeApiName]
 
-    objectTypeRid: NotRequired[ObjectTypeRid]
+    objectTypeRid: typing_extensions.NotRequired[ontologies_models.ObjectTypeRid]
 
 
 @dataclass
-class ObjectTypeNotFound(NotFoundError):
-    name: Literal["ObjectTypeNotFound"]
+class ObjectTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["ObjectTypeNotFound"]
     parameters: ObjectTypeNotFoundParameters
     error_instance_id: str
 

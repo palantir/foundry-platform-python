@@ -5,7 +5,7 @@ Details about a parameter of a query.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | NotRequired[str] | No |  |
+**description** | typing_extensions.NotRequired[str] | No |  |
 **dataType** | QueryDataTypeDict | Yes |  |
 
 

@@ -13,28 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._job_rid import JobRid
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.orchestration import errors as orchestration_errors
-from foundry.v2.orchestration.models._job import Job
+from foundry.v2.orchestration import models as orchestration_models
 
 
 class JobClient:
@@ -48,45 +36,45 @@ class JobClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _JobClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _JobClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        job_rid: JobRid,
+        job_rid: core_models.JobRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Job:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.Job:
         """
         Get the Job with the specified rid.
         :param job_rid: jobRid
-        :type job_rid: JobRid
+        :type job_rid: core_models.JobRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Job
+        :rtype: orchestration_models.Job
 
         :raises JobNotFound: The given Job could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/jobs/{jobRid}",
                 query_params={
@@ -100,7 +88,7 @@ class JobClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Job,
+                response_type=orchestration_models.Job,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "JobNotFound": orchestration_errors.JobNotFound,
@@ -120,41 +108,41 @@ class _JobClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        job_rid: JobRid,
+        job_rid: core_models.JobRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Job]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.Job]:
         """
         Get the Job with the specified rid.
         :param job_rid: jobRid
-        :type job_rid: JobRid
+        :type job_rid: core_models.JobRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Job]
+        :rtype: core.ApiResponse[orchestration_models.Job]
 
         :raises JobNotFound: The given Job could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/jobs/{jobRid}",
                 query_params={
@@ -168,7 +156,7 @@ class _JobClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Job,
+                response_type=orchestration_models.Job,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "JobNotFound": orchestration_errors.JobNotFound,
@@ -188,41 +176,41 @@ class _JobClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        job_rid: JobRid,
+        job_rid: core_models.JobRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Job]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.Job]:
         """
         Get the Job with the specified rid.
         :param job_rid: jobRid
-        :type job_rid: JobRid
+        :type job_rid: core_models.JobRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Job]
+        :rtype: core.StreamingContextManager[orchestration_models.Job]
 
         :raises JobNotFound: The given Job could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/jobs/{jobRid}",
                 query_params={
@@ -236,7 +224,7 @@ class _JobClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Job,
+                response_type=orchestration_models.Job,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "JobNotFound": orchestration_errors.JobNotFound,

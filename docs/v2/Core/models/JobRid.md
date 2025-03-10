@@ -4,7 +4,7 @@ The RID of a Job.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

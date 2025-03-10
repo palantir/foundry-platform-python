@@ -8,10 +8,10 @@ but not both.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | NotRequired[PropertyApiName] | No |  |
-**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
+**field** | typing_extensions.NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | typing_extensions.NotRequired[PropertyIdentifierDict] | No |  |
 **value** | BoundingBoxValueDict | Yes |  |
-**type** | Literal["withinBoundingBox"] | Yes | None |
+**type** | typing.Literal["withinBoundingBox"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -5,7 +5,7 @@ The Resource Identifier (RID) of a Connection (also known as a source).
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

@@ -13,18 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class AggregationGroupCountExceededLimitParameters(TypedDict):
+class AggregationGroupCountExceededLimitParameters(typing_extensions.TypedDict):
     """
     The number of groups in the aggregations grouping exceeded the allowed limit. This can typically be fixed by
     adjusting your query to reduce the number of groups created by your aggregation. For instance:
@@ -35,14 +32,14 @@ class AggregationGroupCountExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupsCount: NotRequired[int]
+    groupsCount: typing_extensions.NotRequired[int]
 
-    groupsLimit: NotRequired[int]
+    groupsLimit: typing_extensions.NotRequired[int]
 
 
 @dataclass
-class AggregationGroupCountExceededLimit(BadRequestError):
-    name: Literal["AggregationGroupCountExceededLimit"]
+class AggregationGroupCountExceededLimit(errors.BadRequestError):
+    name: typing.Literal["AggregationGroupCountExceededLimit"]
     parameters: AggregationGroupCountExceededLimitParameters
     error_instance_id: str
 

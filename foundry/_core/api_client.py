@@ -267,6 +267,7 @@ class ApiClient:
         hostname: str,
         config: Optional[Config] = None,
     ):
+
         if isinstance(auth, str):
             # This is a common error so we have a special error message
             # for these situations

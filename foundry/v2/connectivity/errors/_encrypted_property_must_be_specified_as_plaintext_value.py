@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters(TypedDict):
+class EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters(typing_extensions.TypedDict):
     """The encrypted property must be specified as a plaintext value."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters(TypedDict):
 
 
 @dataclass
-class EncryptedPropertyMustBeSpecifiedAsPlaintextValue(BadRequestError):
-    name: Literal["EncryptedPropertyMustBeSpecifiedAsPlaintextValue"]
+class EncryptedPropertyMustBeSpecifiedAsPlaintextValue(errors.BadRequestError):
+    name: typing.Literal["EncryptedPropertyMustBeSpecifiedAsPlaintextValue"]
     parameters: EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters
     error_instance_id: str
 

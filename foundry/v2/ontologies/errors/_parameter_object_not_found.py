@@ -13,33 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Dict
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v2.ontologies.models._primary_key_value import PrimaryKeyValue
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class ParameterObjectNotFoundParameters(TypedDict):
+class ParameterObjectNotFoundParameters(typing_extensions.TypedDict):
     """The parameter object reference or parameter default value is not found, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
+    objectType: ontologies_models.ObjectTypeApiName
 
-    primaryKey: Dict[PropertyApiName, PrimaryKeyValue]
+    primaryKey: typing.Dict[ontologies_models.PropertyApiName, ontologies_models.PrimaryKeyValue]
 
 
 @dataclass
-class ParameterObjectNotFound(NotFoundError):
-    name: Literal["ParameterObjectNotFound"]
+class ParameterObjectNotFound(errors.NotFoundError):
+    name: typing.Literal["ParameterObjectNotFound"]
     parameters: ParameterObjectNotFoundParameters
     error_instance_id: str
 

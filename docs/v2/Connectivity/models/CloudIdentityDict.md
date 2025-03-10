@@ -8,7 +8,7 @@ cloud provider resources without the use of static credentials.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **cloudIdentityRid** | CloudIdentityRid | Yes |  |
-**type** | Literal["cloudIdentity"] | Yes | None |
+**type** | typing.Literal["cloudIdentity"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

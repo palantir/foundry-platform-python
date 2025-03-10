@@ -14,9 +14,9 @@ Method | HTTP request | Release Stage |
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**principal_ids** | List[PrincipalId] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**marking_id** | core_models.MarkingId | markingId |  |
+**principal_ids** | typing.List[core_models.PrincipalId] |  |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -32,11 +32,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# core_models.MarkingId | markingId
 marking_id = None
-# List[PrincipalId] |
+# typing.List[core_models.PrincipalId] |
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -75,14 +75,14 @@ Requires `api:admin-write` because only marking administrators can view marking 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**transitive** | Optional[bool] | transitive | [optional] |
+**marking_id** | core_models.MarkingId | markingId |  |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**transitive** | typing.Optional[bool] | transitive | [optional] |
 
 ### Return type
-**ResourceIterator[MarkingMember]**
+**ListMarkingMembersResponse**
 
 ### Example
 
@@ -95,15 +95,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# core_models.MarkingId | markingId
 marking_id = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[bool] | transitive
+# typing.Optional[bool] | transitive
 transitive = None
 
 
@@ -143,11 +143,11 @@ Requires `api:admin-write` because only marking administrators can view marking 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**transitive** | Optional[bool] | transitive | [optional] |
+**marking_id** | core_models.MarkingId | markingId |  |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**transitive** | typing.Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ListMarkingMembersResponse**
@@ -163,15 +163,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# core_models.MarkingId | markingId
 marking_id = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[bool] | transitive
+# typing.Optional[bool] | transitive
 transitive = None
 
 
@@ -210,9 +210,9 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**principal_ids** | List[PrincipalId] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**marking_id** | core_models.MarkingId | markingId |  |
+**principal_ids** | typing.List[core_models.PrincipalId] |  |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -228,11 +228,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# core_models.MarkingId | markingId
 marking_id = None
-# List[PrincipalId] |
+# typing.List[core_models.PrincipalId] |
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

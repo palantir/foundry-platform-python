@@ -13,31 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v1.core.models._folder_rid import FolderRid
-from foundry.v1.datasets.models._dataset_name import DatasetName
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
+from foundry.v1.datasets import models as datasets_models
 
 
-class CreateDatasetPermissionDeniedParameters(TypedDict):
+class CreateDatasetPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to create a dataset in this folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parentFolderRid: FolderRid
+    parentFolderRid: core_models.FolderRid
 
-    name: DatasetName
+    name: datasets_models.DatasetName
 
 
 @dataclass
-class CreateDatasetPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateDatasetPermissionDenied"]
+class CreateDatasetPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateDatasetPermissionDenied"]
     parameters: CreateDatasetPermissionDeniedParameters
     error_instance_id: str
 

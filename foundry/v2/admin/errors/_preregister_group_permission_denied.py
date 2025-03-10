@@ -13,31 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.admin.models._authentication_provider_rid import AuthenticationProviderRid  # NOQA
-from foundry.v2.core.models._enrollment_rid import EnrollmentRid
+from foundry import _errors as errors
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
-class PreregisterGroupPermissionDeniedParameters(TypedDict):
+class PreregisterGroupPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not preregisterGroup the AuthenticationProvider."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    enrollmentRid: EnrollmentRid
+    enrollmentRid: core_models.EnrollmentRid
 
-    authenticationProviderRid: AuthenticationProviderRid
+    authenticationProviderRid: admin_models.AuthenticationProviderRid
 
 
 @dataclass
-class PreregisterGroupPermissionDenied(PermissionDeniedError):
-    name: Literal["PreregisterGroupPermissionDenied"]
+class PreregisterGroupPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["PreregisterGroupPermissionDenied"]
     parameters: PreregisterGroupPermissionDeniedParameters
     error_instance_id: str
 

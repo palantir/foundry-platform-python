@@ -19,9 +19,8 @@ import dataclasses
 import io
 import json
 import os
+import typing
 from datetime import datetime
-from typing import Literal
-from typing import Optional
 
 import click
 
@@ -128,7 +127,7 @@ def admin_user_get_current(
 def admin_user_get_markings(
     client: foundry.v2.FoundryClient,
     user_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Retrieve Markings that the user is currently a member of.
@@ -146,8 +145,8 @@ def admin_user_get_markings(
 @click.pass_obj
 def admin_user_list(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists all Users.
@@ -167,8 +166,8 @@ def admin_user_list(
 @click.pass_obj
 def admin_user_page(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists all Users.
@@ -204,8 +203,8 @@ def admin_user_profile_picture(
 def admin_user_search(
     client: foundry.v2.FoundryClient,
     where: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Perform a case-insensitive prefix search for users based on username, given name and family name.
@@ -233,9 +232,9 @@ def admin_user_group_membership():
 def admin_user_group_membership_list(
     client: foundry.v2.FoundryClient,
     user_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    transitive: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    transitive: typing.Optional[bool],
 ):
     """
     Lists all Groups a given User is a member of.
@@ -265,9 +264,9 @@ def admin_user_group_membership_list(
 def admin_user_group_membership_page(
     client: foundry.v2.FoundryClient,
     user_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    transitive: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    transitive: typing.Optional[bool],
 ):
     """
     Lists all Groups a given User is a member of.
@@ -300,7 +299,7 @@ def admin_user_user_provider_info():
 def admin_user_user_provider_info_get(
     client: foundry.v2.FoundryClient,
     user_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the UserProviderInfo.
@@ -328,7 +327,7 @@ def admin_user_user_provider_info_replace(
     client: foundry.v2.FoundryClient,
     user_id: str,
     provider_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Replace the UserProviderInfo.
@@ -353,7 +352,7 @@ def admin_organization():
 def admin_organization_get(
     client: foundry.v2.FoundryClient,
     organization_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Organization with the specified rid.
@@ -383,9 +382,9 @@ def admin_organization_replace(
     client: foundry.v2.FoundryClient,
     organization_rid: str,
     name: str,
-    description: Optional[str],
-    host: Optional[str],
-    preview: Optional[bool],
+    description: typing.Optional[str],
+    host: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Replace the Organization with the specified rid.
@@ -412,7 +411,7 @@ def admin_marking_category():
 def admin_marking_category_get(
     client: foundry.v2.FoundryClient,
     marking_category_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the MarkingCategory with the specified id.
@@ -431,9 +430,9 @@ def admin_marking_category_get(
 @click.pass_obj
 def admin_marking_category_list(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Maximum page size 100.
@@ -453,9 +452,9 @@ def admin_marking_category_list(
 @click.pass_obj
 def admin_marking_category_page(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Maximum page size 100.
@@ -503,8 +502,8 @@ def admin_marking_create(
     initial_members: str,
     initial_role_assignments: str,
     name: str,
-    description: Optional[str],
-    preview: Optional[bool],
+    description: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Creates a new Marking.
@@ -527,7 +526,7 @@ def admin_marking_create(
 def admin_marking_get(
     client: foundry.v2.FoundryClient,
     marking_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Marking with the specified id.
@@ -546,7 +545,7 @@ def admin_marking_get(
 def admin_marking_get_batch(
     client: foundry.v2.FoundryClient,
     body: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Execute multiple get requests on Marking.
@@ -567,9 +566,9 @@ def admin_marking_get_batch(
 @click.pass_obj
 def admin_marking_list(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Maximum page size 100.
@@ -589,9 +588,9 @@ def admin_marking_list(
 @click.pass_obj
 def admin_marking_page(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Maximum page size 100.
@@ -618,7 +617,7 @@ def admin_marking_marking_role_assignment_add(
     client: foundry.v2.FoundryClient,
     marking_id: str,
     role_assignments: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingRoleAssignment.add(
@@ -638,9 +637,9 @@ def admin_marking_marking_role_assignment_add(
 def admin_marking_marking_role_assignment_list(
     client: foundry.v2.FoundryClient,
     marking_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
@@ -664,9 +663,9 @@ def admin_marking_marking_role_assignment_list(
 def admin_marking_marking_role_assignment_page(
     client: foundry.v2.FoundryClient,
     marking_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
@@ -690,7 +689,7 @@ def admin_marking_marking_role_assignment_remove(
     client: foundry.v2.FoundryClient,
     marking_id: str,
     role_assignments: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingRoleAssignment.remove(
@@ -715,7 +714,7 @@ def admin_marking_marking_member_add(
     client: foundry.v2.FoundryClient,
     marking_id: str,
     principal_ids: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingMember.add(
@@ -736,10 +735,10 @@ def admin_marking_marking_member_add(
 def admin_marking_marking_member_list(
     client: foundry.v2.FoundryClient,
     marking_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-    transitive: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transitive: typing.Optional[bool],
 ):
     """
     Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
@@ -766,10 +765,10 @@ def admin_marking_marking_member_list(
 def admin_marking_marking_member_page(
     client: foundry.v2.FoundryClient,
     marking_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
-    transitive: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transitive: typing.Optional[bool],
 ):
     """
     Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
@@ -795,7 +794,7 @@ def admin_marking_marking_member_remove(
     client: foundry.v2.FoundryClient,
     marking_id: str,
     principal_ids: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingMember.remove(
@@ -833,7 +832,7 @@ def admin_group_create(
     attributes: str,
     name: str,
     organizations: str,
-    description: Optional[str],
+    description: typing.Optional[str],
 ):
     """
     Creates a new Group.
@@ -903,8 +902,8 @@ def admin_group_get_batch(
 @click.pass_obj
 def admin_group_list(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists all Groups.
@@ -924,8 +923,8 @@ def admin_group_list(
 @click.pass_obj
 def admin_group_page(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists all Groups.
@@ -947,8 +946,8 @@ def admin_group_page(
 def admin_group_search(
     client: foundry.v2.FoundryClient,
     where: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Perform a case-insensitive prefix search for groups based on group name.
@@ -976,7 +975,7 @@ def admin_group_group_member_add(
     client: foundry.v2.FoundryClient,
     group_id: str,
     principal_ids: str,
-    expiration: Optional[datetime],
+    expiration: typing.Optional[datetime],
 ):
     """ """
     result = client.admin.Group.GroupMember.add(
@@ -996,9 +995,9 @@ def admin_group_group_member_add(
 def admin_group_group_member_list(
     client: foundry.v2.FoundryClient,
     group_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    transitive: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    transitive: typing.Optional[bool],
 ):
     """
     Lists all members (which can be a User or a Group) of a given Group.
@@ -1028,9 +1027,9 @@ def admin_group_group_member_list(
 def admin_group_group_member_page(
     client: foundry.v2.FoundryClient,
     group_id: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    transitive: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    transitive: typing.Optional[bool],
 ):
     """
     Lists all members (which can be a User or a Group) of a given Group.
@@ -1080,7 +1079,7 @@ def admin_group_group_provider_info():
 def admin_group_group_provider_info_get(
     client: foundry.v2.FoundryClient,
     group_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the GroupProviderInfo.
@@ -1108,7 +1107,7 @@ def admin_group_group_provider_info_replace(
     client: foundry.v2.FoundryClient,
     group_id: str,
     provider_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Replace the GroupProviderInfo.
@@ -1133,7 +1132,7 @@ def admin_enrollment():
 def admin_enrollment_get(
     client: foundry.v2.FoundryClient,
     enrollment_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Enrollment with the specified rid.
@@ -1150,7 +1149,7 @@ def admin_enrollment_get(
 @click.pass_obj
 def admin_enrollment_get_current(
     client: foundry.v2.FoundryClient,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Returns the Enrollment associated with the current User's primary organization.
@@ -1176,7 +1175,7 @@ def admin_enrollment_authentication_provider_get(
     client: foundry.v2.FoundryClient,
     enrollment_rid: str,
     authentication_provider_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the AuthenticationProvider with the specified rid.
@@ -1196,7 +1195,7 @@ def admin_enrollment_authentication_provider_get(
 def admin_enrollment_authentication_provider_list(
     client: foundry.v2.FoundryClient,
     enrollment_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all AuthenticationProviders.
@@ -1229,7 +1228,7 @@ def admin_enrollment_authentication_provider_preregister_group(
     authentication_provider_rid: str,
     name: str,
     organizations: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Register a Group with a given name before any users with this group log in through this Authentication Provider.
@@ -1275,11 +1274,11 @@ def admin_enrollment_authentication_provider_preregister_user(
     authentication_provider_rid: str,
     organization: str,
     username: str,
-    attributes: Optional[str],
-    email: Optional[str],
-    family_name: Optional[str],
-    given_name: Optional[str],
-    preview: Optional[bool],
+    attributes: typing.Optional[str],
+    email: typing.Optional[str],
+    family_name: typing.Optional[str],
+    given_name: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Register a User with a given username before they log in to the platform for the first time through this
@@ -1314,9 +1313,9 @@ def admin_enrollment_host():
 def admin_enrollment_host_list(
     client: foundry.v2.FoundryClient,
     enrollment_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all Hosts.
@@ -1341,9 +1340,9 @@ def admin_enrollment_host_list(
 def admin_enrollment_host_page(
     client: foundry.v2.FoundryClient,
     enrollment_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all Hosts.
@@ -1376,9 +1375,9 @@ def aip_agents_agent():
 @click.pass_obj
 def aip_agents_agent_all_sessions(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all conversation sessions between the calling user and all accessible Agents that were created by this client.
@@ -1400,9 +1399,9 @@ def aip_agents_agent_all_sessions(
 @click.pass_obj
 def aip_agents_agent_all_sessions_page(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all conversation sessions between the calling user and all accessible Agents that were created by this client.
@@ -1425,8 +1424,8 @@ def aip_agents_agent_all_sessions_page(
 def aip_agents_agent_get(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
-    preview: Optional[bool],
-    version: Optional[str],
+    preview: typing.Optional[bool],
+    version: typing.Optional[str],
 ):
     """
     Get details for an AIP Agent.
@@ -1476,8 +1475,8 @@ def aip_agents_agent_session_blocking_continue(
     session_rid: str,
     parameter_inputs: str,
     user_input: str,
-    contexts_override: Optional[str],
-    preview: Optional[bool],
+    contexts_override: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Continue a conversation session with an Agent, or add the first exchange to a session after creation.
@@ -1525,8 +1524,8 @@ def aip_agents_agent_session_cancel(
     agent_rid: str,
     session_rid: str,
     message_id: str,
-    preview: Optional[bool],
-    response: Optional[str],
+    preview: typing.Optional[bool],
+    response: typing.Optional[str],
 ):
     """
     Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
@@ -1560,8 +1559,8 @@ If not specified, defaults to use the latest published version of the Agent at s
 def aip_agents_agent_session_create(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
-    agent_version: Optional[str],
-    preview: Optional[bool],
+    agent_version: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Create a new conversation session between the calling user and an Agent.
@@ -1585,7 +1584,7 @@ def aip_agents_agent_session_get(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
     session_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the details of a conversation session between the calling user and an Agent.
@@ -1607,9 +1606,9 @@ def aip_agents_agent_session_get(
 def aip_agents_agent_session_list(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all conversation sessions between the calling user and an Agent that was created by this client.
@@ -1636,9 +1635,9 @@ def aip_agents_agent_session_list(
 def aip_agents_agent_session_page(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all conversation sessions between the calling user and an Agent that was created by this client.
@@ -1680,7 +1679,7 @@ def aip_agents_agent_session_rag_context(
     session_rid: str,
     parameter_inputs: str,
     user_input: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
@@ -1736,9 +1735,9 @@ def aip_agents_agent_session_streaming_continue(
     session_rid: str,
     parameter_inputs: str,
     user_input: str,
-    contexts_override: Optional[str],
-    message_id: Optional[str],
-    preview: Optional[bool],
+    contexts_override: typing.Optional[str],
+    message_id: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Continue a conversation session with an Agent, or add the first exchange to a session after creation.
@@ -1776,7 +1775,7 @@ def aip_agents_agent_session_content_get(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
     session_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the conversation content for a session between the calling user and an Agent.
@@ -1803,7 +1802,7 @@ def aip_agents_agent_agent_version_get(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
     agent_version_string: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get version details for an AIP Agent.
@@ -1825,9 +1824,9 @@ def aip_agents_agent_agent_version_get(
 def aip_agents_agent_agent_version_list(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all versions for an AIP Agent.
@@ -1852,9 +1851,9 @@ def aip_agents_agent_agent_version_list(
 def aip_agents_agent_agent_version_page(
     client: foundry.v2.FoundryClient,
     agent_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all versions for an AIP Agent.
@@ -1898,7 +1897,7 @@ def connectivity_connection_create(
     display_name: str,
     parent_folder_rid: str,
     runtime_platform: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Creates a new Connection.
@@ -1928,7 +1927,7 @@ def connectivity_connection_create(
 def connectivity_connection_get(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Connection with the specified rid.
@@ -1947,7 +1946,7 @@ def connectivity_connection_get(
 def connectivity_connection_get_configuration(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
@@ -1976,7 +1975,7 @@ def connectivity_connection_update_secrets(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     secrets: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Updates the secrets on the connection to the specified secret values.
@@ -2033,10 +2032,10 @@ def connectivity_connection_table_import_create(
     config: str,
     dataset_rid: str,
     display_name: str,
-    import_mode: Literal["SNAPSHOT", "APPEND"],
-    allow_schema_changes: Optional[bool],
-    branch_name: Optional[str],
-    preview: Optional[bool],
+    import_mode: typing.Literal["SNAPSHOT", "APPEND"],
+    allow_schema_changes: typing.Optional[bool],
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Creates a new TableImport.
@@ -2063,7 +2062,7 @@ def connectivity_connection_table_import_delete(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Delete the TableImport with the specified RID.
@@ -2088,7 +2087,7 @@ def connectivity_connection_table_import_execute(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
@@ -2112,7 +2111,7 @@ def connectivity_connection_table_import_get(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the TableImport with the specified rid.
@@ -2134,9 +2133,9 @@ def connectivity_connection_table_import_get(
 def connectivity_connection_table_import_list(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all table imports defined for this connection.
@@ -2161,9 +2160,9 @@ def connectivity_connection_table_import_list(
 def connectivity_connection_table_import_page(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all table imports defined for this connection.
@@ -2217,10 +2216,10 @@ def connectivity_connection_file_import_create(
     dataset_rid: str,
     display_name: str,
     file_import_filters: str,
-    import_mode: Literal["SNAPSHOT", "APPEND", "UPDATE"],
-    branch_name: Optional[str],
-    preview: Optional[bool],
-    subfolder: Optional[str],
+    import_mode: typing.Literal["SNAPSHOT", "APPEND", "UPDATE"],
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+    subfolder: typing.Optional[str],
 ):
     """
     Creates a new FileImport.
@@ -2247,7 +2246,7 @@ def connectivity_connection_file_import_delete(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Delete the FileImport with the specified RID.
@@ -2272,7 +2271,7 @@ def connectivity_connection_file_import_execute(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
@@ -2296,7 +2295,7 @@ def connectivity_connection_file_import_get(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the FileImport with the specified rid.
@@ -2318,9 +2317,9 @@ def connectivity_connection_file_import_get(
 def connectivity_connection_file_import_list(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all file imports defined for this connection.
@@ -2345,9 +2344,9 @@ def connectivity_connection_file_import_list(
 def connectivity_connection_file_import_page(
     client: foundry.v2.FoundryClient,
     connection_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all file imports defined for this connection.
@@ -2398,10 +2397,10 @@ def connectivity_connection_file_import_replace(
     dataset_rid: str,
     display_name: str,
     file_import_filters: str,
-    import_mode: Literal["SNAPSHOT", "APPEND", "UPDATE"],
-    branch_name: Optional[str],
-    preview: Optional[bool],
-    subfolder: Optional[str],
+    import_mode: typing.Literal["SNAPSHOT", "APPEND", "UPDATE"],
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+    subfolder: typing.Optional[str],
 ):
     """
     Replace the FileImport with the specified rid.
@@ -2483,12 +2482,12 @@ def datasets_dataset_get(
 def datasets_dataset_read_table(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
-    format: Literal["ARROW", "CSV"],
-    branch_name: Optional[str],
-    columns: Optional[str],
-    end_transaction_rid: Optional[str],
-    row_limit: Optional[int],
-    start_transaction_rid: Optional[str],
+    format: typing.Literal["ARROW", "CSV"],
+    branch_name: typing.Optional[str],
+    columns: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    row_limit: typing.Optional[int],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Gets the content of a dataset as a table in the specified format.
@@ -2524,9 +2523,9 @@ def datasets_dataset_file_content(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     file_path: str,
-    branch_name: Optional[str],
-    end_transaction_rid: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_name: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
@@ -2568,8 +2567,8 @@ def datasets_dataset_file_delete(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     file_path: str,
-    branch_name: Optional[str],
-    transaction_rid: Optional[str],
+    branch_name: typing.Optional[str],
+    transaction_rid: typing.Optional[str],
 ):
     """
     Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
@@ -2604,9 +2603,9 @@ def datasets_dataset_file_get(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     file_path: str,
-    branch_name: Optional[str],
-    end_transaction_rid: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_name: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
@@ -2648,11 +2647,11 @@ def datasets_dataset_file_get(
 def datasets_dataset_file_list(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
-    branch_name: Optional[str],
-    end_transaction_rid: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_name: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Lists Files contained in a Dataset. By default files are listed on the latest view of the default
@@ -2697,11 +2696,11 @@ def datasets_dataset_file_list(
 def datasets_dataset_file_page(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
-    branch_name: Optional[str],
-    end_transaction_rid: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_name: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Lists Files contained in a Dataset. By default files are listed on the latest view of the default
@@ -2753,9 +2752,9 @@ def datasets_dataset_file_upload(
     dataset_rid: str,
     file_path: str,
     body: io.BufferedReader,
-    branch_name: Optional[str],
-    transaction_rid: Optional[str],
-    transaction_type: Optional[Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
+    branch_name: typing.Optional[str],
+    transaction_rid: typing.Optional[str],
+    transaction_type: typing.Optional[typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
 ):
     """
     Uploads a File to an existing Dataset.
@@ -2819,7 +2818,7 @@ def datasets_dataset_transaction_build(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
@@ -2869,8 +2868,8 @@ def datasets_dataset_transaction_commit(
 def datasets_dataset_transaction_create(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
-    transaction_type: Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"],
-    branch_name: Optional[str],
+    transaction_type: typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"],
+    branch_name: typing.Optional[str],
 ):
     """
     Creates a Transaction on a Branch of a Dataset.
@@ -2913,7 +2912,7 @@ def datasets_dataset_transaction_job(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
@@ -2948,7 +2947,7 @@ def datasets_dataset_branch_create(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     name: str,
-    transaction_rid: Optional[str],
+    transaction_rid: typing.Optional[str],
 ):
     """
     Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
@@ -3010,8 +3009,8 @@ def datasets_dataset_branch_get(
 def datasets_dataset_branch_list(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the Branches of a Dataset.
@@ -3033,8 +3032,8 @@ def datasets_dataset_branch_list(
 def datasets_dataset_branch_page(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the Branches of a Dataset.
@@ -3065,9 +3064,9 @@ def filesystem_space():
 @click.pass_obj
 def filesystem_space_list(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all Spaces.
@@ -3089,9 +3088,9 @@ def filesystem_space_list(
 @click.pass_obj
 def filesystem_space_page(
     client: foundry.v2.FoundryClient,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Lists all Spaces.
@@ -3120,7 +3119,7 @@ def filesystem_resource_add_markings(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
     marking_ids: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Adds a list of Markings to a resource.
@@ -3140,7 +3139,7 @@ def filesystem_resource_add_markings(
 def filesystem_resource_delete(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Move the given resource to the trash. Following this operation, the resource can be restored, using the
@@ -3161,7 +3160,7 @@ def filesystem_resource_delete(
 def filesystem_resource_get(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Resource with the specified rid.
@@ -3180,7 +3179,7 @@ def filesystem_resource_get(
 def filesystem_resource_get_access_requirements(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Returns a list of access requirements a user needs in order to view a resource. Access requirements are
@@ -3201,7 +3200,7 @@ def filesystem_resource_get_access_requirements(
 def filesystem_resource_get_by_path(
     client: foundry.v2.FoundryClient,
     path: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get a Resource by its absolute path.
@@ -3222,9 +3221,9 @@ def filesystem_resource_get_by_path(
 def filesystem_resource_markings(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List of Markings directly applied to a resource. The number of Markings on a resource is typically small
@@ -3249,9 +3248,9 @@ def filesystem_resource_markings(
 def filesystem_resource_markings_page(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List of Markings directly applied to a resource. The number of Markings on a resource is typically small
@@ -3274,7 +3273,7 @@ def filesystem_resource_markings_page(
 def filesystem_resource_permanently_delete(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
@@ -3297,7 +3296,7 @@ def filesystem_resource_remove_markings(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
     marking_ids: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Removes Markings from a resource.
@@ -3317,7 +3316,7 @@ def filesystem_resource_remove_markings(
 def filesystem_resource_restore(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Restore the given resource and any directly trashed ancestors from the trash. If the resource is not
@@ -3345,7 +3344,7 @@ def filesystem_resource_resource_role_add(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
     roles: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.filesystem.Resource.Role.add(
@@ -3366,10 +3365,10 @@ def filesystem_resource_resource_role_add(
 def filesystem_resource_resource_role_list(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    include_inherited: Optional[bool],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    include_inherited: typing.Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List the roles on a resource.
@@ -3395,10 +3394,10 @@ def filesystem_resource_resource_role_list(
 def filesystem_resource_resource_role_page(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
-    include_inherited: Optional[bool],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    include_inherited: typing.Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List the roles on a resource.
@@ -3423,7 +3422,7 @@ def filesystem_resource_resource_role_remove(
     client: foundry.v2.FoundryClient,
     resource_rid: str,
     roles: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.filesystem.Resource.Role.remove(
@@ -3448,7 +3447,7 @@ def filesystem_project_add_organizations(
     client: foundry.v2.FoundryClient,
     project_rid: str,
     organization_rids: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Adds a list of Organizations to a Project.
@@ -3477,8 +3476,8 @@ def filesystem_project_create(
     organization_rids: str,
     role_grants: str,
     space_rid: str,
-    description: Optional[str],
-    preview: Optional[bool],
+    description: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Creates a new Project.
@@ -3512,10 +3511,10 @@ def filesystem_project_create_from_template(
     client: foundry.v2.FoundryClient,
     template_rid: str,
     variable_values: str,
-    default_roles: Optional[str],
-    organization_rids: Optional[str],
-    preview: Optional[bool],
-    project_description: Optional[str],
+    default_roles: typing.Optional[str],
+    organization_rids: typing.Optional[str],
+    preview: typing.Optional[bool],
+    project_description: typing.Optional[str],
 ):
     """
     Creates a project from a project template.
@@ -3538,7 +3537,7 @@ def filesystem_project_create_from_template(
 def filesystem_project_get(
     client: foundry.v2.FoundryClient,
     project_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Project with the specified rid.
@@ -3559,9 +3558,9 @@ def filesystem_project_get(
 def filesystem_project_organizations(
     client: foundry.v2.FoundryClient,
     project_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List of Organizations directly applied to a Project. The number of Organizations on a Project is
@@ -3586,9 +3585,9 @@ def filesystem_project_organizations(
 def filesystem_project_organizations_page(
     client: foundry.v2.FoundryClient,
     project_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List of Organizations directly applied to a Project. The number of Organizations on a Project is
@@ -3613,7 +3612,7 @@ def filesystem_project_remove_organizations(
     client: foundry.v2.FoundryClient,
     project_rid: str,
     organization_rids: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Removes Organizations from a Project.
@@ -3640,9 +3639,9 @@ def filesystem_folder():
 def filesystem_folder_children(
     client: foundry.v2.FoundryClient,
     folder_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all child Resources of the Folder.
@@ -3669,9 +3668,9 @@ def filesystem_folder_children(
 def filesystem_folder_children_page(
     client: foundry.v2.FoundryClient,
     folder_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     List all child Resources of the Folder.
@@ -3705,7 +3704,7 @@ def filesystem_folder_create(
     client: foundry.v2.FoundryClient,
     display_name: str,
     parent_folder_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Creates a new Folder.
@@ -3725,7 +3724,7 @@ def filesystem_folder_create(
 def filesystem_folder_get(
     client: foundry.v2.FoundryClient,
     folder_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Folder with the specified rid.
@@ -3754,7 +3753,7 @@ def functions_value_type():
 def functions_value_type_get(
     client: foundry.v2.FoundryClient,
     value_type_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Gets a specific value type with the given RID. The latest version is returned.
@@ -3781,7 +3780,7 @@ def functions_value_type_version_id_get(
     client: foundry.v2.FoundryClient,
     value_type_rid: str,
     version_id_version_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Gets a specific value type with the given RID. The specified version is returned.
@@ -3809,7 +3808,7 @@ def functions_query_execute(
     client: foundry.v2.FoundryClient,
     query_api_name: str,
     parameters: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Executes a Query using the given parameters.
@@ -3832,7 +3831,7 @@ def functions_query_execute(
 def functions_query_get(
     client: foundry.v2.FoundryClient,
     query_api_name: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Gets a specific query type with the given API name.
@@ -3852,7 +3851,7 @@ def functions_query_get(
 def functions_query_get_by_rid(
     client: foundry.v2.FoundryClient,
     rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Gets a specific query type with the given RID.
@@ -3889,7 +3888,7 @@ def media_sets_media_set_abort(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
     transaction_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
@@ -3914,7 +3913,7 @@ def media_sets_media_set_commit(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
     transaction_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
@@ -3938,8 +3937,8 @@ def media_sets_media_set_commit(
 def media_sets_media_set_create(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
-    branch_name: Optional[str],
-    preview: Optional[bool],
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
@@ -3965,8 +3964,8 @@ def media_sets_media_set_info(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: Optional[bool],
-    read_token: Optional[str],
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
 ):
     """
     Gets information about the media item.
@@ -3993,8 +3992,8 @@ def media_sets_media_set_read(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: Optional[bool],
-    read_token: Optional[str],
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
 ):
     """
     Gets the content of a media item.
@@ -4021,8 +4020,8 @@ def media_sets_media_set_read_original(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: Optional[bool],
-    read_token: Optional[str],
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
 ):
     """
     Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
@@ -4049,8 +4048,8 @@ def media_sets_media_set_reference(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
-    preview: Optional[bool],
-    read_token: Optional[str],
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
 ):
     """
     Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
@@ -4081,12 +4080,12 @@ def media_sets_media_set_upload(
     client: foundry.v2.FoundryClient,
     media_set_rid: str,
     body: io.BufferedReader,
-    branch_name: Optional[str],
-    branch_rid: Optional[str],
-    media_item_path: Optional[str],
-    preview: Optional[bool],
-    transaction_id: Optional[str],
-    view_rid: Optional[str],
+    branch_name: typing.Optional[str],
+    branch_rid: typing.Optional[str],
+    media_item_path: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transaction_id: typing.Optional[str],
+    view_rid: typing.Optional[str],
 ):
     """
     Uploads a media item to an existing media set.
@@ -4133,8 +4132,8 @@ def ontologies_time_series_property_v2_get_first_point(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Get the first point of a time series property.
@@ -4168,8 +4167,8 @@ def ontologies_time_series_property_v2_get_last_point(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Get the last point of a time series property.
@@ -4205,10 +4204,10 @@ def ontologies_time_series_property_v2_stream_points(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: Optional[str],
-    format: Optional[Literal["JSON", "ARROW"]],
-    package_name: Optional[str],
-    range: Optional[str],
+    artifact_repository: typing.Optional[str],
+    format: typing.Optional[typing.Literal["JSON", "ARROW"]],
+    package_name: typing.Optional[str],
+    range: typing.Optional[str],
 ):
     """
     Stream all of the points of a time series property.
@@ -4247,8 +4246,8 @@ def ontologies_query_execute(
     ontology: str,
     query_api_name: str,
     parameters: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Executes a Query using the given parameters.
@@ -4294,9 +4293,9 @@ def ontologies_ontology_object_set_aggregate(
     aggregation: str,
     group_by: str,
     object_set: str,
-    accuracy: Optional[Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -4384,12 +4383,12 @@ def ontologies_ontology_object_set_load(
     ontology: str,
     object_set: str,
     select: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Load the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -4442,10 +4441,10 @@ def ontologies_ontology_object_aggregate(
     object_type: str,
     aggregation: str,
     group_by: str,
-    accuracy: Optional[Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
-    where: Optional[str],
+    accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
+    where: typing.Optional[str],
 ):
     """
     Perform functions on object fields in the specified ontology and object type.
@@ -4476,8 +4475,8 @@ def ontologies_ontology_object_count(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Returns a count of the objects of the given object type.
@@ -4508,10 +4507,10 @@ def ontologies_ontology_object_get(
     ontology: str,
     object_type: str,
     primary_key: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    package_name: Optional[str],
-    select: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    package_name: typing.Optional[str],
+    select: typing.Optional[str],
 ):
     """
     Gets a specific object with the given primary key.
@@ -4546,13 +4545,13 @@ def ontologies_ontology_object_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    select: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    select: typing.Optional[str],
 ):
     """
     Lists the objects for the given Ontology and object type.
@@ -4601,13 +4600,13 @@ def ontologies_ontology_object_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    select: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    select: typing.Optional[str],
 ):
     """
     Lists the objects for the given Ontology and object type.
@@ -4671,13 +4670,13 @@ def ontologies_ontology_object_search(
     ontology: str,
     object_type: str,
     select: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    where: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    where: typing.Optional[str],
 ):
     """
     Search for objects in the specified ontology and object type. The request body is used
@@ -4747,9 +4746,9 @@ def ontologies_ontology_interface_aggregate(
     interface_type: str,
     aggregation: str,
     group_by: str,
-    accuracy: Optional[Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
-    preview: Optional[bool],
-    where: Optional[str],
+    accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
+    preview: typing.Optional[bool],
+    where: typing.Optional[str],
 ):
     """
     :::callout{theme=warning title=Warning}
@@ -4788,7 +4787,7 @@ def ontologies_ontology_interface_get(
     client: foundry.v2.FoundryClient,
     ontology: str,
     interface_type: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     :::callout{theme=warning title=Warning}
@@ -4818,9 +4817,9 @@ def ontologies_ontology_interface_get(
 def ontologies_ontology_interface_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     :::callout{theme=warning title=Warning}
@@ -4854,9 +4853,9 @@ def ontologies_ontology_interface_list(
 def ontologies_ontology_interface_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     :::callout{theme=warning title=Warning}
@@ -4957,8 +4956,8 @@ def ontologies_ontology_query_type_get(
 def ontologies_ontology_query_type_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the query types for the given Ontology.
@@ -4985,8 +4984,8 @@ def ontologies_ontology_query_type_list(
 def ontologies_ontology_query_type_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the query types for the given Ontology.
@@ -5066,8 +5065,8 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 def ontologies_ontology_object_type_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the object types for the given Ontology.
@@ -5097,8 +5096,8 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     List the outgoing links for an object type.
@@ -5124,8 +5123,8 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
 def ontologies_ontology_object_type_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the object types for the given Ontology.
@@ -5155,8 +5154,8 @@ def ontologies_ontology_object_type_page_outgoing_link_types(
     client: foundry.v2.FoundryClient,
     ontology: str,
     object_type: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     List the outgoing links for an object type.
@@ -5209,8 +5208,8 @@ def ontologies_ontology_action_type_get(
 def ontologies_ontology_action_type_list(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the action types for the given Ontology.
@@ -5237,8 +5236,8 @@ def ontologies_ontology_action_type_list(
 def ontologies_ontology_action_type_page(
     client: foundry.v2.FoundryClient,
     ontology: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the action types for the given Ontology.
@@ -5280,10 +5279,10 @@ def ontologies_linked_object_get_linked_object(
     primary_key: str,
     link_type: str,
     linked_object_primary_key: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    package_name: Optional[str],
-    select: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    package_name: typing.Optional[str],
+    select: typing.Optional[str],
 ):
     """
     Get a specific linked object that originates from another object.
@@ -5326,13 +5325,13 @@ def ontologies_linked_object_list_linked_objects(
     object_type: str,
     primary_key: str,
     link_type: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    select: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    select: typing.Optional[str],
 ):
     """
     Lists the linked objects for a specific object and the given link type.
@@ -5387,13 +5386,13 @@ def ontologies_linked_object_page_linked_objects(
     object_type: str,
     primary_key: str,
     link_type: str,
-    artifact_repository: Optional[str],
-    exclude_rid: Optional[bool],
-    order_by: Optional[str],
-    package_name: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    select: Optional[str],
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    select: typing.Optional[str],
 ):
     """
     Lists the linked objects for a specific object and the given link type.
@@ -5448,8 +5447,8 @@ def ontologies_attachment_property_get_attachment(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Get the metadata of attachments parented to the given object.
@@ -5485,8 +5484,8 @@ def ontologies_attachment_property_get_attachment_by_rid(
     primary_key: str,
     property: str,
     attachment_rid: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Get the metadata of a particular attachment in an attachment list.
@@ -5521,8 +5520,8 @@ def ontologies_attachment_property_read_attachment(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Get the content of an attachment.
@@ -5558,8 +5557,8 @@ def ontologies_attachment_property_read_attachment_by_rid(
     primary_key: str,
     property: str,
     attachment_rid: str,
-    artifact_repository: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Get the content of an attachment by its RID.
@@ -5678,9 +5677,9 @@ def ontologies_action_apply(
     ontology: str,
     action: str,
     parameters: str,
-    artifact_repository: Optional[str],
-    options: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    options: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Applies an action using the given parameters.
@@ -5718,9 +5717,9 @@ def ontologies_action_apply_batch(
     ontology: str,
     action: str,
     requests: str,
-    artifact_repository: Optional[str],
-    options: Optional[str],
-    package_name: Optional[str],
+    artifact_repository: typing.Optional[str],
+    options: typing.Optional[str],
+    package_name: typing.Optional[str],
 ):
     """
     Applies multiple actions (of the same Action Type) using the given parameters.
@@ -5763,7 +5762,7 @@ def orchestration_schedule_version():
 def orchestration_schedule_version_get(
     client: foundry.v2.FoundryClient,
     schedule_version_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the ScheduleVersion with the specified rid.
@@ -5782,7 +5781,7 @@ def orchestration_schedule_version_get(
 def orchestration_schedule_version_schedule(
     client: foundry.v2.FoundryClient,
     schedule_version_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.orchestration.ScheduleVersion.schedule(
@@ -5815,11 +5814,11 @@ permission to see the trigger, this will be empty.
 def orchestration_schedule_create(
     client: foundry.v2.FoundryClient,
     action: str,
-    description: Optional[str],
-    display_name: Optional[str],
-    preview: Optional[bool],
-    scope_mode: Optional[str],
-    trigger: Optional[str],
+    description: typing.Optional[str],
+    display_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+    scope_mode: typing.Optional[str],
+    trigger: typing.Optional[str],
 ):
     """
     Creates a new Schedule.
@@ -5842,7 +5841,7 @@ def orchestration_schedule_create(
 def orchestration_schedule_delete(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Delete the Schedule with the specified rid.
@@ -5861,7 +5860,7 @@ def orchestration_schedule_delete(
 def orchestration_schedule_get(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Schedule with the specified rid.
@@ -5880,7 +5879,7 @@ def orchestration_schedule_get(
 def orchestration_schedule_pause(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.orchestration.Schedule.pause(
@@ -5910,11 +5909,11 @@ def orchestration_schedule_replace(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
     action: str,
-    description: Optional[str],
-    display_name: Optional[str],
-    preview: Optional[bool],
-    scope_mode: Optional[str],
-    trigger: Optional[str],
+    description: typing.Optional[str],
+    display_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+    scope_mode: typing.Optional[str],
+    trigger: typing.Optional[str],
 ):
     """
     Replace the Schedule with the specified rid.
@@ -5938,7 +5937,7 @@ def orchestration_schedule_replace(
 def orchestration_schedule_run(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.orchestration.Schedule.run(
@@ -5957,9 +5956,9 @@ def orchestration_schedule_run(
 def orchestration_schedule_runs(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
@@ -5983,9 +5982,9 @@ def orchestration_schedule_runs(
 def orchestration_schedule_runs_page(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
@@ -6007,7 +6006,7 @@ def orchestration_schedule_runs_page(
 def orchestration_schedule_unpause(
     client: foundry.v2.FoundryClient,
     schedule_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """ """
     result = client.orchestration.Schedule.unpause(
@@ -6029,7 +6028,7 @@ def orchestration_job():
 def orchestration_job_get(
     client: foundry.v2.FoundryClient,
     job_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Job with the specified rid.
@@ -6053,7 +6052,7 @@ def orchestration_build():
 def orchestration_build_cancel(
     client: foundry.v2.FoundryClient,
     build_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
@@ -6094,13 +6093,13 @@ def orchestration_build_create(
     client: foundry.v2.FoundryClient,
     fallback_branches: str,
     target: str,
-    abort_on_failure: Optional[bool],
-    branch_name: Optional[str],
-    force_build: Optional[bool],
-    notifications_enabled: Optional[bool],
-    preview: Optional[bool],
-    retry_backoff_duration: Optional[str],
-    retry_count: Optional[int],
+    abort_on_failure: typing.Optional[bool],
+    branch_name: typing.Optional[str],
+    force_build: typing.Optional[bool],
+    notifications_enabled: typing.Optional[bool],
+    preview: typing.Optional[bool],
+    retry_backoff_duration: typing.Optional[str],
+    retry_count: typing.Optional[int],
 ):
     """ """
     result = client.orchestration.Build.create(
@@ -6126,7 +6125,7 @@ def orchestration_build_create(
 def orchestration_build_get(
     client: foundry.v2.FoundryClient,
     build_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the Build with the specified rid.
@@ -6145,7 +6144,7 @@ def orchestration_build_get(
 def orchestration_build_get_batch(
     client: foundry.v2.FoundryClient,
     body: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Execute multiple get requests on Build.
@@ -6175,10 +6174,10 @@ def orchestration_build_get_batch(
 def orchestration_build_search(
     client: foundry.v2.FoundryClient,
     where: str,
-    order_by: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    preview: Optional[bool],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Search for Builds.
@@ -6210,7 +6209,7 @@ def sql_queries_query():
 def sql_queries_query_cancel(
     client: foundry.v2.FoundryClient,
     query_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Cancels a query. If the query is no longer running this is effectively a no-op.
@@ -6248,8 +6247,8 @@ provided that exists. If no fallback branches are provided the default branch is
 def sql_queries_query_execute(
     client: foundry.v2.FoundryClient,
     query: str,
-    fallback_branch_ids: Optional[str],
-    preview: Optional[bool],
+    fallback_branch_ids: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Executes a new query. Only the user that invoked the query can operate on the query.
@@ -6272,7 +6271,7 @@ def sql_queries_query_execute(
 def sql_queries_query_get_results(
     client: foundry.v2.FoundryClient,
     query_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Gets the results of a query. This endpoint implements long polling and requests will time out after
@@ -6293,7 +6292,7 @@ def sql_queries_query_get_results(
 def sql_queries_query_get_status(
     client: foundry.v2.FoundryClient,
     query_id: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Gets the status of a query.
@@ -6370,11 +6369,11 @@ def streams_dataset_create(
     name: str,
     parent_folder_rid: str,
     schema: str,
-    branch_name: Optional[str],
-    compressed: Optional[bool],
-    partitions_count: Optional[int],
-    preview: Optional[bool],
-    stream_type: Optional[Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
+    branch_name: typing.Optional[str],
+    compressed: typing.Optional[bool],
+    partitions_count: typing.Optional[int],
+    preview: typing.Optional[bool],
+    stream_type: typing.Optional[typing.Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
 ):
     """
     Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
@@ -6436,10 +6435,10 @@ def streams_dataset_stream_create(
     dataset_rid: str,
     branch_name: str,
     schema: str,
-    compressed: Optional[bool],
-    partitions_count: Optional[int],
-    preview: Optional[bool],
-    stream_type: Optional[Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
+    compressed: typing.Optional[bool],
+    partitions_count: typing.Optional[int],
+    preview: typing.Optional[bool],
+    stream_type: typing.Optional[typing.Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
 ):
     """
     Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
@@ -6466,7 +6465,7 @@ def streams_dataset_stream_get(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
@@ -6493,8 +6492,8 @@ def streams_dataset_stream_publish_binary_record(
     dataset_rid: str,
     stream_branch_name: str,
     body: io.BufferedReader,
-    preview: Optional[bool],
-    view_rid: Optional[str],
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
 ):
     """
     Publish a single binary record to the stream. The stream's schema must be a single binary field.
@@ -6538,8 +6537,8 @@ def streams_dataset_stream_publish_record(
     dataset_rid: str,
     stream_branch_name: str,
     record: str,
-    preview: Optional[bool],
-    view_rid: Optional[str],
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
 ):
     """
     Publish a single record to the stream. The record will be validated against the stream's schema, and
@@ -6584,8 +6583,8 @@ def streams_dataset_stream_publish_records(
     dataset_rid: str,
     stream_branch_name: str,
     records: str,
-    preview: Optional[bool],
-    view_rid: Optional[str],
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
 ):
     """
     Publish a batch of records to the stream. The records will be validated against the stream's schema, and
@@ -6650,11 +6649,11 @@ def streams_dataset_stream_reset(
     client: foundry.v2.FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
-    compressed: Optional[bool],
-    partitions_count: Optional[int],
-    preview: Optional[bool],
-    schema: Optional[str],
-    stream_type: Optional[Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
+    compressed: typing.Optional[bool],
+    partitions_count: typing.Optional[int],
+    preview: typing.Optional[bool],
+    schema: typing.Optional[str],
+    stream_type: typing.Optional[typing.Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]],
 ):
     """
     Reset the stream on the given dataset branch, clearing the existing records and allowing new configurations
@@ -6695,7 +6694,7 @@ def third_party_applications_third_party_application():
 def third_party_applications_third_party_application_get(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
-    preview: Optional[bool],
+    preview: typing.Optional[bool],
 ):
     """
     Get the ThirdPartyApplication with the specified rid.
@@ -6814,8 +6813,8 @@ def third_party_applications_third_party_application_website_version_get(
 def third_party_applications_third_party_application_website_version_list(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists all Versions.
@@ -6838,8 +6837,8 @@ def third_party_applications_third_party_application_website_version_list(
 def third_party_applications_third_party_application_website_version_page(
     client: foundry.v2.FoundryClient,
     third_party_application_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists all Versions.
@@ -6888,8 +6887,8 @@ def third_party_applications_third_party_application_website_version_upload_snap
     third_party_application_rid: str,
     body: io.BufferedReader,
     version: str,
-    preview: Optional[bool],
-    snapshot_identifier: Optional[str],
+    preview: typing.Optional[bool],
+    snapshot_identifier: typing.Optional[str],
 ):
     """
     Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.

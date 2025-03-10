@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidGroupIdParameters(TypedDict):
+class InvalidGroupIdParameters(typing_extensions.TypedDict):
     """The provided value for a group id must be a UUID."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class InvalidGroupIdParameters(TypedDict):
 
 
 @dataclass
-class InvalidGroupId(BadRequestError):
-    name: Literal["InvalidGroupId"]
+class InvalidGroupId(errors.BadRequestError):
+    name: typing.Literal["InvalidGroupId"]
     parameters: InvalidGroupIdParameters
     error_instance_id: str
 

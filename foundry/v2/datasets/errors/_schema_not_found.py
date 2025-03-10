@@ -13,35 +13,30 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class SchemaNotFoundParameters(TypedDict):
+class SchemaNotFoundParameters(typing_extensions.TypedDict):
     """A schema could not be found for the given dataset and branch, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    branchName: BranchName
+    branchName: datasets_models.BranchName
 
-    transactionRid: NotRequired[TransactionRid]
+    transactionRid: typing_extensions.NotRequired[datasets_models.TransactionRid]
 
 
 @dataclass
-class SchemaNotFound(NotFoundError):
-    name: Literal["SchemaNotFound"]
+class SchemaNotFound(errors.NotFoundError):
+    name: typing.Literal["SchemaNotFound"]
     parameters: SchemaNotFoundParameters
     error_instance_id: str
 

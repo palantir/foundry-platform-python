@@ -7,10 +7,10 @@ query on by a variety of means. Either `field` or `propertyIdentifier` must be s
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | Optional[PropertyApiName] | No |  |
-**property_identifier** | Optional[PropertyIdentifier] | No |  |
+**field** | typing.Optional[PropertyApiName] | No |  |
+**property_identifier** | typing.Optional[PropertyIdentifier] | No |  |
 **value** | PolygonValue | Yes |  |
-**type** | Literal["intersectsPolygon"] | Yes | None |
+**type** | typing.Literal["intersectsPolygon"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -13,26 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class SessionExecutionFailedParameters(TypedDict):
+class SessionExecutionFailedParameters(typing_extensions.TypedDict):
     """Failed to generate a response for a session due to an unexpected error."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
-    sessionRid: SessionRid
+    sessionRid: aip_agents_models.SessionRid
 
     message: str
     """The error message."""
@@ -41,8 +38,8 @@ class SessionExecutionFailedParameters(TypedDict):
 
 
 @dataclass
-class SessionExecutionFailed(InternalServerError):
-    name: Literal["SessionExecutionFailed"]
+class SessionExecutionFailed(errors.InternalServerError):
+    name: typing.Literal["SessionExecutionFailed"]
     parameters: SessionExecutionFailedParameters
     error_instance_id: str
 

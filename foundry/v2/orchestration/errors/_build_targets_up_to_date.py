@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class BuildTargetsUpToDateParameters(TypedDict):
+class BuildTargetsUpToDateParameters(typing_extensions.TypedDict):
     """
     The build targets are up to date and no Build was created. To rebuild the targets regardless,
     use the force build option when creating the Build.
@@ -33,8 +31,8 @@ class BuildTargetsUpToDateParameters(TypedDict):
 
 
 @dataclass
-class BuildTargetsUpToDate(BadRequestError):
-    name: Literal["BuildTargetsUpToDate"]
+class BuildTargetsUpToDate(errors.BadRequestError):
+    name: typing.Literal["BuildTargetsUpToDate"]
     parameters: BuildTargetsUpToDateParameters
     error_instance_id: str
 

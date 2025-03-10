@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidSchemaParameters(TypedDict):
+class InvalidSchemaParameters(typing_extensions.TypedDict):
     """The schema failed validations"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -34,8 +32,8 @@ class InvalidSchemaParameters(TypedDict):
 
 
 @dataclass
-class InvalidSchema(BadRequestError):
-    name: Literal["InvalidSchema"]
+class InvalidSchema(errors.BadRequestError):
+    name: typing.Literal["InvalidSchema"]
     parameters: InvalidSchemaParameters
     error_instance_id: str
 

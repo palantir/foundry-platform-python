@@ -13,32 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._organization_rid import OrganizationRid
-from foundry.v2.filesystem.models._space_rid import SpaceRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class OrganizationMarkingNotOnSpaceParameters(TypedDict):
+class OrganizationMarkingNotOnSpaceParameters(typing_extensions.TypedDict):
     """At least one of the organization markings associated with a passed organization is not applied on the requested space."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    spaceRid: SpaceRid
+    spaceRid: filesystem_models.SpaceRid
 
-    organizationRids: List[OrganizationRid]
+    organizationRids: typing.List[core_models.OrganizationRid]
 
 
 @dataclass
-class OrganizationMarkingNotOnSpace(BadRequestError):
-    name: Literal["OrganizationMarkingNotOnSpace"]
+class OrganizationMarkingNotOnSpace(errors.BadRequestError):
+    name: typing.Literal["OrganizationMarkingNotOnSpace"]
     parameters: OrganizationMarkingNotOnSpaceParameters
     error_instance_id: str
 

@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.ontologies.models._attachment_rid import AttachmentRid
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class AttachmentNotFoundParameters(TypedDict):
+class AttachmentNotFoundParameters(typing_extensions.TypedDict):
     """
     The requested attachment is not found, or the client token does not have access to it.
     Attachments that are not attached to any objects are deleted after two weeks.
@@ -35,12 +32,12 @@ class AttachmentNotFoundParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    attachmentRid: NotRequired[AttachmentRid]
+    attachmentRid: typing_extensions.NotRequired[ontologies_models.AttachmentRid]
 
 
 @dataclass
-class AttachmentNotFound(NotFoundError):
-    name: Literal["AttachmentNotFound"]
+class AttachmentNotFound(errors.NotFoundError):
+    name: typing.Literal["AttachmentNotFound"]
     parameters: AttachmentNotFoundParameters
     error_instance_id: str
 

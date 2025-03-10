@@ -6,16 +6,16 @@ Represents an object type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | ObjectTypeApiName | Yes |  |
-**displayName** | DisplayName | Yes |  |
-**status** | ReleaseStatus | Yes |  |
-**description** | NotRequired[str] | No | The description of the object type. |
+**displayName** | core_models.DisplayName | Yes |  |
+**status** | core_models.ReleaseStatus | Yes |  |
+**description** | typing_extensions.NotRequired[str] | No | The description of the object type. |
 **pluralDisplayName** | str | Yes | The plural display name of the object type. |
 **icon** | IconDict | Yes |  |
 **primaryKey** | PropertyApiName | Yes |  |
-**properties** | Dict[PropertyApiName, PropertyV2Dict] | Yes | A map of the properties of the object type. |
+**properties** | typing.Dict[PropertyApiName, PropertyV2Dict] | Yes | A map of the properties of the object type. |
 **rid** | ObjectTypeRid | Yes |  |
 **titleProperty** | PropertyApiName | Yes |  |
-**visibility** | NotRequired[ObjectTypeVisibility] | No |  |
+**visibility** | typing_extensions.NotRequired[ObjectTypeVisibility] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

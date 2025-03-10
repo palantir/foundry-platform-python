@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._parameter_id import ParameterId
-from foundry.v1.ontologies.models._value_type import ValueType
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class ParameterTypeNotSupportedParameters(TypedDict):
+class ParameterTypeNotSupportedParameters(typing_extensions.TypedDict):
     """
     The type of the requested parameter is not currently supported by this API. If you need support for this,
     please reach out to Palantir Support.
@@ -33,14 +30,14 @@ class ParameterTypeNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parameterId: ParameterId
+    parameterId: ontologies_models.ParameterId
 
-    parameterBaseType: ValueType
+    parameterBaseType: ontologies_models.ValueType
 
 
 @dataclass
-class ParameterTypeNotSupported(BadRequestError):
-    name: Literal["ParameterTypeNotSupported"]
+class ParameterTypeNotSupported(errors.BadRequestError):
+    name: typing.Literal["ParameterTypeNotSupported"]
     parameters: ParameterTypeNotSupportedParameters
     error_instance_id: str
 

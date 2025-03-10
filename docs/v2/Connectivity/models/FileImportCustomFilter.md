@@ -7,8 +7,8 @@ when creating or updating file imports.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**config** | Any | Yes |  |
-**type** | Literal["customFilter"] | Yes | None |
+**config** | typing.Any | Yes |  |
+**type** | typing.Literal["customFilter"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

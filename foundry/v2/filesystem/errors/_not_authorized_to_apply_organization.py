@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._organization_rid import OrganizationRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class NotAuthorizedToApplyOrganizationParameters(TypedDict):
+class NotAuthorizedToApplyOrganizationParameters(typing_extensions.TypedDict):
     """The user is not authorized to apply at least one of the organization markings required to create the project from template."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organizationRids: List[OrganizationRid]
+    organizationRids: typing.List[core_models.OrganizationRid]
 
 
 @dataclass
-class NotAuthorizedToApplyOrganization(BadRequestError):
-    name: Literal["NotAuthorizedToApplyOrganization"]
+class NotAuthorizedToApplyOrganization(errors.BadRequestError):
+    name: typing.Literal["NotAuthorizedToApplyOrganization"]
     parameters: NotAuthorizedToApplyOrganizationParameters
     error_instance_id: str
 

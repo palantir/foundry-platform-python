@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
+from foundry import _errors as errors
+from foundry.v2.orchestration import models as orchestration_models
 
 
-class ReplaceSchedulePermissionDeniedParameters(TypedDict):
+class ReplaceSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the Schedule."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: ScheduleRid
+    scheduleRid: orchestration_models.ScheduleRid
 
 
 @dataclass
-class ReplaceSchedulePermissionDenied(PermissionDeniedError):
-    name: Literal["ReplaceSchedulePermissionDenied"]
+class ReplaceSchedulePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceSchedulePermissionDenied"]
     parameters: ReplaceSchedulePermissionDeniedParameters
     error_instance_id: str
 

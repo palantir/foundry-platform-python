@@ -12,7 +12,7 @@ secret access key together to authenticate your requests.
 | ------------ | ------------- | ------------- | ------------- |
 **accessKeyId** | str | Yes |  |
 **secretAccessKey** | EncryptedPropertyDict | Yes |  |
-**type** | Literal["awsAccessKey"] | Yes | None |
+**type** | typing.Literal["awsAccessKey"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

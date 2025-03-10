@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class VersionLimitExceededParameters(TypedDict):
+class VersionLimitExceededParameters(typing_extensions.TypedDict):
     """
     The website contains too many versions. You must delete an old version before
     uploading a new one.
@@ -35,8 +33,8 @@ class VersionLimitExceededParameters(TypedDict):
 
 
 @dataclass
-class VersionLimitExceeded(BadRequestError):
-    name: Literal["VersionLimitExceeded"]
+class VersionLimitExceeded(errors.BadRequestError):
+    name: typing.Literal["VersionLimitExceeded"]
     parameters: VersionLimitExceededParameters
     error_instance_id: str
 

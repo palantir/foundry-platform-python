@@ -23,9 +23,9 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**aggregation** | List[Union[Aggregation, AggregationDict]] |  |  |
-**group_by** | List[Union[AggregationGroupBy, AggregationGroupByDict]] |  |  |
-**query** | Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] |  | [optional] |
+**aggregation** | typing.List[typing.Union[Aggregation, AggregationDict]] |  |  |
+**group_by** | typing.List[typing.Union[AggregationGroupBy, AggregationGroupByDict]] |  |  |
+**query** | typing.Optional[typing.Union[SearchJsonQuery, SearchJsonQueryDict]] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponse**
@@ -45,12 +45,12 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# List[Union[Aggregation, AggregationDict]] |
+# typing.List[typing.Union[Aggregation, AggregationDict]] |
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[Union[AggregationGroupBy, AggregationGroupByDict]] |
+# typing.List[typing.Union[AggregationGroupBy, AggregationGroupByDict]] |
 group_by = [
     {
         "field": "properties.startDate",
@@ -59,7 +59,7 @@ group_by = [
     },
     {"field": "properties.city", "type": "exact"},
 ]
-# Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] |
+# typing.Optional[typing.Union[SearchJsonQuery, SearchJsonQueryDict]] |
 query = {"not": {"field": "properties.name", "eq": "john"}}
 
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**properties** | typing.Optional[typing.List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
 **OntologyObject**
@@ -126,7 +126,7 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 object_type = "employee"
 # PropertyValueEscapedString | primaryKey
 primary_key = 50030
-# Optional[List[SelectedPropertyApiName]] | properties
+# typing.Optional[typing.List[SelectedPropertyApiName]] | properties
 properties = None
 
 
@@ -173,7 +173,7 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
 **linked_object_primary_key** | PropertyValueEscapedString | linkedObjectPrimaryKey |  |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**properties** | typing.Optional[typing.List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
 **OntologyObject**
@@ -199,7 +199,7 @@ primary_key = 50030
 link_type = "directReport"
 # PropertyValueEscapedString | linkedObjectPrimaryKey
 linked_object_primary_key = 80060
-# Optional[List[SelectedPropertyApiName]] | properties
+# typing.Optional[typing.List[SelectedPropertyApiName]] | properties
 properties = None
 
 
@@ -259,13 +259,13 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**properties** | typing.Optional[typing.List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
-**ResourceIterator[OntologyObject]**
+**ListObjectsResponse**
 
 ### Example
 
@@ -282,13 +282,13 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# Optional[OrderBy] | orderBy
+# typing.Optional[OrderBy] | orderBy
 order_by = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# typing.Optional[typing.List[SelectedPropertyApiName]] | properties
 properties = None
 
 
@@ -349,13 +349,13 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**properties** | typing.Optional[typing.List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
-**ResourceIterator[OntologyObject]**
+**ListLinkedObjectsResponse**
 
 ### Example
 
@@ -376,13 +376,13 @@ object_type = "employee"
 primary_key = 50030
 # LinkTypeApiName | linkType
 link_type = "directReport"
-# Optional[OrderBy] | orderBy
+# typing.Optional[OrderBy] | orderBy
 order_by = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# typing.Optional[typing.List[SelectedPropertyApiName]] | properties
 properties = None
 
 
@@ -443,10 +443,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**properties** | typing.Optional[typing.List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
 **ListObjectsResponse**
@@ -466,13 +466,13 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# Optional[OrderBy] | orderBy
+# typing.Optional[OrderBy] | orderBy
 order_by = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# typing.Optional[typing.List[SelectedPropertyApiName]] | properties
 properties = None
 
 
@@ -534,10 +534,10 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**properties** | typing.Optional[typing.List[SelectedPropertyApiName]] | properties | [optional] |
 
 ### Return type
 **ListLinkedObjectsResponse**
@@ -561,13 +561,13 @@ object_type = "employee"
 primary_key = 50030
 # LinkTypeApiName | linkType
 link_type = "directReport"
-# Optional[OrderBy] | orderBy
+# typing.Optional[OrderBy] | orderBy
 order_by = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# typing.Optional[typing.List[SelectedPropertyApiName]] | properties
 properties = None
 
 
@@ -635,11 +635,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**fields** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
-**query** | Union[SearchJsonQuery, SearchJsonQueryDict] |  |  |
-**order_by** | Optional[Union[SearchOrderBy, SearchOrderByDict]] |  | [optional] |
-**page_size** | Optional[PageSize] |  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
+**fields** | typing.List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
+**query** | typing.Union[SearchJsonQuery, SearchJsonQueryDict] |  |  |
+**order_by** | typing.Optional[typing.Union[SearchOrderBy, SearchOrderByDict]] |  | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] |  | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] |  | [optional] |
 
 ### Return type
 **SearchObjectsResponse**
@@ -659,15 +659,15 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# List[PropertyApiName] | The API names of the object type properties to include in the response.
+# typing.List[PropertyApiName] | The API names of the object type properties to include in the response.
 fields = None
-# Union[SearchJsonQuery, SearchJsonQueryDict] |
+# typing.Union[SearchJsonQuery, SearchJsonQueryDict] |
 query = {"not": {"field": "properties.age", "eq": 21}}
-# Optional[Union[SearchOrderBy, SearchOrderByDict]] |
+# typing.Optional[typing.Union[SearchOrderBy, SearchOrderByDict]] |
 order_by = None
-# Optional[PageSize] |
+# typing.Optional[core_models.PageSize] |
 page_size = None
-# Optional[PageToken] |
+# typing.Optional[core_models.PageToken] |
 page_token = None
 
 

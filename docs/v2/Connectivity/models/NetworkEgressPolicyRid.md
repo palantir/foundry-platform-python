@@ -5,7 +5,7 @@ The Resource Identifier (RID) of a Network Egress Policy.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

@@ -23,10 +23,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **action** | ActionTypeApiName | action |  |
-**parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**options** | Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**parameters** | typing.Dict[ParameterId, typing.Optional[DataValue]] |  |  |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**options** | typing.Optional[typing.Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] |  | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **SyncApplyActionResponseV2**
@@ -46,13 +46,13 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ActionTypeApiName | action
 action = "rename-employee"
-# Dict[ParameterId, Optional[DataValue]] |
+# typing.Dict[ParameterId, typing.Optional[DataValue]] |
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] |
+# typing.Optional[typing.Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] |
 options = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -104,10 +104,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **action** | ActionTypeApiName | action |  |
-**requests** | List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**options** | Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**requests** | typing.List[typing.Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]] |  |  |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**options** | typing.Optional[typing.Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]] |  | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **BatchApplyActionResponseV2**
@@ -127,16 +127,16 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ActionTypeApiName | action
 action = "rename-employee"
-# List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]] |
+# typing.List[typing.Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]] |
 requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
 ]
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]] |
+# typing.Optional[typing.Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]] |
 options = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
 
 

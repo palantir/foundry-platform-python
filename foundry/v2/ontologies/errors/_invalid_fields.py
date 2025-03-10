@@ -13,18 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidFieldsParameters(TypedDict):
+class InvalidFieldsParameters(typing_extensions.TypedDict):
     """
     The value of the given field does not match the expected pattern. For example, an Ontology object property `id`
     should be written `properties.id`.
@@ -32,12 +29,12 @@ class InvalidFieldsParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    properties: List[str]
+    properties: typing.List[str]
 
 
 @dataclass
-class InvalidFields(BadRequestError):
-    name: Literal["InvalidFields"]
+class InvalidFields(errors.BadRequestError):
+    name: typing.Literal["InvalidFields"]
     parameters: InvalidFieldsParameters
     error_instance_id: str
 

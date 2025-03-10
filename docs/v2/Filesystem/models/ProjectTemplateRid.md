@@ -4,7 +4,7 @@ The unique resource identifier (RID) of a project template.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

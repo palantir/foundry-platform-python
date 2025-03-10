@@ -13,40 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._attribute_name import AttributeName
-from foundry.v2.admin.models._attribute_values import AttributeValues
-from foundry.v2.admin.models._authentication_provider import AuthenticationProvider
-from foundry.v2.admin.models._authentication_provider_rid import AuthenticationProviderRid  # NOQA
-from foundry.v2.admin.models._group_name import GroupName
-from foundry.v2.admin.models._list_authentication_providers_response import (
-    ListAuthenticationProvidersResponse,
-)  # NOQA
-from foundry.v2.admin.models._user_username import UserUsername
-from foundry.v2.core.models._enrollment_rid import EnrollmentRid
-from foundry.v2.core.models._organization_rid import OrganizationRid
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class AuthenticationProviderClient:
@@ -60,14 +36,14 @@ class AuthenticationProviderClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _AuthenticationProviderClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -75,35 +51,35 @@ class AuthenticationProviderClient:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AuthenticationProvider:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.AuthenticationProvider:
         """
         Get the AuthenticationProvider with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AuthenticationProvider
+        :rtype: admin_models.AuthenticationProvider
 
         :raises AuthenticationProviderNotFound: The given AuthenticationProvider could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}",
                 query_params={
@@ -118,7 +94,7 @@ class AuthenticationProviderClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=AuthenticationProvider,
+                response_type=admin_models.AuthenticationProvider,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AuthenticationProviderNotFound": admin_errors.AuthenticationProviderNotFound,
@@ -126,32 +102,32 @@ class AuthenticationProviderClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListAuthenticationProvidersResponse:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.ListAuthenticationProvidersResponse:
         """
         Lists all AuthenticationProviders.
 
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListAuthenticationProvidersResponse
+        :rtype: admin_models.ListAuthenticationProvidersResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders",
                 query_params={
@@ -165,49 +141,49 @@ class AuthenticationProviderClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAuthenticationProvidersResponse,
+                response_type=admin_models.ListAuthenticationProvidersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def preregister_group(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        name: GroupName,
-        organizations: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> PrincipalId:
+        name: admin_models.GroupName,
+        organizations: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core_models.PrincipalId:
         """
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param name:
-        :type name: GroupName
+        :type name: admin_models.GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
-        :type organizations: List[OrganizationRid]
+        :type organizations: typing.List[core_models.OrganizationRid]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: PrincipalId
+        :rtype: core_models.PrincipalId
 
         :raises PreregisterGroupPermissionDenied: Could not preregisterGroup the AuthenticationProvider.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}/preregisterGroup",
                 query_params={
@@ -225,14 +201,14 @@ class AuthenticationProviderClient:
                     "name": name,
                     "organizations": organizations,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": GroupName,
-                        "organizations": List[OrganizationRid],
+                        "name": admin_models.GroupName,
+                        "organizations": typing.List[core_models.OrganizationRid],
                     },
                 ),
-                response_type=PrincipalId,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterGroupPermissionDenied": admin_errors.PreregisterGroupPermissionDenied,
@@ -240,55 +216,57 @@ class AuthenticationProviderClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def preregister_user(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        organization: OrganizationRid,
-        username: UserUsername,
-        attributes: Optional[Dict[AttributeName, AttributeValues]] = None,
-        email: Optional[str] = None,
-        family_name: Optional[str] = None,
-        given_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> PrincipalId:
+        organization: core_models.OrganizationRid,
+        username: admin_models.UserUsername,
+        attributes: typing.Optional[
+            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+        ] = None,
+        email: typing.Optional[str] = None,
+        family_name: typing.Optional[str] = None,
+        given_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core_models.PrincipalId:
         """
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: OrganizationRid
+        :type organization: core_models.OrganizationRid
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: UserUsername
+        :type username: admin_models.UserUsername
         :param attributes:
-        :type attributes: Optional[Dict[AttributeName, AttributeValues]]
+        :type attributes: typing.Optional[typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]]
         :param email:
-        :type email: Optional[str]
+        :type email: typing.Optional[str]
         :param family_name:
-        :type family_name: Optional[str]
+        :type family_name: typing.Optional[str]
         :param given_name:
-        :type given_name: Optional[str]
+        :type given_name: typing.Optional[str]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: PrincipalId
+        :rtype: core_models.PrincipalId
 
         :raises PreregisterUserPermissionDenied: Could not preregisterUser the AuthenticationProvider.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}/preregisterUser",
                 query_params={
@@ -310,18 +288,20 @@ class AuthenticationProviderClient:
                     "email": email,
                     "attributes": attributes,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "username": UserUsername,
-                        "organization": OrganizationRid,
-                        "givenName": Optional[str],
-                        "familyName": Optional[str],
-                        "email": Optional[str],
-                        "attributes": Optional[Dict[AttributeName, AttributeValues]],
+                        "username": admin_models.UserUsername,
+                        "organization": core_models.OrganizationRid,
+                        "givenName": typing.Optional[str],
+                        "familyName": typing.Optional[str],
+                        "email": typing.Optional[str],
+                        "attributes": typing.Optional[
+                            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+                        ],
                     },
                 ),
-                response_type=PrincipalId,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterUserPermissionDenied": admin_errors.PreregisterUserPermissionDenied,
@@ -341,44 +321,44 @@ class _AuthenticationProviderClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AuthenticationProvider]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.AuthenticationProvider]:
         """
         Get the AuthenticationProvider with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AuthenticationProvider]
+        :rtype: core.ApiResponse[admin_models.AuthenticationProvider]
 
         :raises AuthenticationProviderNotFound: The given AuthenticationProvider could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}",
                 query_params={
@@ -393,7 +373,7 @@ class _AuthenticationProviderClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=AuthenticationProvider,
+                response_type=admin_models.AuthenticationProvider,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AuthenticationProviderNotFound": admin_errors.AuthenticationProviderNotFound,
@@ -401,32 +381,32 @@ class _AuthenticationProviderClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListAuthenticationProvidersResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListAuthenticationProvidersResponse]:
         """
         Lists all AuthenticationProviders.
 
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListAuthenticationProvidersResponse]
+        :rtype: core.ApiResponse[admin_models.ListAuthenticationProvidersResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders",
                 query_params={
@@ -440,49 +420,49 @@ class _AuthenticationProviderClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAuthenticationProvidersResponse,
+                response_type=admin_models.ListAuthenticationProvidersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def preregister_group(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        name: GroupName,
-        organizations: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[PrincipalId]:
+        name: admin_models.GroupName,
+        organizations: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[core_models.PrincipalId]:
         """
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param name:
-        :type name: GroupName
+        :type name: admin_models.GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
-        :type organizations: List[OrganizationRid]
+        :type organizations: typing.List[core_models.OrganizationRid]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[PrincipalId]
+        :rtype: core.ApiResponse[core_models.PrincipalId]
 
         :raises PreregisterGroupPermissionDenied: Could not preregisterGroup the AuthenticationProvider.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}/preregisterGroup",
                 query_params={
@@ -500,14 +480,14 @@ class _AuthenticationProviderClientRaw:
                     "name": name,
                     "organizations": organizations,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": GroupName,
-                        "organizations": List[OrganizationRid],
+                        "name": admin_models.GroupName,
+                        "organizations": typing.List[core_models.OrganizationRid],
                     },
                 ),
-                response_type=PrincipalId,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterGroupPermissionDenied": admin_errors.PreregisterGroupPermissionDenied,
@@ -515,55 +495,57 @@ class _AuthenticationProviderClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def preregister_user(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        organization: OrganizationRid,
-        username: UserUsername,
-        attributes: Optional[Dict[AttributeName, AttributeValues]] = None,
-        email: Optional[str] = None,
-        family_name: Optional[str] = None,
-        given_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[PrincipalId]:
+        organization: core_models.OrganizationRid,
+        username: admin_models.UserUsername,
+        attributes: typing.Optional[
+            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+        ] = None,
+        email: typing.Optional[str] = None,
+        family_name: typing.Optional[str] = None,
+        given_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[core_models.PrincipalId]:
         """
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: OrganizationRid
+        :type organization: core_models.OrganizationRid
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: UserUsername
+        :type username: admin_models.UserUsername
         :param attributes:
-        :type attributes: Optional[Dict[AttributeName, AttributeValues]]
+        :type attributes: typing.Optional[typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]]
         :param email:
-        :type email: Optional[str]
+        :type email: typing.Optional[str]
         :param family_name:
-        :type family_name: Optional[str]
+        :type family_name: typing.Optional[str]
         :param given_name:
-        :type given_name: Optional[str]
+        :type given_name: typing.Optional[str]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[PrincipalId]
+        :rtype: core.ApiResponse[core_models.PrincipalId]
 
         :raises PreregisterUserPermissionDenied: Could not preregisterUser the AuthenticationProvider.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}/preregisterUser",
                 query_params={
@@ -585,18 +567,20 @@ class _AuthenticationProviderClientRaw:
                     "email": email,
                     "attributes": attributes,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "username": UserUsername,
-                        "organization": OrganizationRid,
-                        "givenName": Optional[str],
-                        "familyName": Optional[str],
-                        "email": Optional[str],
-                        "attributes": Optional[Dict[AttributeName, AttributeValues]],
+                        "username": admin_models.UserUsername,
+                        "organization": core_models.OrganizationRid,
+                        "givenName": typing.Optional[str],
+                        "familyName": typing.Optional[str],
+                        "email": typing.Optional[str],
+                        "attributes": typing.Optional[
+                            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+                        ],
                     },
                 ),
-                response_type=PrincipalId,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterUserPermissionDenied": admin_errors.PreregisterUserPermissionDenied,
@@ -616,44 +600,44 @@ class _AuthenticationProviderClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AuthenticationProvider]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.AuthenticationProvider]:
         """
         Get the AuthenticationProvider with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AuthenticationProvider]
+        :rtype: core.StreamingContextManager[admin_models.AuthenticationProvider]
 
         :raises AuthenticationProviderNotFound: The given AuthenticationProvider could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}",
                 query_params={
@@ -668,7 +652,7 @@ class _AuthenticationProviderClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=AuthenticationProvider,
+                response_type=admin_models.AuthenticationProvider,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AuthenticationProviderNotFound": admin_errors.AuthenticationProviderNotFound,
@@ -676,32 +660,32 @@ class _AuthenticationProviderClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListAuthenticationProvidersResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListAuthenticationProvidersResponse]:
         """
         Lists all AuthenticationProviders.
 
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListAuthenticationProvidersResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListAuthenticationProvidersResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders",
                 query_params={
@@ -715,49 +699,49 @@ class _AuthenticationProviderClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAuthenticationProvidersResponse,
+                response_type=admin_models.ListAuthenticationProvidersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def preregister_group(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        name: GroupName,
-        organizations: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[PrincipalId]:
+        name: admin_models.GroupName,
+        organizations: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[core_models.PrincipalId]:
         """
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param name:
-        :type name: GroupName
+        :type name: admin_models.GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
-        :type organizations: List[OrganizationRid]
+        :type organizations: typing.List[core_models.OrganizationRid]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[PrincipalId]
+        :rtype: core.StreamingContextManager[core_models.PrincipalId]
 
         :raises PreregisterGroupPermissionDenied: Could not preregisterGroup the AuthenticationProvider.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}/preregisterGroup",
                 query_params={
@@ -775,14 +759,14 @@ class _AuthenticationProviderClientStreaming:
                     "name": name,
                     "organizations": organizations,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": GroupName,
-                        "organizations": List[OrganizationRid],
+                        "name": admin_models.GroupName,
+                        "organizations": typing.List[core_models.OrganizationRid],
                     },
                 ),
-                response_type=PrincipalId,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterGroupPermissionDenied": admin_errors.PreregisterGroupPermissionDenied,
@@ -790,55 +774,57 @@ class _AuthenticationProviderClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def preregister_user(
         self,
-        enrollment_rid: EnrollmentRid,
-        authentication_provider_rid: AuthenticationProviderRid,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        organization: OrganizationRid,
-        username: UserUsername,
-        attributes: Optional[Dict[AttributeName, AttributeValues]] = None,
-        email: Optional[str] = None,
-        family_name: Optional[str] = None,
-        given_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[PrincipalId]:
+        organization: core_models.OrganizationRid,
+        username: admin_models.UserUsername,
+        attributes: typing.Optional[
+            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+        ] = None,
+        email: typing.Optional[str] = None,
+        family_name: typing.Optional[str] = None,
+        given_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[core_models.PrincipalId]:
         """
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: AuthenticationProviderRid
+        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: OrganizationRid
+        :type organization: core_models.OrganizationRid
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: UserUsername
+        :type username: admin_models.UserUsername
         :param attributes:
-        :type attributes: Optional[Dict[AttributeName, AttributeValues]]
+        :type attributes: typing.Optional[typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]]
         :param email:
-        :type email: Optional[str]
+        :type email: typing.Optional[str]
         :param family_name:
-        :type family_name: Optional[str]
+        :type family_name: typing.Optional[str]
         :param given_name:
-        :type given_name: Optional[str]
+        :type given_name: typing.Optional[str]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[PrincipalId]
+        :rtype: core.StreamingContextManager[core_models.PrincipalId]
 
         :raises PreregisterUserPermissionDenied: Could not preregisterUser the AuthenticationProvider.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/authenticationProviders/{authenticationProviderRid}/preregisterUser",
                 query_params={
@@ -860,18 +846,20 @@ class _AuthenticationProviderClientStreaming:
                     "email": email,
                     "attributes": attributes,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "username": UserUsername,
-                        "organization": OrganizationRid,
-                        "givenName": Optional[str],
-                        "familyName": Optional[str],
-                        "email": Optional[str],
-                        "attributes": Optional[Dict[AttributeName, AttributeValues]],
+                        "username": admin_models.UserUsername,
+                        "organization": core_models.OrganizationRid,
+                        "givenName": typing.Optional[str],
+                        "familyName": typing.Optional[str],
+                        "email": typing.Optional[str],
+                        "attributes": typing.Optional[
+                            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+                        ],
                     },
                 ),
-                response_type=PrincipalId,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterUserPermissionDenied": admin_errors.PreregisterUserPermissionDenied,

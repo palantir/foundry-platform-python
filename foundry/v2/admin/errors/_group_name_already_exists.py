@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class GroupNameAlreadyExistsParameters(TypedDict):
+class GroupNameAlreadyExistsParameters(typing_extensions.TypedDict):
     """A group with this name already exists"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class GroupNameAlreadyExistsParameters(TypedDict):
 
 
 @dataclass
-class GroupNameAlreadyExists(BadRequestError):
-    name: Literal["GroupNameAlreadyExists"]
+class GroupNameAlreadyExists(errors.BadRequestError):
+    name: typing.Literal["GroupNameAlreadyExists"]
     parameters: GroupNameAlreadyExistsParameters
     error_instance_id: str
 

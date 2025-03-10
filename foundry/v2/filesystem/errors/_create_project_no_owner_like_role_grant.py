@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._role_id import RoleId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class CreateProjectNoOwnerLikeRoleGrantParameters(TypedDict):
+class CreateProjectNoOwnerLikeRoleGrantParameters(typing_extensions.TypedDict):
     """The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    grantedRoleIds: List[RoleId]
+    grantedRoleIds: typing.List[core_models.RoleId]
 
-    roleSetOwnerLikeRoleIds: List[RoleId]
+    roleSetOwnerLikeRoleIds: typing.List[core_models.RoleId]
 
 
 @dataclass
-class CreateProjectNoOwnerLikeRoleGrant(BadRequestError):
-    name: Literal["CreateProjectNoOwnerLikeRoleGrant"]
+class CreateProjectNoOwnerLikeRoleGrant(errors.BadRequestError):
+    name: typing.Literal["CreateProjectNoOwnerLikeRoleGrant"]
     parameters: CreateProjectNoOwnerLikeRoleGrantParameters
     error_instance_id: str
 

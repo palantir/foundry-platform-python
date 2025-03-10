@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class RemoveGroupMembersPermissionDeniedParameters(TypedDict):
+class RemoveGroupMembersPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not remove the GroupMember."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: PrincipalId
+    groupId: core_models.PrincipalId
 
 
 @dataclass
-class RemoveGroupMembersPermissionDenied(PermissionDeniedError):
-    name: Literal["RemoveGroupMembersPermissionDenied"]
+class RemoveGroupMembersPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveGroupMembersPermissionDenied"]
     parameters: RemoveGroupMembersPermissionDeniedParameters
     error_instance_id: str
 

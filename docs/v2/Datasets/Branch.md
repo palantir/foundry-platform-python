@@ -18,7 +18,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **name** | BranchName |  |  |
-**transaction_rid** | Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction. | [optional] |
+**transaction_rid** | typing.Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction. | [optional] |
 
 ### Return type
 **Branch**
@@ -38,7 +38,7 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # BranchName |
 name = "master"
-# Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
+# typing.Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
 transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"
 
 
@@ -189,11 +189,11 @@ Lists the Branches of a Dataset.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
-**ResourceIterator[Branch]**
+**ListBranchesResponse**
 
 ### Example
 
@@ -208,9 +208,9 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 
@@ -248,8 +248,8 @@ Lists the Branches of a Dataset.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListBranchesResponse**
@@ -267,9 +267,9 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 

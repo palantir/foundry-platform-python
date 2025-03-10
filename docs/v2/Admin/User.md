@@ -19,7 +19,7 @@ Delete the User with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
+**user_id** | core_models.PrincipalId | userId |  |
 
 ### Return type
 **None**
@@ -35,7 +35,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
+# core_models.PrincipalId | userId
 user_id = None
 
 
@@ -70,7 +70,7 @@ Get the User with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
+**user_id** | core_models.PrincipalId | userId |  |
 
 ### Return type
 **User**
@@ -86,7 +86,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
+# core_models.PrincipalId | userId
 user_id = None
 
 
@@ -123,7 +123,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | typing_extensions.Annotated[typing.List[typing.Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request |  |
 
 ### Return type
 **GetUsersBatchResponse**
@@ -139,7 +139,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request
+# typing_extensions.Annotated[typing.List[typing.Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request
 body = [{"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
@@ -219,8 +219,8 @@ Retrieve Markings that the user is currently a member of.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**user_id** | core_models.PrincipalId | userId |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **GetUserMarkingsResponse**
@@ -236,9 +236,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
+# core_models.PrincipalId | userId
 user_id = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -276,11 +276,11 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
-**ResourceIterator[User]**
+**ListUsersResponse**
 
 ### Example
 
@@ -293,9 +293,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 
@@ -332,8 +332,8 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListUsersResponse**
@@ -349,9 +349,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 
@@ -387,10 +387,10 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
+**user_id** | core_models.PrincipalId | userId |  |
 
 ### Return type
-**Optional[bytes]**
+**typing.Optional[bytes]**
 
 ### Example
 
@@ -403,7 +403,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
+# core_models.PrincipalId | userId
 user_id = None
 
 
@@ -427,7 +427,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Optional[bytes]  | The user's profile picture in binary format. The format is the original format uploaded by the user.  The response will contain a `Content-Type` header that can be used to identify the media type.  | application/octet-stream |
+**200** | typing.Optional[bytes]  | The user's profile picture in binary format. The format is the original format uploaded by the user.  The response will contain a `Content-Type` header that can be used to identify the media type.  | application/octet-stream |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -439,9 +439,9 @@ Perform a case-insensitive prefix search for users based on username, given name
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | Union[UserSearchFilter, UserSearchFilterDict] |  |  |
-**page_size** | Optional[PageSize] |  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
+**where** | typing.Union[UserSearchFilter, UserSearchFilterDict] |  |  |
+**page_size** | typing.Optional[core_models.PageSize] |  | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] |  | [optional] |
 
 ### Return type
 **SearchUsersResponse**
@@ -457,11 +457,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Union[UserSearchFilter, UserSearchFilterDict] |
+# typing.Union[UserSearchFilter, UserSearchFilterDict] |
 where = {"type": "queryString"}
-# Optional[PageSize] |
+# typing.Optional[core_models.PageSize] |
 page_size = 100
-# Optional[PageToken] |
+# typing.Optional[core_models.PageToken] |
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
 
 

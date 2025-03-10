@@ -6,7 +6,7 @@ A value passed for `StringParameter` application variable types.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **value** | str | Yes |  |
-**type** | Literal["string"] | Yes | None |
+**type** | typing.Literal["string"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

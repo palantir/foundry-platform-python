@@ -13,38 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._list_marking_members_response import (
-    ListMarkingMembersResponse,
-)  # NOQA
-from foundry.v2.admin.models._marking_member import MarkingMember
-from foundry.v2.core.models._marking_id import MarkingId
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class MarkingMemberClient:
@@ -58,14 +37,14 @@ class MarkingMemberClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _MarkingMemberClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -73,25 +52,25 @@ class MarkingMemberClient:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        principal_ids: List[PrincipalId],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param principal_ids:
-        :type principal_ids: List[PrincipalId]
+        :type principal_ids: typing.List[core_models.PrincipalId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -102,7 +81,7 @@ class MarkingMemberClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
                 query_params={
@@ -117,10 +96,10 @@ class MarkingMemberClient:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
@@ -132,43 +111,43 @@ class MarkingMemberClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[MarkingMember]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[admin_models.MarkingMember]:
         """
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[bool]
+        :type transitive: typing.Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[MarkingMember]
+        :rtype: core.ResourceIterator[admin_models.MarkingMember]
 
         :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers",
                 query_params={
@@ -185,7 +164,7 @@ class MarkingMemberClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListMarkingMembersResponse,
+                response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
@@ -193,37 +172,37 @@ class MarkingMemberClient:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListMarkingMembersResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.ListMarkingMembersResponse:
         """
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[bool]
+        :type transitive: typing.Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListMarkingMembersResponse
+        :rtype: admin_models.ListMarkingMembersResponse
 
         :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
@@ -235,7 +214,7 @@ class MarkingMemberClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers",
                 query_params={
@@ -252,7 +231,7 @@ class MarkingMemberClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListMarkingMembersResponse,
+                response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
@@ -260,25 +239,25 @@ class MarkingMemberClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        principal_ids: List[PrincipalId],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param principal_ids:
-        :type principal_ids: List[PrincipalId]
+        :type principal_ids: typing.List[core_models.PrincipalId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -288,7 +267,7 @@ class MarkingMemberClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
                 query_params={
@@ -303,10 +282,10 @@ class MarkingMemberClient:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
@@ -329,45 +308,45 @@ class _MarkingMemberClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        principal_ids: List[PrincipalId],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param principal_ids:
-        :type principal_ids: List[PrincipalId]
+        :type principal_ids: typing.List[core_models.PrincipalId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
                 query_params={
@@ -382,10 +361,10 @@ class _MarkingMemberClientRaw:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
@@ -397,43 +376,43 @@ class _MarkingMemberClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListMarkingMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListMarkingMembersResponse]:
         """
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[bool]
+        :type transitive: typing.Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListMarkingMembersResponse]
+        :rtype: core.ApiResponse[admin_models.ListMarkingMembersResponse]
 
         :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers",
                 query_params={
@@ -450,7 +429,7 @@ class _MarkingMemberClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListMarkingMembersResponse,
+                response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
@@ -458,37 +437,37 @@ class _MarkingMemberClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListMarkingMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListMarkingMembersResponse]:
         """
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[bool]
+        :type transitive: typing.Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListMarkingMembersResponse]
+        :rtype: core.ApiResponse[admin_models.ListMarkingMembersResponse]
 
         :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
@@ -500,7 +479,7 @@ class _MarkingMemberClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers",
                 query_params={
@@ -517,7 +496,7 @@ class _MarkingMemberClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListMarkingMembersResponse,
+                response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
@@ -525,35 +504,35 @@ class _MarkingMemberClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        principal_ids: List[PrincipalId],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param principal_ids:
-        :type principal_ids: List[PrincipalId]
+        :type principal_ids: typing.List[core_models.PrincipalId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
                 query_params={
@@ -568,10 +547,10 @@ class _MarkingMemberClientRaw:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
@@ -594,45 +573,45 @@ class _MarkingMemberClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        principal_ids: List[PrincipalId],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param principal_ids:
-        :type principal_ids: List[PrincipalId]
+        :type principal_ids: typing.List[core_models.PrincipalId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
                 query_params={
@@ -647,10 +626,10 @@ class _MarkingMemberClientStreaming:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
@@ -662,43 +641,43 @@ class _MarkingMemberClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListMarkingMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListMarkingMembersResponse]:
         """
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[bool]
+        :type transitive: typing.Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListMarkingMembersResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListMarkingMembersResponse]
 
         :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers",
                 query_params={
@@ -715,7 +694,7 @@ class _MarkingMemberClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListMarkingMembersResponse,
+                response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
@@ -723,37 +702,37 @@ class _MarkingMemberClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListMarkingMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListMarkingMembersResponse]:
         """
         Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param transitive: transitive
-        :type transitive: Optional[bool]
+        :type transitive: typing.Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListMarkingMembersResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListMarkingMembersResponse]
 
         :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
         """
@@ -765,7 +744,7 @@ class _MarkingMemberClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers",
                 query_params={
@@ -782,7 +761,7 @@ class _MarkingMemberClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListMarkingMembersResponse,
+                response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
@@ -790,35 +769,35 @@ class _MarkingMemberClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        marking_id: MarkingId,
+        marking_id: core_models.MarkingId,
         *,
-        principal_ids: List[PrincipalId],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
         :param marking_id: markingId
-        :type marking_id: MarkingId
+        :type marking_id: core_models.MarkingId
         :param principal_ids:
-        :type principal_ids: List[PrincipalId]
+        :type principal_ids: typing.List[core_models.PrincipalId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
                 query_params={
@@ -833,10 +812,10 @@ class _MarkingMemberClientStreaming:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,

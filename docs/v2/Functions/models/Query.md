@@ -6,9 +6,9 @@ Query
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | QueryApiName | Yes |  |
-**description** | Optional[str] | No |  |
-**display_name** | Optional[DisplayName] | No |  |
-**parameters** | Dict[ParameterId, Parameter] | Yes |  |
+**description** | typing.Optional[str] | No |  |
+**display_name** | typing.Optional[core_models.DisplayName] | No |  |
+**parameters** | typing.Dict[ParameterId, Parameter] | Yes |  |
 **output** | QueryDataType | Yes |  |
 **rid** | FunctionRid | Yes |  |
 **version** | FunctionVersion | Yes |  |

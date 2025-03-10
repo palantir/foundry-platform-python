@@ -145,11 +145,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
-**ResourceIterator[ObjectTypeV2]**
+**ListObjectTypesV2Response**
 
 ### Example
 
@@ -164,9 +164,9 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 
@@ -208,11 +208,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
-**ResourceIterator[LinkTypeSideV2]**
+**ListOutgoingLinkTypesResponseV2**
 
 ### Example
 
@@ -229,9 +229,9 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "Flight"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 
@@ -276,8 +276,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListObjectTypesV2Response**
@@ -295,9 +295,9 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 
@@ -340,8 +340,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListOutgoingLinkTypesResponseV2**
@@ -361,9 +361,9 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "Flight"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 

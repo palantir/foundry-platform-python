@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class AttachmentSizeExceededLimitParameters(TypedDict):
+class AttachmentSizeExceededLimitParameters(typing_extensions.TypedDict):
     """
     The file is too large to be uploaded as an attachment.
     The maximum attachment size is 200MB.
@@ -37,8 +35,8 @@ class AttachmentSizeExceededLimitParameters(TypedDict):
 
 
 @dataclass
-class AttachmentSizeExceededLimit(BadRequestError):
-    name: Literal["AttachmentSizeExceededLimit"]
+class AttachmentSizeExceededLimit(errors.BadRequestError):
+    name: typing.Literal["AttachmentSizeExceededLimit"]
     parameters: AttachmentSizeExceededLimitParameters
     error_instance_id: str
 

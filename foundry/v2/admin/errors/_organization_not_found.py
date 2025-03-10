@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._organization_rid import OrganizationRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class OrganizationNotFoundParameters(TypedDict):
+class OrganizationNotFoundParameters(typing_extensions.TypedDict):
     """The given Organization could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organizationRid: OrganizationRid
+    organizationRid: core_models.OrganizationRid
 
 
 @dataclass
-class OrganizationNotFound(NotFoundError):
-    name: Literal["OrganizationNotFound"]
+class OrganizationNotFound(errors.NotFoundError):
+    name: typing.Literal["OrganizationNotFound"]
     parameters: OrganizationNotFoundParameters
     error_instance_id: str
 

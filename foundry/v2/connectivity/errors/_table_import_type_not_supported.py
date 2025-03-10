@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
+from foundry import _errors as errors
 
 
-class TableImportTypeNotSupportedParameters(TypedDict):
+class TableImportTypeNotSupportedParameters(typing_extensions.TypedDict):
     """The specified table import type is not yet supported in the Platform API."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class TableImportTypeNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class TableImportTypeNotSupported(InternalServerError):
-    name: Literal["TableImportTypeNotSupported"]
+class TableImportTypeNotSupported(errors.InternalServerError):
+    name: typing.Literal["TableImportTypeNotSupported"]
     parameters: TableImportTypeNotSupportedParameters
     error_instance_id: str
 

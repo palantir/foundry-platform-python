@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._ontology_api_name import OntologyApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class OntologyApiNameNotUniqueParameters(TypedDict):
+class OntologyApiNameNotUniqueParameters(typing_extensions.TypedDict):
     """The given Ontology API name is not unique. Use the Ontology RID in place of the Ontology API name."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    ontologyApiName: OntologyApiName
+    ontologyApiName: ontologies_models.OntologyApiName
 
 
 @dataclass
-class OntologyApiNameNotUnique(BadRequestError):
-    name: Literal["OntologyApiNameNotUnique"]
+class OntologyApiNameNotUnique(errors.BadRequestError):
+    name: typing.Literal["OntologyApiNameNotUnique"]
     parameters: OntologyApiNameNotUniqueParameters
     error_instance_id: str
 

@@ -16,11 +16,11 @@ Creates a new Marking.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **category_id** | MarkingCategoryId |  |  |
-**initial_members** | List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.  |  |
-**initial_role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
+**initial_members** | typing.List[core_models.PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.  |  |
+**initial_role_assignments** | typing.List[typing.Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
 **name** | MarkingName |  |  |
-**description** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**description** | typing.Optional[str] |  | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Marking**
@@ -38,17 +38,17 @@ foundry_client = FoundryClient(
 
 # MarkingCategoryId |
 category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
-# List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
+# typing.List[core_models.PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
 initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+# typing.List[typing.Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
 initial_role_assignments = [
     {"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
 ]
 # MarkingName |
 name = "PII"
-# Optional[str] |
+# typing.Optional[str] |
 description = "Contains personally identifiable information about our customers"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -88,8 +88,8 @@ Get the Marking with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**marking_id** | core_models.MarkingId | markingId |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Marking**
@@ -105,9 +105,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# core_models.MarkingId | markingId
 marking_id = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -145,8 +145,8 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**body** | typing_extensions.Annotated[typing.List[typing.Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **GetMarkingsBatchResponse**
@@ -162,9 +162,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request
+# typing_extensions.Annotated[typing.List[typing.Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request
 body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -200,12 +200,12 @@ Maximum page size 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[Marking]**
+**ListMarkingsResponse**
 
 ### Example
 
@@ -218,11 +218,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -258,9 +258,9 @@ Maximum page size 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListMarkingsResponse**
@@ -276,11 +276,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

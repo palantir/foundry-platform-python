@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._distance_unit import DistanceUnit
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class UnknownDistanceUnitParameters(TypedDict):
+class UnknownDistanceUnitParameters(typing_extensions.TypedDict):
     """An unknown distance unit was provided."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     unknownUnit: str
 
-    knownUnits: List[DistanceUnit]
+    knownUnits: typing.List[core_models.DistanceUnit]
 
 
 @dataclass
-class UnknownDistanceUnit(BadRequestError):
-    name: Literal["UnknownDistanceUnit"]
+class UnknownDistanceUnit(errors.BadRequestError):
+    name: typing.Literal["UnknownDistanceUnit"]
     parameters: UnknownDistanceUnitParameters
     error_instance_id: str
 

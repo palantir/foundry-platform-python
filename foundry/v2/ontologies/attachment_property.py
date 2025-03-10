@@ -13,43 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v2.ontologies.models._attachment_metadata_response import (
-    AttachmentMetadataResponse,
-)  # NOQA
-from foundry.v2.ontologies.models._attachment_rid import AttachmentRid
-from foundry.v2.ontologies.models._attachment_v2 import AttachmentV2
-from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
-from foundry.v2.ontologies.models._property_value_escaped_string import (
-    PropertyValueEscapedString,
-)  # NOQA
-from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class AttachmentPropertyClient:
@@ -63,14 +35,14 @@ class AttachmentPropertyClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _AttachmentPropertyClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -78,20 +50,20 @@ class AttachmentPropertyClient:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AttachmentMetadataResponse:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.AttachmentMetadataResponse:
         """
         Get the metadata of attachments parented to the given object.
 
@@ -99,25 +71,25 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AttachmentMetadataResponse
+        :rtype: ontologies_models.AttachmentMetadataResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}",
                 query_params={
@@ -135,27 +107,27 @@ class AttachmentPropertyClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentMetadataResponse,
+                response_type=ontologies_models.AttachmentMetadataResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AttachmentV2:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.AttachmentV2:
         """
         Get the metadata of a particular attachment in an attachment list.
 
@@ -163,27 +135,27 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AttachmentV2
+        :rtype: ontologies_models.AttachmentV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}",
                 query_params={
@@ -202,29 +174,29 @@ class AttachmentPropertyClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        stream: Literal[True],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Get the content of an attachment.
 
@@ -232,17 +204,17 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -250,22 +222,22 @@ class AttachmentPropertyClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def read_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Get the content of an attachment.
@@ -274,17 +246,17 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -294,23 +266,23 @@ class AttachmentPropertyClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
         stream: bool,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment.
 
@@ -318,17 +290,17 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -336,26 +308,26 @@ class AttachmentPropertyClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment.
 
@@ -363,17 +335,17 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -381,7 +353,7 @@ class AttachmentPropertyClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -392,7 +364,7 @@ class AttachmentPropertyClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content",
                 query_params={
@@ -418,24 +390,24 @@ class AttachmentPropertyClient:
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        stream: Literal[True],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Get the content of an attachment by its RID.
 
@@ -445,19 +417,19 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -465,23 +437,23 @@ class AttachmentPropertyClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def read_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Get the content of an attachment by its RID.
@@ -492,19 +464,19 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -514,24 +486,24 @@ class AttachmentPropertyClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         stream: bool,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment by its RID.
 
@@ -541,19 +513,19 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -561,27 +533,27 @@ class AttachmentPropertyClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment by its RID.
 
@@ -591,19 +563,19 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -611,7 +583,7 @@ class AttachmentPropertyClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -622,7 +594,7 @@ class AttachmentPropertyClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content",
                 query_params={
@@ -661,29 +633,29 @@ class _AttachmentPropertyClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AttachmentMetadataResponse]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.AttachmentMetadataResponse]:
         """
         Get the metadata of attachments parented to the given object.
 
@@ -691,25 +663,25 @@ class _AttachmentPropertyClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AttachmentMetadataResponse]
+        :rtype: core.ApiResponse[ontologies_models.AttachmentMetadataResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}",
                 query_params={
@@ -727,27 +699,27 @@ class _AttachmentPropertyClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentMetadataResponse,
+                response_type=ontologies_models.AttachmentMetadataResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AttachmentV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.AttachmentV2]:
         """
         Get the metadata of a particular attachment in an attachment list.
 
@@ -755,27 +727,27 @@ class _AttachmentPropertyClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AttachmentV2]
+        :rtype: core.ApiResponse[ontologies_models.AttachmentV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}",
                 query_params={
@@ -794,26 +766,26 @@ class _AttachmentPropertyClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Get the content of an attachment.
 
@@ -821,25 +793,25 @@ class _AttachmentPropertyClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content",
                 query_params={
@@ -863,21 +835,21 @@ class _AttachmentPropertyClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Get the content of an attachment by its RID.
 
@@ -887,27 +859,27 @@ class _AttachmentPropertyClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content",
                 query_params={
@@ -944,29 +916,29 @@ class _AttachmentPropertyClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AttachmentMetadataResponse]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.AttachmentMetadataResponse]:
         """
         Get the metadata of attachments parented to the given object.
 
@@ -974,25 +946,25 @@ class _AttachmentPropertyClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AttachmentMetadataResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.AttachmentMetadataResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}",
                 query_params={
@@ -1010,27 +982,27 @@ class _AttachmentPropertyClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentMetadataResponse,
+                response_type=ontologies_models.AttachmentMetadataResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AttachmentV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.AttachmentV2]:
         """
         Get the metadata of a particular attachment in an attachment list.
 
@@ -1038,27 +1010,27 @@ class _AttachmentPropertyClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AttachmentV2]
+        :rtype: core.StreamingContextManager[ontologies_models.AttachmentV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}",
                 query_params={
@@ -1077,26 +1049,26 @@ class _AttachmentPropertyClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_attachment(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Get the content of an attachment.
 
@@ -1104,25 +1076,25 @@ class _AttachmentPropertyClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content",
                 query_params={
@@ -1146,21 +1118,21 @@ class _AttachmentPropertyClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_attachment_by_rid(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
-        attachment_rid: AttachmentRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Get the content of an attachment by its RID.
 
@@ -1170,27 +1142,27 @@ class _AttachmentPropertyClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param property: property
-        :type property: PropertyApiName
+        :type property: ontologies_models.PropertyApiName
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content",
                 query_params={

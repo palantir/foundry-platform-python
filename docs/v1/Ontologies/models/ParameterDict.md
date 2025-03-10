@@ -5,9 +5,9 @@ Details about a parameter of an action or query.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | NotRequired[str] | No |  |
+**description** | typing_extensions.NotRequired[str] | No |  |
 **baseType** | ValueType | Yes |  |
-**dataType** | NotRequired[OntologyDataTypeDict] | No |  |
+**dataType** | typing_extensions.NotRequired[OntologyDataTypeDict] | No |  |
 **required** | bool | Yes |  |
 
 

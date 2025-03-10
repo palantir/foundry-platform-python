@@ -6,7 +6,7 @@ The parameter value must be the user id of a member belonging to at least one of
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**type** | Literal["groupMember"] | Yes | None |
+**type** | typing.Literal["groupMember"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -6,11 +6,11 @@ Action
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **target** | BuildTargetDict | Yes |  |
-**branchName** | BranchName | Yes | The target branch the schedule should run on. |
+**branchName** | datasets_models.BranchName | Yes | The target branch the schedule should run on. |
 **fallbackBranches** | FallbackBranches | Yes |  |
 **forceBuild** | ForceBuild | Yes |  |
-**retryCount** | NotRequired[RetryCount] | No |  |
-**retryBackoffDuration** | NotRequired[RetryBackoffDurationDict] | No |  |
+**retryCount** | typing_extensions.NotRequired[RetryCount] | No |  |
+**retryBackoffDuration** | typing_extensions.NotRequired[RetryBackoffDurationDict] | No |  |
 **abortOnFailure** | AbortOnFailure | Yes |  |
 **notificationsEnabled** | NotificationsEnabled | Yes |  |
 

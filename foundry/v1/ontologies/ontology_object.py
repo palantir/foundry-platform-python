@@ -13,57 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v1.core.models._page_size import PageSize
-from foundry.v1.core.models._page_token import PageToken
-from foundry.v1.ontologies.models._aggregate_objects_response import (
-    AggregateObjectsResponse,
-)  # NOQA
-from foundry.v1.ontologies.models._aggregation import Aggregation
-from foundry.v1.ontologies.models._aggregation_dict import AggregationDict
-from foundry.v1.ontologies.models._aggregation_group_by import AggregationGroupBy
-from foundry.v1.ontologies.models._aggregation_group_by_dict import AggregationGroupByDict  # NOQA
-from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
-from foundry.v1.ontologies.models._list_linked_objects_response import (
-    ListLinkedObjectsResponse,
-)  # NOQA
-from foundry.v1.ontologies.models._list_objects_response import ListObjectsResponse
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v1.ontologies.models._ontology_object import OntologyObject
-from foundry.v1.ontologies.models._ontology_rid import OntologyRid
-from foundry.v1.ontologies.models._order_by import OrderBy
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
-from foundry.v1.ontologies.models._property_value_escaped_string import (
-    PropertyValueEscapedString,
-)  # NOQA
-from foundry.v1.ontologies.models._search_json_query import SearchJsonQuery
-from foundry.v1.ontologies.models._search_json_query_dict import SearchJsonQueryDict
-from foundry.v1.ontologies.models._search_objects_response import SearchObjectsResponse
-from foundry.v1.ontologies.models._search_order_by import SearchOrderBy
-from foundry.v1.ontologies.models._search_order_by_dict import SearchOrderByDict
-from foundry.v1.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
+from foundry.v1.ontologies import models as ontologies_models
 
 
 class OntologyObjectClient:
@@ -77,14 +36,14 @@ class OntologyObjectClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _OntologyObjectClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -92,42 +51,50 @@ class OntologyObjectClient:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        aggregation: List[Union[Aggregation, AggregationDict]],
-        group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]],
-        query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AggregateObjectsResponse:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupBy, ontologies_models.AggregationGroupByDict
+            ]
+        ],
+        query: typing.Optional[
+            typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.AggregateObjectsResponse:
         """
         Perform functions on object fields in the specified ontology and object type.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[Union[Aggregation, AggregationDict]]
+        :type aggregation: typing.List[typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]]
         :param group_by:
-        :type group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]]
+        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupBy, ontologies_models.AggregationGroupByDict]]
         :param query:
-        :type query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
+        :type query: typing.Optional[typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AggregateObjectsResponse
+        :rtype: ontologies_models.AggregateObjectsResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/aggregate",
                 query_params={},
@@ -144,53 +111,67 @@ class OntologyObjectClient:
                     "query": query,
                     "groupBy": group_by,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[Aggregation, AggregationDict]],
-                        "query": Optional[Union[SearchJsonQuery, SearchJsonQueryDict]],
-                        "groupBy": List[Union[AggregationGroupBy, AggregationGroupByDict]],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.Aggregation, ontologies_models.AggregationDict
+                            ]
+                        ],
+                        "query": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchJsonQuery,
+                                ontologies_models.SearchJsonQueryDict,
+                            ]
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupBy,
+                                ontologies_models.AggregationGroupByDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=AggregateObjectsResponse,
+                response_type=ontologies_models.AggregateObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> OntologyObject:
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.OntologyObject:
         """
         Gets a specific object with the given primary key.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: OntologyObject
+        :rtype: ontologies_models.OntologyObject
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}",
                 query_params={
@@ -206,26 +187,26 @@ class OntologyObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObject,
+                response_type=ontologies_models.OntologyObject,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_linked_object(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
-        linked_object_primary_key: PropertyValueEscapedString,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
+        linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> OntologyObject:
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.OntologyObject:
         """
         Get a specific linked object that originates from another object. If there is no link between the two objects,
         LinkedObjectNotFound is thrown.
@@ -233,25 +214,25 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param linked_object_primary_key: linkedObjectPrimaryKey
-        :type linked_object_primary_key: PropertyValueEscapedString
+        :type linked_object_primary_key: ontologies_models.PropertyValueEscapedString
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: OntologyObject
+        :rtype: ontologies_models.OntologyObject
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
@@ -269,26 +250,26 @@ class OntologyObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObject,
+                response_type=ontologies_models.OntologyObject,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[OntologyObject]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[ontologies_models.OntologyObject]:
         """
         Lists the objects for the given Ontology and object type.
 
@@ -310,25 +291,25 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[OntologyObject]
+        :rtype: core.ResourceIterator[ontologies_models.OntologyObject]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}",
                 query_params={
@@ -346,28 +327,28 @@ class OntologyObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectsResponse,
+                response_type=ontologies_models.ListObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_linked_objects(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[OntologyObject]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[ontologies_models.OntologyObject]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -389,29 +370,29 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[OntologyObject]
+        :rtype: core.ResourceIterator[ontologies_models.OntologyObject]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -431,26 +412,26 @@ class OntologyObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponse,
+                response_type=ontologies_models.ListLinkedObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListObjectsResponse:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListObjectsResponse:
         """
         Lists the objects for the given Ontology and object type.
 
@@ -472,21 +453,21 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListObjectsResponse
+        :rtype: ontologies_models.ListObjectsResponse
         """
 
         warnings.warn(
@@ -496,7 +477,7 @@ class OntologyObjectClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}",
                 query_params={
@@ -514,28 +495,28 @@ class OntologyObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectsResponse,
+                response_type=ontologies_models.ListObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_linked_objects(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListLinkedObjectsResponse:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListLinkedObjectsResponse:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -557,25 +538,25 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListLinkedObjectsResponse
+        :rtype: ontologies_models.ListLinkedObjectsResponse
         """
 
         warnings.warn(
@@ -585,7 +566,7 @@ class OntologyObjectClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -605,27 +586,31 @@ class OntologyObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponse,
+                response_type=ontologies_models.ListLinkedObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        fields: List[PropertyApiName],
-        query: Union[SearchJsonQuery, SearchJsonQueryDict],
-        order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> SearchObjectsResponse:
+        fields: typing.List[ontologies_models.PropertyApiName],
+        query: typing.Union[
+            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
+        ],
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict]
+        ] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.SearchObjectsResponse:
         """
         Search for objects in the specified ontology and object type. The request body is used
         to filter objects based on the specified query. The supported queries are:
@@ -653,27 +638,27 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param fields: The API names of the object type properties to include in the response.
-        :type fields: List[PropertyApiName]
+        :type fields: typing.List[ontologies_models.PropertyApiName]
         :param query:
-        :type query: Union[SearchJsonQuery, SearchJsonQueryDict]
+        :type query: typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]]
+        :type order_by: typing.Optional[typing.Union[ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict]]
         :param page_size:
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: SearchObjectsResponse
+        :rtype: ontologies_models.SearchObjectsResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/search",
                 query_params={},
@@ -692,17 +677,23 @@ class OntologyObjectClient:
                     "pageToken": page_token,
                     "fields": fields,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "query": Union[SearchJsonQuery, SearchJsonQueryDict],
-                        "orderBy": Optional[Union[SearchOrderBy, SearchOrderByDict]],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
-                        "fields": List[PropertyApiName],
+                        "query": typing.Union[
+                            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict
+                            ]
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "fields": typing.List[ontologies_models.PropertyApiName],
                     },
                 ),
-                response_type=SearchObjectsResponse,
+                response_type=ontologies_models.SearchObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -720,51 +711,59 @@ class _OntologyObjectClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        aggregation: List[Union[Aggregation, AggregationDict]],
-        group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]],
-        query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AggregateObjectsResponse]:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupBy, ontologies_models.AggregationGroupByDict
+            ]
+        ],
+        query: typing.Optional[
+            typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.AggregateObjectsResponse]:
         """
         Perform functions on object fields in the specified ontology and object type.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[Union[Aggregation, AggregationDict]]
+        :type aggregation: typing.List[typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]]
         :param group_by:
-        :type group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]]
+        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupBy, ontologies_models.AggregationGroupByDict]]
         :param query:
-        :type query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
+        :type query: typing.Optional[typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AggregateObjectsResponse]
+        :rtype: core.ApiResponse[ontologies_models.AggregateObjectsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/aggregate",
                 query_params={},
@@ -781,53 +780,67 @@ class _OntologyObjectClientRaw:
                     "query": query,
                     "groupBy": group_by,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[Aggregation, AggregationDict]],
-                        "query": Optional[Union[SearchJsonQuery, SearchJsonQueryDict]],
-                        "groupBy": List[Union[AggregationGroupBy, AggregationGroupByDict]],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.Aggregation, ontologies_models.AggregationDict
+                            ]
+                        ],
+                        "query": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchJsonQuery,
+                                ontologies_models.SearchJsonQueryDict,
+                            ]
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupBy,
+                                ontologies_models.AggregationGroupByDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=AggregateObjectsResponse,
+                response_type=ontologies_models.AggregateObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[OntologyObject]:
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.OntologyObject]:
         """
         Gets a specific object with the given primary key.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[OntologyObject]
+        :rtype: core.ApiResponse[ontologies_models.OntologyObject]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}",
                 query_params={
@@ -843,26 +856,26 @@ class _OntologyObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObject,
+                response_type=ontologies_models.OntologyObject,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_linked_object(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
-        linked_object_primary_key: PropertyValueEscapedString,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
+        linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[OntologyObject]:
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.OntologyObject]:
         """
         Get a specific linked object that originates from another object. If there is no link between the two objects,
         LinkedObjectNotFound is thrown.
@@ -870,25 +883,25 @@ class _OntologyObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param linked_object_primary_key: linkedObjectPrimaryKey
-        :type linked_object_primary_key: PropertyValueEscapedString
+        :type linked_object_primary_key: ontologies_models.PropertyValueEscapedString
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[OntologyObject]
+        :rtype: core.ApiResponse[ontologies_models.OntologyObject]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
@@ -906,26 +919,26 @@ class _OntologyObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObject,
+                response_type=ontologies_models.OntologyObject,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListObjectsResponse]:
         """
         Lists the objects for the given Ontology and object type.
 
@@ -947,25 +960,25 @@ class _OntologyObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListObjectsResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListObjectsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}",
                 query_params={
@@ -983,28 +996,28 @@ class _OntologyObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectsResponse,
+                response_type=ontologies_models.ListObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_linked_objects(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListLinkedObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListLinkedObjectsResponse]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -1026,29 +1039,29 @@ class _OntologyObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListLinkedObjectsResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListLinkedObjectsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -1068,26 +1081,26 @@ class _OntologyObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponse,
+                response_type=ontologies_models.ListLinkedObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListObjectsResponse]:
         """
         Lists the objects for the given Ontology and object type.
 
@@ -1109,21 +1122,21 @@ class _OntologyObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListObjectsResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListObjectsResponse]
         """
 
         warnings.warn(
@@ -1133,7 +1146,7 @@ class _OntologyObjectClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}",
                 query_params={
@@ -1151,28 +1164,28 @@ class _OntologyObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectsResponse,
+                response_type=ontologies_models.ListObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_linked_objects(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListLinkedObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListLinkedObjectsResponse]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -1194,25 +1207,25 @@ class _OntologyObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListLinkedObjectsResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListLinkedObjectsResponse]
         """
 
         warnings.warn(
@@ -1222,7 +1235,7 @@ class _OntologyObjectClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -1242,27 +1255,31 @@ class _OntologyObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponse,
+                response_type=ontologies_models.ListLinkedObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        fields: List[PropertyApiName],
-        query: Union[SearchJsonQuery, SearchJsonQueryDict],
-        order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[SearchObjectsResponse]:
+        fields: typing.List[ontologies_models.PropertyApiName],
+        query: typing.Union[
+            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
+        ],
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict]
+        ] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.SearchObjectsResponse]:
         """
         Search for objects in the specified ontology and object type. The request body is used
         to filter objects based on the specified query. The supported queries are:
@@ -1290,27 +1307,27 @@ class _OntologyObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param fields: The API names of the object type properties to include in the response.
-        :type fields: List[PropertyApiName]
+        :type fields: typing.List[ontologies_models.PropertyApiName]
         :param query:
-        :type query: Union[SearchJsonQuery, SearchJsonQueryDict]
+        :type query: typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]]
+        :type order_by: typing.Optional[typing.Union[ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict]]
         :param page_size:
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[SearchObjectsResponse]
+        :rtype: core.ApiResponse[ontologies_models.SearchObjectsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/search",
                 query_params={},
@@ -1329,17 +1346,23 @@ class _OntologyObjectClientRaw:
                     "pageToken": page_token,
                     "fields": fields,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "query": Union[SearchJsonQuery, SearchJsonQueryDict],
-                        "orderBy": Optional[Union[SearchOrderBy, SearchOrderByDict]],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
-                        "fields": List[PropertyApiName],
+                        "query": typing.Union[
+                            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict
+                            ]
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "fields": typing.List[ontologies_models.PropertyApiName],
                     },
                 ),
-                response_type=SearchObjectsResponse,
+                response_type=ontologies_models.SearchObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -1357,51 +1380,59 @@ class _OntologyObjectClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        aggregation: List[Union[Aggregation, AggregationDict]],
-        group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]],
-        query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AggregateObjectsResponse]:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupBy, ontologies_models.AggregationGroupByDict
+            ]
+        ],
+        query: typing.Optional[
+            typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.AggregateObjectsResponse]:
         """
         Perform functions on object fields in the specified ontology and object type.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[Union[Aggregation, AggregationDict]]
+        :type aggregation: typing.List[typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]]
         :param group_by:
-        :type group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]]
+        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupBy, ontologies_models.AggregationGroupByDict]]
         :param query:
-        :type query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
+        :type query: typing.Optional[typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AggregateObjectsResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.AggregateObjectsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/aggregate",
                 query_params={},
@@ -1418,53 +1449,67 @@ class _OntologyObjectClientStreaming:
                     "query": query,
                     "groupBy": group_by,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[Aggregation, AggregationDict]],
-                        "query": Optional[Union[SearchJsonQuery, SearchJsonQueryDict]],
-                        "groupBy": List[Union[AggregationGroupBy, AggregationGroupByDict]],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.Aggregation, ontologies_models.AggregationDict
+                            ]
+                        ],
+                        "query": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchJsonQuery,
+                                ontologies_models.SearchJsonQueryDict,
+                            ]
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupBy,
+                                ontologies_models.AggregationGroupByDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=AggregateObjectsResponse,
+                response_type=ontologies_models.AggregateObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[OntologyObject]:
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.OntologyObject]:
         """
         Gets a specific object with the given primary key.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[OntologyObject]
+        :rtype: core.StreamingContextManager[ontologies_models.OntologyObject]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}",
                 query_params={
@@ -1480,26 +1525,26 @@ class _OntologyObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObject,
+                response_type=ontologies_models.OntologyObject,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_linked_object(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
-        linked_object_primary_key: PropertyValueEscapedString,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
+        linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[OntologyObject]:
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.OntologyObject]:
         """
         Get a specific linked object that originates from another object. If there is no link between the two objects,
         LinkedObjectNotFound is thrown.
@@ -1507,25 +1552,25 @@ class _OntologyObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param linked_object_primary_key: linkedObjectPrimaryKey
-        :type linked_object_primary_key: PropertyValueEscapedString
+        :type linked_object_primary_key: ontologies_models.PropertyValueEscapedString
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[OntologyObject]
+        :rtype: core.StreamingContextManager[ontologies_models.OntologyObject]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
@@ -1543,26 +1588,26 @@ class _OntologyObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObject,
+                response_type=ontologies_models.OntologyObject,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListObjectsResponse]:
         """
         Lists the objects for the given Ontology and object type.
 
@@ -1584,25 +1629,25 @@ class _OntologyObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListObjectsResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListObjectsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}",
                 query_params={
@@ -1620,28 +1665,28 @@ class _OntologyObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectsResponse,
+                response_type=ontologies_models.ListObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_linked_objects(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListLinkedObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponse]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -1663,29 +1708,29 @@ class _OntologyObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListLinkedObjectsResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -1705,26 +1750,26 @@ class _OntologyObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponse,
+                response_type=ontologies_models.ListLinkedObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListObjectsResponse]:
         """
         Lists the objects for the given Ontology and object type.
 
@@ -1746,21 +1791,21 @@ class _OntologyObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListObjectsResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListObjectsResponse]
         """
 
         warnings.warn(
@@ -1770,7 +1815,7 @@ class _OntologyObjectClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}",
                 query_params={
@@ -1788,28 +1833,28 @@ class _OntologyObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectsResponse,
+                response_type=ontologies_models.ListObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_linked_objects(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        order_by: Optional[OrderBy] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        properties: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListLinkedObjectsResponse]:
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponse]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -1831,25 +1876,25 @@ class _OntologyObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: ontologies_models.PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: LinkTypeApiName
+        :type link_type: ontologies_models.LinkTypeApiName
         :param order_by: orderBy
-        :type order_by: Optional[OrderBy]
+        :type order_by: typing.Optional[ontologies_models.OrderBy]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param properties: properties
-        :type properties: Optional[List[SelectedPropertyApiName]]
+        :type properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListLinkedObjectsResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponse]
         """
 
         warnings.warn(
@@ -1859,7 +1904,7 @@ class _OntologyObjectClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -1879,27 +1924,31 @@ class _OntologyObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponse,
+                response_type=ontologies_models.ListLinkedObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        fields: List[PropertyApiName],
-        query: Union[SearchJsonQuery, SearchJsonQueryDict],
-        order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[SearchObjectsResponse]:
+        fields: typing.List[ontologies_models.PropertyApiName],
+        query: typing.Union[
+            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
+        ],
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict]
+        ] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.SearchObjectsResponse]:
         """
         Search for objects in the specified ontology and object type. The request body is used
         to filter objects based on the specified query. The supported queries are:
@@ -1927,27 +1976,27 @@ class _OntologyObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param object_type: objectType
-        :type object_type: ObjectTypeApiName
+        :type object_type: ontologies_models.ObjectTypeApiName
         :param fields: The API names of the object type properties to include in the response.
-        :type fields: List[PropertyApiName]
+        :type fields: typing.List[ontologies_models.PropertyApiName]
         :param query:
-        :type query: Union[SearchJsonQuery, SearchJsonQueryDict]
+        :type query: typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]]
+        :type order_by: typing.Optional[typing.Union[ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict]]
         :param page_size:
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[SearchObjectsResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.SearchObjectsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/search",
                 query_params={},
@@ -1966,17 +2015,23 @@ class _OntologyObjectClientStreaming:
                     "pageToken": page_token,
                     "fields": fields,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "query": Union[SearchJsonQuery, SearchJsonQueryDict],
-                        "orderBy": Optional[Union[SearchOrderBy, SearchOrderByDict]],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
-                        "fields": List[PropertyApiName],
+                        "query": typing.Union[
+                            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict
+                            ]
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "fields": typing.List[ontologies_models.PropertyApiName],
                     },
                 ),
-                response_type=SearchObjectsResponse,
+                response_type=ontologies_models.SearchObjectsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

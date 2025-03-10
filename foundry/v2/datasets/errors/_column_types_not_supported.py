@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class ColumnTypesNotSupportedParameters(TypedDict):
+class ColumnTypesNotSupportedParameters(typing_extensions.TypedDict):
     """The dataset contains column types that are not supported."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
 
 @dataclass
-class ColumnTypesNotSupported(BadRequestError):
-    name: Literal["ColumnTypesNotSupported"]
+class ColumnTypesNotSupported(errors.BadRequestError):
+    name: typing.Literal["ColumnTypesNotSupported"]
     parameters: ColumnTypesNotSupportedParameters
     error_instance_id: str
 

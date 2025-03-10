@@ -4,7 +4,7 @@ The Resource Identifier (RID) of a Schedule.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

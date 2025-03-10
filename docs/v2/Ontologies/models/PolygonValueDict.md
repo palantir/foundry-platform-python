@@ -4,7 +4,7 @@ PolygonValue
 
 ## Type
 ```python
-PolygonDict
+geo_models.PolygonDict
 ```
 
 

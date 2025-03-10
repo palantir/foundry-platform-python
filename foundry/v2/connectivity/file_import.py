@@ -13,46 +13,18 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.connectivity import errors as connectivity_errors
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._file_import import FileImport
-from foundry.v2.connectivity.models._file_import_display_name import FileImportDisplayName  # NOQA
-from foundry.v2.connectivity.models._file_import_filter import FileImportFilter
-from foundry.v2.connectivity.models._file_import_filter_dict import FileImportFilterDict
-from foundry.v2.connectivity.models._file_import_mode import FileImportMode
-from foundry.v2.connectivity.models._file_import_rid import FileImportRid
-from foundry.v2.connectivity.models._list_file_imports_response import (
-    ListFileImportsResponse,
-)  # NOQA
-from foundry.v2.core.models._build_rid import BuildRid
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.connectivity import models as connectivity_models
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 
 
 class FileImportClient:
@@ -66,57 +38,61 @@ class FileImportClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _FileImportClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _FileImportClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        dataset_rid: DatasetRid,
-        display_name: FileImportDisplayName,
-        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
-        import_mode: FileImportMode,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        subfolder: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> FileImport:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
+        file_import_filters: typing.List[
+            typing.Union[
+                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
+            ]
+        ],
+        import_mode: connectivity_models.FileImportMode,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        subfolder: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.FileImport:
         """
         Creates a new FileImport.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: connectivity_models.FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: FileImportMode
+        :type import_mode: connectivity_models.FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[str]
+        :type subfolder: typing.Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: FileImport
+        :rtype: connectivity_models.FileImport
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
         :raises CreateFileImportPermissionDenied: Could not create the FileImport.
@@ -130,7 +106,7 @@ class FileImportClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -151,18 +127,23 @@ class FileImportClient:
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": FileImportMode,
-                        "displayName": FileImportDisplayName,
-                        "branchName": Optional[BranchName],
-                        "subfolder": Optional[str],
-                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.FileImportMode,
+                        "displayName": connectivity_models.FileImportDisplayName,
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "subfolder": typing.Optional[str],
+                        "fileImportFilters": typing.List[
+                            typing.Union[
+                                connectivity_models.FileImportFilter,
+                                connectivity_models.FileImportFilterDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
@@ -178,16 +159,16 @@ class FileImportClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Delete the FileImport with the specified RID.
@@ -195,11 +176,11 @@ class FileImportClient:
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -209,7 +190,7 @@ class FileImportClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -230,37 +211,37 @@ class FileImportClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BuildRid:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core_models.BuildRid:
         """
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BuildRid
+        :rtype: core_models.BuildRid
 
         :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute",
                 query_params={
@@ -275,7 +256,7 @@ class FileImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=BuildRid,
+                response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
@@ -283,35 +264,35 @@ class FileImportClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> FileImport:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.FileImport:
         """
         Get the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: FileImport
+        :rtype: connectivity_models.FileImport
 
         :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -326,7 +307,7 @@ class FileImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FileImportNotFound": connectivity_errors.FileImportNotFound,
@@ -334,38 +315,38 @@ class FileImportClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[FileImport]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[connectivity_models.FileImport]:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[FileImport]
+        :rtype: core.ResourceIterator[connectivity_models.FileImport]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -381,40 +362,40 @@ class FileImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFileImportsResponse,
+                response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListFileImportsResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.ListFileImportsResponse:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListFileImportsResponse
+        :rtype: connectivity_models.ListFileImportsResponse
         """
 
         warnings.warn(
@@ -424,7 +405,7 @@ class FileImportClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -440,53 +421,57 @@ class FileImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFileImportsResponse,
+                response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        dataset_rid: DatasetRid,
-        display_name: FileImportDisplayName,
-        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
-        import_mode: FileImportMode,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        subfolder: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> FileImport:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
+        file_import_filters: typing.List[
+            typing.Union[
+                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
+            ]
+        ],
+        import_mode: connectivity_models.FileImportMode,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        subfolder: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.FileImport:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: connectivity_models.FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: FileImportMode
+        :type import_mode: connectivity_models.FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[str]
+        :type subfolder: typing.Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: FileImport
+        :rtype: connectivity_models.FileImport
 
         :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
         :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
@@ -498,7 +483,7 @@ class FileImportClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -520,18 +505,23 @@ class FileImportClient:
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": FileImportMode,
-                        "displayName": FileImportDisplayName,
-                        "branchName": Optional[BranchName],
-                        "subfolder": Optional[str],
-                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.FileImportMode,
+                        "displayName": connectivity_models.FileImportDisplayName,
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "subfolder": typing.Optional[str],
+                        "fileImportFilters": typing.List[
+                            typing.Union[
+                                connectivity_models.FileImportFilter,
+                                connectivity_models.FileImportFilterDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
@@ -557,53 +547,57 @@ class _FileImportClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        dataset_rid: DatasetRid,
-        display_name: FileImportDisplayName,
-        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
-        import_mode: FileImportMode,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        subfolder: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[FileImport]:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
+        file_import_filters: typing.List[
+            typing.Union[
+                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
+            ]
+        ],
+        import_mode: connectivity_models.FileImportMode,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        subfolder: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.FileImport]:
         """
         Creates a new FileImport.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: connectivity_models.FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: FileImportMode
+        :type import_mode: connectivity_models.FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[str]
+        :type subfolder: typing.Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[FileImport]
+        :rtype: core.ApiResponse[connectivity_models.FileImport]
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
         :raises CreateFileImportPermissionDenied: Could not create the FileImport.
@@ -617,7 +611,7 @@ class _FileImportClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -638,18 +632,23 @@ class _FileImportClientRaw:
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": FileImportMode,
-                        "displayName": FileImportDisplayName,
-                        "branchName": Optional[BranchName],
-                        "subfolder": Optional[str],
-                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.FileImportMode,
+                        "displayName": connectivity_models.FileImportDisplayName,
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "subfolder": typing.Optional[str],
+                        "fileImportFilters": typing.List[
+                            typing.Union[
+                                connectivity_models.FileImportFilter,
+                                connectivity_models.FileImportFilterDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
@@ -665,38 +664,38 @@ class _FileImportClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Delete the FileImport with the specified RID.
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises DeleteFileImportPermissionDenied: Could not delete the FileImport.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -717,37 +716,37 @@ class _FileImportClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[BuildRid]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[core_models.BuildRid]:
         """
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[BuildRid]
+        :rtype: core.ApiResponse[core_models.BuildRid]
 
         :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute",
                 query_params={
@@ -762,7 +761,7 @@ class _FileImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=BuildRid,
+                response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
@@ -770,35 +769,35 @@ class _FileImportClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[FileImport]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.FileImport]:
         """
         Get the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[FileImport]
+        :rtype: core.ApiResponse[connectivity_models.FileImport]
 
         :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -813,7 +812,7 @@ class _FileImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FileImportNotFound": connectivity_errors.FileImportNotFound,
@@ -821,38 +820,38 @@ class _FileImportClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListFileImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.ListFileImportsResponse]:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListFileImportsResponse]
+        :rtype: core.ApiResponse[connectivity_models.ListFileImportsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -868,40 +867,40 @@ class _FileImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFileImportsResponse,
+                response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListFileImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.ListFileImportsResponse]:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListFileImportsResponse]
+        :rtype: core.ApiResponse[connectivity_models.ListFileImportsResponse]
         """
 
         warnings.warn(
@@ -911,7 +910,7 @@ class _FileImportClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -927,53 +926,57 @@ class _FileImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFileImportsResponse,
+                response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        dataset_rid: DatasetRid,
-        display_name: FileImportDisplayName,
-        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
-        import_mode: FileImportMode,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        subfolder: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[FileImport]:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
+        file_import_filters: typing.List[
+            typing.Union[
+                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
+            ]
+        ],
+        import_mode: connectivity_models.FileImportMode,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        subfolder: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.FileImport]:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: connectivity_models.FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: FileImportMode
+        :type import_mode: connectivity_models.FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[str]
+        :type subfolder: typing.Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[FileImport]
+        :rtype: core.ApiResponse[connectivity_models.FileImport]
 
         :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
         :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
@@ -985,7 +988,7 @@ class _FileImportClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -1007,18 +1010,23 @@ class _FileImportClientRaw:
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": FileImportMode,
-                        "displayName": FileImportDisplayName,
-                        "branchName": Optional[BranchName],
-                        "subfolder": Optional[str],
-                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.FileImportMode,
+                        "displayName": connectivity_models.FileImportDisplayName,
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "subfolder": typing.Optional[str],
+                        "fileImportFilters": typing.List[
+                            typing.Union[
+                                connectivity_models.FileImportFilter,
+                                connectivity_models.FileImportFilterDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
@@ -1044,53 +1052,57 @@ class _FileImportClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        dataset_rid: DatasetRid,
-        display_name: FileImportDisplayName,
-        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
-        import_mode: FileImportMode,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        subfolder: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[FileImport]:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
+        file_import_filters: typing.List[
+            typing.Union[
+                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
+            ]
+        ],
+        import_mode: connectivity_models.FileImportMode,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        subfolder: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.FileImport]:
         """
         Creates a new FileImport.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: connectivity_models.FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: FileImportMode
+        :type import_mode: connectivity_models.FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[str]
+        :type subfolder: typing.Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[FileImport]
+        :rtype: core.StreamingContextManager[connectivity_models.FileImport]
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
         :raises CreateFileImportPermissionDenied: Could not create the FileImport.
@@ -1104,7 +1116,7 @@ class _FileImportClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -1125,18 +1137,23 @@ class _FileImportClientStreaming:
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": FileImportMode,
-                        "displayName": FileImportDisplayName,
-                        "branchName": Optional[BranchName],
-                        "subfolder": Optional[str],
-                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.FileImportMode,
+                        "displayName": connectivity_models.FileImportDisplayName,
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "subfolder": typing.Optional[str],
+                        "fileImportFilters": typing.List[
+                            typing.Union[
+                                connectivity_models.FileImportFilter,
+                                connectivity_models.FileImportFilterDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
@@ -1152,38 +1169,38 @@ class _FileImportClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Delete the FileImport with the specified RID.
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises DeleteFileImportPermissionDenied: Could not delete the FileImport.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -1204,37 +1221,37 @@ class _FileImportClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[BuildRid]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[core_models.BuildRid]:
         """
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[BuildRid]
+        :rtype: core.StreamingContextManager[core_models.BuildRid]
 
         :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute",
                 query_params={
@@ -1249,7 +1266,7 @@ class _FileImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=BuildRid,
+                response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
@@ -1257,35 +1274,35 @@ class _FileImportClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[FileImport]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.FileImport]:
         """
         Get the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[FileImport]
+        :rtype: core.StreamingContextManager[connectivity_models.FileImport]
 
         :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -1300,7 +1317,7 @@ class _FileImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FileImportNotFound": connectivity_errors.FileImportNotFound,
@@ -1308,38 +1325,38 @@ class _FileImportClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListFileImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.ListFileImportsResponse]:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListFileImportsResponse]
+        :rtype: core.StreamingContextManager[connectivity_models.ListFileImportsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -1355,40 +1372,40 @@ class _FileImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFileImportsResponse,
+                response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListFileImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.ListFileImportsResponse]:
         """
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListFileImportsResponse]
+        :rtype: core.StreamingContextManager[connectivity_models.ListFileImportsResponse]
         """
 
         warnings.warn(
@@ -1398,7 +1415,7 @@ class _FileImportClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
                 query_params={
@@ -1414,53 +1431,57 @@ class _FileImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFileImportsResponse,
+                response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        connection_rid: ConnectionRid,
-        file_import_rid: FileImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        dataset_rid: DatasetRid,
-        display_name: FileImportDisplayName,
-        file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]],
-        import_mode: FileImportMode,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        subfolder: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[FileImport]:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
+        file_import_filters: typing.List[
+            typing.Union[
+                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
+            ]
+        ],
+        import_mode: connectivity_models.FileImportMode,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        subfolder: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.FileImport]:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: connectivity_models.FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: connectivity_models.FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: FileImportMode
+        :type import_mode: connectivity_models.FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: Optional[str]
+        :type subfolder: typing.Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[FileImport]
+        :rtype: core.StreamingContextManager[connectivity_models.FileImport]
 
         :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
         :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
@@ -1472,7 +1493,7 @@ class _FileImportClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
                 query_params={
@@ -1494,18 +1515,23 @@ class _FileImportClientStreaming:
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": FileImportMode,
-                        "displayName": FileImportDisplayName,
-                        "branchName": Optional[BranchName],
-                        "subfolder": Optional[str],
-                        "fileImportFilters": List[Union[FileImportFilter, FileImportFilterDict]],
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.FileImportMode,
+                        "displayName": connectivity_models.FileImportDisplayName,
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "subfolder": typing.Optional[str],
+                        "fileImportFilters": typing.List[
+                            typing.Union[
+                                connectivity_models.FileImportFilter,
+                                connectivity_models.FileImportFilterDict,
+                            ]
+                        ],
                     },
                 ),
-                response_type=FileImport,
+                response_type=connectivity_models.FileImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,

@@ -12,8 +12,8 @@ Get the Organization with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**organization_rid** | OrganizationRid | organizationRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**organization_rid** | core_models.OrganizationRid | organizationRid |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Organization**
@@ -29,9 +29,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OrganizationRid | organizationRid
+# core_models.OrganizationRid | organizationRid
 organization_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -67,11 +67,11 @@ Replace the Organization with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**organization_rid** | OrganizationRid | organizationRid |  |
+**organization_rid** | core_models.OrganizationRid | organizationRid |  |
 **name** | OrganizationName |  |  |
-**description** | Optional[str] |  | [optional] |
-**host** | Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**description** | typing.Optional[str] |  | [optional] |
+**host** | typing.Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.  | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Organization**
@@ -87,15 +87,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OrganizationRid | organizationRid
+# core_models.OrganizationRid | organizationRid
 organization_rid = None
 # OrganizationName |
 name = "Example Organization"
-# Optional[str] |
+# typing.Optional[str] |
 description = None
-# Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
+# typing.Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
 host = "example.palantirfoundry.com"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

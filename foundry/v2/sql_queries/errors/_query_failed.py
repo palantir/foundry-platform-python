@@ -13,30 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
-from foundry.v2.sql_queries.models._query_id import QueryId
+from foundry import _errors as errors
+from foundry.v2.sql_queries import models as sql_queries_models
 
 
-class QueryFailedParameters(TypedDict):
+class QueryFailedParameters(typing_extensions.TypedDict):
     """The query failed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: QueryId
+    queryId: sql_queries_models.QueryId
 
     errorMessage: str
 
 
 @dataclass
-class QueryFailed(InternalServerError):
-    name: Literal["QueryFailed"]
+class QueryFailed(errors.InternalServerError):
+    name: typing.Literal["QueryFailed"]
     parameters: QueryFailedParameters
     error_instance_id: str
 

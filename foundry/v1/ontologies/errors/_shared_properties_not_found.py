@@ -13,34 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v1.ontologies.models._shared_property_type_api_name import (
-    SharedPropertyTypeApiName,
-)  # NOQA
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class SharedPropertiesNotFoundParameters(TypedDict):
+class SharedPropertiesNotFoundParameters(typing_extensions.TypedDict):
     """The requested shared property types are not present on every object type."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: List[ObjectTypeApiName]
+    objectType: typing.List[ontologies_models.ObjectTypeApiName]
 
-    missingSharedProperties: List[SharedPropertyTypeApiName]
+    missingSharedProperties: typing.List[ontologies_models.SharedPropertyTypeApiName]
 
 
 @dataclass
-class SharedPropertiesNotFound(NotFoundError):
-    name: Literal["SharedPropertiesNotFound"]
+class SharedPropertiesNotFound(errors.NotFoundError):
+    name: typing.Literal["SharedPropertiesNotFound"]
     parameters: SharedPropertiesNotFoundParameters
     error_instance_id: str
 

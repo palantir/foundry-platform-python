@@ -19,9 +19,8 @@ import dataclasses
 import io
 import json
 import os
+import typing
 from datetime import datetime
-from typing import Literal
-from typing import Optional
 
 import click
 
@@ -97,9 +96,9 @@ def datasets_dataset_create(
 def datasets_dataset_delete_schema(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    branch_id: Optional[str],
-    preview: Optional[bool],
-    transaction_rid: Optional[str],
+    branch_id: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transaction_rid: typing.Optional[str],
 ):
     """
     Deletes the Schema from a Dataset and Branch.
@@ -142,9 +141,9 @@ def datasets_dataset_get(
 def datasets_dataset_get_schema(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    branch_id: Optional[str],
-    preview: Optional[bool],
-    transaction_rid: Optional[str],
+    branch_id: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transaction_rid: typing.Optional[str],
 ):
     """
     Retrieves the Schema for a Dataset and Branch, if it exists.
@@ -171,12 +170,12 @@ def datasets_dataset_get_schema(
 def datasets_dataset_read(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    format: Literal["ARROW", "CSV"],
-    branch_id: Optional[str],
-    columns: Optional[str],
-    end_transaction_rid: Optional[str],
-    row_limit: Optional[int],
-    start_transaction_rid: Optional[str],
+    format: typing.Literal["ARROW", "CSV"],
+    branch_id: typing.Optional[str],
+    columns: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    row_limit: typing.Optional[int],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Gets the content of a dataset as a table in the specified format.
@@ -208,8 +207,8 @@ def datasets_dataset_replace_schema(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
     body: str,
-    branch_id: Optional[str],
-    preview: Optional[bool],
+    branch_id: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Puts a Schema on an existing Dataset and Branch.
@@ -288,8 +287,8 @@ def datasets_dataset_transaction_commit(
 def datasets_dataset_transaction_create(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    branch_id: Optional[str],
-    transaction_type: Optional[Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
+    branch_id: typing.Optional[str],
+    transaction_type: typing.Optional[typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
 ):
     """
     Creates a Transaction on a Branch of a Dataset.
@@ -342,8 +341,8 @@ def datasets_dataset_file_delete(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
     file_path: str,
-    branch_id: Optional[str],
-    transaction_rid: Optional[str],
+    branch_id: typing.Optional[str],
+    transaction_rid: typing.Optional[str],
 ):
     """
     Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
@@ -384,9 +383,9 @@ def datasets_dataset_file_get(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
     file_path: str,
-    branch_id: Optional[str],
-    end_transaction_rid: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_id: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
@@ -436,11 +435,11 @@ def datasets_dataset_file_get(
 def datasets_dataset_file_list(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    branch_id: Optional[str],
-    end_transaction_rid: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_id: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Lists Files contained in a Dataset. By default files are listed on the latest view of the default
@@ -493,11 +492,11 @@ def datasets_dataset_file_list(
 def datasets_dataset_file_page(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    branch_id: Optional[str],
-    end_transaction_rid: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_id: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Lists Files contained in a Dataset. By default files are listed on the latest view of the default
@@ -550,9 +549,9 @@ def datasets_dataset_file_read(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
     file_path: str,
-    branch_id: Optional[str],
-    end_transaction_rid: Optional[str],
-    start_transaction_rid: Optional[str],
+    branch_id: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    start_transaction_rid: typing.Optional[str],
 ):
     """
     Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
@@ -610,9 +609,9 @@ def datasets_dataset_file_upload(
     dataset_rid: str,
     body: io.BufferedReader,
     file_path: str,
-    branch_id: Optional[str],
-    transaction_rid: Optional[str],
-    transaction_type: Optional[Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
+    branch_id: typing.Optional[str],
+    transaction_rid: typing.Optional[str],
+    transaction_type: typing.Optional[typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]],
 ):
     """
     Uploads a File to an existing Dataset.
@@ -662,7 +661,7 @@ def datasets_dataset_branch_create(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
     branch_id: str,
-    transaction_rid: Optional[str],
+    transaction_rid: typing.Optional[str],
 ):
     """
     Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
@@ -730,8 +729,8 @@ def datasets_dataset_branch_get(
 def datasets_dataset_branch_list(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the Branches of a Dataset.
@@ -755,8 +754,8 @@ def datasets_dataset_branch_list(
 def datasets_dataset_branch_page(
     client: foundry.v1.FoundryClient,
     dataset_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the Branches of a Dataset.
@@ -830,7 +829,7 @@ def ontologies_ontology_object_aggregate(
     object_type: str,
     aggregation: str,
     group_by: str,
-    query: Optional[str],
+    query: typing.Optional[str],
 ):
     """
     Perform functions on object fields in the specified ontology and object type.
@@ -859,7 +858,7 @@ def ontologies_ontology_object_get(
     ontology_rid: str,
     object_type: str,
     primary_key: str,
-    properties: Optional[str],
+    properties: typing.Optional[str],
 ):
     """
     Gets a specific object with the given primary key.
@@ -891,7 +890,7 @@ def ontologies_ontology_object_get_linked_object(
     primary_key: str,
     link_type: str,
     linked_object_primary_key: str,
-    properties: Optional[str],
+    properties: typing.Optional[str],
 ):
     """
     Get a specific linked object that originates from another object. If there is no link between the two objects,
@@ -923,10 +922,10 @@ def ontologies_ontology_object_list(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
-    order_by: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    properties: Optional[str],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    properties: typing.Optional[str],
 ):
     """
     Lists the objects for the given Ontology and object type.
@@ -976,10 +975,10 @@ def ontologies_ontology_object_list_linked_objects(
     object_type: str,
     primary_key: str,
     link_type: str,
-    order_by: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    properties: Optional[str],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    properties: typing.Optional[str],
 ):
     """
     Lists the linked objects for a specific object and the given link type.
@@ -1027,10 +1026,10 @@ def ontologies_ontology_object_page(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
-    order_by: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    properties: Optional[str],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    properties: typing.Optional[str],
 ):
     """
     Lists the objects for the given Ontology and object type.
@@ -1080,10 +1079,10 @@ def ontologies_ontology_object_page_linked_objects(
     object_type: str,
     primary_key: str,
     link_type: str,
-    order_by: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
-    properties: Optional[str],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    properties: typing.Optional[str],
 ):
     """
     Lists the linked objects for a specific object and the given link type.
@@ -1140,9 +1139,9 @@ def ontologies_ontology_object_search(
     object_type: str,
     fields: str,
     query: str,
-    order_by: Optional[str],
-    page_size: Optional[int],
-    page_token: Optional[str],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Search for objects in the specified ontology and object type. The request body is used
@@ -1257,8 +1256,8 @@ def ontologies_ontology_query_type_get(
 def ontologies_ontology_query_type_list(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the query types for the given Ontology.
@@ -1285,8 +1284,8 @@ def ontologies_ontology_query_type_list(
 def ontologies_ontology_query_type_page(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the query types for the given Ontology.
@@ -1366,8 +1365,8 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 def ontologies_ontology_object_type_list(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the object types for the given Ontology.
@@ -1397,8 +1396,8 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     List the outgoing links for an object type.
@@ -1424,8 +1423,8 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
 def ontologies_ontology_object_type_page(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the object types for the given Ontology.
@@ -1455,8 +1454,8 @@ def ontologies_ontology_object_type_page_outgoing_link_types(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
     object_type: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     List the outgoing links for an object type.
@@ -1509,8 +1508,8 @@ def ontologies_ontology_action_type_get(
 def ontologies_ontology_action_type_list(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the action types for the given Ontology.
@@ -1537,8 +1536,8 @@ def ontologies_ontology_action_type_list(
 def ontologies_ontology_action_type_page(
     client: foundry.v1.FoundryClient,
     ontology_rid: str,
-    page_size: Optional[int],
-    page_token: Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
 ):
     """
     Lists the action types for the given Ontology.

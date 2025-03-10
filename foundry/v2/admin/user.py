@@ -13,48 +13,19 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
 
+import annotated_types
 import pydantic
-from annotated_types import Len
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._get_user_markings_response import GetUserMarkingsResponse
-from foundry.v2.admin.models._get_users_batch_request_element import (
-    GetUsersBatchRequestElement,
-)  # NOQA
-from foundry.v2.admin.models._get_users_batch_request_element_dict import (
-    GetUsersBatchRequestElementDict,
-)  # NOQA
-from foundry.v2.admin.models._get_users_batch_response import GetUsersBatchResponse
-from foundry.v2.admin.models._list_users_response import ListUsersResponse
-from foundry.v2.admin.models._search_users_response import SearchUsersResponse
-from foundry.v2.admin.models._user import User
-from foundry.v2.admin.models._user_search_filter import UserSearchFilter
-from foundry.v2.admin.models._user_search_filter_dict import UserSearchFilterDict
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class UserClient:
@@ -68,14 +39,14 @@ class UserClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _UserClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -101,19 +72,19 @@ class UserClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Delete the User with the specified id.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -123,7 +94,7 @@ class UserClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/users/{userId}",
                 query_params={},
@@ -141,29 +112,29 @@ class UserClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> User:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.User:
         """
         Get the User with the specified id.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: User
+        :rtype: admin_models.User
 
         :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}",
                 query_params={},
@@ -175,7 +146,7 @@ class UserClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=User,
+                response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "UserNotFound": admin_errors.UserNotFound,
@@ -183,32 +154,37 @@ class UserClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]],
-            Len(min_length=1, max_length=500),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    admin_models.GetUsersBatchRequestElement,
+                    admin_models.GetUsersBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> GetUsersBatchResponse:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.GetUsersBatchResponse:
         """
         Execute multiple get requests on User.
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetUsersBatchRequestElement, admin_models.GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: GetUsersBatchResponse
+        :rtype: admin_models.GetUsersBatchResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/getBatch",
                 query_params={},
@@ -218,35 +194,36 @@ class UserClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)
+                body_type=typing_extensions.Annotated[
+                    typing.List[admin_models.GetUsersBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=500),
                 ],
-                response_type=GetUsersBatchResponse,
+                response_type=admin_models.GetUsersBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_current(
         self,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> User:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.User:
         """
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: User
+        :rtype: admin_models.User
 
         :raises GetCurrentUserPermissionDenied: Could not getCurrent the User.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/getCurrent",
                 query_params={},
@@ -256,7 +233,7 @@ class UserClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=User,
+                response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetCurrentUserPermissionDenied": admin_errors.GetCurrentUserPermissionDenied,
@@ -264,32 +241,32 @@ class UserClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_markings(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> GetUserMarkingsResponse:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.GetUserMarkingsResponse:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: GetUserMarkingsResponse
+        :rtype: admin_models.GetUserMarkingsResponse
 
         :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/getMarkings",
                 query_params={
@@ -303,7 +280,7 @@ class UserClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=GetUserMarkingsResponse,
+                response_type=admin_models.GetUserMarkingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
@@ -311,32 +288,32 @@ class UserClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[User]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[admin_models.User]:
         """
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[User]
+        :rtype: core.ResourceIterator[admin_models.User]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
@@ -349,34 +326,34 @@ class UserClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListUsersResponse,
+                response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListUsersResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.ListUsersResponse:
         """
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListUsersResponse
+        :rtype: admin_models.ListUsersResponse
         """
 
         warnings.warn(
@@ -386,7 +363,7 @@ class UserClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
@@ -399,36 +376,36 @@ class UserClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListUsersResponse,
+                response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def profile_picture(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Optional[bytes]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Optional[bytes]:
         """
 
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Optional[bytes]
+        :rtype: typing.Optional[bytes]
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/profilePicture",
                 query_params={},
@@ -440,7 +417,7 @@ class UserClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[bytes],
+                response_type=typing.Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
@@ -449,36 +426,36 @@ class UserClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[UserSearchFilter, UserSearchFilterDict],
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> SearchUsersResponse:
+        where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict],
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.SearchUsersResponse:
         """
         Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
-        :type where: Union[UserSearchFilter, UserSearchFilterDict]
+        :type where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict]
         :param page_size:
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: SearchUsersResponse
+        :rtype: admin_models.SearchUsersResponse
 
         :raises SearchUsersPermissionDenied: Could not search the User.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/search",
                 query_params={},
@@ -492,15 +469,17 @@ class UserClient:
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[UserSearchFilter, UserSearchFilterDict],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
+                        "where": typing.Union[
+                            admin_models.UserSearchFilter, admin_models.UserSearchFilterDict
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
                     },
                 ),
-                response_type=SearchUsersResponse,
+                response_type=admin_models.SearchUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchUsersPermissionDenied": admin_errors.SearchUsersPermissionDenied,
@@ -520,38 +499,38 @@ class _UserClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Delete the User with the specified id.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises DeleteUserPermissionDenied: Could not delete the User.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/users/{userId}",
                 query_params={},
@@ -569,29 +548,29 @@ class _UserClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[User]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.User]:
         """
         Get the User with the specified id.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[User]
+        :rtype: core.ApiResponse[admin_models.User]
 
         :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}",
                 query_params={},
@@ -603,7 +582,7 @@ class _UserClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=User,
+                response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "UserNotFound": admin_errors.UserNotFound,
@@ -611,32 +590,37 @@ class _UserClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]],
-            Len(min_length=1, max_length=500),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    admin_models.GetUsersBatchRequestElement,
+                    admin_models.GetUsersBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[GetUsersBatchResponse]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.GetUsersBatchResponse]:
         """
         Execute multiple get requests on User.
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetUsersBatchRequestElement, admin_models.GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[GetUsersBatchResponse]
+        :rtype: core.ApiResponse[admin_models.GetUsersBatchResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/getBatch",
                 query_params={},
@@ -646,35 +630,36 @@ class _UserClientRaw:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)
+                body_type=typing_extensions.Annotated[
+                    typing.List[admin_models.GetUsersBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=500),
                 ],
-                response_type=GetUsersBatchResponse,
+                response_type=admin_models.GetUsersBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_current(
         self,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[User]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.User]:
         """
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[User]
+        :rtype: core.ApiResponse[admin_models.User]
 
         :raises GetCurrentUserPermissionDenied: Could not getCurrent the User.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/getCurrent",
                 query_params={},
@@ -684,7 +669,7 @@ class _UserClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=User,
+                response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetCurrentUserPermissionDenied": admin_errors.GetCurrentUserPermissionDenied,
@@ -692,32 +677,32 @@ class _UserClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_markings(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[GetUserMarkingsResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.GetUserMarkingsResponse]:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[GetUserMarkingsResponse]
+        :rtype: core.ApiResponse[admin_models.GetUserMarkingsResponse]
 
         :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/getMarkings",
                 query_params={
@@ -731,7 +716,7 @@ class _UserClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=GetUserMarkingsResponse,
+                response_type=admin_models.GetUserMarkingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
@@ -739,32 +724,32 @@ class _UserClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListUsersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListUsersResponse]:
         """
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListUsersResponse]
+        :rtype: core.ApiResponse[admin_models.ListUsersResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
@@ -777,34 +762,34 @@ class _UserClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListUsersResponse,
+                response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListUsersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListUsersResponse]:
         """
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListUsersResponse]
+        :rtype: core.ApiResponse[admin_models.ListUsersResponse]
         """
 
         warnings.warn(
@@ -814,7 +799,7 @@ class _UserClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
@@ -827,36 +812,36 @@ class _UserClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListUsersResponse,
+                response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def profile_picture(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Optional[bytes]]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[typing.Optional[bytes]]:
         """
 
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Optional[bytes]]
+        :rtype: core.ApiResponse[typing.Optional[bytes]]
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/profilePicture",
                 query_params={},
@@ -868,7 +853,7 @@ class _UserClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[bytes],
+                response_type=typing.Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
@@ -877,36 +862,36 @@ class _UserClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[UserSearchFilter, UserSearchFilterDict],
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[SearchUsersResponse]:
+        where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict],
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.SearchUsersResponse]:
         """
         Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
-        :type where: Union[UserSearchFilter, UserSearchFilterDict]
+        :type where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict]
         :param page_size:
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[SearchUsersResponse]
+        :rtype: core.ApiResponse[admin_models.SearchUsersResponse]
 
         :raises SearchUsersPermissionDenied: Could not search the User.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/search",
                 query_params={},
@@ -920,15 +905,17 @@ class _UserClientRaw:
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[UserSearchFilter, UserSearchFilterDict],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
+                        "where": typing.Union[
+                            admin_models.UserSearchFilter, admin_models.UserSearchFilterDict
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
                     },
                 ),
-                response_type=SearchUsersResponse,
+                response_type=admin_models.SearchUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchUsersPermissionDenied": admin_errors.SearchUsersPermissionDenied,
@@ -948,38 +935,38 @@ class _UserClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Delete the User with the specified id.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises DeleteUserPermissionDenied: Could not delete the User.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/users/{userId}",
                 query_params={},
@@ -997,29 +984,29 @@ class _UserClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[User]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.User]:
         """
         Get the User with the specified id.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[User]
+        :rtype: core.StreamingContextManager[admin_models.User]
 
         :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}",
                 query_params={},
@@ -1031,7 +1018,7 @@ class _UserClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=User,
+                response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "UserNotFound": admin_errors.UserNotFound,
@@ -1039,32 +1026,37 @@ class _UserClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]],
-            Len(min_length=1, max_length=500),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    admin_models.GetUsersBatchRequestElement,
+                    admin_models.GetUsersBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[GetUsersBatchResponse]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.GetUsersBatchResponse]:
         """
         Execute multiple get requests on User.
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetUsersBatchRequestElement, admin_models.GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[GetUsersBatchResponse]
+        :rtype: core.StreamingContextManager[admin_models.GetUsersBatchResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/getBatch",
                 query_params={},
@@ -1074,35 +1066,36 @@ class _UserClientStreaming:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetUsersBatchRequestElementDict], Len(min_length=1, max_length=500)
+                body_type=typing_extensions.Annotated[
+                    typing.List[admin_models.GetUsersBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=500),
                 ],
-                response_type=GetUsersBatchResponse,
+                response_type=admin_models.GetUsersBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_current(
         self,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[User]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.User]:
         """
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[User]
+        :rtype: core.StreamingContextManager[admin_models.User]
 
         :raises GetCurrentUserPermissionDenied: Could not getCurrent the User.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/getCurrent",
                 query_params={},
@@ -1112,7 +1105,7 @@ class _UserClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=User,
+                response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetCurrentUserPermissionDenied": admin_errors.GetCurrentUserPermissionDenied,
@@ -1120,32 +1113,32 @@ class _UserClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_markings(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[GetUserMarkingsResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.GetUserMarkingsResponse]:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[GetUserMarkingsResponse]
+        :rtype: core.StreamingContextManager[admin_models.GetUserMarkingsResponse]
 
         :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/getMarkings",
                 query_params={
@@ -1159,7 +1152,7 @@ class _UserClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=GetUserMarkingsResponse,
+                response_type=admin_models.GetUserMarkingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
@@ -1167,32 +1160,32 @@ class _UserClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListUsersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListUsersResponse]:
         """
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListUsersResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListUsersResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
@@ -1205,34 +1198,34 @@ class _UserClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListUsersResponse,
+                response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListUsersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListUsersResponse]:
         """
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListUsersResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListUsersResponse]
         """
 
         warnings.warn(
@@ -1242,7 +1235,7 @@ class _UserClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
@@ -1255,36 +1248,36 @@ class _UserClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListUsersResponse,
+                response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def profile_picture(
         self,
-        user_id: PrincipalId,
+        user_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Optional[bytes]]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[typing.Optional[bytes]]:
         """
 
         :param user_id: userId
-        :type user_id: PrincipalId
+        :type user_id: core_models.PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Optional[bytes]]
+        :rtype: core.StreamingContextManager[typing.Optional[bytes]]
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/profilePicture",
                 query_params={},
@@ -1296,7 +1289,7 @@ class _UserClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[bytes],
+                response_type=typing.Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
@@ -1305,36 +1298,36 @@ class _UserClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[UserSearchFilter, UserSearchFilterDict],
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[SearchUsersResponse]:
+        where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict],
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.SearchUsersResponse]:
         """
         Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
-        :type where: Union[UserSearchFilter, UserSearchFilterDict]
+        :type where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict]
         :param page_size:
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token:
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[SearchUsersResponse]
+        :rtype: core.StreamingContextManager[admin_models.SearchUsersResponse]
 
         :raises SearchUsersPermissionDenied: Could not search the User.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/search",
                 query_params={},
@@ -1348,15 +1341,17 @@ class _UserClientStreaming:
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[UserSearchFilter, UserSearchFilterDict],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
+                        "where": typing.Union[
+                            admin_models.UserSearchFilter, admin_models.UserSearchFilterDict
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
                     },
                 ),
-                response_type=SearchUsersResponse,
+                response_type=admin_models.SearchUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchUsersPermissionDenied": admin_errors.SearchUsersPermissionDenied,

@@ -13,57 +13,14 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.ontologies.models._action_type_api_name import ActionTypeApiName
-from foundry.v2.ontologies.models._apply_action_request_options import (
-    ApplyActionRequestOptions,
-)  # NOQA
-from foundry.v2.ontologies.models._apply_action_request_options_dict import (
-    ApplyActionRequestOptionsDict,
-)  # NOQA
-from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v2.ontologies.models._batch_apply_action_request_item import (
-    BatchApplyActionRequestItem,
-)  # NOQA
-from foundry.v2.ontologies.models._batch_apply_action_request_item_dict import (
-    BatchApplyActionRequestItemDict,
-)  # NOQA
-from foundry.v2.ontologies.models._batch_apply_action_request_options import (
-    BatchApplyActionRequestOptions,
-)  # NOQA
-from foundry.v2.ontologies.models._batch_apply_action_request_options_dict import (
-    BatchApplyActionRequestOptionsDict,
-)  # NOQA
-from foundry.v2.ontologies.models._batch_apply_action_response_v2 import (
-    BatchApplyActionResponseV2,
-)  # NOQA
-from foundry.v2.ontologies.models._data_value import DataValue
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._parameter_id import ParameterId
-from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
-from foundry.v2.ontologies.models._sync_apply_action_response_v2 import (
-    SyncApplyActionResponseV2,
-)  # NOQA
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class ActionClient:
@@ -77,33 +34,40 @@ class ActionClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ActionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ActionClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def apply(
         self,
-        ontology: OntologyIdentifier,
-        action: ActionTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
         *,
-        parameters: Dict[ParameterId, Optional[DataValue]],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> SyncApplyActionResponseV2:
+        parameters: typing.Dict[
+            ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
+        ],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        options: typing.Optional[
+            typing.Union[
+                ontologies_models.ApplyActionRequestOptions,
+                ontologies_models.ApplyActionRequestOptionsDict,
+            ]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.SyncApplyActionResponseV2:
         """
         Applies an action using the given parameters.
 
@@ -116,25 +80,25 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param action: action
-        :type action: ActionTypeApiName
+        :type action: ontologies_models.ActionTypeApiName
         :param parameters:
-        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
+        :type options: typing.Optional[typing.Union[ontologies_models.ApplyActionRequestOptions, ontologies_models.ApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: SyncApplyActionResponseV2
+        :rtype: ontologies_models.SyncApplyActionResponseV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
@@ -153,37 +117,51 @@ class ActionClient:
                     "options": options,
                     "parameters": parameters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[
-                            Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]
+                        "options": typing.Optional[
+                            typing.Union[
+                                ontologies_models.ApplyActionRequestOptions,
+                                ontologies_models.ApplyActionRequestOptionsDict,
+                            ]
                         ],
-                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                        "parameters": typing.Dict[
+                            ontologies_models.ParameterId,
+                            typing.Optional[ontologies_models.DataValue],
+                        ],
                     },
                 ),
-                response_type=SyncApplyActionResponseV2,
+                response_type=ontologies_models.SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def apply_batch(
         self,
-        ontology: OntologyIdentifier,
-        action: ActionTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
         *,
-        requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[
-            Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]
+        requests: typing.List[
+            typing.Union[
+                ontologies_models.BatchApplyActionRequestItem,
+                ontologies_models.BatchApplyActionRequestItemDict,
+            ]
+        ],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        options: typing.Optional[
+            typing.Union[
+                ontologies_models.BatchApplyActionRequestOptions,
+                ontologies_models.BatchApplyActionRequestOptionsDict,
+            ]
         ] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BatchApplyActionResponseV2:
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.BatchApplyActionResponseV2:
         """
         Applies multiple actions (of the same Action Type) using the given parameters.
         Changes to the Ontology are eventually consistent and may take some time to be visible.
@@ -197,25 +175,25 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param action: action
-        :type action: ActionTypeApiName
+        :type action: ontologies_models.ActionTypeApiName
         :param requests:
-        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
+        :type requests: typing.List[typing.Union[ontologies_models.BatchApplyActionRequestItem, ontologies_models.BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
+        :type options: typing.Optional[typing.Union[ontologies_models.BatchApplyActionRequestOptions, ontologies_models.BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BatchApplyActionResponseV2
+        :rtype: ontologies_models.BatchApplyActionResponseV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatch",
                 query_params={
@@ -234,20 +212,24 @@ class ActionClient:
                     "options": options,
                     "requests": requests,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[
-                            Union[
-                                BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict
+                        "options": typing.Optional[
+                            typing.Union[
+                                ontologies_models.BatchApplyActionRequestOptions,
+                                ontologies_models.BatchApplyActionRequestOptionsDict,
                             ]
                         ],
-                        "requests": List[
-                            Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]
+                        "requests": typing.List[
+                            typing.Union[
+                                ontologies_models.BatchApplyActionRequestItem,
+                                ontologies_models.BatchApplyActionRequestItemDict,
+                            ]
                         ],
                     },
                 ),
-                response_type=BatchApplyActionResponseV2,
+                response_type=ontologies_models.BatchApplyActionResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -265,29 +247,36 @@ class _ActionClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def apply(
         self,
-        ontology: OntologyIdentifier,
-        action: ActionTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
         *,
-        parameters: Dict[ParameterId, Optional[DataValue]],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[SyncApplyActionResponseV2]:
+        parameters: typing.Dict[
+            ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
+        ],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        options: typing.Optional[
+            typing.Union[
+                ontologies_models.ApplyActionRequestOptions,
+                ontologies_models.ApplyActionRequestOptionsDict,
+            ]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.SyncApplyActionResponseV2]:
         """
         Applies an action using the given parameters.
 
@@ -300,25 +289,25 @@ class _ActionClientRaw:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param action: action
-        :type action: ActionTypeApiName
+        :type action: ontologies_models.ActionTypeApiName
         :param parameters:
-        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
+        :type options: typing.Optional[typing.Union[ontologies_models.ApplyActionRequestOptions, ontologies_models.ApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[SyncApplyActionResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.SyncApplyActionResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
@@ -337,37 +326,51 @@ class _ActionClientRaw:
                     "options": options,
                     "parameters": parameters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[
-                            Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]
+                        "options": typing.Optional[
+                            typing.Union[
+                                ontologies_models.ApplyActionRequestOptions,
+                                ontologies_models.ApplyActionRequestOptionsDict,
+                            ]
                         ],
-                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                        "parameters": typing.Dict[
+                            ontologies_models.ParameterId,
+                            typing.Optional[ontologies_models.DataValue],
+                        ],
                     },
                 ),
-                response_type=SyncApplyActionResponseV2,
+                response_type=ontologies_models.SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def apply_batch(
         self,
-        ontology: OntologyIdentifier,
-        action: ActionTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
         *,
-        requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[
-            Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]
+        requests: typing.List[
+            typing.Union[
+                ontologies_models.BatchApplyActionRequestItem,
+                ontologies_models.BatchApplyActionRequestItemDict,
+            ]
+        ],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        options: typing.Optional[
+            typing.Union[
+                ontologies_models.BatchApplyActionRequestOptions,
+                ontologies_models.BatchApplyActionRequestOptionsDict,
+            ]
         ] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[BatchApplyActionResponseV2]:
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.BatchApplyActionResponseV2]:
         """
         Applies multiple actions (of the same Action Type) using the given parameters.
         Changes to the Ontology are eventually consistent and may take some time to be visible.
@@ -381,25 +384,25 @@ class _ActionClientRaw:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param action: action
-        :type action: ActionTypeApiName
+        :type action: ontologies_models.ActionTypeApiName
         :param requests:
-        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
+        :type requests: typing.List[typing.Union[ontologies_models.BatchApplyActionRequestItem, ontologies_models.BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
+        :type options: typing.Optional[typing.Union[ontologies_models.BatchApplyActionRequestOptions, ontologies_models.BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[BatchApplyActionResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.BatchApplyActionResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatch",
                 query_params={
@@ -418,20 +421,24 @@ class _ActionClientRaw:
                     "options": options,
                     "requests": requests,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[
-                            Union[
-                                BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict
+                        "options": typing.Optional[
+                            typing.Union[
+                                ontologies_models.BatchApplyActionRequestOptions,
+                                ontologies_models.BatchApplyActionRequestOptionsDict,
                             ]
                         ],
-                        "requests": List[
-                            Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]
+                        "requests": typing.List[
+                            typing.Union[
+                                ontologies_models.BatchApplyActionRequestItem,
+                                ontologies_models.BatchApplyActionRequestItemDict,
+                            ]
                         ],
                     },
                 ),
-                response_type=BatchApplyActionResponseV2,
+                response_type=ontologies_models.BatchApplyActionResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -449,29 +456,36 @@ class _ActionClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def apply(
         self,
-        ontology: OntologyIdentifier,
-        action: ActionTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
         *,
-        parameters: Dict[ParameterId, Optional[DataValue]],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[SyncApplyActionResponseV2]:
+        parameters: typing.Dict[
+            ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
+        ],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        options: typing.Optional[
+            typing.Union[
+                ontologies_models.ApplyActionRequestOptions,
+                ontologies_models.ApplyActionRequestOptionsDict,
+            ]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.SyncApplyActionResponseV2]:
         """
         Applies an action using the given parameters.
 
@@ -484,25 +498,25 @@ class _ActionClientStreaming:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param action: action
-        :type action: ActionTypeApiName
+        :type action: ontologies_models.ActionTypeApiName
         :param parameters:
-        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
+        :type options: typing.Optional[typing.Union[ontologies_models.ApplyActionRequestOptions, ontologies_models.ApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[SyncApplyActionResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.SyncApplyActionResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
@@ -521,37 +535,51 @@ class _ActionClientStreaming:
                     "options": options,
                     "parameters": parameters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[
-                            Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]
+                        "options": typing.Optional[
+                            typing.Union[
+                                ontologies_models.ApplyActionRequestOptions,
+                                ontologies_models.ApplyActionRequestOptionsDict,
+                            ]
                         ],
-                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                        "parameters": typing.Dict[
+                            ontologies_models.ParameterId,
+                            typing.Optional[ontologies_models.DataValue],
+                        ],
                     },
                 ),
-                response_type=SyncApplyActionResponseV2,
+                response_type=ontologies_models.SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def apply_batch(
         self,
-        ontology: OntologyIdentifier,
-        action: ActionTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
         *,
-        requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        options: Optional[
-            Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]
+        requests: typing.List[
+            typing.Union[
+                ontologies_models.BatchApplyActionRequestItem,
+                ontologies_models.BatchApplyActionRequestItemDict,
+            ]
+        ],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        options: typing.Optional[
+            typing.Union[
+                ontologies_models.BatchApplyActionRequestOptions,
+                ontologies_models.BatchApplyActionRequestOptionsDict,
+            ]
         ] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[BatchApplyActionResponseV2]:
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.BatchApplyActionResponseV2]:
         """
         Applies multiple actions (of the same Action Type) using the given parameters.
         Changes to the Ontology are eventually consistent and may take some time to be visible.
@@ -565,25 +593,25 @@ class _ActionClientStreaming:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: OntologyIdentifier
+        :type ontology: ontologies_models.OntologyIdentifier
         :param action: action
-        :type action: ActionTypeApiName
+        :type action: ontologies_models.ActionTypeApiName
         :param requests:
-        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
+        :type requests: typing.List[typing.Union[ontologies_models.BatchApplyActionRequestItem, ontologies_models.BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
+        :type options: typing.Optional[typing.Union[ontologies_models.BatchApplyActionRequestOptions, ontologies_models.BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: Optional[SdkPackageName]
+        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[BatchApplyActionResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.BatchApplyActionResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatch",
                 query_params={
@@ -602,20 +630,24 @@ class _ActionClientStreaming:
                     "options": options,
                     "requests": requests,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": Optional[
-                            Union[
-                                BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict
+                        "options": typing.Optional[
+                            typing.Union[
+                                ontologies_models.BatchApplyActionRequestOptions,
+                                ontologies_models.BatchApplyActionRequestOptionsDict,
                             ]
                         ],
-                        "requests": List[
-                            Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]
+                        "requests": typing.List[
+                            typing.Union[
+                                ontologies_models.BatchApplyActionRequestItem,
+                                ontologies_models.BatchApplyActionRequestItemDict,
+                            ]
                         ],
                     },
                 ),
-                response_type=BatchApplyActionResponseV2,
+                response_type=ontologies_models.BatchApplyActionResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

@@ -16,8 +16,8 @@ Request a cancellation for all unfinished jobs in a build. The build's status wi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**build_rid** | BuildRid | buildRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**build_rid** | core_models.BuildRid | buildRid |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -33,9 +33,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# BuildRid | buildRid
+# core_models.BuildRid | buildRid
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -72,14 +72,14 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **fallback_branches** | FallbackBranches |  |  |
-**target** | Union[BuildTarget, BuildTargetDict] | The targets of the schedule. |  |
-**abort_on_failure** | Optional[AbortOnFailure] |  | [optional] |
-**branch_name** | Optional[BranchName] | The target branch the build should run on. | [optional] |
-**force_build** | Optional[ForceBuild] |  | [optional] |
-**notifications_enabled** | Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**retry_backoff_duration** | Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |  | [optional] |
-**retry_count** | Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
+**target** | typing.Union[BuildTarget, BuildTargetDict] | The targets of the schedule. |  |
+**abort_on_failure** | typing.Optional[AbortOnFailure] |  | [optional] |
+**branch_name** | typing.Optional[datasets_models.BranchName] | The target branch the build should run on. | [optional] |
+**force_build** | typing.Optional[ForceBuild] |  | [optional] |
+**notifications_enabled** | typing.Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**retry_backoff_duration** | typing.Optional[typing.Union[RetryBackoffDuration, RetryBackoffDurationDict]] |  | [optional] |
+**retry_count** | typing.Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
 
 ### Return type
 **Build**
@@ -97,21 +97,21 @@ foundry_client = FoundryClient(
 
 # FallbackBranches |
 fallback_branches = ["master"]
-# Union[BuildTarget, BuildTargetDict] | The targets of the schedule.
+# typing.Union[BuildTarget, BuildTargetDict] | The targets of the schedule.
 target = None
-# Optional[AbortOnFailure] |
+# typing.Optional[AbortOnFailure] |
 abort_on_failure = False
-# Optional[BranchName] | The target branch the build should run on.
+# typing.Optional[datasets_models.BranchName] | The target branch the build should run on.
 branch_name = "master"
-# Optional[ForceBuild] |
+# typing.Optional[ForceBuild] |
 force_build = None
-# Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
+# typing.Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
 notifications_enabled = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |
+# typing.Optional[typing.Union[RetryBackoffDuration, RetryBackoffDurationDict]] |
 retry_backoff_duration = {"unit": "SECONDS", "value": 30}
-# Optional[RetryCount] | The number of retry attempts for failed jobs.
+# typing.Optional[RetryCount] | The number of retry attempts for failed jobs.
 retry_count = 1
 
 
@@ -154,8 +154,8 @@ Get the Build with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**build_rid** | BuildRid | buildRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**build_rid** | core_models.BuildRid | buildRid |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Build**
@@ -171,9 +171,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# BuildRid | buildRid
+# core_models.BuildRid | buildRid
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -211,8 +211,8 @@ The maximum batch size for this endpoint is 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)] | Body of the request |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**body** | typing_extensions.Annotated[typing.List[typing.Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)] | Body of the request |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **GetBuildsBatchResponse**
@@ -228,9 +228,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], Len(min_length=1, max_length=100)] | Body of the request
+# typing_extensions.Annotated[typing.List[typing.Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)] | Body of the request
 body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -266,11 +266,11 @@ Search for Builds.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | Union[SearchBuildsFilter, SearchBuildsFilterDict] |  |  |
-**order_by** | Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] |  | [optional] |
-**page_size** | Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**where** | typing.Union[SearchBuildsFilter, SearchBuildsFilterDict] |  |  |
+**order_by** | typing.Optional[typing.Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] |  | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.  | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] |  | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **SearchBuildsResponse**
@@ -286,15 +286,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Union[SearchBuildsFilter, SearchBuildsFilterDict] |
+# typing.Union[SearchBuildsFilter, SearchBuildsFilterDict] |
 where = None
-# Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] |
+# typing.Optional[typing.Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] |
 order_by = {"fields": [{"field": "STARTED_TIME", "direction": "ASC"}]}
-# Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.
+# typing.Optional[core_models.PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.
 page_size = 100
-# Optional[PageToken] |
+# typing.Optional[core_models.PageToken] |
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

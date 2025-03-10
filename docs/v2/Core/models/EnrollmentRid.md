@@ -4,7 +4,7 @@ EnrollmentRid
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

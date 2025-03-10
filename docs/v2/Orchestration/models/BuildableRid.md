@@ -6,7 +6,7 @@ RID or Restricted View RID.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

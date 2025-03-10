@@ -13,20 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._message_id import MessageId
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class CancelSessionFailedMessageNotInProgressParameters(TypedDict):
+class CancelSessionFailedMessageNotInProgressParameters(typing_extensions.TypedDict):
     """
     Unable to cancel the requested session exchange as no in-progress exchange was found
     for the provided message identifier.
@@ -41,16 +37,16 @@ class CancelSessionFailedMessageNotInProgressParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    messageId: MessageId
+    messageId: aip_agents_models.MessageId
     """The message identifier that was requested for cancellation."""
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
-    sessionRid: SessionRid
+    sessionRid: aip_agents_models.SessionRid
 
 
 @dataclass
-class CancelSessionFailedMessageNotInProgress(BadRequestError):
-    name: Literal["CancelSessionFailedMessageNotInProgress"]
+class CancelSessionFailedMessageNotInProgress(errors.BadRequestError):
+    name: typing.Literal["CancelSessionFailedMessageNotInProgress"]
     parameters: CancelSessionFailedMessageNotInProgressParameters
     error_instance_id: str
 

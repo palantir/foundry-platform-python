@@ -15,7 +15,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
 **agent_version_string** | AgentVersionString | agentVersionString |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **AgentVersion**
@@ -35,7 +35,7 @@ foundry_client = FoundryClient(
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # AgentVersionString | agentVersionString
 agent_version_string = "1.0"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -75,12 +75,12 @@ Versions are returned in descending order, by most recent versions first.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[AgentVersion]**
+**ListAgentVersionsResponse**
 
 ### Example
 
@@ -95,11 +95,11 @@ foundry_client = FoundryClient(
 
 # AgentRid | agentRid
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -139,9 +139,9 @@ Versions are returned in descending order, by most recent versions first.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **agent_rid** | AgentRid | agentRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListAgentVersionsResponse**
@@ -159,11 +159,11 @@ foundry_client = FoundryClient(
 
 # AgentRid | agentRid
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

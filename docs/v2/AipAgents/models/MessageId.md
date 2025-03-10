@@ -6,7 +6,7 @@ This can be used by clients to cancel a streamed exchange.
 
 ## Type
 ```python
-UUID
+core.UUID
 ```
 
 

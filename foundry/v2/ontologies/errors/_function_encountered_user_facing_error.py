@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._function_rid import FunctionRid
-from foundry.v2.ontologies.models._function_version import FunctionVersion
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class FunctionEncounteredUserFacingErrorParameters(TypedDict):
+class FunctionEncounteredUserFacingErrorParameters(typing_extensions.TypedDict):
     """
     The authored function failed to execute because of a user induced error. The message argument
     is meant to be displayed to the user.
@@ -33,16 +30,16 @@ class FunctionEncounteredUserFacingErrorParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
+    functionRid: ontologies_models.FunctionRid
 
-    functionVersion: FunctionVersion
+    functionVersion: ontologies_models.FunctionVersion
 
     message: str
 
 
 @dataclass
-class FunctionEncounteredUserFacingError(BadRequestError):
-    name: Literal["FunctionEncounteredUserFacingError"]
+class FunctionEncounteredUserFacingError(errors.BadRequestError):
+    name: typing.Literal["FunctionEncounteredUserFacingError"]
     parameters: FunctionEncounteredUserFacingErrorParameters
     error_instance_id: str
 

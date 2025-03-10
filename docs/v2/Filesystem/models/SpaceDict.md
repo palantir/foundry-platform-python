@@ -7,11 +7,11 @@ Space
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | SpaceRid | Yes |  |
 **displayName** | ResourceDisplayName | Yes |  |
-**description** | NotRequired[str] | No | The description of the Space. |
+**description** | typing_extensions.NotRequired[str] | No | The description of the Space. |
 **path** | ResourcePath | Yes |  |
-**fileSystemId** | NotRequired[FileSystemId] | No |  |
-**usageAccountRid** | NotRequired[UsageAccountRid] | No |  |
-**organizations** | List[OrganizationRid] | Yes |  |
+**fileSystemId** | typing_extensions.NotRequired[FileSystemId] | No |  |
+**usageAccountRid** | typing_extensions.NotRequired[UsageAccountRid] | No |  |
+**organizations** | typing.List[core_models.OrganizationRid] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -78,10 +78,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**Optional[BuildRid]**
+**typing.Optional[core_models.BuildRid]**
 
 ### Example
 
@@ -98,7 +98,7 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TransactionRid | transactionRid
 transaction_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -124,7 +124,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Optional[BuildRid]  |  | application/json |
+**200** | typing.Optional[core_models.BuildRid]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_type** | TransactionType |  |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
 
 ### Return type
 **Transaction**
@@ -215,7 +215,7 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TransactionType |
 transaction_type = "APPEND"
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
 
 
@@ -335,10 +335,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **transaction_rid** | TransactionRid | transactionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**Optional[JobRid]**
+**typing.Optional[core_models.JobRid]**
 
 ### Example
 
@@ -355,7 +355,7 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TransactionRid | transactionRid
 transaction_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -381,7 +381,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Optional[JobRid]  |  | application/json |
+**200** | typing.Optional[core_models.JobRid]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

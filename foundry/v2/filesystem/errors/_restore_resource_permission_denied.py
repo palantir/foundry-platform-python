@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class RestoreResourcePermissionDeniedParameters(TypedDict):
+class RestoreResourcePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not restore the Resource."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRid: ResourceRid
+    resourceRid: filesystem_models.ResourceRid
 
 
 @dataclass
-class RestoreResourcePermissionDenied(PermissionDeniedError):
-    name: Literal["RestoreResourcePermissionDenied"]
+class RestoreResourcePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RestoreResourcePermissionDenied"]
     parameters: RestoreResourcePermissionDeniedParameters
     error_instance_id: str
 

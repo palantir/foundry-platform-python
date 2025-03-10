@@ -13,22 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
-from foundry.v2.ontologies.models._object_type_id import ObjectTypeId
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class ObjectTypeIdsNotFoundParameters(TypedDict):
+class ObjectTypeIdsNotFoundParameters(typing_extensions.TypedDict):
     """
     Some object types are configured for use by the Agent but could not be found.
     The object types either do not exist or the client token does not have access.
@@ -37,16 +32,16 @@ class ObjectTypeIdsNotFoundParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
-    sessionRid: NotRequired[SessionRid]
+    sessionRid: typing_extensions.NotRequired[aip_agents_models.SessionRid]
     """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
-    objectTypeIds: List[ObjectTypeId]
+    objectTypeIds: typing.List[ontologies_models.ObjectTypeId]
 
 
 @dataclass
-class ObjectTypeIdsNotFound(NotFoundError):
-    name: Literal["ObjectTypeIdsNotFound"]
+class ObjectTypeIdsNotFound(errors.NotFoundError):
+    name: typing.Literal["ObjectTypeIdsNotFound"]
     parameters: ObjectTypeIdsNotFoundParameters
     error_instance_id: str
 

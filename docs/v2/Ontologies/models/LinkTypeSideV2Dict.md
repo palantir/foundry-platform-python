@@ -6,11 +6,11 @@ LinkTypeSideV2
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | LinkTypeApiName | Yes |  |
-**displayName** | DisplayName | Yes |  |
-**status** | ReleaseStatus | Yes |  |
+**displayName** | core_models.DisplayName | Yes |  |
+**status** | core_models.ReleaseStatus | Yes |  |
 **objectTypeApiName** | ObjectTypeApiName | Yes |  |
 **cardinality** | LinkTypeSideCardinality | Yes |  |
-**foreignKeyPropertyApiName** | NotRequired[PropertyApiName] | No |  |
+**foreignKeyPropertyApiName** | typing_extensions.NotRequired[PropertyApiName] | No |  |
 **linkTypeRid** | LinkTypeRid | Yes |  |
 
 

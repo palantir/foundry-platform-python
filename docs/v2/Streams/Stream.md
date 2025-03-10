@@ -17,13 +17,13 @@ Creates a new branch on the backing streaming dataset, and creates a new stream 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
-**branch_name** | BranchName |  |  |
-**schema** | Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream. |  |
-**compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
-**partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**stream_type** | Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  | [optional] |
+**dataset_rid** | datasets_models.DatasetRid | datasetRid |  |
+**branch_name** | datasets_models.BranchName |  |  |
+**schema** | typing.Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream. |  |
+**compressed** | typing.Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
+**partitions_count** | typing.Optional[PartitionsCount] | The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**stream_type** | typing.Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  | [optional] |
 
 ### Return type
 **Stream**
@@ -39,19 +39,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# datasets_models.DatasetRid | datasetRid
 dataset_rid = None
-# BranchName |
+# datasets_models.BranchName |
 branch_name = "master"
-# Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream.
+# typing.Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream.
 schema = None
-# Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.
+# typing.Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.
 compressed = False
-# Optional[PartitionsCount] | The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
+# typing.Optional[PartitionsCount] | The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
 partitions_count = 1
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+# typing.Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
 stream_type = "LOW_LATENCY"
 
 
@@ -94,9 +94,9 @@ user does not have permission to access the stream, a 404 error will be returned
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
-**stream_branch_name** | BranchName | streamBranchName |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**dataset_rid** | datasets_models.DatasetRid | datasetRid |  |
+**stream_branch_name** | datasets_models.BranchName | streamBranchName |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Stream**
@@ -112,11 +112,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# datasets_models.DatasetRid | datasetRid
 dataset_rid = None
-# BranchName | streamBranchName
+# datasets_models.BranchName | streamBranchName
 stream_branch_name = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -154,11 +154,11 @@ Publish a single binary record to the stream. The stream's schema must be a sing
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
-**stream_branch_name** | BranchName | streamBranchName |  |
+**dataset_rid** | datasets_models.DatasetRid | datasetRid |  |
+**stream_branch_name** | datasets_models.BranchName | streamBranchName |  |
 **body** | bytes | The binary record to publish to the stream  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**view_rid** | Optional[ViewRid] | viewRid | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**view_rid** | typing.Optional[ViewRid] | viewRid | [optional] |
 
 ### Return type
 **None**
@@ -174,15 +174,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# datasets_models.DatasetRid | datasetRid
 dataset_rid = None
-# BranchName | streamBranchName
+# datasets_models.BranchName | streamBranchName
 stream_branch_name = None
 # bytes | The binary record to publish to the stream
 body = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[ViewRid] | viewRid
+# typing.Optional[ViewRid] | viewRid
 view_rid = None
 
 
@@ -223,11 +223,11 @@ rejected if it is invalid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
-**stream_branch_name** | BranchName | streamBranchName |  |
+**dataset_rid** | datasets_models.DatasetRid | datasetRid |  |
+**stream_branch_name** | datasets_models.BranchName | streamBranchName |  |
 **record** | Record | The record to publish to the stream  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**view_rid** | typing.Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **None**
@@ -243,15 +243,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# datasets_models.DatasetRid | datasetRid
 dataset_rid = None
-# BranchName | streamBranchName
+# datasets_models.BranchName | streamBranchName
 stream_branch_name = None
 # Record | The record to publish to the stream
 record = {"timestamp": 1731426022784, "value": "Hello, World!"}
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+# typing.Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
@@ -292,11 +292,11 @@ the batch will be rejected if one or more of the records are invalid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
-**stream_branch_name** | BranchName | streamBranchName |  |
-**records** | List[Record] | The records to publish to the stream  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
+**dataset_rid** | datasets_models.DatasetRid | datasetRid |  |
+**stream_branch_name** | datasets_models.BranchName | streamBranchName |  |
+**records** | typing.List[Record] | The records to publish to the stream  |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**view_rid** | typing.Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **None**
@@ -312,15 +312,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# datasets_models.DatasetRid | datasetRid
 dataset_rid = None
-# BranchName | streamBranchName
+# datasets_models.BranchName | streamBranchName
 stream_branch_name = None
-# List[Record] | The records to publish to the stream
+# typing.List[Record] | The records to publish to the stream
 records = [{"timestamp": 1731426022784, "value": "Hello, World!"}]
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+# typing.Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
@@ -366,13 +366,13 @@ which will be the new stream view that will be written to for the branch.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
-**stream_branch_name** | BranchName | streamBranchName |  |
-**compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.  | [optional] |
-**partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**schema** | Optional[Union[StreamSchema, StreamSchemaDict]] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.  | [optional] |
-**stream_type** | Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.  | [optional] |
+**dataset_rid** | datasets_models.DatasetRid | datasetRid |  |
+**stream_branch_name** | datasets_models.BranchName | streamBranchName |  |
+**compressed** | typing.Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.  | [optional] |
+**partitions_count** | typing.Optional[PartitionsCount] | The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.  | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**schema** | typing.Optional[typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.  | [optional] |
+**stream_type** | typing.Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.  | [optional] |
 
 ### Return type
 **Stream**
@@ -388,19 +388,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# datasets_models.DatasetRid | datasetRid
 dataset_rid = None
-# BranchName | streamBranchName
+# datasets_models.BranchName | streamBranchName
 stream_branch_name = None
-# Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
+# typing.Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
 compressed = False
-# Optional[PartitionsCount] | The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
+# typing.Optional[PartitionsCount] | The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
 partitions_count = 1
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[Union[StreamSchema, StreamSchemaDict]] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
+# typing.Optional[typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
 schema = None
-# Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
+# typing.Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
 stream_type = "LOW_LATENCY"
 
 

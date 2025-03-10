@@ -4,7 +4,7 @@ The unique resource identifier (RID) of a Space.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

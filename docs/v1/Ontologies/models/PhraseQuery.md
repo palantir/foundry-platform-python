@@ -7,7 +7,7 @@ Returns objects where the specified field contains the provided value as a subst
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
-**type** | Literal["phrase"] | Yes | None |
+**type** | typing.Literal["phrase"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

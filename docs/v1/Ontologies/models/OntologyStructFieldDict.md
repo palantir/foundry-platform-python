@@ -5,7 +5,7 @@ OntologyStructField
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | StructFieldName | Yes |  |
+**name** | core_models.StructFieldName | Yes |  |
 **fieldType** | OntologyDataTypeDict | Yes |  |
 **required** | bool | Yes |  |
 

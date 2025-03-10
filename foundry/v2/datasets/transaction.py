@@ -13,34 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._build_rid import BuildRid
-from foundry.v2.core.models._job_rid import JobRid
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.datasets import errors as datasets_errors
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._transaction import Transaction
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
-from foundry.v2.datasets.models._transaction_type import TransactionType
+from foundry.v2.datasets import models as datasets_models
 
 
 class TransactionClient:
@@ -54,47 +36,47 @@ class TransactionClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _TransactionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _TransactionClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
 
         :raises AbortTransactionPermissionDenied: The provided token does not have permission to abort the given transaction on the given dataset.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params={},
@@ -107,7 +89,7 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AbortTransactionPermissionDenied": datasets_errors.AbortTransactionPermissionDenied,
@@ -115,38 +97,38 @@ class TransactionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def build(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Optional[BuildRid]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Optional[core_models.BuildRid]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Optional[BuildRid]
+        :rtype: typing.Optional[core_models.BuildRid]
 
         :raises BuildTransactionPermissionDenied: Could not build the Transaction.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/build",
                 query_params={
@@ -161,7 +143,7 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[BuildRid],
+                response_type=typing.Optional[core_models.BuildRid],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildTransactionPermissionDenied": datasets_errors.BuildTransactionPermissionDenied,
@@ -169,34 +151,34 @@ class TransactionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
 
         :raises CommitTransactionPermissionDenied: The provided token does not have permission to commit the given transaction on the given dataset.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params={},
@@ -209,7 +191,7 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CommitTransactionPermissionDenied": datasets_errors.CommitTransactionPermissionDenied,
@@ -217,30 +199,30 @@ class TransactionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        transaction_type: TransactionType,
-        branch_name: Optional[BranchName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        transaction_type: datasets_models.TransactionType,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Creates a Transaction on a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_type:
-        :type transaction_type: TransactionType
+        :type transaction_type: datasets_models.TransactionType
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises CreateTransactionPermissionDenied: The provided token does not have permission to create a transaction on this dataset.
@@ -249,7 +231,7 @@ class TransactionClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions",
                 query_params={
@@ -265,13 +247,13 @@ class TransactionClient:
                 body={
                     "transactionType": transaction_type,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionType": TransactionType,
+                        "transactionType": datasets_models.TransactionType,
                     },
                 ),
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -282,33 +264,33 @@ class TransactionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Gets a Transaction of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
 
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params={},
@@ -321,7 +303,7 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -329,38 +311,38 @@ class TransactionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def job(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Optional[JobRid]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Optional[core_models.JobRid]:
         """
         Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
         given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Optional[JobRid]
+        :rtype: typing.Optional[core_models.JobRid]
 
         :raises JobTransactionPermissionDenied: Could not job the Transaction.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/job",
                 query_params={
@@ -375,7 +357,7 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[JobRid],
+                response_type=typing.Optional[core_models.JobRid],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "JobTransactionPermissionDenied": datasets_errors.JobTransactionPermissionDenied,
@@ -395,43 +377,43 @@ class _TransactionClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
 
         :raises AbortTransactionPermissionDenied: The provided token does not have permission to abort the given transaction on the given dataset.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params={},
@@ -444,7 +426,7 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AbortTransactionPermissionDenied": datasets_errors.AbortTransactionPermissionDenied,
@@ -452,38 +434,38 @@ class _TransactionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def build(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Optional[BuildRid]]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[typing.Optional[core_models.BuildRid]]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Optional[BuildRid]]
+        :rtype: core.ApiResponse[typing.Optional[core_models.BuildRid]]
 
         :raises BuildTransactionPermissionDenied: Could not build the Transaction.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/build",
                 query_params={
@@ -498,7 +480,7 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[BuildRid],
+                response_type=typing.Optional[core_models.BuildRid],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildTransactionPermissionDenied": datasets_errors.BuildTransactionPermissionDenied,
@@ -506,34 +488,34 @@ class _TransactionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
 
         :raises CommitTransactionPermissionDenied: The provided token does not have permission to commit the given transaction on the given dataset.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params={},
@@ -546,7 +528,7 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CommitTransactionPermissionDenied": datasets_errors.CommitTransactionPermissionDenied,
@@ -554,30 +536,30 @@ class _TransactionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        transaction_type: TransactionType,
-        branch_name: Optional[BranchName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        transaction_type: datasets_models.TransactionType,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Creates a Transaction on a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_type:
-        :type transaction_type: TransactionType
+        :type transaction_type: datasets_models.TransactionType
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises CreateTransactionPermissionDenied: The provided token does not have permission to create a transaction on this dataset.
@@ -586,7 +568,7 @@ class _TransactionClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions",
                 query_params={
@@ -602,13 +584,13 @@ class _TransactionClientRaw:
                 body={
                     "transactionType": transaction_type,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionType": TransactionType,
+                        "transactionType": datasets_models.TransactionType,
                     },
                 ),
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -619,33 +601,33 @@ class _TransactionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Gets a Transaction of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
 
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params={},
@@ -658,7 +640,7 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -666,38 +648,38 @@ class _TransactionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def job(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Optional[JobRid]]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[typing.Optional[core_models.JobRid]]:
         """
         Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
         given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Optional[JobRid]]
+        :rtype: core.ApiResponse[typing.Optional[core_models.JobRid]]
 
         :raises JobTransactionPermissionDenied: Could not job the Transaction.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/job",
                 query_params={
@@ -712,7 +694,7 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[JobRid],
+                response_type=typing.Optional[core_models.JobRid],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "JobTransactionPermissionDenied": datasets_errors.JobTransactionPermissionDenied,
@@ -732,43 +714,43 @@ class _TransactionClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
 
         :raises AbortTransactionPermissionDenied: The provided token does not have permission to abort the given transaction on the given dataset.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params={},
@@ -781,7 +763,7 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AbortTransactionPermissionDenied": datasets_errors.AbortTransactionPermissionDenied,
@@ -789,38 +771,38 @@ class _TransactionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def build(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Optional[BuildRid]]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[typing.Optional[core_models.BuildRid]]:
         """
         Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Optional[BuildRid]]
+        :rtype: core.StreamingContextManager[typing.Optional[core_models.BuildRid]]
 
         :raises BuildTransactionPermissionDenied: Could not build the Transaction.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/build",
                 query_params={
@@ -835,7 +817,7 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[BuildRid],
+                response_type=typing.Optional[core_models.BuildRid],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BuildTransactionPermissionDenied": datasets_errors.BuildTransactionPermissionDenied,
@@ -843,34 +825,34 @@ class _TransactionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
 
         :raises CommitTransactionPermissionDenied: The provided token does not have permission to commit the given transaction on the given dataset.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params={},
@@ -883,7 +865,7 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CommitTransactionPermissionDenied": datasets_errors.CommitTransactionPermissionDenied,
@@ -891,30 +873,30 @@ class _TransactionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        transaction_type: TransactionType,
-        branch_name: Optional[BranchName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        transaction_type: datasets_models.TransactionType,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Creates a Transaction on a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_type:
-        :type transaction_type: TransactionType
+        :type transaction_type: datasets_models.TransactionType
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises CreateTransactionPermissionDenied: The provided token does not have permission to create a transaction on this dataset.
@@ -923,7 +905,7 @@ class _TransactionClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/transactions",
                 query_params={
@@ -939,13 +921,13 @@ class _TransactionClientStreaming:
                 body={
                     "transactionType": transaction_type,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionType": TransactionType,
+                        "transactionType": datasets_models.TransactionType,
                     },
                 ),
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -956,33 +938,33 @@ class _TransactionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Gets a Transaction of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
 
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params={},
@@ -995,7 +977,7 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -1003,38 +985,38 @@ class _TransactionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def job(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Optional[JobRid]]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[typing.Optional[core_models.JobRid]]:
         """
         Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
         given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Optional[JobRid]]
+        :rtype: core.StreamingContextManager[typing.Optional[core_models.JobRid]]
 
         :raises JobTransactionPermissionDenied: Could not job the Transaction.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/transactions/{transactionRid}/job",
                 query_params={
@@ -1049,7 +1031,7 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[JobRid],
+                response_type=typing.Optional[core_models.JobRid],
                 request_timeout=request_timeout,
                 throwable_errors={
                     "JobTransactionPermissionDenied": datasets_errors.JobTransactionPermissionDenied,

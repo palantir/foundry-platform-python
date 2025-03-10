@@ -13,7 +13,7 @@ Gets a specific value type with the given RID. The latest version is returned.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **value_type_rid** | ValueTypeRid | valueTypeRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ValueType**
@@ -31,7 +31,7 @@ foundry_client = FoundryClient(
 
 # ValueTypeRid | valueTypeRid
 value_type_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

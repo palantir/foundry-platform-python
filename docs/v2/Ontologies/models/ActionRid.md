@@ -4,7 +4,7 @@ The unique resource identifier for an action.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

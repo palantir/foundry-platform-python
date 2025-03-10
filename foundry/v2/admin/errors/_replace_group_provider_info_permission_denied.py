@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class ReplaceGroupProviderInfoPermissionDeniedParameters(TypedDict):
+class ReplaceGroupProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the GroupProviderInfo."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: PrincipalId
+    groupId: core_models.PrincipalId
 
 
 @dataclass
-class ReplaceGroupProviderInfoPermissionDenied(PermissionDeniedError):
-    name: Literal["ReplaceGroupProviderInfoPermissionDenied"]
+class ReplaceGroupProviderInfoPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceGroupProviderInfoPermissionDenied"]
     parameters: ReplaceGroupProviderInfoPermissionDeniedParameters
     error_instance_id: str
 

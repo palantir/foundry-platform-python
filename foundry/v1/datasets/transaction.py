@@ -13,30 +13,14 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v1.datasets.models._branch_id import BranchId
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
-from foundry.v1.datasets.models._transaction import Transaction
-from foundry.v1.datasets.models._transaction_rid import TransactionRid
-from foundry.v1.datasets.models._transaction_type import TransactionType
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v1.datasets import models as datasets_models
 
 
 class TransactionClient:
@@ -50,29 +34,29 @@ class TransactionClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _TransactionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _TransactionClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
@@ -80,17 +64,17 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params={},
@@ -103,22 +87,22 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
@@ -126,17 +110,17 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params={},
@@ -149,42 +133,42 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Creates a Transaction on a Branch of a Dataset.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_type:
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions",
                 query_params={
@@ -200,45 +184,45 @@ class TransactionClient:
                 body={
                     "transactionType": transaction_type,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionType": Optional[TransactionType],
+                        "transactionType": typing.Optional[datasets_models.TransactionType],
                     },
                 ),
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Transaction:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Transaction:
         """
         Gets a Transaction of a Dataset.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Transaction
+        :rtype: datasets_models.Transaction
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params={},
@@ -251,7 +235,7 @@ class TransactionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -269,25 +253,25 @@ class _TransactionClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
@@ -295,17 +279,17 @@ class _TransactionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params={},
@@ -318,22 +302,22 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
@@ -341,17 +325,17 @@ class _TransactionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params={},
@@ -364,42 +348,42 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Creates a Transaction on a Branch of a Dataset.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_type:
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions",
                 query_params={
@@ -415,45 +399,45 @@ class _TransactionClientRaw:
                 body={
                     "transactionType": transaction_type,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionType": Optional[TransactionType],
+                        "transactionType": typing.Optional[datasets_models.TransactionType],
                     },
                 ),
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Transaction]:
         """
         Gets a Transaction of a Dataset.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Transaction]
+        :rtype: core.ApiResponse[datasets_models.Transaction]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params={},
@@ -466,7 +450,7 @@ class _TransactionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -484,25 +468,25 @@ class _TransactionClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
@@ -510,17 +494,17 @@ class _TransactionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/abort",
                 query_params={},
@@ -533,22 +517,22 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
@@ -556,17 +540,17 @@ class _TransactionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}/commit",
                 query_params={},
@@ -579,42 +563,42 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Creates a Transaction on a Branch of a Dataset.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_type:
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/transactions",
                 query_params={
@@ -630,45 +614,45 @@ class _TransactionClientStreaming:
                 body={
                     "transactionType": transaction_type,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionType": Optional[TransactionType],
+                        "transactionType": typing.Optional[datasets_models.TransactionType],
                     },
                 ),
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        transaction_rid: TransactionRid,
+        dataset_rid: datasets_models.DatasetRid,
+        transaction_rid: datasets_models.TransactionRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Transaction]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Transaction]:
         """
         Gets a Transaction of a Dataset.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: datasets_models.TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Transaction]
+        :rtype: core.StreamingContextManager[datasets_models.Transaction]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/transactions/{transactionRid}",
                 query_params={},
@@ -681,7 +665,7 @@ class _TransactionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Transaction,
+                response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

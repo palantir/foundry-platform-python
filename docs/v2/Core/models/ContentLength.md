@@ -4,7 +4,7 @@ ContentLength
 
 ## Type
 ```python
-Long
+core.Long
 ```
 
 

@@ -10,13 +10,13 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-DateTypeDict | date
-BooleanTypeDict | boolean
-StringTypeDict | string
-DoubleTypeDict | double
+core_models.DateTypeDict | date
+core_models.BooleanTypeDict | boolean
+core_models.StringTypeDict | string
+core_models.DoubleTypeDict | double
 QueryAggregationRangeTypeDict | range
-IntegerTypeDict | integer
-TimestampTypeDict | timestamp
+core_models.IntegerTypeDict | integer
+core_models.TimestampTypeDict | timestamp
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

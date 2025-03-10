@@ -5,7 +5,7 @@ MediaAttribution
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**creatorId** | UserId | Yes |  |
+**creatorId** | core_models.UserId | Yes |  |
 **creationTimestamp** | datetime | Yes | The timestamp when the media item was created, in ISO 8601 timestamp format. |
 
 

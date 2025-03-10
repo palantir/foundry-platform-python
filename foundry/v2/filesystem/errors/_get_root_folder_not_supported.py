@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class GetRootFolderNotSupportedParameters(TypedDict):
+class GetRootFolderNotSupportedParameters(typing_extensions.TypedDict):
     """Getting the root folder as a resource is not supported."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class GetRootFolderNotSupported(BadRequestError):
-    name: Literal["GetRootFolderNotSupported"]
+class GetRootFolderNotSupported(errors.BadRequestError):
+    name: typing.Literal["GetRootFolderNotSupported"]
     parameters: GetRootFolderNotSupportedParameters
     error_instance_id: str
 

@@ -19,12 +19,12 @@ provided, this page size will also be used as the default.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **folder_rid** | FolderRid | folderRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[Resource]**
+**ListChildrenOfFolderResponse**
 
 ### Example
 
@@ -39,11 +39,11 @@ foundry_client = FoundryClient(
 
 # FolderRid | folderRid
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -85,9 +85,9 @@ provided, this page size will also be used as the default.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **folder_rid** | FolderRid | folderRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListChildrenOfFolderResponse**
@@ -105,11 +105,11 @@ foundry_client = FoundryClient(
 
 # FolderRid | folderRid
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **display_name** | ResourceDisplayName |  |  |
 **parent_folder_rid** | FolderRid | The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Folder**
@@ -169,7 +169,7 @@ foundry_client = FoundryClient(
 display_name = "My Folder"
 # FolderRid | The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
 parent_folder_rid = "ri.compass.main.folder.4cae7c13-b59f-48f6-9ef2-dbde603e4e33"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -207,7 +207,7 @@ Get the Folder with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **folder_rid** | FolderRid | folderRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **Folder**
@@ -225,7 +225,7 @@ foundry_client = FoundryClient(
 
 # FolderRid | folderRid
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

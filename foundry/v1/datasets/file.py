@@ -13,40 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v1.core.models._file_path import FilePath
-from foundry.v1.core.models._page_size import PageSize
-from foundry.v1.core.models._page_token import PageToken
-from foundry.v1.datasets.models._branch_id import BranchId
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
-from foundry.v1.datasets.models._file import File
-from foundry.v1.datasets.models._list_files_response import ListFilesResponse
-from foundry.v1.datasets.models._transaction_rid import TransactionRid
-from foundry.v1.datasets.models._transaction_type import TransactionType
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
+from foundry.v1.datasets import models as datasets_models
 
 
 class FileClient:
@@ -60,30 +36,30 @@ class FileClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _FileClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _FileClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
@@ -104,13 +80,13 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -118,7 +94,7 @@ class FileClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -138,19 +114,19 @@ class FileClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> File:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.File:
         """
         Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
         view of the default branch - `master` for most enrollments.
@@ -178,23 +154,23 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: File
+        :rtype: datasets_models.File
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -211,26 +187,26 @@ class FileClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[File]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[datasets_models.File]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -260,25 +236,25 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[File]
+        :rtype: core.ResourceIterator[datasets_models.File]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files",
                 query_params={
@@ -296,26 +272,26 @@ class FileClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListFilesResponse:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.ListFilesResponse:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -345,21 +321,21 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListFilesResponse
+        :rtype: datasets_models.ListFilesResponse
         """
 
         warnings.warn(
@@ -369,7 +345,7 @@ class FileClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files",
                 query_params={
@@ -387,28 +363,28 @@ class FileClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        stream: Literal[True],
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -437,15 +413,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -453,21 +429,21 @@ class FileClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def read(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
@@ -497,15 +473,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -515,22 +491,22 @@ class FileClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         stream: bool,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -559,15 +535,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -575,25 +551,25 @@ class FileClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -622,15 +598,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -638,7 +614,7 @@ class FileClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -649,7 +625,7 @@ class FileClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}/content",
                 query_params={
@@ -674,20 +650,20 @@ class FileClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         body: bytes,
         *,
-        file_path: FilePath,
-        branch_id: Optional[BranchId] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> File:
+        file_path: core_models.FilePath,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.File:
         """
         Uploads a File to an existing Dataset.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -711,25 +687,25 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param body: Body of the request
         :type body: bytes
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: File
+        :rtype: datasets_models.File
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/files:upload",
                 query_params={
@@ -747,7 +723,7 @@ class FileClient:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -765,27 +741,27 @@ class _FileClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
         branch - `master` for most enrollments. The file will still be visible on historical views.
@@ -805,21 +781,21 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -839,19 +815,19 @@ class _FileClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[File]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.File]:
         """
         Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
         view of the default branch - `master` for most enrollments.
@@ -879,23 +855,23 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[File]
+        :rtype: core.ApiResponse[datasets_models.File]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -912,26 +888,26 @@ class _FileClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListFilesResponse]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -961,25 +937,25 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListFilesResponse]
+        :rtype: core.ApiResponse[datasets_models.ListFilesResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files",
                 query_params={
@@ -997,26 +973,26 @@ class _FileClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListFilesResponse]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -1046,21 +1022,21 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListFilesResponse]
+        :rtype: core.ApiResponse[datasets_models.ListFilesResponse]
         """
 
         warnings.warn(
@@ -1070,7 +1046,7 @@ class _FileClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files",
                 query_params={
@@ -1088,25 +1064,25 @@ class _FileClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -1135,23 +1111,23 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}/content",
                 query_params={
@@ -1174,20 +1150,20 @@ class _FileClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         body: bytes,
         *,
-        file_path: FilePath,
-        branch_id: Optional[BranchId] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[File]:
+        file_path: core_models.FilePath,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.File]:
         """
         Uploads a File to an existing Dataset.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -1211,25 +1187,25 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param body: Body of the request
         :type body: bytes
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[File]
+        :rtype: core.ApiResponse[datasets_models.File]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/files:upload",
                 query_params={
@@ -1247,7 +1223,7 @@ class _FileClientRaw:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -1265,27 +1241,27 @@ class _FileClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
         branch - `master` for most enrollments. The file will still be visible on historical views.
@@ -1305,21 +1281,21 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -1339,19 +1315,19 @@ class _FileClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[File]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.File]:
         """
         Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
         view of the default branch - `master` for most enrollments.
@@ -1379,23 +1355,23 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[File]
+        :rtype: core.StreamingContextManager[datasets_models.File]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -1412,26 +1388,26 @@ class _FileClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListFilesResponse]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -1461,25 +1437,25 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListFilesResponse]
+        :rtype: core.StreamingContextManager[datasets_models.ListFilesResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files",
                 query_params={
@@ -1497,26 +1473,26 @@ class _FileClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListFilesResponse]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -1546,21 +1522,21 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListFilesResponse]
+        :rtype: core.StreamingContextManager[datasets_models.ListFilesResponse]
         """
 
         warnings.warn(
@@ -1570,7 +1546,7 @@ class _FileClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files",
                 query_params={
@@ -1588,25 +1564,25 @@ class _FileClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_id: Optional[BranchId] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -1635,23 +1611,23 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/files/{filePath}/content",
                 query_params={
@@ -1674,20 +1650,20 @@ class _FileClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         body: bytes,
         *,
-        file_path: FilePath,
-        branch_id: Optional[BranchId] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[File]:
+        file_path: core_models.FilePath,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.File]:
         """
         Uploads a File to an existing Dataset.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -1711,25 +1687,25 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param body: Body of the request
         :type body: bytes
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_id: branchId
-        :type branch_id: Optional[BranchId]
+        :type branch_id: typing.Optional[datasets_models.BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[File]
+        :rtype: core.StreamingContextManager[datasets_models.File]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets/{datasetRid}/files:upload",
                 query_params={
@@ -1747,7 +1723,7 @@ class _FileClientStreaming:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

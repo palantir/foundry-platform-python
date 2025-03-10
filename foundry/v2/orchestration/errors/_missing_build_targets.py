@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class MissingBuildTargetsParameters(TypedDict):
+class MissingBuildTargetsParameters(typing_extensions.TypedDict):
     """The build target must contains at least one dataset target"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class MissingBuildTargets(BadRequestError):
-    name: Literal["MissingBuildTargets"]
+class MissingBuildTargets(errors.BadRequestError):
+    name: typing.Literal["MissingBuildTargets"]
     parameters: MissingBuildTargetsParameters
     error_instance_id: str
 

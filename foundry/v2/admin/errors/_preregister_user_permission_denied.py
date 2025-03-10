@@ -13,31 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.admin.models._authentication_provider_rid import AuthenticationProviderRid  # NOQA
-from foundry.v2.core.models._enrollment_rid import EnrollmentRid
+from foundry import _errors as errors
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
-class PreregisterUserPermissionDeniedParameters(TypedDict):
+class PreregisterUserPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not preregisterUser the AuthenticationProvider."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    enrollmentRid: EnrollmentRid
+    enrollmentRid: core_models.EnrollmentRid
 
-    authenticationProviderRid: AuthenticationProviderRid
+    authenticationProviderRid: admin_models.AuthenticationProviderRid
 
 
 @dataclass
-class PreregisterUserPermissionDenied(PermissionDeniedError):
-    name: Literal["PreregisterUserPermissionDenied"]
+class PreregisterUserPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["PreregisterUserPermissionDenied"]
     parameters: PreregisterUserPermissionDeniedParameters
     error_instance_id: str
 

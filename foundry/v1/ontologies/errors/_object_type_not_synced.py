@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class ObjectTypeNotSyncedParameters(TypedDict):
+class ObjectTypeNotSyncedParameters(typing_extensions.TypedDict):
     """
     The requested object type is not synced into the ontology. Please reach out to your Ontology
     Administrator to re-index the object type in Ontology Management Application.
@@ -32,12 +30,12 @@ class ObjectTypeNotSyncedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
+    objectType: ontologies_models.ObjectTypeApiName
 
 
 @dataclass
-class ObjectTypeNotSynced(ConflictError):
-    name: Literal["ObjectTypeNotSynced"]
+class ObjectTypeNotSynced(errors.ConflictError):
+    name: typing.Literal["ObjectTypeNotSynced"]
     parameters: ObjectTypeNotSyncedParameters
     error_instance_id: str
 

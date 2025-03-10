@@ -13,34 +13,31 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class RateLimitExceededParameters(TypedDict):
+class RateLimitExceededParameters(typing_extensions.TypedDict):
     """Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
-    sessionRid: SessionRid
+    sessionRid: aip_agents_models.SessionRid
 
     details: str
     """Any additional details provided for the error."""
 
 
 @dataclass
-class RateLimitExceeded(BadRequestError):
-    name: Literal["RateLimitExceeded"]
+class RateLimitExceeded(errors.BadRequestError):
+    name: typing.Literal["RateLimitExceeded"]
     parameters: RateLimitExceededParameters
     error_instance_id: str
 

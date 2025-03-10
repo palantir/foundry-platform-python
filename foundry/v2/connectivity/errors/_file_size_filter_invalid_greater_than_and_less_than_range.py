@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._size_bytes import SizeBytes
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class FileSizeFilterInvalidGreaterThanAndLessThanRangeParameters(TypedDict):
+class FileSizeFilterInvalidGreaterThanAndLessThanRangeParameters(typing_extensions.TypedDict):
     """
     The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever
     satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
@@ -32,14 +30,14 @@ class FileSizeFilterInvalidGreaterThanAndLessThanRangeParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    gt: SizeBytes
+    gt: core_models.SizeBytes
 
-    lt: SizeBytes
+    lt: core_models.SizeBytes
 
 
 @dataclass
-class FileSizeFilterInvalidGreaterThanAndLessThanRange(BadRequestError):
-    name: Literal["FileSizeFilterInvalidGreaterThanAndLessThanRange"]
+class FileSizeFilterInvalidGreaterThanAndLessThanRange(errors.BadRequestError):
+    name: typing.Literal["FileSizeFilterInvalidGreaterThanAndLessThanRange"]
     parameters: FileSizeFilterInvalidGreaterThanAndLessThanRangeParameters
     error_instance_id: str
 

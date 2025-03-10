@@ -13,30 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class ConnectionDetailsNotDeterminedParameters(TypedDict):
+class ConnectionDetailsNotDeterminedParameters(typing_extensions.TypedDict):
     """Details of the connection (such as which types of import it supports) could not be determined."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    connectionRid: ConnectionRid
+    connectionRid: connectivity_models.ConnectionRid
 
     connectionType: str
 
 
 @dataclass
-class ConnectionDetailsNotDetermined(InternalServerError):
-    name: Literal["ConnectionDetailsNotDetermined"]
+class ConnectionDetailsNotDetermined(errors.InternalServerError):
+    name: typing.Literal["ConnectionDetailsNotDetermined"]
     parameters: ConnectionDetailsNotDeterminedParameters
     error_instance_id: str
 

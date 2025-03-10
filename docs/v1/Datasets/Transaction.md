@@ -136,8 +136,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**branch_id** | Optional[BranchId] | branchId | [optional] |
-**transaction_type** | Optional[TransactionType] |  | [optional] |
+**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
+**transaction_type** | typing.Optional[TransactionType] |  | [optional] |
 
 ### Return type
 **Transaction**
@@ -155,9 +155,9 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[BranchId] | branchId
+# typing.Optional[BranchId] | branchId
 branch_id = None
-# Optional[TransactionType] |
+# typing.Optional[TransactionType] |
 transaction_type = "SNAPSHOT"
 
 

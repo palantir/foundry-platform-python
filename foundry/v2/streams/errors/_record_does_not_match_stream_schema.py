@@ -13,35 +13,31 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.streams.models._view_rid import ViewRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
+from foundry.v2.streams import models as streams_models
 
 
-class RecordDoesNotMatchStreamSchemaParameters(TypedDict):
+class RecordDoesNotMatchStreamSchemaParameters(typing_extensions.TypedDict):
     """A provided record does not match the stream schema"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    branchName: BranchName
+    branchName: datasets_models.BranchName
 
-    viewRid: NotRequired[ViewRid]
+    viewRid: typing_extensions.NotRequired[streams_models.ViewRid]
 
 
 @dataclass
-class RecordDoesNotMatchStreamSchema(BadRequestError):
-    name: Literal["RecordDoesNotMatchStreamSchema"]
+class RecordDoesNotMatchStreamSchema(errors.BadRequestError):
+    name: typing.Literal["RecordDoesNotMatchStreamSchema"]
     parameters: RecordDoesNotMatchStreamSchemaParameters
     error_instance_id: str
 

@@ -13,56 +13,18 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.aip_agents import errors as aip_agents_errors
-from foundry.v2.aip_agents.models._agent_markdown_response import AgentMarkdownResponse
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._agent_session_rag_context_response import (
-    AgentSessionRagContextResponse,
-)  # NOQA
-from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
-from foundry.v2.aip_agents.models._cancel_session_response import CancelSessionResponse
-from foundry.v2.aip_agents.models._input_context import InputContext
-from foundry.v2.aip_agents.models._input_context_dict import InputContextDict
-from foundry.v2.aip_agents.models._list_sessions_response import ListSessionsResponse
-from foundry.v2.aip_agents.models._message_id import MessageId
-from foundry.v2.aip_agents.models._parameter_id import ParameterId
-from foundry.v2.aip_agents.models._parameter_value import ParameterValue
-from foundry.v2.aip_agents.models._parameter_value_dict import ParameterValueDict
-from foundry.v2.aip_agents.models._session import Session
-from foundry.v2.aip_agents.models._session_exchange_result import SessionExchangeResult
-from foundry.v2.aip_agents.models._session_rid import SessionRid
-from foundry.v2.aip_agents.models._user_text_input import UserTextInput
-from foundry.v2.aip_agents.models._user_text_input_dict import UserTextInputDict
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.aip_agents import models as aip_agents_models
+from foundry.v2.core import models as core_models
 
 
 class SessionClient:
@@ -76,14 +38,14 @@ class SessionClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _SessionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -99,20 +61,29 @@ class SessionClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def blocking_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> SessionExchangeResult:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.SessionExchangeResult:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -122,21 +93,21 @@ class SessionClient:
         Clients should wait to receive a response before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: SessionExchangeResult
+        :rtype: aip_agents_models.SessionExchangeResult
 
         :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
@@ -151,7 +122,7 @@ class SessionClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/blockingContinue",
                 query_params={
@@ -170,17 +141,30 @@ class SessionClient:
                     "parameterInputs": parameter_inputs,
                     "contextsOverride": contexts_override,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
                         ],
-                        "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
+                        ],
+                        "contextsOverride": typing.Optional[
+                            typing.List[
+                                typing.Union[
+                                    aip_agents_models.InputContext,
+                                    aip_agents_models.InputContextDict,
+                                ]
+                            ]
+                        ],
                     },
                 ),
-                response_type=SessionExchangeResult,
+                response_type=aip_agents_models.SessionExchangeResult,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
@@ -197,45 +181,45 @@ class SessionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def cancel(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        message_id: MessageId,
-        preview: Optional[PreviewMode] = None,
-        response: Optional[AgentMarkdownResponse] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> CancelSessionResponse:
+        message_id: aip_agents_models.MessageId,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        response: typing.Optional[aip_agents_models.AgentMarkdownResponse] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.CancelSessionResponse:
         """
         Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
-        :type message_id: MessageId
+        :type message_id: aip_agents_models.MessageId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
-        :type response: Optional[AgentMarkdownResponse]
+        :type response: typing.Optional[aip_agents_models.AgentMarkdownResponse]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: CancelSessionResponse
+        :rtype: aip_agents_models.CancelSessionResponse
 
         :raises CancelSessionFailedMessageNotInProgress: Unable to cancel the requested session exchange as no in-progress exchange was found for the provided message identifier. This is expected if no exchange was initiated with the provided message identifier through a `streamingContinue` request, or if the exchange for this identifier has already completed and cannot be canceled, or if the exchange has already been canceled. This error can also occur if the cancellation was requested immediately after requesting the exchange through a `streamingContinue` request, and the exchange has not started yet. Clients should handle these errors gracefully, and can reload the session content to get the latest conversation state.
         :raises CancelSessionPermissionDenied: Could not cancel the Session.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/cancel",
                 query_params={
@@ -253,14 +237,14 @@ class SessionClient:
                     "messageId": message_id,
                     "response": response,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "messageId": MessageId,
-                        "response": Optional[AgentMarkdownResponse],
+                        "messageId": aip_agents_models.MessageId,
+                        "response": typing.Optional[aip_agents_models.AgentMarkdownResponse],
                     },
                 ),
-                response_type=CancelSessionResponse,
+                response_type=aip_agents_models.CancelSessionResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CancelSessionFailedMessageNotInProgress": aip_agents_errors.CancelSessionFailedMessageNotInProgress,
@@ -269,31 +253,31 @@ class SessionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        agent_version: Optional[AgentVersionString] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Session:
+        agent_version: typing.Optional[aip_agents_models.AgentVersionString] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.Session:
         """
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
-        :type agent_version: Optional[AgentVersionString]
+        :type agent_version: typing.Optional[aip_agents_models.AgentVersionString]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Session
+        :rtype: aip_agents_models.Session
 
         :raises CreateSessionPermissionDenied: Could not create the Session.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
@@ -303,7 +287,7 @@ class SessionClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -319,13 +303,13 @@ class SessionClient:
                 body={
                     "agentVersion": agent_version,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "agentVersion": Optional[AgentVersionString],
+                        "agentVersion": typing.Optional[aip_agents_models.AgentVersionString],
                     },
                 ),
-                response_type=Session,
+                response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
@@ -337,35 +321,35 @@ class SessionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Session:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.Session:
         """
         Get the details of a conversation session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Session
+        :rtype: aip_agents_models.Session
 
         :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}",
                 query_params={
@@ -380,7 +364,7 @@ class SessionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Session,
+                response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
@@ -388,18 +372,18 @@ class SessionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[Session]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[aip_agents_models.Session]:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
@@ -407,21 +391,21 @@ class SessionClient:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[Session]
+        :rtype: core.ResourceIterator[aip_agents_models.Session]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -437,24 +421,24 @@ class SessionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListSessionsResponse,
+                response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListSessionsResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.ListSessionsResponse:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
@@ -462,17 +446,17 @@ class SessionClient:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListSessionsResponse
+        :rtype: aip_agents_models.ListSessionsResponse
         """
 
         warnings.warn(
@@ -482,7 +466,7 @@ class SessionClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -498,43 +482,48 @@ class SessionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListSessionsResponse,
+                response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def rag_context(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AgentSessionRagContextResponse:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.AgentSessionRagContextResponse:
         """
         Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AgentSessionRagContextResponse
+        :rtype: aip_agents_models.AgentSessionRagContextResponse
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
@@ -543,7 +532,7 @@ class SessionClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext",
                 query_params={
@@ -561,16 +550,22 @@ class SessionClient:
                     "userInput": user_input,
                     "parameterInputs": parameter_inputs,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+                        ],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
                         ],
                     },
                 ),
-                response_type=AgentSessionRagContextResponse,
+                response_type=aip_agents_models.AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
@@ -581,24 +576,33 @@ class SessionClient:
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def streaming_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        stream: Literal[True],
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        message_id: Optional[MessageId] = None,
-        preview: Optional[PreviewMode] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        message_id: typing.Optional[aip_agents_models.MessageId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -609,19 +613,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
+        :type message_id: typing.Optional[aip_agents_models.MessageId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -629,7 +633,7 @@ class SessionClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
@@ -640,19 +644,28 @@ class SessionClient:
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def streaming_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        message_id: Optional[MessageId] = None,
-        preview: Optional[PreviewMode] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        message_id: typing.Optional[aip_agents_models.MessageId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
@@ -664,19 +677,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
+        :type message_id: typing.Optional[aip_agents_models.MessageId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -693,24 +706,33 @@ class SessionClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def streaming_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
         stream: bool,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        message_id: Optional[MessageId] = None,
-        preview: Optional[PreviewMode] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        message_id: typing.Optional[aip_agents_models.MessageId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -721,19 +743,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
+        :type message_id: typing.Optional[aip_agents_models.MessageId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -741,7 +763,7 @@ class SessionClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
@@ -752,23 +774,32 @@ class SessionClient:
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def streaming_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        message_id: Optional[MessageId] = None,
-        preview: Optional[PreviewMode] = None,
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        message_id: typing.Optional[aip_agents_models.MessageId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -779,19 +810,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
+        :type message_id: typing.Optional[aip_agents_models.MessageId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -799,7 +830,7 @@ class SessionClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
@@ -817,7 +848,7 @@ class SessionClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue",
                 query_params={
@@ -837,15 +868,28 @@ class SessionClient:
                     "contextsOverride": contexts_override,
                     "messageId": message_id,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
                         ],
-                        "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
-                        "messageId": Optional[MessageId],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
+                        ],
+                        "contextsOverride": typing.Optional[
+                            typing.List[
+                                typing.Union[
+                                    aip_agents_models.InputContext,
+                                    aip_agents_models.InputContextDict,
+                                ]
+                            ]
+                        ],
+                        "messageId": typing.Optional[aip_agents_models.MessageId],
                     },
                 ),
                 response_type=bytes,
@@ -875,29 +919,38 @@ class _SessionClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def blocking_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[SessionExchangeResult]:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.SessionExchangeResult]:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -907,21 +960,21 @@ class _SessionClientRaw:
         Clients should wait to receive a response before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[SessionExchangeResult]
+        :rtype: core.ApiResponse[aip_agents_models.SessionExchangeResult]
 
         :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
@@ -936,7 +989,7 @@ class _SessionClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/blockingContinue",
                 query_params={
@@ -955,17 +1008,30 @@ class _SessionClientRaw:
                     "parameterInputs": parameter_inputs,
                     "contextsOverride": contexts_override,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
                         ],
-                        "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
+                        ],
+                        "contextsOverride": typing.Optional[
+                            typing.List[
+                                typing.Union[
+                                    aip_agents_models.InputContext,
+                                    aip_agents_models.InputContextDict,
+                                ]
+                            ]
+                        ],
                     },
                 ),
-                response_type=SessionExchangeResult,
+                response_type=aip_agents_models.SessionExchangeResult,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
@@ -982,45 +1048,45 @@ class _SessionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def cancel(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        message_id: MessageId,
-        preview: Optional[PreviewMode] = None,
-        response: Optional[AgentMarkdownResponse] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[CancelSessionResponse]:
+        message_id: aip_agents_models.MessageId,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        response: typing.Optional[aip_agents_models.AgentMarkdownResponse] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.CancelSessionResponse]:
         """
         Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
-        :type message_id: MessageId
+        :type message_id: aip_agents_models.MessageId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
-        :type response: Optional[AgentMarkdownResponse]
+        :type response: typing.Optional[aip_agents_models.AgentMarkdownResponse]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[CancelSessionResponse]
+        :rtype: core.ApiResponse[aip_agents_models.CancelSessionResponse]
 
         :raises CancelSessionFailedMessageNotInProgress: Unable to cancel the requested session exchange as no in-progress exchange was found for the provided message identifier. This is expected if no exchange was initiated with the provided message identifier through a `streamingContinue` request, or if the exchange for this identifier has already completed and cannot be canceled, or if the exchange has already been canceled. This error can also occur if the cancellation was requested immediately after requesting the exchange through a `streamingContinue` request, and the exchange has not started yet. Clients should handle these errors gracefully, and can reload the session content to get the latest conversation state.
         :raises CancelSessionPermissionDenied: Could not cancel the Session.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/cancel",
                 query_params={
@@ -1038,14 +1104,14 @@ class _SessionClientRaw:
                     "messageId": message_id,
                     "response": response,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "messageId": MessageId,
-                        "response": Optional[AgentMarkdownResponse],
+                        "messageId": aip_agents_models.MessageId,
+                        "response": typing.Optional[aip_agents_models.AgentMarkdownResponse],
                     },
                 ),
-                response_type=CancelSessionResponse,
+                response_type=aip_agents_models.CancelSessionResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CancelSessionFailedMessageNotInProgress": aip_agents_errors.CancelSessionFailedMessageNotInProgress,
@@ -1054,31 +1120,31 @@ class _SessionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        agent_version: Optional[AgentVersionString] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Session]:
+        agent_version: typing.Optional[aip_agents_models.AgentVersionString] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.Session]:
         """
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
-        :type agent_version: Optional[AgentVersionString]
+        :type agent_version: typing.Optional[aip_agents_models.AgentVersionString]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Session]
+        :rtype: core.ApiResponse[aip_agents_models.Session]
 
         :raises CreateSessionPermissionDenied: Could not create the Session.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
@@ -1088,7 +1154,7 @@ class _SessionClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -1104,13 +1170,13 @@ class _SessionClientRaw:
                 body={
                     "agentVersion": agent_version,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "agentVersion": Optional[AgentVersionString],
+                        "agentVersion": typing.Optional[aip_agents_models.AgentVersionString],
                     },
                 ),
-                response_type=Session,
+                response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
@@ -1122,35 +1188,35 @@ class _SessionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Session]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.Session]:
         """
         Get the details of a conversation session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Session]
+        :rtype: core.ApiResponse[aip_agents_models.Session]
 
         :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}",
                 query_params={
@@ -1165,7 +1231,7 @@ class _SessionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Session,
+                response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
@@ -1173,18 +1239,18 @@ class _SessionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListSessionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.ListSessionsResponse]:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
@@ -1192,21 +1258,21 @@ class _SessionClientRaw:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListSessionsResponse]
+        :rtype: core.ApiResponse[aip_agents_models.ListSessionsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -1222,24 +1288,24 @@ class _SessionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListSessionsResponse,
+                response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListSessionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.ListSessionsResponse]:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
@@ -1247,17 +1313,17 @@ class _SessionClientRaw:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListSessionsResponse]
+        :rtype: core.ApiResponse[aip_agents_models.ListSessionsResponse]
         """
 
         warnings.warn(
@@ -1267,7 +1333,7 @@ class _SessionClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -1283,43 +1349,48 @@ class _SessionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListSessionsResponse,
+                response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def rag_context(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AgentSessionRagContextResponse]:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.AgentSessionRagContextResponse]:
         """
         Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AgentSessionRagContextResponse]
+        :rtype: core.ApiResponse[aip_agents_models.AgentSessionRagContextResponse]
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
@@ -1328,7 +1399,7 @@ class _SessionClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext",
                 query_params={
@@ -1346,16 +1417,22 @@ class _SessionClientRaw:
                     "userInput": user_input,
                     "parameterInputs": parameter_inputs,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+                        ],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
                         ],
                     },
                 ),
-                response_type=AgentSessionRagContextResponse,
+                response_type=aip_agents_models.AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
@@ -1366,21 +1443,30 @@ class _SessionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def streaming_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        message_id: Optional[MessageId] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        message_id: typing.Optional[aip_agents_models.MessageId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -1391,23 +1477,23 @@ class _SessionClientRaw:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
+        :type message_id: typing.Optional[aip_agents_models.MessageId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
@@ -1418,7 +1504,7 @@ class _SessionClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue",
                 query_params={
@@ -1438,15 +1524,28 @@ class _SessionClientRaw:
                     "contextsOverride": contexts_override,
                     "messageId": message_id,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
                         ],
-                        "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
-                        "messageId": Optional[MessageId],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
+                        ],
+                        "contextsOverride": typing.Optional[
+                            typing.List[
+                                typing.Union[
+                                    aip_agents_models.InputContext,
+                                    aip_agents_models.InputContextDict,
+                                ]
+                            ]
+                        ],
+                        "messageId": typing.Optional[aip_agents_models.MessageId],
                     },
                 ),
                 response_type=bytes,
@@ -1474,29 +1573,38 @@ class _SessionClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def blocking_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[SessionExchangeResult]:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.SessionExchangeResult]:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -1506,21 +1614,21 @@ class _SessionClientStreaming:
         Clients should wait to receive a response before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[SessionExchangeResult]
+        :rtype: core.StreamingContextManager[aip_agents_models.SessionExchangeResult]
 
         :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
@@ -1535,7 +1643,7 @@ class _SessionClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/blockingContinue",
                 query_params={
@@ -1554,17 +1662,30 @@ class _SessionClientStreaming:
                     "parameterInputs": parameter_inputs,
                     "contextsOverride": contexts_override,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
                         ],
-                        "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
+                        ],
+                        "contextsOverride": typing.Optional[
+                            typing.List[
+                                typing.Union[
+                                    aip_agents_models.InputContext,
+                                    aip_agents_models.InputContextDict,
+                                ]
+                            ]
+                        ],
                     },
                 ),
-                response_type=SessionExchangeResult,
+                response_type=aip_agents_models.SessionExchangeResult,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentIterationsExceededLimit": aip_agents_errors.AgentIterationsExceededLimit,
@@ -1581,45 +1702,45 @@ class _SessionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def cancel(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        message_id: MessageId,
-        preview: Optional[PreviewMode] = None,
-        response: Optional[AgentMarkdownResponse] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[CancelSessionResponse]:
+        message_id: aip_agents_models.MessageId,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        response: typing.Optional[aip_agents_models.AgentMarkdownResponse] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.CancelSessionResponse]:
         """
         Cancel an in-progress streamed exchange with an Agent which was initiated with `streamingContinue`.
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
-        :type message_id: MessageId
+        :type message_id: aip_agents_models.MessageId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
-        :type response: Optional[AgentMarkdownResponse]
+        :type response: typing.Optional[aip_agents_models.AgentMarkdownResponse]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[CancelSessionResponse]
+        :rtype: core.StreamingContextManager[aip_agents_models.CancelSessionResponse]
 
         :raises CancelSessionFailedMessageNotInProgress: Unable to cancel the requested session exchange as no in-progress exchange was found for the provided message identifier. This is expected if no exchange was initiated with the provided message identifier through a `streamingContinue` request, or if the exchange for this identifier has already completed and cannot be canceled, or if the exchange has already been canceled. This error can also occur if the cancellation was requested immediately after requesting the exchange through a `streamingContinue` request, and the exchange has not started yet. Clients should handle these errors gracefully, and can reload the session content to get the latest conversation state.
         :raises CancelSessionPermissionDenied: Could not cancel the Session.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/cancel",
                 query_params={
@@ -1637,14 +1758,14 @@ class _SessionClientStreaming:
                     "messageId": message_id,
                     "response": response,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "messageId": MessageId,
-                        "response": Optional[AgentMarkdownResponse],
+                        "messageId": aip_agents_models.MessageId,
+                        "response": typing.Optional[aip_agents_models.AgentMarkdownResponse],
                     },
                 ),
-                response_type=CancelSessionResponse,
+                response_type=aip_agents_models.CancelSessionResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CancelSessionFailedMessageNotInProgress": aip_agents_errors.CancelSessionFailedMessageNotInProgress,
@@ -1653,31 +1774,31 @@ class _SessionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        agent_version: Optional[AgentVersionString] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Session]:
+        agent_version: typing.Optional[aip_agents_models.AgentVersionString] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.Session]:
         """
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
-        :type agent_version: Optional[AgentVersionString]
+        :type agent_version: typing.Optional[aip_agents_models.AgentVersionString]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Session]
+        :rtype: core.StreamingContextManager[aip_agents_models.Session]
 
         :raises CreateSessionPermissionDenied: Could not create the Session.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
@@ -1687,7 +1808,7 @@ class _SessionClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -1703,13 +1824,13 @@ class _SessionClientStreaming:
                 body={
                     "agentVersion": agent_version,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "agentVersion": Optional[AgentVersionString],
+                        "agentVersion": typing.Optional[aip_agents_models.AgentVersionString],
                     },
                 ),
-                response_type=Session,
+                response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
@@ -1721,35 +1842,35 @@ class _SessionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Session]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.Session]:
         """
         Get the details of a conversation session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Session]
+        :rtype: core.StreamingContextManager[aip_agents_models.Session]
 
         :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}",
                 query_params={
@@ -1764,7 +1885,7 @@ class _SessionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Session,
+                response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
@@ -1772,18 +1893,18 @@ class _SessionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListSessionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.ListSessionsResponse]:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
@@ -1791,21 +1912,21 @@ class _SessionClientStreaming:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListSessionsResponse]
+        :rtype: core.StreamingContextManager[aip_agents_models.ListSessionsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -1821,24 +1942,24 @@ class _SessionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListSessionsResponse,
+                response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListSessionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.ListSessionsResponse]:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
@@ -1846,17 +1967,17 @@ class _SessionClientStreaming:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListSessionsResponse]
+        :rtype: core.StreamingContextManager[aip_agents_models.ListSessionsResponse]
         """
 
         warnings.warn(
@@ -1866,7 +1987,7 @@ class _SessionClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions",
                 query_params={
@@ -1882,43 +2003,48 @@ class _SessionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListSessionsResponse,
+                response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def rag_context(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AgentSessionRagContextResponse]:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.AgentSessionRagContextResponse]:
         """
         Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AgentSessionRagContextResponse]
+        :rtype: core.StreamingContextManager[aip_agents_models.AgentSessionRagContextResponse]
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
@@ -1927,7 +2053,7 @@ class _SessionClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext",
                 query_params={
@@ -1945,16 +2071,22 @@ class _SessionClientStreaming:
                     "userInput": user_input,
                     "parameterInputs": parameter_inputs,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+                        ],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
                         ],
                     },
                 ),
-                response_type=AgentSessionRagContextResponse,
+                response_type=aip_agents_models.AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
@@ -1965,21 +2097,30 @@ class _SessionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def streaming_continue(
         self,
-        agent_rid: AgentRid,
-        session_rid: SessionRid,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
-        parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]],
-        user_input: Union[UserTextInput, UserTextInputDict],
-        contexts_override: Optional[List[Union[InputContext, InputContextDict]]] = None,
-        message_id: Optional[MessageId] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        parameter_inputs: typing.Dict[
+            aip_agents_models.ParameterId,
+            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
+        ],
+        user_input: typing.Union[
+            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
+        ],
+        contexts_override: typing.Optional[
+            typing.List[
+                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
+            ]
+        ] = None,
+        message_id: typing.Optional[aip_agents_models.MessageId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Continue a conversation session with an Agent, or add the first exchange to a session after creation.
         Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
@@ -1990,23 +2131,23 @@ class _SessionClientStreaming:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param session_rid: sessionRid
-        :type session_rid: SessionRid
+        :type session_rid: aip_agents_models.SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
+        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
+        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
+        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
+        :type message_id: typing.Optional[aip_agents_models.MessageId]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
 
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
@@ -2017,7 +2158,7 @@ class _SessionClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue",
                 query_params={
@@ -2037,15 +2178,28 @@ class _SessionClientStreaming:
                     "contextsOverride": contexts_override,
                     "messageId": message_id,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "userInput": Union[UserTextInput, UserTextInputDict],
-                        "parameterInputs": Dict[
-                            ParameterId, Union[ParameterValue, ParameterValueDict]
+                        "userInput": typing.Union[
+                            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
                         ],
-                        "contextsOverride": Optional[List[Union[InputContext, InputContextDict]]],
-                        "messageId": Optional[MessageId],
+                        "parameterInputs": typing.Dict[
+                            aip_agents_models.ParameterId,
+                            typing.Union[
+                                aip_agents_models.ParameterValue,
+                                aip_agents_models.ParameterValueDict,
+                            ],
+                        ],
+                        "contextsOverride": typing.Optional[
+                            typing.List[
+                                typing.Union[
+                                    aip_agents_models.InputContext,
+                                    aip_agents_models.InputContextDict,
+                                ]
+                            ]
+                        ],
+                        "messageId": typing.Optional[aip_agents_models.MessageId],
                     },
                 ),
                 response_type=bytes,

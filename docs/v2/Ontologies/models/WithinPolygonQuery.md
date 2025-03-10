@@ -8,10 +8,10 @@ both.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | Optional[PropertyApiName] | No |  |
-**property_identifier** | Optional[PropertyIdentifier] | No |  |
+**field** | typing.Optional[PropertyApiName] | No |  |
+**property_identifier** | typing.Optional[PropertyIdentifier] | No |  |
 **value** | PolygonValue | Yes |  |
-**type** | Literal["withinPolygon"] | Yes | None |
+**type** | typing.Literal["withinPolygon"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

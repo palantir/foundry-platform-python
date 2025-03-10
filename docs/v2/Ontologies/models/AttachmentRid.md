@@ -4,7 +4,7 @@ The unique resource identifier of an attachment.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

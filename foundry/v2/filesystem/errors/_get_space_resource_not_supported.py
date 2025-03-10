@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._space_rid import SpaceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class GetSpaceResourceNotSupportedParameters(TypedDict):
+class GetSpaceResourceNotSupportedParameters(typing_extensions.TypedDict):
     """Getting a space as a resource is not supported."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    spaceRid: SpaceRid
+    spaceRid: filesystem_models.SpaceRid
 
 
 @dataclass
-class GetSpaceResourceNotSupported(BadRequestError):
-    name: Literal["GetSpaceResourceNotSupported"]
+class GetSpaceResourceNotSupported(errors.BadRequestError):
+    name: typing.Literal["GetSpaceResourceNotSupported"]
     parameters: GetSpaceResourceNotSupportedParameters
     error_instance_id: str
 

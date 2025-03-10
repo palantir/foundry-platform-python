@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
-from foundry.v2.functions.models._function_rid import FunctionRid
-from foundry.v2.functions.models._function_version import FunctionVersion
+from foundry import _errors as errors
+from foundry.v2.functions import models as functions_models
 
 
-class QueryTimeExceededLimitParameters(TypedDict):
+class QueryTimeExceededLimitParameters(typing_extensions.TypedDict):
     """Time limits were exceeded for the `Query` execution."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
+    functionRid: functions_models.FunctionRid
 
-    functionVersion: FunctionVersion
+    functionVersion: functions_models.FunctionVersion
 
 
 @dataclass
-class QueryTimeExceededLimit(InternalServerError):
-    name: Literal["QueryTimeExceededLimit"]
+class QueryTimeExceededLimit(errors.InternalServerError):
+    name: typing.Literal["QueryTimeExceededLimit"]
     parameters: QueryTimeExceededLimitParameters
     error_instance_id: str
 

@@ -10,28 +10,28 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-DateType | date
+core_models.DateType | date
 StructType | struct
-StringType | string
-ByteType | byte
-DoubleType | double
-GeoPointType | geopoint
-GeotimeSeriesReferenceType | geotimeSeriesReference
-IntegerType | integer
-FloatType | float
-GeoShapeType | geoshape
-LongType | long
-BooleanType | boolean
-CipherTextType | cipherText
-MarkingType | marking
-AttachmentType | attachment
-MediaReferenceType | mediaReference
-TimeseriesType | timeseries
+core_models.StringType | string
+core_models.ByteType | byte
+core_models.DoubleType | double
+core_models.GeoPointType | geopoint
+core_models.GeotimeSeriesReferenceType | geotimeSeriesReference
+core_models.IntegerType | integer
+core_models.FloatType | float
+core_models.GeoShapeType | geoshape
+core_models.LongType | long
+core_models.BooleanType | boolean
+core_models.CipherTextType | cipherText
+core_models.MarkingType | marking
+core_models.AttachmentType | attachment
+core_models.MediaReferenceType | mediaReference
+core_models.TimeseriesType | timeseries
 OntologyObjectArrayType | array
-ShortType | short
-VectorType | vector
-DecimalType | decimal
-TimestampType | timestamp
+core_models.ShortType | short
+core_models.VectorType | vector
+core_models.DecimalType | decimal
+core_models.TimestampType | timestamp
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

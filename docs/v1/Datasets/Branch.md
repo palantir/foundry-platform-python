@@ -20,7 +20,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **branch_id** | BranchId |  |  |
-**transaction_rid** | Optional[TransactionRid] |  | [optional] |
+**transaction_rid** | typing.Optional[TransactionRid] |  | [optional] |
 
 ### Return type
 **Branch**
@@ -40,7 +40,7 @@ foundry_client = FoundryClient(
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # BranchId |
 branch_id = "my-branch"
-# Optional[TransactionRid] |
+# typing.Optional[TransactionRid] |
 transaction_rid = None
 
 
@@ -197,11 +197,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
-**ResourceIterator[Branch]**
+**ListBranchesResponse**
 
 ### Example
 
@@ -216,9 +216,9 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 
@@ -258,8 +258,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListBranchesResponse**
@@ -277,9 +277,9 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
 
 

@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class FilesCountLimitFilterInvalidLimitParameters(TypedDict):
+class FilesCountLimitFilterInvalidLimitParameters(typing_extensions.TypedDict):
     """The `filesCount` property in the FilesCountLimitFilter must be strictly greater than 0."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class FilesCountLimitFilterInvalidLimitParameters(TypedDict):
 
 
 @dataclass
-class FilesCountLimitFilterInvalidLimit(BadRequestError):
-    name: Literal["FilesCountLimitFilterInvalidLimit"]
+class FilesCountLimitFilterInvalidLimit(errors.BadRequestError):
+    name: typing.Literal["FilesCountLimitFilterInvalidLimit"]
     parameters: FilesCountLimitFilterInvalidLimitParameters
     error_instance_id: str
 

@@ -13,36 +13,32 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Dict
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v1.ontologies.models._primary_key_value import PrimaryKeyValue
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class LinkedObjectNotFoundParameters(TypedDict):
+class LinkedObjectNotFoundParameters(typing_extensions.TypedDict):
     """The linked object with the given primary key is not found, or the user does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    linkType: LinkTypeApiName
+    linkType: ontologies_models.LinkTypeApiName
 
-    linkedObjectType: ObjectTypeApiName
+    linkedObjectType: ontologies_models.ObjectTypeApiName
 
-    linkedObjectPrimaryKey: Dict[PropertyApiName, PrimaryKeyValue]
+    linkedObjectPrimaryKey: typing.Dict[
+        ontologies_models.PropertyApiName, ontologies_models.PrimaryKeyValue
+    ]
 
 
 @dataclass
-class LinkedObjectNotFound(NotFoundError):
-    name: Literal["LinkedObjectNotFound"]
+class LinkedObjectNotFound(errors.NotFoundError):
+    name: typing.Literal["LinkedObjectNotFound"]
     parameters: LinkedObjectNotFoundParameters
     error_instance_id: str
 

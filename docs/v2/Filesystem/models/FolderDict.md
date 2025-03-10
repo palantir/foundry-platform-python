@@ -7,17 +7,17 @@ Folder
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | FolderRid | Yes |  |
 **displayName** | ResourceDisplayName | Yes |  |
-**description** | NotRequired[str] | No | The description associated with the Folder. |
-**documentation** | NotRequired[str] | No | The documentation associated with the Folder. |
+**description** | typing_extensions.NotRequired[str] | No | The description associated with the Folder. |
+**documentation** | typing_extensions.NotRequired[str] | No | The documentation associated with the Folder. |
 **path** | ResourcePath | Yes |  |
 **type** | FolderType | Yes |  |
-**createdBy** | CreatedBy | Yes |  |
-**updatedBy** | UpdatedBy | Yes |  |
-**createdTime** | CreatedTime | Yes |  |
-**updatedTime** | UpdatedTime | Yes |  |
+**createdBy** | core_models.CreatedBy | Yes |  |
+**updatedBy** | core_models.UpdatedBy | Yes |  |
+**createdTime** | core_models.CreatedTime | Yes |  |
+**updatedTime** | core_models.UpdatedTime | Yes |  |
 **trashStatus** | TrashStatus | Yes | The trash status of the Folder. If trashed, this could either be because the Folder itself has been trashed or because one of its ancestors has been trashed.  |
 **parentFolderRid** | FolderRid | Yes | The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).  |
-**projectRid** | NotRequired[ProjectRid] | No | The Project Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will not be defined.  |
+**projectRid** | typing_extensions.NotRequired[ProjectRid] | No | The Project Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will not be defined.  |
 **spaceRid** | SpaceRid | Yes | The Space Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will be the same as the Folder RID.  |
 
 

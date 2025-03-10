@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidScheduleNameParameters(TypedDict):
+class InvalidScheduleNameParameters(typing_extensions.TypedDict):
     """The schedule name is too long"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidScheduleName(BadRequestError):
-    name: Literal["InvalidScheduleName"]
+class InvalidScheduleName(errors.BadRequestError):
+    name: typing.Literal["InvalidScheduleName"]
     parameters: InvalidScheduleNameParameters
     error_instance_id: str
 

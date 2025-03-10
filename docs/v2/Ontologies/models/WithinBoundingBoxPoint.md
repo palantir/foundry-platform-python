@@ -4,7 +4,7 @@ WithinBoundingBoxPoint
 
 ## Type
 ```python
-GeoPoint
+geo_models.GeoPoint
 ```
 
 

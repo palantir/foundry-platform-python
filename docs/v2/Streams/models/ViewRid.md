@@ -5,7 +5,7 @@ The resource identifier (RID) of the view that represents a stream.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

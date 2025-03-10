@@ -6,8 +6,8 @@ Divides objects into groups according to an exact value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**max_group_count** | Optional[int] | No |  |
-**type** | Literal["exact"] | Yes | None |
+**max_group_count** | typing.Optional[int] | No |  |
+**type** | typing.Literal["exact"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

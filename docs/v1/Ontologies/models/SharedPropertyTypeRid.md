@@ -5,7 +5,7 @@ The unique resource identifier of an shared property type, useful for interactin
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

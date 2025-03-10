@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidHostNameParameters(TypedDict):
+class InvalidHostNameParameters(typing_extensions.TypedDict):
     """The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class InvalidHostNameParameters(TypedDict):
 
 
 @dataclass
-class InvalidHostName(BadRequestError):
-    name: Literal["InvalidHostName"]
+class InvalidHostName(errors.BadRequestError):
+    name: typing.Literal["InvalidHostName"]
     parameters: InvalidHostNameParameters
     error_instance_id: str
 

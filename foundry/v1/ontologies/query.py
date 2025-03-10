@@ -13,30 +13,14 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v1.ontologies.models._data_value import DataValue
-from foundry.v1.ontologies.models._execute_query_response import ExecuteQueryResponse
-from foundry.v1.ontologies.models._ontology_rid import OntologyRid
-from foundry.v1.ontologies.models._parameter_id import ParameterId
-from foundry.v1.ontologies.models._query_api_name import QueryApiName
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
 class QueryClient:
@@ -50,49 +34,51 @@ class QueryClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _QueryClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _QueryClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        ontology_rid: OntologyRid,
-        query_api_name: QueryApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        query_api_name: ontologies_models.QueryApiName,
         *,
-        parameters: Dict[ParameterId, Optional[DataValue]],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ExecuteQueryResponse:
+        parameters: typing.Dict[
+            ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
+        ],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ExecuteQueryResponse:
         """
         Executes a Query using the given parameters. Optional parameters do not need to be supplied.
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param query_api_name: queryApiName
-        :type query_api_name: QueryApiName
+        :type query_api_name: ontologies_models.QueryApiName
         :param parameters:
-        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ExecuteQueryResponse
+        :rtype: ontologies_models.ExecuteQueryResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/queries/{queryApiName}/execute",
                 query_params={},
@@ -107,13 +93,16 @@ class QueryClient:
                 body={
                     "parameters": parameters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                        "parameters": typing.Dict[
+                            ontologies_models.ParameterId,
+                            typing.Optional[ontologies_models.DataValue],
+                        ],
                     },
                 ),
-                response_type=ExecuteQueryResponse,
+                response_type=ontologies_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -131,45 +120,47 @@ class _QueryClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        ontology_rid: OntologyRid,
-        query_api_name: QueryApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        query_api_name: ontologies_models.QueryApiName,
         *,
-        parameters: Dict[ParameterId, Optional[DataValue]],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ExecuteQueryResponse]:
+        parameters: typing.Dict[
+            ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
+        ],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ExecuteQueryResponse]:
         """
         Executes a Query using the given parameters. Optional parameters do not need to be supplied.
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param query_api_name: queryApiName
-        :type query_api_name: QueryApiName
+        :type query_api_name: ontologies_models.QueryApiName
         :param parameters:
-        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ExecuteQueryResponse]
+        :rtype: core.ApiResponse[ontologies_models.ExecuteQueryResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/queries/{queryApiName}/execute",
                 query_params={},
@@ -184,13 +175,16 @@ class _QueryClientRaw:
                 body={
                     "parameters": parameters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                        "parameters": typing.Dict[
+                            ontologies_models.ParameterId,
+                            typing.Optional[ontologies_models.DataValue],
+                        ],
                     },
                 ),
-                response_type=ExecuteQueryResponse,
+                response_type=ontologies_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -208,45 +202,47 @@ class _QueryClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        ontology_rid: OntologyRid,
-        query_api_name: QueryApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        query_api_name: ontologies_models.QueryApiName,
         *,
-        parameters: Dict[ParameterId, Optional[DataValue]],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ExecuteQueryResponse]:
+        parameters: typing.Dict[
+            ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
+        ],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ExecuteQueryResponse]:
         """
         Executes a Query using the given parameters. Optional parameters do not need to be supplied.
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: ontologies_models.OntologyRid
         :param query_api_name: queryApiName
-        :type query_api_name: QueryApiName
+        :type query_api_name: ontologies_models.QueryApiName
         :param parameters:
-        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ExecuteQueryResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ExecuteQueryResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/ontologies/{ontologyRid}/queries/{queryApiName}/execute",
                 query_params={},
@@ -261,13 +257,16 @@ class _QueryClientStreaming:
                 body={
                     "parameters": parameters,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parameters": Dict[ParameterId, Optional[DataValue]],
+                        "parameters": typing.Dict[
+                            ontologies_models.ParameterId,
+                            typing.Optional[ontologies_models.DataValue],
+                        ],
                     },
                 ),
-                response_type=ExecuteQueryResponse,
+                response_type=ontologies_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

@@ -13,30 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._group_provider_info import GroupProviderInfo
-from foundry.v2.admin.models._provider_id import ProviderId
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class GroupProviderInfoClient:
@@ -50,14 +36,14 @@ class GroupProviderInfoClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _GroupProviderInfoClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -65,32 +51,32 @@ class GroupProviderInfoClient:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> GroupProviderInfo:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.GroupProviderInfo:
         """
         Get the GroupProviderInfo.
         :param group_id: groupId
-        :type group_id: PrincipalId
+        :type group_id: core_models.PrincipalId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: GroupProviderInfo
+        :rtype: admin_models.GroupProviderInfo
 
         :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
                 query_params={
@@ -104,7 +90,7 @@ class GroupProviderInfoClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=GroupProviderInfo,
+                response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
@@ -112,35 +98,35 @@ class GroupProviderInfoClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        provider_id: ProviderId,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> GroupProviderInfo:
+        provider_id: admin_models.ProviderId,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.GroupProviderInfo:
         """
         Replace the GroupProviderInfo.
         :param group_id: groupId
-        :type group_id: PrincipalId
+        :type group_id: core_models.PrincipalId
         :param provider_id: The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
-        :type provider_id: ProviderId
+        :type provider_id: admin_models.ProviderId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: GroupProviderInfo
+        :rtype: admin_models.GroupProviderInfo
 
         :raises ReplaceGroupProviderInfoPermissionDenied: Could not replace the GroupProviderInfo.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
                 query_params={
@@ -156,13 +142,13 @@ class GroupProviderInfoClient:
                 body={
                     "providerId": provider_id,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "providerId": ProviderId,
+                        "providerId": admin_models.ProviderId,
                     },
                 ),
-                response_type=GroupProviderInfo,
+                response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ReplaceGroupProviderInfoPermissionDenied": admin_errors.ReplaceGroupProviderInfoPermissionDenied,
@@ -182,41 +168,41 @@ class _GroupProviderInfoClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[GroupProviderInfo]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.GroupProviderInfo]:
         """
         Get the GroupProviderInfo.
         :param group_id: groupId
-        :type group_id: PrincipalId
+        :type group_id: core_models.PrincipalId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[GroupProviderInfo]
+        :rtype: core.ApiResponse[admin_models.GroupProviderInfo]
 
         :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
                 query_params={
@@ -230,7 +216,7 @@ class _GroupProviderInfoClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=GroupProviderInfo,
+                response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
@@ -238,35 +224,35 @@ class _GroupProviderInfoClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        provider_id: ProviderId,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[GroupProviderInfo]:
+        provider_id: admin_models.ProviderId,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.GroupProviderInfo]:
         """
         Replace the GroupProviderInfo.
         :param group_id: groupId
-        :type group_id: PrincipalId
+        :type group_id: core_models.PrincipalId
         :param provider_id: The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
-        :type provider_id: ProviderId
+        :type provider_id: admin_models.ProviderId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[GroupProviderInfo]
+        :rtype: core.ApiResponse[admin_models.GroupProviderInfo]
 
         :raises ReplaceGroupProviderInfoPermissionDenied: Could not replace the GroupProviderInfo.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
                 query_params={
@@ -282,13 +268,13 @@ class _GroupProviderInfoClientRaw:
                 body={
                     "providerId": provider_id,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "providerId": ProviderId,
+                        "providerId": admin_models.ProviderId,
                     },
                 ),
-                response_type=GroupProviderInfo,
+                response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ReplaceGroupProviderInfoPermissionDenied": admin_errors.ReplaceGroupProviderInfoPermissionDenied,
@@ -308,41 +294,41 @@ class _GroupProviderInfoClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[GroupProviderInfo]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.GroupProviderInfo]:
         """
         Get the GroupProviderInfo.
         :param group_id: groupId
-        :type group_id: PrincipalId
+        :type group_id: core_models.PrincipalId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[GroupProviderInfo]
+        :rtype: core.StreamingContextManager[admin_models.GroupProviderInfo]
 
         :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
                 query_params={
@@ -356,7 +342,7 @@ class _GroupProviderInfoClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=GroupProviderInfo,
+                response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
@@ -364,35 +350,35 @@ class _GroupProviderInfoClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        provider_id: ProviderId,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[GroupProviderInfo]:
+        provider_id: admin_models.ProviderId,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.GroupProviderInfo]:
         """
         Replace the GroupProviderInfo.
         :param group_id: groupId
-        :type group_id: PrincipalId
+        :type group_id: core_models.PrincipalId
         :param provider_id: The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
-        :type provider_id: ProviderId
+        :type provider_id: admin_models.ProviderId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[GroupProviderInfo]
+        :rtype: core.StreamingContextManager[admin_models.GroupProviderInfo]
 
         :raises ReplaceGroupProviderInfoPermissionDenied: Could not replace the GroupProviderInfo.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
                 query_params={
@@ -408,13 +394,13 @@ class _GroupProviderInfoClientStreaming:
                 body={
                     "providerId": provider_id,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "providerId": ProviderId,
+                        "providerId": admin_models.ProviderId,
                     },
                 ),
-                response_type=GroupProviderInfo,
+                response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ReplaceGroupProviderInfoPermissionDenied": admin_errors.ReplaceGroupProviderInfoPermissionDenied,

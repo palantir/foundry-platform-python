@@ -4,7 +4,7 @@ The unique resource identifier of an interface, useful for interacting with othe
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

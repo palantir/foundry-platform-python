@@ -13,35 +13,30 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class DeleteSchemaPermissionDeniedParameters(TypedDict):
+class DeleteSchemaPermissionDeniedParameters(typing_extensions.TypedDict):
     """todo"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    branchName: BranchName
+    branchName: datasets_models.BranchName
 
-    transactionId: NotRequired[TransactionRid]
+    transactionId: typing_extensions.NotRequired[datasets_models.TransactionRid]
 
 
 @dataclass
-class DeleteSchemaPermissionDenied(PermissionDeniedError):
-    name: Literal["DeleteSchemaPermissionDenied"]
+class DeleteSchemaPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DeleteSchemaPermissionDenied"]
     parameters: DeleteSchemaPermissionDeniedParameters
     error_instance_id: str
 

@@ -13,32 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.third_party_applications import errors as third_party_applications_errors  # NOQA
-from foundry.v2.third_party_applications.models._third_party_application import (
-    ThirdPartyApplication,
-)  # NOQA
-from foundry.v2.third_party_applications.models._third_party_application_rid import (
-    ThirdPartyApplicationRid,
-)  # NOQA
+from foundry.v2.third_party_applications import models as third_party_applications_models  # NOQA
 
 
 class ThirdPartyApplicationClient:
@@ -52,14 +37,14 @@ class ThirdPartyApplicationClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ThirdPartyApplicationClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -77,32 +62,32 @@ class ThirdPartyApplicationClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        third_party_application_rid: ThirdPartyApplicationRid,
+        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ThirdPartyApplication:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> third_party_applications_models.ThirdPartyApplication:
         """
         Get the ThirdPartyApplication with the specified rid.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: ThirdPartyApplicationRid
+        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ThirdPartyApplication
+        :rtype: third_party_applications_models.ThirdPartyApplication
 
         :raises ThirdPartyApplicationNotFound: The given ThirdPartyApplication could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}",
                 query_params={
@@ -116,7 +101,7 @@ class ThirdPartyApplicationClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ThirdPartyApplication,
+                response_type=third_party_applications_models.ThirdPartyApplication,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ThirdPartyApplicationNotFound": third_party_applications_errors.ThirdPartyApplicationNotFound,
@@ -136,41 +121,41 @@ class _ThirdPartyApplicationClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        third_party_application_rid: ThirdPartyApplicationRid,
+        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ThirdPartyApplication]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[third_party_applications_models.ThirdPartyApplication]:
         """
         Get the ThirdPartyApplication with the specified rid.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: ThirdPartyApplicationRid
+        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ThirdPartyApplication]
+        :rtype: core.ApiResponse[third_party_applications_models.ThirdPartyApplication]
 
         :raises ThirdPartyApplicationNotFound: The given ThirdPartyApplication could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}",
                 query_params={
@@ -184,7 +169,7 @@ class _ThirdPartyApplicationClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ThirdPartyApplication,
+                response_type=third_party_applications_models.ThirdPartyApplication,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ThirdPartyApplicationNotFound": third_party_applications_errors.ThirdPartyApplicationNotFound,
@@ -204,41 +189,41 @@ class _ThirdPartyApplicationClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        third_party_application_rid: ThirdPartyApplicationRid,
+        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ThirdPartyApplication]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[third_party_applications_models.ThirdPartyApplication]:
         """
         Get the ThirdPartyApplication with the specified rid.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: ThirdPartyApplicationRid
+        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ThirdPartyApplication]
+        :rtype: core.StreamingContextManager[third_party_applications_models.ThirdPartyApplication]
 
         :raises ThirdPartyApplicationNotFound: The given ThirdPartyApplication could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}",
                 query_params={
@@ -252,7 +237,7 @@ class _ThirdPartyApplicationClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ThirdPartyApplication,
+                response_type=third_party_applications_models.ThirdPartyApplication,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ThirdPartyApplicationNotFound": third_party_applications_errors.ThirdPartyApplicationNotFound,

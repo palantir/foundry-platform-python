@@ -13,33 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._host import Host
-from foundry.v2.admin.models._list_hosts_response import ListHostsResponse
-from foundry.v2.core.models._enrollment_rid import EnrollmentRid
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class HostClient:
@@ -53,53 +37,53 @@ class HostClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _HostClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _HostClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[Host]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[admin_models.Host]:
         """
         Lists all Hosts.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[Host]
+        :rtype: core.ResourceIterator[admin_models.Host]
 
         :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/hosts",
                 query_params={
@@ -115,7 +99,7 @@ class HostClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListHostsResponse,
+                response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
@@ -123,34 +107,34 @@ class HostClient:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListHostsResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.ListHostsResponse:
         """
         Lists all Hosts.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListHostsResponse
+        :rtype: admin_models.ListHostsResponse
 
         :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
@@ -162,7 +146,7 @@ class HostClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/hosts",
                 query_params={
@@ -178,7 +162,7 @@ class HostClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListHostsResponse,
+                response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
@@ -198,49 +182,49 @@ class _HostClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListHostsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListHostsResponse]:
         """
         Lists all Hosts.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListHostsResponse]
+        :rtype: core.ApiResponse[admin_models.ListHostsResponse]
 
         :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/hosts",
                 query_params={
@@ -256,7 +240,7 @@ class _HostClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListHostsResponse,
+                response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
@@ -264,34 +248,34 @@ class _HostClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListHostsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListHostsResponse]:
         """
         Lists all Hosts.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListHostsResponse]
+        :rtype: core.ApiResponse[admin_models.ListHostsResponse]
 
         :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
@@ -303,7 +287,7 @@ class _HostClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/hosts",
                 query_params={
@@ -319,7 +303,7 @@ class _HostClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListHostsResponse,
+                response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
@@ -339,49 +323,49 @@ class _HostClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListHostsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListHostsResponse]:
         """
         Lists all Hosts.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListHostsResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListHostsResponse]
 
         :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/hosts",
                 query_params={
@@ -397,7 +381,7 @@ class _HostClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListHostsResponse,
+                response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
@@ -405,34 +389,34 @@ class _HostClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListHostsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListHostsResponse]:
         """
         Lists all Hosts.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: EnrollmentRid
+        :type enrollment_rid: core_models.EnrollmentRid
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListHostsResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListHostsResponse]
 
         :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
@@ -444,7 +428,7 @@ class _HostClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}/hosts",
                 query_params={
@@ -460,7 +444,7 @@ class _HostClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListHostsResponse,
+                response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,

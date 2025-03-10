@@ -13,34 +13,31 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._file_path import FilePath
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 
 
-class UploadFilePermissionDeniedParameters(TypedDict):
+class UploadFilePermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to upload the given file to the given dataset and transaction."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    transactionRid: TransactionRid
+    transactionRid: datasets_models.TransactionRid
 
-    path: FilePath
+    path: core_models.FilePath
 
 
 @dataclass
-class UploadFilePermissionDenied(PermissionDeniedError):
-    name: Literal["UploadFilePermissionDenied"]
+class UploadFilePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["UploadFilePermissionDenied"]
     parameters: UploadFilePermissionDeniedParameters
     error_instance_id: str
 

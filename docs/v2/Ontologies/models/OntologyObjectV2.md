@@ -4,7 +4,7 @@ Represents an object in the Ontology.
 
 ## Type
 ```python
-Dict[PropertyApiName, PropertyValue]
+typing.Dict[PropertyApiName, PropertyValue]
 ```
 
 

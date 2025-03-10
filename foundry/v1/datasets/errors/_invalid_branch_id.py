@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.datasets.models._branch_id import BranchId
+from foundry import _errors as errors
+from foundry.v1.datasets import models as datasets_models
 
 
-class InvalidBranchIdParameters(TypedDict):
+class InvalidBranchIdParameters(typing_extensions.TypedDict):
     """The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    branchId: BranchId
+    branchId: datasets_models.BranchId
 
 
 @dataclass
-class InvalidBranchId(BadRequestError):
-    name: Literal["InvalidBranchId"]
+class InvalidBranchId(errors.BadRequestError):
+    name: typing.Literal["InvalidBranchId"]
     parameters: InvalidBranchIdParameters
     error_instance_id: str
 

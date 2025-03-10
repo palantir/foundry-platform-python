@@ -13,47 +13,18 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.connectivity import errors as connectivity_errors
-from foundry.v2.connectivity.models._connection import Connection
-from foundry.v2.connectivity.models._connection_configuration import ConnectionConfiguration  # NOQA
-from foundry.v2.connectivity.models._connection_display_name import ConnectionDisplayName  # NOQA
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._create_connection_request_connection_configuration import (
-    CreateConnectionRequestConnectionConfiguration,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_connection_configuration_dict import (
-    CreateConnectionRequestConnectionConfigurationDict,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_runtime_platform import (
-    CreateConnectionRequestRuntimePlatform,
-)  # NOQA
-from foundry.v2.connectivity.models._create_connection_request_runtime_platform_dict import (
-    CreateConnectionRequestRuntimePlatformDict,
-)  # NOQA
-from foundry.v2.connectivity.models._plaintext_value import PlaintextValue
-from foundry.v2.connectivity.models._secret_name import SecretName
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry.v2.connectivity import models as connectivity_models
+from foundry.v2.core import models as core_models
+from foundry.v2.filesystem import models as filesystem_models
 
 
 class ConnectionClient:
@@ -67,14 +38,14 @@ class ConnectionClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ConnectionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -100,24 +71,25 @@ class ConnectionClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        configuration: Union[
-            CreateConnectionRequestConnectionConfiguration,
-            CreateConnectionRequestConnectionConfigurationDict,
+        configuration: typing.Union[
+            connectivity_models.CreateConnectionRequestConnectionConfiguration,
+            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
         ],
-        display_name: ConnectionDisplayName,
-        parent_folder_rid: FolderRid,
-        runtime_platform: Union[
-            CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict
+        display_name: connectivity_models.ConnectionDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        runtime_platform: typing.Union[
+            connectivity_models.CreateConnectionRequestRuntimePlatform,
+            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
         ],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Connection:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.Connection:
         """
         Creates a new Connection.
         Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
@@ -129,19 +101,19 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
+        :type configuration: typing.Union[connectivity_models.CreateConnectionRequestConnectionConfiguration, connectivity_models.CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: ConnectionDisplayName
+        :type display_name: connectivity_models.ConnectionDisplayName
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param runtime_platform:
-        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
+        :type runtime_platform: typing.Union[connectivity_models.CreateConnectionRequestRuntimePlatform, connectivity_models.CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Connection
+        :rtype: connectivity_models.Connection
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises CreateConnectionPermissionDenied: Could not create the Connection.
@@ -150,7 +122,7 @@ class ConnectionClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections",
                 query_params={
@@ -167,22 +139,22 @@ class ConnectionClient:
                     "configuration": configuration,
                     "displayName": display_name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": FolderRid,
-                        "runtimePlatform": Union[
-                            CreateConnectionRequestRuntimePlatform,
-                            CreateConnectionRequestRuntimePlatformDict,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "runtimePlatform": typing.Union[
+                            connectivity_models.CreateConnectionRequestRuntimePlatform,
+                            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
                         ],
-                        "configuration": Union[
-                            CreateConnectionRequestConnectionConfiguration,
-                            CreateConnectionRequestConnectionConfigurationDict,
+                        "configuration": typing.Union[
+                            connectivity_models.CreateConnectionRequestConnectionConfiguration,
+                            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
                         ],
-                        "displayName": ConnectionDisplayName,
+                        "displayName": connectivity_models.ConnectionDisplayName,
                     },
                 ),
-                response_type=Connection,
+                response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
@@ -193,26 +165,26 @@ class ConnectionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Connection:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.Connection:
         """
         Get the Connection with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Connection
+        :rtype: connectivity_models.Connection
 
         :raises ConnectionNotFound: The given Connection could not be found.
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
@@ -220,7 +192,7 @@ class ConnectionClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}",
                 query_params={
@@ -234,7 +206,7 @@ class ConnectionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Connection,
+                response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
@@ -244,35 +216,35 @@ class ConnectionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_configuration(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ConnectionConfiguration:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.ConnectionConfiguration:
         """
         Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ConnectionConfiguration
+        :rtype: connectivity_models.ConnectionConfiguration
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
                 query_params={
@@ -286,7 +258,7 @@ class ConnectionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ConnectionConfiguration,
+                response_type=connectivity_models.ConnectionConfiguration,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
@@ -295,16 +267,16 @@ class ConnectionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def update_secrets(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        secrets: Dict[SecretName, PlaintextValue],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Updates the secrets on the connection to the specified secret values.
@@ -320,11 +292,11 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
-        :type secrets: Dict[SecretName, PlaintextValue]
+        :type secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -335,7 +307,7 @@ class ConnectionClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/updateSecrets",
                 query_params={
@@ -350,10 +322,12 @@ class ConnectionClient:
                 body={
                     "secrets": secrets,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "secrets": Dict[SecretName, PlaintextValue],
+                        "secrets": typing.Dict[
+                            connectivity_models.SecretName, connectivity_models.PlaintextValue
+                        ],
                     },
                 ),
                 response_type=None,
@@ -377,33 +351,34 @@ class _ConnectionClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        configuration: Union[
-            CreateConnectionRequestConnectionConfiguration,
-            CreateConnectionRequestConnectionConfigurationDict,
+        configuration: typing.Union[
+            connectivity_models.CreateConnectionRequestConnectionConfiguration,
+            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
         ],
-        display_name: ConnectionDisplayName,
-        parent_folder_rid: FolderRid,
-        runtime_platform: Union[
-            CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict
+        display_name: connectivity_models.ConnectionDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        runtime_platform: typing.Union[
+            connectivity_models.CreateConnectionRequestRuntimePlatform,
+            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
         ],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Connection]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.Connection]:
         """
         Creates a new Connection.
         Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
@@ -415,19 +390,19 @@ class _ConnectionClientRaw:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
+        :type configuration: typing.Union[connectivity_models.CreateConnectionRequestConnectionConfiguration, connectivity_models.CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: ConnectionDisplayName
+        :type display_name: connectivity_models.ConnectionDisplayName
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param runtime_platform:
-        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
+        :type runtime_platform: typing.Union[connectivity_models.CreateConnectionRequestRuntimePlatform, connectivity_models.CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Connection]
+        :rtype: core.ApiResponse[connectivity_models.Connection]
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises CreateConnectionPermissionDenied: Could not create the Connection.
@@ -436,7 +411,7 @@ class _ConnectionClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections",
                 query_params={
@@ -453,22 +428,22 @@ class _ConnectionClientRaw:
                     "configuration": configuration,
                     "displayName": display_name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": FolderRid,
-                        "runtimePlatform": Union[
-                            CreateConnectionRequestRuntimePlatform,
-                            CreateConnectionRequestRuntimePlatformDict,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "runtimePlatform": typing.Union[
+                            connectivity_models.CreateConnectionRequestRuntimePlatform,
+                            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
                         ],
-                        "configuration": Union[
-                            CreateConnectionRequestConnectionConfiguration,
-                            CreateConnectionRequestConnectionConfigurationDict,
+                        "configuration": typing.Union[
+                            connectivity_models.CreateConnectionRequestConnectionConfiguration,
+                            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
                         ],
-                        "displayName": ConnectionDisplayName,
+                        "displayName": connectivity_models.ConnectionDisplayName,
                     },
                 ),
-                response_type=Connection,
+                response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
@@ -479,26 +454,26 @@ class _ConnectionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Connection]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.Connection]:
         """
         Get the Connection with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Connection]
+        :rtype: core.ApiResponse[connectivity_models.Connection]
 
         :raises ConnectionNotFound: The given Connection could not be found.
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
@@ -506,7 +481,7 @@ class _ConnectionClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}",
                 query_params={
@@ -520,7 +495,7 @@ class _ConnectionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Connection,
+                response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
@@ -530,35 +505,35 @@ class _ConnectionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_configuration(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ConnectionConfiguration]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.ConnectionConfiguration]:
         """
         Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ConnectionConfiguration]
+        :rtype: core.ApiResponse[connectivity_models.ConnectionConfiguration]
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
                 query_params={
@@ -572,7 +547,7 @@ class _ConnectionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ConnectionConfiguration,
+                response_type=connectivity_models.ConnectionConfiguration,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
@@ -581,17 +556,17 @@ class _ConnectionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def update_secrets(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        secrets: Dict[SecretName, PlaintextValue],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Updates the secrets on the connection to the specified secret values.
         Secrets that are currently configured on the connection but are omitted in the request will remain unchanged.
@@ -606,22 +581,22 @@ class _ConnectionClientRaw:
         use the Foundry UI instead.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
-        :type secrets: Dict[SecretName, PlaintextValue]
+        :type secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises SecretNamesDoNotExist: The secret names provided do not exist on the connection.
         :raises UpdateSecretsForConnectionPermissionDenied: Could not update secrets for the Connection.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/updateSecrets",
                 query_params={
@@ -636,10 +611,12 @@ class _ConnectionClientRaw:
                 body={
                     "secrets": secrets,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "secrets": Dict[SecretName, PlaintextValue],
+                        "secrets": typing.Dict[
+                            connectivity_models.SecretName, connectivity_models.PlaintextValue
+                        ],
                     },
                 ),
                 response_type=None,
@@ -663,33 +640,34 @@ class _ConnectionClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        configuration: Union[
-            CreateConnectionRequestConnectionConfiguration,
-            CreateConnectionRequestConnectionConfigurationDict,
+        configuration: typing.Union[
+            connectivity_models.CreateConnectionRequestConnectionConfiguration,
+            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
         ],
-        display_name: ConnectionDisplayName,
-        parent_folder_rid: FolderRid,
-        runtime_platform: Union[
-            CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict
+        display_name: connectivity_models.ConnectionDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        runtime_platform: typing.Union[
+            connectivity_models.CreateConnectionRequestRuntimePlatform,
+            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
         ],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Connection]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.Connection]:
         """
         Creates a new Connection.
         Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
@@ -701,19 +679,19 @@ class _ConnectionClientStreaming:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
+        :type configuration: typing.Union[connectivity_models.CreateConnectionRequestConnectionConfiguration, connectivity_models.CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: ConnectionDisplayName
+        :type display_name: connectivity_models.ConnectionDisplayName
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: filesystem_models.FolderRid
         :param runtime_platform:
-        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
+        :type runtime_platform: typing.Union[connectivity_models.CreateConnectionRequestRuntimePlatform, connectivity_models.CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Connection]
+        :rtype: core.StreamingContextManager[connectivity_models.Connection]
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises CreateConnectionPermissionDenied: Could not create the Connection.
@@ -722,7 +700,7 @@ class _ConnectionClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections",
                 query_params={
@@ -739,22 +717,22 @@ class _ConnectionClientStreaming:
                     "configuration": configuration,
                     "displayName": display_name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": FolderRid,
-                        "runtimePlatform": Union[
-                            CreateConnectionRequestRuntimePlatform,
-                            CreateConnectionRequestRuntimePlatformDict,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "runtimePlatform": typing.Union[
+                            connectivity_models.CreateConnectionRequestRuntimePlatform,
+                            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
                         ],
-                        "configuration": Union[
-                            CreateConnectionRequestConnectionConfiguration,
-                            CreateConnectionRequestConnectionConfigurationDict,
+                        "configuration": typing.Union[
+                            connectivity_models.CreateConnectionRequestConnectionConfiguration,
+                            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
                         ],
-                        "displayName": ConnectionDisplayName,
+                        "displayName": connectivity_models.ConnectionDisplayName,
                     },
                 ),
-                response_type=Connection,
+                response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
@@ -765,26 +743,26 @@ class _ConnectionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Connection]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.Connection]:
         """
         Get the Connection with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Connection]
+        :rtype: core.StreamingContextManager[connectivity_models.Connection]
 
         :raises ConnectionNotFound: The given Connection could not be found.
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
@@ -792,7 +770,7 @@ class _ConnectionClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}",
                 query_params={
@@ -806,7 +784,7 @@ class _ConnectionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Connection,
+                response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
@@ -816,35 +794,35 @@ class _ConnectionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_configuration(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ConnectionConfiguration]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.ConnectionConfiguration]:
         """
         Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ConnectionConfiguration]
+        :rtype: core.StreamingContextManager[connectivity_models.ConnectionConfiguration]
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
                 query_params={
@@ -858,7 +836,7 @@ class _ConnectionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ConnectionConfiguration,
+                response_type=connectivity_models.ConnectionConfiguration,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
@@ -867,17 +845,17 @@ class _ConnectionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def update_secrets(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        secrets: Dict[SecretName, PlaintextValue],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Updates the secrets on the connection to the specified secret values.
         Secrets that are currently configured on the connection but are omitted in the request will remain unchanged.
@@ -892,22 +870,22 @@ class _ConnectionClientStreaming:
         use the Foundry UI instead.
 
         :param connection_rid: connectionRid
-        :type connection_rid: ConnectionRid
+        :type connection_rid: connectivity_models.ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
-        :type secrets: Dict[SecretName, PlaintextValue]
+        :type secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises SecretNamesDoNotExist: The secret names provided do not exist on the connection.
         :raises UpdateSecretsForConnectionPermissionDenied: Could not update secrets for the Connection.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/updateSecrets",
                 query_params={
@@ -922,10 +900,12 @@ class _ConnectionClientStreaming:
                 body={
                     "secrets": secrets,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "secrets": Dict[SecretName, PlaintextValue],
+                        "secrets": typing.Dict[
+                            connectivity_models.SecretName, connectivity_models.PlaintextValue
+                        ],
                     },
                 ),
                 response_type=None,

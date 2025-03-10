@@ -5,8 +5,8 @@ MarkingRoleAssignment
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**principal_type** | PrincipalType | Yes |  |
-**principal_id** | PrincipalId | Yes |  |
+**principal_type** | core_models.PrincipalType | Yes |  |
+**principal_id** | core_models.PrincipalId | Yes |  |
 **role** | MarkingRole | Yes |  |
 
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class GroupProviderInfoNotFoundParameters(TypedDict):
+class GroupProviderInfoNotFoundParameters(typing_extensions.TypedDict):
     """The given GroupProviderInfo could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: PrincipalId
+    groupId: core_models.PrincipalId
 
 
 @dataclass
-class GroupProviderInfoNotFound(NotFoundError):
-    name: Literal["GroupProviderInfoNotFound"]
+class GroupProviderInfoNotFound(errors.NotFoundError):
+    name: typing.Literal["GroupProviderInfoNotFound"]
     parameters: GroupProviderInfoNotFoundParameters
     error_instance_id: str
 

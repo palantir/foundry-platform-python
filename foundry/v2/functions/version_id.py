@@ -13,29 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.functions import errors as functions_errors
-from foundry.v2.functions.models._value_type_rid import ValueTypeRid
-from foundry.v2.functions.models._value_type_version_id import ValueTypeVersionId
-from foundry.v2.functions.models._version_id import VersionId
+from foundry.v2.functions import models as functions_models
 
 
 class VersionIdClient:
@@ -49,49 +36,49 @@ class VersionIdClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _VersionIdClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _VersionIdClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: ValueTypeRid,
-        version_id_version_id: ValueTypeVersionId,
+        value_type_rid: functions_models.ValueTypeRid,
+        version_id_version_id: functions_models.ValueTypeVersionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> VersionId:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> functions_models.VersionId:
         """
         Gets a specific value type with the given RID. The specified version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: ValueTypeRid
+        :type value_type_rid: functions_models.ValueTypeRid
         :param version_id_version_id: versionIdVersionId
-        :type version_id_version_id: ValueTypeVersionId
+        :type version_id_version_id: functions_models.ValueTypeVersionId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: VersionId
+        :rtype: functions_models.VersionId
 
         :raises VersionIdNotFound: The given VersionId could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/functions/valueTypes/{valueTypeRid}/versionIds/{versionIdVersionId}",
                 query_params={
@@ -106,7 +93,7 @@ class VersionIdClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=VersionId,
+                response_type=functions_models.VersionId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "VersionIdNotFound": functions_errors.VersionIdNotFound,
@@ -126,45 +113,45 @@ class _VersionIdClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: ValueTypeRid,
-        version_id_version_id: ValueTypeVersionId,
+        value_type_rid: functions_models.ValueTypeRid,
+        version_id_version_id: functions_models.ValueTypeVersionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[VersionId]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[functions_models.VersionId]:
         """
         Gets a specific value type with the given RID. The specified version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: ValueTypeRid
+        :type value_type_rid: functions_models.ValueTypeRid
         :param version_id_version_id: versionIdVersionId
-        :type version_id_version_id: ValueTypeVersionId
+        :type version_id_version_id: functions_models.ValueTypeVersionId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[VersionId]
+        :rtype: core.ApiResponse[functions_models.VersionId]
 
         :raises VersionIdNotFound: The given VersionId could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/functions/valueTypes/{valueTypeRid}/versionIds/{versionIdVersionId}",
                 query_params={
@@ -179,7 +166,7 @@ class _VersionIdClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=VersionId,
+                response_type=functions_models.VersionId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "VersionIdNotFound": functions_errors.VersionIdNotFound,
@@ -199,45 +186,45 @@ class _VersionIdClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: ValueTypeRid,
-        version_id_version_id: ValueTypeVersionId,
+        value_type_rid: functions_models.ValueTypeRid,
+        version_id_version_id: functions_models.ValueTypeVersionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[VersionId]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[functions_models.VersionId]:
         """
         Gets a specific value type with the given RID. The specified version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: ValueTypeRid
+        :type value_type_rid: functions_models.ValueTypeRid
         :param version_id_version_id: versionIdVersionId
-        :type version_id_version_id: ValueTypeVersionId
+        :type version_id_version_id: functions_models.ValueTypeVersionId
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[VersionId]
+        :rtype: core.StreamingContextManager[functions_models.VersionId]
 
         :raises VersionIdNotFound: The given VersionId could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/functions/valueTypes/{valueTypeRid}/versionIds/{versionIdVersionId}",
                 query_params={
@@ -252,7 +239,7 @@ class _VersionIdClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=VersionId,
+                response_type=functions_models.VersionId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "VersionIdNotFound": functions_errors.VersionIdNotFound,

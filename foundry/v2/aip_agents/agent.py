@@ -13,35 +13,18 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.aip_agents import errors as aip_agents_errors
-from foundry.v2.aip_agents.models._agent import Agent
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
-from foundry.v2.aip_agents.models._agents_sessions_page import AgentsSessionsPage
-from foundry.v2.aip_agents.models._session import Session
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.aip_agents import models as aip_agents_models
+from foundry.v2.core import models as core_models
 
 
 class AgentClient:
@@ -55,14 +38,14 @@ class AgentClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _AgentClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -88,37 +71,37 @@ class AgentClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def all_sessions(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[Session]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[aip_agents_models.Session]:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[Session]
+        :rtype: core.ResourceIterator[aip_agents_models.Session]
 
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/allSessions",
                 query_params={
@@ -132,7 +115,7 @@ class AgentClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentsSessionsPage,
+                response_type=aip_agents_models.AgentsSessionsPage,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
@@ -140,31 +123,31 @@ class AgentClient:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def all_sessions_page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AgentsSessionsPage:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.AgentsSessionsPage:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AgentsSessionsPage
+        :rtype: aip_agents_models.AgentsSessionsPage
 
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
@@ -176,7 +159,7 @@ class AgentClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/allSessions",
                 query_params={
@@ -190,7 +173,7 @@ class AgentClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentsSessionsPage,
+                response_type=aip_agents_models.AgentsSessionsPage,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
@@ -198,29 +181,29 @@ class AgentClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        version: Optional[AgentVersionString] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Agent:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        version: typing.Optional[aip_agents_models.AgentVersionString] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.Agent:
         """
         Get details for an AIP Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param version: version
-        :type version: Optional[AgentVersionString]
+        :type version: typing.Optional[aip_agents_models.AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Agent
+        :rtype: aip_agents_models.Agent
 
         :raises AgentNotFound: The given Agent could not be found.
         :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
@@ -228,7 +211,7 @@ class AgentClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}",
                 query_params={
@@ -243,7 +226,7 @@ class AgentClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Agent,
+                response_type=aip_agents_models.Agent,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
@@ -265,46 +248,46 @@ class _AgentClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def all_sessions(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AgentsSessionsPage]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.AgentsSessionsPage]:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AgentsSessionsPage]
+        :rtype: core.ApiResponse[aip_agents_models.AgentsSessionsPage]
 
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/allSessions",
                 query_params={
@@ -318,7 +301,7 @@ class _AgentClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentsSessionsPage,
+                response_type=aip_agents_models.AgentsSessionsPage,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
@@ -326,31 +309,31 @@ class _AgentClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def all_sessions_page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AgentsSessionsPage]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.AgentsSessionsPage]:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AgentsSessionsPage]
+        :rtype: core.ApiResponse[aip_agents_models.AgentsSessionsPage]
 
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
@@ -362,7 +345,7 @@ class _AgentClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/allSessions",
                 query_params={
@@ -376,7 +359,7 @@ class _AgentClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentsSessionsPage,
+                response_type=aip_agents_models.AgentsSessionsPage,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
@@ -384,29 +367,29 @@ class _AgentClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        version: Optional[AgentVersionString] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Agent]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        version: typing.Optional[aip_agents_models.AgentVersionString] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.Agent]:
         """
         Get details for an AIP Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param version: version
-        :type version: Optional[AgentVersionString]
+        :type version: typing.Optional[aip_agents_models.AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Agent]
+        :rtype: core.ApiResponse[aip_agents_models.Agent]
 
         :raises AgentNotFound: The given Agent could not be found.
         :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
@@ -414,7 +397,7 @@ class _AgentClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}",
                 query_params={
@@ -429,7 +412,7 @@ class _AgentClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Agent,
+                response_type=aip_agents_models.Agent,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
@@ -451,46 +434,46 @@ class _AgentClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def all_sessions(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AgentsSessionsPage]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.AgentsSessionsPage]:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AgentsSessionsPage]
+        :rtype: core.StreamingContextManager[aip_agents_models.AgentsSessionsPage]
 
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/allSessions",
                 query_params={
@@ -504,7 +487,7 @@ class _AgentClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentsSessionsPage,
+                response_type=aip_agents_models.AgentsSessionsPage,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
@@ -512,31 +495,31 @@ class _AgentClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def all_sessions_page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AgentsSessionsPage]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.AgentsSessionsPage]:
         """
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AgentsSessionsPage]
+        :rtype: core.StreamingContextManager[aip_agents_models.AgentsSessionsPage]
 
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
@@ -548,7 +531,7 @@ class _AgentClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/allSessions",
                 query_params={
@@ -562,7 +545,7 @@ class _AgentClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentsSessionsPage,
+                response_type=aip_agents_models.AgentsSessionsPage,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
@@ -570,29 +553,29 @@ class _AgentClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        version: Optional[AgentVersionString] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Agent]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        version: typing.Optional[aip_agents_models.AgentVersionString] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.Agent]:
         """
         Get details for an AIP Agent.
         :param agent_rid: agentRid
-        :type agent_rid: AgentRid
+        :type agent_rid: aip_agents_models.AgentRid
         :param preview: preview
-        :type preview: Optional[PreviewMode]
+        :type preview: typing.Optional[core_models.PreviewMode]
         :param version: version
-        :type version: Optional[AgentVersionString]
+        :type version: typing.Optional[aip_agents_models.AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Agent]
+        :rtype: core.StreamingContextManager[aip_agents_models.Agent]
 
         :raises AgentNotFound: The given Agent could not be found.
         :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
@@ -600,7 +583,7 @@ class _AgentClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}",
                 query_params={
@@ -615,7 +598,7 @@ class _AgentClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Agent,
+                response_type=aip_agents_models.Agent,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentNotFound": aip_agents_errors.AgentNotFound,

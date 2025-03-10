@@ -4,7 +4,7 @@ An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agen
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

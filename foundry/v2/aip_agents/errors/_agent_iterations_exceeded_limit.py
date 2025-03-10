@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class AgentIterationsExceededLimitParameters(TypedDict):
+class AgentIterationsExceededLimitParameters(typing_extensions.TypedDict):
     """
     The Agent was unable to produce an answer in the set number of maximum iterations.
     This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex.
@@ -34,17 +31,17 @@ class AgentIterationsExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
-    sessionRid: SessionRid
+    sessionRid: aip_agents_models.SessionRid
 
     details: str
     """Any additional details provided for the error."""
 
 
 @dataclass
-class AgentIterationsExceededLimit(BadRequestError):
-    name: Literal["AgentIterationsExceededLimit"]
+class AgentIterationsExceededLimit(errors.BadRequestError):
+    name: typing.Literal["AgentIterationsExceededLimit"]
     parameters: AgentIterationsExceededLimitParameters
     error_instance_id: str
 

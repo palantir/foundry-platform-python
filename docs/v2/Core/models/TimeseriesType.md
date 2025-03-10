@@ -5,8 +5,8 @@ TimeseriesType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**item_type** | Optional[TimeSeriesItemType] | No |  |
-**type** | Literal["timeseries"] | Yes | None |
+**item_type** | typing.Optional[TimeSeriesItemType] | No |  |
+**type** | typing.Literal["timeseries"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

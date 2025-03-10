@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidDurationGroupByValueParameters(TypedDict):
+class InvalidDurationGroupByValueParameters(typing_extensions.TypedDict):
     """
     Duration groupBy value is invalid. Units larger than day must have value `1` and date properties do not support
     filtering on units smaller than day. As examples, neither bucketing by every two weeks nor bucketing a date by
@@ -34,8 +32,8 @@ class InvalidDurationGroupByValueParameters(TypedDict):
 
 
 @dataclass
-class InvalidDurationGroupByValue(BadRequestError):
-    name: Literal["InvalidDurationGroupByValue"]
+class InvalidDurationGroupByValue(errors.BadRequestError):
+    name: typing.Literal["InvalidDurationGroupByValue"]
     parameters: InvalidDurationGroupByValueParameters
     error_instance_id: str
 

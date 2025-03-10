@@ -6,7 +6,7 @@ AggregationMetricResultV2
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **name** | str | Yes |  |
-**value** | NotRequired[Any] | No | The value of the metric. This will be a double in the case of a numeric metric, or a date string in the case of a date metric.  |
+**value** | typing_extensions.NotRequired[typing.Any] | No | The value of the metric. This will be a double in the case of a numeric metric, or a date string in the case of a date metric.  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

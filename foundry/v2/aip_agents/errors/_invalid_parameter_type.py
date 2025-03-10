@@ -13,20 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._parameter_id import ParameterId
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class InvalidParameterTypeParameters(TypedDict):
+class InvalidParameterTypeParameters(typing_extensions.TypedDict):
     """
     The provided value does not match the expected type for the application variable configured on the Agent for this session.
     Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio.
@@ -35,11 +31,11 @@ class InvalidParameterTypeParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
-    sessionRid: SessionRid
+    sessionRid: aip_agents_models.SessionRid
 
-    parameter: ParameterId
+    parameter: aip_agents_models.ParameterId
 
     expectedType: str
 
@@ -47,8 +43,8 @@ class InvalidParameterTypeParameters(TypedDict):
 
 
 @dataclass
-class InvalidParameterType(BadRequestError):
-    name: Literal["InvalidParameterType"]
+class InvalidParameterType(errors.BadRequestError):
+    name: typing.Literal["InvalidParameterType"]
     parameters: InvalidParameterTypeParameters
     error_instance_id: str
 

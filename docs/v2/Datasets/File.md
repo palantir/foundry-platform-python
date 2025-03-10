@@ -34,10 +34,10 @@ To **get a file's content from a specific transaction** specify the Transaction'
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**file_path** | FilePath | filePath |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
+**file_path** | core_models.FilePath | filePath |  |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
+**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **bytes**
@@ -55,13 +55,13 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# FilePath | filePath
+# core_models.FilePath | filePath
 file_path = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[TransactionRid] | endTransactionRid
+# typing.Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[TransactionRid] | startTransactionRid
+# typing.Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -111,9 +111,9 @@ open a transaction.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**file_path** | FilePath | filePath |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
+**file_path** | core_models.FilePath | filePath |  |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**transaction_rid** | typing.Optional[TransactionRid] | transactionRid | [optional] |
 
 ### Return type
 **None**
@@ -131,11 +131,11 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# FilePath | filePath
+# core_models.FilePath | filePath
 file_path = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[TransactionRid] | transactionRid
+# typing.Optional[TransactionRid] | transactionRid
 transaction_rid = None
 
 
@@ -190,10 +190,10 @@ To **get a file's metadata from a specific transaction** specify the Transaction
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**file_path** | FilePath | filePath |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
+**file_path** | core_models.FilePath | filePath |  |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
+**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **File**
@@ -211,13 +211,13 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# FilePath | filePath
+# core_models.FilePath | filePath
 file_path = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[TransactionRid] | endTransactionRid
+# typing.Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[TransactionRid] | startTransactionRid
+# typing.Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -275,14 +275,14 @@ Transaction.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
-**ResourceIterator[File]**
+**ListFilesResponse**
 
 ### Example
 
@@ -297,15 +297,15 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[TransactionRid] | endTransactionRid
+# typing.Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[TransactionRid] | startTransactionRid
+# typing.Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -363,11 +363,11 @@ Transaction.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **ListFilesResponse**
@@ -385,15 +385,15 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[TransactionRid] | endTransactionRid
+# typing.Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[TransactionRid] | startTransactionRid
+# typing.Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -447,11 +447,11 @@ See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**file_path** | FilePath | filePath |  |
+**file_path** | core_models.FilePath | filePath |  |
 **body** | bytes | Body of the request |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
-**transaction_type** | Optional[TransactionType] | transactionType | [optional] |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**transaction_rid** | typing.Optional[TransactionRid] | transactionRid | [optional] |
+**transaction_type** | typing.Optional[TransactionType] | transactionType | [optional] |
 
 ### Return type
 **File**
@@ -469,15 +469,15 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# FilePath | filePath
+# core_models.FilePath | filePath
 file_path = None
 # bytes | Body of the request
 body = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[TransactionRid] | transactionRid
+# typing.Optional[TransactionRid] | transactionRid
 transaction_rid = None
-# Optional[TransactionType] | transactionType
+# typing.Optional[TransactionType] | transactionType
 transaction_type = None
 
 

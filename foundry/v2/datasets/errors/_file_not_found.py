@@ -13,31 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._file_path import FilePath
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 
 
-class FileNotFoundParameters(TypedDict):
+class FileNotFoundParameters(typing_extensions.TypedDict):
     """The given File could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
-    filePath: FilePath
+    filePath: core_models.FilePath
 
 
 @dataclass
-class FileNotFound(NotFoundError):
-    name: Literal["FileNotFound"]
+class FileNotFound(errors.NotFoundError):
+    name: typing.Literal["FileNotFound"]
     parameters: FileNotFoundParameters
     error_instance_id: str
 

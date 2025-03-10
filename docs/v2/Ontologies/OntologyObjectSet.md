@@ -18,12 +18,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
-**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
-**accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**aggregation** | typing.List[typing.Union[AggregationV2, AggregationV2Dict]] |  |  |
+**group_by** | typing.List[typing.Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
+**object_set** | typing.Union[ObjectSet, ObjectSetDict] |  |  |
+**accuracy** | typing.Optional[AggregationAccuracyRequest] |  | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -41,17 +41,17 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# List[Union[AggregationV2, AggregationV2Dict]] |
+# typing.List[typing.Union[AggregationV2, AggregationV2Dict]] |
 aggregation = None
-# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
+# typing.List[typing.Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
 group_by = None
-# Union[ObjectSet, ObjectSetDict] |
+# typing.Union[ObjectSet, ObjectSetDict] |
 object_set = None
-# Optional[AggregationAccuracyRequest] |
+# typing.Optional[AggregationAccuracyRequest] |
 accuracy = None
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -97,7 +97,7 @@ following operation scopes: `api:ontologies-read api:ontologies-write`.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | typing.Union[ObjectSet, ObjectSetDict] |  |  |
 
 ### Return type
 **CreateTemporaryObjectSetResponseV2**
@@ -115,7 +115,7 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict] |
+# typing.Union[ObjectSet, ObjectSetDict] |
 object_set = {"type": "base", "objectType": "Employee"}
 
 
@@ -218,14 +218,14 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
-**select** | List[SelectedPropertyApiName] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | Optional[PageSize] |  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
+**object_set** | typing.Union[ObjectSet, ObjectSetDict] |  |  |
+**select** | typing.List[SelectedPropertyApiName] |  |  |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | typing.Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | typing.Optional[typing.Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] |  | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] |  | [optional] |
 
 ### Return type
 **LoadObjectSetResponseV2**
@@ -243,21 +243,21 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict] |
+# typing.Union[ObjectSet, ObjectSetDict] |
 object_set = {"type": "base", "objectType": "Employee"}
-# List[SelectedPropertyApiName] |
+# typing.List[SelectedPropertyApiName] |
 select = None
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+# typing.Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |
+# typing.Optional[typing.Union[SearchOrderByV2, SearchOrderByV2Dict]] |
 order_by = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[PageSize] |
+# typing.Optional[core_models.PageSize] |
 page_size = 10000
-# Optional[PageToken] |
+# typing.Optional[core_models.PageToken] |
 page_token = None
 
 

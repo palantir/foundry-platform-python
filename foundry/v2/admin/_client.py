@@ -13,11 +13,10 @@
 #  limitations under the License.
 
 
+import typing
 from functools import cached_property
-from typing import Optional
 
-from foundry._core import Auth
-from foundry._core import Config
+from foundry import _core as core
 
 
 class AdminClient:
@@ -31,9 +30,9 @@ class AdminClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname

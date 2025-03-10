@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
+from foundry import _errors as errors
+from foundry.v2.orchestration import models as orchestration_models
 
 
-class PauseSchedulePermissionDeniedParameters(TypedDict):
+class PauseSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not pause the Schedule."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: ScheduleRid
+    scheduleRid: orchestration_models.ScheduleRid
 
 
 @dataclass
-class PauseSchedulePermissionDenied(PermissionDeniedError):
-    name: Literal["PauseSchedulePermissionDenied"]
+class PauseSchedulePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["PauseSchedulePermissionDenied"]
     parameters: PauseSchedulePermissionDeniedParameters
     error_instance_id: str
 

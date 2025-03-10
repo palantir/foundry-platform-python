@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class BatchRequestSizeExceededLimitParameters(TypedDict):
+class BatchRequestSizeExceededLimitParameters(typing_extensions.TypedDict):
     """The submitted batch request was too large."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -35,8 +33,8 @@ class BatchRequestSizeExceededLimitParameters(TypedDict):
 
 
 @dataclass
-class BatchRequestSizeExceededLimit(BadRequestError):
-    name: Literal["BatchRequestSizeExceededLimit"]
+class BatchRequestSizeExceededLimit(errors.BadRequestError):
+    name: typing.Literal["BatchRequestSizeExceededLimit"]
     parameters: BatchRequestSizeExceededLimitParameters
     error_instance_id: str
 

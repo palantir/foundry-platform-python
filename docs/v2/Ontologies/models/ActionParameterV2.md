@@ -5,7 +5,8 @@ Details about a parameter of an action.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | Optional[str] | No |  |
+**display_name** | core_models.DisplayName | Yes |  |
+**description** | typing.Optional[str] | No |  |
 **data_type** | ActionParameterType | Yes |  |
 **required** | bool | Yes |  |
 

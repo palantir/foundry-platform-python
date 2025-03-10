@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
-from foundry.v1.ontologies.models._function_rid import FunctionRid
-from foundry.v1.ontologies.models._function_version import FunctionVersion
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class QueryMemoryExceededLimitParameters(TypedDict):
+class QueryMemoryExceededLimitParameters(typing_extensions.TypedDict):
     """Memory limits were exceeded for the `Query` execution."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
+    functionRid: ontologies_models.FunctionRid
 
-    functionVersion: FunctionVersion
+    functionVersion: ontologies_models.FunctionVersion
 
 
 @dataclass
-class QueryMemoryExceededLimit(InternalServerError):
-    name: Literal["QueryMemoryExceededLimit"]
+class QueryMemoryExceededLimit(errors.InternalServerError):
+    name: typing.Literal["QueryMemoryExceededLimit"]
     parameters: QueryMemoryExceededLimitParameters
     error_instance_id: str
 

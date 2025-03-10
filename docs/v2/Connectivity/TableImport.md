@@ -17,13 +17,13 @@ Creates a new TableImport.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**config** | Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
+**config** | typing.Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |  |  |
+**dataset_rid** | datasets_models.DatasetRid | The RID of the output dataset. |  |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
-**allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
-**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**allow_schema_changes** | typing.Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
+**branch_name** | typing.Optional[datasets_models.BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **TableImport**
@@ -41,19 +41,19 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |
+# typing.Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |
 config = None
-# DatasetRid | The RID of the output dataset.
+# datasets_models.DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # TableImportDisplayName |
 display_name = "My table import"
 # TableImportMode |
 import_mode = "SNAPSHOT"
-# Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
+# typing.Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
 allow_schema_changes = True
-# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+# typing.Optional[datasets_models.BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -100,7 +100,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **table_import_rid** | TableImportRid | tableImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -120,7 +120,7 @@ foundry_client = FoundryClient(
 connection_rid = None
 # TableImportRid | tableImportRid
 table_import_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -161,10 +161,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **table_import_rid** | TableImportRid | tableImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**BuildRid**
+**core_models.BuildRid**
 
 ### Example
 
@@ -181,7 +181,7 @@ foundry_client = FoundryClient(
 connection_rid = None
 # TableImportRid | tableImportRid
 table_import_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -207,7 +207,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | BuildRid  |  | application/json |
+**200** | core_models.BuildRid  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **table_import_rid** | TableImportRid | tableImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **TableImport**
@@ -240,7 +240,7 @@ foundry_client = FoundryClient(
 connection_rid = None
 # TableImportRid | tableImportRid
 table_import_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -280,12 +280,12 @@ Only table imports that the user has permissions to view will be returned.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**ResourceIterator[TableImport]**
+**ListTableImportsResponse**
 
 ### Example
 
@@ -300,11 +300,11 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -344,9 +344,9 @@ Only table imports that the user has permissions to view will be returned.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListTableImportsResponse**
@@ -364,11 +364,11 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 

@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class SearchVectorDimensionsDifferParameters(TypedDict):
+class SearchVectorDimensionsDifferParameters(typing_extensions.TypedDict):
     """The dimensions of the provided vector don't match the dimensions of the embedding model being queried."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class SearchVectorDimensionsDiffer(BadRequestError):
-    name: Literal["SearchVectorDimensionsDiffer"]
+class SearchVectorDimensionsDiffer(errors.BadRequestError):
+    name: typing.Literal["SearchVectorDimensionsDiffer"]
     parameters: SearchVectorDimensionsDifferParameters
     error_instance_id: str
 

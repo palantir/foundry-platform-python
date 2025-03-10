@@ -19,9 +19,9 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **query_api_name** | QueryApiName | queryApiName |  |
-**parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**parameters** | typing.Dict[ParameterId, typing.Optional[DataValue]] |  |  |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -41,11 +41,11 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # QueryApiName | queryApiName
 query_api_name = "getEmployeesInCity"
-# Dict[ParameterId, Optional[DataValue]] |
+# typing.Dict[ParameterId, typing.Optional[DataValue]] |
 parameters = {"city": "New York"}
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
 
 

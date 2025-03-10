@@ -10,27 +10,27 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-DateType | date
+core_models.DateType | date
 OntologyStructType | struct
 OntologySetType | set
-StringType | string
-ByteType | byte
-DoubleType | double
-IntegerType | integer
-FloatType | float
-AnyType | any
-LongType | long
-BooleanType | boolean
-CipherTextType | cipherText
-MarkingType | marking
-UnsupportedType | unsupported
+core_models.StringType | string
+core_models.ByteType | byte
+core_models.DoubleType | double
+core_models.IntegerType | integer
+core_models.FloatType | float
+core_models.AnyType | any
+core_models.LongType | long
+core_models.BooleanType | boolean
+core_models.CipherTextType | cipherText
+core_models.MarkingType | marking
+core_models.UnsupportedType | unsupported
 OntologyArrayType | array
 OntologyObjectSetType | objectSet
-BinaryType | binary
-ShortType | short
-DecimalType | decimal
+core_models.BinaryType | binary
+core_models.ShortType | short
+core_models.DecimalType | decimal
 OntologyMapType | map
-TimestampType | timestamp
+core_models.TimestampType | timestamp
 OntologyObjectType | object
 
 

@@ -13,32 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
-from foundry.v2.ontologies.models._interface_type_rid import InterfaceTypeRid
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class InterfaceTypeNotFoundParameters(TypedDict):
+class InterfaceTypeNotFoundParameters(typing_extensions.TypedDict):
     """The requested interface type is not found, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: NotRequired[InterfaceTypeApiName]
+    apiName: typing_extensions.NotRequired[ontologies_models.InterfaceTypeApiName]
 
-    rid: NotRequired[InterfaceTypeRid]
+    rid: typing_extensions.NotRequired[ontologies_models.InterfaceTypeRid]
 
 
 @dataclass
-class InterfaceTypeNotFound(NotFoundError):
-    name: Literal["InterfaceTypeNotFound"]
+class InterfaceTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["InterfaceTypeNotFound"]
     parameters: InterfaceTypeNotFoundParameters
     error_instance_id: str
 

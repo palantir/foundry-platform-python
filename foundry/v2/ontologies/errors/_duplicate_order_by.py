@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class DuplicateOrderByParameters(TypedDict):
+class DuplicateOrderByParameters(typing_extensions.TypedDict):
     """The requested sort order includes duplicate properties."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    properties: List[PropertyApiName]
+    properties: typing.List[ontologies_models.PropertyApiName]
 
 
 @dataclass
-class DuplicateOrderBy(BadRequestError):
-    name: Literal["DuplicateOrderBy"]
+class DuplicateOrderBy(errors.BadRequestError):
+    name: typing.Literal["DuplicateOrderBy"]
     parameters: DuplicateOrderByParameters
     error_instance_id: str
 

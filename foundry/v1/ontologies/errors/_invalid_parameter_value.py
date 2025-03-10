@@ -13,22 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._data_value import DataValue
-from foundry.v1.ontologies.models._ontology_data_type import OntologyDataType
-from foundry.v1.ontologies.models._parameter_id import ParameterId
-from foundry.v1.ontologies.models._value_type import ValueType
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class InvalidParameterValueParameters(TypedDict):
+class InvalidParameterValueParameters(typing_extensions.TypedDict):
     """
     The value of the given parameter is invalid. See the documentation of `DataValue` for details on
     how parameters are represented.
@@ -36,18 +30,18 @@ class InvalidParameterValueParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parameterBaseType: NotRequired[ValueType]
+    parameterBaseType: typing_extensions.NotRequired[ontologies_models.ValueType]
 
-    parameterDataType: NotRequired[OntologyDataType]
+    parameterDataType: typing_extensions.NotRequired[ontologies_models.OntologyDataType]
 
-    parameterId: ParameterId
+    parameterId: ontologies_models.ParameterId
 
-    parameterValue: NotRequired[DataValue]
+    parameterValue: typing_extensions.NotRequired[ontologies_models.DataValue]
 
 
 @dataclass
-class InvalidParameterValue(BadRequestError):
-    name: Literal["InvalidParameterValue"]
+class InvalidParameterValue(errors.BadRequestError):
+    name: typing.Literal["InvalidParameterValue"]
     parameters: InvalidParameterValueParameters
     error_instance_id: str
 

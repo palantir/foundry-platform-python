@@ -6,7 +6,7 @@ HeaderApiKey
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **header_name** | str | Yes | The name of the header that the API key is passed in. |
-**type** | Literal["header"] | Yes | None |
+**type** | typing.Literal["header"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

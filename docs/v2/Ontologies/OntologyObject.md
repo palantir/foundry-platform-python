@@ -21,12 +21,12 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
-**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
-**accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
+**aggregation** | typing.List[typing.Union[AggregationV2, AggregationV2Dict]] |  |  |
+**group_by** | typing.List[typing.Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
+**accuracy** | typing.Optional[AggregationAccuracyRequest] |  | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**where** | typing.Optional[typing.Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -46,12 +46,12 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# List[Union[AggregationV2, AggregationV2Dict]] |
+# typing.List[typing.Union[AggregationV2, AggregationV2Dict]] |
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
+# typing.List[typing.Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
 group_by = [
     {
         "field": "startDate",
@@ -60,13 +60,13 @@ group_by = [
     },
     {"field": "city", "type": "exact"},
 ]
-# Optional[AggregationAccuracyRequest] |
+# typing.Optional[AggregationAccuracyRequest] |
 accuracy = None
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
+# typing.Optional[typing.Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
 where = {"type": "eq", "field": "name", "value": "john"}
 
 
@@ -113,8 +113,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **CountObjectsResponseV2**
@@ -134,9 +134,9 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -180,10 +180,10 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | excludeRid | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | typing.Optional[bool] | excludeRid | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**select** | typing.Optional[typing.List[SelectedPropertyApiName]] | select | [optional] |
 
 ### Return type
 **OntologyObjectV2**
@@ -205,13 +205,13 @@ ontology = "palantir"
 object_type = "employee"
 # PropertyValueEscapedString | primaryKey
 primary_key = 50030
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[bool] | excludeRid
+# typing.Optional[bool] | excludeRid
 exclude_rid = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[List[SelectedPropertyApiName]] | select
+# typing.Optional[typing.List[SelectedPropertyApiName]] | select
 select = None
 
 
@@ -269,16 +269,16 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | excludeRid | [optional] |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | typing.Optional[bool] | excludeRid | [optional] |
+**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**select** | typing.Optional[typing.List[SelectedPropertyApiName]] | select | [optional] |
 
 ### Return type
-**ResourceIterator[OntologyObjectV2]**
+**ListObjectsResponseV2**
 
 ### Example
 
@@ -295,19 +295,19 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[bool] | excludeRid
+# typing.Optional[bool] | excludeRid
 exclude_rid = None
-# Optional[OrderBy] | orderBy
+# typing.Optional[OrderBy] | orderBy
 order_by = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | select
+# typing.Optional[typing.List[SelectedPropertyApiName]] | select
 select = None
 
 
@@ -366,13 +366,13 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | excludeRid | [optional] |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | typing.Optional[bool] | excludeRid | [optional] |
+**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**select** | typing.Optional[typing.List[SelectedPropertyApiName]] | select | [optional] |
 
 ### Return type
 **ListObjectsResponseV2**
@@ -392,19 +392,19 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[bool] | excludeRid
+# typing.Optional[bool] | excludeRid
 exclude_rid = None
-# Optional[OrderBy] | orderBy
+# typing.Optional[OrderBy] | orderBy
 order_by = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | select
+# typing.Optional[typing.List[SelectedPropertyApiName]] | select
 select = None
 
 
@@ -474,14 +474,14 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **object_type** | ObjectTypeApiName | objectType |  |
-**select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | Optional[PageSize] |  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
-**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
+**select** | typing.List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
+**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | typing.Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | typing.Optional[typing.Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**page_size** | typing.Optional[core_models.PageSize] |  | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] |  | [optional] |
+**where** | typing.Optional[typing.Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
 
 ### Return type
 **SearchObjectsResponseV2**
@@ -501,21 +501,21 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # ObjectTypeApiName | objectType
 object_type = "employee"
-# List[PropertyApiName] | The API names of the object type properties to include in the response.
+# typing.List[PropertyApiName] | The API names of the object type properties to include in the response.
 select = None
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# typing.Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+# typing.Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |
+# typing.Optional[typing.Union[SearchOrderByV2, SearchOrderByV2Dict]] |
 order_by = None
-# Optional[SdkPackageName] | packageName
+# typing.Optional[SdkPackageName] | packageName
 package_name = None
-# Optional[PageSize] |
+# typing.Optional[core_models.PageSize] |
 page_size = None
-# Optional[PageToken] |
+# typing.Optional[core_models.PageToken] |
 page_token = None
-# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
+# typing.Optional[typing.Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
 where = {"type": "eq", "field": "age", "value": 21}
 
 

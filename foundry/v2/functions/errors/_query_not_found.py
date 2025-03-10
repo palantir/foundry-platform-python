@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.functions.models._query_api_name import QueryApiName
+from foundry import _errors as errors
+from foundry.v2.functions import models as functions_models
 
 
-class QueryNotFoundParameters(TypedDict):
+class QueryNotFoundParameters(typing_extensions.TypedDict):
     """The given Query could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryApiName: QueryApiName
+    queryApiName: functions_models.QueryApiName
 
 
 @dataclass
-class QueryNotFound(NotFoundError):
-    name: Literal["QueryNotFound"]
+class QueryNotFound(errors.NotFoundError):
+    name: typing.Literal["QueryNotFound"]
     parameters: QueryNotFoundParameters
     error_instance_id: str
 

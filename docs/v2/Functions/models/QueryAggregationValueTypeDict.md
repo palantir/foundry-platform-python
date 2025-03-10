@@ -10,9 +10,9 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-DateTypeDict | date
-DoubleTypeDict | double
-TimestampTypeDict | timestamp
+core_models.DateTypeDict | date
+core_models.DoubleTypeDict | double
+core_models.TimestampTypeDict | timestamp
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

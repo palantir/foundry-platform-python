@@ -9,8 +9,8 @@ by the implementing object types.
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | InterfaceLinkTypeRid | Yes |  |
 **api_name** | InterfaceLinkTypeApiName | Yes |  |
-**display_name** | DisplayName | Yes |  |
-**description** | Optional[str] | No | The description of the interface link type. |
+**display_name** | core_models.DisplayName | Yes |  |
+**description** | typing.Optional[str] | No | The description of the interface link type. |
 **linked_entity_api_name** | InterfaceLinkTypeLinkedEntityApiName | Yes |  |
 **cardinality** | InterfaceLinkTypeCardinality | Yes |  |
 **required** | bool | Yes | Whether each implementing object type must declare at least one implementation of this link.  |

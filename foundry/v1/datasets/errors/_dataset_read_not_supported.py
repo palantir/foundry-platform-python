@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v1.datasets import models as datasets_models
 
 
-class DatasetReadNotSupportedParameters(TypedDict):
+class DatasetReadNotSupportedParameters(typing_extensions.TypedDict):
     """The dataset does not support being read."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
 
 @dataclass
-class DatasetReadNotSupported(BadRequestError):
-    name: Literal["DatasetReadNotSupported"]
+class DatasetReadNotSupported(errors.BadRequestError):
+    name: typing.Literal["DatasetReadNotSupported"]
     parameters: DatasetReadNotSupportedParameters
     error_instance_id: str
 

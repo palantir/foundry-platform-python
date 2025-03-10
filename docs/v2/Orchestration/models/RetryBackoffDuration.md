@@ -5,7 +5,7 @@ The duration to wait before retrying after a Job fails.
 
 ## Type
 ```python
-Duration
+core_models.Duration
 ```
 
 

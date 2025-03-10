@@ -13,7 +13,7 @@ Get the ScheduleVersion with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_version_rid** | ScheduleVersionRid | scheduleVersionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **ScheduleVersion**
@@ -31,7 +31,7 @@ foundry_client = FoundryClient(
 
 # ScheduleVersionRid | scheduleVersionRid
 schedule_version_rid = "ri.scheduler.main.schedule-version.4d1eb55f-6c13-411c-a911-5d84e08d8017"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -68,10 +68,10 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_version_rid** | ScheduleVersionRid | scheduleVersionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
-**Optional[Schedule]**
+**typing.Optional[Schedule]**
 
 ### Example
 
@@ -86,7 +86,7 @@ foundry_client = FoundryClient(
 
 # ScheduleVersionRid | scheduleVersionRid
 schedule_version_rid = "ri.scheduler.main.schedule-version.4d1eb55f-6c13-411c-a911-5d84e08d8017"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -111,7 +111,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Optional[Schedule]  |  | application/json |
+**200** | typing.Optional[Schedule]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

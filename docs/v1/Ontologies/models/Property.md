@@ -5,8 +5,8 @@ Details about some property of an object.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | Optional[str] | No |  |
-**display_name** | Optional[DisplayName] | No |  |
+**description** | typing.Optional[str] | No |  |
+**display_name** | typing.Optional[core_models.DisplayName] | No |  |
 **base_type** | ValueType | Yes |  |
 
 

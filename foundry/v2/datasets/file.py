@@ -13,41 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._file_path import FilePath
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.datasets import errors as datasets_errors
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._file import File
-from foundry.v2.datasets.models._list_files_response import ListFilesResponse
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
-from foundry.v2.datasets.models._transaction_type import TransactionType
+from foundry.v2.datasets import models as datasets_models
 
 
 class FileClient:
@@ -61,35 +37,35 @@ class FileClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _FileClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _FileClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def content(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        stream: Literal[True],
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -110,15 +86,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -126,7 +102,7 @@ class FileClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -135,17 +111,17 @@ class FileClient:
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def content(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
@@ -167,15 +143,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -190,22 +166,22 @@ class FileClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def content(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         stream: bool,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -226,15 +202,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -242,7 +218,7 @@ class FileClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -251,21 +227,21 @@ class FileClient:
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def content(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -286,15 +262,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -302,7 +278,7 @@ class FileClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -318,7 +294,7 @@ class FileClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}/content",
                 query_params={
@@ -348,17 +324,17 @@ class FileClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
@@ -373,13 +349,13 @@ class FileClient:
         open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -392,7 +368,7 @@ class FileClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -417,19 +393,19 @@ class FileClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> File:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.File:
         """
         Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
         view of the default branch - `master` for most enrollments.
@@ -449,19 +425,19 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: File
+        :rtype: datasets_models.File
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -470,7 +446,7 @@ class FileClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -487,7 +463,7 @@ class FileClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -498,20 +474,20 @@ class FileClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[File]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[datasets_models.File]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -533,28 +509,28 @@ class FileClient:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[File]
+        :rtype: core.ResourceIterator[datasets_models.File]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files",
                 query_params={
@@ -572,7 +548,7 @@ class FileClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -581,20 +557,20 @@ class FileClient:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListFilesResponse:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.ListFilesResponse:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -616,21 +592,21 @@ class FileClient:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListFilesResponse
+        :rtype: datasets_models.ListFilesResponse
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -643,7 +619,7 @@ class FileClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files",
                 query_params={
@@ -661,7 +637,7 @@ class FileClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -670,20 +646,20 @@ class FileClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         body: bytes,
         *,
-        branch_name: Optional[BranchName] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> File:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.File:
         """
         Uploads a File to an existing Dataset.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -700,21 +676,21 @@ class FileClient:
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: File
+        :rtype: datasets_models.File
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -724,7 +700,7 @@ class FileClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}/upload",
                 query_params={
@@ -742,7 +718,7 @@ class FileClient:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -766,28 +742,28 @@ class _FileClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def content(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -808,19 +784,19 @@ class _FileClientRaw:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -829,7 +805,7 @@ class _FileClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}/content",
                 query_params={
@@ -857,18 +833,18 @@ class _FileClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
         branch - `master` for most enrollments. The file will still be visible on historical views.
@@ -882,17 +858,17 @@ class _FileClientRaw:
         open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DeleteFilePermissionDenied: Could not delete the File.
@@ -901,7 +877,7 @@ class _FileClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -926,19 +902,19 @@ class _FileClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[File]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.File]:
         """
         Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
         view of the default branch - `master` for most enrollments.
@@ -958,19 +934,19 @@ class _FileClientRaw:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[File]
+        :rtype: core.ApiResponse[datasets_models.File]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -979,7 +955,7 @@ class _FileClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -996,7 +972,7 @@ class _FileClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -1007,20 +983,20 @@ class _FileClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListFilesResponse]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -1042,28 +1018,28 @@ class _FileClientRaw:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListFilesResponse]
+        :rtype: core.ApiResponse[datasets_models.ListFilesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files",
                 query_params={
@@ -1081,7 +1057,7 @@ class _FileClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -1090,20 +1066,20 @@ class _FileClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListFilesResponse]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -1125,21 +1101,21 @@ class _FileClientRaw:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListFilesResponse]
+        :rtype: core.ApiResponse[datasets_models.ListFilesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -1152,7 +1128,7 @@ class _FileClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files",
                 query_params={
@@ -1170,7 +1146,7 @@ class _FileClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -1179,20 +1155,20 @@ class _FileClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         body: bytes,
         *,
-        branch_name: Optional[BranchName] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[File]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.File]:
         """
         Uploads a File to an existing Dataset.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -1209,21 +1185,21 @@ class _FileClientRaw:
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[File]
+        :rtype: core.ApiResponse[datasets_models.File]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -1233,7 +1209,7 @@ class _FileClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}/upload",
                 query_params={
@@ -1251,7 +1227,7 @@ class _FileClientRaw:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -1275,28 +1251,28 @@ class _FileClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def content(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
         view of the default branch - `master` for most enrollments.
@@ -1317,19 +1293,19 @@ class _FileClientStreaming:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -1338,7 +1314,7 @@ class _FileClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}/content",
                 query_params={
@@ -1366,18 +1342,18 @@ class _FileClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
         branch - `master` for most enrollments. The file will still be visible on historical views.
@@ -1391,17 +1367,17 @@ class _FileClientStreaming:
         open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DeleteFilePermissionDenied: Could not delete the File.
@@ -1410,7 +1386,7 @@ class _FileClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -1435,19 +1411,19 @@ class _FileClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[File]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.File]:
         """
         Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
         view of the default branch - `master` for most enrollments.
@@ -1467,19 +1443,19 @@ class _FileClientStreaming:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[File]
+        :rtype: core.StreamingContextManager[datasets_models.File]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -1488,7 +1464,7 @@ class _FileClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}",
                 query_params={
@@ -1505,7 +1481,7 @@ class _FileClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -1516,20 +1492,20 @@ class _FileClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListFilesResponse]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -1551,28 +1527,28 @@ class _FileClientStreaming:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListFilesResponse]
+        :rtype: core.StreamingContextManager[datasets_models.ListFilesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files",
                 query_params={
@@ -1590,7 +1566,7 @@ class _FileClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -1599,20 +1575,20 @@ class _FileClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListFilesResponse]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.ListFilesResponse]:
         """
         Lists Files contained in a Dataset. By default files are listed on the latest view of the default
         branch - `master` for most enrollments.
@@ -1634,21 +1610,21 @@ class _FileClientStreaming:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: Optional[TransactionRid]
+        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param page_size: pageSize
-        :type page_size: Optional[PageSize]
+        :type page_size: typing.Optional[core_models.PageSize]
         :param page_token: pageToken
-        :type page_token: Optional[PageToken]
+        :type page_token: typing.Optional[core_models.PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: Optional[TransactionRid]
+        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListFilesResponse]
+        :rtype: core.StreamingContextManager[datasets_models.ListFilesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -1661,7 +1637,7 @@ class _FileClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/files",
                 query_params={
@@ -1679,7 +1655,7 @@ class _FileClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListFilesResponse,
+                response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -1688,20 +1664,20 @@ class _FileClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: DatasetRid,
-        file_path: FilePath,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         body: bytes,
         *,
-        branch_name: Optional[BranchName] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        transaction_type: Optional[TransactionType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[File]:
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        transaction_type: typing.Optional[datasets_models.TransactionType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.File]:
         """
         Uploads a File to an existing Dataset.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -1718,21 +1694,21 @@ class _FileClientStreaming:
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: datasets_models.DatasetRid
         :param file_path: filePath
-        :type file_path: FilePath
+        :type file_path: core_models.FilePath
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: Optional[BranchName]
+        :type branch_name: typing.Optional[datasets_models.BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: Optional[TransactionRid]
+        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: Optional[TransactionType]
+        :type transaction_type: typing.Optional[datasets_models.TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[File]
+        :rtype: core.StreamingContextManager[datasets_models.File]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -1742,7 +1718,7 @@ class _FileClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/files/{filePath}/upload",
                 query_params={
@@ -1760,7 +1736,7 @@ class _FileClientStreaming:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=File,
+                response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,

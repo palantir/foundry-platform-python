@@ -6,12 +6,12 @@ Represents an action type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | ActionTypeApiName | Yes |  |
-**description** | Optional[str] | No |  |
-**display_name** | Optional[DisplayName] | No |  |
-**status** | ReleaseStatus | Yes |  |
-**parameters** | Dict[ParameterId, Parameter] | Yes |  |
+**description** | typing.Optional[str] | No |  |
+**display_name** | typing.Optional[core_models.DisplayName] | No |  |
+**status** | core_models.ReleaseStatus | Yes |  |
+**parameters** | typing.Dict[ParameterId, Parameter] | Yes |  |
 **rid** | ActionTypeRid | Yes |  |
-**operations** | List[LogicRule] | Yes |  |
+**operations** | typing.List[LogicRule] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

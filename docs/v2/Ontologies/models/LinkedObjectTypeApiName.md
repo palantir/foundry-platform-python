@@ -6,7 +6,7 @@ A reference to the linked object type.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | ObjectTypeApiName | Yes |  |
-**type** | Literal["objectTypeApiName"] | Yes | None |
+**type** | typing.Literal["objectTypeApiName"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

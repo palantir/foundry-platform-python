@@ -19,13 +19,13 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**transitive** | Optional[bool] | transitive | [optional] |
+**user_id** | core_models.PrincipalId | userId |  |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**transitive** | typing.Optional[bool] | transitive | [optional] |
 
 ### Return type
-**ResourceIterator[GroupMembership]**
+**ListGroupMembershipsResponse**
 
 ### Example
 
@@ -38,13 +38,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
+# core_models.PrincipalId | userId
 user_id = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[bool] | transitive
+# typing.Optional[bool] | transitive
 transitive = None
 
 
@@ -88,10 +88,10 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId | userId |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**transitive** | Optional[bool] | transitive | [optional] |
+**user_id** | core_models.PrincipalId | userId |  |
+**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
+**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**transitive** | typing.Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ListGroupMembershipsResponse**
@@ -107,13 +107,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | userId
+# core_models.PrincipalId | userId
 user_id = None
-# Optional[PageSize] | pageSize
+# typing.Optional[core_models.PageSize] | pageSize
 page_size = None
-# Optional[PageToken] | pageToken
+# typing.Optional[core_models.PageToken] | pageToken
 page_token = None
-# Optional[bool] | transitive
+# typing.Optional[bool] | transitive
 transitive = None
 
 

@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._table_import_rid import TableImportRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class DeleteTableImportPermissionDeniedParameters(TypedDict):
+class DeleteTableImportPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not delete the TableImport."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    tableImportRid: TableImportRid
+    tableImportRid: connectivity_models.TableImportRid
 
-    connectionRid: ConnectionRid
+    connectionRid: connectivity_models.ConnectionRid
 
 
 @dataclass
-class DeleteTableImportPermissionDenied(PermissionDeniedError):
-    name: Literal["DeleteTableImportPermissionDenied"]
+class DeleteTableImportPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DeleteTableImportPermissionDenied"]
     parameters: DeleteTableImportPermissionDeniedParameters
     error_instance_id: str
 

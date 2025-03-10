@@ -7,10 +7,10 @@ variety of means. Either `field` or `propertyIdentifier` must be supplied, but n
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | NotRequired[PropertyApiName] | No |  |
-**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
+**field** | typing_extensions.NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | typing_extensions.NotRequired[PropertyIdentifierDict] | No |  |
 **value** | PropertyValue | Yes |  |
-**type** | Literal["contains"] | Yes | None |
+**type** | typing.Literal["contains"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

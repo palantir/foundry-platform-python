@@ -8,7 +8,7 @@ successfully.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | Yes |  |
-**type** | Literal["scheduleSucceeded"] | Yes | None |
+**type** | typing.Literal["scheduleSucceeded"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

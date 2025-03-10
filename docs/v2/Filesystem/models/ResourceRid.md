@@ -4,7 +4,7 @@ The unique resource identifier (RID) of a Resource.
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

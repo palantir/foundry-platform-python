@@ -13,32 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class BlockingContinueSessionPermissionDeniedParameters(TypedDict):
+class BlockingContinueSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not blockingContinue the Session."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
-    sessionRid: SessionRid
+    sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
 
 
 @dataclass
-class BlockingContinueSessionPermissionDenied(PermissionDeniedError):
-    name: Literal["BlockingContinueSessionPermissionDenied"]
+class BlockingContinueSessionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["BlockingContinueSessionPermissionDenied"]
     parameters: BlockingContinueSessionPermissionDeniedParameters
     error_instance_id: str
 

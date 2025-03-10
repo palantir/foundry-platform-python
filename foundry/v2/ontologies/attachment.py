@@ -13,35 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._content_length import ContentLength
-from foundry.v2.core.models._content_type import ContentType
-from foundry.v2.core.models._filename import Filename
-from foundry.v2.ontologies.models._attachment_rid import AttachmentRid
-from foundry.v2.ontologies.models._attachment_v2 import AttachmentV2
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class AttachmentClient:
@@ -55,28 +36,28 @@ class AttachmentClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _AttachmentClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _AttachmentClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AttachmentV2:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.AttachmentV2:
         """
         Get the metadata of an attachment.
 
@@ -84,15 +65,15 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AttachmentV2
+        :rtype: ontologies_models.AttachmentV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/attachments/{attachmentRid}",
                 query_params={},
@@ -104,24 +85,24 @@ class AttachmentClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        stream: Literal[True],
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Get the content of an attachment.
 
@@ -129,7 +110,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -137,17 +118,17 @@ class AttachmentClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def read(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Get the content of an attachment.
@@ -156,7 +137,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -166,18 +147,18 @@ class AttachmentClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         stream: bool,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment.
 
@@ -185,7 +166,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -193,21 +174,21 @@ class AttachmentClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment.
 
@@ -215,7 +196,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -223,7 +204,7 @@ class AttachmentClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -234,7 +215,7 @@ class AttachmentClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/attachments/{attachmentRid}/content",
                 query_params={},
@@ -254,18 +235,18 @@ class AttachmentClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
         body: bytes,
         *,
-        content_length: ContentLength,
-        content_type: ContentType,
-        filename: Filename,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AttachmentV2:
+        content_length: core_models.ContentLength,
+        content_type: core_models.ContentType,
+        filename: core_models.Filename,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.AttachmentV2:
         """
         Upload an attachment to use in an action. Any attachment which has not been linked to an object via
         an action within one hour after upload will be removed.
@@ -279,19 +260,19 @@ class AttachmentClient:
         :param body: Body of the request
         :type body: bytes
         :param content_length: Content-Length
-        :type content_length: ContentLength
+        :type content_length: core_models.ContentLength
         :param content_type: Content-Type
-        :type content_type: ContentType
+        :type content_type: core_models.ContentType
         :param filename: filename
-        :type filename: Filename
+        :type filename: core_models.Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AttachmentV2
+        :rtype: ontologies_models.AttachmentV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/attachments/upload",
                 query_params={
@@ -306,7 +287,7 @@ class AttachmentClient:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -324,24 +305,24 @@ class _AttachmentClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AttachmentV2]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.AttachmentV2]:
         """
         Get the metadata of an attachment.
 
@@ -349,15 +330,15 @@ class _AttachmentClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AttachmentV2]
+        :rtype: core.ApiResponse[ontologies_models.AttachmentV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/attachments/{attachmentRid}",
                 query_params={},
@@ -369,21 +350,21 @@ class _AttachmentClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Get the content of an attachment.
 
@@ -391,15 +372,15 @@ class _AttachmentClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/attachments/{attachmentRid}/content",
                 query_params={},
@@ -417,18 +398,18 @@ class _AttachmentClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
         body: bytes,
         *,
-        content_length: ContentLength,
-        content_type: ContentType,
-        filename: Filename,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AttachmentV2]:
+        content_length: core_models.ContentLength,
+        content_type: core_models.ContentType,
+        filename: core_models.Filename,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.AttachmentV2]:
         """
         Upload an attachment to use in an action. Any attachment which has not been linked to an object via
         an action within one hour after upload will be removed.
@@ -442,19 +423,19 @@ class _AttachmentClientRaw:
         :param body: Body of the request
         :type body: bytes
         :param content_length: Content-Length
-        :type content_length: ContentLength
+        :type content_length: core_models.ContentLength
         :param content_type: Content-Type
-        :type content_type: ContentType
+        :type content_type: core_models.ContentType
         :param filename: filename
-        :type filename: Filename
+        :type filename: core_models.Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AttachmentV2]
+        :rtype: core.ApiResponse[ontologies_models.AttachmentV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/attachments/upload",
                 query_params={
@@ -469,7 +450,7 @@ class _AttachmentClientRaw:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -487,24 +468,24 @@ class _AttachmentClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AttachmentV2]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.AttachmentV2]:
         """
         Get the metadata of an attachment.
 
@@ -512,15 +493,15 @@ class _AttachmentClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AttachmentV2]
+        :rtype: core.StreamingContextManager[ontologies_models.AttachmentV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/attachments/{attachmentRid}",
                 query_params={},
@@ -532,21 +513,21 @@ class _AttachmentClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        attachment_rid: AttachmentRid,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Get the content of an attachment.
 
@@ -554,15 +535,15 @@ class _AttachmentClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: ontologies_models.AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/attachments/{attachmentRid}/content",
                 query_params={},
@@ -580,18 +561,18 @@ class _AttachmentClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
         body: bytes,
         *,
-        content_length: ContentLength,
-        content_type: ContentType,
-        filename: Filename,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AttachmentV2]:
+        content_length: core_models.ContentLength,
+        content_type: core_models.ContentType,
+        filename: core_models.Filename,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.AttachmentV2]:
         """
         Upload an attachment to use in an action. Any attachment which has not been linked to an object via
         an action within one hour after upload will be removed.
@@ -605,19 +586,19 @@ class _AttachmentClientStreaming:
         :param body: Body of the request
         :type body: bytes
         :param content_length: Content-Length
-        :type content_length: ContentLength
+        :type content_length: core_models.ContentLength
         :param content_type: Content-Type
-        :type content_type: ContentType
+        :type content_type: core_models.ContentType
         :param filename: filename
-        :type filename: Filename
+        :type filename: core_models.Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AttachmentV2]
+        :rtype: core.StreamingContextManager[ontologies_models.AttachmentV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/attachments/upload",
                 query_params={
@@ -632,7 +613,7 @@ class _AttachmentClientStreaming:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=AttachmentV2,
+                response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

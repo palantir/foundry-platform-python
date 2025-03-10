@@ -13,18 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class AggregationMemoryExceededLimitParameters(TypedDict):
+class AggregationMemoryExceededLimitParameters(typing_extensions.TypedDict):
     """
     The amount of memory used in the request exceeded the limit. This can typically be fixed by
     adjusting your query to reduce the number of groups created by your aggregation. For instance:
@@ -35,14 +32,14 @@ class AggregationMemoryExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    memoryUsedBytes: NotRequired[str]
+    memoryUsedBytes: typing_extensions.NotRequired[str]
 
     memoryLimitBytes: str
 
 
 @dataclass
-class AggregationMemoryExceededLimit(BadRequestError):
-    name: Literal["AggregationMemoryExceededLimit"]
+class AggregationMemoryExceededLimit(errors.BadRequestError):
+    name: typing.Literal["AggregationMemoryExceededLimit"]
     parameters: AggregationMemoryExceededLimitParameters
     error_instance_id: str
 

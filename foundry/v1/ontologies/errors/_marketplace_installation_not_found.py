@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v1.ontologies.models._sdk_package_name import SdkPackageName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class MarketplaceInstallationNotFoundParameters(TypedDict):
+class MarketplaceInstallationNotFoundParameters(typing_extensions.TypedDict):
     """The given marketplace installation could not be found or the user does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    artifactRepository: ArtifactRepositoryRid
+    artifactRepository: ontologies_models.ArtifactRepositoryRid
 
-    packageName: SdkPackageName
+    packageName: ontologies_models.SdkPackageName
 
 
 @dataclass
-class MarketplaceInstallationNotFound(NotFoundError):
-    name: Literal["MarketplaceInstallationNotFound"]
+class MarketplaceInstallationNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceInstallationNotFound"]
     parameters: MarketplaceInstallationNotFoundParameters
     error_instance_id: str
 

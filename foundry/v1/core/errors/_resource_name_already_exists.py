@@ -13,30 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v1.core.models._folder_rid import FolderRid
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
 
 
-class ResourceNameAlreadyExistsParameters(TypedDict):
+class ResourceNameAlreadyExistsParameters(typing_extensions.TypedDict):
     """The provided resource name is already in use by another resource in the same folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parentFolderRid: FolderRid
+    parentFolderRid: core_models.FolderRid
 
     resourceName: str
 
 
 @dataclass
-class ResourceNameAlreadyExists(ConflictError):
-    name: Literal["ResourceNameAlreadyExists"]
+class ResourceNameAlreadyExists(errors.ConflictError):
+    name: typing.Literal["ResourceNameAlreadyExists"]
     parameters: ResourceNameAlreadyExistsParameters
     error_instance_id: str
 

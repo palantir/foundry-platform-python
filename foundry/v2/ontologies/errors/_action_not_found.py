@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.ontologies.models._action_rid import ActionRid
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class ActionNotFoundParameters(TypedDict):
+class ActionNotFoundParameters(typing_extensions.TypedDict):
     """The action is not found, or the user does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    actionRid: ActionRid
+    actionRid: ontologies_models.ActionRid
 
 
 @dataclass
-class ActionNotFound(NotFoundError):
-    name: Literal["ActionNotFound"]
+class ActionNotFound(errors.NotFoundError):
+    name: typing.Literal["ActionNotFound"]
     parameters: ActionNotFoundParameters
     error_instance_id: str
 

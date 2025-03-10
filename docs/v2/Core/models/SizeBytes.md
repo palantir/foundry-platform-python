@@ -4,7 +4,7 @@ The size of the file or attachment in bytes.
 
 ## Type
 ```python
-Long
+core.Long
 ```
 
 

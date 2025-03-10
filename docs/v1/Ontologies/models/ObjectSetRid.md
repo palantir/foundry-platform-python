@@ -4,7 +4,7 @@ ObjectSetRid
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

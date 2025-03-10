@@ -13,34 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.third_party_applications.models._third_party_application_rid import (
-    ThirdPartyApplicationRid,
-)  # NOQA
-from foundry.v2.third_party_applications.models._version_version import VersionVersion
+from foundry import _errors as errors
+from foundry.v2.third_party_applications import models as third_party_applications_models  # NOQA
 
 
-class DeleteVersionPermissionDeniedParameters(TypedDict):
+class DeleteVersionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not delete the Version."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    thirdPartyApplicationRid: ThirdPartyApplicationRid
+    thirdPartyApplicationRid: third_party_applications_models.ThirdPartyApplicationRid
     """An RID identifying a third-party application created in Developer Console."""
-    versionVersion: VersionVersion
+    versionVersion: third_party_applications_models.VersionVersion
     """The semantic version of the Website."""
 
 
 @dataclass
-class DeleteVersionPermissionDenied(PermissionDeniedError):
-    name: Literal["DeleteVersionPermissionDenied"]
+class DeleteVersionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DeleteVersionPermissionDenied"]
     parameters: DeleteVersionPermissionDeniedParameters
     error_instance_id: str
 

@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class PropertiesNotFilterableParameters(TypedDict):
+class PropertiesNotFilterableParameters(typing_extensions.TypedDict):
     """
     Results could not be filtered by the requested properties. Please mark the properties as *Searchable* and
     *Selectable* in the **Ontology Manager** to be able to filter on those properties. There may be a short delay
@@ -34,12 +31,12 @@ class PropertiesNotFilterableParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    properties: List[PropertyApiName]
+    properties: typing.List[ontologies_models.PropertyApiName]
 
 
 @dataclass
-class PropertiesNotFilterable(BadRequestError):
-    name: Literal["PropertiesNotFilterable"]
+class PropertiesNotFilterable(errors.BadRequestError):
+    name: typing.Literal["PropertiesNotFilterable"]
     parameters: PropertiesNotFilterableParameters
     error_instance_id: str
 

@@ -13,32 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
-from foundry.v1.ontologies.models._property_filter import PropertyFilter
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class InvalidPropertyFiltersCombinationParameters(TypedDict):
+class InvalidPropertyFiltersCombinationParameters(typing_extensions.TypedDict):
     """The provided filters cannot be used together."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    propertyFilters: List[PropertyFilter]
+    propertyFilters: typing.List[ontologies_models.PropertyFilter]
 
-    property: PropertyApiName
+    property: ontologies_models.PropertyApiName
 
 
 @dataclass
-class InvalidPropertyFiltersCombination(BadRequestError):
-    name: Literal["InvalidPropertyFiltersCombination"]
+class InvalidPropertyFiltersCombination(errors.BadRequestError):
+    name: typing.Literal["InvalidPropertyFiltersCombination"]
     parameters: InvalidPropertyFiltersCombinationParameters
     error_instance_id: str
 

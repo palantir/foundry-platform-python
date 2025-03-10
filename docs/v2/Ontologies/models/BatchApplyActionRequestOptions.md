@@ -5,7 +5,7 @@ BatchApplyActionRequestOptions
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**return_edits** | Optional[BatchReturnEditsMode] | No |  |
+**return_edits** | typing.Optional[BatchReturnEditsMode] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

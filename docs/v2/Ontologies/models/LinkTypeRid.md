@@ -4,7 +4,7 @@ LinkTypeRid
 
 ## Type
 ```python
-RID
+core.RID
 ```
 
 

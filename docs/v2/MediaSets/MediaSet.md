@@ -21,9 +21,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
 **transaction_id** | TransactionId | transactionId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -39,11 +39,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
 # TransactionId | transactionId
 transaction_id = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -83,9 +83,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
 **transaction_id** | TransactionId | transactionId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -101,11 +101,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
 # TransactionId | transactionId
 transaction_id = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -145,9 +145,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
 
 ### Return type
 **TransactionId**
@@ -163,11 +163,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
 
 
@@ -207,10 +207,10 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
-**media_item_rid** | MediaItemRid | mediaItemRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**read_token** | Optional[MediaItemReadToken] | ReadToken | [optional] |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
+**media_item_rid** | core_models.MediaItemRid | mediaItemRid |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**read_token** | typing.Optional[core_models.MediaItemReadToken] | ReadToken | [optional] |
 
 ### Return type
 **GetMediaItemInfoResponse**
@@ -226,13 +226,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
-# MediaItemRid | mediaItemRid
+# core_models.MediaItemRid | mediaItemRid
 media_item_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[MediaItemReadToken] | ReadToken
+# typing.Optional[core_models.MediaItemReadToken] | ReadToken
 read_token = None
 
 
@@ -273,10 +273,10 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
-**media_item_rid** | MediaItemRid | mediaItemRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**read_token** | Optional[MediaItemReadToken] | ReadToken | [optional] |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
+**media_item_rid** | core_models.MediaItemRid | mediaItemRid |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**read_token** | typing.Optional[core_models.MediaItemReadToken] | ReadToken | [optional] |
 
 ### Return type
 **bytes**
@@ -292,13 +292,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
-# MediaItemRid | mediaItemRid
+# core_models.MediaItemRid | mediaItemRid
 media_item_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[MediaItemReadToken] | ReadToken
+# typing.Optional[core_models.MediaItemReadToken] | ReadToken
 read_token = None
 
 
@@ -339,10 +339,10 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
-**media_item_rid** | MediaItemRid | mediaItemRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**read_token** | Optional[MediaItemReadToken] | ReadToken | [optional] |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
+**media_item_rid** | core_models.MediaItemRid | mediaItemRid |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**read_token** | typing.Optional[core_models.MediaItemReadToken] | ReadToken | [optional] |
 
 ### Return type
 **bytes**
@@ -358,13 +358,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
-# MediaItemRid | mediaItemRid
+# core_models.MediaItemRid | mediaItemRid
 media_item_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[MediaItemReadToken] | ReadToken
+# typing.Optional[core_models.MediaItemReadToken] | ReadToken
 read_token = None
 
 
@@ -405,13 +405,13 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
-**media_item_rid** | MediaItemRid | mediaItemRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**read_token** | Optional[MediaItemReadToken] | ReadToken | [optional] |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
+**media_item_rid** | core_models.MediaItemRid | mediaItemRid |  |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**read_token** | typing.Optional[core_models.MediaItemReadToken] | ReadToken | [optional] |
 
 ### Return type
-**MediaReference**
+**core_models.MediaReference**
 
 ### Example
 
@@ -424,13 +424,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
-# MediaItemRid | mediaItemRid
+# core_models.MediaItemRid | mediaItemRid
 media_item_rid = None
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[MediaItemReadToken] | ReadToken
+# typing.Optional[core_models.MediaItemReadToken] | ReadToken
 read_token = None
 
 
@@ -457,7 +457,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | MediaReference  |  | application/json |
+**200** | core_models.MediaReference  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -473,14 +473,14 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | mediaSetRid |  |
+**media_set_rid** | core_models.MediaSetRid | mediaSetRid |  |
 **body** | bytes | Body of the request |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**branch_rid** | Optional[BranchRid] | branchRid | [optional] |
-**media_item_path** | Optional[MediaItemPath] | mediaItemPath | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**transaction_id** | Optional[TransactionId] | transactionId | [optional] |
-**view_rid** | Optional[MediaSetViewRid] | viewRid | [optional] |
+**branch_name** | typing.Optional[BranchName] | branchName | [optional] |
+**branch_rid** | typing.Optional[BranchRid] | branchRid | [optional] |
+**media_item_path** | typing.Optional[core_models.MediaItemPath] | mediaItemPath | [optional] |
+**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**transaction_id** | typing.Optional[TransactionId] | transactionId | [optional] |
+**view_rid** | typing.Optional[core_models.MediaSetViewRid] | viewRid | [optional] |
 
 ### Return type
 **PutMediaItemResponse**
@@ -496,21 +496,21 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | mediaSetRid
+# core_models.MediaSetRid | mediaSetRid
 media_set_rid = None
 # bytes | Body of the request
 body = None
-# Optional[BranchName] | branchName
+# typing.Optional[BranchName] | branchName
 branch_name = None
-# Optional[BranchRid] | branchRid
+# typing.Optional[BranchRid] | branchRid
 branch_rid = None
-# Optional[MediaItemPath] | mediaItemPath
+# typing.Optional[core_models.MediaItemPath] | mediaItemPath
 media_item_path = "q3-data%2fmy-file.png"
-# Optional[PreviewMode] | preview
+# typing.Optional[core_models.PreviewMode] | preview
 preview = None
-# Optional[TransactionId] | transactionId
+# typing.Optional[TransactionId] | transactionId
 transaction_id = None
-# Optional[MediaSetViewRid] | viewRid
+# typing.Optional[core_models.MediaSetViewRid] | viewRid
 view_rid = None
 
 

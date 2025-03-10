@@ -5,7 +5,7 @@ A record to be published to a stream.
 
 ## Type
 ```python
-Dict[str, Any]
+typing.Dict[str, typing.Any]
 ```
 
 
