@@ -28,6 +28,7 @@ class BatchRequestSizeExceededLimitParameters(typing_extensions.TypedDict):
 
     MaximumBatchSize: int
     """The maximum size of batch requests that can be sent to this endpoint."""
+
     ProvidedBatchSize: int
     """The size of the batch request that was sent to this endpoint."""
 

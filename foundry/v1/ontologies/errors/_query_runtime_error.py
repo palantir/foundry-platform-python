@@ -28,13 +28,9 @@ class QueryRuntimeErrorParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     functionRid: ontologies_models.FunctionRid
-
     functionVersion: ontologies_models.FunctionVersion
-
     message: typing_extensions.NotRequired[str]
-
     stacktrace: typing_extensions.NotRequired[str]
-
     parameters: typing.Dict[ontologies_models.QueryRuntimeErrorParameter, str]
 
 

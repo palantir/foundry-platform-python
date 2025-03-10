@@ -28,7 +28,6 @@ class UnknownDistanceUnitParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     unknownUnit: str
-
     knownUnits: typing.List[core_models.DistanceUnit]
 
 

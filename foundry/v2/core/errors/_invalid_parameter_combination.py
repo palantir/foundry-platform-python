@@ -27,7 +27,6 @@ class InvalidParameterCombinationParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     validCombinations: typing.List[typing.List[str]]
-
     providedParameters: typing.List[str]
 
 

@@ -28,7 +28,6 @@ class CreateTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     branchName: typing_extensions.NotRequired[datasets_models.BranchName]
 
 

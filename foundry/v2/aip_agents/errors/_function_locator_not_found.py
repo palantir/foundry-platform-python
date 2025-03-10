@@ -32,11 +32,10 @@ class FunctionLocatorNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-
     sessionRid: typing_extensions.NotRequired[aip_agents_models.SessionRid]
     """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
-    functionRid: core.RID
 
+    functionRid: core.RID
     functionVersion: str
 
 

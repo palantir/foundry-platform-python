@@ -29,6 +29,7 @@ class DeleteVersionPermissionDeniedParameters(typing_extensions.TypedDict):
 
     thirdPartyApplicationRid: third_party_applications_models.ThirdPartyApplicationRid
     """An RID identifying a third-party application created in Developer Console."""
+
     versionVersion: third_party_applications_models.VersionVersion
     """The semantic version of the Website."""
 

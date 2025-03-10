@@ -30,11 +30,8 @@ class InvalidGroupMembershipExpirationParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     groupId: core_models.PrincipalId
-
     expirationProvided: typing_extensions.NotRequired[admin_models.GroupMembershipExpiration]
-
     maximumDuration: typing_extensions.NotRequired[str]
-
     latestExpiration: typing_extensions.NotRequired[datetime]
 
 

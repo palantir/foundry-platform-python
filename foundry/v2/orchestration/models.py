@@ -33,23 +33,15 @@ class Action(pydantic.BaseModel):
     """Action"""
 
     target: BuildTarget
-
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-
     """The target branch the schedule should run on."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
-
     force_build: ForceBuild = pydantic.Field(alias=str("forceBuild"))  # type: ignore[literal-required]
-
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
-
     retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
-
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
-
     notifications_enabled: NotificationsEnabled = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ActionDict":
@@ -63,20 +55,14 @@ class ActionDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     target: BuildTargetDict
-
     branchName: datasets_models.BranchName
     """The target branch the schedule should run on."""
 
     fallbackBranches: FallbackBranches
-
     forceBuild: ForceBuild
-
     retryCount: typing_extensions.NotRequired[RetryCount]
-
     retryBackoffDuration: typing_extensions.NotRequired[RetryBackoffDurationDict]
-
     abortOnFailure: AbortOnFailure
-
     notificationsEnabled: NotificationsEnabled
 
 
@@ -84,9 +70,7 @@ class AndTrigger(pydantic.BaseModel):
     """Trigger after all of the given triggers emit an event."""
 
     triggers: typing.List[Trigger]
-
     type: typing.Literal["and"] = "and"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AndTriggerDict":
@@ -100,7 +84,6 @@ class AndTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     triggers: typing.List[TriggerDict]
-
     type: typing.Literal["and"]
 
 
@@ -108,31 +91,22 @@ class Build(pydantic.BaseModel):
     """Build"""
 
     rid: core_models.BuildRid
-
     """The RID of a Build."""
 
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-
     """The branch that the build is running on."""
 
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     """The timestamp that the build was created."""
 
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-
     """The user who created the build."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
-
     retry_count: RetryCount = pydantic.Field(alias=str("retryCount"))  # type: ignore[literal-required]
-
     retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
-
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
-
     status: BuildStatus
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BuildDict":
@@ -158,13 +132,9 @@ class BuildDict(typing_extensions.TypedDict):
     """The user who created the build."""
 
     fallbackBranches: FallbackBranches
-
     retryCount: RetryCount
-
     retryBackoffDuration: RetryBackoffDurationDict
-
     abortOnFailure: AbortOnFailure
-
     status: BuildStatus
 
 
@@ -173,14 +143,14 @@ BuildStatus = typing.Literal["RUNNING", "SUCCEEDED", "FAILED", "CANCELED"]
 
 
 BuildTarget = typing_extensions.Annotated[
-    typing.Union[UpstreamTarget, ManualTarget, ConnectingTarget],
+    typing.Union["UpstreamTarget", "ManualTarget", "ConnectingTarget"],
     pydantic.Field(discriminator="type"),
 ]
 """The targets of the build."""
 
 
 BuildTargetDict = typing_extensions.Annotated[
-    typing.Union[UpstreamTargetDict, ManualTargetDict, ConnectingTargetDict],
+    typing.Union["UpstreamTargetDict", "ManualTargetDict", "ConnectingTargetDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The targets of the build."""
@@ -200,19 +170,15 @@ class ConnectingTarget(pydantic.BaseModel):
     """
 
     input_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("inputRids"))  # type: ignore[literal-required]
-
     """The upstream input datasets (exclusive)."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     """The downstream target datasets (inclusive)."""
 
     ignored_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("ignoredRids"))  # type: ignore[literal-required]
-
     """The datasets between the input datasets and target datasets to exclude."""
 
     type: typing.Literal["connecting"] = "connecting"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ConnectingTargetDict":
@@ -244,23 +210,15 @@ class CreateScheduleRequestAction(pydantic.BaseModel):
     """CreateScheduleRequestAction"""
 
     abort_on_failure: typing.Optional[AbortOnFailure] = pydantic.Field(alias=str("abortOnFailure"), default=None)  # type: ignore[literal-required]
-
     force_build: typing.Optional[ForceBuild] = pydantic.Field(alias=str("forceBuild"), default=None)  # type: ignore[literal-required]
-
     retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
-
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
-
     fallback_branches: typing.Optional[FallbackBranches] = pydantic.Field(alias=str("fallbackBranches"), default=None)  # type: ignore[literal-required]
-
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
-
     """The target branch the schedule should run on."""
 
     notifications_enabled: typing.Optional[NotificationsEnabled] = pydantic.Field(alias=str("notificationsEnabled"), default=None)  # type: ignore[literal-required]
-
     target: CreateScheduleRequestBuildTarget
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateScheduleRequestActionDict":
@@ -276,28 +234,22 @@ class CreateScheduleRequestActionDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     abortOnFailure: typing_extensions.NotRequired[AbortOnFailure]
-
     forceBuild: typing_extensions.NotRequired[ForceBuild]
-
     retryBackoffDuration: typing_extensions.NotRequired[RetryBackoffDurationDict]
-
     retryCount: typing_extensions.NotRequired[RetryCount]
-
     fallbackBranches: typing_extensions.NotRequired[FallbackBranches]
-
     branchName: typing_extensions.NotRequired[datasets_models.BranchName]
     """The target branch the schedule should run on."""
 
     notificationsEnabled: typing_extensions.NotRequired[NotificationsEnabled]
-
     target: CreateScheduleRequestBuildTargetDict
 
 
 CreateScheduleRequestBuildTarget = typing_extensions.Annotated[
     typing.Union[
-        CreateScheduleRequestUpstreamTarget,
-        CreateScheduleRequestManualTarget,
-        CreateScheduleRequestConnectingTarget,
+        "CreateScheduleRequestUpstreamTarget",
+        "CreateScheduleRequestManualTarget",
+        "CreateScheduleRequestConnectingTarget",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -306,9 +258,9 @@ CreateScheduleRequestBuildTarget = typing_extensions.Annotated[
 
 CreateScheduleRequestBuildTargetDict = typing_extensions.Annotated[
     typing.Union[
-        CreateScheduleRequestUpstreamTargetDict,
-        CreateScheduleRequestManualTargetDict,
-        CreateScheduleRequestConnectingTargetDict,
+        "CreateScheduleRequestUpstreamTargetDict",
+        "CreateScheduleRequestManualTargetDict",
+        "CreateScheduleRequestConnectingTargetDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -319,19 +271,15 @@ class CreateScheduleRequestConnectingTarget(pydantic.BaseModel):
     """CreateScheduleRequestConnectingTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
-
     """The datasets between the input datasets and target datasets to exclude."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     """The downstream target datasets (inclusive)."""
 
     input_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("inputRids"))  # type: ignore[literal-required]
-
     """The upstream input datasets (exclusive)."""
 
     type: typing.Literal["connecting"] = "connecting"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateScheduleRequestConnectingTargetDict":
@@ -363,9 +311,7 @@ class CreateScheduleRequestManualTarget(pydantic.BaseModel):
     """CreateScheduleRequestManualTarget"""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     type: typing.Literal["manual"] = "manual"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateScheduleRequestManualTargetDict":
@@ -381,7 +327,6 @@ class CreateScheduleRequestManualTargetDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     targetRids: typing.List[BuildableRid]
-
     type: typing.Literal["manual"]
 
 
@@ -389,9 +334,7 @@ class CreateScheduleRequestProjectScope(pydantic.BaseModel):
     """CreateScheduleRequestProjectScope"""
 
     project_rids: typing.List[filesystem_models.ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
-
     type: typing.Literal["project"] = "project"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateScheduleRequestProjectScopeDict":
@@ -407,19 +350,18 @@ class CreateScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     projectRids: typing.List[filesystem_models.ProjectRid]
-
     type: typing.Literal["project"]
 
 
 CreateScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union[CreateScheduleRequestProjectScope, CreateScheduleRequestUserScope],
+    typing.Union[CreateScheduleRequestProjectScope, "CreateScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 CreateScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union[CreateScheduleRequestProjectScopeDict, CreateScheduleRequestUserScopeDict],
+    typing.Union[CreateScheduleRequestProjectScopeDict, "CreateScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -429,15 +371,12 @@ class CreateScheduleRequestUpstreamTarget(pydantic.BaseModel):
     """CreateScheduleRequestUpstreamTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
-
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     """The target datasets."""
 
     type: typing.Literal["upstream"] = "upstream"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateScheduleRequestUpstreamTargetDict":
@@ -466,7 +405,6 @@ class CreateScheduleRequestUserScope(pydantic.BaseModel):
     """CreateScheduleRequestUserScope"""
 
     type: typing.Literal["user"] = "user"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateScheduleRequestUserScopeDict":
@@ -498,11 +436,8 @@ class DatasetUpdatedTrigger(pydantic.BaseModel):
     """
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-
     type: typing.Literal["datasetUpdated"] = "datasetUpdated"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DatasetUpdatedTriggerDict":
@@ -521,13 +456,11 @@ class DatasetUpdatedTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     branchName: datasets_models.BranchName
-
     type: typing.Literal["datasetUpdated"]
 
 
-FallbackBranches = typing.List[datasets_models.BranchName]
+FallbackBranches = typing.List["datasets_models.BranchName"]
 """
 The branches to retrieve JobSpecs from if no JobSpec is found on the
 target branch.
@@ -542,7 +475,6 @@ class GetBuildsBatchRequestElement(pydantic.BaseModel):
     """GetBuildsBatchRequestElement"""
 
     build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
-
     """The RID of a Build."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -567,7 +499,6 @@ class GetBuildsBatchResponse(pydantic.BaseModel):
     """GetBuildsBatchResponse"""
 
     data: typing.Dict[core_models.BuildRid, Build]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GetBuildsBatchResponseDict":
@@ -589,11 +520,9 @@ class Job(pydantic.BaseModel):
     """Job"""
 
     rid: core_models.JobRid
-
     """The RID of a Job."""
 
     build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
-
     """The RID of the Build that the Job belongs to."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -622,11 +551,8 @@ class JobSucceededTrigger(pydantic.BaseModel):
     """
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-
     type: typing.Literal["jobSucceeded"] = "jobSucceeded"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "JobSucceededTriggerDict":
@@ -645,9 +571,7 @@ class JobSucceededTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     branchName: datasets_models.BranchName
-
     type: typing.Literal["jobSucceeded"]
 
 
@@ -655,9 +579,7 @@ class ListRunsOfScheduleResponse(pydantic.BaseModel):
     """ListRunsOfScheduleResponse"""
 
     data: typing.List[ScheduleRun]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListRunsOfScheduleResponseDict":
@@ -673,7 +595,6 @@ class ListRunsOfScheduleResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[ScheduleRunDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -681,9 +602,7 @@ class ManualTarget(pydantic.BaseModel):
     """Manually specify all datasets to build."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     type: typing.Literal["manual"] = "manual"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ManualTargetDict":
@@ -697,7 +616,6 @@ class ManualTargetDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     targetRids: typing.List[BuildableRid]
-
     type: typing.Literal["manual"]
 
 
@@ -710,11 +628,8 @@ class MediaSetUpdatedTrigger(pydantic.BaseModel):
     """
 
     media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
-
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-
     type: typing.Literal["mediaSetUpdated"] = "mediaSetUpdated"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MediaSetUpdatedTriggerDict":
@@ -735,9 +650,7 @@ class MediaSetUpdatedTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     mediaSetRid: core_models.MediaSetRid
-
     branchName: datasets_models.BranchName
-
     type: typing.Literal["mediaSetUpdated"]
 
 
@@ -748,11 +661,8 @@ class NewLogicTrigger(pydantic.BaseModel):
     """
 
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-
     type: typing.Literal["newLogic"] = "newLogic"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "NewLogicTriggerDict":
@@ -769,9 +679,7 @@ class NewLogicTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     branchName: datasets_models.BranchName
-
     datasetRid: datasets_models.DatasetRid
-
     type: typing.Literal["newLogic"]
 
 
@@ -786,9 +694,7 @@ class OrTrigger(pydantic.BaseModel):
     """Trigger whenever any of the given triggers emit an event."""
 
     triggers: typing.List[Trigger]
-
     type: typing.Literal["or"] = "or"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "OrTriggerDict":
@@ -802,7 +708,6 @@ class OrTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     triggers: typing.List[TriggerDict]
-
     type: typing.Literal["or"]
 
 
@@ -810,9 +715,7 @@ class ProjectScope(pydantic.BaseModel):
     """The schedule will only build resources in the following projects."""
 
     project_rids: typing.List[filesystem_models.ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
-
     type: typing.Literal["project"] = "project"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ProjectScopeDict":
@@ -826,7 +729,6 @@ class ProjectScopeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     projectRids: typing.List[filesystem_models.ProjectRid]
-
     type: typing.Literal["project"]
 
 
@@ -834,23 +736,15 @@ class ReplaceScheduleRequestAction(pydantic.BaseModel):
     """ReplaceScheduleRequestAction"""
 
     abort_on_failure: typing.Optional[AbortOnFailure] = pydantic.Field(alias=str("abortOnFailure"), default=None)  # type: ignore[literal-required]
-
     force_build: typing.Optional[ForceBuild] = pydantic.Field(alias=str("forceBuild"), default=None)  # type: ignore[literal-required]
-
     retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
-
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
-
     fallback_branches: typing.Optional[FallbackBranches] = pydantic.Field(alias=str("fallbackBranches"), default=None)  # type: ignore[literal-required]
-
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
-
     """The target branch the schedule should run on."""
 
     notifications_enabled: typing.Optional[NotificationsEnabled] = pydantic.Field(alias=str("notificationsEnabled"), default=None)  # type: ignore[literal-required]
-
     target: ReplaceScheduleRequestBuildTarget
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ReplaceScheduleRequestActionDict":
@@ -866,28 +760,22 @@ class ReplaceScheduleRequestActionDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     abortOnFailure: typing_extensions.NotRequired[AbortOnFailure]
-
     forceBuild: typing_extensions.NotRequired[ForceBuild]
-
     retryBackoffDuration: typing_extensions.NotRequired[RetryBackoffDurationDict]
-
     retryCount: typing_extensions.NotRequired[RetryCount]
-
     fallbackBranches: typing_extensions.NotRequired[FallbackBranches]
-
     branchName: typing_extensions.NotRequired[datasets_models.BranchName]
     """The target branch the schedule should run on."""
 
     notificationsEnabled: typing_extensions.NotRequired[NotificationsEnabled]
-
     target: ReplaceScheduleRequestBuildTargetDict
 
 
 ReplaceScheduleRequestBuildTarget = typing_extensions.Annotated[
     typing.Union[
-        ReplaceScheduleRequestUpstreamTarget,
-        ReplaceScheduleRequestManualTarget,
-        ReplaceScheduleRequestConnectingTarget,
+        "ReplaceScheduleRequestUpstreamTarget",
+        "ReplaceScheduleRequestManualTarget",
+        "ReplaceScheduleRequestConnectingTarget",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -896,9 +784,9 @@ ReplaceScheduleRequestBuildTarget = typing_extensions.Annotated[
 
 ReplaceScheduleRequestBuildTargetDict = typing_extensions.Annotated[
     typing.Union[
-        ReplaceScheduleRequestUpstreamTargetDict,
-        ReplaceScheduleRequestManualTargetDict,
-        ReplaceScheduleRequestConnectingTargetDict,
+        "ReplaceScheduleRequestUpstreamTargetDict",
+        "ReplaceScheduleRequestManualTargetDict",
+        "ReplaceScheduleRequestConnectingTargetDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -909,19 +797,15 @@ class ReplaceScheduleRequestConnectingTarget(pydantic.BaseModel):
     """ReplaceScheduleRequestConnectingTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
-
     """The datasets between the input datasets and target datasets to exclude."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     """The downstream target datasets (inclusive)."""
 
     input_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("inputRids"))  # type: ignore[literal-required]
-
     """The upstream input datasets (exclusive)."""
 
     type: typing.Literal["connecting"] = "connecting"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ReplaceScheduleRequestConnectingTargetDict":
@@ -953,9 +837,7 @@ class ReplaceScheduleRequestManualTarget(pydantic.BaseModel):
     """ReplaceScheduleRequestManualTarget"""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     type: typing.Literal["manual"] = "manual"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ReplaceScheduleRequestManualTargetDict":
@@ -972,7 +854,6 @@ class ReplaceScheduleRequestManualTargetDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     targetRids: typing.List[BuildableRid]
-
     type: typing.Literal["manual"]
 
 
@@ -980,9 +861,7 @@ class ReplaceScheduleRequestProjectScope(pydantic.BaseModel):
     """ReplaceScheduleRequestProjectScope"""
 
     project_rids: typing.List[filesystem_models.ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
-
     type: typing.Literal["project"] = "project"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ReplaceScheduleRequestProjectScopeDict":
@@ -999,19 +878,18 @@ class ReplaceScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     projectRids: typing.List[filesystem_models.ProjectRid]
-
     type: typing.Literal["project"]
 
 
 ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union[ReplaceScheduleRequestProjectScope, ReplaceScheduleRequestUserScope],
+    typing.Union[ReplaceScheduleRequestProjectScope, "ReplaceScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 ReplaceScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union[ReplaceScheduleRequestProjectScopeDict, ReplaceScheduleRequestUserScopeDict],
+    typing.Union[ReplaceScheduleRequestProjectScopeDict, "ReplaceScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -1021,15 +899,12 @@ class ReplaceScheduleRequestUpstreamTarget(pydantic.BaseModel):
     """ReplaceScheduleRequestUpstreamTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
-
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     """The target datasets."""
 
     type: typing.Literal["upstream"] = "upstream"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ReplaceScheduleRequestUpstreamTargetDict":
@@ -1058,7 +933,6 @@ class ReplaceScheduleRequestUserScope(pydantic.BaseModel):
     """ReplaceScheduleRequestUserScope"""
 
     type: typing.Literal["user"] = "user"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ReplaceScheduleRequestUserScopeDict":
@@ -1076,11 +950,11 @@ class ReplaceScheduleRequestUserScopeDict(typing_extensions.TypedDict):
     type: typing.Literal["user"]
 
 
-RetryBackoffDuration = core_models.Duration
+RetryBackoffDuration = "core_models.Duration"
 """The duration to wait before retrying after a Job fails."""
 
 
-RetryBackoffDurationDict = core_models.DurationDict
+RetryBackoffDurationDict = "core_models.DurationDict"
 """The duration to wait before retrying after a Job fails."""
 
 
@@ -1096,36 +970,24 @@ class Schedule(pydantic.BaseModel):
     """Schedule"""
 
     rid: ScheduleRid
-
     display_name: typing.Optional[str] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
-
     description: typing.Optional[str] = None
-
     current_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("currentVersionRid"))  # type: ignore[literal-required]
-
     """The RID of the current schedule version"""
 
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-
     updated_time: core_models.UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-
     updated_by: core_models.UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
-
     paused: SchedulePaused
-
     trigger: typing.Optional[Trigger] = None
-
     """
     The schedule trigger. If the requesting user does not have
     permission to see the trigger, this will be empty.
     """
 
     action: Action
-
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ScheduleDict":
@@ -1139,24 +1001,16 @@ class ScheduleDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ScheduleRid
-
     displayName: typing_extensions.NotRequired[str]
-
     description: typing_extensions.NotRequired[str]
-
     currentVersionRid: ScheduleVersionRid
     """The RID of the current schedule version"""
 
     createdTime: core_models.CreatedTime
-
     createdBy: core_models.CreatedBy
-
     updatedTime: core_models.UpdatedTime
-
     updatedBy: core_models.UpdatedBy
-
     paused: SchedulePaused
-
     trigger: typing_extensions.NotRequired[TriggerDict]
     """
     The schedule trigger. If the requesting user does not have
@@ -1164,7 +1018,6 @@ class ScheduleDict(typing_extensions.TypedDict):
     """
 
     action: ActionDict
-
     scopeMode: ScopeModeDict
 
 
@@ -1180,26 +1033,20 @@ class ScheduleRun(pydantic.BaseModel):
     """ScheduleRun"""
 
     rid: ScheduleRunRid
-
     """The RID of a schedule run"""
 
     schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
-
     schedule_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("scheduleVersionRid"))  # type: ignore[literal-required]
-
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     """The time at which the schedule run was created."""
 
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
-
     """
     The Foundry user who manually invoked this schedule run. Automatic trigger runs have this field set to
     empty.
     """
 
     result: typing.Optional[ScheduleRunResult] = None
-
     """
     The result of triggering the schedule. If empty, it means the service
     is still working on triggering the schedule.
@@ -1221,9 +1068,7 @@ class ScheduleRunDict(typing_extensions.TypedDict):
     """The RID of a schedule run"""
 
     scheduleRid: ScheduleRid
-
     scheduleVersionRid: ScheduleVersionRid
-
     createdTime: core_models.CreatedTime
     """The time at which the schedule run was created."""
 
@@ -1244,11 +1089,8 @@ class ScheduleRunError(pydantic.BaseModel):
     """An error occurred attempting to run the schedule."""
 
     error_name: ScheduleRunErrorName = pydantic.Field(alias=str("errorName"))  # type: ignore[literal-required]
-
     description: str
-
     type: typing.Literal["error"] = "error"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ScheduleRunErrorDict":
@@ -1262,9 +1104,7 @@ class ScheduleRunErrorDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     errorName: ScheduleRunErrorName
-
     description: str
-
     type: typing.Literal["error"]
 
 
@@ -1284,7 +1124,6 @@ class ScheduleRunIgnored(pydantic.BaseModel):
     """The schedule is not running as all targets are up-to-date."""
 
     type: typing.Literal["ignored"] = "ignored"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ScheduleRunIgnoredDict":
@@ -1303,7 +1142,7 @@ class ScheduleRunIgnoredDict(typing_extensions.TypedDict):
 
 
 ScheduleRunResult = typing_extensions.Annotated[
-    typing.Union[ScheduleRunIgnored, ScheduleRunSubmitted, ScheduleRunError],
+    typing.Union[ScheduleRunIgnored, "ScheduleRunSubmitted", ScheduleRunError],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1313,7 +1152,7 @@ ignored if all targets are up-to-date or error.
 
 
 ScheduleRunResultDict = typing_extensions.Annotated[
-    typing.Union[ScheduleRunIgnoredDict, ScheduleRunSubmittedDict, ScheduleRunErrorDict],
+    typing.Union[ScheduleRunIgnoredDict, "ScheduleRunSubmittedDict", ScheduleRunErrorDict],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1330,9 +1169,7 @@ class ScheduleRunSubmitted(pydantic.BaseModel):
     """The schedule has been successfully triggered."""
 
     build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
-
     type: typing.Literal["submitted"] = "submitted"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ScheduleRunSubmittedDict":
@@ -1348,7 +1185,6 @@ class ScheduleRunSubmittedDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     buildRid: core_models.BuildRid
-
     type: typing.Literal["submitted"]
 
 
@@ -1359,9 +1195,7 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
     """
 
     schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
-
     type: typing.Literal["scheduleSucceeded"] = "scheduleSucceeded"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ScheduleSucceededTriggerDict":
@@ -1380,7 +1214,6 @@ class ScheduleSucceededTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     scheduleRid: ScheduleRid
-
     type: typing.Literal["scheduleSucceeded"]
 
 
@@ -1388,25 +1221,18 @@ class ScheduleVersion(pydantic.BaseModel):
     """ScheduleVersion"""
 
     rid: ScheduleVersionRid
-
     """The RID of a schedule version"""
 
     schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
-
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     """The time the schedule version was created"""
 
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-
     """The Foundry user who created the schedule version"""
 
     trigger: typing.Optional[Trigger] = None
-
     action: Action
-
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ScheduleVersionDict":
@@ -1423,7 +1249,6 @@ class ScheduleVersionDict(typing_extensions.TypedDict):
     """The RID of a schedule version"""
 
     scheduleRid: ScheduleRid
-
     createdTime: core_models.CreatedTime
     """The time the schedule version was created"""
 
@@ -1431,9 +1256,7 @@ class ScheduleVersionDict(typing_extensions.TypedDict):
     """The Foundry user who created the schedule version"""
 
     trigger: typing_extensions.NotRequired[TriggerDict]
-
     action: ActionDict
-
     scopeMode: ScopeModeDict
 
 
@@ -1442,13 +1265,13 @@ ScheduleVersionRid = core.RID
 
 
 ScopeMode = typing_extensions.Annotated[
-    typing.Union[ProjectScope, UserScope], pydantic.Field(discriminator="type")
+    typing.Union[ProjectScope, "UserScope"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
 
 ScopeModeDict = typing_extensions.Annotated[
-    typing.Union[ProjectScopeDict, UserScopeDict], pydantic.Field(discriminator="type")
+    typing.Union[ProjectScopeDict, "UserScopeDict"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
@@ -1457,9 +1280,7 @@ class SearchBuildsAndFilter(pydantic.BaseModel):
     """Returns the Builds where every filter is satisfied."""
 
     items: typing.List[SearchBuildsFilter]
-
     type: typing.Literal["and"] = "and"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsAndFilterDict":
@@ -1475,7 +1296,6 @@ class SearchBuildsAndFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     items: typing.List[SearchBuildsFilterDict]
-
     type: typing.Literal["and"]
 
 
@@ -1483,11 +1303,8 @@ class SearchBuildsEqualsFilter(pydantic.BaseModel):
     """SearchBuildsEqualsFilter"""
 
     field: SearchBuildsEqualsFilterField
-
     value: typing.Any
-
     type: typing.Literal["eq"] = "eq"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsEqualsFilterDict":
@@ -1503,9 +1320,7 @@ class SearchBuildsEqualsFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     field: SearchBuildsEqualsFilterField
-
     value: typing.Any
-
     type: typing.Literal["eq"]
 
 
@@ -1515,11 +1330,11 @@ SearchBuildsEqualsFilterField = typing.Literal["CREATED_BY", "BRANCH_NAME", "STA
 
 SearchBuildsFilter = typing_extensions.Annotated[
     typing.Union[
-        SearchBuildsNotFilter,
-        SearchBuildsOrFilter,
+        "SearchBuildsNotFilter",
+        "SearchBuildsOrFilter",
         SearchBuildsAndFilter,
-        SearchBuildsLtFilter,
-        SearchBuildsGteFilter,
+        "SearchBuildsLtFilter",
+        "SearchBuildsGteFilter",
         SearchBuildsEqualsFilter,
     ],
     pydantic.Field(discriminator="type"),
@@ -1529,11 +1344,11 @@ SearchBuildsFilter = typing_extensions.Annotated[
 
 SearchBuildsFilterDict = typing_extensions.Annotated[
     typing.Union[
-        SearchBuildsNotFilterDict,
-        SearchBuildsOrFilterDict,
+        "SearchBuildsNotFilterDict",
+        "SearchBuildsOrFilterDict",
         SearchBuildsAndFilterDict,
-        SearchBuildsLtFilterDict,
-        SearchBuildsGteFilterDict,
+        "SearchBuildsLtFilterDict",
+        "SearchBuildsGteFilterDict",
         SearchBuildsEqualsFilterDict,
     ],
     pydantic.Field(discriminator="type"),
@@ -1545,11 +1360,8 @@ class SearchBuildsGteFilter(pydantic.BaseModel):
     """SearchBuildsGteFilter"""
 
     field: SearchBuildsGteFilterField
-
     value: typing.Any
-
     type: typing.Literal["gte"] = "gte"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsGteFilterDict":
@@ -1565,9 +1377,7 @@ class SearchBuildsGteFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     field: SearchBuildsGteFilterField
-
     value: typing.Any
-
     type: typing.Literal["gte"]
 
 
@@ -1579,11 +1389,8 @@ class SearchBuildsLtFilter(pydantic.BaseModel):
     """SearchBuildsLtFilter"""
 
     field: SearchBuildsLtFilterField
-
     value: typing.Any
-
     type: typing.Literal["lt"] = "lt"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsLtFilterDict":
@@ -1599,9 +1406,7 @@ class SearchBuildsLtFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     field: SearchBuildsLtFilterField
-
     value: typing.Any
-
     type: typing.Literal["lt"]
 
 
@@ -1613,9 +1418,7 @@ class SearchBuildsNotFilter(pydantic.BaseModel):
     """Returns the Builds where the filter is not satisfied."""
 
     value: SearchBuildsFilter
-
     type: typing.Literal["not"] = "not"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsNotFilterDict":
@@ -1631,7 +1434,6 @@ class SearchBuildsNotFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     value: SearchBuildsFilterDict
-
     type: typing.Literal["not"]
 
 
@@ -1639,9 +1441,7 @@ class SearchBuildsOrFilter(pydantic.BaseModel):
     """Returns the Builds where at least one filter is satisfied."""
 
     items: typing.List[SearchBuildsFilter]
-
     type: typing.Literal["or"] = "or"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsOrFilterDict":
@@ -1657,7 +1457,6 @@ class SearchBuildsOrFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     items: typing.List[SearchBuildsFilterDict]
-
     type: typing.Literal["or"]
 
 
@@ -1665,7 +1464,6 @@ class SearchBuildsOrderBy(pydantic.BaseModel):
     """SearchBuildsOrderBy"""
 
     fields: typing.List[SearchBuildsOrderByItem]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsOrderByDict":
@@ -1691,9 +1489,7 @@ class SearchBuildsOrderByItem(pydantic.BaseModel):
     """SearchBuildsOrderByItem"""
 
     field: SearchBuildsOrderByField
-
     direction: core_models.OrderByDirection
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsOrderByItemDict":
@@ -1709,7 +1505,6 @@ class SearchBuildsOrderByItemDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     field: SearchBuildsOrderByField
-
     direction: core_models.OrderByDirection
 
 
@@ -1717,9 +1512,7 @@ class SearchBuildsResponse(pydantic.BaseModel):
     """SearchBuildsResponse"""
 
     data: typing.List[Build]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchBuildsResponseDict":
@@ -1735,7 +1528,6 @@ class SearchBuildsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[BuildDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -1743,11 +1535,8 @@ class TimeTrigger(pydantic.BaseModel):
     """Trigger on a time based schedule."""
 
     cron_expression: CronExpression = pydantic.Field(alias=str("cronExpression"))  # type: ignore[literal-required]
-
     time_zone: core_models.ZoneId = pydantic.Field(alias=str("timeZone"))  # type: ignore[literal-required]
-
     type: typing.Literal["time"] = "time"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "TimeTriggerDict":
@@ -1761,9 +1550,7 @@ class TimeTriggerDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     cronExpression: CronExpression
-
     timeZone: core_models.ZoneId
-
     type: typing.Literal["time"]
 
 
@@ -1803,15 +1590,12 @@ class UpstreamTarget(pydantic.BaseModel):
     """Target the specified datasets along with all upstream datasets except the ignored datasets."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
-
     """The target datasets."""
 
     ignored_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("ignoredRids"))  # type: ignore[literal-required]
-
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     type: typing.Literal["upstream"] = "upstream"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "UpstreamTargetDict":
@@ -1840,7 +1624,6 @@ class UserScope(pydantic.BaseModel):
     """
 
     type: typing.Literal["user"] = "user"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "UserScopeDict":

@@ -31,11 +31,8 @@ class InvalidParameterValueParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     parameterBaseType: typing_extensions.NotRequired[ontologies_models.ValueType]
-
     parameterDataType: typing_extensions.NotRequired[ontologies_models.OntologyDataType]
-
     parameterId: ontologies_models.ParameterId
-
     parameterValue: typing_extensions.NotRequired[ontologies_models.DataValue]
 
 

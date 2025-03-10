@@ -6,7 +6,7 @@ target branch.
 
 ## Type
 ```python
-typing.List[datasets_models.BranchName]
+typing.List["datasets_models.BranchName"]
 ```
 
 

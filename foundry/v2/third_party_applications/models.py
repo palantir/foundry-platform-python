@@ -27,9 +27,7 @@ class ListVersionsResponse(pydantic.BaseModel):
     """ListVersionsResponse"""
 
     data: typing.List[Version]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListVersionsResponseDict":
@@ -45,7 +43,6 @@ class ListVersionsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[VersionDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -57,7 +54,6 @@ class ThirdPartyApplication(pydantic.BaseModel):
     """ThirdPartyApplication"""
 
     rid: ThirdPartyApplicationRid
-
     """An RID identifying a third-party application created in Developer Console."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -86,7 +82,6 @@ class Version(pydantic.BaseModel):
     """Version"""
 
     version: VersionVersion
-
     """The semantic version of the Website."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -113,11 +108,9 @@ class Website(pydantic.BaseModel):
     """Website"""
 
     deployed_version: typing.Optional[VersionVersion] = pydantic.Field(alias=str("deployedVersion"), default=None)  # type: ignore[literal-required]
-
     """The version of the Website that is currently deployed."""
 
     subdomains: typing.List[Subdomain]
-
     """The subdomains from which the Website is currently served."""
 
     model_config = {"extra": "allow", "populate_by_name": True}

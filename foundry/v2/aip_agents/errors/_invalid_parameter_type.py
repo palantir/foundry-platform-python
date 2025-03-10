@@ -32,13 +32,9 @@ class InvalidParameterTypeParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-
     sessionRid: aip_agents_models.SessionRid
-
     parameter: aip_agents_models.ParameterId
-
     expectedType: str
-
     receivedType: str
 
 

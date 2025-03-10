@@ -28,7 +28,6 @@ class InvalidFieldSchemaParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     fieldName: typing_extensions.NotRequired[core_models.FieldName]
-
     message: str
 
 

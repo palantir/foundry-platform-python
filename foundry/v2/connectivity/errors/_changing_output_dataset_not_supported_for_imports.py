@@ -28,7 +28,6 @@ class ChangingOutputDatasetNotSupportedForImportsParameters(typing_extensions.Ty
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     existingOutputDatasetRid: datasets_models.DatasetRid
-
     newOutputDatasetRid: datasets_models.DatasetRid
 
 

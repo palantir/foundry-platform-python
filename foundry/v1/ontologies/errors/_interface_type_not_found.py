@@ -28,7 +28,6 @@ class InterfaceTypeNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     apiName: typing_extensions.NotRequired[ontologies_models.InterfaceTypeApiName]
-
     rid: typing_extensions.NotRequired[ontologies_models.InterfaceTypeRid]
 
 

@@ -28,12 +28,16 @@ class InvalidRangeQueryParameters(typing_extensions.TypedDict):
 
     lt: typing_extensions.NotRequired[typing.Any]
     """Less than"""
+
     gt: typing_extensions.NotRequired[typing.Any]
     """Greater than"""
+
     lte: typing_extensions.NotRequired[typing.Any]
     """Less than or equal"""
+
     gte: typing_extensions.NotRequired[typing.Any]
     """Greater than or equal"""
+
     field: str
 
 

@@ -28,9 +28,7 @@ class InvalidFilterValueParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     field: str
-
     value: typing.Any
-
     expectedType: core_models.FilterTypeDict
 
 

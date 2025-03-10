@@ -28,7 +28,6 @@ class PropertiesNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectType: ontologies_models.ObjectTypeApiName
-
     properties: typing.List[ontologies_models.PropertyApiName]
 
 

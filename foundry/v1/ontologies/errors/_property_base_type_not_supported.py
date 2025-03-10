@@ -31,9 +31,7 @@ class PropertyBaseTypeNotSupportedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectType: ontologies_models.ObjectTypeApiName
-
     property: ontologies_models.PropertyApiName
-
     propertyBaseType: ontologies_models.ValueType
 
 

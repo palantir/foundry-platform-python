@@ -27,7 +27,6 @@ class AnyType(pydantic.BaseModel):
     """AnyType"""
 
     type: typing.Literal["any"] = "any"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AnyTypeDict":
@@ -55,7 +54,6 @@ class BinaryType(pydantic.BaseModel):
     """BinaryType"""
 
     type: typing.Literal["binary"] = "binary"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BinaryTypeDict":
@@ -75,7 +73,6 @@ class BooleanType(pydantic.BaseModel):
     """BooleanType"""
 
     type: typing.Literal["boolean"] = "boolean"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BooleanTypeDict":
@@ -95,7 +92,6 @@ class ByteType(pydantic.BaseModel):
     """ByteType"""
 
     type: typing.Literal["byte"] = "byte"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ByteTypeDict":
@@ -115,11 +111,9 @@ class CipherTextType(pydantic.BaseModel):
     """CipherTextType"""
 
     default_cipher_channel: typing.Optional[str] = pydantic.Field(alias=str("defaultCipherChannel"), default=None)  # type: ignore[literal-required]
-
     """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: typing.Literal["cipherText"] = "cipherText"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CipherTextTypeDict":
@@ -142,7 +136,6 @@ class DateType(pydantic.BaseModel):
     """DateType"""
 
     type: typing.Literal["date"] = "date"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DateTypeDict":
@@ -162,15 +155,12 @@ class DecimalType(pydantic.BaseModel):
     """DecimalType"""
 
     precision: typing.Optional[int] = None
-
     """The total number of digits of the Decimal type. The maximum value is 38."""
 
     scale: typing.Optional[int] = None
-
     """The number of digits to the right of the decimal point. The maximum value is 38."""
 
     type: typing.Literal["decimal"] = "decimal"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DecimalTypeDict":
@@ -214,7 +204,6 @@ class DoubleType(pydantic.BaseModel):
     """DoubleType"""
 
     type: typing.Literal["double"] = "double"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DoubleTypeDict":
@@ -238,7 +227,6 @@ class FloatType(pydantic.BaseModel):
     """FloatType"""
 
     type: typing.Literal["float"] = "float"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FloatTypeDict":
@@ -262,7 +250,6 @@ class IntegerType(pydantic.BaseModel):
     """IntegerType"""
 
     type: typing.Literal["integer"] = "integer"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "IntegerTypeDict":
@@ -282,7 +269,6 @@ class LongType(pydantic.BaseModel):
     """LongType"""
 
     type: typing.Literal["long"] = "long"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "LongTypeDict":
@@ -302,7 +288,6 @@ class MarkingType(pydantic.BaseModel):
     """MarkingType"""
 
     type: typing.Literal["marking"] = "marking"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingTypeDict":
@@ -354,7 +339,6 @@ class ShortType(pydantic.BaseModel):
     """ShortType"""
 
     type: typing.Literal["short"] = "short"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ShortTypeDict":
@@ -374,7 +358,6 @@ class StringType(pydantic.BaseModel):
     """StringType"""
 
     type: typing.Literal["string"] = "string"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "StringTypeDict":
@@ -398,7 +381,6 @@ class TimestampType(pydantic.BaseModel):
     """TimestampType"""
 
     type: typing.Literal["timestamp"] = "timestamp"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "TimestampTypeDict":
@@ -422,9 +404,7 @@ class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
     unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
-
     type: typing.Literal["unsupported"] = "unsupported"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "UnsupportedTypeDict":
@@ -438,7 +418,6 @@ class UnsupportedTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     unsupportedType: str
-
     type: typing.Literal["unsupported"]
 
 

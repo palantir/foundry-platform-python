@@ -21,7 +21,7 @@ import annotated_types
 import pydantic
 import typing_extensions
 
-BBox = typing.List[Coordinate]
+BBox = typing.List["Coordinate"]
 """
 A GeoJSON object MAY have a member named "bbox" to include
 information on the coordinate range for its Geometries, Features, or
@@ -41,11 +41,8 @@ class GeoPoint(pydantic.BaseModel):
     """GeoPoint"""
 
     coordinates: Position
-
     bbox: typing.Optional[BBox] = None
-
     type: typing.Literal["Point"] = "Point"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GeoPointDict":
@@ -59,13 +56,11 @@ class GeoPointDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     coordinates: Position
-
     bbox: typing_extensions.NotRequired[BBox]
-
     type: typing.Literal["Point"]
 
 
-LinearRing = typing_extensions.Annotated[typing.List[Position], annotated_types.Len(min_length=4)]
+LinearRing = typing_extensions.Annotated[typing.List["Position"], annotated_types.Len(min_length=4)]
 """
 A linear ring is a closed LineString with four or more positions.
 
@@ -85,11 +80,8 @@ class Polygon(pydantic.BaseModel):
     """Polygon"""
 
     coordinates: typing.List[LinearRing]
-
     bbox: typing.Optional[BBox] = None
-
     type: typing.Literal["Polygon"] = "Polygon"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "PolygonDict":
@@ -103,9 +95,7 @@ class PolygonDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     coordinates: typing.List[LinearRing]
-
     bbox: typing_extensions.NotRequired[BBox]
-
     type: typing.Literal["Polygon"]
 
 

@@ -28,7 +28,6 @@ class ObjectTypeNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectType: typing_extensions.NotRequired[ontologies_models.ObjectTypeApiName]
-
     objectTypeRid: typing_extensions.NotRequired[ontologies_models.ObjectTypeRid]
 
 

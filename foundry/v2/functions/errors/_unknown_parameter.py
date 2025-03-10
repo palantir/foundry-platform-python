@@ -31,7 +31,6 @@ class UnknownParameterParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     unknownParameters: typing.List[functions_models.ParameterId]
-
     expectedParameters: typing.List[functions_models.ParameterId]
 
 

@@ -28,7 +28,6 @@ class ChangingBranchNameNotSupportedForImportsParameters(typing_extensions.Typed
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     existingBranchName: typing_extensions.NotRequired[datasets_models.BranchName]
-
     newBranchName: typing_extensions.NotRequired[datasets_models.BranchName]
 
 

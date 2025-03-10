@@ -28,7 +28,6 @@ class CreateProjectNoOwnerLikeRoleGrantParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     grantedRoleIds: typing.List[core_models.RoleId]
-
     roleSetOwnerLikeRoleIds: typing.List[core_models.RoleId]
 
 

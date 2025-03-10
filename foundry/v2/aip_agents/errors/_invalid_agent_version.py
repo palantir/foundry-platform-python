@@ -28,7 +28,6 @@ class InvalidAgentVersionParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-
     version: aip_agents_models.AgentVersionString
 
 

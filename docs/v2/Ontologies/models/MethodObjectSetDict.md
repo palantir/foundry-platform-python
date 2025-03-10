@@ -4,7 +4,7 @@ MethodObjectSet
 
 ## Type
 ```python
-ObjectSetDict
+"ObjectSetDict"
 ```
 
 

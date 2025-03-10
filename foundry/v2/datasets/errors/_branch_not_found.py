@@ -28,7 +28,6 @@ class BranchNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     branchName: datasets_models.BranchName
 
 

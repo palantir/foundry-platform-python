@@ -29,7 +29,6 @@ class PreregisterGroupPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     enrollmentRid: core_models.EnrollmentRid
-
     authenticationProviderRid: admin_models.AuthenticationProviderRid
 
 

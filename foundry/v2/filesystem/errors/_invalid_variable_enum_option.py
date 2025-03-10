@@ -27,9 +27,7 @@ class InvalidVariableEnumOptionParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     variableId: str
-
     invalidOption: str
-
     validOptions: typing.List[str]
 
 

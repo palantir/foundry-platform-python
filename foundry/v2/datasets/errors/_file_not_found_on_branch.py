@@ -29,9 +29,7 @@ class FileNotFoundOnBranchParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     branchName: datasets_models.BranchName
-
     path: core_models.FilePath
 
 

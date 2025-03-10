@@ -28,7 +28,6 @@ class QueryMemoryExceededLimitParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     functionRid: functions_models.FunctionRid
-
     functionVersion: functions_models.FunctionVersion
 
 

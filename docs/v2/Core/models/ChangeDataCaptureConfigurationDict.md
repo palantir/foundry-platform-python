@@ -9,7 +9,7 @@ Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-dat
 
 ## Type
 ```python
-FullRowChangeDataCaptureConfigurationDict
+"FullRowChangeDataCaptureConfigurationDict"
 ```
 
 

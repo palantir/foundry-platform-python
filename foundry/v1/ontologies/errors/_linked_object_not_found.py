@@ -28,9 +28,7 @@ class LinkedObjectNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     linkType: ontologies_models.LinkTypeApiName
-
     linkedObjectType: ontologies_models.ObjectTypeApiName
-
     linkedObjectPrimaryKey: typing.Dict[
         ontologies_models.PropertyApiName, ontologies_models.PrimaryKeyValue
     ]

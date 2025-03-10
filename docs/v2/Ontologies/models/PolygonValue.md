@@ -4,7 +4,7 @@ PolygonValue
 
 ## Type
 ```python
-geo_models.Polygon
+"geo_models.Polygon"
 ```
 
 

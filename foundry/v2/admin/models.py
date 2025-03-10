@@ -36,14 +36,14 @@ AttributeValues = typing.List[AttributeValue]
 
 
 AuthenticationProtocol = typing_extensions.Annotated[
-    typing.Union[SamlAuthenticationProtocol, OidcAuthenticationProtocol],
+    typing.Union["SamlAuthenticationProtocol", "OidcAuthenticationProtocol"],
     pydantic.Field(discriminator="type"),
 ]
 """AuthenticationProtocol"""
 
 
 AuthenticationProtocolDict = typing_extensions.Annotated[
-    typing.Union[SamlAuthenticationProtocolDict, OidcAuthenticationProtocolDict],
+    typing.Union["SamlAuthenticationProtocolDict", "OidcAuthenticationProtocolDict"],
     pydantic.Field(discriminator="type"),
 ]
 """AuthenticationProtocol"""
@@ -53,25 +53,18 @@ class AuthenticationProvider(pydantic.BaseModel):
     """AuthenticationProvider"""
 
     rid: AuthenticationProviderRid
-
     name: AuthenticationProviderName
-
     realm: core_models.Realm
-
     enabled: AuthenticationProviderEnabled
-
     """Whether users can log in using this provider."""
 
     supported_hosts: typing.List[HostName] = pydantic.Field(alias=str("supportedHosts"))  # type: ignore[literal-required]
-
     """This provider can only be utilized from these hosts."""
 
     supported_username_patterns: typing.List[str] = pydantic.Field(alias=str("supportedUsernamePatterns"))  # type: ignore[literal-required]
-
     """Users who enter usernames that match these patterns will be redirected to this authentication provider."""
 
     protocol: AuthenticationProtocol
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AuthenticationProviderDict":
@@ -87,11 +80,8 @@ class AuthenticationProviderDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: AuthenticationProviderRid
-
     name: AuthenticationProviderName
-
     realm: core_models.Realm
-
     enabled: AuthenticationProviderEnabled
     """Whether users can log in using this provider."""
 
@@ -120,15 +110,11 @@ class CertificateInfo(pydantic.BaseModel):
     """CertificateInfo"""
 
     pem_certificate: str = pydantic.Field(alias=str("pemCertificate"))  # type: ignore[literal-required]
-
     """The certificate, in PEM format."""
 
     common_name: typing.Optional[str] = pydantic.Field(alias=str("commonName"), default=None)  # type: ignore[literal-required]
-
     expiry_date: datetime = pydantic.Field(alias=str("expiryDate"))  # type: ignore[literal-required]
-
     usage_type: CertificateUsageType = pydantic.Field(alias=str("usageType"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CertificateInfoDict":
@@ -145,9 +131,7 @@ class CertificateInfoDict(typing_extensions.TypedDict):
     """The certificate, in PEM format."""
 
     commonName: typing_extensions.NotRequired[str]
-
     expiryDate: datetime
-
     usageType: CertificateUsageType
 
 
@@ -159,11 +143,8 @@ class Enrollment(pydantic.BaseModel):
     """Enrollment"""
 
     rid: core_models.EnrollmentRid
-
     name: EnrollmentName
-
     created_time: typing.Optional[core_models.CreatedTime] = pydantic.Field(alias=str("createdTime"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "EnrollmentDict":
@@ -177,9 +158,7 @@ class EnrollmentDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: core_models.EnrollmentRid
-
     name: EnrollmentName
-
     createdTime: typing_extensions.NotRequired[core_models.CreatedTime]
 
 
@@ -191,7 +170,6 @@ class GetGroupsBatchRequestElement(pydantic.BaseModel):
     """GetGroupsBatchRequestElement"""
 
     group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GetGroupsBatchRequestElementDict":
@@ -213,7 +191,6 @@ class GetGroupsBatchResponse(pydantic.BaseModel):
     """GetGroupsBatchResponse"""
 
     data: typing.Dict[core_models.PrincipalId, Group]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GetGroupsBatchResponseDict":
@@ -235,7 +212,6 @@ class GetMarkingsBatchRequestElement(pydantic.BaseModel):
     """GetMarkingsBatchRequestElement"""
 
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GetMarkingsBatchRequestElementDict":
@@ -257,7 +233,6 @@ class GetMarkingsBatchResponse(pydantic.BaseModel):
     """GetMarkingsBatchResponse"""
 
     data: typing.Dict[core_models.MarkingId, Marking]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GetMarkingsBatchResponseDict":
@@ -279,7 +254,6 @@ class GetUserMarkingsResponse(pydantic.BaseModel):
     """GetUserMarkingsResponse"""
 
     view: typing.List[core_models.MarkingId]
-
     """
     The markings that the user has access to. The user will be able to access resources protected with these
     markings. This includes organization markings for organizations in which the user is a guest member.
@@ -310,7 +284,6 @@ class GetUsersBatchRequestElement(pydantic.BaseModel):
     """GetUsersBatchRequestElement"""
 
     user_id: core_models.PrincipalId = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GetUsersBatchRequestElementDict":
@@ -332,7 +305,6 @@ class GetUsersBatchResponse(pydantic.BaseModel):
     """GetUsersBatchResponse"""
 
     data: typing.Dict[core_models.PrincipalId, User]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GetUsersBatchResponseDict":
@@ -354,23 +326,17 @@ class Group(pydantic.BaseModel):
     """Group"""
 
     id: core_models.PrincipalId
-
     name: GroupName
-
     """The name of the Group."""
 
     description: typing.Optional[str] = None
-
     """A description of the Group."""
 
     realm: core_models.Realm
-
     organizations: typing.List[core_models.OrganizationRid]
-
     """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
 
     attributes: typing.Dict[AttributeName, AttributeValues]
-
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -386,7 +352,6 @@ class GroupDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     id: core_models.PrincipalId
-
     name: GroupName
     """The name of the Group."""
 
@@ -394,7 +359,6 @@ class GroupDict(typing_extensions.TypedDict):
     """A description of the Group."""
 
     realm: core_models.Realm
-
     organizations: typing.List[core_models.OrganizationRid]
     """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
 
@@ -406,9 +370,7 @@ class GroupMember(pydantic.BaseModel):
     """GroupMember"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
-
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GroupMemberDict":
@@ -422,7 +384,6 @@ class GroupMemberDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     principalType: core_models.PrincipalType
-
     principalId: core_models.PrincipalId
 
 
@@ -430,7 +391,6 @@ class GroupMembership(pydantic.BaseModel):
     """GroupMembership"""
 
     group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GroupMembershipDict":
@@ -458,7 +418,6 @@ class GroupProviderInfo(pydantic.BaseModel):
     """GroupProviderInfo"""
 
     provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
-
     """
     The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
     At most one Group can have a given provider ID in a given Realm.
@@ -487,9 +446,7 @@ class GroupSearchFilter(pydantic.BaseModel):
     """GroupSearchFilter"""
 
     type: PrincipalFilterType
-
     value: str
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GroupSearchFilterDict":
@@ -503,7 +460,6 @@ class GroupSearchFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     type: PrincipalFilterType
-
     value: str
 
 
@@ -511,7 +467,6 @@ class Host(pydantic.BaseModel):
     """Host"""
 
     host_name: HostName = pydantic.Field(alias=str("hostName"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "HostDict":
@@ -535,9 +490,7 @@ class ListAuthenticationProvidersResponse(pydantic.BaseModel):
     """ListAuthenticationProvidersResponse"""
 
     data: typing.List[AuthenticationProvider]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListAuthenticationProvidersResponseDict":
@@ -554,7 +507,6 @@ class ListAuthenticationProvidersResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[AuthenticationProviderDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -562,9 +514,7 @@ class ListGroupMembersResponse(pydantic.BaseModel):
     """ListGroupMembersResponse"""
 
     data: typing.List[GroupMember]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListGroupMembersResponseDict":
@@ -580,7 +530,6 @@ class ListGroupMembersResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[GroupMemberDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -588,9 +537,7 @@ class ListGroupMembershipsResponse(pydantic.BaseModel):
     """ListGroupMembershipsResponse"""
 
     data: typing.List[GroupMembership]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListGroupMembershipsResponseDict":
@@ -606,7 +553,6 @@ class ListGroupMembershipsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[GroupMembershipDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -614,9 +560,7 @@ class ListGroupsResponse(pydantic.BaseModel):
     """ListGroupsResponse"""
 
     data: typing.List[Group]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListGroupsResponseDict":
@@ -632,7 +576,6 @@ class ListGroupsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[GroupDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -640,9 +583,7 @@ class ListHostsResponse(pydantic.BaseModel):
     """ListHostsResponse"""
 
     data: typing.List[Host]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListHostsResponseDict":
@@ -656,7 +597,6 @@ class ListHostsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[HostDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -664,9 +604,7 @@ class ListMarkingCategoriesResponse(pydantic.BaseModel):
     """ListMarkingCategoriesResponse"""
 
     data: typing.List[MarkingCategory]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListMarkingCategoriesResponseDict":
@@ -682,7 +620,6 @@ class ListMarkingCategoriesResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[MarkingCategoryDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -690,9 +627,7 @@ class ListMarkingMembersResponse(pydantic.BaseModel):
     """ListMarkingMembersResponse"""
 
     data: typing.List[MarkingMember]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListMarkingMembersResponseDict":
@@ -708,7 +643,6 @@ class ListMarkingMembersResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[MarkingMemberDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -716,9 +650,7 @@ class ListMarkingRoleAssignmentsResponse(pydantic.BaseModel):
     """ListMarkingRoleAssignmentsResponse"""
 
     data: typing.List[MarkingRoleAssignment]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListMarkingRoleAssignmentsResponseDict":
@@ -735,7 +667,6 @@ class ListMarkingRoleAssignmentsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[MarkingRoleAssignmentDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -743,9 +674,7 @@ class ListMarkingsResponse(pydantic.BaseModel):
     """ListMarkingsResponse"""
 
     data: typing.List[Marking]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListMarkingsResponseDict":
@@ -761,7 +690,6 @@ class ListMarkingsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[MarkingDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -769,9 +697,7 @@ class ListUsersResponse(pydantic.BaseModel):
     """ListUsersResponse"""
 
     data: typing.List[User]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListUsersResponseDict":
@@ -785,7 +711,6 @@ class ListUsersResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[UserDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -793,21 +718,14 @@ class Marking(pydantic.BaseModel):
     """Marking"""
 
     id: core_models.MarkingId
-
     category_id: MarkingCategoryId = pydantic.Field(alias=str("categoryId"))  # type: ignore[literal-required]
-
     name: MarkingName
-
     description: typing.Optional[str] = None
-
     organization: typing.Optional[core_models.OrganizationRid] = None
-
     """If this marking is associated with an Organization, its RID will be populated here."""
 
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingDict":
@@ -819,21 +737,13 @@ class MarkingCategory(pydantic.BaseModel):
     """MarkingCategory"""
 
     id: MarkingCategoryId
-
     name: MarkingCategoryName
-
     description: typing.Optional[str] = None
-
     category_type: MarkingCategoryType = pydantic.Field(alias=str("categoryType"))  # type: ignore[literal-required]
-
     marking_type: MarkingType = pydantic.Field(alias=str("markingType"))  # type: ignore[literal-required]
-
     markings: typing.List[core_models.MarkingId]
-
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingCategoryDict":
@@ -847,19 +757,12 @@ class MarkingCategoryDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     id: MarkingCategoryId
-
     name: MarkingCategoryName
-
     description: typing_extensions.NotRequired[str]
-
     categoryType: MarkingCategoryType
-
     markingType: MarkingType
-
     markings: typing.List[core_models.MarkingId]
-
     createdTime: core_models.CreatedTime
-
     createdBy: typing_extensions.NotRequired[core_models.CreatedBy]
 
 
@@ -884,18 +787,13 @@ class MarkingDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     id: core_models.MarkingId
-
     categoryId: MarkingCategoryId
-
     name: MarkingName
-
     description: typing_extensions.NotRequired[str]
-
     organization: typing_extensions.NotRequired[core_models.OrganizationRid]
     """If this marking is associated with an Organization, its RID will be populated here."""
 
     createdTime: core_models.CreatedTime
-
     createdBy: typing_extensions.NotRequired[core_models.CreatedBy]
 
 
@@ -903,9 +801,7 @@ class MarkingMember(pydantic.BaseModel):
     """MarkingMember"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
-
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingMemberDict":
@@ -919,7 +815,6 @@ class MarkingMemberDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     principalType: core_models.PrincipalType
-
     principalId: core_models.PrincipalId
 
 
@@ -940,11 +835,8 @@ class MarkingRoleAssignment(pydantic.BaseModel):
     """MarkingRoleAssignment"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
-
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-
     role: MarkingRole
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingRoleAssignmentDict":
@@ -960,9 +852,7 @@ class MarkingRoleAssignmentDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     principalType: core_models.PrincipalType
-
     principalId: core_models.PrincipalId
-
     role: MarkingRole
 
 
@@ -970,9 +860,7 @@ class MarkingRoleUpdate(pydantic.BaseModel):
     """MarkingRoleUpdate"""
 
     role: MarkingRole
-
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingRoleUpdateDict":
@@ -986,7 +874,6 @@ class MarkingRoleUpdateDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     role: MarkingRole
-
     principalId: core_models.PrincipalId
 
 
@@ -998,7 +885,6 @@ class OidcAuthenticationProtocol(pydantic.BaseModel):
     """OidcAuthenticationProtocol"""
 
     type: typing.Literal["oidc"] = "oidc"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "OidcAuthenticationProtocolDict":
@@ -1020,20 +906,15 @@ class Organization(pydantic.BaseModel):
     """Organization"""
 
     rid: core_models.OrganizationRid
-
     name: OrganizationName
-
     description: typing.Optional[str] = None
-
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
-
     """
     The ID of this Organization's underlying marking. Organization guest access can be managed
     by updating the membership of this Marking.
     """
 
     host: typing.Optional[HostName] = None
-
     """
     The primary host name of the Organization. This should be used when constructing URLs for users of this
     Organization.
@@ -1052,11 +933,8 @@ class OrganizationDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: core_models.OrganizationRid
-
     name: OrganizationName
-
     description: typing_extensions.NotRequired[str]
-
     markingId: core_models.MarkingId
     """
     The ID of this Organization's underlying marking. Organization guest access can be managed
@@ -1086,9 +964,7 @@ class SamlAuthenticationProtocol(pydantic.BaseModel):
     """SamlAuthenticationProtocol"""
 
     service_provider_metadata: SamlServiceProviderMetadata = pydantic.Field(alias=str("serviceProviderMetadata"))  # type: ignore[literal-required]
-
     type: typing.Literal["saml"] = "saml"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SamlAuthenticationProtocolDict":
@@ -1104,7 +980,6 @@ class SamlAuthenticationProtocolDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     serviceProviderMetadata: SamlServiceProviderMetadataDict
-
     type: typing.Literal["saml"]
 
 
@@ -1112,26 +987,21 @@ class SamlServiceProviderMetadata(pydantic.BaseModel):
     """Information that describes a Foundry Authentication Provider as a SAML service provider. All information listed here is generated by Foundry."""
 
     entity_id: str = pydantic.Field(alias=str("entityId"))  # type: ignore[literal-required]
-
     """The static SAML entity ID that represents this service provider."""
 
     metadata_url: str = pydantic.Field(alias=str("metadataUrl"))  # type: ignore[literal-required]
-
     """A public URL from which this service provider metadata can be downloaded as XML."""
 
     acs_urls: typing.List[str] = pydantic.Field(alias=str("acsUrls"))  # type: ignore[literal-required]
-
     """
     The Assertion Consumer Service (ACS) URLs for this service provider, to which the SAML identity provider
     redirects authentication responses.
     """
 
     logout_urls: typing.List[str] = pydantic.Field(alias=str("logoutUrls"))  # type: ignore[literal-required]
-
     """The URLs for this service provider to which the SAML identity provider sends logout requests."""
 
     certificates: typing.List[CertificateInfo]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SamlServiceProviderMetadataDict":
@@ -1168,9 +1038,7 @@ class SearchGroupsResponse(pydantic.BaseModel):
     """SearchGroupsResponse"""
 
     data: typing.List[Group]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchGroupsResponseDict":
@@ -1186,7 +1054,6 @@ class SearchGroupsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[GroupDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -1194,9 +1061,7 @@ class SearchUsersResponse(pydantic.BaseModel):
     """SearchUsersResponse"""
 
     data: typing.List[User]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchUsersResponseDict":
@@ -1212,7 +1077,6 @@ class SearchUsersResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[UserDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -1220,31 +1084,23 @@ class User(pydantic.BaseModel):
     """User"""
 
     id: core_models.PrincipalId
-
     username: UserUsername
-
     """The Foundry username of the User. This is unique within the realm."""
 
     given_name: typing.Optional[str] = pydantic.Field(alias=str("givenName"), default=None)  # type: ignore[literal-required]
-
     """The given name of the User."""
 
     family_name: typing.Optional[str] = pydantic.Field(alias=str("familyName"), default=None)  # type: ignore[literal-required]
-
     """The family name (last name) of the User."""
 
     email: typing.Optional[str] = None
-
     """The email at which to contact a User. Multiple users may have the same email address."""
 
     realm: core_models.Realm
-
     organization: typing.Optional[core_models.OrganizationRid] = None
-
     """The RID of the user's primary Organization. This will be blank for third-party application service users."""
 
     attributes: typing.Dict[AttributeName, AttributeValues]
-
     """
     A map of the User's attributes. Attributes prefixed with "multipass:" are reserved for internal use by
     Foundry and are subject to change. Additional attributes may be configured by Foundry administrators in 
@@ -1264,7 +1120,6 @@ class UserDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     id: core_models.PrincipalId
-
     username: UserUsername
     """The Foundry username of the User. This is unique within the realm."""
 
@@ -1278,7 +1133,6 @@ class UserDict(typing_extensions.TypedDict):
     """The email at which to contact a User. Multiple users may have the same email address."""
 
     realm: core_models.Realm
-
     organization: typing_extensions.NotRequired[core_models.OrganizationRid]
     """The RID of the user's primary Organization. This will be blank for third-party application service users."""
 
@@ -1294,7 +1148,6 @@ class UserProviderInfo(pydantic.BaseModel):
     """UserProviderInfo"""
 
     provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
-
     """
     The ID of the User in the external authentication provider. This value is determined by the authentication provider.
     At most one User can have a given provider ID in a given Realm.
@@ -1323,9 +1176,7 @@ class UserSearchFilter(pydantic.BaseModel):
     """UserSearchFilter"""
 
     type: PrincipalFilterType
-
     value: str
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "UserSearchFilterDict":
@@ -1339,7 +1190,6 @@ class UserSearchFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     type: PrincipalFilterType
-
     value: str
 
 

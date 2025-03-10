@@ -31,9 +31,7 @@ class InvalidPropertyValueParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     propertyBaseType: ontologies_models.ValueType
-
     property: ontologies_models.PropertyApiName
-
     propertyValue: ontologies_models.PropertyValue
 
 

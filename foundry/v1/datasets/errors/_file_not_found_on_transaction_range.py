@@ -29,11 +29,8 @@ class FileNotFoundOnTransactionRangeParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     startTransactionRid: typing_extensions.NotRequired[datasets_models.TransactionRid]
-
     endTransactionRid: datasets_models.TransactionRid
-
     path: core_models.FilePath
 
 

@@ -4,7 +4,7 @@ CenterPointTypes
 
 ## Type
 ```python
-geo_models.GeoPointDict
+"geo_models.GeoPointDict"
 ```
 
 

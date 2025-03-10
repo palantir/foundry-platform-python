@@ -30,7 +30,6 @@ class AggregationNestedObjectSetSizeExceededLimitParameters(typing_extensions.Ty
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectsCount: int
-
     objectsLimit: int
 
 

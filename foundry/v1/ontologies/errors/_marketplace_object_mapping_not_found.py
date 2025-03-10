@@ -28,9 +28,7 @@ class MarketplaceObjectMappingNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectType: ontologies_models.ObjectTypeApiName
-
     artifactRepository: ontologies_models.ArtifactRepositoryRid
-
     packageName: ontologies_models.SdkPackageName
 
 

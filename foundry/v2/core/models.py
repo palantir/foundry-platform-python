@@ -28,7 +28,6 @@ class AnyType(pydantic.BaseModel):
     """AnyType"""
 
     type: typing.Literal["any"] = "any"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AnyTypeDict":
@@ -48,9 +47,7 @@ class ArrayFieldType(pydantic.BaseModel):
     """ArrayFieldType"""
 
     items_schema: FieldSchema = pydantic.Field(alias=str("itemsSchema"))  # type: ignore[literal-required]
-
     type: typing.Literal["array"] = "array"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ArrayFieldTypeDict":
@@ -64,7 +61,6 @@ class ArrayFieldTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     itemsSchema: FieldSchemaDict
-
     type: typing.Literal["array"]
 
 
@@ -72,7 +68,6 @@ class AttachmentType(pydantic.BaseModel):
     """AttachmentType"""
 
     type: typing.Literal["attachment"] = "attachment"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AttachmentTypeDict":
@@ -92,7 +87,6 @@ class BinaryType(pydantic.BaseModel):
     """BinaryType"""
 
     type: typing.Literal["binary"] = "binary"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BinaryTypeDict":
@@ -112,7 +106,6 @@ class BooleanType(pydantic.BaseModel):
     """BooleanType"""
 
     type: typing.Literal["boolean"] = "boolean"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BooleanTypeDict":
@@ -136,7 +129,6 @@ class ByteType(pydantic.BaseModel):
     """ByteType"""
 
     type: typing.Literal["byte"] = "byte"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ByteTypeDict":
@@ -152,7 +144,7 @@ class ByteTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["byte"]
 
 
-ChangeDataCaptureConfiguration = FullRowChangeDataCaptureConfiguration
+ChangeDataCaptureConfiguration = "FullRowChangeDataCaptureConfiguration"
 """
 Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
 least one key needs to be provided.
@@ -162,7 +154,7 @@ Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-dat
 """
 
 
-ChangeDataCaptureConfigurationDict = FullRowChangeDataCaptureConfigurationDict
+ChangeDataCaptureConfigurationDict = "FullRowChangeDataCaptureConfigurationDict"
 """
 Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
 least one key needs to be provided.
@@ -176,11 +168,9 @@ class CipherTextType(pydantic.BaseModel):
     """CipherTextType"""
 
     default_cipher_channel: typing.Optional[core.RID] = pydantic.Field(alias=str("defaultCipherChannel"), default=None)  # type: ignore[literal-required]
-
     """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: typing.Literal["cipherText"] = "cipherText"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CipherTextTypeDict":
@@ -207,7 +197,7 @@ ContentType = str
 """ContentType"""
 
 
-CreatedBy = PrincipalId
+CreatedBy = "PrincipalId"
 """The Foundry user who created this resource"""
 
 
@@ -223,7 +213,6 @@ class DateType(pydantic.BaseModel):
     """DateType"""
 
     type: typing.Literal["date"] = "date"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DateTypeDict":
@@ -243,15 +232,12 @@ class DecimalType(pydantic.BaseModel):
     """DecimalType"""
 
     precision: typing.Optional[int] = None
-
     """The total number of digits of the Decimal type. The maximum value is 38."""
 
     scale: typing.Optional[int] = None
-
     """The number of digits to the right of the decimal point. The maximum value is 38."""
 
     type: typing.Literal["decimal"] = "decimal"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DecimalTypeDict":
@@ -281,9 +267,7 @@ class Distance(pydantic.BaseModel):
     """A measurement of distance."""
 
     value: float
-
     unit: DistanceUnit
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DistanceDict":
@@ -297,7 +281,6 @@ class DistanceDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     value: float
-
     unit: DistanceUnit
 
 
@@ -319,7 +302,6 @@ class DoubleType(pydantic.BaseModel):
     """DoubleType"""
 
     type: typing.Literal["double"] = "double"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DoubleTypeDict":
@@ -339,11 +321,9 @@ class Duration(pydantic.BaseModel):
     """A measurement of duration."""
 
     value: int
-
     """The duration value."""
 
     unit: TimeUnit
-
     """The unit of duration."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -366,13 +346,13 @@ class DurationDict(typing_extensions.TypedDict):
 
 
 EmbeddingModel = typing_extensions.Annotated[
-    typing.Union[LmsEmbeddingModel, FoundryLiveDeployment], pydantic.Field(discriminator="type")
+    typing.Union["LmsEmbeddingModel", "FoundryLiveDeployment"], pydantic.Field(discriminator="type")
 ]
 """EmbeddingModel"""
 
 
 EmbeddingModelDict = typing_extensions.Annotated[
-    typing.Union[LmsEmbeddingModelDict, FoundryLiveDeploymentDict],
+    typing.Union["LmsEmbeddingModelDict", "FoundryLiveDeploymentDict"],
     pydantic.Field(discriminator="type"),
 ]
 """EmbeddingModel"""
@@ -389,9 +369,7 @@ class Field(pydantic.BaseModel):
     """
 
     name: FieldName
-
     schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FieldDict":
@@ -401,21 +379,21 @@ class Field(pydantic.BaseModel):
 
 FieldDataType = typing_extensions.Annotated[
     typing.Union[
-        StructFieldType,
+        "StructFieldType",
         DateType,
-        StringType,
+        "StringType",
         ByteType,
         DoubleType,
-        IntegerType,
-        FloatType,
-        LongType,
+        "IntegerType",
+        "FloatType",
+        "LongType",
         BooleanType,
         ArrayFieldType,
         BinaryType,
-        ShortType,
+        "ShortType",
         DecimalType,
-        MapFieldType,
-        TimestampType,
+        "MapFieldType",
+        "TimestampType",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -424,21 +402,21 @@ FieldDataType = typing_extensions.Annotated[
 
 FieldDataTypeDict = typing_extensions.Annotated[
     typing.Union[
-        StructFieldTypeDict,
+        "StructFieldTypeDict",
         DateTypeDict,
-        StringTypeDict,
+        "StringTypeDict",
         ByteTypeDict,
         DoubleTypeDict,
-        IntegerTypeDict,
-        FloatTypeDict,
-        LongTypeDict,
+        "IntegerTypeDict",
+        "FloatTypeDict",
+        "LongTypeDict",
         BooleanTypeDict,
         ArrayFieldTypeDict,
         BinaryTypeDict,
-        ShortTypeDict,
+        "ShortTypeDict",
         DecimalTypeDict,
-        MapFieldTypeDict,
-        TimestampTypeDict,
+        "MapFieldTypeDict",
+        "TimestampTypeDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -454,7 +432,6 @@ class FieldDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     name: FieldName
-
     schema: FieldSchemaDict
 
 
@@ -466,11 +443,8 @@ class FieldSchema(pydantic.BaseModel):
     """The specification of the type of a Foundry schema field."""
 
     nullable: bool
-
     custom_metadata: typing.Optional[CustomMetadata] = pydantic.Field(alias=str("customMetadata"), default=None)  # type: ignore[literal-required]
-
     data_type: FieldDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FieldSchemaDict":
@@ -484,9 +458,7 @@ class FieldSchemaDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     nullable: bool
-
     customMetadata: typing_extensions.NotRequired[CustomMetadata]
-
     dataType: FieldDataTypeDict
 
 
@@ -600,7 +572,7 @@ FilterTypeDict = typing_extensions.Annotated[
         FilterIntegerTypeDict,
         FilterFloatTypeDict,
         FilterRidTypeDict,
-        FilterUuidTypeDict,
+        "FilterUuidTypeDict",
         FilterEnumTypeDict,
         FilterLongTypeDict,
     ],
@@ -621,7 +593,6 @@ class FloatType(pydantic.BaseModel):
     """FloatType"""
 
     type: typing.Literal["float"] = "float"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FloatTypeDict":
@@ -645,19 +616,15 @@ class FoundryLiveDeployment(pydantic.BaseModel):
     """FoundryLiveDeployment"""
 
     rid: typing.Optional[core.RID] = None
-
     """The live deployment identifier. This rid is of the format 'ri.foundry-ml-live.main.live-deployment.<uuid>'."""
 
     input_param_name: typing.Optional[str] = pydantic.Field(alias=str("inputParamName"), default=None)  # type: ignore[literal-required]
-
     """The name of the input parameter to the model which should contain the query string."""
 
     output_param_name: typing.Optional[str] = pydantic.Field(alias=str("outputParamName"), default=None)  # type: ignore[literal-required]
-
     """The name of the output parameter to the model which should contain the computed embedding."""
 
     type: typing.Literal["foundryLiveDeployment"] = "foundryLiveDeployment"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FoundryLiveDeploymentDict":
@@ -692,11 +659,9 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
     """
 
     deletion_field_name: FieldName = pydantic.Field(alias=str("deletionFieldName"))  # type: ignore[literal-required]
-
     """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
 
     ordering_field_name: FieldName = pydantic.Field(alias=str("orderingFieldName"))  # type: ignore[literal-required]
-
     """
     The name of an ordering field that determines the newest state for a row in the dataset. 
 
@@ -712,7 +677,6 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
     """
 
     type: typing.Literal["fullRow"] = "fullRow"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FullRowChangeDataCaptureConfigurationDict":
@@ -757,7 +721,6 @@ class GeoPointType(pydantic.BaseModel):
     """GeoPointType"""
 
     type: typing.Literal["geopoint"] = "geopoint"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GeoPointTypeDict":
@@ -777,7 +740,6 @@ class GeoShapeType(pydantic.BaseModel):
     """GeoShapeType"""
 
     type: typing.Literal["geoshape"] = "geoshape"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GeoShapeTypeDict":
@@ -797,7 +759,6 @@ class GeotimeSeriesReferenceType(pydantic.BaseModel):
     """GeotimeSeriesReferenceType"""
 
     type: typing.Literal["geotimeSeriesReference"] = "geotimeSeriesReference"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "GeotimeSeriesReferenceTypeDict":
@@ -827,7 +788,6 @@ class IntegerType(pydantic.BaseModel):
     """IntegerType"""
 
     type: typing.Literal["integer"] = "integer"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "IntegerTypeDict":
@@ -851,9 +811,7 @@ class LmsEmbeddingModel(pydantic.BaseModel):
     """A model provided by Language Model Service."""
 
     value: LmsEmbeddingModelValue
-
     type: typing.Literal["lms"] = "lms"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "LmsEmbeddingModelDict":
@@ -867,7 +825,6 @@ class LmsEmbeddingModelDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     value: LmsEmbeddingModelValue
-
     type: typing.Literal["lms"]
 
 
@@ -885,7 +842,6 @@ class LongType(pydantic.BaseModel):
     """LongType"""
 
     type: typing.Literal["long"] = "long"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "LongTypeDict":
@@ -905,11 +861,8 @@ class MapFieldType(pydantic.BaseModel):
     """MapFieldType"""
 
     key_schema: FieldSchema = pydantic.Field(alias=str("keySchema"))  # type: ignore[literal-required]
-
     value_schema: FieldSchema = pydantic.Field(alias=str("valueSchema"))  # type: ignore[literal-required]
-
     type: typing.Literal["map"] = "map"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MapFieldTypeDict":
@@ -923,9 +876,7 @@ class MapFieldTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     keySchema: FieldSchemaDict
-
     valueSchema: FieldSchemaDict
-
     type: typing.Literal["map"]
 
 
@@ -937,7 +888,6 @@ class MarkingType(pydantic.BaseModel):
     """MarkingType"""
 
     type: typing.Literal["marking"] = "marking"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingTypeDict":
@@ -974,9 +924,7 @@ class MediaReference(pydantic.BaseModel):
     """The representation of a media reference."""
 
     mime_type: MediaType = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
-
     reference: Reference
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MediaReferenceDict":
@@ -990,7 +938,6 @@ class MediaReferenceDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     mimeType: MediaType
-
     reference: ReferenceDict
 
 
@@ -998,7 +945,6 @@ class MediaReferenceType(pydantic.BaseModel):
     """MediaReferenceType"""
 
     type: typing.Literal["mediaReference"] = "mediaReference"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MediaReferenceTypeDict":
@@ -1024,13 +970,9 @@ class MediaSetViewItem(pydantic.BaseModel):
     """MediaSetViewItem"""
 
     media_set_rid: MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
-
     media_set_view_rid: MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
-
     media_item_rid: MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
-
     token: typing.Optional[MediaItemReadToken] = None
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MediaSetViewItemDict":
@@ -1044,11 +986,8 @@ class MediaSetViewItemDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     mediaSetRid: MediaSetRid
-
     mediaSetViewRid: MediaSetViewRid
-
     mediaItemRid: MediaItemRid
-
     token: typing_extensions.NotRequired[MediaItemReadToken]
 
 
@@ -1056,9 +995,7 @@ class MediaSetViewItemWrapper(pydantic.BaseModel):
     """MediaSetViewItemWrapper"""
 
     media_set_view_item: MediaSetViewItem = pydantic.Field(alias=str("mediaSetViewItem"))  # type: ignore[literal-required]
-
     type: typing.Literal["mediaSetViewItem"] = "mediaSetViewItem"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MediaSetViewItemWrapperDict":
@@ -1074,7 +1011,6 @@ class MediaSetViewItemWrapperDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     mediaSetViewItem: MediaSetViewItemDict
-
     type: typing.Literal["mediaSetViewItem"]
 
 
@@ -1093,7 +1029,6 @@ class NullType(pydantic.BaseModel):
     """NullType"""
 
     type: typing.Literal["null"] = "null"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "NullTypeDict":
@@ -1176,7 +1111,6 @@ class ShortType(pydantic.BaseModel):
     """ShortType"""
 
     type: typing.Literal["short"] = "short"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ShortTypeDict":
@@ -1200,9 +1134,7 @@ class StreamSchema(pydantic.BaseModel):
     """The schema for a Foundry stream. Records pushed to this stream must match this schema."""
 
     fields: typing.List[Field]
-
     key_field_names: typing.Optional[typing.List[FieldName]] = pydantic.Field(alias=str("keyFieldNames"), default=None)  # type: ignore[literal-required]
-
     """
     The names of the fields to be used as keys for partitioning records. These key fields are used to group
     all records with the same key into the same partition, to guarantee processing order of grouped records. These
@@ -1225,7 +1157,6 @@ class StreamSchema(pydantic.BaseModel):
     """
 
     change_data_capture: typing.Optional[ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "StreamSchemaDict":
@@ -1239,7 +1170,6 @@ class StreamSchemaDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     fields: typing.List[FieldDict]
-
     keyFieldNames: typing_extensions.NotRequired[typing.List[FieldName]]
     """
     The names of the fields to be used as keys for partitioning records. These key fields are used to group
@@ -1269,7 +1199,6 @@ class StringType(pydantic.BaseModel):
     """StringType"""
 
     type: typing.Literal["string"] = "string"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "StringTypeDict":
@@ -1293,9 +1222,7 @@ class StructFieldType(pydantic.BaseModel):
     """StructFieldType"""
 
     sub_fields: typing.List[Field] = pydantic.Field(alias=str("subFields"))  # type: ignore[literal-required]
-
     type: typing.Literal["struct"] = "struct"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "StructFieldTypeDict":
@@ -1309,7 +1236,6 @@ class StructFieldTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     subFields: typing.List[FieldDict]
-
     type: typing.Literal["struct"]
 
 
@@ -1335,9 +1261,7 @@ class TimeseriesType(pydantic.BaseModel):
     """TimeseriesType"""
 
     item_type: typing.Optional[TimeSeriesItemType] = pydantic.Field(alias=str("itemType"), default=None)  # type: ignore[literal-required]
-
     type: typing.Literal["timeseries"] = "timeseries"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "TimeseriesTypeDict":
@@ -1351,7 +1275,6 @@ class TimeseriesTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     itemType: typing_extensions.NotRequired[TimeSeriesItemTypeDict]
-
     type: typing.Literal["timeseries"]
 
 
@@ -1359,7 +1282,6 @@ class TimestampType(pydantic.BaseModel):
     """TimestampType"""
 
     type: typing.Literal["timestamp"] = "timestamp"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "TimestampTypeDict":
@@ -1383,9 +1305,7 @@ class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
     unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
-
     type: typing.Literal["unsupported"] = "unsupported"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "UnsupportedTypeDict":
@@ -1399,11 +1319,10 @@ class UnsupportedTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     unsupportedType: str
-
     type: typing.Literal["unsupported"]
 
 
-UpdatedBy = UserId
+UpdatedBy = "UserId"
 """The Foundry user who last updated this resource"""
 
 
@@ -1422,7 +1341,6 @@ class VectorSimilarityFunction(pydantic.BaseModel):
     """
 
     value: typing.Optional[VectorSimilarityFunctionValue] = None
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "VectorSimilarityFunctionDict":
@@ -1453,15 +1371,11 @@ class VectorType(pydantic.BaseModel):
     """Represents a fixed size vector of floats. These can be used for vector similarity searches."""
 
     dimension: int
-
     """The dimension of the vector."""
 
     supports_search_with: typing.List[VectorSimilarityFunction] = pydantic.Field(alias=str("supportsSearchWith"))  # type: ignore[literal-required]
-
     embedding_model: typing.Optional[EmbeddingModel] = pydantic.Field(alias=str("embeddingModel"), default=None)  # type: ignore[literal-required]
-
     type: typing.Literal["vector"] = "vector"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "VectorTypeDict":
@@ -1478,9 +1392,7 @@ class VectorTypeDict(typing_extensions.TypedDict):
     """The dimension of the vector."""
 
     supportsSearchWith: typing.List[VectorSimilarityFunctionDict]
-
     embeddingModel: typing_extensions.NotRequired[EmbeddingModelDict]
-
     type: typing.Literal["vector"]
 
 

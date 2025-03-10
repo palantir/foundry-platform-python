@@ -35,7 +35,6 @@ class AgentProxyRuntime(pydantic.BaseModel):
     """
 
     agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-
     """
     The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
     These agents are used to provide network connectivity to the external systems or APIs configured on the
@@ -43,7 +42,6 @@ class AgentProxyRuntime(pydantic.BaseModel):
     """
 
     type: typing.Literal["agentProxyRuntime"] = "agentProxyRuntime"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AgentProxyRuntimeDict":
@@ -87,7 +85,6 @@ class AgentWorkerRuntime(pydantic.BaseModel):
     """
 
     agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-
     """
     The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
     These agents are used to provide network connectivity to the external systems or APIs configured on the
@@ -95,7 +92,6 @@ class AgentWorkerRuntime(pydantic.BaseModel):
     """
 
     type: typing.Literal["agentWorkerRuntime"] = "agentWorkerRuntime"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AgentWorkerRuntimeDict":
@@ -133,15 +129,12 @@ class ApiKeyAuthentication(pydantic.BaseModel):
     """
 
     location: RestRequestApiKeyLocation
-
     """The location of the API key in the request."""
 
     api_key: EncryptedProperty = pydantic.Field(alias=str("apiKey"))  # type: ignore[literal-required]
-
     """The value of the API key."""
 
     type: typing.Literal["apiKey"] = "apiKey"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ApiKeyAuthenticationDict":
@@ -172,9 +165,7 @@ class AsPlaintextValue(pydantic.BaseModel):
     """AsPlaintextValue"""
 
     value: PlaintextValue
-
     type: typing.Literal["asPlaintextValue"] = "asPlaintextValue"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AsPlaintextValueDict":
@@ -188,7 +179,6 @@ class AsPlaintextValueDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     value: PlaintextValue
-
     type: typing.Literal["asPlaintextValue"]
 
 
@@ -196,9 +186,7 @@ class AsSecretName(pydantic.BaseModel):
     """AsSecretName"""
 
     value: SecretName
-
     type: typing.Literal["asSecretName"] = "asSecretName"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AsSecretNameDict":
@@ -212,7 +200,6 @@ class AsSecretNameDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     value: SecretName
-
     type: typing.Literal["asSecretName"]
 
 
@@ -226,11 +213,8 @@ class AwsAccessKey(pydantic.BaseModel):
     """
 
     access_key_id: str = pydantic.Field(alias=str("accessKeyId"))  # type: ignore[literal-required]
-
     secret_access_key: EncryptedProperty = pydantic.Field(alias=str("secretAccessKey"))  # type: ignore[literal-required]
-
     type: typing.Literal["awsAccessKey"] = "awsAccessKey"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AwsAccessKeyDict":
@@ -250,9 +234,7 @@ class AwsAccessKeyDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     accessKeyId: str
-
     secretAccessKey: EncryptedPropertyDict
-
     type: typing.Literal["awsAccessKey"]
 
 
@@ -260,11 +242,8 @@ class BasicCredentials(pydantic.BaseModel):
     """BasicCredentials"""
 
     username: str
-
     password: EncryptedProperty
-
     type: typing.Literal["basic"] = "basic"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BasicCredentialsDict":
@@ -278,9 +257,7 @@ class BasicCredentialsDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     username: str
-
     password: EncryptedPropertyDict
-
     type: typing.Literal["basic"]
 
 
@@ -288,9 +265,7 @@ class BearerToken(pydantic.BaseModel):
     """The bearer token used to authenticate to the external system."""
 
     bearer_token: EncryptedProperty = pydantic.Field(alias=str("bearerToken"))  # type: ignore[literal-required]
-
     type: typing.Literal["bearerToken"] = "bearerToken"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BearerTokenDict":
@@ -304,7 +279,6 @@ class BearerTokenDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     bearerToken: EncryptedPropertyDict
-
     type: typing.Literal["bearerToken"]
 
 
@@ -315,9 +289,7 @@ class CloudIdentity(pydantic.BaseModel):
     """
 
     cloud_identity_rid: CloudIdentityRid = pydantic.Field(alias=str("cloudIdentityRid"))  # type: ignore[literal-required]
-
     type: typing.Literal["cloudIdentity"] = "cloudIdentity"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CloudIdentityDict":
@@ -334,7 +306,6 @@ class CloudIdentityDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     cloudIdentityRid: CloudIdentityRid
-
     type: typing.Literal["cloudIdentity"]
 
 
@@ -346,17 +317,12 @@ class Connection(pydantic.BaseModel):
     """Connection"""
 
     rid: ConnectionRid
-
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-
     display_name: ConnectionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     """The display name of the Connection. The display name must not be blank."""
 
     runtime_platform: RuntimePlatform = pydantic.Field(alias=str("runtimePlatform"))  # type: ignore[literal-required]
-
     configuration: ConnectionConfiguration
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ConnectionDict":
@@ -365,14 +331,14 @@ class Connection(pydantic.BaseModel):
 
 
 ConnectionConfiguration = typing_extensions.Annotated[
-    typing.Union[S3ConnectionConfiguration, RestConnectionConfiguration],
+    typing.Union["S3ConnectionConfiguration", "RestConnectionConfiguration"],
     pydantic.Field(discriminator="type"),
 ]
 """ConnectionConfiguration"""
 
 
 ConnectionConfigurationDict = typing_extensions.Annotated[
-    typing.Union[S3ConnectionConfigurationDict, RestConnectionConfigurationDict],
+    typing.Union["S3ConnectionConfigurationDict", "RestConnectionConfigurationDict"],
     pydantic.Field(discriminator="type"),
 ]
 """ConnectionConfiguration"""
@@ -384,14 +350,11 @@ class ConnectionDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ConnectionRid
-
     parentFolderRid: filesystem_models.FolderRid
-
     displayName: ConnectionDisplayName
     """The display name of the Connection. The display name must not be blank."""
 
     runtimePlatform: RuntimePlatformDict
-
     configuration: ConnectionConfigurationDict
 
 
@@ -407,7 +370,6 @@ class CreateConnectionRequestAgentProxyRuntime(pydantic.BaseModel):
     """CreateConnectionRequestAgentProxyRuntime"""
 
     agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-
     """
     The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
     These agents are used to provide network connectivity to the external systems or APIs configured on the
@@ -415,7 +377,6 @@ class CreateConnectionRequestAgentProxyRuntime(pydantic.BaseModel):
     """
 
     type: typing.Literal["agentProxyRuntime"] = "agentProxyRuntime"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateConnectionRequestAgentProxyRuntimeDict":
@@ -445,7 +406,6 @@ class CreateConnectionRequestAgentWorkerRuntime(pydantic.BaseModel):
     """CreateConnectionRequestAgentWorkerRuntime"""
 
     agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-
     """
     The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
     These agents are used to provide network connectivity to the external systems or APIs configured on the
@@ -453,7 +413,6 @@ class CreateConnectionRequestAgentWorkerRuntime(pydantic.BaseModel):
     """
 
     type: typing.Literal["agentWorkerRuntime"] = "agentWorkerRuntime"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateConnectionRequestAgentWorkerRuntimeDict":
@@ -481,8 +440,8 @@ class CreateConnectionRequestAgentWorkerRuntimeDict(typing_extensions.TypedDict)
 
 CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
     typing.Union[
-        CreateConnectionRequestS3ConnectionConfiguration,
-        CreateConnectionRequestRestConnectionConfiguration,
+        "CreateConnectionRequestS3ConnectionConfiguration",
+        "CreateConnectionRequestRestConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -491,8 +450,8 @@ CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
 
 CreateConnectionRequestConnectionConfigurationDict = typing_extensions.Annotated[
     typing.Union[
-        CreateConnectionRequestS3ConnectionConfigurationDict,
-        CreateConnectionRequestRestConnectionConfigurationDict,
+        "CreateConnectionRequestS3ConnectionConfigurationDict",
+        "CreateConnectionRequestRestConnectionConfigurationDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -503,7 +462,6 @@ class CreateConnectionRequestDirectConnectionRuntime(pydantic.BaseModel):
     """CreateConnectionRequestDirectConnectionRuntime"""
 
     network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
-
     """
     The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
     configured on the connection.
@@ -512,7 +470,6 @@ class CreateConnectionRequestDirectConnectionRuntime(pydantic.BaseModel):
     """
 
     type: typing.Literal["directConnectionRuntime"] = "directConnectionRuntime"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateConnectionRequestDirectConnectionRuntimeDict":
@@ -543,14 +500,12 @@ class CreateConnectionRequestRestConnectionConfiguration(pydantic.BaseModel):
     """CreateConnectionRequestRestConnectionConfiguration"""
 
     additional_secrets: typing.Optional[RestConnectionAdditionalSecrets] = pydantic.Field(alias=str("additionalSecrets"), default=None)  # type: ignore[literal-required]
-
     """
     Additional secrets that can be referenced in code and webhook configurations.
     If not provided, no additional secrets will be created.
     """
 
     oauth2_client_rid: typing.Optional[core.RID] = pydantic.Field(alias=str("oauth2ClientRid"), default=None)  # type: ignore[literal-required]
-
     """
     The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
     Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
@@ -558,14 +513,12 @@ class CreateConnectionRequestRestConnectionConfiguration(pydantic.BaseModel):
     """
 
     domains: typing.List[Domain]
-
     """
     The domains that the connection is allowed to access.
     At least one domain must be specified.
     """
 
     type: typing.Literal["rest"] = "rest"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateConnectionRequestRestConnectionConfigurationDict":
@@ -635,32 +588,27 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
     """CreateConnectionRequestS3ConnectionConfiguration"""
 
     connection_timeout_millis: typing.Optional[core.Long] = pydantic.Field(alias=str("connectionTimeoutMillis"), default=None)  # type: ignore[literal-required]
-
     """
     The amount of time (in milliseconds) to wait when initially establishing a connection before giving up and timing out.
     If not specified, defaults to 10000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_CONNECTION_TIMEOUT).
     """
 
     max_error_retry: typing.Optional[int] = pydantic.Field(alias=str("maxErrorRetry"), default=None)  # type: ignore[literal-required]
-
     """
     The maximum number of retry attempts for failed requests to the S3 service.
     If not specified, defaults to 3 as defined by the [AWS SDK default](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/retry-strategy.html#retry-strategies).
     """
 
     bucket_url: str = pydantic.Field(alias=str("bucketUrl"))  # type: ignore[literal-required]
-
     """The URL of the S3 bucket. The URL should contain a trailing slash."""
 
     client_kms_configuration: typing.Optional[S3KmsConfiguration] = pydantic.Field(alias=str("clientKmsConfiguration"), default=None)  # type: ignore[literal-required]
-
     """
     The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
     If not specified, the default KMS key for the bucket is used.
     """
 
     match_subfolder_exactly: typing.Optional[bool] = pydantic.Field(alias=str("matchSubfolderExactly"), default=None)  # type: ignore[literal-required]
-
     """
     If true, only files in the subfolder specified in the bucket URL will be synced.
     If false, all files in the bucket will be synced.
@@ -668,11 +616,9 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     sts_role_configuration: typing.Optional[StsRoleConfiguration] = pydantic.Field(alias=str("stsRoleConfiguration"), default=None)  # type: ignore[literal-required]
-
     """The configuration needed to assume a role to connect to the S3 external system."""
 
     s3_endpoint: typing.Optional[str] = pydantic.Field(alias=str("s3Endpoint"), default=None)  # type: ignore[literal-required]
-
     """
     The endpoint of the S3 service. This is used to connect to a custom S3 service that is not AWS S3.
     If not specified, defaults to the [AWS S3 endpoint](https://docs.aws.amazon.com/general/latest/gr/s3.html).
@@ -680,14 +626,12 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     socket_timeout_millis: typing.Optional[core.Long] = pydantic.Field(alias=str("socketTimeoutMillis"), default=None)  # type: ignore[literal-required]
-
     """
     The amount of time (in milliseconds) to wait for data to be transferred over an established, open connection.
     If not specified, defaults to 50000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_SOCKET_TIMEOUT).
     """
 
     enable_requester_pays: typing.Optional[bool] = pydantic.Field(alias=str("enableRequesterPays"), default=None)  # type: ignore[literal-required]
-
     """
     Defaults to false, unless set and overwritten.
     If true, includes the [requester pays header](https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html)
@@ -695,7 +639,6 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     s3_endpoint_signing_region: typing.Optional[Region] = pydantic.Field(alias=str("s3EndpointSigningRegion"), default=None)  # type: ignore[literal-required]
-
     """
     The region used when constructing the S3 client using a custom endpoint.
     This is often not required and would only be needed if you are using the S3 connector with an S3-compliant third-party API,
@@ -703,32 +646,27 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     region: typing.Optional[Region] = None
-
     """
     The region representing the location of the S3 bucket.
     Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
     """
 
     authentication_mode: typing.Optional[S3AuthenticationMode] = pydantic.Field(alias=str("authenticationMode"), default=None)  # type: ignore[literal-required]
-
     """
     The authentication mode to use to connect to the S3 external system. No authentication mode is required
     to connect to publicly accessible AWS S3 buckets.
     """
 
     proxy_configuration: typing.Optional[S3ProxyConfiguration] = pydantic.Field(alias=str("proxyConfiguration"), default=None)  # type: ignore[literal-required]
-
     """The configuration needed to connect to the S3 external system through a proxy."""
 
     max_connections: typing.Optional[int] = pydantic.Field(alias=str("maxConnections"), default=None)  # type: ignore[literal-required]
-
     """
     The maximum number of HTTP connections to the S3 service per sync.
     If not specified, defaults to 50 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_MAX_CONNECTIONS).
     """
 
     type: typing.Literal["s3"] = "s3"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateConnectionRequestS3ConnectionConfigurationDict":
@@ -830,7 +768,6 @@ class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestJdbcImportConfig"""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -838,7 +775,6 @@ class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateTableImportRequestJdbcImportConfigDict":
@@ -868,7 +804,6 @@ class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestMicrosoftAccessImportConfig"""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -876,7 +811,6 @@ class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateTableImportRequestMicrosoftAccessImportConfigDict":
@@ -906,7 +840,6 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel)
     """CreateTableImportRequestMicrosoftSqlServerImportConfig"""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -914,7 +847,6 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel)
     """
 
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateTableImportRequestMicrosoftSqlServerImportConfigDict":
@@ -944,7 +876,6 @@ class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestOracleImportConfig"""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -952,7 +883,6 @@ class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateTableImportRequestOracleImportConfigDict":
@@ -982,7 +912,6 @@ class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestPostgreSqlImportConfig"""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -990,7 +919,6 @@ class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateTableImportRequestPostgreSqlImportConfigDict":
@@ -1052,7 +980,6 @@ class DirectConnectionRuntime(pydantic.BaseModel):
     """
 
     network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
-
     """
     The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
     configured on the connection.
@@ -1061,7 +988,6 @@ class DirectConnectionRuntime(pydantic.BaseModel):
     """
 
     type: typing.Literal["directConnectionRuntime"] = "directConnectionRuntime"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DirectConnectionRuntimeDict":
@@ -1097,22 +1023,18 @@ class Domain(pydantic.BaseModel):
     """The domain that the connection is allowed to access."""
 
     scheme: typing.Optional[UriScheme] = None
-
     """
     The scheme of the domain that the connection is allowed to access.
     If not specified, defaults to HTTPS.
     """
 
     host: str
-
     """The domain name, IPv4, or IPv6 address."""
 
     port: typing.Optional[int] = None
-
     """The port number of the domain that the connection is allowed to access."""
 
     auth: typing.Optional[RestAuthenticationMode] = None
-
     """
     The URI scheme must be HTTPS if using any authentication.
     If not specified, no authentication is required.
@@ -1177,11 +1099,9 @@ class FileAnyPathMatchesFilter(pydantic.BaseModel):
     """If any file has a relative path matching the regular expression, sync all files in the subfolder that are not otherwise filtered."""
 
     regex: str
-
     """The regular expression for the relative path to match against."""
 
     type: typing.Literal["anyPathMatchesFilter"] = "anyPathMatchesFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileAnyPathMatchesFilterDict":
@@ -1206,14 +1126,12 @@ class FileAtLeastCountFilter(pydantic.BaseModel):
     """Import all filtered files only if there are at least the specified number of files remaining."""
 
     min_files_count: int = pydantic.Field(alias=str("minFilesCount"))  # type: ignore[literal-required]
-
     """
     The minimum number of files remaining expected.
     The value specified must be greater than 0.
     """
 
     type: typing.Literal["atLeastCountFilter"] = "atLeastCountFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileAtLeastCountFilterDict":
@@ -1244,7 +1162,6 @@ class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
     """
 
     file_properties: typing.List[FileProperty] = pydantic.Field(alias=str("fileProperties"))  # type: ignore[literal-required]
-
     """
     The criteria on which to determine whether a file has been changed or not since the last import. 
     If any of the specified criteria have changed, the file is consider changed. The criteria include:
@@ -1256,7 +1173,6 @@ class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
     """
 
     type: typing.Literal["changedSinceLastUploadFilter"] = "changedSinceLastUploadFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileChangedSinceLastUploadFilterDict":
@@ -1292,29 +1208,21 @@ class FileImport(pydantic.BaseModel):
     """FileImport"""
 
     rid: FileImportRid
-
     connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
-
     """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-
     """The RID of the output dataset."""
 
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
-
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
     display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     file_import_filters: typing.List[FileImportFilter] = pydantic.Field(alias=str("fileImportFilters"))  # type: ignore[literal-required]
-
     """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
 
     import_mode: FileImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
-
     subfolder: typing.Optional[str] = None
-
     """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1331,9 +1239,7 @@ class FileImportCustomFilter(pydantic.BaseModel):
     """
 
     config: typing.Any
-
     type: typing.Literal["customFilter"] = "customFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileImportCustomFilterDict":
@@ -1352,7 +1258,6 @@ class FileImportCustomFilterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     config: typing.Any
-
     type: typing.Literal["customFilter"]
 
 
@@ -1362,7 +1267,6 @@ class FileImportDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: FileImportRid
-
     connectionRid: ConnectionRid
     """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
@@ -1373,12 +1277,10 @@ class FileImportDict(typing_extensions.TypedDict):
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
     displayName: FileImportDisplayName
-
     fileImportFilters: typing.List[FileImportFilterDict]
     """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
 
     importMode: FileImportMode
-
     subfolder: typing_extensions.NotRequired[str]
     """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
 
@@ -1389,15 +1291,15 @@ FileImportDisplayName = str
 
 FileImportFilter = typing_extensions.Annotated[
     typing.Union[
-        FilePathNotMatchesFilter,
+        "FilePathNotMatchesFilter",
         FileAnyPathMatchesFilter,
-        FilesCountLimitFilter,
+        "FilesCountLimitFilter",
         FileChangedSinceLastUploadFilter,
         FileImportCustomFilter,
-        FileLastModifiedAfterFilter,
-        FilePathMatchesFilter,
+        "FileLastModifiedAfterFilter",
+        "FilePathMatchesFilter",
         FileAtLeastCountFilter,
-        FileSizeFilter,
+        "FileSizeFilter",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1409,15 +1311,15 @@ before they are imported into Foundry.
 
 FileImportFilterDict = typing_extensions.Annotated[
     typing.Union[
-        FilePathNotMatchesFilterDict,
+        "FilePathNotMatchesFilterDict",
         FileAnyPathMatchesFilterDict,
-        FilesCountLimitFilterDict,
+        "FilesCountLimitFilterDict",
         FileChangedSinceLastUploadFilterDict,
         FileImportCustomFilterDict,
-        FileLastModifiedAfterFilterDict,
-        FilePathMatchesFilterDict,
+        "FileLastModifiedAfterFilterDict",
+        "FilePathMatchesFilterDict",
         FileAtLeastCountFilterDict,
-        FileSizeFilterDict,
+        "FileSizeFilterDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1445,14 +1347,12 @@ class FileLastModifiedAfterFilter(pydantic.BaseModel):
     """Only import files that have been modified after a specified timestamp"""
 
     after_timestamp: typing.Optional[datetime] = pydantic.Field(alias=str("afterTimestamp"), default=None)  # type: ignore[literal-required]
-
     """
     Timestamp threshold, specified in ISO-8601 format.
     If not specified, defaults to the timestamp the filter is added to the file import.
     """
 
     type: typing.Literal["lastModifiedAfterFilter"] = "lastModifiedAfterFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileLastModifiedAfterFilterDict":
@@ -1491,11 +1391,9 @@ class FilePathMatchesFilter(pydantic.BaseModel):
     """
 
     regex: str
-
     """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
 
     type: typing.Literal["pathMatchesFilter"] = "pathMatchesFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FilePathMatchesFilterDict":
@@ -1543,11 +1441,9 @@ class FilePathNotMatchesFilter(pydantic.BaseModel):
     """
 
     regex: str
-
     """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
 
     type: typing.Literal["pathNotMatchesFilter"] = "pathNotMatchesFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FilePathNotMatchesFilterDict":
@@ -1592,21 +1488,18 @@ class FileSizeFilter(pydantic.BaseModel):
     """
 
     gt: typing.Optional[core_models.SizeBytes] = None
-
     """
     File size must be greater than this number for it to be imported.
     The value specified cannot be a negative number.
     """
 
     lt: typing.Optional[core_models.SizeBytes] = None
-
     """
     File size must be less than this number for it to be imported.
     The value specified must be at least 1 byte.
     """
 
     type: typing.Literal["fileSizeFilter"] = "fileSizeFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileSizeFilterDict":
@@ -1646,11 +1539,9 @@ class FilesCountLimitFilter(pydantic.BaseModel):
     """
 
     files_count: int = pydantic.Field(alias=str("filesCount"))  # type: ignore[literal-required]
-
     """The number of files to import in the transaction. The value specified must be positive."""
 
     type: typing.Literal["filesCountLimitFilter"] = "filesCountLimitFilter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FilesCountLimitFilterDict":
@@ -1679,11 +1570,9 @@ class HeaderApiKey(pydantic.BaseModel):
     """HeaderApiKey"""
 
     header_name: str = pydantic.Field(alias=str("headerName"))  # type: ignore[literal-required]
-
     """The name of the header that the API key is passed in."""
 
     type: typing.Literal["header"] = "header"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "HeaderApiKeyDict":
@@ -1706,7 +1595,6 @@ class JdbcImportConfig(pydantic.BaseModel):
     """The import configuration for a [custom JDBC connection](docs/foundry/available-connectors/custom-jdbc-sources)."""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -1714,7 +1602,6 @@ class JdbcImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "JdbcImportConfigDict":
@@ -1741,9 +1628,7 @@ class ListFileImportsResponse(pydantic.BaseModel):
     """ListFileImportsResponse"""
 
     data: typing.List[FileImport]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListFileImportsResponseDict":
@@ -1759,7 +1644,6 @@ class ListFileImportsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[FileImportDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -1767,9 +1651,7 @@ class ListTableImportsResponse(pydantic.BaseModel):
     """ListTableImportsResponse"""
 
     data: typing.List[TableImport]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListTableImportsResponseDict":
@@ -1785,7 +1667,6 @@ class ListTableImportsResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[TableImportDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -1793,7 +1674,6 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft Access connection](docs/foundry/available-connectors/microsoft-access)."""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -1801,7 +1681,6 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MicrosoftAccessImportConfigDict":
@@ -1830,7 +1709,6 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft SQL Server connection](docs/foundry/available-connectors/microsoft-sql-server)."""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -1838,7 +1716,6 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MicrosoftSqlServerImportConfigDict":
@@ -1874,19 +1751,15 @@ class Oidc(pydantic.BaseModel):
     """
 
     audience: str
-
     """The configured audience that identifies the external system."""
 
     issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
-
     """The URL that identifies Foundry as an OIDC identity provider."""
 
     subject: ConnectionRid
-
     """The RID of the Connection that is connecting to the external system."""
 
     type: typing.Literal["oidc"] = "oidc"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "OidcDict":
@@ -1918,7 +1791,6 @@ class OracleImportConfig(pydantic.BaseModel):
     """The import configuration for an Oracle Database 21 connection."""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -1926,7 +1798,6 @@ class OracleImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "OracleImportConfigDict":
@@ -1959,7 +1830,6 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
     """The import configuration for a [PostgreSQL connection](docs/foundry/available-connectors/postgresql)."""
 
     query: str
-
     """
     A single SQL query can be executed per sync, which should output a data table 
     and avoid operations like invoking stored procedures. 
@@ -1967,7 +1837,6 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
     """
 
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "PostgreSqlImportConfigDict":
@@ -2000,11 +1869,9 @@ class QueryParameterApiKey(pydantic.BaseModel):
     """QueryParameterApiKey"""
 
     query_parameter_name: str = pydantic.Field(alias=str("queryParameterName"))  # type: ignore[literal-required]
-
     """The name of the query parameter that the API key is passed in."""
 
     type: typing.Literal["queryParameter"] = "queryParameter"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryParameterApiKeyDict":
@@ -2030,7 +1897,7 @@ Region = str
 
 
 RestAuthenticationMode = typing_extensions.Annotated[
-    typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, RestConnectionOAuth2],
+    typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
 ]
 """The method of authentication for connecting to an external REST system."""
@@ -2038,7 +1905,7 @@ RestAuthenticationMode = typing_extensions.Annotated[
 
 RestAuthenticationModeDict = typing_extensions.Annotated[
     typing.Union[
-        BearerTokenDict, ApiKeyAuthenticationDict, BasicCredentialsDict, RestConnectionOAuth2Dict
+        BearerTokenDict, ApiKeyAuthenticationDict, BasicCredentialsDict, "RestConnectionOAuth2Dict"
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2046,7 +1913,7 @@ RestAuthenticationModeDict = typing_extensions.Annotated[
 
 
 RestConnectionAdditionalSecrets = typing_extensions.Annotated[
-    typing.Union[SecretsWithPlaintextValues, SecretsNames], pydantic.Field(discriminator="type")
+    typing.Union["SecretsWithPlaintextValues", "SecretsNames"], pydantic.Field(discriminator="type")
 ]
 """
 When creating or updating additional secrets, use SecretsWithPlaintextValues.
@@ -2055,7 +1922,7 @@ When fetching the RestConnectionConfiguration, SecretsNames will be provided.
 
 
 RestConnectionAdditionalSecretsDict = typing_extensions.Annotated[
-    typing.Union[SecretsWithPlaintextValuesDict, SecretsNamesDict],
+    typing.Union["SecretsWithPlaintextValuesDict", "SecretsNamesDict"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -2068,21 +1935,18 @@ class RestConnectionConfiguration(pydantic.BaseModel):
     """The configuration needed to connect to a [REST external system](/docs/foundry/available-connectors/rest-apis)."""
 
     domains: typing.List[Domain]
-
     """
     The domains that the connection is allowed to access.
     At least one domain must be specified.
     """
 
     additional_secrets: typing.Optional[RestConnectionAdditionalSecrets] = pydantic.Field(alias=str("additionalSecrets"), default=None)  # type: ignore[literal-required]
-
     """
     Additional secrets that can be referenced in code and webhook configurations.
     If not provided, no additional secrets will be created.
     """
 
     oauth2_client_rid: typing.Optional[core.RID] = pydantic.Field(alias=str("oauth2ClientRid"), default=None)  # type: ignore[literal-required]
-
     """
     The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
     Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
@@ -2090,7 +1954,6 @@ class RestConnectionConfiguration(pydantic.BaseModel):
     """
 
     type: typing.Literal["rest"] = "rest"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "RestConnectionConfigurationDict":
@@ -2134,7 +1997,6 @@ class RestConnectionOAuth2(pydantic.BaseModel):
     """
 
     type: typing.Literal["oauth2"] = "oauth2"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "RestConnectionOAuth2Dict":
@@ -2207,11 +2069,9 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     bucket_url: str = pydantic.Field(alias=str("bucketUrl"))  # type: ignore[literal-required]
-
     """The URL of the S3 bucket. The URL should contain a trailing slash."""
 
     s3_endpoint: typing.Optional[str] = pydantic.Field(alias=str("s3Endpoint"), default=None)  # type: ignore[literal-required]
-
     """
     The endpoint of the S3 service. This is used to connect to a custom S3 service that is not AWS S3.
     If not specified, defaults to the [AWS S3 endpoint](https://docs.aws.amazon.com/general/latest/gr/s3.html).
@@ -2219,21 +2079,18 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     region: typing.Optional[Region] = None
-
     """
     The region representing the location of the S3 bucket.
     Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
     """
 
     authentication_mode: typing.Optional[S3AuthenticationMode] = pydantic.Field(alias=str("authenticationMode"), default=None)  # type: ignore[literal-required]
-
     """
     The authentication mode to use to connect to the S3 external system. No authentication mode is required
     to connect to publicly accessible AWS S3 buckets.
     """
 
     s3_endpoint_signing_region: typing.Optional[Region] = pydantic.Field(alias=str("s3EndpointSigningRegion"), default=None)  # type: ignore[literal-required]
-
     """
     The region used when constructing the S3 client using a custom endpoint.
     This is often not required and would only be needed if you are using the S3 connector with an S3-compliant third-party API,
@@ -2241,50 +2098,42 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     client_kms_configuration: typing.Optional[S3KmsConfiguration] = pydantic.Field(alias=str("clientKmsConfiguration"), default=None)  # type: ignore[literal-required]
-
     """
     The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
     If not specified, the default KMS key for the bucket is used.
     """
 
     sts_role_configuration: typing.Optional[StsRoleConfiguration] = pydantic.Field(alias=str("stsRoleConfiguration"), default=None)  # type: ignore[literal-required]
-
     """The configuration needed to assume a role to connect to the S3 external system."""
 
     proxy_configuration: typing.Optional[S3ProxyConfiguration] = pydantic.Field(alias=str("proxyConfiguration"), default=None)  # type: ignore[literal-required]
-
     """The configuration needed to connect to the S3 external system through a proxy."""
 
     max_connections: typing.Optional[int] = pydantic.Field(alias=str("maxConnections"), default=None)  # type: ignore[literal-required]
-
     """
     The maximum number of HTTP connections to the S3 service per sync.
     If not specified, defaults to 50 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_MAX_CONNECTIONS).
     """
 
     connection_timeout_millis: typing.Optional[core.Long] = pydantic.Field(alias=str("connectionTimeoutMillis"), default=None)  # type: ignore[literal-required]
-
     """
     The amount of time (in milliseconds) to wait when initially establishing a connection before giving up and timing out.
     If not specified, defaults to 10000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_CONNECTION_TIMEOUT).
     """
 
     socket_timeout_millis: typing.Optional[core.Long] = pydantic.Field(alias=str("socketTimeoutMillis"), default=None)  # type: ignore[literal-required]
-
     """
     The amount of time (in milliseconds) to wait for data to be transferred over an established, open connection.
     If not specified, defaults to 50000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_SOCKET_TIMEOUT).
     """
 
     max_error_retry: typing.Optional[int] = pydantic.Field(alias=str("maxErrorRetry"), default=None)  # type: ignore[literal-required]
-
     """
     The maximum number of retry attempts for failed requests to the S3 service.
     If not specified, defaults to 3 as defined by the [AWS SDK default](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/retry-strategy.html#retry-strategies).
     """
 
     match_subfolder_exactly: typing.Optional[bool] = pydantic.Field(alias=str("matchSubfolderExactly"), default=None)  # type: ignore[literal-required]
-
     """
     If true, only files in the subfolder specified in the bucket URL will be synced.
     If false, all files in the bucket will be synced.
@@ -2292,7 +2141,6 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     enable_requester_pays: typing.Optional[bool] = pydantic.Field(alias=str("enableRequesterPays"), default=None)  # type: ignore[literal-required]
-
     """
     Defaults to false, unless set and overwritten.
     If true, includes the [requester pays header](https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html)
@@ -2300,7 +2148,6 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     """
 
     type: typing.Literal["s3"] = "s3"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "S3ConnectionConfigurationDict":
@@ -2404,14 +2251,12 @@ class S3KmsConfiguration(pydantic.BaseModel):
     """S3KmsConfiguration"""
 
     kms_key: str = pydantic.Field(alias=str("kmsKey"))  # type: ignore[literal-required]
-
     """
     The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
     If not specified, the default KMS key for the bucket is used.
     """
 
     kms_region: typing.Optional[Region] = pydantic.Field(alias=str("kmsRegion"), default=None)  # type: ignore[literal-required]
-
     """
     The region of the client-side KMS key to use for encryption and decryption of data in the S3 bucket.
     If not specified, the default KMS key region for the bucket is used.
@@ -2448,24 +2293,19 @@ class S3ProxyConfiguration(pydantic.BaseModel):
     """S3ProxyConfiguration"""
 
     host: str
-
     """
     Domain name, IPv4, or IPv6 address. 
     `protocol` and `port` must be specified separately.
     """
 
     port: int
-
     non_proxy_hosts: typing.Optional[typing.List[str]] = pydantic.Field(alias=str("nonProxyHosts"), default=None)  # type: ignore[literal-required]
-
     """A list of hosts that can bypass the proxy, such as those used for STS Role. You can also use "*" wildcards."""
 
     protocol: typing.Optional[Protocol] = None
-
     """If defined, must be "HTTP" or "HTTPS". Defaults to "HTTPS"."""
 
     credentials: typing.Optional[BasicCredentials] = None
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "S3ProxyConfigurationDict":
@@ -2487,7 +2327,6 @@ class S3ProxyConfigurationDict(typing_extensions.TypedDict):
     """
 
     port: int
-
     nonProxyHosts: typing_extensions.NotRequired[typing.List[str]]
     """A list of hosts that can bypass the proxy, such as those used for STS Role. You can also use "*" wildcards."""
 
@@ -2508,11 +2347,9 @@ class SecretsNames(pydantic.BaseModel):
     """
 
     secret_names: typing.List[SecretName] = pydantic.Field(alias=str("secretNames"))  # type: ignore[literal-required]
-
     """The names of the additional secrets that can be referenced in code and webhook configurations."""
 
     type: typing.Literal["asSecretsNames"] = "asSecretsNames"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SecretsNamesDict":
@@ -2541,11 +2378,9 @@ class SecretsWithPlaintextValues(pydantic.BaseModel):
     """
 
     secrets: typing.Dict[SecretName, PlaintextValue]
-
     """The additional secrets that can be referenced in code and webhook configurations."""
 
     type: typing.Literal["asSecretsWithPlaintextValues"] = "asSecretsWithPlaintextValues"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SecretsWithPlaintextValuesDict":
@@ -2573,14 +2408,12 @@ class StsRoleConfiguration(pydantic.BaseModel):
     """StsRoleConfiguration"""
 
     role_arn: str = pydantic.Field(alias=str("roleArn"))  # type: ignore[literal-required]
-
     """
     The Amazon Resource Name (ARN) of the role to assume.
     For more information, see the official [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-arn-format).
     """
 
     role_session_name: str = pydantic.Field(alias=str("roleSessionName"))  # type: ignore[literal-required]
-
     """
     An identifier for the assumed role session.
     The value can be any string that you assume will be unique within the AWS account.
@@ -2588,7 +2421,6 @@ class StsRoleConfiguration(pydantic.BaseModel):
     """
 
     role_session_duration: typing.Optional[core_models.Duration] = pydantic.Field(alias=str("roleSessionDuration"), default=None)  # type: ignore[literal-required]
-
     """
     The duration of the role session.
     The value specified can range from 900 seconds (15 minutes) up to the maximum session duration set for the role.
@@ -2596,14 +2428,12 @@ class StsRoleConfiguration(pydantic.BaseModel):
     """
 
     external_id: typing.Optional[str] = pydantic.Field(alias=str("externalId"), default=None)  # type: ignore[literal-required]
-
     """
     A unique identifier that is used by third parties when assuming roles in their customers' accounts.
     For more information, see the official [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html).
     """
 
     sts_endpoint: typing.Optional[str] = pydantic.Field(alias=str("stsEndpoint"), default=None)  # type: ignore[literal-required]
-
     """
     By default, the AWS Security Token Service (AWS STS) is available as a global service, and all AWS STS requests go to a single endpoint at https://sts.amazonaws.com.
     AWS recommends using Regional AWS STS endpoints instead of the global endpoint to reduce latency, build in redundancy, and increase session token validity.
@@ -2660,29 +2490,21 @@ class TableImport(pydantic.BaseModel):
     """TableImport"""
 
     rid: TableImportRid
-
     connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
-
     """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-
     """The RID of the output dataset."""
 
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
-
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
     display_name: TableImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     import_mode: TableImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
-
     allow_schema_changes: TableImportAllowSchemaChanges = pydantic.Field(alias=str("allowSchemaChanges"))  # type: ignore[literal-required]
-
     """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
     config: TableImportConfig
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "TableImportDict":
@@ -2726,7 +2548,6 @@ class TableImportDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: TableImportRid
-
     connectionRid: ConnectionRid
     """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
@@ -2737,9 +2558,7 @@ class TableImportDict(typing_extensions.TypedDict):
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
     displayName: TableImportDisplayName
-
     importMode: TableImportMode
-
     allowSchemaChanges: TableImportAllowSchemaChanges
     """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 

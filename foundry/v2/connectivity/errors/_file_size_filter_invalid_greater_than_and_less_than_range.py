@@ -31,7 +31,6 @@ class FileSizeFilterInvalidGreaterThanAndLessThanRangeParameters(typing_extensio
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     gt: core_models.SizeBytes
-
     lt: core_models.SizeBytes
 
 

@@ -29,6 +29,7 @@ class AgentVersionNotFoundParameters(typing_extensions.TypedDict):
 
     agentRid: aip_agents_models.AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+
     agentVersionString: aip_agents_models.AgentVersionString
     """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 

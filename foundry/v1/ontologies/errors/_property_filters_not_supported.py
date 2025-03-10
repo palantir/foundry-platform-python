@@ -31,7 +31,6 @@ class PropertyFiltersNotSupportedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     propertyFilters: typing.List[ontologies_models.PropertyFilter]
-
     property: ontologies_models.PropertyApiName
 
 

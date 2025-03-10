@@ -31,9 +31,7 @@ class FunctionEncounteredUserFacingErrorParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     functionRid: ontologies_models.FunctionRid
-
     functionVersion: ontologies_models.FunctionVersion
-
     message: str
 
 

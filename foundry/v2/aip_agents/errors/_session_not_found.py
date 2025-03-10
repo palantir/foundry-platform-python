@@ -29,6 +29,7 @@ class SessionNotFoundParameters(typing_extensions.TypedDict):
 
     agentRid: aip_agents_models.AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
 

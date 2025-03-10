@@ -31,9 +31,7 @@ class ParametersNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     actionType: ontologies_models.ActionTypeApiName
-
     unknownParameterIds: typing.List[ontologies_models.ParameterId]
-
     configuredParameterIds: typing.List[ontologies_models.ParameterId]
 
 

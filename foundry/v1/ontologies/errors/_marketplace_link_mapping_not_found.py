@@ -28,9 +28,7 @@ class MarketplaceLinkMappingNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     linkType: ontologies_models.LinkTypeApiName
-
     artifactRepository: ontologies_models.ArtifactRepositoryRid
-
     packageName: ontologies_models.SdkPackageName
 
 

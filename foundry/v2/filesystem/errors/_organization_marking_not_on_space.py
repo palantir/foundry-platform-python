@@ -29,7 +29,6 @@ class OrganizationMarkingNotOnSpaceParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     spaceRid: filesystem_models.SpaceRid
-
     organizationRids: typing.List[core_models.OrganizationRid]
 
 

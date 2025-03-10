@@ -28,7 +28,6 @@ class CreateMarkingNameInCategoryAlreadyExistsParameters(typing_extensions.Typed
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     displayName: str
-
     categoryId: admin_models.MarkingCategoryId
 
 

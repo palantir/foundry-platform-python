@@ -28,7 +28,6 @@ class MediaItemNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     mediaSetRid: core_models.MediaSetRid
-
     mediaItemRid: core_models.MediaItemRid
 
 

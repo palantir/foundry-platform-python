@@ -28,7 +28,6 @@ class ProjectNameAlreadyExistsParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     displayName: filesystem_models.ResourceDisplayName
-
     spaceRid: filesystem_models.SpaceRid
 
 

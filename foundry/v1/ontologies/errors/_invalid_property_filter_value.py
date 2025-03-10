@@ -31,11 +31,8 @@ class InvalidPropertyFilterValueParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     expectedType: ontologies_models.ValueType
-
     propertyFilter: ontologies_models.PropertyFilter
-
     propertyFilterValue: ontologies_models.FilterValue
-
     property: ontologies_models.PropertyApiName
 
 

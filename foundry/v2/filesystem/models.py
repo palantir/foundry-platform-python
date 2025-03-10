@@ -30,9 +30,7 @@ class AccessRequirements(pydantic.BaseModel):
     """
 
     organizations: typing.List[Organization]
-
     markings: typing.List[Marking]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "AccessRequirementsDict":
@@ -51,7 +49,6 @@ class AccessRequirementsDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     organizations: typing.List[OrganizationDict]
-
     markings: typing.List[MarkingDict]
 
 
@@ -59,7 +56,6 @@ class Everyone(pydantic.BaseModel):
     """A principal representing all users of the platform."""
 
     type: typing.Literal["everyone"] = "everyone"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "EveryoneDict":
@@ -83,52 +79,38 @@ class Folder(pydantic.BaseModel):
     """Folder"""
 
     rid: FolderRid
-
     display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     description: typing.Optional[str] = None
-
     """The description associated with the Folder."""
 
     documentation: typing.Optional[str] = None
-
     """The documentation associated with the Folder."""
 
     path: ResourcePath
-
     type: FolderType
-
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-
     updated_by: core_models.UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
-
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     updated_time: core_models.UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-
     trash_status: TrashStatus = pydantic.Field(alias=str("trashStatus"))  # type: ignore[literal-required]
-
     """
     The trash status of the Folder. If trashed, this could either be because the Folder itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
     parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-
     """
     The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
     this value will be the root folder (`ri.compass.main.folder.0`).
     """
 
     project_rid: typing.Optional[ProjectRid] = pydantic.Field(alias=str("projectRid"), default=None)  # type: ignore[literal-required]
-
     """
     The Project Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     not be defined.
     """
 
     space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
-
     """
     The Space Resource Identifier (RID) that the Folder lives in. If the Folder is a Space, this value will
     be the same as the Folder RID.
@@ -147,9 +129,7 @@ class FolderDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: FolderRid
-
     displayName: ResourceDisplayName
-
     description: typing_extensions.NotRequired[str]
     """The description associated with the Folder."""
 
@@ -157,17 +137,11 @@ class FolderDict(typing_extensions.TypedDict):
     """The documentation associated with the Folder."""
 
     path: ResourcePath
-
     type: FolderType
-
     createdBy: core_models.CreatedBy
-
     updatedBy: core_models.UpdatedBy
-
     createdTime: core_models.CreatedTime
-
     updatedTime: core_models.UpdatedTime
-
     trashStatus: TrashStatus
     """
     The trash status of the Folder. If trashed, this could either be because the Folder itself has been
@@ -216,9 +190,7 @@ class ListChildrenOfFolderResponse(pydantic.BaseModel):
     """ListChildrenOfFolderResponse"""
 
     data: typing.List[Resource]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListChildrenOfFolderResponseDict":
@@ -234,7 +206,6 @@ class ListChildrenOfFolderResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[ResourceDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -242,9 +213,7 @@ class ListMarkingsOfResourceResponse(pydantic.BaseModel):
     """ListMarkingsOfResourceResponse"""
 
     data: typing.List[core_models.MarkingId]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListMarkingsOfResourceResponseDict":
@@ -260,7 +229,6 @@ class ListMarkingsOfResourceResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[core_models.MarkingId]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -268,9 +236,7 @@ class ListOrganizationsOfProjectResponse(pydantic.BaseModel):
     """ListOrganizationsOfProjectResponse"""
 
     data: typing.List[core_models.OrganizationRid]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListOrganizationsOfProjectResponseDict":
@@ -287,7 +253,6 @@ class ListOrganizationsOfProjectResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[core_models.OrganizationRid]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -295,9 +260,7 @@ class ListResourceRolesResponse(pydantic.BaseModel):
     """ListResourceRolesResponse"""
 
     data: typing.List[ResourceRole]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListResourceRolesResponseDict":
@@ -313,7 +276,6 @@ class ListResourceRolesResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[ResourceRoleDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -321,9 +283,7 @@ class ListSpacesResponse(pydantic.BaseModel):
     """ListSpacesResponse"""
 
     data: typing.List[Space]
-
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListSpacesResponseDict":
@@ -339,7 +299,6 @@ class ListSpacesResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     data: typing.List[SpaceDict]
-
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
@@ -352,9 +311,7 @@ class Marking(pydantic.BaseModel):
     """
 
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
-
     is_directly_applied: IsDirectlyApplied = pydantic.Field(alias=str("isDirectlyApplied"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MarkingDict":
@@ -373,7 +330,6 @@ class MarkingDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     markingId: core_models.MarkingId
-
     isDirectlyApplied: IsDirectlyApplied
 
 
@@ -387,11 +343,8 @@ class Organization(pydantic.BaseModel):
     """
 
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
-
     organization_rid: core_models.OrganizationRid = pydantic.Field(alias=str("organizationRid"))  # type: ignore[literal-required]
-
     is_directly_applied: IsDirectlyApplied = pydantic.Field(alias=str("isDirectlyApplied"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "OrganizationDict":
@@ -411,9 +364,7 @@ class OrganizationDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     markingId: core_models.MarkingId
-
     organizationRid: core_models.OrganizationRid
-
     isDirectlyApplied: IsDirectlyApplied
 
 
@@ -421,11 +372,8 @@ class PrincipalWithId(pydantic.BaseModel):
     """Represents a user principal or group principal with an ID."""
 
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
-
     type: typing.Literal["principalWithId"] = "principalWithId"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "PrincipalWithIdDict":
@@ -439,9 +387,7 @@ class PrincipalWithIdDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     principalId: core_models.PrincipalId
-
     principalType: core_models.PrincipalType
-
     type: typing.Literal["principalWithId"]
 
 
@@ -449,35 +395,24 @@ class Project(pydantic.BaseModel):
     """Project"""
 
     rid: ProjectRid
-
     display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     """The display name of the Project. Must be unique and cannot contain a /"""
 
     description: typing.Optional[str] = None
-
     """The description associated with the Project."""
 
     documentation: typing.Optional[str] = None
-
     """The documentation associated with the Project."""
 
     path: ResourcePath
-
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-
     updated_by: core_models.UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
-
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     updated_time: core_models.UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-
     trash_status: TrashStatus = pydantic.Field(alias=str("trashStatus"))  # type: ignore[literal-required]
-
     """The trash status of the Project."""
 
     space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
-
     """The Space Resource Identifier (RID) that the Project lives in."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -493,7 +428,6 @@ class ProjectDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ProjectRid
-
     displayName: ResourceDisplayName
     """The display name of the Project. Must be unique and cannot contain a /"""
 
@@ -504,15 +438,10 @@ class ProjectDict(typing_extensions.TypedDict):
     """The documentation associated with the Project."""
 
     path: ResourcePath
-
     createdBy: core_models.CreatedBy
-
     updatedBy: core_models.UpdatedBy
-
     createdTime: core_models.CreatedTime
-
     updatedTime: core_models.UpdatedTime
-
     trashStatus: TrashStatus
     """The trash status of the Project."""
 
@@ -540,66 +469,52 @@ class Resource(pydantic.BaseModel):
     """Resource"""
 
     rid: ResourceRid
-
     display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     """The display name of the Resource"""
 
     description: typing.Optional[str] = None
-
     """The description of the Resource"""
 
     documentation: typing.Optional[str] = None
-
     """The documentation associated with the Resource"""
 
     path: ResourcePath
-
     """The full path to the resource, including the resource name itself"""
 
     type: ResourceType
-
     """The type of the Resource derived from the Resource Identifier (RID)."""
 
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-
     """The user that created the Resource."""
 
     updated_by: core_models.UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
-
     """The user that last updated the Resource."""
 
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     """The timestamp that the Resource was last created."""
 
     updated_time: core_models.UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-
     """
     The timestamp that the Resource was last modified. For folders, this includes any of its descendants. For
     top level folders (spaces and projects), this is not updated by child updates for performance reasons.
     """
 
     trash_status: TrashStatus = pydantic.Field(alias=str("trashStatus"))  # type: ignore[literal-required]
-
     """
     The trash status of the Resource. If trashed, this could either be because the Resource itself has been
     trashed or because one of its ancestors has been trashed.
     """
 
     parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-
     """The parent folder Resource Identifier (RID). For projects, this will be the Space RID."""
 
     project_rid: ProjectRid = pydantic.Field(alias=str("projectRid"))  # type: ignore[literal-required]
-
     """
     The Project Resource Identifier (RID) that the Resource lives in. If the Resource itself is a
     Project, this value will still be populated with the Project RID.
     """
 
     space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
-
     """The Space Resource Identifier (RID) that the Resource lives in."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -615,7 +530,6 @@ class ResourceDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ResourceRid
-
     displayName: ResourceDisplayName
     """The display name of the Resource"""
 
@@ -681,9 +595,7 @@ class ResourceRole(pydantic.BaseModel):
     """ResourceRole"""
 
     resource_role_principal: ResourceRolePrincipal = pydantic.Field(alias=str("resourceRolePrincipal"))  # type: ignore[literal-required]
-
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ResourceRoleDict":
@@ -697,7 +609,6 @@ class ResourceRoleDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     resourceRolePrincipal: ResourceRolePrincipalDict
-
     roleId: core_models.RoleId
 
 
@@ -770,21 +681,14 @@ class Space(pydantic.BaseModel):
     """Space"""
 
     rid: SpaceRid
-
     display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     description: typing.Optional[str] = None
-
     """The description of the Space."""
 
     path: ResourcePath
-
     file_system_id: typing.Optional[FileSystemId] = pydantic.Field(alias=str("fileSystemId"), default=None)  # type: ignore[literal-required]
-
     usage_account_rid: typing.Optional[UsageAccountRid] = pydantic.Field(alias=str("usageAccountRid"), default=None)  # type: ignore[literal-required]
-
     organizations: typing.List[core_models.OrganizationRid]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SpaceDict":
@@ -798,18 +702,13 @@ class SpaceDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: SpaceRid
-
     displayName: ResourceDisplayName
-
     description: typing_extensions.NotRequired[str]
     """The description of the Space."""
 
     path: ResourcePath
-
     fileSystemId: typing_extensions.NotRequired[FileSystemId]
-
     usageAccountRid: typing_extensions.NotRequired[UsageAccountRid]
-
     organizations: typing.List[core_models.OrganizationRid]
 
 

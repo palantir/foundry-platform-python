@@ -29,7 +29,6 @@ class CreateDatasetPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     parentFolderRid: filesystem_models.FolderRid
-
     name: datasets_models.DatasetName
 
 

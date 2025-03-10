@@ -29,9 +29,7 @@ class RecordDoesNotMatchStreamSchemaParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     branchName: datasets_models.BranchName
-
     viewRid: typing_extensions.NotRequired[streams_models.ViewRid]
 
 

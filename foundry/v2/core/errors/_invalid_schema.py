@@ -27,7 +27,6 @@ class InvalidSchemaParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     errorType: str
-
     message: str
 
 

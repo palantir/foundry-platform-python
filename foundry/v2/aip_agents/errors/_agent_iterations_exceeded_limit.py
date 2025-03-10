@@ -32,9 +32,7 @@ class AgentIterationsExceededLimitParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-
     sessionRid: aip_agents_models.SessionRid
-
     details: str
     """Any additional details provided for the error."""
 

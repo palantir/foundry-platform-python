@@ -28,7 +28,6 @@ class SharedPropertiesNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectType: typing.List[ontologies_models.ObjectTypeApiName]
-
     missingSharedProperties: typing.List[ontologies_models.SharedPropertyTypeApiName]
 
 

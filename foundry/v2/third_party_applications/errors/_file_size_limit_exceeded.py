@@ -31,9 +31,7 @@ class FileSizeLimitExceededParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     fileSizeBytesLimit: core.Long
-
     currentFileSizeBytes: core.Long
-
     currentFilePath: str
 
 

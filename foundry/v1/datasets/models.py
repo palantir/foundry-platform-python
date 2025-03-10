@@ -28,9 +28,7 @@ class Branch(pydantic.BaseModel):
     """A Branch of a Dataset."""
 
     branch_id: BranchId = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
-
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BranchDict":
@@ -44,7 +42,6 @@ class BranchDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     branchId: BranchId
-
     transactionRid: typing_extensions.NotRequired[TransactionRid]
 
 
@@ -56,11 +53,8 @@ class Dataset(pydantic.BaseModel):
     """Dataset"""
 
     rid: DatasetRid
-
     name: DatasetName
-
     parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DatasetDict":
@@ -74,9 +68,7 @@ class DatasetDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: DatasetRid
-
     name: DatasetName
-
     parentFolderRid: core_models.FolderRid
 
 
@@ -92,13 +84,9 @@ class File(pydantic.BaseModel):
     """File"""
 
     path: core_models.FilePath
-
     transaction_rid: TransactionRid = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
-
     size_bytes: typing.Optional[core.Long] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
-
     updated_time: datetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileDict":
@@ -112,11 +100,8 @@ class FileDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     path: core_models.FilePath
-
     transactionRid: TransactionRid
-
     sizeBytes: typing_extensions.NotRequired[core.Long]
-
     updatedTime: datetime
 
 
@@ -124,9 +109,7 @@ class ListBranchesResponse(pydantic.BaseModel):
     """ListBranchesResponse"""
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     data: typing.List[Branch]
-
     """The list of branches in the current page."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -144,7 +127,6 @@ class ListBranchesResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-
     data: typing.List[BranchDict]
     """The list of branches in the current page."""
 
@@ -153,9 +135,7 @@ class ListFilesResponse(pydantic.BaseModel):
     """A page of Files and an optional page token that can be used to retrieve the next page."""
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
     data: typing.List[File]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListFilesResponseDict":
@@ -169,7 +149,6 @@ class ListFilesResponseDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-
     data: typing.List[FileDict]
 
 
@@ -181,17 +160,12 @@ class Transaction(pydantic.BaseModel):
     """An operation that modifies the files within a dataset."""
 
     rid: TransactionRid
-
     transaction_type: TransactionType = pydantic.Field(alias=str("transactionType"))  # type: ignore[literal-required]
-
     status: TransactionStatus
-
     created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
     closed_time: typing.Optional[datetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
-
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -207,11 +181,8 @@ class TransactionDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: TransactionRid
-
     transactionType: TransactionType
-
     status: TransactionStatus
-
     createdTime: datetime
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 

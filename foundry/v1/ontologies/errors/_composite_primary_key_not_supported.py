@@ -31,7 +31,6 @@ class CompositePrimaryKeyNotSupportedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectType: ontologies_models.ObjectTypeApiName
-
     primaryKey: typing.List[ontologies_models.PropertyApiName]
 
 

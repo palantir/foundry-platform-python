@@ -28,7 +28,6 @@ class PublishRecordToStreamPermissionDeniedParameters(typing_extensions.TypedDic
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     datasetRid: datasets_models.DatasetRid
-
     streamBranchName: datasets_models.BranchName
 
 

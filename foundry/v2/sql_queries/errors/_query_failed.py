@@ -28,7 +28,6 @@ class QueryFailedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     queryId: sql_queries_models.QueryId
-
     errorMessage: str
 
 

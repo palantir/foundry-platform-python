@@ -53,7 +53,6 @@ class ExecuteQueryResponse(pydantic.BaseModel):
     """ExecuteQueryResponse"""
 
     value: DataValue
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ExecuteQueryResponseDict":
@@ -86,9 +85,7 @@ class Parameter(pydantic.BaseModel):
     """Details about a parameter of a query."""
 
     description: typing.Optional[str] = None
-
     data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ParameterDict":
@@ -102,7 +99,6 @@ class ParameterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     description: typing_extensions.NotRequired[str]
-
     dataType: QueryDataTypeDict
 
 
@@ -117,19 +113,12 @@ class Query(pydantic.BaseModel):
     """Query"""
 
     api_name: QueryApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
-
     description: typing.Optional[str] = None
-
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
-
     parameters: typing.Dict[ParameterId, Parameter]
-
     output: QueryDataType
-
     rid: FunctionRid
-
     version: FunctionVersion
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryDict":
@@ -139,13 +128,13 @@ class Query(pydantic.BaseModel):
 
 QueryAggregationKeyType = typing_extensions.Annotated[
     typing.Union[
-        core_models.DateType,
-        core_models.BooleanType,
-        core_models.StringType,
-        core_models.DoubleType,
-        QueryAggregationRangeType,
-        core_models.IntegerType,
-        core_models.TimestampType,
+        "core_models.DateType",
+        "core_models.BooleanType",
+        "core_models.StringType",
+        "core_models.DoubleType",
+        "QueryAggregationRangeType",
+        "core_models.IntegerType",
+        "core_models.TimestampType",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -154,13 +143,13 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 
 QueryAggregationKeyTypeDict = typing_extensions.Annotated[
     typing.Union[
-        core_models.DateTypeDict,
-        core_models.BooleanTypeDict,
-        core_models.StringTypeDict,
-        core_models.DoubleTypeDict,
-        QueryAggregationRangeTypeDict,
-        core_models.IntegerTypeDict,
-        core_models.TimestampTypeDict,
+        "core_models.DateTypeDict",
+        "core_models.BooleanTypeDict",
+        "core_models.StringTypeDict",
+        "core_models.DoubleTypeDict",
+        "QueryAggregationRangeTypeDict",
+        "core_models.IntegerTypeDict",
+        "core_models.TimestampTypeDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -169,10 +158,10 @@ QueryAggregationKeyTypeDict = typing_extensions.Annotated[
 
 QueryAggregationRangeSubType = typing_extensions.Annotated[
     typing.Union[
-        core_models.DateType,
-        core_models.DoubleType,
-        core_models.IntegerType,
-        core_models.TimestampType,
+        "core_models.DateType",
+        "core_models.DoubleType",
+        "core_models.IntegerType",
+        "core_models.TimestampType",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -181,10 +170,10 @@ QueryAggregationRangeSubType = typing_extensions.Annotated[
 
 QueryAggregationRangeSubTypeDict = typing_extensions.Annotated[
     typing.Union[
-        core_models.DateTypeDict,
-        core_models.DoubleTypeDict,
-        core_models.IntegerTypeDict,
-        core_models.TimestampTypeDict,
+        "core_models.DateTypeDict",
+        "core_models.DoubleTypeDict",
+        "core_models.IntegerTypeDict",
+        "core_models.TimestampTypeDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -195,9 +184,7 @@ class QueryAggregationRangeType(pydantic.BaseModel):
     """QueryAggregationRangeType"""
 
     sub_type: QueryAggregationRangeSubType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
-
     type: typing.Literal["range"] = "range"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryAggregationRangeTypeDict":
@@ -213,12 +200,11 @@ class QueryAggregationRangeTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     subType: QueryAggregationRangeSubTypeDict
-
     type: typing.Literal["range"]
 
 
 QueryAggregationValueType = typing_extensions.Annotated[
-    typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
+    typing.Union["core_models.DateType", "core_models.DoubleType", "core_models.TimestampType"],
     pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""
@@ -226,7 +212,7 @@ QueryAggregationValueType = typing_extensions.Annotated[
 
 QueryAggregationValueTypeDict = typing_extensions.Annotated[
     typing.Union[
-        core_models.DateTypeDict, core_models.DoubleTypeDict, core_models.TimestampTypeDict
+        "core_models.DateTypeDict", "core_models.DoubleTypeDict", "core_models.TimestampTypeDict"
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -241,9 +227,7 @@ class QueryArrayType(pydantic.BaseModel):
     """QueryArrayType"""
 
     sub_type: QueryDataType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
-
     type: typing.Literal["array"] = "array"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryArrayTypeDict":
@@ -257,30 +241,29 @@ class QueryArrayTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     subType: QueryDataTypeDict
-
     type: typing.Literal["array"]
 
 
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
-        core_models.DateType,
-        QueryStructType,
-        QuerySetType,
-        core_models.StringType,
-        core_models.DoubleType,
-        core_models.IntegerType,
-        ThreeDimensionalAggregation,
-        QueryUnionType,
-        core_models.FloatType,
-        core_models.LongType,
-        core_models.BooleanType,
-        core_models.UnsupportedType,
-        core_models.AttachmentType,
-        core_models.NullType,
+        "core_models.DateType",
+        "QueryStructType",
+        "QuerySetType",
+        "core_models.StringType",
+        "core_models.DoubleType",
+        "core_models.IntegerType",
+        "ThreeDimensionalAggregation",
+        "QueryUnionType",
+        "core_models.FloatType",
+        "core_models.LongType",
+        "core_models.BooleanType",
+        "core_models.UnsupportedType",
+        "core_models.AttachmentType",
+        "core_models.NullType",
         QueryArrayType,
-        TwoDimensionalAggregation,
-        ValueTypeReference,
-        core_models.TimestampType,
+        "TwoDimensionalAggregation",
+        "ValueTypeReference",
+        "core_models.TimestampType",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -289,24 +272,24 @@ QueryDataType = typing_extensions.Annotated[
 
 QueryDataTypeDict = typing_extensions.Annotated[
     typing.Union[
-        core_models.DateTypeDict,
-        QueryStructTypeDict,
-        QuerySetTypeDict,
-        core_models.StringTypeDict,
-        core_models.DoubleTypeDict,
-        core_models.IntegerTypeDict,
-        ThreeDimensionalAggregationDict,
-        QueryUnionTypeDict,
-        core_models.FloatTypeDict,
-        core_models.LongTypeDict,
-        core_models.BooleanTypeDict,
-        core_models.UnsupportedTypeDict,
-        core_models.AttachmentTypeDict,
-        core_models.NullTypeDict,
+        "core_models.DateTypeDict",
+        "QueryStructTypeDict",
+        "QuerySetTypeDict",
+        "core_models.StringTypeDict",
+        "core_models.DoubleTypeDict",
+        "core_models.IntegerTypeDict",
+        "ThreeDimensionalAggregationDict",
+        "QueryUnionTypeDict",
+        "core_models.FloatTypeDict",
+        "core_models.LongTypeDict",
+        "core_models.BooleanTypeDict",
+        "core_models.UnsupportedTypeDict",
+        "core_models.AttachmentTypeDict",
+        "core_models.NullTypeDict",
         QueryArrayTypeDict,
-        TwoDimensionalAggregationDict,
-        ValueTypeReferenceDict,
-        core_models.TimestampTypeDict,
+        "TwoDimensionalAggregationDict",
+        "ValueTypeReferenceDict",
+        "core_models.TimestampTypeDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -319,17 +302,11 @@ class QueryDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     apiName: QueryApiName
-
     description: typing_extensions.NotRequired[str]
-
     displayName: typing_extensions.NotRequired[core_models.DisplayName]
-
     parameters: typing.Dict[ParameterId, ParameterDict]
-
     output: QueryDataTypeDict
-
     rid: FunctionRid
-
     version: FunctionVersion
 
 
@@ -341,9 +318,7 @@ class QuerySetType(pydantic.BaseModel):
     """QuerySetType"""
 
     sub_type: QueryDataType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
-
     type: typing.Literal["set"] = "set"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QuerySetTypeDict":
@@ -357,7 +332,6 @@ class QuerySetTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     subType: QueryDataTypeDict
-
     type: typing.Literal["set"]
 
 
@@ -365,9 +339,7 @@ class QueryStructField(pydantic.BaseModel):
     """QueryStructField"""
 
     name: StructFieldName
-
     field_type: QueryDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryStructFieldDict":
@@ -381,7 +353,6 @@ class QueryStructFieldDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     name: StructFieldName
-
     fieldType: QueryDataTypeDict
 
 
@@ -389,9 +360,7 @@ class QueryStructType(pydantic.BaseModel):
     """QueryStructType"""
 
     fields: typing.List[QueryStructField]
-
     type: typing.Literal["struct"] = "struct"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryStructTypeDict":
@@ -405,7 +374,6 @@ class QueryStructTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     fields: typing.List[QueryStructFieldDict]
-
     type: typing.Literal["struct"]
 
 
@@ -413,9 +381,7 @@ class QueryUnionType(pydantic.BaseModel):
     """QueryUnionType"""
 
     union_types: typing.List[QueryDataType] = pydantic.Field(alias=str("unionTypes"))  # type: ignore[literal-required]
-
     type: typing.Literal["union"] = "union"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryUnionTypeDict":
@@ -429,7 +395,6 @@ class QueryUnionTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     unionTypes: typing.List[QueryDataTypeDict]
-
     type: typing.Literal["union"]
 
 
@@ -441,11 +406,8 @@ class ThreeDimensionalAggregation(pydantic.BaseModel):
     """ThreeDimensionalAggregation"""
 
     key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
-
     value_type: TwoDimensionalAggregation = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
-
     type: typing.Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ThreeDimensionalAggregationDict":
@@ -461,9 +423,7 @@ class ThreeDimensionalAggregationDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     keyType: QueryAggregationKeyTypeDict
-
     valueType: TwoDimensionalAggregationDict
-
     type: typing.Literal["threeDimensionalAggregation"]
 
 
@@ -471,11 +431,8 @@ class TwoDimensionalAggregation(pydantic.BaseModel):
     """TwoDimensionalAggregation"""
 
     key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
-
     value_type: QueryAggregationValueType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
-
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "TwoDimensionalAggregationDict":
@@ -491,9 +448,7 @@ class TwoDimensionalAggregationDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     keyType: QueryAggregationKeyTypeDict
-
     valueType: QueryAggregationValueTypeDict
-
     type: typing.Literal["twoDimensionalAggregation"]
 
 
@@ -501,19 +456,12 @@ class ValueType(pydantic.BaseModel):
     """ValueType"""
 
     rid: ValueTypeRid
-
     version: ValueTypeVersion
-
     version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
-
     api_name: ValueTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
-
     display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     description: typing.Optional[ValueTypeDescription] = None
-
     base_type: typing.Optional[ValueTypeDataType] = pydantic.Field(alias=str("baseType"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDict":
@@ -527,24 +475,24 @@ ValueTypeApiName = str
 
 ValueTypeDataType = typing_extensions.Annotated[
     typing.Union[
-        ValueTypeDataTypeDateType,
-        ValueTypeDataTypeStructType,
-        ValueTypeDataTypeStringType,
-        ValueTypeDataTypeByteType,
-        ValueTypeDataTypeDoubleType,
-        ValueTypeDataTypeOptionalType,
-        ValueTypeDataTypeIntegerType,
-        ValueTypeDataTypeUnionType,
-        ValueTypeDataTypeFloatType,
-        ValueTypeDataTypeLongType,
-        ValueTypeDataTypeBooleanType,
-        ValueTypeDataTypeArrayType,
-        ValueTypeDataTypeBinaryType,
-        ValueTypeDataTypeValueTypeReference,
-        ValueTypeDataTypeShortType,
-        ValueTypeDataTypeDecimalType,
-        ValueTypeDataTypeMapType,
-        ValueTypeDataTypeTimestampType,
+        "ValueTypeDataTypeDateType",
+        "ValueTypeDataTypeStructType",
+        "ValueTypeDataTypeStringType",
+        "ValueTypeDataTypeByteType",
+        "ValueTypeDataTypeDoubleType",
+        "ValueTypeDataTypeOptionalType",
+        "ValueTypeDataTypeIntegerType",
+        "ValueTypeDataTypeUnionType",
+        "ValueTypeDataTypeFloatType",
+        "ValueTypeDataTypeLongType",
+        "ValueTypeDataTypeBooleanType",
+        "ValueTypeDataTypeArrayType",
+        "ValueTypeDataTypeBinaryType",
+        "ValueTypeDataTypeValueTypeReference",
+        "ValueTypeDataTypeShortType",
+        "ValueTypeDataTypeDecimalType",
+        "ValueTypeDataTypeMapType",
+        "ValueTypeDataTypeTimestampType",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -555,9 +503,7 @@ class ValueTypeDataTypeArrayType(pydantic.BaseModel):
     """ValueTypeDataTypeArrayType"""
 
     sub_type: ValueTypeDataType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
-
     type: typing.Literal["array"] = "array"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeArrayTypeDict":
@@ -573,7 +519,6 @@ class ValueTypeDataTypeArrayTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     subType: ValueTypeDataTypeDict
-
     type: typing.Literal["array"]
 
 
@@ -581,7 +526,6 @@ class ValueTypeDataTypeBinaryType(pydantic.BaseModel):
     """ValueTypeDataTypeBinaryType"""
 
     type: typing.Literal["binary"] = "binary"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeBinaryTypeDict":
@@ -603,7 +547,6 @@ class ValueTypeDataTypeBooleanType(pydantic.BaseModel):
     """ValueTypeDataTypeBooleanType"""
 
     type: typing.Literal["boolean"] = "boolean"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeBooleanTypeDict":
@@ -625,7 +568,6 @@ class ValueTypeDataTypeByteType(pydantic.BaseModel):
     """ValueTypeDataTypeByteType"""
 
     type: typing.Literal["byte"] = "byte"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeByteTypeDict":
@@ -647,7 +589,6 @@ class ValueTypeDataTypeDateType(pydantic.BaseModel):
     """ValueTypeDataTypeDateType"""
 
     type: typing.Literal["date"] = "date"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeDateTypeDict":
@@ -669,7 +610,6 @@ class ValueTypeDataTypeDecimalType(pydantic.BaseModel):
     """ValueTypeDataTypeDecimalType"""
 
     type: typing.Literal["decimal"] = "decimal"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeDecimalTypeDict":
@@ -690,23 +630,23 @@ class ValueTypeDataTypeDecimalTypeDict(typing_extensions.TypedDict):
 ValueTypeDataTypeDict = typing_extensions.Annotated[
     typing.Union[
         ValueTypeDataTypeDateTypeDict,
-        ValueTypeDataTypeStructTypeDict,
-        ValueTypeDataTypeStringTypeDict,
+        "ValueTypeDataTypeStructTypeDict",
+        "ValueTypeDataTypeStringTypeDict",
         ValueTypeDataTypeByteTypeDict,
-        ValueTypeDataTypeDoubleTypeDict,
-        ValueTypeDataTypeOptionalTypeDict,
-        ValueTypeDataTypeIntegerTypeDict,
-        ValueTypeDataTypeUnionTypeDict,
-        ValueTypeDataTypeFloatTypeDict,
-        ValueTypeDataTypeLongTypeDict,
+        "ValueTypeDataTypeDoubleTypeDict",
+        "ValueTypeDataTypeOptionalTypeDict",
+        "ValueTypeDataTypeIntegerTypeDict",
+        "ValueTypeDataTypeUnionTypeDict",
+        "ValueTypeDataTypeFloatTypeDict",
+        "ValueTypeDataTypeLongTypeDict",
         ValueTypeDataTypeBooleanTypeDict,
         ValueTypeDataTypeArrayTypeDict,
         ValueTypeDataTypeBinaryTypeDict,
-        ValueTypeDataTypeValueTypeReferenceDict,
-        ValueTypeDataTypeShortTypeDict,
+        "ValueTypeDataTypeValueTypeReferenceDict",
+        "ValueTypeDataTypeShortTypeDict",
         ValueTypeDataTypeDecimalTypeDict,
-        ValueTypeDataTypeMapTypeDict,
-        ValueTypeDataTypeTimestampTypeDict,
+        "ValueTypeDataTypeMapTypeDict",
+        "ValueTypeDataTypeTimestampTypeDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -717,7 +657,6 @@ class ValueTypeDataTypeDoubleType(pydantic.BaseModel):
     """ValueTypeDataTypeDoubleType"""
 
     type: typing.Literal["double"] = "double"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeDoubleTypeDict":
@@ -739,7 +678,6 @@ class ValueTypeDataTypeFloatType(pydantic.BaseModel):
     """ValueTypeDataTypeFloatType"""
 
     type: typing.Literal["float"] = "float"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeFloatTypeDict":
@@ -761,7 +699,6 @@ class ValueTypeDataTypeIntegerType(pydantic.BaseModel):
     """ValueTypeDataTypeIntegerType"""
 
     type: typing.Literal["integer"] = "integer"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeIntegerTypeDict":
@@ -783,7 +720,6 @@ class ValueTypeDataTypeLongType(pydantic.BaseModel):
     """ValueTypeDataTypeLongType"""
 
     type: typing.Literal["long"] = "long"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeLongTypeDict":
@@ -805,11 +741,8 @@ class ValueTypeDataTypeMapType(pydantic.BaseModel):
     """ValueTypeDataTypeMapType"""
 
     key_type: ValueTypeDataType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
-
     value_type: ValueTypeDataType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
-
     type: typing.Literal["map"] = "map"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeMapTypeDict":
@@ -825,9 +758,7 @@ class ValueTypeDataTypeMapTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     keyType: ValueTypeDataTypeDict
-
     valueType: ValueTypeDataTypeDict
-
     type: typing.Literal["map"]
 
 
@@ -835,9 +766,7 @@ class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
     """ValueTypeDataTypeOptionalType"""
 
     wrapped_type: ValueTypeDataType = pydantic.Field(alias=str("wrappedType"))  # type: ignore[literal-required]
-
     type: typing.Literal["optional"] = "optional"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeOptionalTypeDict":
@@ -853,7 +782,6 @@ class ValueTypeDataTypeOptionalTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     wrappedType: ValueTypeDataTypeDict
-
     type: typing.Literal["optional"]
 
 
@@ -861,7 +789,6 @@ class ValueTypeDataTypeShortType(pydantic.BaseModel):
     """ValueTypeDataTypeShortType"""
 
     type: typing.Literal["short"] = "short"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeShortTypeDict":
@@ -883,7 +810,6 @@ class ValueTypeDataTypeStringType(pydantic.BaseModel):
     """ValueTypeDataTypeStringType"""
 
     type: typing.Literal["string"] = "string"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeStringTypeDict":
@@ -905,9 +831,7 @@ class ValueTypeDataTypeStructElement(pydantic.BaseModel):
     """ValueTypeDataTypeStructElement"""
 
     name: ValueTypeDataTypeStructFieldIdentifier
-
     field_type: ValueTypeDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeStructElementDict":
@@ -923,7 +847,6 @@ class ValueTypeDataTypeStructElementDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     name: ValueTypeDataTypeStructFieldIdentifier
-
     fieldType: ValueTypeDataTypeDict
 
 
@@ -935,9 +858,7 @@ class ValueTypeDataTypeStructType(pydantic.BaseModel):
     """ValueTypeDataTypeStructType"""
 
     fields: typing.List[ValueTypeDataTypeStructElement]
-
     type: typing.Literal["struct"] = "struct"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeStructTypeDict":
@@ -953,7 +874,6 @@ class ValueTypeDataTypeStructTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     fields: typing.List[ValueTypeDataTypeStructElementDict]
-
     type: typing.Literal["struct"]
 
 
@@ -961,7 +881,6 @@ class ValueTypeDataTypeTimestampType(pydantic.BaseModel):
     """ValueTypeDataTypeTimestampType"""
 
     type: typing.Literal["timestamp"] = "timestamp"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeTimestampTypeDict":
@@ -983,9 +902,7 @@ class ValueTypeDataTypeUnionType(pydantic.BaseModel):
     """ValueTypeDataTypeUnionType"""
 
     member_types: typing.List[ValueTypeDataType] = pydantic.Field(alias=str("memberTypes"))  # type: ignore[literal-required]
-
     type: typing.Literal["union"] = "union"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeUnionTypeDict":
@@ -1001,7 +918,6 @@ class ValueTypeDataTypeUnionTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     memberTypes: typing.List[ValueTypeDataTypeDict]
-
     type: typing.Literal["union"]
 
 
@@ -1009,11 +925,8 @@ class ValueTypeDataTypeValueTypeReference(pydantic.BaseModel):
     """ValueTypeDataTypeValueTypeReference"""
 
     rid: ValueTypeRid
-
     version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
-
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeDataTypeValueTypeReferenceDict":
@@ -1030,9 +943,7 @@ class ValueTypeDataTypeValueTypeReferenceDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ValueTypeRid
-
     versionId: ValueTypeVersionId
-
     type: typing.Literal["valueTypeReference"]
 
 
@@ -1046,17 +957,11 @@ class ValueTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ValueTypeRid
-
     version: ValueTypeVersion
-
     versionId: ValueTypeVersionId
-
     apiName: ValueTypeApiName
-
     displayName: core_models.DisplayName
-
     description: typing_extensions.NotRequired[ValueTypeDescription]
-
     baseType: typing_extensions.NotRequired[ValueTypeDataTypeDict]
 
 
@@ -1064,11 +969,8 @@ class ValueTypeReference(pydantic.BaseModel):
     """A reference to a value type that has been registered in the Ontology."""
 
     rid: ValueTypeRid
-
     version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
-
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ValueTypeReferenceDict":
@@ -1084,9 +986,7 @@ class ValueTypeReferenceDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ValueTypeRid
-
     versionId: ValueTypeVersionId
-
     type: typing.Literal["valueTypeReference"]
 
 
@@ -1106,19 +1006,12 @@ class VersionId(pydantic.BaseModel):
     """VersionId"""
 
     rid: ValueTypeRid
-
     version: ValueTypeVersion
-
     version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
-
     api_name: ValueTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
-
     display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-
     description: typing.Optional[ValueTypeDescription] = None
-
     base_type: typing.Optional[ValueTypeDataType] = pydantic.Field(alias=str("baseType"), default=None)  # type: ignore[literal-required]
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "VersionIdDict":
@@ -1132,17 +1025,11 @@ class VersionIdDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: ValueTypeRid
-
     version: ValueTypeVersion
-
     versionId: ValueTypeVersionId
-
     apiName: ValueTypeApiName
-
     displayName: core_models.DisplayName
-
     description: typing_extensions.NotRequired[ValueTypeDescription]
-
     baseType: typing_extensions.NotRequired[ValueTypeDataTypeDict]
 
 

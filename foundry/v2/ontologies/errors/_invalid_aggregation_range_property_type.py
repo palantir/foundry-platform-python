@@ -28,9 +28,7 @@ class InvalidAggregationRangePropertyTypeParameters(typing_extensions.TypedDict)
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     property: ontologies_models.PropertyApiName
-
     objectType: ontologies_models.ObjectTypeApiName
-
     propertyBaseType: ontologies_models.ValueType
 
 

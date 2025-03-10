@@ -28,9 +28,7 @@ class MarketplaceActionMappingNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     actionType: ontologies_models.ActionTypeApiName
-
     artifactRepository: ontologies_models.ArtifactRepositoryRid
-
     packageName: ontologies_models.SdkPackageName
 
 

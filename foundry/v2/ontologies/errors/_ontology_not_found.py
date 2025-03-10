@@ -28,7 +28,6 @@ class OntologyNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     ontologyRid: typing_extensions.NotRequired[ontologies_models.OntologyRid]
-
     apiName: typing_extensions.NotRequired[ontologies_models.OntologyApiName]
 
 

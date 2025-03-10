@@ -28,7 +28,6 @@ class VersionIdNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     valueTypeRid: functions_models.ValueTypeRid
-
     versionIdVersionId: functions_models.ValueTypeVersionId
 
 

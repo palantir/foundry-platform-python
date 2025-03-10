@@ -28,13 +28,9 @@ class QueryRuntimeErrorParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     functionRid: functions_models.FunctionRid
-
     functionVersion: functions_models.FunctionVersion
-
     message: typing_extensions.NotRequired[str]
-
     stacktrace: typing_extensions.NotRequired[str]
-
     parameters: typing.Dict[functions_models.QueryRuntimeErrorParameter, str]
 
 

@@ -11,7 +11,7 @@ of a bbox follows the axes order of geometries.
 
 ## Type
 ```python
-typing.List[Coordinate]
+typing.List["Coordinate"]
 ```
 
 

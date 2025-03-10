@@ -28,7 +28,6 @@ class DeleteTableImportPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     tableImportRid: connectivity_models.TableImportRid
-
     connectionRid: connectivity_models.ConnectionRid
 
 

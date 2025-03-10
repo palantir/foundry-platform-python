@@ -30,7 +30,6 @@ class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters(
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     markingId: core_models.MarkingId
-
     currentAdministrators: typing.List[core_models.PrincipalId]
 
 

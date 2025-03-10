@@ -28,7 +28,6 @@ class CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters(typing_ext
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     principalId: core_models.PrincipalId
-
     realm: core_models.Realm
 
 

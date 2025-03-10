@@ -33,7 +33,6 @@ class AggregationGroupCountExceededLimitParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     groupsCount: typing_extensions.NotRequired[int]
-
     groupsLimit: typing_extensions.NotRequired[int]
 
 

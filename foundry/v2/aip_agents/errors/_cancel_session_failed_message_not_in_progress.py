@@ -39,8 +39,8 @@ class CancelSessionFailedMessageNotInProgressParameters(typing_extensions.TypedD
 
     messageId: aip_agents_models.MessageId
     """The message identifier that was requested for cancellation."""
-    agentRid: aip_agents_models.AgentRid
 
+    agentRid: aip_agents_models.AgentRid
     sessionRid: aip_agents_models.SessionRid
 
 

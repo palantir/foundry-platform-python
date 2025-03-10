@@ -28,7 +28,6 @@ class TableImportNotSupportedForConnectionParameters(typing_extensions.TypedDict
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     connectionRid: connectivity_models.ConnectionRid
-
     tableImportType: str
 
 

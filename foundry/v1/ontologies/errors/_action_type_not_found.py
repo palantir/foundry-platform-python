@@ -28,7 +28,6 @@ class ActionTypeNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     actionType: typing_extensions.NotRequired[ontologies_models.ActionTypeApiName]
-
     rid: typing_extensions.NotRequired[ontologies_models.ActionTypeRid]
 
 

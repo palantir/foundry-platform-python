@@ -25,7 +25,6 @@ class CanceledQueryStatus(pydantic.BaseModel):
     """CanceledQueryStatus"""
 
     type: typing.Literal["canceled"] = "canceled"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CanceledQueryStatusDict":
@@ -47,11 +46,9 @@ class FailedQueryStatus(pydantic.BaseModel):
     """FailedQueryStatus"""
 
     error_message: str = pydantic.Field(alias=str("errorMessage"))  # type: ignore[literal-required]
-
     """An error message describing why the query failed."""
 
     type: typing.Literal["failed"] = "failed"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FailedQueryStatusDict":
@@ -75,7 +72,9 @@ QueryId = str
 
 
 QueryStatus = typing_extensions.Annotated[
-    typing.Union[RunningQueryStatus, CanceledQueryStatus, FailedQueryStatus, SucceededQueryStatus],
+    typing.Union[
+        "RunningQueryStatus", CanceledQueryStatus, FailedQueryStatus, "SucceededQueryStatus"
+    ],
     pydantic.Field(discriminator="type"),
 ]
 """QueryStatus"""
@@ -83,10 +82,10 @@ QueryStatus = typing_extensions.Annotated[
 
 QueryStatusDict = typing_extensions.Annotated[
     typing.Union[
-        RunningQueryStatusDict,
+        "RunningQueryStatusDict",
         CanceledQueryStatusDict,
         FailedQueryStatusDict,
-        SucceededQueryStatusDict,
+        "SucceededQueryStatusDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -97,9 +96,7 @@ class RunningQueryStatus(pydantic.BaseModel):
     """RunningQueryStatus"""
 
     query_id: QueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
-
     type: typing.Literal["running"] = "running"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "RunningQueryStatusDict":
@@ -115,7 +112,6 @@ class RunningQueryStatusDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     queryId: QueryId
-
     type: typing.Literal["running"]
 
 
@@ -123,9 +119,7 @@ class SucceededQueryStatus(pydantic.BaseModel):
     """SucceededQueryStatus"""
 
     query_id: QueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
-
     type: typing.Literal["succeeded"] = "succeeded"
-
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SucceededQueryStatusDict":
@@ -141,7 +135,6 @@ class SucceededQueryStatusDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     queryId: QueryId
-
     type: typing.Literal["succeeded"]
 
 

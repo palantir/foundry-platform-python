@@ -28,7 +28,6 @@ class ReplaceFileImportPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     fileImportRid: connectivity_models.FileImportRid
-
     connectionRid: connectivity_models.ConnectionRid
 
 
