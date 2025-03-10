@@ -65,11 +65,11 @@ class AuthenticationProviderClient:
         """
         Get the AuthenticationProvider with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -117,9 +117,9 @@ class AuthenticationProviderClient:
 
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -165,15 +165,15 @@ class AuthenticationProviderClient:
         Preregistered groups can be used anywhere other groups are used in the platform.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
-        :type name: admin_models.GroupName
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
-        :type organizations: typing.List[core_models.OrganizationRid]
+        :type organizations: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -240,23 +240,23 @@ class AuthenticationProviderClient:
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: core_models.OrganizationRid
+        :type organization: OrganizationRid
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: admin_models.UserUsername
+        :type username: UserUsername
         :param attributes:
-        :type attributes: typing.Optional[typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]]
+        :type attributes: Optional[Dict[AttributeName, AttributeValues]]
         :param email:
-        :type email: typing.Optional[str]
+        :type email: Optional[str]
         :param family_name:
-        :type family_name: typing.Optional[str]
+        :type family_name: Optional[str]
         :param given_name:
-        :type given_name: typing.Optional[str]
+        :type given_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -344,11 +344,11 @@ class _AuthenticationProviderClientRaw:
         """
         Get the AuthenticationProvider with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -396,9 +396,9 @@ class _AuthenticationProviderClientRaw:
 
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -444,15 +444,15 @@ class _AuthenticationProviderClientRaw:
         Preregistered groups can be used anywhere other groups are used in the platform.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
-        :type name: admin_models.GroupName
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
-        :type organizations: typing.List[core_models.OrganizationRid]
+        :type organizations: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -519,23 +519,23 @@ class _AuthenticationProviderClientRaw:
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: core_models.OrganizationRid
+        :type organization: OrganizationRid
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: admin_models.UserUsername
+        :type username: UserUsername
         :param attributes:
-        :type attributes: typing.Optional[typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]]
+        :type attributes: Optional[Dict[AttributeName, AttributeValues]]
         :param email:
-        :type email: typing.Optional[str]
+        :type email: Optional[str]
         :param family_name:
-        :type family_name: typing.Optional[str]
+        :type family_name: Optional[str]
         :param given_name:
-        :type given_name: typing.Optional[str]
+        :type given_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -623,11 +623,11 @@ class _AuthenticationProviderClientStreaming:
         """
         Get the AuthenticationProvider with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -675,9 +675,9 @@ class _AuthenticationProviderClientStreaming:
 
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -723,15 +723,15 @@ class _AuthenticationProviderClientStreaming:
         Preregistered groups can be used anywhere other groups are used in the platform.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
-        :type name: admin_models.GroupName
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
-        :type organizations: typing.List[core_models.OrganizationRid]
+        :type organizations: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -798,23 +798,23 @@ class _AuthenticationProviderClientStreaming:
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid: authenticationProviderRid
-        :type authentication_provider_rid: admin_models.AuthenticationProviderRid
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: core_models.OrganizationRid
+        :type organization: OrganizationRid
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: admin_models.UserUsername
+        :type username: UserUsername
         :param attributes:
-        :type attributes: typing.Optional[typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]]
+        :type attributes: Optional[Dict[AttributeName, AttributeValues]]
         :param email:
-        :type email: typing.Optional[str]
+        :type email: Optional[str]
         :param family_name:
-        :type family_name: typing.Optional[str]
+        :type family_name: Optional[str]
         :param given_name:
-        :type given_name: typing.Optional[str]
+        :type given_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

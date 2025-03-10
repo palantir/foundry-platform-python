@@ -5,7 +5,7 @@ The RID of a value type that has been registered in the Ontology.
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

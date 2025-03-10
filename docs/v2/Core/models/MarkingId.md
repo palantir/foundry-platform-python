@@ -4,7 +4,7 @@ The ID of a security marking.
 
 ## Type
 ```python
-core.UUID
+UUID
 ```
 
 

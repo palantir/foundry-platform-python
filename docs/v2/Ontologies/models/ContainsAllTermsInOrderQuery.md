@@ -8,10 +8,10 @@ by a variety of means. Either `field` or `propertyIdentifier` must be supplied, 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | typing.Optional[PropertyApiName] | No |  |
-**property_identifier** | typing.Optional[PropertyIdentifier] | No |  |
+**field** | Optional[PropertyApiName] | No |  |
+**property_identifier** | Optional[PropertyIdentifier] | No |  |
 **value** | str | Yes |  |
-**type** | typing.Literal["containsAllTermsInOrder"] | Yes | None |
+**type** | Literal["containsAllTermsInOrder"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

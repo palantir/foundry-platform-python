@@ -75,11 +75,11 @@ class ResourceClient:
         """
         Adds a list of Markings to a resource.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param marking_ids:
-        :type marking_ids: typing.List[core_models.MarkingId]
+        :type marking_ids: List[MarkingId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -133,9 +133,9 @@ class ResourceClient:
         `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -178,9 +178,9 @@ class ResourceClient:
         """
         Get the Resource with the specified rid.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -227,9 +227,9 @@ class ResourceClient:
         composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -274,9 +274,9 @@ class ResourceClient:
         """
         Get a Resource by its absolute path.
         :param path: path
-        :type path: filesystem_models.ResourcePath
+        :type path: ResourcePath
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -324,13 +324,13 @@ class ResourceClient:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -377,13 +377,13 @@ class ResourceClient:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -434,9 +434,9 @@ class ResourceClient:
         `ResourceNotTrashed` error will be thrown.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -480,11 +480,11 @@ class ResourceClient:
         """
         Removes Markings from a resource.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param marking_ids:
-        :type marking_ids: typing.List[core_models.MarkingId]
+        :type marking_ids: List[MarkingId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -538,9 +538,9 @@ class ResourceClient:
         trashed, this operation will be ignored.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -605,11 +605,11 @@ class _ResourceClientRaw:
         """
         Adds a list of Markings to a resource.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param marking_ids:
-        :type marking_ids: typing.List[core_models.MarkingId]
+        :type marking_ids: List[MarkingId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -663,9 +663,9 @@ class _ResourceClientRaw:
         `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -708,9 +708,9 @@ class _ResourceClientRaw:
         """
         Get the Resource with the specified rid.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -757,9 +757,9 @@ class _ResourceClientRaw:
         composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -804,9 +804,9 @@ class _ResourceClientRaw:
         """
         Get a Resource by its absolute path.
         :param path: path
-        :type path: filesystem_models.ResourcePath
+        :type path: ResourcePath
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -854,13 +854,13 @@ class _ResourceClientRaw:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -907,13 +907,13 @@ class _ResourceClientRaw:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -964,9 +964,9 @@ class _ResourceClientRaw:
         `ResourceNotTrashed` error will be thrown.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1010,11 +1010,11 @@ class _ResourceClientRaw:
         """
         Removes Markings from a resource.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param marking_ids:
-        :type marking_ids: typing.List[core_models.MarkingId]
+        :type marking_ids: List[MarkingId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1068,9 +1068,9 @@ class _ResourceClientRaw:
         trashed, this operation will be ignored.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1135,11 +1135,11 @@ class _ResourceClientStreaming:
         """
         Adds a list of Markings to a resource.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param marking_ids:
-        :type marking_ids: typing.List[core_models.MarkingId]
+        :type marking_ids: List[MarkingId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1193,9 +1193,9 @@ class _ResourceClientStreaming:
         `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1238,9 +1238,9 @@ class _ResourceClientStreaming:
         """
         Get the Resource with the specified rid.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1287,9 +1287,9 @@ class _ResourceClientStreaming:
         composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1334,9 +1334,9 @@ class _ResourceClientStreaming:
         """
         Get a Resource by its absolute path.
         :param path: path
-        :type path: filesystem_models.ResourcePath
+        :type path: ResourcePath
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1384,13 +1384,13 @@ class _ResourceClientStreaming:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1437,13 +1437,13 @@ class _ResourceClientStreaming:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1494,9 +1494,9 @@ class _ResourceClientStreaming:
         `ResourceNotTrashed` error will be thrown.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1540,11 +1540,11 @@ class _ResourceClientStreaming:
         """
         Removes Markings from a resource.
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param marking_ids:
-        :type marking_ids: typing.List[core_models.MarkingId]
+        :type marking_ids: List[MarkingId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1598,9 +1598,9 @@ class _ResourceClientStreaming:
         trashed, this operation will be ignored.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -23,7 +23,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **action_type** | ActionTypeApiName | actionType |  |
-**parameters** | typing.Dict[ParameterId, typing.Optional[DataValue]] |  |  |
+**parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 
 ### Return type
 **ApplyActionResponse**
@@ -43,7 +43,7 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ActionTypeApiName | actionType
 action_type = "rename-employee"
-# typing.Dict[ParameterId, typing.Optional[DataValue]] |
+# Dict[ParameterId, Optional[DataValue]] |
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
 
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **action_type** | ActionTypeApiName | actionType |  |
-**requests** | typing.List[typing.Union[ApplyActionRequest, ApplyActionRequestDict]] |  |  |
+**requests** | List[Union[ApplyActionRequest, ApplyActionRequestDict]] |  |  |
 
 ### Return type
 **BatchApplyActionResponse**
@@ -113,7 +113,7 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ActionTypeApiName | actionType
 action_type = "rename-employee"
-# typing.List[typing.Union[ApplyActionRequest, ApplyActionRequestDict]] |
+# List[Union[ApplyActionRequest, ApplyActionRequestDict]] |
 requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
@@ -165,7 +165,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **action_type** | ActionTypeApiName | actionType |  |
-**parameters** | typing.Dict[ParameterId, typing.Optional[DataValue]] |  |  |
+**parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 
 ### Return type
 **ValidateActionResponse**
@@ -185,7 +185,7 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ActionTypeApiName | actionType
 action_type = "rename-employee"
-# typing.Dict[ParameterId, typing.Optional[DataValue]] |
+# Dict[ParameterId, Optional[DataValue]] |
 parameters = {
     "id": "2",
     "firstName": "Chuck",

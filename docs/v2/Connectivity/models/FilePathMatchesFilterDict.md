@@ -16,7 +16,7 @@ With the `relative/subfolder/include-.*.txt` regex, only `relative/subfolder/inc
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **regex** | str | Yes | Must be written to match the paths relative to the root of the source, even if a subfolder is specified.  |
-**type** | typing.Literal["pathMatchesFilter"] | Yes | None |
+**type** | Literal["pathMatchesFilter"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

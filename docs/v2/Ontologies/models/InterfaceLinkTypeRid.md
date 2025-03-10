@@ -5,7 +5,7 @@ The unique resource identifier of an interface link type, useful for interacting
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

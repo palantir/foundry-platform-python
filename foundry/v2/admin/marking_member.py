@@ -66,11 +66,11 @@ class MarkingMemberClient:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -129,15 +129,15 @@ class MarkingMemberClient:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -190,15 +190,15 @@ class MarkingMemberClient:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -253,11 +253,11 @@ class MarkingMemberClient:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -331,11 +331,11 @@ class _MarkingMemberClientRaw:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -394,15 +394,15 @@ class _MarkingMemberClientRaw:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -455,15 +455,15 @@ class _MarkingMemberClientRaw:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -518,11 +518,11 @@ class _MarkingMemberClientRaw:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -596,11 +596,11 @@ class _MarkingMemberClientStreaming:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -659,15 +659,15 @@ class _MarkingMemberClientStreaming:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -720,15 +720,15 @@ class _MarkingMemberClientStreaming:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -783,11 +783,11 @@ class _MarkingMemberClientStreaming:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

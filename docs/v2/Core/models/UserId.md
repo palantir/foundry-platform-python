@@ -5,7 +5,7 @@ A Foundry User ID.
 
 ## Type
 ```python
-core.UUID
+UUID
 ```
 
 

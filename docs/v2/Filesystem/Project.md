@@ -18,8 +18,8 @@ Adds a list of Organizations to a Project.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid | projectRid |  |
-**organization_rids** | typing.List[core_models.OrganizationRid] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**organization_rids** | List[OrganizationRid] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -37,9 +37,9 @@ foundry_client = FoundryClient(
 
 # ProjectRid | projectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# typing.List[core_models.OrganizationRid] |
+# List[OrganizationRid] |
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -81,13 +81,13 @@ When creating the application, select "No, I won't use an Ontology SDK" on the R
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**default_roles** | typing.List[core_models.RoleId] |  |  |
+**default_roles** | List[RoleId] |  |  |
 **display_name** | ResourceDisplayName |  |  |
-**organization_rids** | typing.List[core_models.OrganizationRid] |  |  |
-**role_grants** | typing.Dict[core_models.RoleId, typing.List[typing.Union[PrincipalWithId, PrincipalWithIdDict]]] |  |  |
+**organization_rids** | List[OrganizationRid] |  |  |
+**role_grants** | Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]] |  |  |
 **space_rid** | SpaceRid |  |  |
-**description** | typing.Optional[str] |  | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**description** | Optional[str] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Project**
@@ -103,13 +103,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.List[core_models.RoleId] |
+# List[RoleId] |
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
 # ResourceDisplayName |
 display_name = "My Important Project"
-# typing.List[core_models.OrganizationRid] |
+# List[OrganizationRid] |
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# typing.Dict[core_models.RoleId, typing.List[typing.Union[PrincipalWithId, PrincipalWithIdDict]]] |
+# Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]] |
 role_grants = {
     "8bf49052-dc37-4528-8bf0-b551cfb71268": [
         {"principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de", "principalType": "USER"}
@@ -117,9 +117,9 @@ role_grants = {
 }
 # SpaceRid |
 space_rid = "ri.compass.main.folder.a86ad5f5-3db5-48e4-9fdd-00aa3e5731ca"
-# typing.Optional[str] |
+# Optional[str] |
 description = "project description"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -161,11 +161,11 @@ Creates a project from a project template.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **template_rid** | ProjectTemplateRid |  |  |
-**variable_values** | typing.Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |  |  |
-**default_roles** | typing.Optional[typing.List[core_models.RoleId]] |  | [optional] |
-**organization_rids** | typing.Optional[typing.List[core_models.OrganizationRid]] |  | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**project_description** | typing.Optional[str] |  | [optional] |
+**variable_values** | Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |  |  |
+**default_roles** | Optional[List[RoleId]] |  | [optional] |
+**organization_rids** | Optional[List[OrganizationRid]] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**project_description** | Optional[str] |  | [optional] |
 
 ### Return type
 **Project**
@@ -183,15 +183,15 @@ foundry_client = FoundryClient(
 
 # ProjectTemplateRid |
 template_rid = "ri.compass.main.template.c410f510-2937-420e-8ea3-8c9bcb3c1791"
-# typing.Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |
+# Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |
 variable_values = {"name": "my project name"}
-# typing.Optional[typing.List[core_models.RoleId]] |
+# Optional[List[RoleId]] |
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
-# typing.Optional[typing.List[core_models.OrganizationRid]] |
+# Optional[List[OrganizationRid]] |
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
-# typing.Optional[str] |
+# Optional[str] |
 project_description = None
 
 
@@ -232,7 +232,7 @@ Get the Project with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid | projectRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Project**
@@ -250,7 +250,7 @@ foundry_client = FoundryClient(
 
 # ProjectRid | projectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -289,9 +289,9 @@ typically small so the `pageSize` and `pageToken` parameters are not required.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid | projectRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListOrganizationsOfProjectResponse**
@@ -309,11 +309,11 @@ foundry_client = FoundryClient(
 
 # ProjectRid | projectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -353,9 +353,9 @@ typically small so the `pageSize` and `pageToken` parameters are not required.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid | projectRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListOrganizationsOfProjectResponse**
@@ -373,11 +373,11 @@ foundry_client = FoundryClient(
 
 # ProjectRid | projectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -416,8 +416,8 @@ Removes Organizations from a Project.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid | projectRid |  |
-**organization_rids** | typing.List[core_models.OrganizationRid] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**organization_rids** | List[OrganizationRid] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -435,9 +435,9 @@ foundry_client = FoundryClient(
 
 # ProjectRid | projectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# typing.List[core_models.OrganizationRid] |
+# List[OrganizationRid] |
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

@@ -77,17 +77,17 @@ class ScheduleClient:
         """
         Creates a new Schedule.
         :param action:
-        :type action: typing.Union[orchestration_models.CreateScheduleRequestAction, orchestration_models.CreateScheduleRequestActionDict]
+        :type action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: typing.Optional[str]
+        :type display_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: typing.Optional[typing.Union[orchestration_models.CreateScheduleRequestScopeMode, orchestration_models.CreateScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: typing.Optional[typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -158,9 +158,9 @@ class ScheduleClient:
         """
         Delete the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -203,9 +203,9 @@ class ScheduleClient:
         """
         Get the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -250,9 +250,9 @@ class ScheduleClient:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -310,19 +310,19 @@ class ScheduleClient:
         """
         Replace the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param action:
-        :type action: typing.Union[orchestration_models.ReplaceScheduleRequestAction, orchestration_models.ReplaceScheduleRequestActionDict]
+        :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: typing.Optional[str]
+        :type display_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: typing.Optional[typing.Union[orchestration_models.ReplaceScheduleRequestScopeMode, orchestration_models.ReplaceScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: typing.Optional[typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -395,9 +395,9 @@ class ScheduleClient:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -445,13 +445,13 @@ class ScheduleClient:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -497,13 +497,13 @@ class ScheduleClient:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -552,9 +552,9 @@ class ScheduleClient:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -632,17 +632,17 @@ class _ScheduleClientRaw:
         """
         Creates a new Schedule.
         :param action:
-        :type action: typing.Union[orchestration_models.CreateScheduleRequestAction, orchestration_models.CreateScheduleRequestActionDict]
+        :type action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: typing.Optional[str]
+        :type display_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: typing.Optional[typing.Union[orchestration_models.CreateScheduleRequestScopeMode, orchestration_models.CreateScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: typing.Optional[typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -713,9 +713,9 @@ class _ScheduleClientRaw:
         """
         Delete the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -758,9 +758,9 @@ class _ScheduleClientRaw:
         """
         Get the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -805,9 +805,9 @@ class _ScheduleClientRaw:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -865,19 +865,19 @@ class _ScheduleClientRaw:
         """
         Replace the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param action:
-        :type action: typing.Union[orchestration_models.ReplaceScheduleRequestAction, orchestration_models.ReplaceScheduleRequestActionDict]
+        :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: typing.Optional[str]
+        :type display_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: typing.Optional[typing.Union[orchestration_models.ReplaceScheduleRequestScopeMode, orchestration_models.ReplaceScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: typing.Optional[typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -950,9 +950,9 @@ class _ScheduleClientRaw:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1000,13 +1000,13 @@ class _ScheduleClientRaw:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1052,13 +1052,13 @@ class _ScheduleClientRaw:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1107,9 +1107,9 @@ class _ScheduleClientRaw:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1187,17 +1187,17 @@ class _ScheduleClientStreaming:
         """
         Creates a new Schedule.
         :param action:
-        :type action: typing.Union[orchestration_models.CreateScheduleRequestAction, orchestration_models.CreateScheduleRequestActionDict]
+        :type action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: typing.Optional[str]
+        :type display_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: typing.Optional[typing.Union[orchestration_models.CreateScheduleRequestScopeMode, orchestration_models.CreateScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: typing.Optional[typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1268,9 +1268,9 @@ class _ScheduleClientStreaming:
         """
         Delete the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1313,9 +1313,9 @@ class _ScheduleClientStreaming:
         """
         Get the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1360,9 +1360,9 @@ class _ScheduleClientStreaming:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1420,19 +1420,19 @@ class _ScheduleClientStreaming:
         """
         Replace the Schedule with the specified rid.
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param action:
-        :type action: typing.Union[orchestration_models.ReplaceScheduleRequestAction, orchestration_models.ReplaceScheduleRequestActionDict]
+        :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param display_name:
-        :type display_name: typing.Optional[str]
+        :type display_name: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: typing.Optional[typing.Union[orchestration_models.ReplaceScheduleRequestScopeMode, orchestration_models.ReplaceScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: typing.Optional[typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]]
+        :type trigger: Optional[Union[Trigger, TriggerDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1505,9 +1505,9 @@ class _ScheduleClientStreaming:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1555,13 +1555,13 @@ class _ScheduleClientStreaming:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1607,13 +1607,13 @@ class _ScheduleClientStreaming:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1662,9 +1662,9 @@ class _ScheduleClientStreaming:
         """
 
         :param schedule_rid: scheduleRid
-        :type schedule_rid: orchestration_models.ScheduleRid
+        :type schedule_rid: ScheduleRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

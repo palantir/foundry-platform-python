@@ -14,9 +14,9 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListSpacesResponse**
@@ -32,11 +32,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -74,9 +74,9 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListSpacesResponse**
@@ -92,11 +92,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

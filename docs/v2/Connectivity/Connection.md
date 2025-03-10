@@ -22,11 +22,11 @@ use the Foundry UI instead.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**configuration** | typing.Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |  |  |
+**configuration** | Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |  |  |
 **display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
-**parent_folder_rid** | filesystem_models.FolderRid |  |  |
-**runtime_platform** | typing.Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**parent_folder_rid** | FolderRid |  |  |
+**runtime_platform** | Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Connection**
@@ -42,15 +42,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |
+# Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |
 configuration = None
 # ConnectionDisplayName | The display name of the Connection. The display name must not be blank.
 display_name = "Connection to my external system"
-# filesystem_models.FolderRid |
+# FolderRid |
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
-# typing.Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict] |
+# Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict] |
 runtime_platform = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -90,7 +90,7 @@ Get the Connection with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Connection**
@@ -108,7 +108,7 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -147,7 +147,7 @@ This operation is intended for use when other Connection data is not required, p
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ConnectionConfiguration**
@@ -165,7 +165,7 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -213,8 +213,8 @@ use the Foundry UI instead.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**secrets** | typing.Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**secrets** | Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -232,9 +232,9 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# typing.Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.
+# Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.
 secrets = {"Password": "MySecretPassword"}
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

@@ -9,7 +9,7 @@ The interval uses the ISO 8601 notation. For example, "PT1H2M34S" represents a d
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **duration** | Duration | Yes |  |
-**type** | typing.Literal["duration"] | Yes | None |
+**type** | Literal["duration"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

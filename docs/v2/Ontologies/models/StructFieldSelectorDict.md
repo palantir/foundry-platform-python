@@ -11,7 +11,7 @@ where applicable.
 | ------------ | ------------- | ------------- | ------------- |
 **propertyApiName** | PropertyApiName | Yes |  |
 **structFieldApiName** | StructFieldApiName | Yes |  |
-**type** | typing.Literal["structField"] | Yes | None |
+**type** | Literal["structField"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

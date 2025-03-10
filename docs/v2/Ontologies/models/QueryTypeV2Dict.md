@@ -7,8 +7,8 @@ Represents a query type in the Ontology.
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | QueryApiName | Yes |  |
 **description** | typing_extensions.NotRequired[str] | No |  |
-**displayName** | typing_extensions.NotRequired[core_models.DisplayName] | No |  |
-**parameters** | typing.Dict[ParameterId, QueryParameterV2Dict] | Yes |  |
+**displayName** | typing_extensions.NotRequired[DisplayName] | No |  |
+**parameters** | Dict[ParameterId, QueryParameterV2Dict] | Yes |  |
 **output** | QueryDataTypeDict | Yes |  |
 **rid** | FunctionRid | Yes |  |
 **version** | FunctionVersion | Yes |  |

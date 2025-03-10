@@ -64,11 +64,11 @@ class GroupMemberClient:
         """
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param expiration:
-        :type expiration: typing.Optional[admin_models.GroupMembershipExpiration]
+        :type expiration: Optional[GroupMembershipExpiration]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -131,13 +131,13 @@ class GroupMemberClient:
         in the response, you are on the last page.
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -189,13 +189,13 @@ class GroupMemberClient:
         in the response, you are on the last page.
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -244,9 +244,9 @@ class GroupMemberClient:
         """
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -320,11 +320,11 @@ class _GroupMemberClientRaw:
         """
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param expiration:
-        :type expiration: typing.Optional[admin_models.GroupMembershipExpiration]
+        :type expiration: Optional[GroupMembershipExpiration]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -387,13 +387,13 @@ class _GroupMemberClientRaw:
         in the response, you are on the last page.
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -445,13 +445,13 @@ class _GroupMemberClientRaw:
         in the response, you are on the last page.
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -500,9 +500,9 @@ class _GroupMemberClientRaw:
         """
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -576,11 +576,11 @@ class _GroupMemberClientStreaming:
         """
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param expiration:
-        :type expiration: typing.Optional[admin_models.GroupMembershipExpiration]
+        :type expiration: Optional[GroupMembershipExpiration]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -643,13 +643,13 @@ class _GroupMemberClientStreaming:
         in the response, you are on the last page.
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -701,13 +701,13 @@ class _GroupMemberClientStreaming:
         in the response, you are on the last page.
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -756,9 +756,9 @@ class _GroupMemberClientStreaming:
         """
 
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param principal_ids:
-        :type principal_ids: typing.List[core_models.PrincipalId]
+        :type principal_ids: List[PrincipalId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -149,7 +149,7 @@ foundry_client = FoundryClient(
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # BranchId |
 branch_id = "my-branch"
-# typing.Optional[TransactionRid] |
+# Optional[TransactionRid] |
 transaction_rid = None
 
 

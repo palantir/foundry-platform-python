@@ -65,9 +65,9 @@ class ActionTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -114,11 +114,11 @@ class ActionTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -167,11 +167,11 @@ class ActionTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -243,9 +243,9 @@ class _ActionTypeClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -292,11 +292,11 @@ class _ActionTypeClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -345,11 +345,11 @@ class _ActionTypeClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -421,9 +421,9 @@ class _ActionTypeClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -470,11 +470,11 @@ class _ActionTypeClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -523,11 +523,11 @@ class _ActionTypeClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

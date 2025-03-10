@@ -10,7 +10,7 @@ CreateScheduleRequestAction
 **retryBackoffDuration** | typing_extensions.NotRequired[RetryBackoffDurationDict] | No |  |
 **retryCount** | typing_extensions.NotRequired[RetryCount] | No |  |
 **fallbackBranches** | typing_extensions.NotRequired[FallbackBranches] | No |  |
-**branchName** | typing_extensions.NotRequired[datasets_models.BranchName] | No | The target branch the schedule should run on. |
+**branchName** | typing_extensions.NotRequired[BranchName] | No | The target branch the schedule should run on. |
 **notificationsEnabled** | typing_extensions.NotRequired[NotificationsEnabled] | No |  |
 **target** | CreateScheduleRequestBuildTargetDict | Yes |  |
 

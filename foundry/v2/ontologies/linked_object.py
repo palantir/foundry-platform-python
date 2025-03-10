@@ -74,23 +74,23 @@ class LinkedObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param linked_object_primary_key: linkedObjectPrimaryKey
-        :type linked_object_primary_key: ontologies_models.PropertyValueEscapedString
+        :type linked_object_primary_key: PropertyValueEscapedString
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -162,27 +162,27 @@ class LinkedObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
-        :type order_by: typing.Optional[ontologies_models.OrderBy]
+        :type order_by: Optional[OrderBy]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -256,27 +256,27 @@ class LinkedObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
-        :type order_by: typing.Optional[ontologies_models.OrderBy]
+        :type order_by: Optional[OrderBy]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -365,23 +365,23 @@ class _LinkedObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param linked_object_primary_key: linkedObjectPrimaryKey
-        :type linked_object_primary_key: ontologies_models.PropertyValueEscapedString
+        :type linked_object_primary_key: PropertyValueEscapedString
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -453,27 +453,27 @@ class _LinkedObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
-        :type order_by: typing.Optional[ontologies_models.OrderBy]
+        :type order_by: Optional[OrderBy]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -547,27 +547,27 @@ class _LinkedObjectClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
-        :type order_by: typing.Optional[ontologies_models.OrderBy]
+        :type order_by: Optional[OrderBy]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -656,23 +656,23 @@ class _LinkedObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param linked_object_primary_key: linkedObjectPrimaryKey
-        :type linked_object_primary_key: ontologies_models.PropertyValueEscapedString
+        :type linked_object_primary_key: PropertyValueEscapedString
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -744,27 +744,27 @@ class _LinkedObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
-        :type order_by: typing.Optional[ontologies_models.OrderBy]
+        :type order_by: Optional[OrderBy]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -838,27 +838,27 @@ class _LinkedObjectClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param link_type: linkType
-        :type link_type: ontologies_models.LinkTypeApiName
+        :type link_type: LinkTypeApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: excludeRid
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by: orderBy
-        :type order_by: typing.Optional[ontologies_models.OrderBy]
+        :type order_by: Optional[OrderBy]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param select: select
-        :type select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]]
+        :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

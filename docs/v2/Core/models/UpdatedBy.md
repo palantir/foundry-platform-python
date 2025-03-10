@@ -4,7 +4,7 @@ The Foundry user who last updated this resource
 
 ## Type
 ```python
-core.UUID
+UUID
 ```
 
 

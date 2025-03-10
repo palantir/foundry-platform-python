@@ -6,7 +6,7 @@ Action
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **target** | BuildTargetDict | Yes |  |
-**branchName** | datasets_models.BranchName | Yes | The target branch the schedule should run on. |
+**branchName** | BranchName | Yes | The target branch the schedule should run on. |
 **fallbackBranches** | FallbackBranches | Yes |  |
 **forceBuild** | ForceBuild | Yes |  |
 **retryCount** | typing_extensions.NotRequired[RetryCount] | No |  |

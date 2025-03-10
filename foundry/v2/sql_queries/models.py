@@ -73,7 +73,7 @@ QueryId = str
 
 QueryStatus = typing_extensions.Annotated[
     typing.Union[
-        "RunningQueryStatus", CanceledQueryStatus, FailedQueryStatus, "SucceededQueryStatus"
+        "RunningQueryStatus", "CanceledQueryStatus", "FailedQueryStatus", "SucceededQueryStatus"
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -83,8 +83,8 @@ QueryStatus = typing_extensions.Annotated[
 QueryStatusDict = typing_extensions.Annotated[
     typing.Union[
         "RunningQueryStatusDict",
-        CanceledQueryStatusDict,
-        FailedQueryStatusDict,
+        "CanceledQueryStatusDict",
+        "FailedQueryStatusDict",
         "SucceededQueryStatusDict",
     ],
     pydantic.Field(discriminator="type"),

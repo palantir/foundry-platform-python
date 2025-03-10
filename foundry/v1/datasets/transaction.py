@@ -64,9 +64,9 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -110,9 +110,9 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -156,11 +156,11 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_type:
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -212,9 +212,9 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -279,9 +279,9 @@ class _TransactionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -325,9 +325,9 @@ class _TransactionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -371,11 +371,11 @@ class _TransactionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_type:
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -427,9 +427,9 @@ class _TransactionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -494,9 +494,9 @@ class _TransactionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -540,9 +540,9 @@ class _TransactionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -586,11 +586,11 @@ class _TransactionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_type:
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -642,9 +642,9 @@ class _TransactionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

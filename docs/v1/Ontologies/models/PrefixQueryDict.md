@@ -7,7 +7,7 @@ Returns objects where the specified field starts with the provided value.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
-**type** | typing.Literal["prefix"] | Yes | None |
+**type** | Literal["prefix"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

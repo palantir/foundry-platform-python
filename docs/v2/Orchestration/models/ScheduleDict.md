@@ -9,10 +9,10 @@ Schedule
 **displayName** | typing_extensions.NotRequired[str] | No |  |
 **description** | typing_extensions.NotRequired[str] | No |  |
 **currentVersionRid** | ScheduleVersionRid | Yes | The RID of the current schedule version |
-**createdTime** | core_models.CreatedTime | Yes |  |
-**createdBy** | core_models.CreatedBy | Yes |  |
-**updatedTime** | core_models.UpdatedTime | Yes |  |
-**updatedBy** | core_models.UpdatedBy | Yes |  |
+**createdTime** | CreatedTime | Yes |  |
+**createdBy** | CreatedBy | Yes |  |
+**updatedTime** | UpdatedTime | Yes |  |
+**updatedBy** | UpdatedBy | Yes |  |
 **paused** | SchedulePaused | Yes |  |
 **trigger** | typing_extensions.NotRequired[TriggerDict] | No | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  |
 **action** | ActionDict | Yes |  |

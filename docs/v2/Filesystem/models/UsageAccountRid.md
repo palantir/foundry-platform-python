@@ -5,7 +5,7 @@ The unique resource identifier (RID) of the usage account that will be used as a
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

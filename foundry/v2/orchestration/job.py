@@ -62,9 +62,9 @@ class JobClient:
         """
         Get the Job with the specified rid.
         :param job_rid: jobRid
-        :type job_rid: core_models.JobRid
+        :type job_rid: JobRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -130,9 +130,9 @@ class _JobClientRaw:
         """
         Get the Job with the specified rid.
         :param job_rid: jobRid
-        :type job_rid: core_models.JobRid
+        :type job_rid: JobRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -198,9 +198,9 @@ class _JobClientStreaming:
         """
         Get the Job with the specified rid.
         :param job_rid: jobRid
-        :type job_rid: core_models.JobRid
+        :type job_rid: JobRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

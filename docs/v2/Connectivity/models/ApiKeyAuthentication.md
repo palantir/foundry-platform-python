@@ -9,7 +9,7 @@ This can be configured as a header or query parameter.
 | ------------ | ------------- | ------------- | ------------- |
 **location** | RestRequestApiKeyLocation | Yes | The location of the API key in the request. |
 **api_key** | EncryptedProperty | Yes | The value of the API key. |
-**type** | typing.Literal["apiKey"] | Yes | None |
+**type** | Literal["apiKey"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

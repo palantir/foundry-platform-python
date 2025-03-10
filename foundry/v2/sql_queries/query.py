@@ -65,9 +65,9 @@ class QueryClient:
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -116,9 +116,9 @@ class QueryClient:
         :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
-        :type fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]]
+        :type fallback_branch_ids: Optional[List[BranchName]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -182,9 +182,9 @@ class QueryClient:
         one minute.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -215,9 +215,9 @@ class QueryClient:
         one minute.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -250,9 +250,9 @@ class QueryClient:
         one minute.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -286,9 +286,9 @@ class QueryClient:
         one minute.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -353,9 +353,9 @@ class QueryClient:
         Gets the status of a query.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -424,9 +424,9 @@ class _QueryClientRaw:
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -475,9 +475,9 @@ class _QueryClientRaw:
         :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
-        :type fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]]
+        :type fallback_branch_ids: Optional[List[BranchName]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -538,9 +538,9 @@ class _QueryClientRaw:
         one minute.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -592,9 +592,9 @@ class _QueryClientRaw:
         Gets the status of a query.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -663,9 +663,9 @@ class _QueryClientStreaming:
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -714,9 +714,9 @@ class _QueryClientStreaming:
         :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
-        :type fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]]
+        :type fallback_branch_ids: Optional[List[BranchName]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -777,9 +777,9 @@ class _QueryClientStreaming:
         one minute.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -831,9 +831,9 @@ class _QueryClientStreaming:
         Gets the status of a query.
 
         :param query_id: queryId
-        :type query_id: sql_queries_models.QueryId
+        :type query_id: QueryId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -64,9 +64,9 @@ class ScheduleVersionClient:
         """
         Get the ScheduleVersion with the specified rid.
         :param schedule_version_rid: scheduleVersionRid
-        :type schedule_version_rid: orchestration_models.ScheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -111,9 +111,9 @@ class ScheduleVersionClient:
         """
 
         :param schedule_version_rid: scheduleVersionRid
-        :type schedule_version_rid: orchestration_models.ScheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -175,9 +175,9 @@ class _ScheduleVersionClientRaw:
         """
         Get the ScheduleVersion with the specified rid.
         :param schedule_version_rid: scheduleVersionRid
-        :type schedule_version_rid: orchestration_models.ScheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -222,9 +222,9 @@ class _ScheduleVersionClientRaw:
         """
 
         :param schedule_version_rid: scheduleVersionRid
-        :type schedule_version_rid: orchestration_models.ScheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -286,9 +286,9 @@ class _ScheduleVersionClientStreaming:
         """
         Get the ScheduleVersion with the specified rid.
         :param schedule_version_rid: scheduleVersionRid
-        :type schedule_version_rid: orchestration_models.ScheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -333,9 +333,9 @@ class _ScheduleVersionClientStreaming:
         """
 
         :param schedule_version_rid: scheduleVersionRid
-        :type schedule_version_rid: orchestration_models.ScheduleVersionRid
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -7,7 +7,7 @@ A property type that can be shared across object types.
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | SharedPropertyTypeRid | Yes |  |
 **apiName** | SharedPropertyTypeApiName | Yes |  |
-**displayName** | core_models.DisplayName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | typing_extensions.NotRequired[str] | No | A short text that describes the SharedPropertyType. |
 **dataType** | ObjectPropertyTypeDict | Yes |  |
 

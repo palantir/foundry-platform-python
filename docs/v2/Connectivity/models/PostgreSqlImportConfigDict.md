@@ -7,7 +7,7 @@ The import configuration for a [PostgreSQL connection](docs/foundry/available-co
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **query** | str | Yes | A single SQL query can be executed per sync, which should output a data table  and avoid operations like invoking stored procedures.  The query results are saved to the output dataset in Foundry.  |
-**type** | typing.Literal["postgreSqlImportConfig"] | Yes | None |
+**type** | Literal["postgreSqlImportConfig"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

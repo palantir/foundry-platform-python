@@ -6,9 +6,9 @@ Computes the maximum value for the provided field.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**name** | typing.Optional[AggregationMetricName] | No |  |
-**direction** | typing.Optional[OrderByDirection] | No |  |
-**type** | typing.Literal["max"] | Yes | None |
+**name** | Optional[AggregationMetricName] | No |  |
+**direction** | Optional[OrderByDirection] | No |  |
+**type** | Literal["max"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

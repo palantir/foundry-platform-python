@@ -14,9 +14,9 @@ Method | HTTP request | Release Stage |
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | core_models.PrincipalId | groupId |  |
-**principal_ids** | typing.List[core_models.PrincipalId] |  |  |
-**expiration** | typing.Optional[GroupMembershipExpiration] |  | [optional] |
+**group_id** | PrincipalId | groupId |  |
+**principal_ids** | List[PrincipalId] |  |  |
+**expiration** | Optional[GroupMembershipExpiration] |  | [optional] |
 
 ### Return type
 **None**
@@ -32,11 +32,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | groupId
+# PrincipalId | groupId
 group_id = None
-# typing.List[core_models.PrincipalId] |
+# List[PrincipalId] |
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# typing.Optional[GroupMembershipExpiration] |
+# Optional[GroupMembershipExpiration] |
 expiration = None
 
 
@@ -80,10 +80,10 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | core_models.PrincipalId | groupId |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**transitive** | typing.Optional[bool] | transitive | [optional] |
+**group_id** | PrincipalId | groupId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**transitive** | Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ListGroupMembersResponse**
@@ -99,13 +99,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | groupId
+# PrincipalId | groupId
 group_id = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[bool] | transitive
+# Optional[bool] | transitive
 transitive = None
 
 
@@ -149,10 +149,10 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | core_models.PrincipalId | groupId |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**transitive** | typing.Optional[bool] | transitive | [optional] |
+**group_id** | PrincipalId | groupId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**transitive** | Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ListGroupMembersResponse**
@@ -168,13 +168,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | groupId
+# PrincipalId | groupId
 group_id = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[bool] | transitive
+# Optional[bool] | transitive
 transitive = None
 
 
@@ -212,8 +212,8 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | core_models.PrincipalId | groupId |  |
-**principal_ids** | typing.List[core_models.PrincipalId] |  |  |
+**group_id** | PrincipalId | groupId |  |
+**principal_ids** | List[PrincipalId] |  |  |
 
 ### Return type
 **None**
@@ -229,9 +229,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | groupId
+# PrincipalId | groupId
 group_id = None
-# typing.List[core_models.PrincipalId] |
+# List[PrincipalId] |
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 
 

@@ -84,7 +84,7 @@ class UserClient:
         """
         Delete the User with the specified id.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -124,7 +124,7 @@ class UserClient:
         """
         Get the User with the specified id.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -176,7 +176,7 @@ class UserClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetUsersBatchRequestElement, admin_models.GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -254,9 +254,9 @@ class UserClient:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -303,9 +303,9 @@ class UserClient:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -347,9 +347,9 @@ class UserClient:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -394,7 +394,7 @@ class UserClient:
         """
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -441,11 +441,11 @@ class UserClient:
         Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
-        :type where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict]
+        :type where: Union[UserSearchFilter, UserSearchFilterDict]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -520,7 +520,7 @@ class _UserClientRaw:
         """
         Delete the User with the specified id.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -560,7 +560,7 @@ class _UserClientRaw:
         """
         Get the User with the specified id.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -612,7 +612,7 @@ class _UserClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetUsersBatchRequestElement, admin_models.GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -690,9 +690,9 @@ class _UserClientRaw:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -739,9 +739,9 @@ class _UserClientRaw:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -783,9 +783,9 @@ class _UserClientRaw:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -830,7 +830,7 @@ class _UserClientRaw:
         """
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -877,11 +877,11 @@ class _UserClientRaw:
         Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
-        :type where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict]
+        :type where: Union[UserSearchFilter, UserSearchFilterDict]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -956,7 +956,7 @@ class _UserClientStreaming:
         """
         Delete the User with the specified id.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -996,7 +996,7 @@ class _UserClientStreaming:
         """
         Get the User with the specified id.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1048,7 +1048,7 @@ class _UserClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetUsersBatchRequestElement, admin_models.GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1126,9 +1126,9 @@ class _UserClientStreaming:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1175,9 +1175,9 @@ class _UserClientStreaming:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1219,9 +1219,9 @@ class _UserClientStreaming:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1266,7 +1266,7 @@ class _UserClientStreaming:
         """
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1313,11 +1313,11 @@ class _UserClientStreaming:
         Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
-        :type where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict]
+        :type where: Union[UserSearchFilter, UserSearchFilterDict]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

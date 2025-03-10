@@ -132,9 +132,9 @@ following operation scopes: `api:ontologies-write`.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | bytes | Body of the request |  |
-**content_length** | core_models.ContentLength | Content-Length |  |
-**content_type** | core_models.ContentType | Content-Type |  |
-**filename** | core_models.Filename | filename |  |
+**content_length** | ContentLength | Content-Length |  |
+**content_type** | ContentType | Content-Type |  |
+**filename** | Filename | filename |  |
 
 ### Return type
 **AttachmentV2**
@@ -152,11 +152,11 @@ foundry_client = FoundryClient(
 
 # bytes | Body of the request
 body = None
-# core_models.ContentLength | Content-Length
+# ContentLength | Content-Length
 content_length = None
-# core_models.ContentType | Content-Type
+# ContentType | Content-Type
 content_type = None
-# core_models.Filename | filename
+# Filename | filename
 filename = "My Image.jpeg"
 
 

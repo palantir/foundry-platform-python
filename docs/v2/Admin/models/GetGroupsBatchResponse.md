@@ -5,7 +5,7 @@ GetGroupsBatchResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**data** | typing.Dict[core_models.PrincipalId, Group] | Yes |  |
+**data** | Dict[PrincipalId, Group] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

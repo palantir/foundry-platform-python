@@ -75,21 +75,21 @@ class TableImportClient:
         """
         Creates a new TableImport.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param config:
-        :type config: typing.Union[connectivity_models.CreateTableImportRequestTableImportConfig, connectivity_models.CreateTableImportRequestTableImportConfigDict]
+        :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.TableImportDisplayName
+        :type display_name: TableImportDisplayName
         :param import_mode:
-        :type import_mode: connectivity_models.TableImportMode
+        :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
-        :type allow_schema_changes: typing.Optional[connectivity_models.TableImportAllowSchemaChanges]
+        :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -167,11 +167,11 @@ class TableImportClient:
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -218,11 +218,11 @@ class TableImportClient:
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -269,11 +269,11 @@ class TableImportClient:
         """
         Get the TableImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -325,13 +325,13 @@ class TableImportClient:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -378,13 +378,13 @@ class TableImportClient:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -465,21 +465,21 @@ class _TableImportClientRaw:
         """
         Creates a new TableImport.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param config:
-        :type config: typing.Union[connectivity_models.CreateTableImportRequestTableImportConfig, connectivity_models.CreateTableImportRequestTableImportConfigDict]
+        :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.TableImportDisplayName
+        :type display_name: TableImportDisplayName
         :param import_mode:
-        :type import_mode: connectivity_models.TableImportMode
+        :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
-        :type allow_schema_changes: typing.Optional[connectivity_models.TableImportAllowSchemaChanges]
+        :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -557,11 +557,11 @@ class _TableImportClientRaw:
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -608,11 +608,11 @@ class _TableImportClientRaw:
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -659,11 +659,11 @@ class _TableImportClientRaw:
         """
         Get the TableImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -715,13 +715,13 @@ class _TableImportClientRaw:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -768,13 +768,13 @@ class _TableImportClientRaw:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -855,21 +855,21 @@ class _TableImportClientStreaming:
         """
         Creates a new TableImport.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param config:
-        :type config: typing.Union[connectivity_models.CreateTableImportRequestTableImportConfig, connectivity_models.CreateTableImportRequestTableImportConfigDict]
+        :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.TableImportDisplayName
+        :type display_name: TableImportDisplayName
         :param import_mode:
-        :type import_mode: connectivity_models.TableImportMode
+        :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
-        :type allow_schema_changes: typing.Optional[connectivity_models.TableImportAllowSchemaChanges]
+        :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -947,11 +947,11 @@ class _TableImportClientStreaming:
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -998,11 +998,11 @@ class _TableImportClientStreaming:
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1049,11 +1049,11 @@ class _TableImportClientStreaming:
         """
         Get the TableImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param table_import_rid: tableImportRid
-        :type table_import_rid: connectivity_models.TableImportRid
+        :type table_import_rid: TableImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1105,13 +1105,13 @@ class _TableImportClientStreaming:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1158,13 +1158,13 @@ class _TableImportClientStreaming:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

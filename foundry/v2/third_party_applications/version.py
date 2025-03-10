@@ -63,9 +63,9 @@ class VersionClient:
         """
         Delete the Version with the specified version.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
-        :type version_version: third_party_applications_models.VersionVersion
+        :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -107,9 +107,9 @@ class VersionClient:
         """
         Get the Version with the specified version.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
-        :type version_version: third_party_applications_models.VersionVersion
+        :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -156,11 +156,11 @@ class VersionClient:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -205,11 +205,11 @@ class VersionClient:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -258,11 +258,11 @@ class VersionClient:
         """
         Upload a new version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version: version
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -312,15 +312,15 @@ class VersionClient:
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
 
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version: version
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param snapshot_identifier: snapshotIdentifier
-        :type snapshot_identifier: typing.Optional[str]
+        :type snapshot_identifier: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -389,9 +389,9 @@ class _VersionClientRaw:
         """
         Delete the Version with the specified version.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
-        :type version_version: third_party_applications_models.VersionVersion
+        :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -433,9 +433,9 @@ class _VersionClientRaw:
         """
         Get the Version with the specified version.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
-        :type version_version: third_party_applications_models.VersionVersion
+        :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -482,11 +482,11 @@ class _VersionClientRaw:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -531,11 +531,11 @@ class _VersionClientRaw:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -584,11 +584,11 @@ class _VersionClientRaw:
         """
         Upload a new version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version: version
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -638,15 +638,15 @@ class _VersionClientRaw:
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
 
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version: version
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param snapshot_identifier: snapshotIdentifier
-        :type snapshot_identifier: typing.Optional[str]
+        :type snapshot_identifier: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -715,9 +715,9 @@ class _VersionClientStreaming:
         """
         Delete the Version with the specified version.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
-        :type version_version: third_party_applications_models.VersionVersion
+        :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -759,9 +759,9 @@ class _VersionClientStreaming:
         """
         Get the Version with the specified version.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version_version: versionVersion
-        :type version_version: third_party_applications_models.VersionVersion
+        :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -808,11 +808,11 @@ class _VersionClientStreaming:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -857,11 +857,11 @@ class _VersionClientStreaming:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -910,11 +910,11 @@ class _VersionClientStreaming:
         """
         Upload a new version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version: version
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -964,15 +964,15 @@ class _VersionClientStreaming:
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
 
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version: version
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param snapshot_identifier: snapshotIdentifier
-        :type snapshot_identifier: typing.Optional[str]
+        :type snapshot_identifier: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

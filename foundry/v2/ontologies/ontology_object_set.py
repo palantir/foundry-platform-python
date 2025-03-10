@@ -77,19 +77,19 @@ class OntologyObjectSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param aggregation:
-        :type aggregation: typing.List[typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict]]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
-        :type accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest]
+        :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -160,9 +160,9 @@ class OntologyObjectSetClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -214,9 +214,9 @@ class OntologyObjectSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set_rid: objectSetRid
-        :type object_set_rid: ontologies_models.ObjectSetRid
+        :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -273,23 +273,23 @@ class OntologyObjectSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
-        :type select: typing.List[ontologies_models.SelectedPropertyApiName]
+        :type select: List[SelectedPropertyApiName]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: typing.Optional[typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -391,19 +391,19 @@ class _OntologyObjectSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param aggregation:
-        :type aggregation: typing.List[typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict]]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
-        :type accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest]
+        :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -474,9 +474,9 @@ class _OntologyObjectSetClientRaw:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -528,9 +528,9 @@ class _OntologyObjectSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set_rid: objectSetRid
-        :type object_set_rid: ontologies_models.ObjectSetRid
+        :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -587,23 +587,23 @@ class _OntologyObjectSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
-        :type select: typing.List[ontologies_models.SelectedPropertyApiName]
+        :type select: List[SelectedPropertyApiName]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: typing.Optional[typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -705,19 +705,19 @@ class _OntologyObjectSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param aggregation:
-        :type aggregation: typing.List[typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict]]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
-        :type accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest]
+        :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -788,9 +788,9 @@ class _OntologyObjectSetClientStreaming:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -842,9 +842,9 @@ class _OntologyObjectSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set_rid: objectSetRid
-        :type object_set_rid: ontologies_models.ObjectSetRid
+        :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -901,23 +901,23 @@ class _OntologyObjectSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict]
+        :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
-        :type select: typing.List[ontologies_models.SelectedPropertyApiName]
+        :type select: List[SelectedPropertyApiName]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
-        :type exclude_rid: typing.Optional[bool]
+        :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: typing.Optional[typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]]
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

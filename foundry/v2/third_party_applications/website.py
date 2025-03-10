@@ -72,9 +72,9 @@ class WebsiteClient:
         """
         Deploy a version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -124,7 +124,7 @@ class WebsiteClient:
         """
         Get the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -166,7 +166,7 @@ class WebsiteClient:
         """
         Remove the currently deployed version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -230,9 +230,9 @@ class _WebsiteClientRaw:
         """
         Deploy a version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -282,7 +282,7 @@ class _WebsiteClientRaw:
         """
         Get the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -324,7 +324,7 @@ class _WebsiteClientRaw:
         """
         Remove the currently deployed version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -388,9 +388,9 @@ class _WebsiteClientStreaming:
         """
         Deploy a version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
-        :type version: third_party_applications_models.VersionVersion
+        :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -440,7 +440,7 @@ class _WebsiteClientStreaming:
         """
         Get the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -482,7 +482,7 @@ class _WebsiteClientStreaming:
         """
         Remove the currently deployed version of the Website.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

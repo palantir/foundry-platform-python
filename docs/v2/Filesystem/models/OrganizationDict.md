@@ -10,8 +10,8 @@ Organizations are inherited via the file hierarchy and direct dependencies.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**markingId** | core_models.MarkingId | Yes |  |
-**organizationRid** | core_models.OrganizationRid | Yes |  |
+**markingId** | MarkingId | Yes |  |
+**organizationRid** | OrganizationRid | Yes |  |
 **isDirectlyApplied** | IsDirectlyApplied | Yes |  |
 
 

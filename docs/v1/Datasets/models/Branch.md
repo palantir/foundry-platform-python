@@ -7,7 +7,7 @@ A Branch of a Dataset.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **branch_id** | BranchId | Yes |  |
-**transaction_rid** | typing.Optional[TransactionRid] | No |  |
+**transaction_rid** | Optional[TransactionRid] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

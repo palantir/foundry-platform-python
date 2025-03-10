@@ -12,7 +12,7 @@ Get the ThirdPartyApplication with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ThirdPartyApplication**
@@ -32,7 +32,7 @@ foundry_client = FoundryClient(
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

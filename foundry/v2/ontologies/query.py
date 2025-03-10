@@ -71,15 +71,15 @@ class QueryClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param query_api_name: queryApiName
-        :type query_api_name: ontologies_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -165,15 +165,15 @@ class _QueryClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param query_api_name: queryApiName
-        :type query_api_name: ontologies_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -259,15 +259,15 @@ class _QueryClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param query_api_name: queryApiName
-        :type query_api_name: ontologies_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -14,7 +14,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **value_type_rid** | ValueTypeRid | valueTypeRid |  |
 **version_id_version_id** | ValueTypeVersionId | versionIdVersionId |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **VersionId**
@@ -34,7 +34,7 @@ foundry_client = FoundryClient(
 value_type_rid = None
 # ValueTypeVersionId | versionIdVersionId
 version_id_version_id = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

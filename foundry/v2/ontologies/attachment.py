@@ -65,7 +65,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -110,7 +110,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -137,7 +137,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -166,7 +166,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -196,7 +196,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -260,11 +260,11 @@ class AttachmentClient:
         :param body: Body of the request
         :type body: bytes
         :param content_length: Content-Length
-        :type content_length: core_models.ContentLength
+        :type content_length: ContentLength
         :param content_type: Content-Type
-        :type content_type: core_models.ContentType
+        :type content_type: ContentType
         :param filename: filename
-        :type filename: core_models.Filename
+        :type filename: Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -330,7 +330,7 @@ class _AttachmentClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -372,7 +372,7 @@ class _AttachmentClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -423,11 +423,11 @@ class _AttachmentClientRaw:
         :param body: Body of the request
         :type body: bytes
         :param content_length: Content-Length
-        :type content_length: core_models.ContentLength
+        :type content_length: ContentLength
         :param content_type: Content-Type
-        :type content_type: core_models.ContentType
+        :type content_type: ContentType
         :param filename: filename
-        :type filename: core_models.Filename
+        :type filename: Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -493,7 +493,7 @@ class _AttachmentClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -535,7 +535,7 @@ class _AttachmentClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: attachmentRid
-        :type attachment_rid: ontologies_models.AttachmentRid
+        :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -586,11 +586,11 @@ class _AttachmentClientStreaming:
         :param body: Body of the request
         :type body: bytes
         :param content_length: Content-Length
-        :type content_length: core_models.ContentLength
+        :type content_length: ContentLength
         :param content_type: Content-Type
-        :type content_type: core_models.ContentType
+        :type content_type: ContentType
         :param filename: filename
-        :type filename: core_models.Filename
+        :type filename: Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

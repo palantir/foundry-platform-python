@@ -4,7 +4,7 @@ AuthenticationProviderRid
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

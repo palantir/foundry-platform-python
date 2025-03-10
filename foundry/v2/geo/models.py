@@ -53,7 +53,7 @@ clockwise.
 
 
 Position = typing_extensions.Annotated[
-    typing.List[Coordinate], annotated_types.Len(min_length=2, max_length=3)
+    typing.List["Coordinate"], annotated_types.Len(min_length=2, max_length=3)
 ]
 """
 GeoJSon fundamental geometry construct.

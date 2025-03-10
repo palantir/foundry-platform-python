@@ -8,10 +8,10 @@ both.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | typing.Optional[PropertyApiName] | No |  |
-**property_identifier** | typing.Optional[PropertyIdentifier] | No |  |
+**field** | Optional[PropertyApiName] | No |  |
+**property_identifier** | Optional[PropertyIdentifier] | No |  |
 **value** | BoundingBoxValue | Yes |  |
-**type** | typing.Literal["doesNotIntersectBoundingBox"] | Yes | None |
+**type** | Literal["doesNotIntersectBoundingBox"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

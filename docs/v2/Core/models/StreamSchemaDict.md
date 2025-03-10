@@ -6,8 +6,8 @@ The schema for a Foundry stream. Records pushed to this stream must match this s
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**fields** | typing.List[FieldDict] | Yes |  |
-**keyFieldNames** | typing_extensions.NotRequired[typing.List[FieldName]] | No | The names of the fields to be used as keys for partitioning records. These key fields are used to group all records with the same key into the same partition, to guarantee processing order of grouped records. These keys are not meant to uniquely identify records, and do not by themselves deduplicate records. To deduplicate records, provide a change data capture configuration for the schema.  Key fields can only be of the following types: - Boolean - Byte - Date - Decimal - Integer - Long - Short - String - Timestamp  For additional information on keys for Foundry streams, see the [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.  |
+**fields** | List[FieldDict] | Yes |  |
+**keyFieldNames** | typing_extensions.NotRequired[List[FieldName]] | No | The names of the fields to be used as keys for partitioning records. These key fields are used to group all records with the same key into the same partition, to guarantee processing order of grouped records. These keys are not meant to uniquely identify records, and do not by themselves deduplicate records. To deduplicate records, provide a change data capture configuration for the schema.  Key fields can only be of the following types: - Boolean - Byte - Date - Decimal - Integer - Long - Short - String - Timestamp  For additional information on keys for Foundry streams, see the [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.  |
 **changeDataCapture** | typing_extensions.NotRequired[ChangeDataCaptureConfigurationDict] | No |  |
 
 

@@ -5,7 +5,7 @@ The Resource Identifier (RID) of a TableImport (also known as a batch sync).
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

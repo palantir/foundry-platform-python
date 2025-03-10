@@ -5,7 +5,7 @@ The unique resource identifier of an object, useful for interacting with other F
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

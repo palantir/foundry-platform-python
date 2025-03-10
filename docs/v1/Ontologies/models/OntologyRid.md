@@ -6,7 +6,7 @@ The unique Resource Identifier (RID) of the Ontology. To look up your Ontology R
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

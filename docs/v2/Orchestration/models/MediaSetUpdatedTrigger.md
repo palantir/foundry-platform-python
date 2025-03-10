@@ -9,9 +9,9 @@ eventually (but not necessary immediately) after an update.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**media_set_rid** | core_models.MediaSetRid | Yes |  |
-**branch_name** | datasets_models.BranchName | Yes |  |
-**type** | typing.Literal["mediaSetUpdated"] | Yes | None |
+**media_set_rid** | MediaSetRid | Yes |  |
+**branch_name** | BranchName | Yes |  |
+**type** | Literal["mediaSetUpdated"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

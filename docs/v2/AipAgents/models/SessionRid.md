@@ -4,7 +4,7 @@ The Resource Identifier (RID) of the conversation session.
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

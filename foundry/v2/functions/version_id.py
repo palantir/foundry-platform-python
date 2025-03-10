@@ -64,11 +64,11 @@ class VersionIdClient:
         Gets a specific value type with the given RID. The specified version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: functions_models.ValueTypeRid
+        :type value_type_rid: ValueTypeRid
         :param version_id_version_id: versionIdVersionId
-        :type version_id_version_id: functions_models.ValueTypeVersionId
+        :type version_id_version_id: ValueTypeVersionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -137,11 +137,11 @@ class _VersionIdClientRaw:
         Gets a specific value type with the given RID. The specified version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: functions_models.ValueTypeRid
+        :type value_type_rid: ValueTypeRid
         :param version_id_version_id: versionIdVersionId
-        :type version_id_version_id: functions_models.ValueTypeVersionId
+        :type version_id_version_id: ValueTypeVersionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -210,11 +210,11 @@ class _VersionIdClientStreaming:
         Gets a specific value type with the given RID. The specified version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: functions_models.ValueTypeRid
+        :type value_type_rid: ValueTypeRid
         :param version_id_version_id: versionIdVersionId
-        :type version_id_version_id: functions_models.ValueTypeVersionId
+        :type version_id_version_id: ValueTypeVersionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

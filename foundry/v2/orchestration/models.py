@@ -354,14 +354,14 @@ class CreateScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
 
 
 CreateScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union[CreateScheduleRequestProjectScope, "CreateScheduleRequestUserScope"],
+    typing.Union["CreateScheduleRequestProjectScope", "CreateScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 CreateScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union[CreateScheduleRequestProjectScopeDict, "CreateScheduleRequestUserScopeDict"],
+    typing.Union["CreateScheduleRequestProjectScopeDict", "CreateScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -882,14 +882,14 @@ class ReplaceScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
 
 
 ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union[ReplaceScheduleRequestProjectScope, "ReplaceScheduleRequestUserScope"],
+    typing.Union["ReplaceScheduleRequestProjectScope", "ReplaceScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 ReplaceScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union[ReplaceScheduleRequestProjectScopeDict, "ReplaceScheduleRequestUserScopeDict"],
+    typing.Union["ReplaceScheduleRequestProjectScopeDict", "ReplaceScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -1164,7 +1164,7 @@ class ScheduleRunIgnoredDict(typing_extensions.TypedDict):
 
 
 ScheduleRunResult = typing_extensions.Annotated[
-    typing.Union[ScheduleRunIgnored, "ScheduleRunSubmitted", ScheduleRunError],
+    typing.Union["ScheduleRunIgnored", "ScheduleRunSubmitted", "ScheduleRunError"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1174,7 +1174,7 @@ ignored if all targets are up-to-date or error.
 
 
 ScheduleRunResultDict = typing_extensions.Annotated[
-    typing.Union[ScheduleRunIgnoredDict, "ScheduleRunSubmittedDict", ScheduleRunErrorDict],
+    typing.Union["ScheduleRunIgnoredDict", "ScheduleRunSubmittedDict", "ScheduleRunErrorDict"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1287,13 +1287,13 @@ ScheduleVersionRid = core.RID
 
 
 ScopeMode = typing_extensions.Annotated[
-    typing.Union[ProjectScope, "UserScope"], pydantic.Field(discriminator="type")
+    typing.Union["ProjectScope", "UserScope"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
 
 ScopeModeDict = typing_extensions.Annotated[
-    typing.Union[ProjectScopeDict, "UserScopeDict"], pydantic.Field(discriminator="type")
+    typing.Union["ProjectScopeDict", "UserScopeDict"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
@@ -1354,10 +1354,10 @@ SearchBuildsFilter = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilter",
         "SearchBuildsOrFilter",
-        SearchBuildsAndFilter,
+        "SearchBuildsAndFilter",
         "SearchBuildsLtFilter",
         "SearchBuildsGteFilter",
-        SearchBuildsEqualsFilter,
+        "SearchBuildsEqualsFilter",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1368,10 +1368,10 @@ SearchBuildsFilterDict = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilterDict",
         "SearchBuildsOrFilterDict",
-        SearchBuildsAndFilterDict,
+        "SearchBuildsAndFilterDict",
         "SearchBuildsLtFilterDict",
         "SearchBuildsGteFilterDict",
-        SearchBuildsEqualsFilterDict,
+        "SearchBuildsEqualsFilterDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1578,14 +1578,14 @@ class TimeTriggerDict(typing_extensions.TypedDict):
 
 Trigger = typing_extensions.Annotated[
     typing.Union[
-        JobSucceededTrigger,
-        OrTrigger,
-        NewLogicTrigger,
-        AndTrigger,
-        DatasetUpdatedTrigger,
-        ScheduleSucceededTrigger,
-        MediaSetUpdatedTrigger,
-        TimeTrigger,
+        "JobSucceededTrigger",
+        "OrTrigger",
+        "NewLogicTrigger",
+        "AndTrigger",
+        "DatasetUpdatedTrigger",
+        "ScheduleSucceededTrigger",
+        "MediaSetUpdatedTrigger",
+        "TimeTrigger",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1594,14 +1594,14 @@ Trigger = typing_extensions.Annotated[
 
 TriggerDict = typing_extensions.Annotated[
     typing.Union[
-        JobSucceededTriggerDict,
-        OrTriggerDict,
-        NewLogicTriggerDict,
-        AndTriggerDict,
-        DatasetUpdatedTriggerDict,
-        ScheduleSucceededTriggerDict,
-        MediaSetUpdatedTriggerDict,
-        TimeTriggerDict,
+        "JobSucceededTriggerDict",
+        "OrTriggerDict",
+        "NewLogicTriggerDict",
+        "AndTriggerDict",
+        "DatasetUpdatedTriggerDict",
+        "ScheduleSucceededTriggerDict",
+        "MediaSetUpdatedTriggerDict",
+        "TimeTriggerDict",
     ],
     pydantic.Field(discriminator="type"),
 ]

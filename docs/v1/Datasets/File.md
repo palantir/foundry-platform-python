@@ -33,9 +33,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**file_path** | core_models.FilePath | filePath |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**transaction_rid** | typing.Optional[TransactionRid] | transactionRid | [optional] |
+**file_path** | FilePath | filePath |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
 
 ### Return type
 **None**
@@ -53,11 +53,11 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# core_models.FilePath | filePath
+# FilePath | filePath
 file_path = "q3-data%2fmy-file.csv"
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[TransactionRid] | transactionRid
+# Optional[TransactionRid] | transactionRid
 transaction_rid = None
 
 
@@ -120,10 +120,10 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**file_path** | core_models.FilePath | filePath |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
-**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
+**file_path** | FilePath | filePath |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
+**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **File**
@@ -141,13 +141,13 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# core_models.FilePath | filePath
+# FilePath | filePath
 file_path = "q3-data%2fmy-file.csv"
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[TransactionRid] | endTransactionRid
+# Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# typing.Optional[TransactionRid] | startTransactionRid
+# Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -213,11 +213,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **ListFilesResponse**
@@ -235,15 +235,15 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[TransactionRid] | endTransactionRid
+# Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[TransactionRid] | startTransactionRid
+# Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -329,11 +329,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **ListFilesResponse**
@@ -351,15 +351,15 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[TransactionRid] | endTransactionRid
+# Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[TransactionRid] | startTransactionRid
+# Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -425,10 +425,10 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**file_path** | core_models.FilePath | filePath |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
-**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
+**file_path** | FilePath | filePath |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
+**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **bytes**
@@ -446,13 +446,13 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# core_models.FilePath | filePath
+# FilePath | filePath
 file_path = "q3-data%2fmy-file.csv"
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[TransactionRid] | endTransactionRid
+# Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# typing.Optional[TransactionRid] | startTransactionRid
+# Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -513,10 +513,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **body** | bytes | Body of the request |  |
-**file_path** | core_models.FilePath | filePath |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**transaction_rid** | typing.Optional[TransactionRid] | transactionRid | [optional] |
-**transaction_type** | typing.Optional[TransactionType] | transactionType | [optional] |
+**file_path** | FilePath | filePath |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
+**transaction_type** | Optional[TransactionType] | transactionType | [optional] |
 
 ### Return type
 **File**
@@ -536,13 +536,13 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # bytes | Body of the request
 body = None
-# core_models.FilePath | filePath
+# FilePath | filePath
 file_path = "q3-data%2fmy-file.csv"
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[TransactionRid] | transactionRid
+# Optional[TransactionRid] | transactionRid
 transaction_rid = None
-# typing.Optional[TransactionType] | transactionType
+# Optional[TransactionType] | transactionType
 transaction_type = None
 
 

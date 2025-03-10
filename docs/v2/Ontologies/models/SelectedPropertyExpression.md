@@ -7,7 +7,7 @@ Definition for a selected property over a MethodObjectSet.
 | ------------ | ------------- | ------------- | ------------- |
 **object_set** | MethodObjectSet | Yes |  |
 **operation** | SelectedPropertyOperation | Yes |  |
-**type** | typing.Literal["selection"] | Yes | None |
+**type** | Literal["selection"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

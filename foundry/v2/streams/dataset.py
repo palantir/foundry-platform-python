@@ -85,21 +85,21 @@ class DatasetClient:
         [streams](/docs/foundry/data-integration/streams/) user documentation.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param schema: The Foundry schema to apply to the new stream.
-        :type schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+        :type schema: Union[StreamSchema, StreamSchemaDict]
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -196,21 +196,21 @@ class _DatasetClientRaw:
         [streams](/docs/foundry/data-integration/streams/) user documentation.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param schema: The Foundry schema to apply to the new stream.
-        :type schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+        :type schema: Union[StreamSchema, StreamSchemaDict]
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -307,21 +307,21 @@ class _DatasetClientStreaming:
         [streams](/docs/foundry/data-integration/streams/) user documentation.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param schema: The Foundry schema to apply to the new stream.
-        :type schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+        :type schema: Union[StreamSchema, StreamSchemaDict]
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -4,7 +4,7 @@ CustomMetadata
 
 ## Type
 ```python
-typing.Dict[str, typing.Any]
+Dict[str, Any]
 ```
 
 

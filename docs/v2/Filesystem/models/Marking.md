@@ -9,7 +9,7 @@ Markings applied to a resource to access it.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**marking_id** | core_models.MarkingId | Yes |  |
+**marking_id** | MarkingId | Yes |  |
 **is_directly_applied** | IsDirectlyApplied | Yes |  |
 
 

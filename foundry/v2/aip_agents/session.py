@@ -93,17 +93,17 @@ class SessionClient:
         Clients should wait to receive a response before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -200,15 +200,15 @@ class SessionClient:
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
-        :type message_id: aip_agents_models.MessageId
+        :type message_id: MessageId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
-        :type response: typing.Optional[aip_agents_models.AgentMarkdownResponse]
+        :type response: Optional[AgentMarkdownResponse]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -269,11 +269,11 @@ class SessionClient:
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
-        :type agent_version: typing.Optional[aip_agents_models.AgentVersionString]
+        :type agent_version: Optional[AgentVersionString]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -335,11 +335,11 @@ class SessionClient:
         """
         Get the details of a conversation session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -391,13 +391,13 @@ class SessionClient:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -446,13 +446,13 @@ class SessionClient:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -511,15 +511,15 @@ class SessionClient:
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -613,19 +613,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: typing.Optional[aip_agents_models.MessageId]
+        :type message_id: Optional[MessageId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -677,19 +677,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: typing.Optional[aip_agents_models.MessageId]
+        :type message_id: Optional[MessageId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -743,19 +743,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: typing.Optional[aip_agents_models.MessageId]
+        :type message_id: Optional[MessageId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -810,19 +810,19 @@ class SessionClient:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: typing.Optional[aip_agents_models.MessageId]
+        :type message_id: Optional[MessageId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -960,17 +960,17 @@ class _SessionClientRaw:
         Clients should wait to receive a response before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1067,15 +1067,15 @@ class _SessionClientRaw:
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
-        :type message_id: aip_agents_models.MessageId
+        :type message_id: MessageId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
-        :type response: typing.Optional[aip_agents_models.AgentMarkdownResponse]
+        :type response: Optional[AgentMarkdownResponse]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1136,11 +1136,11 @@ class _SessionClientRaw:
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
-        :type agent_version: typing.Optional[aip_agents_models.AgentVersionString]
+        :type agent_version: Optional[AgentVersionString]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1202,11 +1202,11 @@ class _SessionClientRaw:
         """
         Get the details of a conversation session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1258,13 +1258,13 @@ class _SessionClientRaw:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1313,13 +1313,13 @@ class _SessionClientRaw:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1378,15 +1378,15 @@ class _SessionClientRaw:
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1477,19 +1477,19 @@ class _SessionClientRaw:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: typing.Optional[aip_agents_models.MessageId]
+        :type message_id: Optional[MessageId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1614,17 +1614,17 @@ class _SessionClientStreaming:
         Clients should wait to receive a response before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1721,15 +1721,15 @@ class _SessionClientStreaming:
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
-        :type message_id: aip_agents_models.MessageId
+        :type message_id: MessageId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
-        :type response: typing.Optional[aip_agents_models.AgentMarkdownResponse]
+        :type response: Optional[AgentMarkdownResponse]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1790,11 +1790,11 @@ class _SessionClientStreaming:
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
-        :type agent_version: typing.Optional[aip_agents_models.AgentVersionString]
+        :type agent_version: Optional[AgentVersionString]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1856,11 +1856,11 @@ class _SessionClientStreaming:
         """
         Get the details of a conversation session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1912,13 +1912,13 @@ class _SessionClientStreaming:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1967,13 +1967,13 @@ class _SessionClientStreaming:
         Sessions are returned in order of most recently updated first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -2032,15 +2032,15 @@ class _SessionClientStreaming:
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -2131,19 +2131,19 @@ class _SessionClientStreaming:
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: typing.Dict[aip_agents_models.ParameterId, typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict]]
+        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message for the Agent to respond to.
-        :type user_input: typing.Union[aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict]
+        :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: typing.Optional[typing.List[typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]]]
+        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: typing.Optional[aip_agents_models.MessageId]
+        :type message_id: Optional[MessageId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

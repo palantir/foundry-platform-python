@@ -66,11 +66,11 @@ class QueryClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param query_api_name: queryApiName
-        :type query_api_name: ontologies_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -148,11 +148,11 @@ class _QueryClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param query_api_name: queryApiName
-        :type query_api_name: ontologies_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -230,11 +230,11 @@ class _QueryClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param query_api_name: queryApiName
-        :type query_api_name: ontologies_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

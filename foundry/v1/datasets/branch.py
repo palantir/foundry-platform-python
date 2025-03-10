@@ -66,11 +66,11 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id:
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param transaction_rid:
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -122,9 +122,9 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -165,9 +165,9 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -211,11 +211,11 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -261,11 +261,11 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -338,11 +338,11 @@ class _BranchClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id:
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param transaction_rid:
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -394,9 +394,9 @@ class _BranchClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -437,9 +437,9 @@ class _BranchClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -483,11 +483,11 @@ class _BranchClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -533,11 +533,11 @@ class _BranchClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -610,11 +610,11 @@ class _BranchClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id:
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param transaction_rid:
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -666,9 +666,9 @@ class _BranchClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -709,9 +709,9 @@ class _BranchClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: datasets_models.BranchId
+        :type branch_id: BranchId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -755,11 +755,11 @@ class _BranchClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -805,11 +805,11 @@ class _BranchClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

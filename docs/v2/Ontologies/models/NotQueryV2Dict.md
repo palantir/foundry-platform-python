@@ -6,7 +6,7 @@ Returns objects where the query is not satisfied.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **value** | SearchJsonQueryV2Dict | Yes |  |
-**type** | typing.Literal["not"] | Yes | None |
+**type** | Literal["not"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

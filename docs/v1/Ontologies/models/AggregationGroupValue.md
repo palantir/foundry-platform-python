@@ -4,7 +4,7 @@ AggregationGroupValue
 
 ## Type
 ```python
-typing.Any
+Any
 ```
 
 

@@ -66,11 +66,11 @@ class ResourceRoleClient:
         """
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param roles:
-        :type roles: typing.List[typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -130,15 +130,15 @@ class ResourceRoleClient:
         List the roles on a resource.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param include_inherited: includeInherited
-        :type include_inherited: typing.Optional[bool]
+        :type include_inherited: Optional[bool]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -186,15 +186,15 @@ class ResourceRoleClient:
         List the roles on a resource.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param include_inherited: includeInherited
-        :type include_inherited: typing.Optional[bool]
+        :type include_inherited: Optional[bool]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -247,11 +247,11 @@ class ResourceRoleClient:
         """
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param roles:
-        :type roles: typing.List[typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -331,11 +331,11 @@ class _ResourceRoleClientRaw:
         """
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param roles:
-        :type roles: typing.List[typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -395,15 +395,15 @@ class _ResourceRoleClientRaw:
         List the roles on a resource.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param include_inherited: includeInherited
-        :type include_inherited: typing.Optional[bool]
+        :type include_inherited: Optional[bool]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -451,15 +451,15 @@ class _ResourceRoleClientRaw:
         List the roles on a resource.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param include_inherited: includeInherited
-        :type include_inherited: typing.Optional[bool]
+        :type include_inherited: Optional[bool]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -512,11 +512,11 @@ class _ResourceRoleClientRaw:
         """
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param roles:
-        :type roles: typing.List[typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -596,11 +596,11 @@ class _ResourceRoleClientStreaming:
         """
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param roles:
-        :type roles: typing.List[typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -660,15 +660,15 @@ class _ResourceRoleClientStreaming:
         List the roles on a resource.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param include_inherited: includeInherited
-        :type include_inherited: typing.Optional[bool]
+        :type include_inherited: Optional[bool]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -716,15 +716,15 @@ class _ResourceRoleClientStreaming:
         List the roles on a resource.
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param include_inherited: includeInherited
-        :type include_inherited: typing.Optional[bool]
+        :type include_inherited: Optional[bool]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -777,11 +777,11 @@ class _ResourceRoleClientStreaming:
         """
 
         :param resource_rid: resourceRid
-        :type resource_rid: filesystem_models.ResourceRid
+        :type resource_rid: ResourceRid
         :param roles:
-        :type roles: typing.List[typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]]
+        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

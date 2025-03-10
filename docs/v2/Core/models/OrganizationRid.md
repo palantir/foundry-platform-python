@@ -4,7 +4,7 @@ OrganizationRid
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

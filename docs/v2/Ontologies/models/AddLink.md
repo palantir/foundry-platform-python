@@ -9,7 +9,7 @@ AddLink
 **link_type_api_name_bto_a** | LinkTypeApiName | Yes |  |
 **a_side_object** | LinkSideObject | Yes |  |
 **b_side_object** | LinkSideObject | Yes |  |
-**type** | typing.Literal["addLink"] | Yes | None |
+**type** | Literal["addLink"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

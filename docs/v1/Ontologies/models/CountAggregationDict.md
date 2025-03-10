@@ -6,7 +6,7 @@ Computes the total count of objects.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
-**type** | typing.Literal["count"] | Yes | None |
+**type** | Literal["count"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

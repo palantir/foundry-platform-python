@@ -93,7 +93,7 @@ class OntologyClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -132,7 +132,7 @@ class OntologyClient:
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -194,7 +194,7 @@ class _OntologyClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -233,7 +233,7 @@ class _OntologyClientRaw:
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -295,7 +295,7 @@ class _OntologyClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -334,7 +334,7 @@ class _OntologyClientStreaming:
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

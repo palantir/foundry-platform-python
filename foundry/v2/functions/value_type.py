@@ -74,9 +74,9 @@ class ValueTypeClient:
         Gets a specific value type with the given RID. The latest version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: functions_models.ValueTypeRid
+        :type value_type_rid: ValueTypeRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -143,9 +143,9 @@ class _ValueTypeClientRaw:
         Gets a specific value type with the given RID. The latest version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: functions_models.ValueTypeRid
+        :type value_type_rid: ValueTypeRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -212,9 +212,9 @@ class _ValueTypeClientStreaming:
         Gets a specific value type with the given RID. The latest version is returned.
 
         :param value_type_rid: valueTypeRid
-        :type value_type_rid: functions_models.ValueTypeRid
+        :type value_type_rid: ValueTypeRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

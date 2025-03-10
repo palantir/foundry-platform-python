@@ -32,7 +32,7 @@ Represents the value of data in the following format. Note that these values can
 
 ## Type
 ```python
-typing.Any
+Any
 ```
 
 

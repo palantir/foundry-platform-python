@@ -558,9 +558,9 @@ class CreateConnectionRequestRestConnectionConfigurationDict(typing_extensions.T
 
 CreateConnectionRequestRuntimePlatform = typing_extensions.Annotated[
     typing.Union[
-        CreateConnectionRequestDirectConnectionRuntime,
-        CreateConnectionRequestAgentProxyRuntime,
-        CreateConnectionRequestAgentWorkerRuntime,
+        "CreateConnectionRequestDirectConnectionRuntime",
+        "CreateConnectionRequestAgentProxyRuntime",
+        "CreateConnectionRequestAgentWorkerRuntime",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -572,9 +572,9 @@ networking configuration and where capabilities are executed.
 
 CreateConnectionRequestRuntimePlatformDict = typing_extensions.Annotated[
     typing.Union[
-        CreateConnectionRequestDirectConnectionRuntimeDict,
-        CreateConnectionRequestAgentProxyRuntimeDict,
-        CreateConnectionRequestAgentWorkerRuntimeDict,
+        "CreateConnectionRequestDirectConnectionRuntimeDict",
+        "CreateConnectionRequestAgentProxyRuntimeDict",
+        "CreateConnectionRequestAgentWorkerRuntimeDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -946,11 +946,11 @@ class CreateTableImportRequestPostgreSqlImportConfigDict(typing_extensions.Typed
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        CreateTableImportRequestJdbcImportConfig,
-        CreateTableImportRequestMicrosoftSqlServerImportConfig,
-        CreateTableImportRequestPostgreSqlImportConfig,
-        CreateTableImportRequestMicrosoftAccessImportConfig,
-        CreateTableImportRequestOracleImportConfig,
+        "CreateTableImportRequestJdbcImportConfig",
+        "CreateTableImportRequestMicrosoftSqlServerImportConfig",
+        "CreateTableImportRequestPostgreSqlImportConfig",
+        "CreateTableImportRequestMicrosoftAccessImportConfig",
+        "CreateTableImportRequestOracleImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -959,11 +959,11 @@ CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
 
 CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
     typing.Union[
-        CreateTableImportRequestJdbcImportConfigDict,
-        CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
-        CreateTableImportRequestPostgreSqlImportConfigDict,
-        CreateTableImportRequestMicrosoftAccessImportConfigDict,
-        CreateTableImportRequestOracleImportConfigDict,
+        "CreateTableImportRequestJdbcImportConfigDict",
+        "CreateTableImportRequestMicrosoftSqlServerImportConfigDict",
+        "CreateTableImportRequestPostgreSqlImportConfigDict",
+        "CreateTableImportRequestMicrosoftAccessImportConfigDict",
+        "CreateTableImportRequestOracleImportConfigDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1072,7 +1072,7 @@ class DomainDict(typing_extensions.TypedDict):
 
 
 EncryptedProperty = typing_extensions.Annotated[
-    typing.Union[AsSecretName, AsPlaintextValue], pydantic.Field(discriminator="type")
+    typing.Union["AsSecretName", "AsPlaintextValue"], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -1084,7 +1084,7 @@ When writing to an encrypted property:
 
 
 EncryptedPropertyDict = typing_extensions.Annotated[
-    typing.Union[AsSecretNameDict, AsPlaintextValueDict], pydantic.Field(discriminator="type")
+    typing.Union["AsSecretNameDict", "AsPlaintextValueDict"], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -1292,13 +1292,13 @@ FileImportDisplayName = str
 FileImportFilter = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilter",
-        FileAnyPathMatchesFilter,
+        "FileAnyPathMatchesFilter",
         "FilesCountLimitFilter",
-        FileChangedSinceLastUploadFilter,
-        FileImportCustomFilter,
+        "FileChangedSinceLastUploadFilter",
+        "FileImportCustomFilter",
         "FileLastModifiedAfterFilter",
         "FilePathMatchesFilter",
-        FileAtLeastCountFilter,
+        "FileAtLeastCountFilter",
         "FileSizeFilter",
     ],
     pydantic.Field(discriminator="type"),
@@ -1312,13 +1312,13 @@ before they are imported into Foundry.
 FileImportFilterDict = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilterDict",
-        FileAnyPathMatchesFilterDict,
+        "FileAnyPathMatchesFilterDict",
         "FilesCountLimitFilterDict",
-        FileChangedSinceLastUploadFilterDict,
-        FileImportCustomFilterDict,
+        "FileChangedSinceLastUploadFilterDict",
+        "FileImportCustomFilterDict",
         "FileLastModifiedAfterFilterDict",
         "FilePathMatchesFilterDict",
-        FileAtLeastCountFilterDict,
+        "FileAtLeastCountFilterDict",
         "FileSizeFilterDict",
     ],
     pydantic.Field(discriminator="type"),
@@ -1897,7 +1897,7 @@ Region = str
 
 
 RestAuthenticationMode = typing_extensions.Annotated[
-    typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, "RestConnectionOAuth2"],
+    typing.Union["BearerToken", "ApiKeyAuthentication", "BasicCredentials", "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
 ]
 """The method of authentication for connecting to an external REST system."""
@@ -1905,7 +1905,10 @@ RestAuthenticationMode = typing_extensions.Annotated[
 
 RestAuthenticationModeDict = typing_extensions.Annotated[
     typing.Union[
-        BearerTokenDict, ApiKeyAuthenticationDict, BasicCredentialsDict, "RestConnectionOAuth2Dict"
+        "BearerTokenDict",
+        "ApiKeyAuthenticationDict",
+        "BasicCredentialsDict",
+        "RestConnectionOAuth2Dict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2018,19 +2021,20 @@ class RestConnectionOAuth2Dict(typing_extensions.TypedDict):
 
 
 RestRequestApiKeyLocation = typing_extensions.Annotated[
-    typing.Union[HeaderApiKey, QueryParameterApiKey], pydantic.Field(discriminator="type")
+    typing.Union["HeaderApiKey", "QueryParameterApiKey"], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
 RestRequestApiKeyLocationDict = typing_extensions.Annotated[
-    typing.Union[HeaderApiKeyDict, QueryParameterApiKeyDict], pydantic.Field(discriminator="type")
+    typing.Union["HeaderApiKeyDict", "QueryParameterApiKeyDict"],
+    pydantic.Field(discriminator="type"),
 ]
 """The location of the API key in the request."""
 
 
 RuntimePlatform = typing_extensions.Annotated[
-    typing.Union[DirectConnectionRuntime, AgentProxyRuntime, AgentWorkerRuntime],
+    typing.Union["DirectConnectionRuntime", "AgentProxyRuntime", "AgentWorkerRuntime"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -2040,7 +2044,7 @@ networking configuration and where capabilities are executed.
 
 
 RuntimePlatformDict = typing_extensions.Annotated[
-    typing.Union[DirectConnectionRuntimeDict, AgentProxyRuntimeDict, AgentWorkerRuntimeDict],
+    typing.Union["DirectConnectionRuntimeDict", "AgentProxyRuntimeDict", "AgentWorkerRuntimeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -2050,13 +2054,13 @@ networking configuration and where capabilities are executed.
 
 
 S3AuthenticationMode = typing_extensions.Annotated[
-    typing.Union[AwsAccessKey, CloudIdentity, Oidc], pydantic.Field(discriminator="type")
+    typing.Union["AwsAccessKey", "CloudIdentity", "Oidc"], pydantic.Field(discriminator="type")
 ]
 """S3AuthenticationMode"""
 
 
 S3AuthenticationModeDict = typing_extensions.Annotated[
-    typing.Union[AwsAccessKeyDict, CloudIdentityDict, OidcDict],
+    typing.Union["AwsAccessKeyDict", "CloudIdentityDict", "OidcDict"],
     pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
@@ -2518,11 +2522,11 @@ TableImportAllowSchemaChanges = bool
 
 TableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        JdbcImportConfig,
-        MicrosoftSqlServerImportConfig,
-        PostgreSqlImportConfig,
-        MicrosoftAccessImportConfig,
-        OracleImportConfig,
+        "JdbcImportConfig",
+        "MicrosoftSqlServerImportConfig",
+        "PostgreSqlImportConfig",
+        "MicrosoftAccessImportConfig",
+        "OracleImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2531,11 +2535,11 @@ TableImportConfig = typing_extensions.Annotated[
 
 TableImportConfigDict = typing_extensions.Annotated[
     typing.Union[
-        JdbcImportConfigDict,
-        MicrosoftSqlServerImportConfigDict,
-        PostgreSqlImportConfigDict,
-        MicrosoftAccessImportConfigDict,
-        OracleImportConfigDict,
+        "JdbcImportConfigDict",
+        "MicrosoftSqlServerImportConfigDict",
+        "PostgreSqlImportConfigDict",
+        "MicrosoftAccessImportConfigDict",
+        "OracleImportConfigDict",
     ],
     pydantic.Field(discriminator="type"),
 ]

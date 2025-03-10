@@ -4,7 +4,7 @@ An RID identifying a third-party application created in Developer Console.
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

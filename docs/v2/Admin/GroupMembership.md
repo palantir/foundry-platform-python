@@ -19,10 +19,10 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | core_models.PrincipalId | userId |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**transitive** | typing.Optional[bool] | transitive | [optional] |
+**user_id** | PrincipalId | userId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**transitive** | Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ListGroupMembershipsResponse**
@@ -38,13 +38,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | userId
+# PrincipalId | userId
 user_id = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[bool] | transitive
+# Optional[bool] | transitive
 transitive = None
 
 
@@ -88,10 +88,10 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | core_models.PrincipalId | userId |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**transitive** | typing.Optional[bool] | transitive | [optional] |
+**user_id** | PrincipalId | userId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**transitive** | Optional[bool] | transitive | [optional] |
 
 ### Return type
 **ListGroupMembershipsResponse**
@@ -107,13 +107,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | userId
+# PrincipalId | userId
 user_id = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[bool] | transitive
+# Optional[bool] | transitive
 transitive = None
 
 

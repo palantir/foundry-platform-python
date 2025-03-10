@@ -6,7 +6,7 @@ Details about some property of an object.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **description** | typing_extensions.NotRequired[str] | No |  |
-**displayName** | typing_extensions.NotRequired[core_models.DisplayName] | No |  |
+**displayName** | typing_extensions.NotRequired[DisplayName] | No |  |
 **baseType** | ValueType | Yes |  |
 
 

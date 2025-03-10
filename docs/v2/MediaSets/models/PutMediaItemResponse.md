@@ -5,7 +5,7 @@ PutMediaItemResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**media_item_rid** | core_models.MediaItemRid | Yes |  |
+**media_item_rid** | MediaItemRid | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -15,8 +15,8 @@ Method | HTTP request | Release Stage |
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**roles** | typing.List[typing.Union[ResourceRole, ResourceRoleDict]] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**roles** | List[Union[ResourceRole, ResourceRoleDict]] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -34,9 +34,9 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.List[typing.Union[ResourceRole, ResourceRoleDict]] |
+# List[Union[ResourceRole, ResourceRoleDict]] |
 roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -75,10 +75,10 @@ List the roles on a resource.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**include_inherited** | typing.Optional[bool] | includeInherited | [optional] |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**include_inherited** | Optional[bool] | includeInherited | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListResourceRolesResponse**
@@ -96,13 +96,13 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[bool] | includeInherited
+# Optional[bool] | includeInherited
 include_inherited = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -142,10 +142,10 @@ List the roles on a resource.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**include_inherited** | typing.Optional[bool] | includeInherited | [optional] |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**include_inherited** | Optional[bool] | includeInherited | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListResourceRolesResponse**
@@ -163,13 +163,13 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[bool] | includeInherited
+# Optional[bool] | includeInherited
 include_inherited = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -209,8 +209,8 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**roles** | typing.List[typing.Union[ResourceRole, ResourceRoleDict]] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**roles** | List[Union[ResourceRole, ResourceRoleDict]] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -228,9 +228,9 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.List[typing.Union[ResourceRole, ResourceRoleDict]] |
+# List[Union[ResourceRole, ResourceRoleDict]] |
 roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

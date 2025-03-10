@@ -18,13 +18,13 @@ Creates a new FileImport.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**dataset_rid** | datasets_models.DatasetRid | The RID of the output dataset. |  |
+**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
-**file_import_filters** | typing.List[typing.Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
+**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
-**branch_name** | typing.Optional[datasets_models.BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**subfolder** | typing.Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
+**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
 **FileImport**
@@ -42,19 +42,19 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# datasets_models.DatasetRid | The RID of the output dataset.
+# DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName |
 display_name = "My file import"
-# typing.List[typing.Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None
 # FileImportMode |
 import_mode = "SNAPSHOT"
-# typing.Optional[datasets_models.BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
-# typing.Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
+# Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"
 
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **file_import_rid** | FileImportRid | fileImportRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -121,7 +121,7 @@ foundry_client = FoundryClient(
 connection_rid = None
 # FileImportRid | fileImportRid
 file_import_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -162,10 +162,10 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **file_import_rid** | FileImportRid | fileImportRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
-**core_models.BuildRid**
+**BuildRid**
 
 ### Example
 
@@ -182,7 +182,7 @@ foundry_client = FoundryClient(
 connection_rid = None
 # FileImportRid | fileImportRid
 file_import_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -208,7 +208,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | core_models.BuildRid  |  | application/json |
+**200** | BuildRid  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **file_import_rid** | FileImportRid | fileImportRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **FileImport**
@@ -241,7 +241,7 @@ foundry_client = FoundryClient(
 connection_rid = None
 # FileImportRid | fileImportRid
 file_import_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -281,9 +281,9 @@ Only file imports that the user has permissions to view will be returned.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListFileImportsResponse**
@@ -301,11 +301,11 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -345,9 +345,9 @@ Only file imports that the user has permissions to view will be returned.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListFileImportsResponse**
@@ -365,11 +365,11 @@ foundry_client = FoundryClient(
 
 # ConnectionRid | connectionRid
 connection_rid = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -409,13 +409,13 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid | connectionRid |  |
 **file_import_rid** | FileImportRid | fileImportRid |  |
-**dataset_rid** | datasets_models.DatasetRid | The RID of the output dataset. |  |
+**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
-**file_import_filters** | typing.List[typing.Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
+**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
-**branch_name** | typing.Optional[datasets_models.BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**subfolder** | typing.Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
+**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
 **FileImport**
@@ -435,19 +435,19 @@ foundry_client = FoundryClient(
 connection_rid = None
 # FileImportRid | fileImportRid
 file_import_rid = None
-# datasets_models.DatasetRid | The RID of the output dataset.
+# DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName |
 display_name = "My file import"
-# typing.List[typing.Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None
 # FileImportMode |
 import_mode = "SNAPSHOT"
-# typing.Optional[datasets_models.BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
-# typing.Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
+# Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"
 
 

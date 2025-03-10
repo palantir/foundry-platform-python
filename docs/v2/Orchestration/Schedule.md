@@ -19,12 +19,12 @@ Creates a new Schedule.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**action** | typing.Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |  |  |
-**description** | typing.Optional[str] |  | [optional] |
-**display_name** | typing.Optional[str] |  | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**scope_mode** | typing.Optional[typing.Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |  | [optional] |
-**trigger** | typing.Optional[typing.Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
+**action** | Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |  |  |
+**description** | Optional[str] |  | [optional] |
+**display_name** | Optional[str] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**scope_mode** | Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |  | [optional] |
+**trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
 ### Return type
 **Schedule**
@@ -40,7 +40,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |
+# Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -57,15 +57,15 @@ action = {
         ],
     },
 }
-# typing.Optional[str] |
+# Optional[str] |
 description = "Run all the transforms at midnight"
-# typing.Optional[str] |
+# Optional[str] |
 display_name = "My Daily Schedule"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
-# typing.Optional[typing.Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |
+# Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |
 scope_mode = {"type": "user"}
-# typing.Optional[typing.Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
+# Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 
@@ -106,7 +106,7 @@ Delete the Schedule with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -124,7 +124,7 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -161,7 +161,7 @@ Get the Schedule with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Schedule**
@@ -179,7 +179,7 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -216,7 +216,7 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -234,7 +234,7 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -271,12 +271,12 @@ Replace the Schedule with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**action** | typing.Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |  |  |
-**description** | typing.Optional[str] |  | [optional] |
-**display_name** | typing.Optional[str] |  | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**scope_mode** | typing.Optional[typing.Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |  | [optional] |
-**trigger** | typing.Optional[typing.Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
+**action** | Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |  |  |
+**description** | Optional[str] |  | [optional] |
+**display_name** | Optional[str] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**scope_mode** | Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |  | [optional] |
+**trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
 ### Return type
 **Schedule**
@@ -294,7 +294,7 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |
+# Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -311,15 +311,15 @@ action = {
         ],
     },
 }
-# typing.Optional[str] |
+# Optional[str] |
 description = "Run all the transforms at midnight"
-# typing.Optional[str] |
+# Optional[str] |
 display_name = "My Daily Schedule"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
-# typing.Optional[typing.Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |
+# Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |
 scope_mode = {"type": "user"}
-# typing.Optional[typing.Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
+# Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 
@@ -361,7 +361,7 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ScheduleRun**
@@ -379,7 +379,7 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -417,9 +417,9 @@ Get the most recent runs of a Schedule. If no page size is provided, a page size
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListRunsOfScheduleResponse**
@@ -437,11 +437,11 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -480,9 +480,9 @@ Get the most recent runs of a Schedule. If no page size is provided, a page size
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListRunsOfScheduleResponse**
@@ -500,11 +500,11 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -543,7 +543,7 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -561,7 +561,7 @@ foundry_client = FoundryClient(
 
 # ScheduleRid | scheduleRid
 schedule_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

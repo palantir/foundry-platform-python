@@ -10,24 +10,24 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-core_models.DateType | date
+DateType | date
 QueryStructType | struct
 QuerySetType | set
-core_models.StringType | string
-core_models.DoubleType | double
-core_models.IntegerType | integer
+StringType | string
+DoubleType | double
+IntegerType | integer
 ThreeDimensionalAggregation | threeDimensionalAggregation
 QueryUnionType | union
-core_models.FloatType | float
-core_models.LongType | long
-core_models.BooleanType | boolean
-core_models.UnsupportedType | unsupported
-core_models.AttachmentType | attachment
-core_models.NullType | null
+FloatType | float
+LongType | long
+BooleanType | boolean
+UnsupportedType | unsupported
+AttachmentType | attachment
+NullType | null
 QueryArrayType | array
 TwoDimensionalAggregation | twoDimensionalAggregation
 ValueTypeReference | valueTypeReference
-core_models.TimestampType | timestamp
+TimestampType | timestamp
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

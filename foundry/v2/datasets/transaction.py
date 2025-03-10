@@ -64,9 +64,9 @@ class TransactionClient:
         not updated.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -114,11 +114,11 @@ class TransactionClient:
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -166,9 +166,9 @@ class TransactionClient:
         updated to point to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -214,11 +214,11 @@ class TransactionClient:
         Creates a Transaction on a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_type:
-        :type transaction_type: datasets_models.TransactionType
+        :type transaction_type: TransactionType
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -278,9 +278,9 @@ class TransactionClient:
         Gets a Transaction of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -328,11 +328,11 @@ class TransactionClient:
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -401,9 +401,9 @@ class _TransactionClientRaw:
         not updated.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -451,11 +451,11 @@ class _TransactionClientRaw:
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -503,9 +503,9 @@ class _TransactionClientRaw:
         updated to point to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -551,11 +551,11 @@ class _TransactionClientRaw:
         Creates a Transaction on a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_type:
-        :type transaction_type: datasets_models.TransactionType
+        :type transaction_type: TransactionType
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -615,9 +615,9 @@ class _TransactionClientRaw:
         Gets a Transaction of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -665,11 +665,11 @@ class _TransactionClientRaw:
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -738,9 +738,9 @@ class _TransactionClientStreaming:
         not updated.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -788,11 +788,11 @@ class _TransactionClientStreaming:
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -840,9 +840,9 @@ class _TransactionClientStreaming:
         updated to point to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -888,11 +888,11 @@ class _TransactionClientStreaming:
         Creates a Transaction on a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_type:
-        :type transaction_type: datasets_models.TransactionType
+        :type transaction_type: TransactionType
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -952,9 +952,9 @@ class _TransactionClientStreaming:
         Gets a Transaction of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1002,11 +1002,11 @@ class _TransactionClientStreaming:
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param transaction_rid: transactionRid
-        :type transaction_rid: datasets_models.TransactionRid
+        :type transaction_rid: TransactionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

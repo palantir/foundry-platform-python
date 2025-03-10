@@ -64,11 +64,11 @@ class ProjectClient:
         """
         Adds a list of Organizations to a Project.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -137,19 +137,19 @@ class ProjectClient:
         When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
 
         :param default_roles:
-        :type default_roles: typing.List[core_models.RoleId]
+        :type default_roles: List[RoleId]
         :param display_name:
-        :type display_name: filesystem_models.ResourceDisplayName
+        :type display_name: ResourceDisplayName
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: typing.Dict[core_models.RoleId, typing.List[typing.Union[filesystem_models.PrincipalWithId, filesystem_models.PrincipalWithIdDict]]]
+        :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
-        :type space_rid: filesystem_models.SpaceRid
+        :type space_rid: SpaceRid
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -239,17 +239,17 @@ class ProjectClient:
         """
         Creates a project from a project template.
         :param template_rid:
-        :type template_rid: filesystem_models.ProjectTemplateRid
+        :type template_rid: ProjectTemplateRid
         :param variable_values:
-        :type variable_values: typing.Dict[filesystem_models.ProjectTemplateVariableId, filesystem_models.ProjectTemplateVariableValue]
+        :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
         :param default_roles:
-        :type default_roles: typing.Optional[typing.List[core_models.RoleId]]
+        :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
-        :type organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]]
+        :type organization_rids: Optional[List[OrganizationRid]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param project_description:
-        :type project_description: typing.Optional[str]
+        :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -343,9 +343,9 @@ class ProjectClient:
         """
         Get the Project with the specified rid.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -394,13 +394,13 @@ class ProjectClient:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -447,13 +447,13 @@ class ProjectClient:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -503,11 +503,11 @@ class ProjectClient:
         """
         Removes Organizations from a Project.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -581,11 +581,11 @@ class _ProjectClientRaw:
         """
         Adds a list of Organizations to a Project.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -654,19 +654,19 @@ class _ProjectClientRaw:
         When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
 
         :param default_roles:
-        :type default_roles: typing.List[core_models.RoleId]
+        :type default_roles: List[RoleId]
         :param display_name:
-        :type display_name: filesystem_models.ResourceDisplayName
+        :type display_name: ResourceDisplayName
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: typing.Dict[core_models.RoleId, typing.List[typing.Union[filesystem_models.PrincipalWithId, filesystem_models.PrincipalWithIdDict]]]
+        :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
-        :type space_rid: filesystem_models.SpaceRid
+        :type space_rid: SpaceRid
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -756,17 +756,17 @@ class _ProjectClientRaw:
         """
         Creates a project from a project template.
         :param template_rid:
-        :type template_rid: filesystem_models.ProjectTemplateRid
+        :type template_rid: ProjectTemplateRid
         :param variable_values:
-        :type variable_values: typing.Dict[filesystem_models.ProjectTemplateVariableId, filesystem_models.ProjectTemplateVariableValue]
+        :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
         :param default_roles:
-        :type default_roles: typing.Optional[typing.List[core_models.RoleId]]
+        :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
-        :type organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]]
+        :type organization_rids: Optional[List[OrganizationRid]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param project_description:
-        :type project_description: typing.Optional[str]
+        :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -860,9 +860,9 @@ class _ProjectClientRaw:
         """
         Get the Project with the specified rid.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -911,13 +911,13 @@ class _ProjectClientRaw:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -964,13 +964,13 @@ class _ProjectClientRaw:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1020,11 +1020,11 @@ class _ProjectClientRaw:
         """
         Removes Organizations from a Project.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1098,11 +1098,11 @@ class _ProjectClientStreaming:
         """
         Adds a list of Organizations to a Project.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1171,19 +1171,19 @@ class _ProjectClientStreaming:
         When creating the application, select "No, I won't use an Ontology SDK" on the Resources page.
 
         :param default_roles:
-        :type default_roles: typing.List[core_models.RoleId]
+        :type default_roles: List[RoleId]
         :param display_name:
-        :type display_name: filesystem_models.ResourceDisplayName
+        :type display_name: ResourceDisplayName
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: typing.Dict[core_models.RoleId, typing.List[typing.Union[filesystem_models.PrincipalWithId, filesystem_models.PrincipalWithIdDict]]]
+        :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
-        :type space_rid: filesystem_models.SpaceRid
+        :type space_rid: SpaceRid
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1273,17 +1273,17 @@ class _ProjectClientStreaming:
         """
         Creates a project from a project template.
         :param template_rid:
-        :type template_rid: filesystem_models.ProjectTemplateRid
+        :type template_rid: ProjectTemplateRid
         :param variable_values:
-        :type variable_values: typing.Dict[filesystem_models.ProjectTemplateVariableId, filesystem_models.ProjectTemplateVariableValue]
+        :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
         :param default_roles:
-        :type default_roles: typing.Optional[typing.List[core_models.RoleId]]
+        :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
-        :type organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]]
+        :type organization_rids: Optional[List[OrganizationRid]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param project_description:
-        :type project_description: typing.Optional[str]
+        :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1377,9 +1377,9 @@ class _ProjectClientStreaming:
         """
         Get the Project with the specified rid.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1428,13 +1428,13 @@ class _ProjectClientStreaming:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1481,13 +1481,13 @@ class _ProjectClientStreaming:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1537,11 +1537,11 @@ class _ProjectClientStreaming:
         """
         Removes Organizations from a Project.
         :param project_rid: projectRid
-        :type project_rid: filesystem_models.ProjectRid
+        :type project_rid: ProjectRid
         :param organization_rids:
-        :type organization_rids: typing.List[core_models.OrganizationRid]
+        :type organization_rids: List[OrganizationRid]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

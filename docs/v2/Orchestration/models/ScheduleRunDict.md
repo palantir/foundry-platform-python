@@ -8,8 +8,8 @@ ScheduleRun
 **rid** | ScheduleRunRid | Yes | The RID of a schedule run |
 **scheduleRid** | ScheduleRid | Yes |  |
 **scheduleVersionRid** | ScheduleVersionRid | Yes |  |
-**createdTime** | core_models.CreatedTime | Yes | The time at which the schedule run was created. |
-**createdBy** | typing_extensions.NotRequired[core_models.CreatedBy] | No | The Foundry user who manually invoked this schedule run. Automatic trigger runs have this field set to empty.  |
+**createdTime** | CreatedTime | Yes | The time at which the schedule run was created. |
+**createdBy** | typing_extensions.NotRequired[CreatedBy] | No | The Foundry user who manually invoked this schedule run. Automatic trigger runs have this field set to empty.  |
 **result** | typing_extensions.NotRequired[ScheduleRunResultDict] | No | The result of triggering the schedule. If empty, it means the service is still working on triggering the schedule.  |
 
 

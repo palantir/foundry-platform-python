@@ -10,7 +10,7 @@ When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be 
 **field** | PropertyApiName | Yes |  |
 **value** | int | Yes |  |
 **unit** | TimeUnit | Yes |  |
-**type** | typing.Literal["duration"] | Yes | None |
+**type** | Literal["duration"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

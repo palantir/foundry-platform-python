@@ -137,8 +137,8 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListVersionsResponse**
@@ -158,9 +158,9 @@ foundry_client = FoundryClient(
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
 
 
@@ -201,8 +201,8 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListVersionsResponse**
@@ -222,9 +222,9 @@ foundry_client = FoundryClient(
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
 
 
@@ -330,8 +330,8 @@ Name | Type | Description  | Notes |
 **third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
 **body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
 **version** | VersionVersion | version |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**snapshot_identifier** | typing.Optional[str] | snapshotIdentifier | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**snapshot_identifier** | Optional[str] | snapshotIdentifier | [optional] |
 
 ### Return type
 **Version**
@@ -355,9 +355,9 @@ third_party_application_rid = (
 body = None
 # VersionVersion | version
 version = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
-# typing.Optional[str] | snapshotIdentifier
+# Optional[str] | snapshotIdentifier
 snapshot_identifier = (
     "foundry.v1@ri.stemma.main.repository.a@ri.pull-request.main.pull-request.a@hash"
 )

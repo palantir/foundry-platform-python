@@ -68,11 +68,11 @@ class QueryClient:
         Optional parameters do not need to be supplied.
 
         :param query_api_name: queryApiName
-        :type query_api_name: functions_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[functions_models.ParameterId, typing.Optional[functions_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -129,9 +129,9 @@ class QueryClient:
         Gets a specific query type with the given API name.
 
         :param query_api_name: queryApiName
-        :type query_api_name: functions_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -177,9 +177,9 @@ class QueryClient:
         Gets a specific query type with the given RID.
 
         :param rid:
-        :type rid: functions_models.FunctionRid
+        :type rid: FunctionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -257,11 +257,11 @@ class _QueryClientRaw:
         Optional parameters do not need to be supplied.
 
         :param query_api_name: queryApiName
-        :type query_api_name: functions_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[functions_models.ParameterId, typing.Optional[functions_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -318,9 +318,9 @@ class _QueryClientRaw:
         Gets a specific query type with the given API name.
 
         :param query_api_name: queryApiName
-        :type query_api_name: functions_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -366,9 +366,9 @@ class _QueryClientRaw:
         Gets a specific query type with the given RID.
 
         :param rid:
-        :type rid: functions_models.FunctionRid
+        :type rid: FunctionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -446,11 +446,11 @@ class _QueryClientStreaming:
         Optional parameters do not need to be supplied.
 
         :param query_api_name: queryApiName
-        :type query_api_name: functions_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param parameters:
-        :type parameters: typing.Dict[functions_models.ParameterId, typing.Optional[functions_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -507,9 +507,9 @@ class _QueryClientStreaming:
         Gets a specific query type with the given API name.
 
         :param query_api_name: queryApiName
-        :type query_api_name: functions_models.QueryApiName
+        :type query_api_name: QueryApiName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -555,9 +555,9 @@ class _QueryClientStreaming:
         Gets a specific query type with the given RID.
 
         :param rid:
-        :type rid: functions_models.FunctionRid
+        :type rid: FunctionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

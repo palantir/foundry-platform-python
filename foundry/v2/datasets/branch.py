@@ -65,11 +65,11 @@ class BranchClient:
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param name:
-        :type name: datasets_models.BranchName
+        :type name: BranchName
         :param transaction_rid: The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -127,9 +127,9 @@ class BranchClient:
         Deletes the Branch with the given BranchName.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -176,9 +176,9 @@ class BranchClient:
         Get a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -228,11 +228,11 @@ class BranchClient:
         Lists the Branches of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -282,11 +282,11 @@ class BranchClient:
         Lists the Branches of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -363,11 +363,11 @@ class _BranchClientRaw:
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param name:
-        :type name: datasets_models.BranchName
+        :type name: BranchName
         :param transaction_rid: The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -425,9 +425,9 @@ class _BranchClientRaw:
         Deletes the Branch with the given BranchName.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -474,9 +474,9 @@ class _BranchClientRaw:
         Get a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -526,11 +526,11 @@ class _BranchClientRaw:
         Lists the Branches of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -580,11 +580,11 @@ class _BranchClientRaw:
         Lists the Branches of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -661,11 +661,11 @@ class _BranchClientStreaming:
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param name:
-        :type name: datasets_models.BranchName
+        :type name: BranchName
         :param transaction_rid: The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -723,9 +723,9 @@ class _BranchClientStreaming:
         Deletes the Branch with the given BranchName.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -772,9 +772,9 @@ class _BranchClientStreaming:
         Get a Branch of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -824,11 +824,11 @@ class _BranchClientStreaming:
         Lists the Branches of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -878,11 +878,11 @@ class _BranchClientStreaming:
         Lists the Branches of a Dataset.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

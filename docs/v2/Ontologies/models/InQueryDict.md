@@ -10,8 +10,8 @@ but not both.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | typing_extensions.NotRequired[PropertyApiName] | No |  |
 **propertyIdentifier** | typing_extensions.NotRequired[PropertyIdentifierDict] | No |  |
-**value** | typing.List[PropertyValue] | Yes |  |
-**type** | typing.Literal["in"] | Yes | None |
+**value** | List[PropertyValue] | Yes |  |
+**type** | Literal["in"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

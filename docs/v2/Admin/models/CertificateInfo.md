@@ -6,7 +6,7 @@ CertificateInfo
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **pem_certificate** | str | Yes | The certificate, in PEM format. |
-**common_name** | typing.Optional[str] | No |  |
+**common_name** | Optional[str] | No |  |
 **expiry_date** | datetime | Yes |  |
 **usage_type** | CertificateUsageType | Yes |  |
 

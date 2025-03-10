@@ -69,13 +69,13 @@ class FolderClient:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -124,13 +124,13 @@ class FolderClient:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -180,11 +180,11 @@ class FolderClient:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: filesystem_models.ResourceDisplayName
+        :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -239,9 +239,9 @@ class FolderClient:
         """
         Get the Folder with the specified rid.
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -313,13 +313,13 @@ class _FolderClientRaw:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -368,13 +368,13 @@ class _FolderClientRaw:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -424,11 +424,11 @@ class _FolderClientRaw:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: filesystem_models.ResourceDisplayName
+        :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -483,9 +483,9 @@ class _FolderClientRaw:
         """
         Get the Folder with the specified rid.
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -557,13 +557,13 @@ class _FolderClientStreaming:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -612,13 +612,13 @@ class _FolderClientStreaming:
         provided, this page size will also be used as the default.
 
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -668,11 +668,11 @@ class _FolderClientStreaming:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: filesystem_models.ResourceDisplayName
+        :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -727,9 +727,9 @@ class _FolderClientStreaming:
         """
         Get the Folder with the specified rid.
         :param folder_rid: folderRid
-        :type folder_rid: filesystem_models.FolderRid
+        :type folder_rid: FolderRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

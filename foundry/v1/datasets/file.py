@@ -80,13 +80,13 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -154,15 +154,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -236,17 +236,17 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -321,17 +321,17 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -413,15 +413,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -473,15 +473,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -535,15 +535,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -598,15 +598,15 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -687,17 +687,17 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: bytes
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -781,13 +781,13 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -855,15 +855,15 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -937,17 +937,17 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1022,17 +1022,17 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1111,15 +1111,15 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1187,17 +1187,17 @@ class _FileClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: bytes
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1281,13 +1281,13 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1355,15 +1355,15 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1437,17 +1437,17 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1522,17 +1522,17 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1611,15 +1611,15 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1687,17 +1687,17 @@ class _FileClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: bytes
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

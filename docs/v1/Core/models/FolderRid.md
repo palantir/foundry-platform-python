@@ -4,7 +4,7 @@ FolderRid
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

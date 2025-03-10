@@ -6,7 +6,7 @@ Metadata about an Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | OntologyApiName | Yes |  |
-**display_name** | core_models.DisplayName | Yes |  |
+**display_name** | DisplayName | Yes |  |
 **description** | str | Yes |  |
 **rid** | OntologyRid | Yes |  |
 

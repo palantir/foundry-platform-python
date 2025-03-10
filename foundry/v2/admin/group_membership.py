@@ -73,13 +73,13 @@ class GroupMembershipClient:
         in the response, you are on the last page.
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -131,13 +131,13 @@ class GroupMembershipClient:
         in the response, you are on the last page.
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -216,13 +216,13 @@ class _GroupMembershipClientRaw:
         in the response, you are on the last page.
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -274,13 +274,13 @@ class _GroupMembershipClientRaw:
         in the response, you are on the last page.
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -359,13 +359,13 @@ class _GroupMembershipClientStreaming:
         in the response, you are on the last page.
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -417,13 +417,13 @@ class _GroupMembershipClientStreaming:
         in the response, you are on the last page.
 
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param transitive: transitive
-        :type transitive: typing.Optional[bool]
+        :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

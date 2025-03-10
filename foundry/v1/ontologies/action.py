@@ -71,11 +71,11 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -142,11 +142,11 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param requests:
-        :type requests: typing.List[typing.Union[ontologies_models.ApplyActionRequest, ontologies_models.ApplyActionRequestDict]]
+        :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -212,11 +212,11 @@ class ActionClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -299,11 +299,11 @@ class _ActionClientRaw:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -370,11 +370,11 @@ class _ActionClientRaw:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param requests:
-        :type requests: typing.List[typing.Union[ontologies_models.ApplyActionRequest, ontologies_models.ApplyActionRequestDict]]
+        :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -440,11 +440,11 @@ class _ActionClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -527,11 +527,11 @@ class _ActionClientStreaming:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -598,11 +598,11 @@ class _ActionClientStreaming:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param requests:
-        :type requests: typing.List[typing.Union[ontologies_models.ApplyActionRequest, ontologies_models.ApplyActionRequestDict]]
+        :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -668,11 +668,11 @@ class _ActionClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param action_type: actionType
-        :type action_type: ontologies_models.ActionTypeApiName
+        :type action_type: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

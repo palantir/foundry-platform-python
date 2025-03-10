@@ -5,7 +5,7 @@ OidcAuthenticationProtocol
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**type** | typing.Literal["oidc"] | Yes | None |
+**type** | Literal["oidc"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -7,7 +7,7 @@ Computes the average value for the provided field.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
-**type** | typing.Literal["avg"] | Yes | None |
+**type** | Literal["avg"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

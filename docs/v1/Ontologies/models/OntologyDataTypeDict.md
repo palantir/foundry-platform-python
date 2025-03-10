@@ -10,27 +10,27 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-core_models.DateTypeDict | date
+DateTypeDict | date
 OntologyStructTypeDict | struct
 OntologySetTypeDict | set
-core_models.StringTypeDict | string
-core_models.ByteTypeDict | byte
-core_models.DoubleTypeDict | double
-core_models.IntegerTypeDict | integer
-core_models.FloatTypeDict | float
-core_models.AnyTypeDict | any
-core_models.LongTypeDict | long
-core_models.BooleanTypeDict | boolean
-core_models.CipherTextTypeDict | cipherText
-core_models.MarkingTypeDict | marking
-core_models.UnsupportedTypeDict | unsupported
+StringTypeDict | string
+ByteTypeDict | byte
+DoubleTypeDict | double
+IntegerTypeDict | integer
+FloatTypeDict | float
+AnyTypeDict | any
+LongTypeDict | long
+BooleanTypeDict | boolean
+CipherTextTypeDict | cipherText
+MarkingTypeDict | marking
+UnsupportedTypeDict | unsupported
 OntologyArrayTypeDict | array
 OntologyObjectSetTypeDict | objectSet
-core_models.BinaryTypeDict | binary
-core_models.ShortTypeDict | short
-core_models.DecimalTypeDict | decimal
+BinaryTypeDict | binary
+ShortTypeDict | short
+DecimalTypeDict | decimal
 OntologyMapTypeDict | map
-core_models.TimestampTypeDict | timestamp
+TimestampTypeDict | timestamp
 OntologyObjectTypeDict | object
 
 

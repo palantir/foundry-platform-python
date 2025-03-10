@@ -92,19 +92,19 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param interface_type: interfaceType
-        :type interface_type: ontologies_models.InterfaceTypeApiName
+        :type interface_type: InterfaceTypeApiName
         :param aggregation:
-        :type aggregation: typing.List[typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict]]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
-        :type accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest]
+        :type accuracy: Optional[AggregationAccuracyRequest]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param where:
-        :type where: typing.Optional[typing.Union[ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict]]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -183,11 +183,11 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param interface_type: interfaceType
-        :type interface_type: ontologies_models.InterfaceTypeApiName
+        :type interface_type: InterfaceTypeApiName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -242,13 +242,13 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -304,13 +304,13 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -408,19 +408,19 @@ class _OntologyInterfaceClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param interface_type: interfaceType
-        :type interface_type: ontologies_models.InterfaceTypeApiName
+        :type interface_type: InterfaceTypeApiName
         :param aggregation:
-        :type aggregation: typing.List[typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict]]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
-        :type accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest]
+        :type accuracy: Optional[AggregationAccuracyRequest]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param where:
-        :type where: typing.Optional[typing.Union[ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict]]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -499,11 +499,11 @@ class _OntologyInterfaceClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param interface_type: interfaceType
-        :type interface_type: ontologies_models.InterfaceTypeApiName
+        :type interface_type: InterfaceTypeApiName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -558,13 +558,13 @@ class _OntologyInterfaceClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -620,13 +620,13 @@ class _OntologyInterfaceClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -724,19 +724,19 @@ class _OntologyInterfaceClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param interface_type: interfaceType
-        :type interface_type: ontologies_models.InterfaceTypeApiName
+        :type interface_type: InterfaceTypeApiName
         :param aggregation:
-        :type aggregation: typing.List[typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]]
+        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
-        :type group_by: typing.List[typing.Union[ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict]]
+        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
-        :type accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest]
+        :type accuracy: Optional[AggregationAccuracyRequest]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param where:
-        :type where: typing.Optional[typing.Union[ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict]]
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -815,11 +815,11 @@ class _OntologyInterfaceClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param interface_type: interfaceType
-        :type interface_type: ontologies_models.InterfaceTypeApiName
+        :type interface_type: InterfaceTypeApiName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -874,13 +874,13 @@ class _OntologyInterfaceClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -936,13 +936,13 @@ class _OntologyInterfaceClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

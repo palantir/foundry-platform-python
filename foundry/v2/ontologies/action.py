@@ -80,17 +80,17 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action: action
-        :type action: ontologies_models.ActionTypeApiName
+        :type action: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: typing.Optional[typing.Union[ontologies_models.ApplyActionRequestOptions, ontologies_models.ApplyActionRequestOptionsDict]]
+        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -175,17 +175,17 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action: action
-        :type action: ontologies_models.ActionTypeApiName
+        :type action: ActionTypeApiName
         :param requests:
-        :type requests: typing.List[typing.Union[ontologies_models.BatchApplyActionRequestItem, ontologies_models.BatchApplyActionRequestItemDict]]
+        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: typing.Optional[typing.Union[ontologies_models.BatchApplyActionRequestOptions, ontologies_models.BatchApplyActionRequestOptionsDict]]
+        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -289,17 +289,17 @@ class _ActionClientRaw:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action: action
-        :type action: ontologies_models.ActionTypeApiName
+        :type action: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: typing.Optional[typing.Union[ontologies_models.ApplyActionRequestOptions, ontologies_models.ApplyActionRequestOptionsDict]]
+        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -384,17 +384,17 @@ class _ActionClientRaw:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action: action
-        :type action: ontologies_models.ActionTypeApiName
+        :type action: ActionTypeApiName
         :param requests:
-        :type requests: typing.List[typing.Union[ontologies_models.BatchApplyActionRequestItem, ontologies_models.BatchApplyActionRequestItemDict]]
+        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: typing.Optional[typing.Union[ontologies_models.BatchApplyActionRequestOptions, ontologies_models.BatchApplyActionRequestOptionsDict]]
+        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -498,17 +498,17 @@ class _ActionClientStreaming:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action: action
-        :type action: ontologies_models.ActionTypeApiName
+        :type action: ActionTypeApiName
         :param parameters:
-        :type parameters: typing.Dict[ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]]
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: typing.Optional[typing.Union[ontologies_models.ApplyActionRequestOptions, ontologies_models.ApplyActionRequestOptionsDict]]
+        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -593,17 +593,17 @@ class _ActionClientStreaming:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param action: action
-        :type action: ontologies_models.ActionTypeApiName
+        :type action: ActionTypeApiName
         :param requests:
-        :type requests: typing.List[typing.Union[ontologies_models.BatchApplyActionRequestItem, ontologies_models.BatchApplyActionRequestItemDict]]
+        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: typing.Optional[typing.Union[ontologies_models.BatchApplyActionRequestOptions, ontologies_models.BatchApplyActionRequestOptionsDict]]
+        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

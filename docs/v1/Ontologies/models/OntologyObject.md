@@ -5,7 +5,7 @@ Represents an object in the Ontology.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**properties** | typing.Dict[PropertyApiName, typing.Optional[PropertyValue]] | Yes | A map of the property values of the object. |
+**properties** | Dict[PropertyApiName, Optional[PropertyValue]] | Yes | A map of the property values of the object. |
 **rid** | ObjectRid | Yes |  |
 
 

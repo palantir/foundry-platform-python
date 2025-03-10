@@ -4,7 +4,7 @@ Represents the primary key value that is used as a unique identifier for an obje
 
 ## Type
 ```python
-typing.Any
+Any
 ```
 
 

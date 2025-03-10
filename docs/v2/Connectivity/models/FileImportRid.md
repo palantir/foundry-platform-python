@@ -5,7 +5,7 @@ The Resource Identifier (RID) of a FileImport (also known as a batch sync).
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

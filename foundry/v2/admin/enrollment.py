@@ -83,9 +83,9 @@ class EnrollmentClient:
         """
         Get the Enrollment with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -130,7 +130,7 @@ class EnrollmentClient:
         Returns the Enrollment associated with the current User's primary organization.
 
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -194,9 +194,9 @@ class _EnrollmentClientRaw:
         """
         Get the Enrollment with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -241,7 +241,7 @@ class _EnrollmentClientRaw:
         Returns the Enrollment associated with the current User's primary organization.
 
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -305,9 +305,9 @@ class _EnrollmentClientStreaming:
         """
         Get the Enrollment with the specified rid.
         :param enrollment_rid: enrollmentRid
-        :type enrollment_rid: core_models.EnrollmentRid
+        :type enrollment_rid: EnrollmentRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -352,7 +352,7 @@ class _EnrollmentClientStreaming:
         Returns the Enrollment associated with the current User's primary organization.
 
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

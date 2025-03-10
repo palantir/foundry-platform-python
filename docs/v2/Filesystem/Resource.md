@@ -21,8 +21,8 @@ Adds a list of Markings to a resource.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**marking_ids** | typing.List[core_models.MarkingId] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**marking_ids** | List[MarkingId] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -40,9 +40,9 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.List[core_models.MarkingId] |
+# List[MarkingId] |
 marking_ids = ["18212f9a-0e63-4b79-96a0-aae04df23336"]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -82,7 +82,7 @@ Move the given resource to the trash. Following this operation, the resource can
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -100,7 +100,7 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -137,7 +137,7 @@ Get the Resource with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Resource**
@@ -155,7 +155,7 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -194,7 +194,7 @@ composed of Organizations and Markings, and can either be applied directly to th
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **AccessRequirements**
@@ -212,7 +212,7 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -249,7 +249,7 @@ Get a Resource by its absolute path.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **path** | ResourcePath | path |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Resource**
@@ -267,7 +267,7 @@ foundry_client = FoundryClient(
 
 # ResourcePath | path
 path = "/My Organization-abcd/My Important Project/My Dataset"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -306,9 +306,9 @@ so the `pageSize` and `pageToken` parameters are not required.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListMarkingsOfResourceResponse**
@@ -326,11 +326,11 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -370,9 +370,9 @@ so the `pageSize` and `pageToken` parameters are not required.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListMarkingsOfResourceResponse**
@@ -390,11 +390,11 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -435,7 +435,7 @@ Permanently delete the given resource from the trash. If the Resource is not dir
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -453,7 +453,7 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -490,8 +490,8 @@ Removes Markings from a resource.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**marking_ids** | typing.List[core_models.MarkingId] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**marking_ids** | List[MarkingId] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -509,9 +509,9 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.List[core_models.MarkingId] |
+# List[MarkingId] |
 marking_ids = ["18212f9a-0e63-4b79-96a0-aae04df23336"]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -551,7 +551,7 @@ trashed, this operation will be ignored.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid | resourceRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -569,7 +569,7 @@ foundry_client = FoundryClient(
 
 # ResourceRid | resourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

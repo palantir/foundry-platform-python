@@ -7,7 +7,7 @@ S3ProxyConfiguration
 | ------------ | ------------- | ------------- | ------------- |
 **host** | str | Yes | Domain name, IPv4, or IPv6 address.  `protocol` and `port` must be specified separately.  |
 **port** | int | Yes |  |
-**nonProxyHosts** | typing_extensions.NotRequired[typing.List[str]] | No | A list of hosts that can bypass the proxy, such as those used for STS Role. You can also use "*" wildcards. |
+**nonProxyHosts** | typing_extensions.NotRequired[List[str]] | No | A list of hosts that can bypass the proxy, such as those used for STS Role. You can also use "*" wildcards. |
 **protocol** | typing_extensions.NotRequired[Protocol] | No | If defined, must be "HTTP" or "HTTPS". Defaults to "HTTPS".  |
 **credentials** | typing_extensions.NotRequired[BasicCredentialsDict] | No |  |
 

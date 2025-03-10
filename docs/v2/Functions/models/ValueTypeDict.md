@@ -9,7 +9,7 @@ ValueType
 **version** | ValueTypeVersion | Yes |  |
 **versionId** | ValueTypeVersionId | Yes |  |
 **apiName** | ValueTypeApiName | Yes |  |
-**displayName** | core_models.DisplayName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | typing_extensions.NotRequired[ValueTypeDescription] | No |  |
 **baseType** | typing_extensions.NotRequired[ValueTypeDataTypeDict] | No |  |
 

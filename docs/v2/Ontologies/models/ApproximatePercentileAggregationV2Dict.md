@@ -9,7 +9,7 @@ Computes the approximate percentile value for the provided field. Requires Objec
 **name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
 **approximatePercentile** | float | Yes |  |
 **direction** | typing_extensions.NotRequired[OrderByDirection] | No |  |
-**type** | typing.Literal["approximatePercentile"] | Yes | None |
+**type** | Literal["approximatePercentile"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

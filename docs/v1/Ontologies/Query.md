@@ -16,7 +16,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | ontologyRid |  |
 **query_api_name** | QueryApiName | queryApiName |  |
-**parameters** | typing.Dict[ParameterId, typing.Optional[DataValue]] |  |  |
+**parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -36,7 +36,7 @@ foundry_client = FoundryClient(
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # QueryApiName | queryApiName
 query_api_name = "getEmployeesInCity"
-# typing.Dict[ParameterId, typing.Optional[DataValue]] |
+# Dict[ParameterId, Optional[DataValue]] |
 parameters = {"city": "New York"}
 
 

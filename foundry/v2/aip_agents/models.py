@@ -330,13 +330,13 @@ class FunctionRetrievedContextDict(typing_extensions.TypedDict):
 
 
 InputContext = typing_extensions.Annotated[
-    typing.Union[FunctionRetrievedContext, "ObjectContext"], pydantic.Field(discriminator="type")
+    typing.Union["FunctionRetrievedContext", "ObjectContext"], pydantic.Field(discriminator="type")
 ]
 """Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
 
 
 InputContextDict = typing_extensions.Annotated[
-    typing.Union[FunctionRetrievedContextDict, "ObjectContextDict"],
+    typing.Union["FunctionRetrievedContextDict", "ObjectContextDict"],
     pydantic.Field(discriminator="type"),
 ]
 """Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
@@ -563,34 +563,34 @@ ParameterId = str
 
 
 ParameterType = typing_extensions.Annotated[
-    typing.Union["StringParameter", ObjectSetParameter], pydantic.Field(discriminator="type")
+    typing.Union["StringParameter", "ObjectSetParameter"], pydantic.Field(discriminator="type")
 ]
 """ParameterType"""
 
 
 ParameterTypeDict = typing_extensions.Annotated[
-    typing.Union["StringParameterDict", ObjectSetParameterDict],
+    typing.Union["StringParameterDict", "ObjectSetParameterDict"],
     pydantic.Field(discriminator="type"),
 ]
 """ParameterType"""
 
 
 ParameterValue = typing_extensions.Annotated[
-    typing.Union["StringParameterValue", ObjectSetParameterValue],
+    typing.Union["StringParameterValue", "ObjectSetParameterValue"],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
 ParameterValueDict = typing_extensions.Annotated[
-    typing.Union["StringParameterValueDict", ObjectSetParameterValueDict],
+    typing.Union["StringParameterValueDict", "ObjectSetParameterValueDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
 ParameterValueUpdate = typing_extensions.Annotated[
-    typing.Union["StringParameterValue", ObjectSetParameterValueUpdate],
+    typing.Union["StringParameterValue", "ObjectSetParameterValueUpdate"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -601,7 +601,7 @@ For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the
 
 
 ParameterValueUpdateDict = typing_extensions.Annotated[
-    typing.Union["StringParameterValueDict", ObjectSetParameterValueUpdateDict],
+    typing.Union["StringParameterValueDict", "ObjectSetParameterValueUpdateDict"],
     pydantic.Field(discriminator="type"),
 ]
 """

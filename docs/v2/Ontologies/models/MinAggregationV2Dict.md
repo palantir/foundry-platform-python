@@ -8,7 +8,7 @@ Computes the minimum value for the provided field.
 **field** | PropertyApiName | Yes |  |
 **name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
 **direction** | typing_extensions.NotRequired[OrderByDirection] | No |  |
-**type** | typing.Literal["min"] | Yes | None |
+**type** | Literal["min"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

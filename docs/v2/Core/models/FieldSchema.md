@@ -7,7 +7,7 @@ The specification of the type of a Foundry schema field.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **nullable** | bool | Yes |  |
-**custom_metadata** | typing.Optional[CustomMetadata] | No |  |
+**custom_metadata** | Optional[CustomMetadata] | No |  |
 **data_type** | FieldDataType | Yes |  |
 
 

@@ -72,19 +72,19 @@ class StreamClient:
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name:
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
-        :type schema: typing.Union[streams_models.CreateStreamRequestStreamSchema, streams_models.CreateStreamRequestStreamSchemaDict]
+        :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -151,11 +151,11 @@ class StreamClient:
         user does not have permission to access the stream, a 404 error will be returned.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -205,15 +205,15 @@ class StreamClient:
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: viewRid
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -265,15 +265,15 @@ class StreamClient:
         rejected if it is invalid.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
-        :type record: streams_models.Record
+        :type record: Record
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -333,15 +333,15 @@ class StreamClient:
         the batch will be rejected if one or more of the records are invalid.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
-        :type records: typing.List[streams_models.Record]
+        :type records: List[Record]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -410,19 +410,19 @@ class StreamClient:
         which will be the new stream view that will be written to for the branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-        :type schema: typing.Optional[typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]]
+        :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -514,19 +514,19 @@ class _StreamClientRaw:
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name:
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
-        :type schema: typing.Union[streams_models.CreateStreamRequestStreamSchema, streams_models.CreateStreamRequestStreamSchemaDict]
+        :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -593,11 +593,11 @@ class _StreamClientRaw:
         user does not have permission to access the stream, a 404 error will be returned.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -647,15 +647,15 @@ class _StreamClientRaw:
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: viewRid
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -707,15 +707,15 @@ class _StreamClientRaw:
         rejected if it is invalid.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
-        :type record: streams_models.Record
+        :type record: Record
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -775,15 +775,15 @@ class _StreamClientRaw:
         the batch will be rejected if one or more of the records are invalid.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
-        :type records: typing.List[streams_models.Record]
+        :type records: List[Record]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -852,19 +852,19 @@ class _StreamClientRaw:
         which will be the new stream view that will be written to for the branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-        :type schema: typing.Optional[typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]]
+        :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -956,19 +956,19 @@ class _StreamClientStreaming:
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name:
-        :type branch_name: datasets_models.BranchName
+        :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
-        :type schema: typing.Union[streams_models.CreateStreamRequestStreamSchema, streams_models.CreateStreamRequestStreamSchemaDict]
+        :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1035,11 +1035,11 @@ class _StreamClientStreaming:
         user does not have permission to access the stream, a 404 error will be returned.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1089,15 +1089,15 @@ class _StreamClientStreaming:
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: viewRid
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1149,15 +1149,15 @@ class _StreamClientStreaming:
         rejected if it is invalid.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
-        :type record: streams_models.Record
+        :type record: Record
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1217,15 +1217,15 @@ class _StreamClientStreaming:
         the batch will be rejected if one or more of the records are invalid.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
-        :type records: typing.List[streams_models.Record]
+        :type records: List[Record]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
-        :type view_rid: typing.Optional[streams_models.ViewRid]
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1294,19 +1294,19 @@ class _StreamClientStreaming:
         which will be the new stream view that will be written to for the branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param stream_branch_name: streamBranchName
-        :type stream_branch_name: datasets_models.BranchName
+        :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
-        :type compressed: typing.Optional[streams_models.Compressed]
+        :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
-        :type partitions_count: typing.Optional[streams_models.PartitionsCount]
+        :type partitions_count: Optional[PartitionsCount]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-        :type schema: typing.Optional[typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]]
+        :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
-        :type stream_type: typing.Optional[streams_models.StreamType]
+        :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

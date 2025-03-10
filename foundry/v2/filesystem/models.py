@@ -613,13 +613,13 @@ class ResourceRoleDict(typing_extensions.TypedDict):
 
 
 ResourceRolePrincipal = typing_extensions.Annotated[
-    typing.Union[PrincipalWithId, Everyone], pydantic.Field(discriminator="type")
+    typing.Union["PrincipalWithId", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
 
 ResourceRolePrincipalDict = typing_extensions.Annotated[
-    typing.Union[PrincipalWithIdDict, EveryoneDict], pydantic.Field(discriminator="type")
+    typing.Union["PrincipalWithIdDict", "EveryoneDict"], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 

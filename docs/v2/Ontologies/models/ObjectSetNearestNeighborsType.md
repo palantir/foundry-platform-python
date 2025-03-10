@@ -18,7 +18,7 @@ A non-zero score for each resulting object is returned when the `orderType` in t
 **property_identifier** | PropertyIdentifier | Yes |  |
 **num_neighbors** | int | Yes | The number of objects to return. If the number of documents in the objectType is less than the provided value, all objects will be returned. This value is limited to 1 &lt;= numNeighbors &lt;= 500.  |
 **query** | NearestNeighborsQuery | Yes |  |
-**type** | typing.Literal["nearestNeighbors"] | Yes | None |
+**type** | Literal["nearestNeighbors"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

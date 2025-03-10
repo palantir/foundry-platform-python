@@ -10,7 +10,7 @@ Use collectList or collectSet which will return a list of values in that case.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **selected_property_api_name** | PropertyApiName | Yes |  |
-**type** | typing.Literal["get"] | Yes | None |
+**type** | Literal["get"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

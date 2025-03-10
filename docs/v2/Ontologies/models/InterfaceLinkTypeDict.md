@@ -9,7 +9,7 @@ by the implementing object types.
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | InterfaceLinkTypeRid | Yes |  |
 **apiName** | InterfaceLinkTypeApiName | Yes |  |
-**displayName** | core_models.DisplayName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | typing_extensions.NotRequired[str] | No | The description of the interface link type. |
 **linkedEntityApiName** | InterfaceLinkTypeLinkedEntityApiNameDict | Yes |  |
 **cardinality** | InterfaceLinkTypeCardinality | Yes |  |

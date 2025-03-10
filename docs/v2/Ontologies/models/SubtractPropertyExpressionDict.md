@@ -8,7 +8,7 @@ Subtracts the right numeric value from the left numeric value.
 | ------------ | ------------- | ------------- | ------------- |
 **left** | DerivedPropertyDefinitionDict | Yes |  |
 **right** | DerivedPropertyDefinitionDict | Yes |  |
-**type** | typing.Literal["subtract"] | Yes | None |
+**type** | Literal["subtract"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -7,7 +7,7 @@ Computes the sum of values for the provided field.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
-**type** | typing.Literal["sum"] | Yes | None |
+**type** | Literal["sum"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

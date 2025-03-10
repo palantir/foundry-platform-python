@@ -6,7 +6,7 @@ Represents the validity of a parameter against the configured constraints.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **result** | ValidationResult | Yes |  |
-**evaluated_constraints** | typing.List[ParameterEvaluatedConstraint] | Yes |  |
+**evaluated_constraints** | List[ParameterEvaluatedConstraint] | Yes |  |
 **required** | bool | Yes | Represents whether the parameter is a required input to the action. |
 
 

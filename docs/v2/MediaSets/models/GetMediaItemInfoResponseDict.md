@@ -5,8 +5,8 @@ GetMediaItemInfoResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**viewRid** | core_models.MediaSetViewRid | Yes |  |
-**path** | typing_extensions.NotRequired[core_models.MediaItemPath] | No |  |
+**viewRid** | MediaSetViewRid | Yes |  |
+**path** | typing_extensions.NotRequired[MediaItemPath] | No |  |
 **logicalTimestamp** | LogicalTimestamp | Yes |  |
 **attribution** | typing_extensions.NotRequired[MediaAttributionDict] | No |  |
 

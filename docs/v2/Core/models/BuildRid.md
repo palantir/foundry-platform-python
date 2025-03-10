@@ -4,7 +4,7 @@ The RID of a Build.
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

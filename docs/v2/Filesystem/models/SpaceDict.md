@@ -11,7 +11,7 @@ Space
 **path** | ResourcePath | Yes |  |
 **fileSystemId** | typing_extensions.NotRequired[FileSystemId] | No |  |
 **usageAccountRid** | typing_extensions.NotRequired[UsageAccountRid] | No |  |
-**organizations** | typing.List[core_models.OrganizationRid] | Yes |  |
+**organizations** | List[OrganizationRid] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

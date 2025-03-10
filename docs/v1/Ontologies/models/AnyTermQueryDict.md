@@ -10,7 +10,7 @@ order in the provided value. This query supports fuzzy matching.
 **field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
 **fuzzy** | typing_extensions.NotRequired[Fuzzy] | No |  |
-**type** | typing.Literal["anyTerm"] | Yes | None |
+**type** | Literal["anyTerm"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

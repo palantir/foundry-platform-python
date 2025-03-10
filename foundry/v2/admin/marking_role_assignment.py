@@ -68,11 +68,11 @@ class MarkingRoleAssignmentClient:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -131,13 +131,13 @@ class MarkingRoleAssignmentClient:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -183,13 +183,13 @@ class MarkingRoleAssignmentClient:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -241,11 +241,11 @@ class MarkingRoleAssignmentClient:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -329,11 +329,11 @@ class _MarkingRoleAssignmentClientRaw:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -392,13 +392,13 @@ class _MarkingRoleAssignmentClientRaw:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -444,13 +444,13 @@ class _MarkingRoleAssignmentClientRaw:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -502,11 +502,11 @@ class _MarkingRoleAssignmentClientRaw:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -590,11 +590,11 @@ class _MarkingRoleAssignmentClientStreaming:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -653,13 +653,13 @@ class _MarkingRoleAssignmentClientStreaming:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -705,13 +705,13 @@ class _MarkingRoleAssignmentClientStreaming:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -763,11 +763,11 @@ class _MarkingRoleAssignmentClientStreaming:
         """
 
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

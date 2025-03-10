@@ -101,15 +101,15 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: typing.Union[connectivity_models.CreateConnectionRequestConnectionConfiguration, connectivity_models.CreateConnectionRequestConnectionConfigurationDict]
+        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: connectivity_models.ConnectionDisplayName
+        :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param runtime_platform:
-        :type runtime_platform: typing.Union[connectivity_models.CreateConnectionRequestRuntimePlatform, connectivity_models.CreateConnectionRequestRuntimePlatformDict]
+        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -178,9 +178,9 @@ class ConnectionClient:
         """
         Get the Connection with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -231,9 +231,9 @@ class ConnectionClient:
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -292,11 +292,11 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
-        :type secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue]
+        :type secrets: Dict[SecretName, PlaintextValue]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -390,15 +390,15 @@ class _ConnectionClientRaw:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: typing.Union[connectivity_models.CreateConnectionRequestConnectionConfiguration, connectivity_models.CreateConnectionRequestConnectionConfigurationDict]
+        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: connectivity_models.ConnectionDisplayName
+        :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param runtime_platform:
-        :type runtime_platform: typing.Union[connectivity_models.CreateConnectionRequestRuntimePlatform, connectivity_models.CreateConnectionRequestRuntimePlatformDict]
+        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -467,9 +467,9 @@ class _ConnectionClientRaw:
         """
         Get the Connection with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -520,9 +520,9 @@ class _ConnectionClientRaw:
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -581,11 +581,11 @@ class _ConnectionClientRaw:
         use the Foundry UI instead.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
-        :type secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue]
+        :type secrets: Dict[SecretName, PlaintextValue]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -679,15 +679,15 @@ class _ConnectionClientStreaming:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: typing.Union[connectivity_models.CreateConnectionRequestConnectionConfiguration, connectivity_models.CreateConnectionRequestConnectionConfigurationDict]
+        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: connectivity_models.ConnectionDisplayName
+        :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param runtime_platform:
-        :type runtime_platform: typing.Union[connectivity_models.CreateConnectionRequestRuntimePlatform, connectivity_models.CreateConnectionRequestRuntimePlatformDict]
+        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -756,9 +756,9 @@ class _ConnectionClientStreaming:
         """
         Get the Connection with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -809,9 +809,9 @@ class _ConnectionClientStreaming:
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -870,11 +870,11 @@ class _ConnectionClientStreaming:
         use the Foundry UI instead.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
-        :type secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue]
+        :type secrets: Dict[SecretName, PlaintextValue]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -64,11 +64,11 @@ class AgentVersionClient:
         """
         Get version details for an AIP Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param agent_version_string: agentVersionString
-        :type agent_version_string: aip_agents_models.AgentVersionString
+        :type agent_version_string: AgentVersionString
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -118,13 +118,13 @@ class AgentVersionClient:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -171,13 +171,13 @@ class AgentVersionClient:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -248,11 +248,11 @@ class _AgentVersionClientRaw:
         """
         Get version details for an AIP Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param agent_version_string: agentVersionString
-        :type agent_version_string: aip_agents_models.AgentVersionString
+        :type agent_version_string: AgentVersionString
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -302,13 +302,13 @@ class _AgentVersionClientRaw:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -355,13 +355,13 @@ class _AgentVersionClientRaw:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -432,11 +432,11 @@ class _AgentVersionClientStreaming:
         """
         Get version details for an AIP Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param agent_version_string: agentVersionString
-        :type agent_version_string: aip_agents_models.AgentVersionString
+        :type agent_version_string: AgentVersionString
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -486,13 +486,13 @@ class _AgentVersionClientStreaming:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -539,13 +539,13 @@ class _AgentVersionClientStreaming:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

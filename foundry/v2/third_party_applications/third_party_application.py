@@ -75,9 +75,9 @@ class ThirdPartyApplicationClient:
         """
         Get the ThirdPartyApplication with the specified rid.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -143,9 +143,9 @@ class _ThirdPartyApplicationClientRaw:
         """
         Get the ThirdPartyApplication with the specified rid.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -211,9 +211,9 @@ class _ThirdPartyApplicationClientStreaming:
         """
         Get the ThirdPartyApplication with the specified rid.
         :param third_party_application_rid: thirdPartyApplicationRid
-        :type third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

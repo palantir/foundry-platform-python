@@ -7,7 +7,7 @@ AggregateObjectsResponseV2
 | ------------ | ------------- | ------------- | ------------- |
 **excludedItems** | typing_extensions.NotRequired[int] | No |  |
 **accuracy** | AggregationAccuracy | Yes |  |
-**data** | typing.List[AggregateObjectsResponseItemV2Dict] | Yes |  |
+**data** | List[AggregateObjectsResponseItemV2Dict] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

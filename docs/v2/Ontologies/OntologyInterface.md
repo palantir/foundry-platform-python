@@ -29,11 +29,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **interface_type** | InterfaceTypeApiName | interfaceType |  |
-**aggregation** | typing.List[typing.Union[AggregationV2, AggregationV2Dict]] |  |  |
-**group_by** | typing.List[typing.Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
-**accuracy** | typing.Optional[AggregationAccuracyRequest] |  | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**where** | typing.Optional[typing.Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
+**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
+**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
+**accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -53,12 +53,12 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # InterfaceTypeApiName | interfaceType
 interface_type = "Employee"
-# typing.List[typing.Union[AggregationV2, AggregationV2Dict]] |
+# List[Union[AggregationV2, AggregationV2Dict]] |
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# typing.List[typing.Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
+# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
 group_by = [
     {
         "field": "startDate",
@@ -67,11 +67,11 @@ group_by = [
     },
     {"field": "city", "type": "exact"},
 ]
-# typing.Optional[AggregationAccuracyRequest] |
+# Optional[AggregationAccuracyRequest] |
 accuracy = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
-# typing.Optional[typing.Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
+# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |
 where = {"type": "eq", "field": "name", "value": "john"}
 
 
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
 **interface_type** | InterfaceTypeApiName | interfaceType |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **InterfaceType**
@@ -142,7 +142,7 @@ foundry_client = FoundryClient(
 ontology = "palantir"
 # InterfaceTypeApiName | interfaceType
 interface_type = "Employee"
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -191,9 +191,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListInterfaceTypesResponse**
@@ -211,11 +211,11 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -264,9 +264,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | ontology |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListInterfaceTypesResponse**
@@ -284,11 +284,11 @@ foundry_client = FoundryClient(
 
 # OntologyIdentifier | ontology
 ontology = "palantir"
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

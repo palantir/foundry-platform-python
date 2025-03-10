@@ -9,7 +9,7 @@ object type that implements the interface, or whether it is optional.
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | SharedPropertyTypeRid | Yes |  |
 **apiName** | SharedPropertyTypeApiName | Yes |  |
-**displayName** | core_models.DisplayName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | typing_extensions.NotRequired[str] | No | A short text that describes the SharedPropertyType. |
 **dataType** | ObjectPropertyTypeDict | Yes |  |
 **required** | bool | Yes | Whether each implementing object type must declare an implementation for this property.  |

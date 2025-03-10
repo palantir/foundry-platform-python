@@ -5,7 +5,7 @@ A resource identifier that identifies a branch of a media set.
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

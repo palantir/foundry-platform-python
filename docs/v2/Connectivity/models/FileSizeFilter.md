@@ -8,9 +8,9 @@ If both are present, the value specified for `gt` must be strictly less than `lt
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**gt** | typing.Optional[core_models.SizeBytes] | No | File size must be greater than this number for it to be imported. The value specified cannot be a negative number.  |
-**lt** | typing.Optional[core_models.SizeBytes] | No | File size must be less than this number for it to be imported. The value specified must be at least 1 byte.  |
-**type** | typing.Literal["fileSizeFilter"] | Yes | None |
+**gt** | Optional[SizeBytes] | No | File size must be greater than this number for it to be imported. The value specified cannot be a negative number.  |
+**lt** | Optional[SizeBytes] | No | File size must be less than this number for it to be imported. The value specified must be at least 1 byte.  |
+**type** | Literal["fileSizeFilter"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

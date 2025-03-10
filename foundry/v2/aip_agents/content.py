@@ -63,11 +63,11 @@ class ContentClient:
         """
         Get the conversation content for a session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -135,11 +135,11 @@ class _ContentClientRaw:
         """
         Get the conversation content for a session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -207,11 +207,11 @@ class _ContentClientStreaming:
         """
         Get the conversation content for a session between the calling user and an Agent.
         :param agent_rid: agentRid
-        :type agent_rid: aip_agents_models.AgentRid
+        :type agent_rid: AgentRid
         :param session_rid: sessionRid
-        :type session_rid: aip_agents_models.SessionRid
+        :type session_rid: SessionRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -96,9 +96,9 @@ class DatasetClient:
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -148,7 +148,7 @@ class DatasetClient:
         """
         Get the Dataset with the specified rid.
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -206,19 +206,19 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -258,19 +258,19 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -312,19 +312,19 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -367,19 +367,19 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -476,9 +476,9 @@ class _DatasetClientRaw:
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -528,7 +528,7 @@ class _DatasetClientRaw:
         """
         Get the Dataset with the specified rid.
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -583,19 +583,19 @@ class _DatasetClientRaw:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -679,9 +679,9 @@ class _DatasetClientStreaming:
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: filesystem_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -731,7 +731,7 @@ class _DatasetClientStreaming:
         """
         Get the Dataset with the specified rid.
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -786,19 +786,19 @@ class _DatasetClientStreaming:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

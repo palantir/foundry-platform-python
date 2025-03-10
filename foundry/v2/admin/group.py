@@ -87,13 +87,13 @@ class GroupClient:
         """
         Creates a new Group.
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
-        :type attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+        :type attributes: Dict[AttributeName, AttributeValues]
         :param name: The name of the Group.
-        :type name: admin_models.GroupName
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
-        :type organizations: typing.List[core_models.OrganizationRid]
+        :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -153,7 +153,7 @@ class GroupClient:
         """
         Delete the Group with the specified id.
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -193,7 +193,7 @@ class GroupClient:
         """
         Get the Group with the specified id.
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -245,7 +245,7 @@ class GroupClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetGroupsBatchRequestElement, admin_models.GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -288,9 +288,9 @@ class GroupClient:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -332,9 +332,9 @@ class GroupClient:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -382,11 +382,11 @@ class GroupClient:
         Perform a case-insensitive prefix search for groups based on group name.
 
         :param where:
-        :type where: typing.Union[admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict]
+        :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -464,13 +464,13 @@ class _GroupClientRaw:
         """
         Creates a new Group.
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
-        :type attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+        :type attributes: Dict[AttributeName, AttributeValues]
         :param name: The name of the Group.
-        :type name: admin_models.GroupName
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
-        :type organizations: typing.List[core_models.OrganizationRid]
+        :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -530,7 +530,7 @@ class _GroupClientRaw:
         """
         Delete the Group with the specified id.
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -570,7 +570,7 @@ class _GroupClientRaw:
         """
         Get the Group with the specified id.
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -622,7 +622,7 @@ class _GroupClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetGroupsBatchRequestElement, admin_models.GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -665,9 +665,9 @@ class _GroupClientRaw:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -709,9 +709,9 @@ class _GroupClientRaw:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -759,11 +759,11 @@ class _GroupClientRaw:
         Perform a case-insensitive prefix search for groups based on group name.
 
         :param where:
-        :type where: typing.Union[admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict]
+        :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -841,13 +841,13 @@ class _GroupClientStreaming:
         """
         Creates a new Group.
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
-        :type attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
+        :type attributes: Dict[AttributeName, AttributeValues]
         :param name: The name of the Group.
-        :type name: admin_models.GroupName
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
-        :type organizations: typing.List[core_models.OrganizationRid]
+        :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -907,7 +907,7 @@ class _GroupClientStreaming:
         """
         Delete the Group with the specified id.
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -947,7 +947,7 @@ class _GroupClientStreaming:
         """
         Get the Group with the specified id.
         :param group_id: groupId
-        :type group_id: core_models.PrincipalId
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -999,7 +999,7 @@ class _GroupClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetGroupsBatchRequestElement, admin_models.GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1042,9 +1042,9 @@ class _GroupClientStreaming:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1086,9 +1086,9 @@ class _GroupClientStreaming:
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1136,11 +1136,11 @@ class _GroupClientStreaming:
         Perform a case-insensitive prefix search for groups based on group name.
 
         :param where:
-        :type where: typing.Union[admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict]
+        :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
         :param page_size:
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

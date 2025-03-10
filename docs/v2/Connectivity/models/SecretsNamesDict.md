@@ -7,8 +7,8 @@ This will be provided to the client when fetching the RestConnectionConfiguratio
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**secretNames** | typing.List[SecretName] | Yes | The names of the additional secrets that can be referenced in code and webhook configurations. |
-**type** | typing.Literal["asSecretsNames"] | Yes | None |
+**secretNames** | List[SecretName] | Yes | The names of the additional secrets that can be referenced in code and webhook configurations. |
+**type** | Literal["asSecretsNames"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -23,10 +23,10 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
 **linked_object_primary_key** | PropertyValueEscapedString | linkedObjectPrimaryKey |  |
-**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | typing.Optional[bool] | excludeRid | [optional] |
-**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
-**select** | typing.Optional[typing.List[SelectedPropertyApiName]] | select | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | Optional[bool] | excludeRid | [optional] |
+**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
 
 ### Return type
 **OntologyObjectV2**
@@ -52,13 +52,13 @@ primary_key = 50030
 link_type = "directReport"
 # PropertyValueEscapedString | linkedObjectPrimaryKey
 linked_object_primary_key = 80060
-# typing.Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# typing.Optional[bool] | excludeRid
+# Optional[bool] | excludeRid
 exclude_rid = None
-# typing.Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | packageName
 package_name = None
-# typing.Optional[typing.List[SelectedPropertyApiName]] | select
+# Optional[List[SelectedPropertyApiName]] | select
 select = None
 
 
@@ -120,13 +120,13 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
-**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | typing.Optional[bool] | excludeRid | [optional] |
-**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
-**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**select** | typing.Optional[typing.List[SelectedPropertyApiName]] | select | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | Optional[bool] | excludeRid | [optional] |
+**order_by** | Optional[OrderBy] | orderBy | [optional] |
+**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
 
 ### Return type
 **ListLinkedObjectsResponseV2**
@@ -150,19 +150,19 @@ object_type = "employee"
 primary_key = 50030
 # LinkTypeApiName | linkType
 link_type = "directReport"
-# typing.Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# typing.Optional[bool] | excludeRid
+# Optional[bool] | excludeRid
 exclude_rid = None
-# typing.Optional[OrderBy] | orderBy
+# Optional[OrderBy] | orderBy
 order_by = None
-# typing.Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | packageName
 package_name = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[typing.List[SelectedPropertyApiName]] | select
+# Optional[List[SelectedPropertyApiName]] | select
 select = None
 
 
@@ -225,13 +225,13 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **link_type** | LinkTypeApiName | linkType |  |
-**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | typing.Optional[bool] | excludeRid | [optional] |
-**order_by** | typing.Optional[OrderBy] | orderBy | [optional] |
-**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**select** | typing.Optional[typing.List[SelectedPropertyApiName]] | select | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**exclude_rid** | Optional[bool] | excludeRid | [optional] |
+**order_by** | Optional[OrderBy] | orderBy | [optional] |
+**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
 
 ### Return type
 **ListLinkedObjectsResponseV2**
@@ -255,19 +255,19 @@ object_type = "employee"
 primary_key = 50030
 # LinkTypeApiName | linkType
 link_type = "directReport"
-# typing.Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# typing.Optional[bool] | excludeRid
+# Optional[bool] | excludeRid
 exclude_rid = None
-# typing.Optional[OrderBy] | orderBy
+# Optional[OrderBy] | orderBy
 order_by = None
-# typing.Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | packageName
 package_name = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[typing.List[SelectedPropertyApiName]] | select
+# Optional[List[SelectedPropertyApiName]] | select
 select = None
 
 

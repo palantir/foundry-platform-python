@@ -62,9 +62,9 @@ class OrganizationClient:
         """
         Get the Organization with the specified rid.
         :param organization_rid: organizationRid
-        :type organization_rid: core_models.OrganizationRid
+        :type organization_rid: OrganizationRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -112,15 +112,15 @@ class OrganizationClient:
         """
         Replace the Organization with the specified rid.
         :param organization_rid: organizationRid
-        :type organization_rid: core_models.OrganizationRid
+        :type organization_rid: OrganizationRid
         :param name:
-        :type name: admin_models.OrganizationName
+        :type name: OrganizationName
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
-        :type host: typing.Optional[admin_models.HostName]
+        :type host: Optional[HostName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -200,9 +200,9 @@ class _OrganizationClientRaw:
         """
         Get the Organization with the specified rid.
         :param organization_rid: organizationRid
-        :type organization_rid: core_models.OrganizationRid
+        :type organization_rid: OrganizationRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -250,15 +250,15 @@ class _OrganizationClientRaw:
         """
         Replace the Organization with the specified rid.
         :param organization_rid: organizationRid
-        :type organization_rid: core_models.OrganizationRid
+        :type organization_rid: OrganizationRid
         :param name:
-        :type name: admin_models.OrganizationName
+        :type name: OrganizationName
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
-        :type host: typing.Optional[admin_models.HostName]
+        :type host: Optional[HostName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -338,9 +338,9 @@ class _OrganizationClientStreaming:
         """
         Get the Organization with the specified rid.
         :param organization_rid: organizationRid
-        :type organization_rid: core_models.OrganizationRid
+        :type organization_rid: OrganizationRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -388,15 +388,15 @@ class _OrganizationClientStreaming:
         """
         Replace the Organization with the specified rid.
         :param organization_rid: organizationRid
-        :type organization_rid: core_models.OrganizationRid
+        :type organization_rid: OrganizationRid
         :param name:
-        :type name: admin_models.OrganizationName
+        :type name: OrganizationName
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
-        :type host: typing.Optional[admin_models.HostName]
+        :type host: Optional[HostName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

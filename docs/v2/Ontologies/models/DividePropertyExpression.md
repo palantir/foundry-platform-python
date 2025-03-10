@@ -8,7 +8,7 @@ Divides the left numeric value by the right numeric value.
 | ------------ | ------------- | ------------- | ------------- |
 **left** | DerivedPropertyDefinition | Yes |  |
 **right** | DerivedPropertyDefinition | Yes |  |
-**type** | typing.Literal["divide"] | Yes | None |
+**type** | Literal["divide"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

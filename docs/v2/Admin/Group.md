@@ -17,10 +17,10 @@ Creates a new Group.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**attributes** | typing.Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |  |
+**attributes** | Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |  |
 **name** | GroupName | The name of the Group. |  |
-**organizations** | typing.List[core_models.OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.  |  |
-**description** | typing.Optional[str] | A description of the Group. | [optional] |
+**organizations** | List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.  |  |
+**description** | Optional[str] | A description of the Group. | [optional] |
 
 ### Return type
 **Group**
@@ -36,7 +36,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
+# Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
 attributes = {
     "multipass:givenName": ["John"],
     "multipass:familyName": ["Smith"],
@@ -50,9 +50,9 @@ attributes = {
 }
 # GroupName | The name of the Group.
 name = "Data Source Admins"
-# typing.List[core_models.OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
+# List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
 organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# typing.Optional[str] | A description of the Group.
+# Optional[str] | A description of the Group.
 description = "Create and modify data sources in the platform"
 
 
@@ -90,7 +90,7 @@ Delete the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | core_models.PrincipalId | groupId |  |
+**group_id** | PrincipalId | groupId |  |
 
 ### Return type
 **None**
@@ -106,7 +106,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | groupId
+# PrincipalId | groupId
 group_id = None
 
 
@@ -141,7 +141,7 @@ Get the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | core_models.PrincipalId | groupId |  |
+**group_id** | PrincipalId | groupId |  |
 
 ### Return type
 **Group**
@@ -157,7 +157,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.PrincipalId | groupId
+# PrincipalId | groupId
 group_id = None
 
 
@@ -194,7 +194,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | typing_extensions.Annotated[typing.List[typing.Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request |  |
 
 ### Return type
 **GetGroupsBatchResponse**
@@ -210,7 +210,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing_extensions.Annotated[typing.List[typing.Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request
+# typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request
 body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
@@ -247,8 +247,8 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListGroupsResponse**
@@ -264,9 +264,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
 
 
@@ -303,8 +303,8 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
 
 ### Return type
 **ListGroupsResponse**
@@ -320,9 +320,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
 
 
@@ -359,9 +359,9 @@ Perform a case-insensitive prefix search for groups based on group name.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | typing.Union[GroupSearchFilter, GroupSearchFilterDict] |  |  |
-**page_size** | typing.Optional[core_models.PageSize] |  | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] |  | [optional] |
+**where** | Union[GroupSearchFilter, GroupSearchFilterDict] |  |  |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
 
 ### Return type
 **SearchGroupsResponse**
@@ -377,11 +377,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Union[GroupSearchFilter, GroupSearchFilterDict] |
+# Union[GroupSearchFilter, GroupSearchFilterDict] |
 where = {"type": "queryString"}
-# typing.Optional[core_models.PageSize] |
+# Optional[PageSize] |
 page_size = 100
-# typing.Optional[core_models.PageToken] |
+# Optional[PageToken] |
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
 
 

@@ -86,15 +86,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -143,15 +143,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -202,15 +202,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -262,15 +262,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -349,13 +349,13 @@ class FileClient:
         open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -425,15 +425,15 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -509,17 +509,17 @@ class FileClient:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -592,17 +592,17 @@ class FileClient:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -676,17 +676,17 @@ class FileClient:
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -784,15 +784,15 @@ class _FileClientRaw:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -858,13 +858,13 @@ class _FileClientRaw:
         open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -934,15 +934,15 @@ class _FileClientRaw:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1018,17 +1018,17 @@ class _FileClientRaw:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1101,17 +1101,17 @@ class _FileClientRaw:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1185,17 +1185,17 @@ class _FileClientRaw:
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1293,15 +1293,15 @@ class _FileClientStreaming:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1367,13 +1367,13 @@ class _FileClientStreaming:
         open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1443,15 +1443,15 @@ class _FileClientStreaming:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1527,17 +1527,17 @@ class _FileClientStreaming:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1610,17 +1610,17 @@ class _FileClientStreaming:
         Transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1694,17 +1694,17 @@ class _FileClientStreaming:
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param file_path: filePath
-        :type file_path: core_models.FilePath
+        :type file_path: FilePath
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param transaction_type: transactionType
-        :type transaction_type: typing.Optional[datasets_models.TransactionType]
+        :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

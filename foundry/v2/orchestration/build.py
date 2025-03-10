@@ -65,9 +65,9 @@ class BuildClient:
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
         :param build_rid: buildRid
-        :type build_rid: core_models.BuildRid
+        :type build_rid: BuildRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -124,23 +124,23 @@ class BuildClient:
         """
 
         :param fallback_branches:
-        :type fallback_branches: orchestration_models.FallbackBranches
+        :type fallback_branches: FallbackBranches
         :param target: The targets of the schedule.
-        :type target: typing.Union[orchestration_models.BuildTarget, orchestration_models.BuildTargetDict]
+        :type target: Union[BuildTarget, BuildTargetDict]
         :param abort_on_failure:
-        :type abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure]
+        :type abort_on_failure: Optional[AbortOnFailure]
         :param branch_name: The target branch the build should run on.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param force_build:
-        :type force_build: typing.Optional[orchestration_models.ForceBuild]
+        :type force_build: Optional[ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
-        :type notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled]
+        :type notifications_enabled: Optional[NotificationsEnabled]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: typing.Optional[typing.Union[orchestration_models.RetryBackoffDuration, orchestration_models.RetryBackoffDurationDict]]
+        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
-        :type retry_count: typing.Optional[orchestration_models.RetryCount]
+        :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -214,9 +214,9 @@ class BuildClient:
         """
         Get the Build with the specified rid.
         :param build_rid: buildRid
-        :type build_rid: core_models.BuildRid
+        :type build_rid: BuildRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -271,9 +271,9 @@ class BuildClient:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[orchestration_models.GetBuildsBatchRequestElement, orchestration_models.GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
+        :type body: typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -326,15 +326,15 @@ class BuildClient:
         """
         Search for Builds.
         :param where:
-        :type where: typing.Union[orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict]
+        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: typing.Optional[typing.Union[orchestration_models.SearchBuildsOrderBy, orchestration_models.SearchBuildsOrderByDict]]
+        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -421,9 +421,9 @@ class _BuildClientRaw:
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
         :param build_rid: buildRid
-        :type build_rid: core_models.BuildRid
+        :type build_rid: BuildRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -480,23 +480,23 @@ class _BuildClientRaw:
         """
 
         :param fallback_branches:
-        :type fallback_branches: orchestration_models.FallbackBranches
+        :type fallback_branches: FallbackBranches
         :param target: The targets of the schedule.
-        :type target: typing.Union[orchestration_models.BuildTarget, orchestration_models.BuildTargetDict]
+        :type target: Union[BuildTarget, BuildTargetDict]
         :param abort_on_failure:
-        :type abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure]
+        :type abort_on_failure: Optional[AbortOnFailure]
         :param branch_name: The target branch the build should run on.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param force_build:
-        :type force_build: typing.Optional[orchestration_models.ForceBuild]
+        :type force_build: Optional[ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
-        :type notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled]
+        :type notifications_enabled: Optional[NotificationsEnabled]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: typing.Optional[typing.Union[orchestration_models.RetryBackoffDuration, orchestration_models.RetryBackoffDurationDict]]
+        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
-        :type retry_count: typing.Optional[orchestration_models.RetryCount]
+        :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -570,9 +570,9 @@ class _BuildClientRaw:
         """
         Get the Build with the specified rid.
         :param build_rid: buildRid
-        :type build_rid: core_models.BuildRid
+        :type build_rid: BuildRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -627,9 +627,9 @@ class _BuildClientRaw:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[orchestration_models.GetBuildsBatchRequestElement, orchestration_models.GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
+        :type body: typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -682,15 +682,15 @@ class _BuildClientRaw:
         """
         Search for Builds.
         :param where:
-        :type where: typing.Union[orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict]
+        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: typing.Optional[typing.Union[orchestration_models.SearchBuildsOrderBy, orchestration_models.SearchBuildsOrderByDict]]
+        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -777,9 +777,9 @@ class _BuildClientStreaming:
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
         :param build_rid: buildRid
-        :type build_rid: core_models.BuildRid
+        :type build_rid: BuildRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -836,23 +836,23 @@ class _BuildClientStreaming:
         """
 
         :param fallback_branches:
-        :type fallback_branches: orchestration_models.FallbackBranches
+        :type fallback_branches: FallbackBranches
         :param target: The targets of the schedule.
-        :type target: typing.Union[orchestration_models.BuildTarget, orchestration_models.BuildTargetDict]
+        :type target: Union[BuildTarget, BuildTargetDict]
         :param abort_on_failure:
-        :type abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure]
+        :type abort_on_failure: Optional[AbortOnFailure]
         :param branch_name: The target branch the build should run on.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param force_build:
-        :type force_build: typing.Optional[orchestration_models.ForceBuild]
+        :type force_build: Optional[ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
-        :type notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled]
+        :type notifications_enabled: Optional[NotificationsEnabled]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: typing.Optional[typing.Union[orchestration_models.RetryBackoffDuration, orchestration_models.RetryBackoffDurationDict]]
+        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
-        :type retry_count: typing.Optional[orchestration_models.RetryCount]
+        :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -926,9 +926,9 @@ class _BuildClientStreaming:
         """
         Get the Build with the specified rid.
         :param build_rid: buildRid
-        :type build_rid: core_models.BuildRid
+        :type build_rid: BuildRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -983,9 +983,9 @@ class _BuildClientStreaming:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[orchestration_models.GetBuildsBatchRequestElement, orchestration_models.GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
+        :type body: typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1038,15 +1038,15 @@ class _BuildClientStreaming:
         """
         Search for Builds.
         :param where:
-        :type where: typing.Union[orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict]
+        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
         :param order_by:
-        :type order_by: typing.Optional[typing.Union[orchestration_models.SearchBuildsOrderBy, orchestration_models.SearchBuildsOrderByDict]]
+        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token:
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

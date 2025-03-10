@@ -6,8 +6,8 @@ LinkTypeSide
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | LinkTypeApiName | Yes |  |
-**displayName** | core_models.DisplayName | Yes |  |
-**status** | core_models.ReleaseStatus | Yes |  |
+**displayName** | DisplayName | Yes |  |
+**status** | ReleaseStatus | Yes |  |
 **objectTypeApiName** | ObjectTypeApiName | Yes |  |
 **cardinality** | LinkTypeSideCardinality | Yes |  |
 **foreignKeyPropertyApiName** | typing_extensions.NotRequired[PropertyApiName] | No |  |

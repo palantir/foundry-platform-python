@@ -12,8 +12,8 @@ Get the Enrollment with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | core_models.EnrollmentRid | enrollmentRid |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**enrollment_rid** | EnrollmentRid | enrollmentRid |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Enrollment**
@@ -29,9 +29,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.EnrollmentRid | enrollmentRid
+# EnrollmentRid | enrollmentRid
 enrollment_rid = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -68,7 +68,7 @@ Returns the Enrollment associated with the current User's primary organization.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **Enrollment**
@@ -84,7 +84,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

@@ -14,9 +14,9 @@ Method | HTTP request | Release Stage |
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | core_models.MarkingId | markingId |  |
-**role_assignments** | typing.List[typing.Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**marking_id** | MarkingId | markingId |  |
+**role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -32,11 +32,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.MarkingId | markingId
+# MarkingId | markingId
 marking_id = None
-# typing.List[typing.Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
+# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
 role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -74,10 +74,10 @@ List all principals who are assigned a role for the given Marking. Ignores the `
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | core_models.MarkingId | markingId |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**marking_id** | MarkingId | markingId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListMarkingRoleAssignmentsResponse**
@@ -93,13 +93,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.MarkingId | markingId
+# MarkingId | markingId
 marking_id = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -137,10 +137,10 @@ List all principals who are assigned a role for the given Marking. Ignores the `
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | core_models.MarkingId | markingId |  |
-**page_size** | typing.Optional[core_models.PageSize] | pageSize | [optional] |
-**page_token** | typing.Optional[core_models.PageToken] | pageToken | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**marking_id** | MarkingId | markingId |  |
+**page_size** | Optional[PageSize] | pageSize | [optional] |
+**page_token** | Optional[PageToken] | pageToken | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **ListMarkingRoleAssignmentsResponse**
@@ -156,13 +156,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.MarkingId | markingId
+# MarkingId | markingId
 marking_id = None
-# typing.Optional[core_models.PageSize] | pageSize
+# Optional[PageSize] | pageSize
 page_size = None
-# typing.Optional[core_models.PageToken] | pageToken
+# Optional[PageToken] | pageToken
 page_token = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 
@@ -200,9 +200,9 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | core_models.MarkingId | markingId |  |
-**role_assignments** | typing.List[typing.Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**marking_id** | MarkingId | markingId |  |
+**role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -218,11 +218,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# core_models.MarkingId | markingId
+# MarkingId | markingId
 marking_id = None
-# typing.List[typing.Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
+# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
 role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = None
 
 

@@ -7,9 +7,9 @@ Information that describes a Foundry Authentication Provider as a SAML service p
 | ------------ | ------------- | ------------- | ------------- |
 **entity_id** | str | Yes | The static SAML entity ID that represents this service provider. |
 **metadata_url** | str | Yes | A public URL from which this service provider metadata can be downloaded as XML. |
-**acs_urls** | typing.List[str] | Yes | The Assertion Consumer Service (ACS) URLs for this service provider, to which the SAML identity provider redirects authentication responses.  |
-**logout_urls** | typing.List[str] | Yes | The URLs for this service provider to which the SAML identity provider sends logout requests. |
-**certificates** | typing.List[CertificateInfo] | Yes |  |
+**acs_urls** | List[str] | Yes | The Assertion Consumer Service (ACS) URLs for this service provider, to which the SAML identity provider redirects authentication responses.  |
+**logout_urls** | List[str] | Yes | The URLs for this service provider to which the SAML identity provider sends logout requests. |
+**certificates** | List[CertificateInfo] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -5,7 +5,7 @@ The unique resource identifier of an action type, useful for interacting with ot
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

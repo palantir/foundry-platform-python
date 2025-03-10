@@ -10,22 +10,22 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-core_models.DateTypeDict | date
+DateTypeDict | date
 OntologyInterfaceObjectTypeDict | interfaceObject
 OntologyStructTypeDict | struct
-core_models.StringTypeDict | string
-core_models.DoubleTypeDict | double
-core_models.IntegerTypeDict | integer
-core_models.LongTypeDict | long
+StringTypeDict | string
+DoubleTypeDict | double
+IntegerTypeDict | integer
+LongTypeDict | long
 OntologyObjectTypeReferenceTypeDict | objectType
-core_models.BooleanTypeDict | boolean
-core_models.MarkingTypeDict | marking
-core_models.AttachmentTypeDict | attachment
-core_models.MediaReferenceTypeDict | mediaReference
+BooleanTypeDict | boolean
+MarkingTypeDict | marking
+AttachmentTypeDict | attachment
+MediaReferenceTypeDict | mediaReference
 ActionParameterArrayTypeDict | array
 OntologyObjectSetTypeDict | objectSet
 OntologyObjectTypeDict | object
-core_models.TimestampTypeDict | timestamp
+TimestampTypeDict | timestamp
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

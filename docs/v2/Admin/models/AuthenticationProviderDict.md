@@ -7,10 +7,10 @@ AuthenticationProvider
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | AuthenticationProviderRid | Yes |  |
 **name** | AuthenticationProviderName | Yes |  |
-**realm** | core_models.Realm | Yes |  |
+**realm** | Realm | Yes |  |
 **enabled** | AuthenticationProviderEnabled | Yes | Whether users can log in using this provider. |
-**supportedHosts** | typing.List[HostName] | Yes | This provider can only be utilized from these hosts. |
-**supportedUsernamePatterns** | typing.List[str] | Yes | Users who enter usernames that match these patterns will be redirected to this authentication provider. |
+**supportedHosts** | List[HostName] | Yes | This provider can only be utilized from these hosts. |
+**supportedUsernamePatterns** | List[str] | Yes | Users who enter usernames that match these patterns will be redirected to this authentication provider. |
 **protocol** | AuthenticationProtocolDict | Yes |  |
 
 

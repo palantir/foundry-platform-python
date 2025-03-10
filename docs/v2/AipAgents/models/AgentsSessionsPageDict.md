@@ -7,8 +7,8 @@ Sessions are returned in order of most recently updated first.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nextPageToken** | typing_extensions.NotRequired[core_models.PageToken] | No | The page token that should be used when requesting the next page of results. Empty if there are no more results to retrieve.  |
-**data** | typing.List[SessionDict] | Yes |  |
+**nextPageToken** | typing_extensions.NotRequired[PageToken] | No | The page token that should be used when requesting the next page of results. Empty if there are no more results to retrieve.  |
+**data** | List[SessionDict] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

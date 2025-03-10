@@ -6,12 +6,12 @@ Represents an object type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | ObjectTypeApiName | Yes |  |
-**displayName** | typing_extensions.NotRequired[core_models.DisplayName] | No |  |
-**status** | core_models.ReleaseStatus | Yes |  |
+**displayName** | typing_extensions.NotRequired[DisplayName] | No |  |
+**status** | ReleaseStatus | Yes |  |
 **description** | typing_extensions.NotRequired[str] | No | The description of the object type. |
 **visibility** | typing_extensions.NotRequired[ObjectTypeVisibility] | No |  |
-**primaryKey** | typing.List[PropertyApiName] | Yes | The primary key of the object. This is a list of properties that can be used to uniquely identify the object. |
-**properties** | typing.Dict[PropertyApiName, PropertyDict] | Yes | A map of the properties of the object type. |
+**primaryKey** | List[PropertyApiName] | Yes | The primary key of the object. This is a list of properties that can be used to uniquely identify the object. |
+**properties** | Dict[PropertyApiName, PropertyDict] | Yes | A map of the properties of the object type. |
 **rid** | ObjectTypeRid | Yes |  |
 
 

@@ -7,7 +7,7 @@ OntologyObjectSetType
 | ------------ | ------------- | ------------- | ------------- |
 **objectApiName** | typing_extensions.NotRequired[ObjectTypeApiName] | No |  |
 **objectTypeApiName** | typing_extensions.NotRequired[ObjectTypeApiName] | No |  |
-**type** | typing.Literal["objectSet"] | Yes | None |
+**type** | Literal["objectSet"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

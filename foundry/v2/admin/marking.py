@@ -91,17 +91,17 @@ class MarkingClient:
         """
         Creates a new Marking.
         :param category_id:
-        :type category_id: admin_models.MarkingCategoryId
+        :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
-        :type initial_members: typing.List[core_models.PrincipalId]
+        :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
-        :type initial_role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param name:
-        :type name: admin_models.MarkingName
+        :type name: MarkingName
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -170,9 +170,9 @@ class MarkingClient:
         """
         Get the Marking with the specified id.
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -229,9 +229,9 @@ class MarkingClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetMarkingsBatchRequestElement, admin_models.GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -275,11 +275,11 @@ class MarkingClient:
         """
         Maximum page size 100.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -321,11 +321,11 @@ class MarkingClient:
         """
         Maximum page size 100.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -399,17 +399,17 @@ class _MarkingClientRaw:
         """
         Creates a new Marking.
         :param category_id:
-        :type category_id: admin_models.MarkingCategoryId
+        :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
-        :type initial_members: typing.List[core_models.PrincipalId]
+        :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
-        :type initial_role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param name:
-        :type name: admin_models.MarkingName
+        :type name: MarkingName
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -478,9 +478,9 @@ class _MarkingClientRaw:
         """
         Get the Marking with the specified id.
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -537,9 +537,9 @@ class _MarkingClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetMarkingsBatchRequestElement, admin_models.GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -583,11 +583,11 @@ class _MarkingClientRaw:
         """
         Maximum page size 100.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -629,11 +629,11 @@ class _MarkingClientRaw:
         """
         Maximum page size 100.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -707,17 +707,17 @@ class _MarkingClientStreaming:
         """
         Creates a new Marking.
         :param category_id:
-        :type category_id: admin_models.MarkingCategoryId
+        :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
-        :type initial_members: typing.List[core_models.PrincipalId]
+        :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
-        :type initial_role_assignments: typing.List[typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]]
+        :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param name:
-        :type name: admin_models.MarkingName
+        :type name: MarkingName
         :param description:
-        :type description: typing.Optional[str]
+        :type description: Optional[str]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -786,9 +786,9 @@ class _MarkingClientStreaming:
         """
         Get the Marking with the specified id.
         :param marking_id: markingId
-        :type marking_id: core_models.MarkingId
+        :type marking_id: MarkingId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -845,9 +845,9 @@ class _MarkingClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[typing.List[typing.Union[admin_models.GetMarkingsBatchRequestElement, admin_models.GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -891,11 +891,11 @@ class _MarkingClientStreaming:
         """
         Maximum page size 100.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -937,11 +937,11 @@ class _MarkingClientStreaming:
         """
         Maximum page size 100.
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

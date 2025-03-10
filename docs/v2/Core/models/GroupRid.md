@@ -4,7 +4,7 @@ The unique resource identifier (RID) of a multipass group.
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

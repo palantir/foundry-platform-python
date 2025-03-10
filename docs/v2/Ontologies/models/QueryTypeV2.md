@@ -6,9 +6,9 @@ Represents a query type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | QueryApiName | Yes |  |
-**description** | typing.Optional[str] | No |  |
-**display_name** | typing.Optional[core_models.DisplayName] | No |  |
-**parameters** | typing.Dict[ParameterId, QueryParameterV2] | Yes |  |
+**description** | Optional[str] | No |  |
+**display_name** | Optional[DisplayName] | No |  |
+**parameters** | Dict[ParameterId, QueryParameterV2] | Yes |  |
 **output** | QueryDataType | Yes |  |
 **rid** | FunctionRid | Yes |  |
 **version** | FunctionVersion | Yes |  |

@@ -66,11 +66,11 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
-        :type transaction_id: media_sets_models.TransactionId
+        :type transaction_id: TransactionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -114,11 +114,11 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
-        :type transaction_id: media_sets_models.TransactionId
+        :type transaction_id: TransactionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -162,11 +162,11 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[media_sets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -213,13 +213,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -270,13 +270,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -305,13 +305,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -342,13 +342,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -380,13 +380,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -450,13 +450,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -485,13 +485,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -522,13 +522,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -560,13 +560,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -627,13 +627,13 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -687,21 +687,21 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: typing.Optional[media_sets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param branch_rid: branchRid
-        :type branch_rid: typing.Optional[media_sets_models.BranchRid]
+        :type branch_rid: Optional[BranchRid]
         :param media_item_path: mediaItemPath
-        :type media_item_path: typing.Optional[core_models.MediaItemPath]
+        :type media_item_path: Optional[MediaItemPath]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_id: transactionId
-        :type transaction_id: typing.Optional[media_sets_models.TransactionId]
+        :type transaction_id: Optional[TransactionId]
         :param view_rid: viewRid
-        :type view_rid: typing.Optional[core_models.MediaSetViewRid]
+        :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -773,11 +773,11 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
-        :type transaction_id: media_sets_models.TransactionId
+        :type transaction_id: TransactionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -821,11 +821,11 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
-        :type transaction_id: media_sets_models.TransactionId
+        :type transaction_id: TransactionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -869,11 +869,11 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[media_sets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -920,13 +920,13 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -974,13 +974,13 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1028,13 +1028,13 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1082,13 +1082,13 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1142,21 +1142,21 @@ class _MediaSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: typing.Optional[media_sets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param branch_rid: branchRid
-        :type branch_rid: typing.Optional[media_sets_models.BranchRid]
+        :type branch_rid: Optional[BranchRid]
         :param media_item_path: mediaItemPath
-        :type media_item_path: typing.Optional[core_models.MediaItemPath]
+        :type media_item_path: Optional[MediaItemPath]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_id: transactionId
-        :type transaction_id: typing.Optional[media_sets_models.TransactionId]
+        :type transaction_id: Optional[TransactionId]
         :param view_rid: viewRid
-        :type view_rid: typing.Optional[core_models.MediaSetViewRid]
+        :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1228,11 +1228,11 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
-        :type transaction_id: media_sets_models.TransactionId
+        :type transaction_id: TransactionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1276,11 +1276,11 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param transaction_id: transactionId
-        :type transaction_id: media_sets_models.TransactionId
+        :type transaction_id: TransactionId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1324,11 +1324,11 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param branch_name: branchName
-        :type branch_name: typing.Optional[media_sets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1375,13 +1375,13 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1429,13 +1429,13 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1483,13 +1483,13 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1537,13 +1537,13 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: mediaItemRid
-        :type media_item_rid: core_models.MediaItemRid
+        :type media_item_rid: MediaItemRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param read_token: ReadToken
-        :type read_token: typing.Optional[core_models.MediaItemReadToken]
+        :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1597,21 +1597,21 @@ class _MediaSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid: mediaSetRid
-        :type media_set_rid: core_models.MediaSetRid
+        :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
         :param branch_name: branchName
-        :type branch_name: typing.Optional[media_sets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param branch_rid: branchRid
-        :type branch_rid: typing.Optional[media_sets_models.BranchRid]
+        :type branch_rid: Optional[BranchRid]
         :param media_item_path: mediaItemPath
-        :type media_item_path: typing.Optional[core_models.MediaItemPath]
+        :type media_item_path: Optional[MediaItemPath]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_id: transactionId
-        :type transaction_id: typing.Optional[media_sets_models.TransactionId]
+        :type transaction_id: Optional[TransactionId]
         :param view_rid: viewRid
-        :type view_rid: typing.Optional[core_models.MediaSetViewRid]
+        :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

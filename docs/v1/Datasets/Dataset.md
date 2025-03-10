@@ -20,7 +20,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **name** | DatasetName |  |  |
-**parent_folder_rid** | core_models.FolderRid |  |  |
+**parent_folder_rid** | FolderRid |  |  |
 
 ### Return type
 **Dataset**
@@ -38,7 +38,7 @@ foundry_client = FoundryClient(
 
 # DatasetName |
 name = "My Dataset"
-# core_models.FolderRid |
+# FolderRid |
 parent_folder_rid = "ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4"
 
 
@@ -76,9 +76,9 @@ Deletes the Schema from a Dataset and Branch.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**transaction_rid** | typing.Optional[TransactionRid] | transactionRid | [optional] |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
 
 ### Return type
 **None**
@@ -96,11 +96,11 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = True
-# typing.Optional[TransactionRid] | transactionRid
+# Optional[TransactionRid] | transactionRid
 transaction_rid = None
 
 
@@ -194,12 +194,12 @@ Retrieves the Schema for a Dataset and Branch, if it exists.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
-**transaction_rid** | typing.Optional[TransactionRid] | transactionRid | [optional] |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
+**transaction_rid** | Optional[TransactionRid] | transactionRid | [optional] |
 
 ### Return type
-**typing.Optional[typing.Any]**
+**Optional[Any]**
 
 ### Example
 
@@ -214,11 +214,11 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = True
-# typing.Optional[TransactionRid] | transactionRid
+# Optional[TransactionRid] | transactionRid
 transaction_rid = None
 
 
@@ -245,7 +245,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | typing.Optional[typing.Any]  |  | application/json |
+**200** | Optional[Any]  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
 
@@ -263,11 +263,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
 **format** | TableExportFormat | format |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**columns** | typing.Optional[typing.List[str]] | columns | [optional] |
-**end_transaction_rid** | typing.Optional[TransactionRid] | endTransactionRid | [optional] |
-**row_limit** | typing.Optional[int] | rowLimit | [optional] |
-**start_transaction_rid** | typing.Optional[TransactionRid] | startTransactionRid | [optional] |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**columns** | Optional[List[str]] | columns | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
+**row_limit** | Optional[int] | rowLimit | [optional] |
+**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
 
 ### Return type
 **bytes**
@@ -287,15 +287,15 @@ foundry_client = FoundryClient(
 dataset_rid = None
 # TableExportFormat | format
 format = "CSV"
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[typing.List[str]] | columns
+# Optional[List[str]] | columns
 columns = None
-# typing.Optional[TransactionRid] | endTransactionRid
+# Optional[TransactionRid] | endTransactionRid
 end_transaction_rid = None
-# typing.Optional[int] | rowLimit
+# Optional[int] | rowLimit
 row_limit = None
-# typing.Optional[TransactionRid] | startTransactionRid
+# Optional[TransactionRid] | startTransactionRid
 start_transaction_rid = None
 
 
@@ -395,9 +395,9 @@ Puts a Schema on an existing Dataset and Branch.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | datasetRid |  |
-**body** | typing.Any | Body of the request |  |
-**branch_id** | typing.Optional[BranchId] | branchId | [optional] |
-**preview** | typing.Optional[core_models.PreviewMode] | preview | [optional] |
+**body** | Any | Body of the request |  |
+**branch_id** | Optional[BranchId] | branchId | [optional] |
+**preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
 **None**
@@ -415,11 +415,11 @@ foundry_client = FoundryClient(
 
 # DatasetRid | datasetRid
 dataset_rid = None
-# typing.Any | Body of the request
+# Any | Body of the request
 body = None
-# typing.Optional[BranchId] | branchId
+# Optional[BranchId] | branchId
 branch_id = None
-# typing.Optional[core_models.PreviewMode] | preview
+# Optional[PreviewMode] | preview
 preview = True
 
 

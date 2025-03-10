@@ -64,9 +64,9 @@ class UserProviderInfoClient:
         """
         Get the UserProviderInfo.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -112,11 +112,11 @@ class UserProviderInfoClient:
         """
         Replace the UserProviderInfo.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
-        :type provider_id: admin_models.ProviderId
+        :type provider_id: ProviderId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -190,9 +190,9 @@ class _UserProviderInfoClientRaw:
         """
         Get the UserProviderInfo.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -238,11 +238,11 @@ class _UserProviderInfoClientRaw:
         """
         Replace the UserProviderInfo.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
-        :type provider_id: admin_models.ProviderId
+        :type provider_id: ProviderId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -316,9 +316,9 @@ class _UserProviderInfoClientStreaming:
         """
         Get the UserProviderInfo.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -364,11 +364,11 @@ class _UserProviderInfoClientStreaming:
         """
         Replace the UserProviderInfo.
         :param user_id: userId
-        :type user_id: core_models.PrincipalId
+        :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
-        :type provider_id: admin_models.ProviderId
+        :type provider_id: ProviderId
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

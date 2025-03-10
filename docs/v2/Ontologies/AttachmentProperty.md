@@ -22,8 +22,8 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
-**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **AttachmentMetadataResponse**
@@ -47,9 +47,9 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | property
 property = "performance"
-# typing.Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# typing.Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -98,8 +98,8 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
 **attachment_rid** | AttachmentRid | attachmentRid |  |
-**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **AttachmentV2**
@@ -125,9 +125,9 @@ primary_key = 50030
 property = "performance"
 # AttachmentRid | attachmentRid
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
-# typing.Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# typing.Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -176,8 +176,8 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | objectType |  |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
-**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **bytes**
@@ -201,9 +201,9 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | property
 property = "performance"
-# typing.Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# typing.Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | packageName
 package_name = None
 
 
@@ -254,8 +254,8 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | primaryKey |  |
 **property** | PropertyApiName | property |  |
 **attachment_rid** | AttachmentRid | attachmentRid |  |
-**artifact_repository** | typing.Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | typing.Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**package_name** | Optional[SdkPackageName] | packageName | [optional] |
 
 ### Return type
 **bytes**
@@ -281,9 +281,9 @@ primary_key = 50030
 property = "performance"
 # AttachmentRid | attachmentRid
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
-# typing.Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | artifactRepository
 artifact_repository = None
-# typing.Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | packageName
 package_name = None
 
 

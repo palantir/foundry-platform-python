@@ -7,7 +7,7 @@ Computes the maximum value for the provided field.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
-**type** | typing.Literal["max"] | Yes | None |
+**type** | Literal["max"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

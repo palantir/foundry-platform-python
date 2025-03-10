@@ -12,7 +12,7 @@ by a variety of means. Either `field` or `propertyIdentifier` must be supplied, 
 **propertyIdentifier** | typing_extensions.NotRequired[PropertyIdentifierDict] | No |  |
 **value** | str | Yes |  |
 **fuzzy** | typing_extensions.NotRequired[FuzzyV2] | No |  |
-**type** | typing.Literal["containsAnyTerm"] | Yes | None |
+**type** | Literal["containsAnyTerm"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

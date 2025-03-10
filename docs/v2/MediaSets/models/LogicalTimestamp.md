@@ -9,7 +9,7 @@ Only positive timestamps (representing times after epoch) are supported.
 
 ## Type
 ```python
-core.Long
+Long
 ```
 
 

@@ -74,21 +74,21 @@ class FileImportClient:
         """
         Creates a new FileImport.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.FileImportDisplayName
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: connectivity_models.FileImportMode
+        :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: typing.Optional[str]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -176,11 +176,11 @@ class FileImportClient:
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -227,11 +227,11 @@ class FileImportClient:
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -278,11 +278,11 @@ class FileImportClient:
         """
         Get the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -332,13 +332,13 @@ class FileImportClient:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -385,13 +385,13 @@ class FileImportClient:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -451,23 +451,23 @@ class FileImportClient:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.FileImportDisplayName
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: connectivity_models.FileImportMode
+        :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: typing.Optional[str]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -579,21 +579,21 @@ class _FileImportClientRaw:
         """
         Creates a new FileImport.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.FileImportDisplayName
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: connectivity_models.FileImportMode
+        :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: typing.Optional[str]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -681,11 +681,11 @@ class _FileImportClientRaw:
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -732,11 +732,11 @@ class _FileImportClientRaw:
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -783,11 +783,11 @@ class _FileImportClientRaw:
         """
         Get the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -837,13 +837,13 @@ class _FileImportClientRaw:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -890,13 +890,13 @@ class _FileImportClientRaw:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -956,23 +956,23 @@ class _FileImportClientRaw:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.FileImportDisplayName
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: connectivity_models.FileImportMode
+        :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: typing.Optional[str]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1084,21 +1084,21 @@ class _FileImportClientStreaming:
         """
         Creates a new FileImport.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.FileImportDisplayName
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: connectivity_models.FileImportMode
+        :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: typing.Optional[str]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1186,11 +1186,11 @@ class _FileImportClientStreaming:
         be updated by this import.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1237,11 +1237,11 @@ class _FileImportClientStreaming:
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1288,11 +1288,11 @@ class _FileImportClientStreaming:
         """
         Get the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1342,13 +1342,13 @@ class _FileImportClientStreaming:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1395,13 +1395,13 @@ class _FileImportClientStreaming:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param page_size: pageSize
-        :type page_size: typing.Optional[core_models.PageSize]
+        :type page_size: Optional[PageSize]
         :param page_token: pageToken
-        :type page_token: typing.Optional[core_models.PageToken]
+        :type page_token: Optional[PageToken]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1461,23 +1461,23 @@ class _FileImportClientStreaming:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid: connectionRid
-        :type connection_rid: connectivity_models.ConnectionRid
+        :type connection_rid: ConnectionRid
         :param file_import_rid: fileImportRid
-        :type file_import_rid: connectivity_models.FileImportRid
+        :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: connectivity_models.FileImportDisplayName
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: typing.List[typing.Union[connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict]]
+        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
-        :type import_mode: connectivity_models.FileImportMode
+        :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: typing.Optional[datasets_models.BranchName]
+        :type branch_name: Optional[BranchName]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
-        :type subfolder: typing.Optional[str]
+        :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

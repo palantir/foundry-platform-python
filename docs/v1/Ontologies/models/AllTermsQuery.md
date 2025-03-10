@@ -9,8 +9,8 @@ order in the provided value. This query supports fuzzy matching.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
-**fuzzy** | typing.Optional[Fuzzy] | No |  |
-**type** | typing.Literal["allTerms"] | Yes | None |
+**fuzzy** | Optional[Fuzzy] | No |  |
+**type** | Literal["allTerms"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

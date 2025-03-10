@@ -5,7 +5,7 @@ The Resource Identifier (RID) of an Agent.
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

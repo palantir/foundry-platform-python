@@ -4,7 +4,7 @@ AttributeValues
 
 ## Type
 ```python
-typing.List[AttributeValue]
+List[AttributeValue]
 ```
 
 

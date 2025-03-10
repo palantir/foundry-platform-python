@@ -6,8 +6,8 @@ ValidateActionResponse
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **result** | ValidationResult | Yes |  |
-**submissionCriteria** | typing.List[SubmissionCriteriaEvaluationDict] | Yes |  |
-**parameters** | typing.Dict[ParameterId, ParameterEvaluationResultDict] | Yes |  |
+**submissionCriteria** | List[SubmissionCriteriaEvaluationDict] | Yes |  |
+**parameters** | Dict[ParameterId, ParameterEvaluationResultDict] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

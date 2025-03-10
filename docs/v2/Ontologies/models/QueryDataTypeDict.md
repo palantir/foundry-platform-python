@@ -10,26 +10,26 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-core_models.DateTypeDict | date
+DateTypeDict | date
 QueryStructTypeDict | struct
 QuerySetTypeDict | set
-core_models.StringTypeDict | string
+StringTypeDict | string
 EntrySetTypeDict | entrySet
-core_models.DoubleTypeDict | double
-core_models.IntegerTypeDict | integer
+DoubleTypeDict | double
+IntegerTypeDict | integer
 ThreeDimensionalAggregationDict | threeDimensionalAggregation
 QueryUnionTypeDict | union
-core_models.FloatTypeDict | float
-core_models.LongTypeDict | long
-core_models.BooleanTypeDict | boolean
-core_models.UnsupportedTypeDict | unsupported
-core_models.AttachmentTypeDict | attachment
-core_models.NullTypeDict | null
+FloatTypeDict | float
+LongTypeDict | long
+BooleanTypeDict | boolean
+UnsupportedTypeDict | unsupported
+AttachmentTypeDict | attachment
+NullTypeDict | null
 QueryArrayTypeDict | array
 OntologyObjectSetTypeDict | objectSet
 TwoDimensionalAggregationDict | twoDimensionalAggregation
 OntologyObjectTypeDict | object
-core_models.TimestampTypeDict | timestamp
+TimestampTypeDict | timestamp
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

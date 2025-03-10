@@ -5,10 +5,10 @@ Build
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | core_models.BuildRid | Yes | The RID of a Build. |
-**branch_name** | datasets_models.BranchName | Yes | The branch that the build is running on. |
-**created_time** | core_models.CreatedTime | Yes | The timestamp that the build was created. |
-**created_by** | core_models.CreatedBy | Yes | The user who created the build. |
+**rid** | BuildRid | Yes | The RID of a Build. |
+**branch_name** | BranchName | Yes | The branch that the build is running on. |
+**created_time** | CreatedTime | Yes | The timestamp that the build was created. |
+**created_by** | CreatedBy | Yes | The user who created the build. |
 **fallback_branches** | FallbackBranches | Yes |  |
 **retry_count** | RetryCount | Yes |  |
 **retry_backoff_duration** | RetryBackoffDuration | Yes |  |

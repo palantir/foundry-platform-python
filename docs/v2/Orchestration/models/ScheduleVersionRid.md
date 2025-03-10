@@ -4,7 +4,7 @@ The RID of a schedule version
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

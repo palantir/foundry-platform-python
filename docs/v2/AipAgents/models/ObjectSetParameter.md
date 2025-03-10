@@ -5,8 +5,8 @@ ObjectSetParameter
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**expected_object_types** | typing.List[ontologies_models.ObjectTypeId] | Yes | The types of objects that are expected in ObjectSet values passed for this variable.  |
-**type** | typing.Literal["objectSet"] | Yes | None |
+**expected_object_types** | List[ObjectTypeId] | Yes | The types of objects that are expected in ObjectSet values passed for this variable.  |
+**type** | Literal["objectSet"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -93,7 +93,7 @@ class OntologyClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -191,7 +191,7 @@ class _OntologyClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -289,7 +289,7 @@ class _OntologyClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: ontologyRid
-        :type ontology_rid: ontologies_models.OntologyRid
+        :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

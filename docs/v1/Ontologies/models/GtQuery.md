@@ -7,7 +7,7 @@ Returns objects where the specified field is greater than a value.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **value** | PropertyValue | Yes |  |
-**type** | typing.Literal["gt"] | Yes | None |
+**type** | Literal["gt"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v1-link) [[Back to API list]](../../../../README.md#apis-v1-link) [[Back to README]](../../../../README.md)

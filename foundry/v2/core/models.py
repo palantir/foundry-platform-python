@@ -429,18 +429,18 @@ class Field(pydantic.BaseModel):
 FieldDataType = typing_extensions.Annotated[
     typing.Union[
         "StructFieldType",
-        DateType,
+        "DateType",
         "StringType",
-        ByteType,
-        DoubleType,
+        "ByteType",
+        "DoubleType",
         "IntegerType",
         "FloatType",
         "LongType",
-        BooleanType,
-        ArrayFieldType,
-        BinaryType,
+        "BooleanType",
+        "ArrayFieldType",
+        "BinaryType",
         "ShortType",
-        DecimalType,
+        "DecimalType",
         "MapFieldType",
         "TimestampType",
     ],
@@ -452,18 +452,18 @@ FieldDataType = typing_extensions.Annotated[
 FieldDataTypeDict = typing_extensions.Annotated[
     typing.Union[
         "StructFieldTypeDict",
-        DateTypeDict,
+        "DateTypeDict",
         "StringTypeDict",
-        ByteTypeDict,
-        DoubleTypeDict,
+        "ByteTypeDict",
+        "DoubleTypeDict",
         "IntegerTypeDict",
         "FloatTypeDict",
         "LongTypeDict",
-        BooleanTypeDict,
-        ArrayFieldTypeDict,
-        BinaryTypeDict,
+        "BooleanTypeDict",
+        "ArrayFieldTypeDict",
+        "BinaryTypeDict",
         "ShortTypeDict",
-        DecimalTypeDict,
+        "DecimalTypeDict",
         "MapFieldTypeDict",
         "TimestampTypeDict",
     ],
@@ -612,18 +612,18 @@ class FilterStringTypeDict(typing_extensions.TypedDict):
 
 FilterTypeDict = typing_extensions.Annotated[
     typing.Union[
-        FilterDateTimeTypeDict,
-        FilterDateTypeDict,
-        FilterBooleanTypeDict,
-        FilterStringTypeDict,
-        FilterDoubleTypeDict,
-        FilterBinaryTypeDict,
-        FilterIntegerTypeDict,
-        FilterFloatTypeDict,
-        FilterRidTypeDict,
+        "FilterDateTimeTypeDict",
+        "FilterDateTypeDict",
+        "FilterBooleanTypeDict",
+        "FilterStringTypeDict",
+        "FilterDoubleTypeDict",
+        "FilterBinaryTypeDict",
+        "FilterIntegerTypeDict",
+        "FilterFloatTypeDict",
+        "FilterRidTypeDict",
         "FilterUuidTypeDict",
-        FilterEnumTypeDict,
-        FilterLongTypeDict,
+        "FilterEnumTypeDict",
+        "FilterLongTypeDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1213,13 +1213,13 @@ class StructFieldTypeDict(typing_extensions.TypedDict):
 
 
 TimeSeriesItemType = typing_extensions.Annotated[
-    typing.Union[StringType, DoubleType], pydantic.Field(discriminator="type")
+    typing.Union["StringType", "DoubleType"], pydantic.Field(discriminator="type")
 ]
 """A union of the types supported by time series properties."""
 
 
 TimeSeriesItemTypeDict = typing_extensions.Annotated[
-    typing.Union[StringTypeDict, DoubleTypeDict], pydantic.Field(discriminator="type")
+    typing.Union["StringTypeDict", "DoubleTypeDict"], pydantic.Field(discriminator="type")
 ]
 """A union of the types supported by time series properties."""
 

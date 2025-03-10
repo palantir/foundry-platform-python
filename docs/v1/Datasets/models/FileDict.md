@@ -5,9 +5,9 @@ File
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**path** | core_models.FilePath | Yes |  |
+**path** | FilePath | Yes |  |
 **transactionRid** | TransactionRid | Yes |  |
-**sizeBytes** | typing_extensions.NotRequired[core.Long] | No |  |
+**sizeBytes** | typing_extensions.NotRequired[Long] | No |  |
 **updatedTime** | datetime | Yes |  |
 
 

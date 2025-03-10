@@ -4,7 +4,7 @@ The Resource Identifier (RID) of an individual Media Item within a Media Set in 
 
 ## Type
 ```python
-core.RID
+RID
 ```
 
 

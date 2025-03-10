@@ -14,7 +14,7 @@ Returns an empty list when none of the objects have values for a provided proper
 | ------------ | ------------- | ------------- | ------------- |
 **selectedPropertyApiName** | PropertyApiName | Yes |  |
 **limit** | int | Yes | Maximum number of values to collect. The maximum supported limit is 100.  |
-**type** | typing.Literal["collectSet"] | Yes | None |
+**type** | Literal["collectSet"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

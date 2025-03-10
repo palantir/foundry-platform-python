@@ -96,9 +96,9 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: core_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -148,13 +148,13 @@ class DatasetClient:
         Deletes the Schema from a Dataset and Branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -197,7 +197,7 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -239,13 +239,13 @@ class DatasetClient:
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -301,19 +301,19 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -347,19 +347,19 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -395,19 +395,19 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -444,19 +444,19 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -518,13 +518,13 @@ class DatasetClient:
         Puts a Schema on an existing Dataset and Branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param body: Body of the request
-        :type body: typing.Any
+        :type body: Any
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -590,9 +590,9 @@ class _DatasetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: core_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -642,13 +642,13 @@ class _DatasetClientRaw:
         Deletes the Schema from a Dataset and Branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -691,7 +691,7 @@ class _DatasetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -733,13 +733,13 @@ class _DatasetClientRaw:
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -792,19 +792,19 @@ class _DatasetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -853,13 +853,13 @@ class _DatasetClientRaw:
         Puts a Schema on an existing Dataset and Branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param body: Body of the request
-        :type body: typing.Any
+        :type body: Any
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -925,9 +925,9 @@ class _DatasetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param name:
-        :type name: datasets_models.DatasetName
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: core_models.FolderRid
+        :type parent_folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -977,13 +977,13 @@ class _DatasetClientStreaming:
         Deletes the Schema from a Dataset and Branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1026,7 +1026,7 @@ class _DatasetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1068,13 +1068,13 @@ class _DatasetClientStreaming:
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param transaction_rid: transactionRid
-        :type transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1127,19 +1127,19 @@ class _DatasetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param format: format
-        :type format: datasets_models.TableExportFormat
+        :type format: TableExportFormat
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param columns: columns
-        :type columns: typing.Optional[typing.List[str]]
+        :type columns: Optional[List[str]]
         :param end_transaction_rid: endTransactionRid
-        :type end_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type end_transaction_rid: Optional[TransactionRid]
         :param row_limit: rowLimit
-        :type row_limit: typing.Optional[int]
+        :type row_limit: Optional[int]
         :param start_transaction_rid: startTransactionRid
-        :type start_transaction_rid: typing.Optional[datasets_models.TransactionRid]
+        :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1188,13 +1188,13 @@ class _DatasetClientStreaming:
         Puts a Schema on an existing Dataset and Branch.
 
         :param dataset_rid: datasetRid
-        :type dataset_rid: datasets_models.DatasetRid
+        :type dataset_rid: DatasetRid
         :param body: Body of the request
-        :type body: typing.Any
+        :type body: Any
         :param branch_id: branchId
-        :type branch_id: typing.Optional[datasets_models.BranchId]
+        :type branch_id: Optional[BranchId]
         :param preview: preview
-        :type preview: typing.Optional[core_models.PreviewMode]
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -71,17 +71,17 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -134,17 +134,17 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -204,21 +204,21 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: format
-        :type format: typing.Optional[ontologies_models.StreamingOutputFormat]
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: typing.Optional[typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -254,21 +254,21 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: format
-        :type format: typing.Optional[ontologies_models.StreamingOutputFormat]
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: typing.Optional[typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -306,21 +306,21 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: format
-        :type format: typing.Optional[ontologies_models.StreamingOutputFormat]
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: typing.Optional[typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -359,21 +359,21 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: format
-        :type format: typing.Optional[ontologies_models.StreamingOutputFormat]
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: typing.Optional[typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -473,17 +473,17 @@ class _TimeSeriesPropertyV2ClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -536,17 +536,17 @@ class _TimeSeriesPropertyV2ClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -603,21 +603,21 @@ class _TimeSeriesPropertyV2ClientRaw:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: format
-        :type format: typing.Optional[ontologies_models.StreamingOutputFormat]
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: typing.Optional[typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -704,17 +704,17 @@ class _TimeSeriesPropertyV2ClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -767,17 +767,17 @@ class _TimeSeriesPropertyV2ClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -834,21 +834,21 @@ class _TimeSeriesPropertyV2ClientStreaming:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: ontology
-        :type ontology: ontologies_models.OntologyIdentifier
+        :type ontology: OntologyIdentifier
         :param object_type: objectType
-        :type object_type: ontologies_models.ObjectTypeApiName
+        :type object_type: ObjectTypeApiName
         :param primary_key: primaryKey
-        :type primary_key: ontologies_models.PropertyValueEscapedString
+        :type primary_key: PropertyValueEscapedString
         :param property: property
-        :type property: ontologies_models.PropertyApiName
+        :type property: PropertyApiName
         :param artifact_repository: artifactRepository
-        :type artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid]
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: format
-        :type format: typing.Optional[ontologies_models.StreamingOutputFormat]
+        :type format: Optional[StreamingOutputFormat]
         :param package_name: packageName
-        :type package_name: typing.Optional[ontologies_models.SdkPackageName]
+        :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: typing.Optional[typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]]
+        :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
