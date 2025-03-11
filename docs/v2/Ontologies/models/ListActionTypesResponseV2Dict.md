@@ -5,7 +5,7 @@ ListActionTypesResponseV2
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **data** | List[ActionTypeV2Dict] | Yes |  |
 
 

@@ -211,7 +211,7 @@ The maximum batch size for this endpoint is 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)] | Body of the request |  |
+**body** | List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -228,7 +228,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)] | Body of the request
+# List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request
 body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
 # Optional[PreviewMode] | preview
 preview = None

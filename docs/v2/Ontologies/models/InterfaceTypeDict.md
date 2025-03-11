@@ -8,7 +8,7 @@ Represents an interface type in the Ontology.
 **rid** | InterfaceTypeRid | Yes |  |
 **apiName** | InterfaceTypeApiName | Yes |  |
 **displayName** | DisplayName | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No | The description of the interface. |
+**description** | NotRequired[str] | No | The description of the interface. |
 **properties** | Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has. A shared property type must be unique across all of the properties.  |
 **allProperties** | Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has, including properties from all directly and indirectly extended  interfaces.  |
 **extendsInterfaces** | List[InterfaceTypeApiName] | Yes | A list of interface API names that this interface extends. An interface can extend other interfaces to  inherit their properties.  |

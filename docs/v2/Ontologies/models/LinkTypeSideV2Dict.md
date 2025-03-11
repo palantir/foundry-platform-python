@@ -10,7 +10,7 @@ LinkTypeSideV2
 **status** | ReleaseStatus | Yes |  |
 **objectTypeApiName** | ObjectTypeApiName | Yes |  |
 **cardinality** | LinkTypeSideCardinality | Yes |  |
-**foreignKeyPropertyApiName** | typing_extensions.NotRequired[PropertyApiName] | No |  |
+**foreignKeyPropertyApiName** | NotRequired[PropertyApiName] | No |  |
 **linkTypeRid** | LinkTypeRid | Yes |  |
 
 

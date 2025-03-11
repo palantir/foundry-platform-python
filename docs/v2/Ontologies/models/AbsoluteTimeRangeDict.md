@@ -5,8 +5,8 @@ ISO 8601 timestamps forming a range for a time series query. Start is inclusive 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**startTime** | typing_extensions.NotRequired[datetime] | No |  |
-**endTime** | typing_extensions.NotRequired[datetime] | No |  |
+**startTime** | NotRequired[datetime] | No |  |
+**endTime** | NotRequired[datetime] | No |  |
 **type** | Literal["absolute"] | Yes | None |
 
 

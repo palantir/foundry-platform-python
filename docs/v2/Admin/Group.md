@@ -194,7 +194,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request |  |
 
 ### Return type
 **GetGroupsBatchResponse**
@@ -210,7 +210,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request
+# List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request
 body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 

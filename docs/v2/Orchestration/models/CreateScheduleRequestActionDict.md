@@ -5,13 +5,13 @@ CreateScheduleRequestAction
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**abortOnFailure** | typing_extensions.NotRequired[AbortOnFailure] | No |  |
-**forceBuild** | typing_extensions.NotRequired[ForceBuild] | No |  |
-**retryBackoffDuration** | typing_extensions.NotRequired[RetryBackoffDurationDict] | No |  |
-**retryCount** | typing_extensions.NotRequired[RetryCount] | No |  |
-**fallbackBranches** | typing_extensions.NotRequired[FallbackBranches] | No |  |
-**branchName** | typing_extensions.NotRequired[BranchName] | No | The target branch the schedule should run on. |
-**notificationsEnabled** | typing_extensions.NotRequired[NotificationsEnabled] | No |  |
+**abortOnFailure** | NotRequired[AbortOnFailure] | No |  |
+**forceBuild** | NotRequired[ForceBuild] | No |  |
+**retryBackoffDuration** | NotRequired[RetryBackoffDurationDict] | No |  |
+**retryCount** | NotRequired[RetryCount] | No |  |
+**fallbackBranches** | NotRequired[FallbackBranches] | No |  |
+**branchName** | NotRequired[BranchName] | No | The target branch the schedule should run on. |
+**notificationsEnabled** | NotRequired[NotificationsEnabled] | No |  |
 **target** | CreateScheduleRequestBuildTargetDict | Yes |  |
 
 

@@ -8,8 +8,8 @@ both.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | typing_extensions.NotRequired[PropertyApiName] | No |  |
-**propertyIdentifier** | typing_extensions.NotRequired[PropertyIdentifierDict] | No |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | PolygonValueDict | Yes |  |
 **type** | Literal["withinPolygon"] | Yes | None |
 

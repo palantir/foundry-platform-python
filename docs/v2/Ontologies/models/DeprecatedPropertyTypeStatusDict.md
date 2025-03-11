@@ -9,7 +9,7 @@ deadline specified.
 | ------------ | ------------- | ------------- | ------------- |
 **message** | str | Yes |  |
 **deadline** | datetime | Yes |  |
-**replacedBy** | typing_extensions.NotRequired[PropertyTypeRid] | No |  |
+**replacedBy** | NotRequired[PropertyTypeRid] | No |  |
 **type** | Literal["deprecated"] | Yes | None |
 
 

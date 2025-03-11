@@ -8,14 +8,14 @@ Represents an object type in the Ontology.
 **apiName** | ObjectTypeApiName | Yes |  |
 **displayName** | DisplayName | Yes |  |
 **status** | ReleaseStatus | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No | The description of the object type. |
+**description** | NotRequired[str] | No | The description of the object type. |
 **pluralDisplayName** | str | Yes | The plural display name of the object type. |
 **icon** | IconDict | Yes |  |
 **primaryKey** | PropertyApiName | Yes |  |
 **properties** | Dict[PropertyApiName, PropertyV2Dict] | Yes | A map of the properties of the object type. |
 **rid** | ObjectTypeRid | Yes |  |
 **titleProperty** | PropertyApiName | Yes |  |
-**visibility** | typing_extensions.NotRequired[ObjectTypeVisibility] | No |  |
+**visibility** | NotRequired[ObjectTypeVisibility] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

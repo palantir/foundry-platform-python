@@ -5,8 +5,8 @@ Details about some property of an object.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | typing_extensions.NotRequired[str] | No |  |
-**displayName** | typing_extensions.NotRequired[DisplayName] | No |  |
+**description** | NotRequired[str] | No |  |
+**displayName** | NotRequired[DisplayName] | No |  |
 **baseType** | ValueType | Yes |  |
 
 

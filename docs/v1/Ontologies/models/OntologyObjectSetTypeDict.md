@@ -5,8 +5,8 @@ OntologyObjectSetType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**objectApiName** | typing_extensions.NotRequired[ObjectTypeApiName] | No |  |
-**objectTypeApiName** | typing_extensions.NotRequired[ObjectTypeApiName] | No |  |
+**objectApiName** | NotRequired[ObjectTypeApiName] | No |  |
+**objectTypeApiName** | NotRequired[ObjectTypeApiName] | No |  |
 **type** | Literal["objectSet"] | Yes | None |
 
 

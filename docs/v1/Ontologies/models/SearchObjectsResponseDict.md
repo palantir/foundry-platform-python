@@ -6,7 +6,7 @@ SearchObjectsResponse
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **data** | List[OntologyObjectDict] | Yes |  |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **totalCount** | TotalCount | Yes |  |
 
 

@@ -6,8 +6,8 @@ Computes the maximum value for the provided field.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
-**direction** | typing_extensions.NotRequired[OrderByDirection] | No |  |
+**name** | NotRequired[AggregationMetricName] | No |  |
+**direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["max"] | Yes | None |
 
 

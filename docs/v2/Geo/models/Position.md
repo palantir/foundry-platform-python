@@ -18,7 +18,7 @@ elements MAY be ignored by parsers.
 
 ## Type
 ```python
-typing_extensions.Annotated[List[Coordinate], annotated_types.Len(min_length=2, max_length=3)]
+List[Coordinate]
 ```
 
 

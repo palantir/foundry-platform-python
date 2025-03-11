@@ -6,8 +6,8 @@ Metadata for an Agent.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **displayName** | str | Yes | The name of the Agent. |
-**description** | typing_extensions.NotRequired[str] | No | The description for the Agent. |
-**inputPlaceholder** | typing_extensions.NotRequired[str] | No | The default text to show as the placeholder input for chats with the Agent. |
+**description** | NotRequired[str] | No | The description for the Agent. |
+**inputPlaceholder** | NotRequired[str] | No | The default text to show as the placeholder input for chats with the Agent. |
 **suggestedPrompts** | List[str] | Yes | Prompts to show to the user as example messages to start a conversation with the Agent.  |
 
 

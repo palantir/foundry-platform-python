@@ -6,9 +6,9 @@ Computes the approximate percentile value for the provided field. Requires Objec
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
+**name** | NotRequired[AggregationMetricName] | No |  |
 **approximatePercentile** | float | Yes |  |
-**direction** | typing_extensions.NotRequired[OrderByDirection] | No |  |
+**direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["approximatePercentile"] | Yes | None |
 
 

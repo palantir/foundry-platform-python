@@ -5,7 +5,7 @@ ListObjectTypesV2Response
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **data** | List[ObjectTypeV2Dict] | Yes | The list of object types in the current page. |
 
 

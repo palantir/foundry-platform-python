@@ -6,7 +6,7 @@ WithinBoundingBoxPoint
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **coordinates** | Position | Yes |  |
-**bbox** | typing_extensions.NotRequired[BBox] | No |  |
+**bbox** | NotRequired[BBox] | No |  |
 **type** | Literal["Point"] | Yes | None |
 
 

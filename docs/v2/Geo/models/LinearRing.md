@@ -15,7 +15,7 @@ clockwise.
 
 ## Type
 ```python
-typing_extensions.Annotated[List[Position], annotated_types.Len(min_length=4)]
+List[Position]
 ```
 
 

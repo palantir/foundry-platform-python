@@ -5,8 +5,8 @@ AggregateObjectsResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**excludedItems** | typing_extensions.NotRequired[int] | No |  |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**excludedItems** | NotRequired[int] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **data** | List[AggregateObjectsResponseItemDict] | Yes |  |
 
 

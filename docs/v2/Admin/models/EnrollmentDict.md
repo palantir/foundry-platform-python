@@ -7,7 +7,7 @@ Enrollment
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | EnrollmentRid | Yes |  |
 **name** | EnrollmentName | Yes |  |
-**createdTime** | typing_extensions.NotRequired[CreatedTime] | No |  |
+**createdTime** | NotRequired[CreatedTime] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

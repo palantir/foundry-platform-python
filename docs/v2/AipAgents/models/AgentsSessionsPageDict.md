@@ -7,7 +7,7 @@ Sessions are returned in order of most recently updated first.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No | The page token that should be used when requesting the next page of results. Empty if there are no more results to retrieve.  |
+**nextPageToken** | NotRequired[PageToken] | No | The page token that should be used when requesting the next page of results. Empty if there are no more results to retrieve.  |
 **data** | List[SessionDict] | Yes |  |
 
 

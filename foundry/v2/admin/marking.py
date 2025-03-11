@@ -229,7 +229,7 @@ class MarkingClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -537,7 +537,7 @@ class _MarkingClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -845,7 +845,7 @@ class _MarkingClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

@@ -145,7 +145,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]] | Body of the request |  |
 **preview** | Optional[PreviewMode] | preview | [optional] |
 
 ### Return type
@@ -162,7 +162,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing_extensions.Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request
+# List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]] | Body of the request
 body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
 # Optional[PreviewMode] | preview
 preview = None

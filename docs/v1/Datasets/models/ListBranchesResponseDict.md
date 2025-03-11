@@ -5,7 +5,7 @@ ListBranchesResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **data** | List[BranchDict] | Yes | The list of branches in the current page. |
 
 

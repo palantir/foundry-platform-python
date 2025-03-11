@@ -5,7 +5,7 @@ StringParameter
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**defaultValue** | typing_extensions.NotRequired[str] | No | The default value to use for this variable. |
+**defaultValue** | NotRequired[str] | No | The default value to use for this variable. |
 **type** | Literal["string"] | Yes | None |
 
 

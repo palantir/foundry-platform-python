@@ -7,7 +7,7 @@ Represents a fixed size vector of floats. These can be used for vector similarit
 | ------------ | ------------- | ------------- | ------------- |
 **dimension** | int | Yes | The dimension of the vector. |
 **supportsSearchWith** | List[VectorSimilarityFunctionDict] | Yes |  |
-**embeddingModel** | typing_extensions.NotRequired[EmbeddingModelDict] | No |  |
+**embeddingModel** | NotRequired[EmbeddingModelDict] | No |  |
 **type** | Literal["vector"] | Yes | None |
 
 

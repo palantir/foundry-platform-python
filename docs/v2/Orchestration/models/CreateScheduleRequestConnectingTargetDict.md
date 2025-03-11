@@ -5,7 +5,7 @@ CreateScheduleRequestConnectingTarget
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**ignoredRids** | typing_extensions.NotRequired[List[BuildableRid]] | No | The datasets between the input datasets and target datasets to exclude. |
+**ignoredRids** | NotRequired[List[BuildableRid]] | No | The datasets between the input datasets and target datasets to exclude. |
 **targetRids** | List[BuildableRid] | Yes | The downstream target datasets (inclusive). |
 **inputRids** | List[BuildableRid] | Yes | The upstream input datasets (exclusive). |
 **type** | Literal["connecting"] | Yes | None |

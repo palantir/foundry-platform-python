@@ -6,7 +6,7 @@ Divides objects into groups according to an exact value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**maxGroupCount** | typing_extensions.NotRequired[int] | No |  |
+**maxGroupCount** | NotRequired[int] | No |  |
 **type** | Literal["exact"] | Yes | None |
 
 

@@ -5,7 +5,7 @@ AggregateObjectsResponseV2
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**excludedItems** | typing_extensions.NotRequired[int] | No |  |
+**excludedItems** | NotRequired[int] | No |  |
 **accuracy** | AggregationAccuracy | Yes |  |
 **data** | List[AggregateObjectsResponseItemV2Dict] | Yes |  |
 

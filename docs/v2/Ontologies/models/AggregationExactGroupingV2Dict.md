@@ -6,8 +6,8 @@ Divides objects into groups according to an exact value.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**maxGroupCount** | typing_extensions.NotRequired[int] | No |  |
-**defaultValue** | typing_extensions.NotRequired[str] | No |  |
+**maxGroupCount** | NotRequired[int] | No |  |
+**defaultValue** | NotRequired[str] | No |  |
 **type** | Literal["exact"] | Yes | None |
 
 

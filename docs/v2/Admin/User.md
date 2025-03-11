@@ -123,7 +123,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]] | Body of the request |  |
 
 ### Return type
 **GetUsersBatchResponse**
@@ -139,7 +139,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)] | Body of the request
+# List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]] | Body of the request
 body = [{"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 

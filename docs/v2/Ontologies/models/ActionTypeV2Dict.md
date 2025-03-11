@@ -6,8 +6,8 @@ Represents an action type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | ActionTypeApiName | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No |  |
-**displayName** | typing_extensions.NotRequired[DisplayName] | No |  |
+**description** | NotRequired[str] | No |  |
+**displayName** | NotRequired[DisplayName] | No |  |
 **status** | ReleaseStatus | Yes |  |
 **parameters** | Dict[ParameterId, ActionParameterV2Dict] | Yes |  |
 **rid** | ActionTypeRid | Yes |  |

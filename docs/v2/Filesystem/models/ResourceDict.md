@@ -7,8 +7,8 @@ Resource
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ResourceRid | Yes |  |
 **displayName** | ResourceDisplayName | Yes | The display name of the Resource |
-**description** | typing_extensions.NotRequired[str] | No | The description of the Resource |
-**documentation** | typing_extensions.NotRequired[str] | No | The documentation associated with the Resource |
+**description** | NotRequired[str] | No | The description of the Resource |
+**documentation** | NotRequired[str] | No | The documentation associated with the Resource |
 **path** | ResourcePath | Yes | The full path to the resource, including the resource name itself |
 **type** | ResourceType | Yes | The type of the Resource derived from the Resource Identifier (RID). |
 **createdBy** | CreatedBy | Yes | The user that created the Resource. |

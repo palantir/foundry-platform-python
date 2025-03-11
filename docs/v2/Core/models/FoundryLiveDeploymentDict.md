@@ -5,9 +5,9 @@ FoundryLiveDeployment
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | typing_extensions.NotRequired[RID] | No | The live deployment identifier. This rid is of the format 'ri.foundry-ml-live.main.live-deployment.<uuid>'.  |
-**inputParamName** | typing_extensions.NotRequired[str] | No | The name of the input parameter to the model which should contain the query string. |
-**outputParamName** | typing_extensions.NotRequired[str] | No | The name of the output parameter to the model which should contain the computed embedding. |
+**rid** | NotRequired[RID] | No | The live deployment identifier. This rid is of the format 'ri.foundry-ml-live.main.live-deployment.<uuid>'.  |
+**inputParamName** | NotRequired[str] | No | The name of the input parameter to the model which should contain the query string. |
+**outputParamName** | NotRequired[str] | No | The name of the output parameter to the model which should contain the computed embedding. |
 **type** | Literal["foundryLiveDeployment"] | Yes | None |
 
 

@@ -5,7 +5,7 @@ ListOutgoingLinkTypesResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **data** | List[LinkTypeSideDict] | Yes | The list of link type sides in the current page. |
 
 

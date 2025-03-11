@@ -6,7 +6,7 @@ Represents the API response when loading an `ObjectSet`.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **data** | List[OntologyObjectV2] | Yes | The list of objects in the current Page. |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **totalCount** | TotalCount | Yes |  |
 
 

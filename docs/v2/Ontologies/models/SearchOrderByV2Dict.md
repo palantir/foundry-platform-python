@@ -5,7 +5,7 @@ Specifies the ordering of search results by a field and an ordering direction or
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**orderType** | typing_extensions.NotRequired[SearchOrderByType] | No |  |
+**orderType** | NotRequired[SearchOrderByType] | No |  |
 **fields** | List[SearchOrderingV2Dict] | Yes |  |
 
 

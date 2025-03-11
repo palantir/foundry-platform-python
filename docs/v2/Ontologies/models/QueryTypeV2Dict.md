@@ -6,8 +6,8 @@ Represents a query type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | QueryApiName | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No |  |
-**displayName** | typing_extensions.NotRequired[DisplayName] | No |  |
+**description** | NotRequired[str] | No |  |
+**displayName** | NotRequired[DisplayName] | No |  |
 **parameters** | Dict[ParameterId, QueryParameterV2Dict] | Yes |  |
 **output** | QueryDataTypeDict | Yes |  |
 **rid** | FunctionRid | Yes |  |

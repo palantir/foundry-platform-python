@@ -6,7 +6,7 @@ Computes an approximate number of distinct values for the provided field.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
-**name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
+**name** | NotRequired[AggregationMetricName] | No |  |
 **type** | Literal["approximateDistinct"] | Yes | None |
 
 

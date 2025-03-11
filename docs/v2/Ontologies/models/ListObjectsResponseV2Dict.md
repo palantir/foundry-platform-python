@@ -5,7 +5,7 @@ ListObjectsResponseV2
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **data** | List[OntologyObjectV2] | Yes | The list of objects in the current page. |
 **totalCount** | TotalCount | Yes |  |
 

@@ -5,7 +5,7 @@ Website
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**deployedVersion** | typing_extensions.NotRequired[VersionVersion] | No | The version of the Website that is currently deployed. |
+**deployedVersion** | NotRequired[VersionVersion] | No | The version of the Website that is currently deployed. |
 **subdomains** | List[Subdomain] | Yes | The subdomains from which the Website is currently served. |
 
 

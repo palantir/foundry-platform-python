@@ -245,7 +245,7 @@ class GroupClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -622,7 +622,7 @@ class _GroupClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -999,7 +999,7 @@ class _GroupClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

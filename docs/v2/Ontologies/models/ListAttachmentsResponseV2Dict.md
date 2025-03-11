@@ -6,7 +6,7 @@ ListAttachmentsResponseV2
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **data** | List[AttachmentV2Dict] | Yes |  |
-**nextPageToken** | typing_extensions.NotRequired[PageToken] | No |  |
+**nextPageToken** | NotRequired[PageToken] | No |  |
 **type** | Literal["multiple"] | Yes | None |
 
 

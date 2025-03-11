@@ -6,8 +6,8 @@ Computes an exact number of distinct values for the provided field. May be slowe
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
-**name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
-**direction** | typing_extensions.NotRequired[OrderByDirection] | No |  |
+**name** | NotRequired[AggregationMetricName] | No |  |
+**direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["exactDistinct"] | Yes | None |
 
 

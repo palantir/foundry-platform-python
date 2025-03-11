@@ -6,10 +6,10 @@ Represents a query type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **apiName** | QueryApiName | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No |  |
-**displayName** | typing_extensions.NotRequired[DisplayName] | No |  |
+**description** | NotRequired[str] | No |  |
+**displayName** | NotRequired[DisplayName] | No |  |
 **parameters** | Dict[ParameterId, ParameterDict] | Yes |  |
-**output** | typing_extensions.NotRequired[OntologyDataTypeDict] | No |  |
+**output** | NotRequired[OntologyDataTypeDict] | No |  |
 **rid** | FunctionRid | Yes |  |
 **version** | FunctionVersion | Yes |  |
 

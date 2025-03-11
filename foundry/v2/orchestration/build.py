@@ -271,7 +271,7 @@ class BuildClient:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
+        :type body: List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -627,7 +627,7 @@ class _BuildClientRaw:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
+        :type body: List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -983,7 +983,7 @@ class _BuildClientStreaming:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=100)]
+        :type body: List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]]
         :param preview: preview
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

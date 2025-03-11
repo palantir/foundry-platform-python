@@ -9,8 +9,8 @@ by a variety of means. Either `field` or `propertyIdentifier` can be supplied, b
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | typing_extensions.NotRequired[PropertyApiName] | No |  |
-**propertyIdentifier** | typing_extensions.NotRequired[PropertyIdentifierDict] | No |  |
+**field** | NotRequired[PropertyApiName] | No |  |
+**propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
 **value** | str | Yes |  |
 **type** | Literal["containsAllTermsInOrderPrefixLastTerm"] | Yes | None |
 

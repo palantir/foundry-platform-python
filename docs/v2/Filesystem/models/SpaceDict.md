@@ -7,10 +7,10 @@ Space
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | SpaceRid | Yes |  |
 **displayName** | ResourceDisplayName | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No | The description of the Space. |
+**description** | NotRequired[str] | No | The description of the Space. |
 **path** | ResourcePath | Yes |  |
-**fileSystemId** | typing_extensions.NotRequired[FileSystemId] | No |  |
-**usageAccountRid** | typing_extensions.NotRequired[UsageAccountRid] | No |  |
+**fileSystemId** | NotRequired[FileSystemId] | No |  |
+**usageAccountRid** | NotRequired[UsageAccountRid] | No |  |
 **organizations** | List[OrganizationRid] | Yes |  |
 
 

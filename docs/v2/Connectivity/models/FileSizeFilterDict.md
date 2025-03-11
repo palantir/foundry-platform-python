@@ -8,8 +8,8 @@ If both are present, the value specified for `gt` must be strictly less than `lt
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**gt** | typing_extensions.NotRequired[SizeBytes] | No | File size must be greater than this number for it to be imported. The value specified cannot be a negative number.  |
-**lt** | typing_extensions.NotRequired[SizeBytes] | No | File size must be less than this number for it to be imported. The value specified must be at least 1 byte.  |
+**gt** | NotRequired[SizeBytes] | No | File size must be greater than this number for it to be imported. The value specified cannot be a negative number.  |
+**lt** | NotRequired[SizeBytes] | No | File size must be less than this number for it to be imported. The value specified must be at least 1 byte.  |
 **type** | Literal["fileSizeFilter"] | Yes | None |
 
 

@@ -10,7 +10,7 @@ by the implementing object types.
 **rid** | InterfaceLinkTypeRid | Yes |  |
 **apiName** | InterfaceLinkTypeApiName | Yes |  |
 **displayName** | DisplayName | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No | The description of the interface link type. |
+**description** | NotRequired[str] | No | The description of the interface link type. |
 **linkedEntityApiName** | InterfaceLinkTypeLinkedEntityApiNameDict | Yes |  |
 **cardinality** | InterfaceLinkTypeCardinality | Yes |  |
 **required** | bool | Yes | Whether each implementing object type must declare at least one implementation of this link.  |

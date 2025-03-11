@@ -5,7 +5,7 @@ Computes the total count of objects.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | typing_extensions.NotRequired[AggregationMetricName] | No |  |
+**name** | NotRequired[AggregationMetricName] | No |  |
 **type** | Literal["count"] | Yes | None |
 
 

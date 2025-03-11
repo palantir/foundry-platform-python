@@ -176,7 +176,7 @@ class UserClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -612,7 +612,7 @@ class _UserClientRaw:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1048,7 +1048,7 @@ class _UserClientStreaming:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: typing_extensions.Annotated[List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]], annotated_types.Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

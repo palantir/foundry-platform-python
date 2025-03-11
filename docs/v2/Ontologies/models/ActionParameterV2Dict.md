@@ -6,7 +6,7 @@ Details about a parameter of an action.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **displayName** | DisplayName | Yes |  |
-**description** | typing_extensions.NotRequired[str] | No |  |
+**description** | NotRequired[str] | No |  |
 **dataType** | ActionParameterTypeDict | Yes |  |
 **required** | bool | Yes |  |
 

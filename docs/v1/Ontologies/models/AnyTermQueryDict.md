@@ -9,7 +9,7 @@ order in the provided value. This query supports fuzzy matching.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
-**fuzzy** | typing_extensions.NotRequired[Fuzzy] | No |  |
+**fuzzy** | NotRequired[Fuzzy] | No |  |
 **type** | Literal["anyTerm"] | Yes | None |
 
 

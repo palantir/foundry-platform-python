@@ -10,8 +10,8 @@ VersionId
 **versionId** | ValueTypeVersionId | Yes |  |
 **apiName** | ValueTypeApiName | Yes |  |
 **displayName** | DisplayName | Yes |  |
-**description** | typing_extensions.NotRequired[ValueTypeDescription] | No |  |
-**baseType** | typing_extensions.NotRequired[ValueTypeDataTypeDict] | No |  |
+**description** | NotRequired[ValueTypeDescription] | No |  |
+**baseType** | NotRequired[ValueTypeDataTypeDict] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)
