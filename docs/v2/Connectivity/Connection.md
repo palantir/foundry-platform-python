@@ -26,7 +26,7 @@ Name | Type | Description  | Notes |
 **display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
 **parent_folder_rid** | FolderRid |  |  |
 **runtime_platform** | Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Connection**
@@ -42,15 +42,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |
+# Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
 configuration = None
 # ConnectionDisplayName | The display name of the Connection. The display name must not be blank.
 display_name = "Connection to my external system"
-# FolderRid |
+# FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
-# Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict] |
+# Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
 runtime_platform = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -89,8 +89,8 @@ Get the Connection with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Connection**
@@ -106,9 +106,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -146,8 +146,8 @@ This operation is intended for use when other Connection data is not required, p
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ConnectionConfiguration**
@@ -163,9 +163,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -212,9 +212,9 @@ use the Foundry UI instead.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
+**connection_rid** | ConnectionRid |  |  |
 **secrets** | Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -230,11 +230,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
 # Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.
 secrets = {"Password": "MySecretPassword"}
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

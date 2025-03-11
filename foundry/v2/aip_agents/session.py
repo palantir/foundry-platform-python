@@ -92,9 +92,9 @@ class SessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -102,7 +102,7 @@ class SessionClient:
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -199,13 +199,13 @@ class SessionClient:
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
         :type message_id: MessageId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
         :type response: Optional[AgentMarkdownResponse]
@@ -268,11 +268,11 @@ class SessionClient:
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -334,11 +334,11 @@ class SessionClient:
     ) -> aip_agents_models.Session:
         """
         Get the details of a conversation session between the calling user and an Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -390,13 +390,13 @@ class SessionClient:
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -445,13 +445,13 @@ class SessionClient:
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -510,15 +510,15 @@ class SessionClient:
         Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: Union[UserTextInput, UserTextInputDict]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -612,9 +612,9 @@ class SessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -624,7 +624,7 @@ class SessionClient:
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -676,9 +676,9 @@ class SessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -688,7 +688,7 @@ class SessionClient:
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -742,9 +742,9 @@ class SessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -754,7 +754,7 @@ class SessionClient:
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -809,9 +809,9 @@ class SessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -821,7 +821,7 @@ class SessionClient:
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -959,9 +959,9 @@ class _SessionClientRaw:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -969,7 +969,7 @@ class _SessionClientRaw:
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1066,13 +1066,13 @@ class _SessionClientRaw:
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
         :type message_id: MessageId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
         :type response: Optional[AgentMarkdownResponse]
@@ -1135,11 +1135,11 @@ class _SessionClientRaw:
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1201,11 +1201,11 @@ class _SessionClientRaw:
     ) -> core.ApiResponse[aip_agents_models.Session]:
         """
         Get the details of a conversation session between the calling user and an Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1257,13 +1257,13 @@ class _SessionClientRaw:
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1312,13 +1312,13 @@ class _SessionClientRaw:
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1377,15 +1377,15 @@ class _SessionClientRaw:
         Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: Union[UserTextInput, UserTextInputDict]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1476,9 +1476,9 @@ class _SessionClientRaw:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -1488,7 +1488,7 @@ class _SessionClientRaw:
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1613,9 +1613,9 @@ class _SessionClientStreaming:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -1623,7 +1623,7 @@ class _SessionClientStreaming:
         :type user_input: Union[UserTextInput, UserTextInputDict]
         :param contexts_override: If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1720,13 +1720,13 @@ class _SessionClientStreaming:
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
         :type message_id: MessageId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
         :type response: Optional[AgentMarkdownResponse]
@@ -1789,11 +1789,11 @@ class _SessionClientStreaming:
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1855,11 +1855,11 @@ class _SessionClientStreaming:
     ) -> core.StreamingContextManager[aip_agents_models.Session]:
         """
         Get the details of a conversation session between the calling user and an Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1911,13 +1911,13 @@ class _SessionClientStreaming:
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1966,13 +1966,13 @@ class _SessionClientStreaming:
         For example, any sessions created by the user in AIP Agent Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -2031,15 +2031,15 @@ class _SessionClientStreaming:
         Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: Union[UserTextInput, UserTextInputDict]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -2130,9 +2130,9 @@ class _SessionClientStreaming:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
@@ -2142,7 +2142,7 @@ class _SessionClientStreaming:
         :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

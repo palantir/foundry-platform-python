@@ -108,7 +108,7 @@ class ConnectionClient:
         :type parent_folder_rid: FolderRid
         :param runtime_platform:
         :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -177,9 +177,9 @@ class ConnectionClient:
     ) -> connectivity_models.Connection:
         """
         Get the Connection with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -230,9 +230,9 @@ class ConnectionClient:
         Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -291,11 +291,11 @@ class ConnectionClient:
         in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
         use the Foundry UI instead.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
         :type secrets: Dict[SecretName, PlaintextValue]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -397,7 +397,7 @@ class _ConnectionClientRaw:
         :type parent_folder_rid: FolderRid
         :param runtime_platform:
         :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -466,9 +466,9 @@ class _ConnectionClientRaw:
     ) -> core.ApiResponse[connectivity_models.Connection]:
         """
         Get the Connection with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -519,9 +519,9 @@ class _ConnectionClientRaw:
         Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -580,11 +580,11 @@ class _ConnectionClientRaw:
         in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
         use the Foundry UI instead.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
         :type secrets: Dict[SecretName, PlaintextValue]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -686,7 +686,7 @@ class _ConnectionClientStreaming:
         :type parent_folder_rid: FolderRid
         :param runtime_platform:
         :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -755,9 +755,9 @@ class _ConnectionClientStreaming:
     ) -> core.StreamingContextManager[connectivity_models.Connection]:
         """
         Get the Connection with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -808,9 +808,9 @@ class _ConnectionClientStreaming:
         Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -869,11 +869,11 @@ class _ConnectionClientStreaming:
         in-memory handling of secrets. If you do not want your secrets to be temporarily decrypted, you should
         use the Foundry UI instead.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
         :type secrets: Dict[SecretName, PlaintextValue]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

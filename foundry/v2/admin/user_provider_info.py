@@ -63,9 +63,9 @@ class UserProviderInfoClient:
     ) -> admin_models.UserProviderInfo:
         """
         Get the UserProviderInfo.
-        :param user_id: userId
+        :param user_id:
         :type user_id: PrincipalId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -111,11 +111,11 @@ class UserProviderInfoClient:
     ) -> admin_models.UserProviderInfo:
         """
         Replace the UserProviderInfo.
-        :param user_id: userId
+        :param user_id:
         :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -189,9 +189,9 @@ class _UserProviderInfoClientRaw:
     ) -> core.ApiResponse[admin_models.UserProviderInfo]:
         """
         Get the UserProviderInfo.
-        :param user_id: userId
+        :param user_id:
         :type user_id: PrincipalId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -237,11 +237,11 @@ class _UserProviderInfoClientRaw:
     ) -> core.ApiResponse[admin_models.UserProviderInfo]:
         """
         Replace the UserProviderInfo.
-        :param user_id: userId
+        :param user_id:
         :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -315,9 +315,9 @@ class _UserProviderInfoClientStreaming:
     ) -> core.StreamingContextManager[admin_models.UserProviderInfo]:
         """
         Get the UserProviderInfo.
-        :param user_id: userId
+        :param user_id:
         :type user_id: PrincipalId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -363,11 +363,11 @@ class _UserProviderInfoClientStreaming:
     ) -> core.StreamingContextManager[admin_models.UserProviderInfo]:
         """
         Replace the UserProviderInfo.
-        :param user_id: userId
+        :param user_id:
         :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

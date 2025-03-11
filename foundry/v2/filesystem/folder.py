@@ -68,13 +68,13 @@ class FolderClient:
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
 
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -123,13 +123,13 @@ class FolderClient:
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
 
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -183,7 +183,7 @@ class FolderClient:
         :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
         :type parent_folder_rid: FolderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -238,9 +238,9 @@ class FolderClient:
     ) -> filesystem_models.Folder:
         """
         Get the Folder with the specified rid.
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -312,13 +312,13 @@ class _FolderClientRaw:
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
 
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -367,13 +367,13 @@ class _FolderClientRaw:
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
 
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -427,7 +427,7 @@ class _FolderClientRaw:
         :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
         :type parent_folder_rid: FolderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -482,9 +482,9 @@ class _FolderClientRaw:
     ) -> core.ApiResponse[filesystem_models.Folder]:
         """
         Get the Folder with the specified rid.
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -556,13 +556,13 @@ class _FolderClientStreaming:
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
 
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -611,13 +611,13 @@ class _FolderClientStreaming:
         This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
         provided, this page size will also be used as the default.
 
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -671,7 +671,7 @@ class _FolderClientStreaming:
         :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
         :type parent_folder_rid: FolderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -726,9 +726,9 @@ class _FolderClientStreaming:
     ) -> core.StreamingContextManager[filesystem_models.Folder]:
         """
         Get the Folder with the specified rid.
-        :param folder_rid: folderRid
+        :param folder_rid:
         :type folder_rid: FolderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

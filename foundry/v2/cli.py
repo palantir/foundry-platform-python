@@ -122,7 +122,9 @@ def admin_user_get_current(
 
 @admin_user.command("get_markings")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_user_get_markings(
     client: foundry.v2.FoundryClient,
@@ -140,8 +142,17 @@ def admin_user_get_markings(
 
 
 @admin_user.command("list")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def admin_user_list(
     client: foundry.v2.FoundryClient,
@@ -161,8 +172,17 @@ def admin_user_list(
 
 
 @admin_user.command("page")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def admin_user_page(
     client: foundry.v2.FoundryClient,
@@ -225,9 +245,29 @@ def admin_user_group_membership():
 
 @admin_user_group_membership.command("list")
 @click.argument("user_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--transitive",
+    type=bool,
+    required=False,
+    help="""When true, includes the transitive memberships of the Groups the User is a member of. For example, say the
+User is a member of Group A, and Group A is a member of Group B. If `transitive=false` only Group A will
+be returned, but if `transitive=true` then Groups A and B will be returned. This
+will recursively resolve Groups through all layers of nesting.
+
+Defaults to false.
+""",
+)
 @click.pass_obj
 def admin_user_group_membership_list(
     client: foundry.v2.FoundryClient,
@@ -257,9 +297,29 @@ def admin_user_group_membership_list(
 
 @admin_user_group_membership.command("page")
 @click.argument("user_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--transitive",
+    type=bool,
+    required=False,
+    help="""When true, includes the transitive memberships of the Groups the User is a member of. For example, say the
+User is a member of Group A, and Group A is a member of Group B. If `transitive=false` only Group A will
+be returned, but if `transitive=true` then Groups A and B will be returned. This
+will recursively resolve Groups through all layers of nesting.
+
+Defaults to false.
+""",
+)
 @click.pass_obj
 def admin_user_group_membership_page(
     client: foundry.v2.FoundryClient,
@@ -294,7 +354,9 @@ def admin_user_user_provider_info():
 
 @admin_user_user_provider_info.command("get")
 @click.argument("user_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_user_user_provider_info_get(
     client: foundry.v2.FoundryClient,
@@ -321,7 +383,9 @@ def admin_user_user_provider_info_get(
 At most one User can have a given provider ID in a given Realm.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_user_user_provider_info_replace(
     client: foundry.v2.FoundryClient,
@@ -347,7 +411,9 @@ def admin_organization():
 
 @admin_organization.command("get")
 @click.argument("organization_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_organization_get(
     client: foundry.v2.FoundryClient,
@@ -376,7 +442,9 @@ def admin_organization_get(
 Organization.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_organization_replace(
     client: foundry.v2.FoundryClient,
@@ -406,7 +474,9 @@ def admin_marking_category():
 
 @admin_marking_category.command("get")
 @click.argument("marking_category_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_category_get(
     client: foundry.v2.FoundryClient,
@@ -424,9 +494,20 @@ def admin_marking_category_get(
 
 
 @admin_marking_category.command("list")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_category_list(
     client: foundry.v2.FoundryClient,
@@ -446,9 +527,20 @@ def admin_marking_category_list(
 
 
 @admin_marking_category.command("page")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_category_page(
     client: foundry.v2.FoundryClient,
@@ -494,7 +586,9 @@ you will create a Marking that you cannot administer.
 )
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--description", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_create(
     client: foundry.v2.FoundryClient,
@@ -521,7 +615,9 @@ def admin_marking_create(
 
 @admin_marking.command("get")
 @click.argument("marking_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_get(
     client: foundry.v2.FoundryClient,
@@ -540,7 +636,9 @@ def admin_marking_get(
 
 @admin_marking.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_get_batch(
     client: foundry.v2.FoundryClient,
@@ -560,9 +658,20 @@ def admin_marking_get_batch(
 
 
 @admin_marking.command("list")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_list(
     client: foundry.v2.FoundryClient,
@@ -582,9 +691,20 @@ def admin_marking_list(
 
 
 @admin_marking.command("page")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_page(
     client: foundry.v2.FoundryClient,
@@ -611,7 +731,9 @@ def admin_marking_marking_role_assignment():
 @admin_marking_marking_role_assignment.command("add")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_marking_role_assignment_add(
     client: foundry.v2.FoundryClient,
@@ -630,9 +752,20 @@ def admin_marking_marking_role_assignment_add(
 
 @admin_marking_marking_role_assignment.command("list")
 @click.argument("marking_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_marking_role_assignment_list(
     client: foundry.v2.FoundryClient,
@@ -656,9 +789,20 @@ def admin_marking_marking_role_assignment_list(
 
 @admin_marking_marking_role_assignment.command("page")
 @click.argument("marking_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_marking_role_assignment_page(
     client: foundry.v2.FoundryClient,
@@ -683,7 +827,9 @@ def admin_marking_marking_role_assignment_page(
 @admin_marking_marking_role_assignment.command("remove")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_marking_role_assignment_remove(
     client: foundry.v2.FoundryClient,
@@ -708,7 +854,9 @@ def admin_marking_marking_member():
 @admin_marking_marking_member.command("add")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--principal_ids", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_marking_member_add(
     client: foundry.v2.FoundryClient,
@@ -727,10 +875,32 @@ def admin_marking_marking_member_add(
 
 @admin_marking_marking_member.command("list")
 @click.argument("marking_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--transitive",
+    type=bool,
+    required=False,
+    help="""When true, includes the transitive members of groups contained within groups that are members of this 
+Marking. For example, say the Marking has member Group A, and Group A has member User B. If 
+`transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B 
+will be returned. This will recursively resolve Groups through all layers of nesting.
+
+Defaults to false.
+""",
+)
 @click.pass_obj
 def admin_marking_marking_member_list(
     client: foundry.v2.FoundryClient,
@@ -757,10 +927,32 @@ def admin_marking_marking_member_list(
 
 @admin_marking_marking_member.command("page")
 @click.argument("marking_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--transitive",
+    type=bool,
+    required=False,
+    help="""When true, includes the transitive members of groups contained within groups that are members of this 
+Marking. For example, say the Marking has member Group A, and Group A has member User B. If 
+`transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B 
+will be returned. This will recursively resolve Groups through all layers of nesting.
+
+Defaults to false.
+""",
+)
 @click.pass_obj
 def admin_marking_marking_member_page(
     client: foundry.v2.FoundryClient,
@@ -788,7 +980,9 @@ def admin_marking_marking_member_page(
 @admin_marking_marking_member.command("remove")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--principal_ids", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_marking_marking_member_remove(
     client: foundry.v2.FoundryClient,
@@ -897,8 +1091,17 @@ def admin_group_get_batch(
 
 
 @admin_group.command("list")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def admin_group_list(
     client: foundry.v2.FoundryClient,
@@ -918,8 +1121,17 @@ def admin_group_list(
 
 
 @admin_group.command("page")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def admin_group_page(
     client: foundry.v2.FoundryClient,
@@ -988,9 +1200,29 @@ def admin_group_group_member_add(
 
 @admin_group_group_member.command("list")
 @click.argument("group_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--transitive",
+    type=bool,
+    required=False,
+    help="""When true, includes the transitive members of groups contained within this group. For example, say the
+Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will
+be returned, but if `transitive=true` then Group A and User B will be returned. This
+will recursively resolve Groups through all layers of nesting.
+
+Defaults to false.
+""",
+)
 @click.pass_obj
 def admin_group_group_member_list(
     client: foundry.v2.FoundryClient,
@@ -1020,9 +1252,29 @@ def admin_group_group_member_list(
 
 @admin_group_group_member.command("page")
 @click.argument("group_id", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--transitive", type=bool, required=False, help="""transitive""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--transitive",
+    type=bool,
+    required=False,
+    help="""When true, includes the transitive members of groups contained within this group. For example, say the
+Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will
+be returned, but if `transitive=true` then Group A and User B will be returned. This
+will recursively resolve Groups through all layers of nesting.
+
+Defaults to false.
+""",
+)
 @click.pass_obj
 def admin_group_group_member_page(
     client: foundry.v2.FoundryClient,
@@ -1074,7 +1326,9 @@ def admin_group_group_provider_info():
 
 @admin_group_group_provider_info.command("get")
 @click.argument("group_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_group_group_provider_info_get(
     client: foundry.v2.FoundryClient,
@@ -1101,7 +1355,9 @@ def admin_group_group_provider_info_get(
 At most one Group can have a given provider ID in a given Realm.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_group_group_provider_info_replace(
     client: foundry.v2.FoundryClient,
@@ -1127,7 +1383,9 @@ def admin_enrollment():
 
 @admin_enrollment.command("get")
 @click.argument("enrollment_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_get(
     client: foundry.v2.FoundryClient,
@@ -1145,7 +1403,9 @@ def admin_enrollment_get(
 
 
 @admin_enrollment.command("get_current")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_get_current(
     client: foundry.v2.FoundryClient,
@@ -1169,7 +1429,9 @@ def admin_enrollment_authentication_provider():
 @admin_enrollment_authentication_provider.command("get")
 @click.argument("enrollment_rid", type=str, required=True)
 @click.argument("authentication_provider_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_authentication_provider_get(
     client: foundry.v2.FoundryClient,
@@ -1190,7 +1452,9 @@ def admin_enrollment_authentication_provider_get(
 
 @admin_enrollment_authentication_provider.command("list")
 @click.argument("enrollment_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_authentication_provider_list(
     client: foundry.v2.FoundryClient,
@@ -1220,7 +1484,9 @@ def admin_enrollment_authentication_provider_list(
     help="""The RIDs of the Organizations that can view this group.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_authentication_provider_preregister_group(
     client: foundry.v2.FoundryClient,
@@ -1266,7 +1532,9 @@ time depending on any configured Organization assignment rules.
 @click.option("--email", type=str, required=False, help="""""")
 @click.option("--family_name", type=str, required=False, help="""""")
 @click.option("--given_name", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_authentication_provider_preregister_user(
     client: foundry.v2.FoundryClient,
@@ -1306,9 +1574,20 @@ def admin_enrollment_host():
 
 @admin_enrollment_host.command("list")
 @click.argument("enrollment_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_host_list(
     client: foundry.v2.FoundryClient,
@@ -1333,9 +1612,20 @@ def admin_enrollment_host_list(
 
 @admin_enrollment_host.command("page")
 @click.argument("enrollment_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def admin_enrollment_host_page(
     client: foundry.v2.FoundryClient,
@@ -1369,9 +1659,18 @@ def aip_agents_agent():
 
 
 @aip_agents_agent.command("all_sessions")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of sessions to return in a single page. The maximum allowed value is 100.
+Defaults to 100 if not specified.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_all_sessions(
     client: foundry.v2.FoundryClient,
@@ -1393,9 +1692,18 @@ def aip_agents_agent_all_sessions(
 
 
 @aip_agents_agent.command("all_sessions_page")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of sessions to return in a single page. The maximum allowed value is 100.
+Defaults to 100 if not specified.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_all_sessions_page(
     client: foundry.v2.FoundryClient,
@@ -1418,8 +1726,16 @@ def aip_agents_agent_all_sessions_page(
 
 @aip_agents_agent.command("get")
 @click.argument("agent_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--version", type=str, required=False, help="""version""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the Agent to retrieve. If not specified, the latest published version will be returned.
+""",
+)
 @click.pass_obj
 def aip_agents_agent_get(
     client: foundry.v2.FoundryClient,
@@ -1467,7 +1783,9 @@ def aip_agents_agent_session():
 If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_blocking_continue(
     client: foundry.v2.FoundryClient,
@@ -1509,7 +1827,9 @@ def aip_agents_agent_session_blocking_continue(
 This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--response",
     type=str,
@@ -1554,7 +1874,9 @@ This can be set by clients on session creation.
 If not specified, defaults to use the latest published version of the Agent at session creation time.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_create(
     client: foundry.v2.FoundryClient,
@@ -1578,7 +1900,9 @@ def aip_agents_agent_session_create(
 @aip_agents_agent_session.command("get")
 @click.argument("agent_rid", type=str, required=True)
 @click.argument("session_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_get(
     client: foundry.v2.FoundryClient,
@@ -1599,9 +1923,20 @@ def aip_agents_agent_session_get(
 
 @aip_agents_agent_session.command("list")
 @click.argument("agent_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_list(
     client: foundry.v2.FoundryClient,
@@ -1628,9 +1963,20 @@ def aip_agents_agent_session_list(
 
 @aip_agents_agent_session.command("page")
 @click.argument("agent_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_page(
     client: foundry.v2.FoundryClient,
@@ -1671,7 +2017,9 @@ def aip_agents_agent_session_page(
     required=True,
     help="""The user message to retrieve relevant context for from the configured Agent data sources.""",
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_rag_context(
     client: foundry.v2.FoundryClient,
@@ -1727,7 +2075,9 @@ If omitted, relevant context for the user message is automatically retrieved and
     help="""A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_streaming_continue(
     client: foundry.v2.FoundryClient,
@@ -1769,7 +2119,9 @@ def aip_agents_agent_session_content():
 @aip_agents_agent_session_content.command("get")
 @click.argument("agent_rid", type=str, required=True)
 @click.argument("session_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_session_content_get(
     client: foundry.v2.FoundryClient,
@@ -1796,7 +2148,9 @@ def aip_agents_agent_agent_version():
 @aip_agents_agent_agent_version.command("get")
 @click.argument("agent_rid", type=str, required=True)
 @click.argument("agent_version_string", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_agent_version_get(
     client: foundry.v2.FoundryClient,
@@ -1817,9 +2171,20 @@ def aip_agents_agent_agent_version_get(
 
 @aip_agents_agent_agent_version.command("list")
 @click.argument("agent_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_agent_version_list(
     client: foundry.v2.FoundryClient,
@@ -1844,9 +2209,20 @@ def aip_agents_agent_agent_version_list(
 
 @aip_agents_agent_agent_version.command("page")
 @click.argument("agent_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def aip_agents_agent_agent_version_page(
     client: foundry.v2.FoundryClient,
@@ -1889,7 +2265,9 @@ def connectivity_connection():
 )
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.option("--runtime_platform", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_create(
     client: foundry.v2.FoundryClient,
@@ -1922,7 +2300,9 @@ def connectivity_connection_create(
 
 @connectivity_connection.command("get")
 @click.argument("connection_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_get(
     client: foundry.v2.FoundryClient,
@@ -1941,7 +2321,9 @@ def connectivity_connection_get(
 
 @connectivity_connection.command("get_configuration")
 @click.argument("connection_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_get_configuration(
     client: foundry.v2.FoundryClient,
@@ -1969,7 +2351,9 @@ def connectivity_connection_get_configuration(
     help="""The secrets to be updated. The specified secret names must already be configured on the connection.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_update_secrets(
     client: foundry.v2.FoundryClient,
@@ -2024,7 +2408,9 @@ def connectivity_connection_table_import():
     required=False,
     help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_table_import_create(
     client: foundry.v2.FoundryClient,
@@ -2056,7 +2442,9 @@ def connectivity_connection_table_import_create(
 @connectivity_connection_table_import.command("delete")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_table_import_delete(
     client: foundry.v2.FoundryClient,
@@ -2081,7 +2469,9 @@ def connectivity_connection_table_import_delete(
 @connectivity_connection_table_import.command("execute")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_table_import_execute(
     client: foundry.v2.FoundryClient,
@@ -2105,7 +2495,9 @@ def connectivity_connection_table_import_execute(
 @connectivity_connection_table_import.command("get")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_table_import_get(
     client: foundry.v2.FoundryClient,
@@ -2126,9 +2518,20 @@ def connectivity_connection_table_import_get(
 
 @connectivity_connection_table_import.command("list")
 @click.argument("connection_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_table_import_list(
     client: foundry.v2.FoundryClient,
@@ -2153,9 +2556,20 @@ def connectivity_connection_table_import_list(
 
 @connectivity_connection_table_import.command("page")
 @click.argument("connection_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_table_import_page(
     client: foundry.v2.FoundryClient,
@@ -2202,7 +2616,9 @@ def connectivity_connection_file_import():
     required=False,
     help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--subfolder",
     type=str,
@@ -2240,7 +2656,9 @@ def connectivity_connection_file_import_create(
 @connectivity_connection_file_import.command("delete")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_file_import_delete(
     client: foundry.v2.FoundryClient,
@@ -2265,7 +2683,9 @@ def connectivity_connection_file_import_delete(
 @connectivity_connection_file_import.command("execute")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_file_import_execute(
     client: foundry.v2.FoundryClient,
@@ -2289,7 +2709,9 @@ def connectivity_connection_file_import_execute(
 @connectivity_connection_file_import.command("get")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_file_import_get(
     client: foundry.v2.FoundryClient,
@@ -2310,9 +2732,20 @@ def connectivity_connection_file_import_get(
 
 @connectivity_connection_file_import.command("list")
 @click.argument("connection_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_file_import_list(
     client: foundry.v2.FoundryClient,
@@ -2337,9 +2770,20 @@ def connectivity_connection_file_import_list(
 
 @connectivity_connection_file_import.command("page")
 @click.argument("connection_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def connectivity_connection_file_import_page(
     client: foundry.v2.FoundryClient,
@@ -2382,7 +2826,9 @@ def connectivity_connection_file_import_page(
     required=False,
     help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--subfolder",
     type=str,
@@ -2472,12 +2918,48 @@ def datasets_dataset_get(
 
 @datasets_dataset.command("read_table")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--format", type=click.Choice(["ARROW", "CSV"]), required=True, help="""format""")
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--columns", type=str, required=False, help="""columns""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--row_limit", type=int, required=False, help="""rowLimit""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--format",
+    type=click.Choice(["ARROW", "CSV"]),
+    required=True,
+    help="""The export format. Must be `ARROW` or `CSV`.
+""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch.
+""",
+)
+@click.option(
+    "--columns",
+    type=str,
+    required=False,
+    help="""A subset of the dataset columns to include in the result. Defaults to all columns.
+""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.
+""",
+)
+@click.option(
+    "--row_limit",
+    type=int,
+    required=False,
+    help="""A limit on the number of rows to return. Note that row ordering is non-deterministic.
+""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.
+""",
+)
 @click.pass_obj
 def datasets_dataset_read_table(
     client: foundry.v2.FoundryClient,
@@ -2515,9 +2997,27 @@ def datasets_dataset_file():
 @datasets_dataset_file.command("content")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch that contains the File. Defaults to `master` for most enrollments.
+""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.
+""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.
+""",
+)
 @click.pass_obj
 def datasets_dataset_file_content(
     client: foundry.v2.FoundryClient,
@@ -2560,8 +3060,20 @@ def datasets_dataset_file_content(
 @datasets_dataset_file.command("delete")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch on which to delete the File. Defaults to `master` for most enrollments.
+""",
+)
+@click.option(
+    "--transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
+""",
+)
 @click.pass_obj
 def datasets_dataset_file_delete(
     client: foundry.v2.FoundryClient,
@@ -2595,9 +3107,27 @@ def datasets_dataset_file_delete(
 @datasets_dataset_file.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch that contains the File. Defaults to `master` for most enrollments.
+""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.
+""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.
+""",
+)
 @click.pass_obj
 def datasets_dataset_file_get(
     client: foundry.v2.FoundryClient,
@@ -2638,11 +3168,38 @@ def datasets_dataset_file_get(
 
 @datasets_dataset_file.command("list")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
+""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.
+""",
+)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.
+""",
+)
 @click.pass_obj
 def datasets_dataset_file_list(
     client: foundry.v2.FoundryClient,
@@ -2687,11 +3244,38 @@ def datasets_dataset_file_list(
 
 @datasets_dataset_file.command("page")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
+""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.
+""",
+)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.
+""",
+)
 @click.pass_obj
 def datasets_dataset_file_page(
     client: foundry.v2.FoundryClient,
@@ -2738,13 +3322,26 @@ def datasets_dataset_file_page(
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch on which to upload the File. Defaults to `master` for most enrollments.
+""",
+)
+@click.option(
+    "--transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the open Transaction on which to upload the File.
+""",
+)
 @click.option(
     "--transaction_type",
     type=click.Choice(["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]),
     required=False,
-    help="""transactionType""",
+    help="""The type of the Transaction to create when using branchName. Defaults to `UPDATE`.
+""",
 )
 @click.pass_obj
 def datasets_dataset_file_upload(
@@ -2812,7 +3409,9 @@ def datasets_dataset_transaction_abort(
 @datasets_dataset_transaction.command("build")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def datasets_dataset_transaction_build(
     client: foundry.v2.FoundryClient,
@@ -2863,7 +3462,13 @@ def datasets_dataset_transaction_commit(
     required=True,
     help="""""",
 )
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
+""",
+)
 @click.pass_obj
 def datasets_dataset_transaction_create(
     client: foundry.v2.FoundryClient,
@@ -2906,7 +3511,9 @@ def datasets_dataset_transaction_get(
 @datasets_dataset_transaction.command("job")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def datasets_dataset_transaction_job(
     client: foundry.v2.FoundryClient,
@@ -3003,8 +3610,17 @@ def datasets_dataset_branch_get(
 
 @datasets_dataset_branch.command("list")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def datasets_dataset_branch_list(
     client: foundry.v2.FoundryClient,
@@ -3026,8 +3642,17 @@ def datasets_dataset_branch_list(
 
 @datasets_dataset_branch.command("page")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def datasets_dataset_branch_page(
     client: foundry.v2.FoundryClient,
@@ -3058,9 +3683,20 @@ def filesystem_space():
 
 
 @filesystem_space.command("list")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_space_list(
     client: foundry.v2.FoundryClient,
@@ -3082,9 +3718,20 @@ def filesystem_space_list(
 
 
 @filesystem_space.command("page")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_space_page(
     client: foundry.v2.FoundryClient,
@@ -3113,7 +3760,9 @@ def filesystem_resource():
 @filesystem_resource.command("add_markings")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--marking_ids", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_add_markings(
     client: foundry.v2.FoundryClient,
@@ -3134,7 +3783,9 @@ def filesystem_resource_add_markings(
 
 @filesystem_resource.command("delete")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_delete(
     client: foundry.v2.FoundryClient,
@@ -3155,7 +3806,9 @@ def filesystem_resource_delete(
 
 @filesystem_resource.command("get")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_get(
     client: foundry.v2.FoundryClient,
@@ -3174,7 +3827,9 @@ def filesystem_resource_get(
 
 @filesystem_resource.command("get_access_requirements")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_get_access_requirements(
     client: foundry.v2.FoundryClient,
@@ -3194,8 +3849,15 @@ def filesystem_resource_get_access_requirements(
 
 
 @filesystem_resource.command("get_by_path")
-@click.option("--path", type=str, required=True, help="""path""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--path",
+    type=str,
+    required=True,
+    help="""The path to the Resource. The leading slash is optional.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_get_by_path(
     client: foundry.v2.FoundryClient,
@@ -3214,9 +3876,20 @@ def filesystem_resource_get_by_path(
 
 @filesystem_resource.command("markings")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_markings(
     client: foundry.v2.FoundryClient,
@@ -3241,9 +3914,20 @@ def filesystem_resource_markings(
 
 @filesystem_resource.command("markings_page")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_markings_page(
     client: foundry.v2.FoundryClient,
@@ -3268,7 +3952,9 @@ def filesystem_resource_markings_page(
 
 @filesystem_resource.command("permanently_delete")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_permanently_delete(
     client: foundry.v2.FoundryClient,
@@ -3290,7 +3976,9 @@ def filesystem_resource_permanently_delete(
 @filesystem_resource.command("remove_markings")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--marking_ids", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_remove_markings(
     client: foundry.v2.FoundryClient,
@@ -3311,7 +3999,9 @@ def filesystem_resource_remove_markings(
 
 @filesystem_resource.command("restore")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_restore(
     client: foundry.v2.FoundryClient,
@@ -3338,7 +4028,9 @@ def filesystem_resource_resource_role():
 @filesystem_resource_resource_role.command("add")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--roles", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_resource_role_add(
     client: foundry.v2.FoundryClient,
@@ -3357,10 +4049,26 @@ def filesystem_resource_resource_role_add(
 
 @filesystem_resource_resource_role.command("list")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--include_inherited", type=bool, required=False, help="""includeInherited""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--include_inherited",
+    type=bool,
+    required=False,
+    help="""Whether to include inherited roles on the resource.""",
+)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_resource_role_list(
     client: foundry.v2.FoundryClient,
@@ -3386,10 +4094,26 @@ def filesystem_resource_resource_role_list(
 
 @filesystem_resource_resource_role.command("page")
 @click.argument("resource_rid", type=str, required=True)
-@click.option("--include_inherited", type=bool, required=False, help="""includeInherited""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--include_inherited",
+    type=bool,
+    required=False,
+    help="""Whether to include inherited roles on the resource.""",
+)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_resource_role_page(
     client: foundry.v2.FoundryClient,
@@ -3416,7 +4140,9 @@ def filesystem_resource_resource_role_page(
 @filesystem_resource_resource_role.command("remove")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--roles", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_resource_resource_role_remove(
     client: foundry.v2.FoundryClient,
@@ -3441,7 +4167,9 @@ def filesystem_project():
 @filesystem_project.command("add_organizations")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--organization_rids", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_project_add_organizations(
     client: foundry.v2.FoundryClient,
@@ -3467,7 +4195,9 @@ def filesystem_project_add_organizations(
 @click.option("--role_grants", type=str, required=True, help="""""")
 @click.option("--space_rid", type=str, required=True, help="""""")
 @click.option("--description", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_project_create(
     client: foundry.v2.FoundryClient,
@@ -3504,7 +4234,9 @@ def filesystem_project_create(
 @click.option("--variable_values", type=str, required=True, help="""""")
 @click.option("--default_roles", type=str, required=False, help="""""")
 @click.option("--organization_rids", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option("--project_description", type=str, required=False, help="""""")
 @click.pass_obj
 def filesystem_project_create_from_template(
@@ -3532,7 +4264,9 @@ def filesystem_project_create_from_template(
 
 @filesystem_project.command("get")
 @click.argument("project_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_project_get(
     client: foundry.v2.FoundryClient,
@@ -3551,9 +4285,20 @@ def filesystem_project_get(
 
 @filesystem_project.command("organizations")
 @click.argument("project_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_project_organizations(
     client: foundry.v2.FoundryClient,
@@ -3578,9 +4323,20 @@ def filesystem_project_organizations(
 
 @filesystem_project.command("organizations_page")
 @click.argument("project_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_project_organizations_page(
     client: foundry.v2.FoundryClient,
@@ -3606,7 +4362,9 @@ def filesystem_project_organizations_page(
 @filesystem_project.command("remove_organizations")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--organization_rids", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_project_remove_organizations(
     client: foundry.v2.FoundryClient,
@@ -3632,9 +4390,20 @@ def filesystem_folder():
 
 @filesystem_folder.command("children")
 @click.argument("folder_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_folder_children(
     client: foundry.v2.FoundryClient,
@@ -3661,9 +4430,20 @@ def filesystem_folder_children(
 
 @filesystem_folder.command("children_page")
 @click.argument("folder_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_folder_children_page(
     client: foundry.v2.FoundryClient,
@@ -3698,7 +4478,9 @@ def filesystem_folder_children_page(
 this value will be the root folder (`ri.compass.main.folder.0`).
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_folder_create(
     client: foundry.v2.FoundryClient,
@@ -3719,7 +4501,9 @@ def filesystem_folder_create(
 
 @filesystem_folder.command("get")
 @click.argument("folder_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def filesystem_folder_get(
     client: foundry.v2.FoundryClient,
@@ -3748,7 +4532,9 @@ def functions_value_type():
 
 @functions_value_type.command("get")
 @click.argument("value_type_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def functions_value_type_get(
     client: foundry.v2.FoundryClient,
@@ -3774,7 +4560,9 @@ def functions_value_type_version_id():
 @functions_value_type_version_id.command("get")
 @click.argument("value_type_rid", type=str, required=True)
 @click.argument("version_id_version_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def functions_value_type_version_id_get(
     client: foundry.v2.FoundryClient,
@@ -3802,7 +4590,9 @@ def functions_query():
 @functions_query.command("execute")
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def functions_query_execute(
     client: foundry.v2.FoundryClient,
@@ -3826,7 +4616,9 @@ def functions_query_execute(
 
 @functions_query.command("get")
 @click.argument("query_api_name", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def functions_query_get(
     client: foundry.v2.FoundryClient,
@@ -3846,7 +4638,9 @@ def functions_query_get(
 
 @functions_query.command("get_by_rid")
 @click.option("--rid", type=str, required=True, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def functions_query_get_by_rid(
     client: foundry.v2.FoundryClient,
@@ -3882,7 +4676,13 @@ def media_sets_media_set():
 @media_sets_media_set.command("abort")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("transaction_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def media_sets_media_set_abort(
     client: foundry.v2.FoundryClient,
@@ -3907,7 +4707,13 @@ def media_sets_media_set_abort(
 @media_sets_media_set.command("commit")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("transaction_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def media_sets_media_set_commit(
     client: foundry.v2.FoundryClient,
@@ -3931,8 +4737,20 @@ def media_sets_media_set_commit(
 
 @media_sets_media_set.command("create")
 @click.argument("media_set_rid", type=str, required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The branch on which to open the transaction. Defaults to `master` for most enrollments.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def media_sets_media_set_create(
     client: foundry.v2.FoundryClient,
@@ -3957,8 +4775,14 @@ def media_sets_media_set_create(
 @media_sets_media_set.command("info")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--read_token", type=str, required=False, help="""ReadToken""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_info(
     client: foundry.v2.FoundryClient,
@@ -3985,8 +4809,14 @@ def media_sets_media_set_info(
 @media_sets_media_set.command("read")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--read_token", type=str, required=False, help="""ReadToken""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_read(
     client: foundry.v2.FoundryClient,
@@ -4013,8 +4843,14 @@ def media_sets_media_set_read(
 @media_sets_media_set.command("read_original")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--read_token", type=str, required=False, help="""ReadToken""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_read_original(
     client: foundry.v2.FoundryClient,
@@ -4041,8 +4877,14 @@ def media_sets_media_set_read_original(
 @media_sets_media_set.command("reference")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--read_token", type=str, required=False, help="""ReadToken""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_reference(
     client: foundry.v2.FoundryClient,
@@ -4069,12 +4911,44 @@ def media_sets_media_set_reference(
 @media_sets_media_set.command("upload")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--branch_name", type=str, required=False, help="""branchName""")
-@click.option("--branch_rid", type=str, required=False, help="""branchRid""")
-@click.option("--media_item_path", type=str, required=False, help="""mediaItemPath""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--transaction_id", type=str, required=False, help="""transactionId""")
-@click.option("--view_rid", type=str, required=False, help="""viewRid""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.""",
+)
+@click.option(
+    "--branch_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided.""",
+)
+@click.option(
+    "--media_item_path",
+    type=str,
+    required=False,
+    help="""An identifier for a media item within a media set. Necessary if the backing media set requires paths.""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The id of the transaction associated with this request.  Required if this is a transactional media set.
+""",
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided.""",
+)
 @click.pass_obj
 def media_sets_media_set_upload(
     client: foundry.v2.FoundryClient,
@@ -4123,8 +4997,20 @@ def ontologies_time_series_property_v2():
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_time_series_property_v2_get_first_point(
     client: foundry.v2.FoundryClient,
@@ -4158,8 +5044,20 @@ def ontologies_time_series_property_v2_get_first_point(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_time_series_property_v2_get_last_point(
     client: foundry.v2.FoundryClient,
@@ -4193,9 +5091,28 @@ def ontologies_time_series_property_v2_get_last_point(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--format", type=click.Choice(["JSON", "ARROW"]), required=False, help="""format""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--format",
+    type=click.Choice(["JSON", "ARROW"]),
+    required=False,
+    help="""The output format to serialize the output binary stream in. Default is
+JSON. ARROW is more efficient than JSON at streaming a large sized response.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.option("--range", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_time_series_property_v2_stream_points(
@@ -4238,8 +5155,20 @@ def ontologies_query():
 @click.argument("ontology", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_query_execute(
     client: foundry.v2.FoundryClient,
@@ -4284,8 +5213,20 @@ def ontologies_ontology_object_set():
     required=False,
     help="""""",
 )
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_aggregate(
     client: foundry.v2.FoundryClient,
@@ -4364,7 +5305,13 @@ def ontologies_ontology_object_set_get(
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -4374,7 +5321,13 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
@@ -4431,8 +5384,20 @@ def ontologies_ontology_object():
     required=False,
     help="""""",
 )
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_aggregate(
@@ -4468,8 +5433,20 @@ def ontologies_ontology_object_aggregate(
 @ontologies_ontology_object.command("count")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_count(
     client: foundry.v2.FoundryClient,
@@ -4497,10 +5474,36 @@ def ontologies_ontology_object_count(
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--select", type=str, required=False, help="""select""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_get(
     client: foundry.v2.FoundryClient,
@@ -4533,13 +5536,46 @@ def ontologies_ontology_object_get(
 @ontologies_ontology_object.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--select", type=str, required=False, help="""select""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_list(
     client: foundry.v2.FoundryClient,
@@ -4588,13 +5624,46 @@ def ontologies_ontology_object_list(
 @ontologies_ontology_object.command("page")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--select", type=str, required=False, help="""select""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_page(
     client: foundry.v2.FoundryClient,
@@ -4650,7 +5719,13 @@ def ontologies_ontology_object_page(
     help="""The API names of the object type properties to include in the response.
 """,
 )
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -4660,7 +5735,13 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option("--where", type=str, required=False, help="""""")
@@ -4737,7 +5818,13 @@ def ontologies_ontology_interface():
     required=False,
     help="""""",
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_interface_aggregate(
@@ -4781,7 +5868,13 @@ def ontologies_ontology_interface_aggregate(
 @ontologies_ontology_interface.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("interface_type", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_get(
     client: foundry.v2.FoundryClient,
@@ -4810,9 +5903,22 @@ def ontologies_ontology_interface_get(
 
 @ontologies_ontology_interface.command("list")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_list(
     client: foundry.v2.FoundryClient,
@@ -4846,9 +5952,22 @@ def ontologies_ontology_interface_list(
 
 @ontologies_ontology_interface.command("page")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_page(
     client: foundry.v2.FoundryClient,
@@ -4950,8 +6069,15 @@ def ontologies_ontology_query_type_get(
 
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 100.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_query_type_list(
     client: foundry.v2.FoundryClient,
@@ -4978,8 +6104,15 @@ def ontologies_ontology_query_type_list(
 
 @ontologies_ontology_query_type.command("page")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 100.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_query_type_page(
     client: foundry.v2.FoundryClient,
@@ -5059,8 +6192,15 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 
 @ontologies_ontology_object_type.command("list")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_list(
     client: foundry.v2.FoundryClient,
@@ -5089,8 +6229,10 @@ def ontologies_ontology_object_type_list(
 @ontologies_ontology_object_type.command("list_outgoing_link_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The desired size of the page to be returned."""
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_list_outgoing_link_types(
     client: foundry.v2.FoundryClient,
@@ -5117,8 +6259,15 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
 
 @ontologies_ontology_object_type.command("page")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_page(
     client: foundry.v2.FoundryClient,
@@ -5147,8 +6296,10 @@ def ontologies_ontology_object_type_page(
 @ontologies_ontology_object_type.command("page_outgoing_link_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The desired size of the page to be returned."""
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_page_outgoing_link_types(
     client: foundry.v2.FoundryClient,
@@ -5202,8 +6353,15 @@ def ontologies_ontology_action_type_get(
 
 @ontologies_ontology_action_type.command("list")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_action_type_list(
     client: foundry.v2.FoundryClient,
@@ -5230,8 +6388,15 @@ def ontologies_ontology_action_type_list(
 
 @ontologies_ontology_action_type.command("page")
 @click.argument("ontology", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_action_type_page(
     client: foundry.v2.FoundryClient,
@@ -5267,10 +6432,36 @@ def ontologies_linked_object():
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
 @click.argument("linked_object_primary_key", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--select", type=str, required=False, help="""select""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_linked_object_get_linked_object(
     client: foundry.v2.FoundryClient,
@@ -5311,13 +6502,46 @@ def ontologies_linked_object_get_linked_object(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--select", type=str, required=False, help="""select""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_linked_object_list_linked_objects(
     client: foundry.v2.FoundryClient,
@@ -5372,13 +6596,46 @@ def ontologies_linked_object_list_linked_objects(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--exclude_rid", type=bool, required=False, help="""excludeRid""")
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--select", type=str, required=False, help="""select""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_linked_object_page_linked_objects(
     client: foundry.v2.FoundryClient,
@@ -5438,8 +6695,20 @@ def ontologies_attachment_property():
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_attachment_property_get_attachment(
     client: foundry.v2.FoundryClient,
@@ -5474,8 +6743,20 @@ def ontologies_attachment_property_get_attachment(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.argument("attachment_rid", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_attachment_property_get_attachment_by_rid(
     client: foundry.v2.FoundryClient,
@@ -5511,8 +6792,20 @@ def ontologies_attachment_property_get_attachment_by_rid(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_attachment_property_read_attachment(
     client: foundry.v2.FoundryClient,
@@ -5547,8 +6840,20 @@ def ontologies_attachment_property_read_attachment(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.argument("attachment_rid", type=str, required=True)
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_attachment_property_read_attachment_by_rid(
     client: foundry.v2.FoundryClient,
@@ -5628,9 +6933,18 @@ def ontologies_attachment_read(
 
 @ontologies_attachment.command("upload")
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--content_length", type=int, required=True, help="""Content-Length""")
-@click.option("--content_type", type=str, required=True, help="""Content-Type""")
-@click.option("--filename", type=str, required=True, help="""filename""")
+@click.option(
+    "--content_length",
+    type=int,
+    required=True,
+    help="""The size in bytes of the file content being uploaded.""",
+)
+@click.option(
+    "--content_type", type=str, required=True, help="""The media type of the file being uploaded."""
+)
+@click.option(
+    "--filename", type=str, required=True, help="""The name of the file being uploaded."""
+)
 @click.pass_obj
 def ontologies_attachment_upload(
     client: foundry.v2.FoundryClient,
@@ -5668,9 +6982,21 @@ def ontologies_action():
 @click.argument("ontology", type=str, required=True)
 @click.argument("action", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
 @click.option("--options", type=str, required=False, help="""""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_action_apply(
     client: foundry.v2.FoundryClient,
@@ -5708,9 +7034,21 @@ def ontologies_action_apply(
 @click.argument("ontology", type=str, required=True)
 @click.argument("action", type=str, required=True)
 @click.option("--requests", type=str, required=True, help="""""")
-@click.option("--artifact_repository", type=str, required=False, help="""artifactRepository""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
 @click.option("--options", type=str, required=False, help="""""")
-@click.option("--package_name", type=str, required=False, help="""packageName""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_action_apply_batch(
     client: foundry.v2.FoundryClient,
@@ -5757,7 +7095,9 @@ def orchestration_schedule_version():
 
 @orchestration_schedule_version.command("get")
 @click.argument("schedule_version_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_version_get(
     client: foundry.v2.FoundryClient,
@@ -5776,7 +7116,9 @@ def orchestration_schedule_version_get(
 
 @orchestration_schedule_version.command("schedule")
 @click.argument("schedule_version_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_version_schedule(
     client: foundry.v2.FoundryClient,
@@ -5800,7 +7142,9 @@ def orchestration_schedule():
 @click.option("--action", type=str, required=True, help="""""")
 @click.option("--description", type=str, required=False, help="""""")
 @click.option("--display_name", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option("--scope_mode", type=str, required=False, help="""""")
 @click.option(
     "--trigger",
@@ -5836,7 +7180,9 @@ def orchestration_schedule_create(
 
 @orchestration_schedule.command("delete")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_delete(
     client: foundry.v2.FoundryClient,
@@ -5855,7 +7201,9 @@ def orchestration_schedule_delete(
 
 @orchestration_schedule.command("get")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_get(
     client: foundry.v2.FoundryClient,
@@ -5874,7 +7222,9 @@ def orchestration_schedule_get(
 
 @orchestration_schedule.command("pause")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_pause(
     client: foundry.v2.FoundryClient,
@@ -5894,7 +7244,9 @@ def orchestration_schedule_pause(
 @click.option("--action", type=str, required=True, help="""""")
 @click.option("--description", type=str, required=False, help="""""")
 @click.option("--display_name", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option("--scope_mode", type=str, required=False, help="""""")
 @click.option(
     "--trigger",
@@ -5932,7 +7284,9 @@ def orchestration_schedule_replace(
 
 @orchestration_schedule.command("run")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_run(
     client: foundry.v2.FoundryClient,
@@ -5949,9 +7303,20 @@ def orchestration_schedule_run(
 
 @orchestration_schedule.command("runs")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_runs(
     client: foundry.v2.FoundryClient,
@@ -5975,9 +7340,20 @@ def orchestration_schedule_runs(
 
 @orchestration_schedule.command("runs_page")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_runs_page(
     client: foundry.v2.FoundryClient,
@@ -6001,7 +7377,9 @@ def orchestration_schedule_runs_page(
 
 @orchestration_schedule.command("unpause")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_schedule_unpause(
     client: foundry.v2.FoundryClient,
@@ -6023,7 +7401,9 @@ def orchestration_job():
 
 @orchestration_job.command("get")
 @click.argument("job_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_job_get(
     client: foundry.v2.FoundryClient,
@@ -6047,7 +7427,9 @@ def orchestration_build():
 
 @orchestration_build.command("cancel")
 @click.argument("build_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_build_cancel(
     client: foundry.v2.FoundryClient,
@@ -6080,7 +7462,9 @@ def orchestration_build_cancel(
     help="""The notification will be sent to the user that has most recently edited the schedule.
 No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.""",
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option("--retry_backoff_duration", type=str, required=False, help="""""")
 @click.option(
     "--retry_count",
@@ -6120,7 +7504,9 @@ def orchestration_build_create(
 
 @orchestration_build.command("get")
 @click.argument("build_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_build_get(
     client: foundry.v2.FoundryClient,
@@ -6139,7 +7525,9 @@ def orchestration_build_get(
 
 @orchestration_build.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_build_get_batch(
     client: foundry.v2.FoundryClient,
@@ -6169,7 +7557,9 @@ def orchestration_build_get_batch(
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def orchestration_build_search(
     client: foundry.v2.FoundryClient,
@@ -6204,7 +7594,9 @@ def sql_queries_query():
 
 @sql_queries_query.command("cancel")
 @click.argument("query_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def sql_queries_query_cancel(
     client: foundry.v2.FoundryClient,
@@ -6242,7 +7634,9 @@ provided that exists. If no fallback branches are provided the default branch is
 `master` for most enrollments.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def sql_queries_query_execute(
     client: foundry.v2.FoundryClient,
@@ -6266,7 +7660,9 @@ def sql_queries_query_execute(
 
 @sql_queries_query.command("get_results")
 @click.argument("query_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def sql_queries_query_get_results(
     client: foundry.v2.FoundryClient,
@@ -6287,7 +7683,9 @@ def sql_queries_query_get_results(
 
 @sql_queries_query.command("get_status")
 @click.argument("query_id", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def sql_queries_query_get_status(
     client: foundry.v2.FoundryClient,
@@ -6354,7 +7752,9 @@ If not specified, 1 partition is used.
 This value cannot be changed later.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--stream_type",
     type=click.Choice(["LOW_LATENCY", "HIGH_THROUGHPUT"]),
@@ -6420,7 +7820,9 @@ Generally, each partition can handle about 5 mb/s of data, so for higher volume 
 are recommended.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--stream_type",
     type=click.Choice(["LOW_LATENCY", "HIGH_THROUGHPUT"]),
@@ -6459,7 +7861,9 @@ def streams_dataset_stream_create(
 @streams_dataset_stream.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("stream_branch_name", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def streams_dataset_stream_get(
     client: foundry.v2.FoundryClient,
@@ -6484,8 +7888,20 @@ def streams_dataset_stream_get(
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("stream_branch_name", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--view_rid", type=str, required=False, help="""viewRid""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""If provided, this operation will only write to the stream corresponding to the specified view rid. If
+not provided, this operation will write to the latest stream on the branch.
+
+Providing this value is an advanced configuration, to be used when additional control over the
+underlying streaming data structures is needed.
+""",
+)
 @click.pass_obj
 def streams_dataset_stream_publish_binary_record(
     client: foundry.v2.FoundryClient,
@@ -6519,7 +7935,9 @@ def streams_dataset_stream_publish_binary_record(
     help="""The record to publish to the stream
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--view_rid",
     type=str,
@@ -6565,7 +7983,9 @@ def streams_dataset_stream_publish_record(
     help="""The records to publish to the stream
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--view_rid",
     type=str,
@@ -6624,7 +8044,9 @@ are recommended.
 If omitted, the partitions count of the existing stream on the branch will be used.
 """,
 )
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.option(
     "--schema",
     type=str,
@@ -6689,7 +8111,9 @@ def third_party_applications_third_party_application():
 
 @third_party_applications_third_party_application.command("get")
 @click.argument("third_party_application_rid", type=str, required=True)
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
 @click.pass_obj
 def third_party_applications_third_party_application_get(
     client: foundry.v2.FoundryClient,
@@ -6807,8 +8231,17 @@ def third_party_applications_third_party_application_website_version_get(
 
 @third_party_applications_third_party_application_website_version.command("list")
 @click.argument("third_party_application_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_list(
     client: foundry.v2.FoundryClient,
@@ -6831,8 +8264,17 @@ def third_party_applications_third_party_application_website_version_list(
 
 @third_party_applications_third_party_application_website_version.command("page")
 @click.argument("third_party_application_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_page(
     client: foundry.v2.FoundryClient,
@@ -6856,7 +8298,7 @@ def third_party_applications_third_party_application_website_version_page(
 @third_party_applications_third_party_application_website_version.command("upload")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--version", type=str, required=True, help="""version""")
+@click.option("--version", type=str, required=True, help="""""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_upload(
     client: foundry.v2.FoundryClient,
@@ -6878,9 +8320,19 @@ def third_party_applications_third_party_application_website_version_upload(
 @third_party_applications_third_party_application_website_version.command("upload_snapshot")
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--version", type=str, required=True, help="""version""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--snapshot_identifier", type=str, required=False, help="""snapshotIdentifier""")
+@click.option("--version", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--snapshot_identifier",
+    type=str,
+    required=False,
+    help="""The identifier of the snapshot. If the identifier follows the format
+`foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be
+accessible from foundry code repositories.
+""",
+)
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_upload_snapshot(
     client: foundry.v2.FoundryClient,

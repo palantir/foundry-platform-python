@@ -67,11 +67,11 @@ class MarkingRoleAssignmentClient:
     ) -> None:
         """
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -130,13 +130,13 @@ class MarkingRoleAssignmentClient:
         """
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -182,13 +182,13 @@ class MarkingRoleAssignmentClient:
         """
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -240,11 +240,11 @@ class MarkingRoleAssignmentClient:
     ) -> None:
         """
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -328,11 +328,11 @@ class _MarkingRoleAssignmentClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -391,13 +391,13 @@ class _MarkingRoleAssignmentClientRaw:
         """
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -443,13 +443,13 @@ class _MarkingRoleAssignmentClientRaw:
         """
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -501,11 +501,11 @@ class _MarkingRoleAssignmentClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -589,11 +589,11 @@ class _MarkingRoleAssignmentClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -652,13 +652,13 @@ class _MarkingRoleAssignmentClientStreaming:
         """
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -704,13 +704,13 @@ class _MarkingRoleAssignmentClientStreaming:
         """
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -762,11 +762,11 @@ class _MarkingRoleAssignmentClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

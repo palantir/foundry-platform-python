@@ -92,7 +92,7 @@ class OntologyClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -190,7 +190,7 @@ class _OntologyClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -288,7 +288,7 @@ class _OntologyClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

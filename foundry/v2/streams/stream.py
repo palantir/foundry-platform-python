@@ -71,7 +71,7 @@ class StreamClient:
         """
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
@@ -81,7 +81,7 @@ class StreamClient:
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
         :type stream_type: Optional[StreamType]
@@ -150,11 +150,11 @@ class StreamClient:
         Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
         user does not have permission to access the stream, a 404 error will be returned.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -204,15 +204,15 @@ class StreamClient:
         """
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: viewRid
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -264,13 +264,13 @@ class StreamClient:
         Publish a single record to the stream. The record will be validated against the stream's schema, and
         rejected if it is invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
         :type record: Record
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -332,13 +332,13 @@ class StreamClient:
         Publish a batch of records to the stream. The records will be validated against the stream's schema, and
         the batch will be rejected if one or more of the records are invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
         :type records: List[Record]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -409,15 +409,15 @@ class StreamClient:
         This will create a new stream view (as seen by the change of the `viewRid` on the branch),
         which will be the new stream view that will be written to for the branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
         :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
@@ -513,7 +513,7 @@ class _StreamClientRaw:
         """
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
@@ -523,7 +523,7 @@ class _StreamClientRaw:
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
         :type stream_type: Optional[StreamType]
@@ -592,11 +592,11 @@ class _StreamClientRaw:
         Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
         user does not have permission to access the stream, a 404 error will be returned.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -646,15 +646,15 @@ class _StreamClientRaw:
         """
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: viewRid
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -706,13 +706,13 @@ class _StreamClientRaw:
         Publish a single record to the stream. The record will be validated against the stream's schema, and
         rejected if it is invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
         :type record: Record
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -774,13 +774,13 @@ class _StreamClientRaw:
         Publish a batch of records to the stream. The records will be validated against the stream's schema, and
         the batch will be rejected if one or more of the records are invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
         :type records: List[Record]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -851,15 +851,15 @@ class _StreamClientRaw:
         This will create a new stream view (as seen by the change of the `viewRid` on the branch),
         which will be the new stream view that will be written to for the branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
         :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
@@ -955,7 +955,7 @@ class _StreamClientStreaming:
         """
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
@@ -965,7 +965,7 @@ class _StreamClientStreaming:
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
         :type stream_type: Optional[StreamType]
@@ -1034,11 +1034,11 @@ class _StreamClientStreaming:
         Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
         user does not have permission to access the stream, a 404 error will be returned.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1088,15 +1088,15 @@ class _StreamClientStreaming:
         """
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: viewRid
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1148,13 +1148,13 @@ class _StreamClientStreaming:
         Publish a single record to the stream. The record will be validated against the stream's schema, and
         rejected if it is invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
         :type record: Record
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -1216,13 +1216,13 @@ class _StreamClientStreaming:
         Publish a batch of records to the stream. The records will be validated against the stream's schema, and
         the batch will be rejected if one or more of the records are invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
         :type records: List[Record]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -1293,15 +1293,15 @@ class _StreamClientStreaming:
         This will create a new stream view (as seen by the change of the `viewRid` on the branch),
         which will be the new stream view that will be written to for the branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
         :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]

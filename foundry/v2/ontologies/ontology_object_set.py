@@ -76,7 +76,7 @@ class OntologyObjectSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -86,9 +86,9 @@ class OntologyObjectSetClient:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -159,7 +159,7 @@ class OntologyObjectSetClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
@@ -213,9 +213,9 @@ class OntologyObjectSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_set_rid: objectSetRid
+        :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -272,19 +272,19 @@ class OntologyObjectSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
@@ -390,7 +390,7 @@ class _OntologyObjectSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -400,9 +400,9 @@ class _OntologyObjectSetClientRaw:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -473,7 +473,7 @@ class _OntologyObjectSetClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
@@ -527,9 +527,9 @@ class _OntologyObjectSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_set_rid: objectSetRid
+        :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -586,19 +586,19 @@ class _OntologyObjectSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
@@ -704,7 +704,7 @@ class _OntologyObjectSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -714,9 +714,9 @@ class _OntologyObjectSetClientStreaming:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -787,7 +787,7 @@ class _OntologyObjectSetClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
@@ -841,9 +841,9 @@ class _OntologyObjectSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_set_rid: objectSetRid
+        :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -900,19 +900,19 @@ class _OntologyObjectSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]

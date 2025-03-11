@@ -65,9 +65,9 @@ class QueryClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param query_api_name: queryApiName
+        :param query_api_name: The API name of the Query to execute.
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
@@ -147,9 +147,9 @@ class _QueryClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param query_api_name: queryApiName
+        :param query_api_name: The API name of the Query to execute.
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
@@ -229,9 +229,9 @@ class _QueryClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param query_api_name: queryApiName
+        :param query_api_name: The API name of the Query to execute.
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]

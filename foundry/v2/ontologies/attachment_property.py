@@ -70,17 +70,17 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -134,19 +134,19 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -203,17 +203,17 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -245,17 +245,17 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -289,17 +289,17 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -334,17 +334,17 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -416,19 +416,19 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -463,19 +463,19 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -512,19 +512,19 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -562,19 +562,19 @@ class AttachmentPropertyClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -662,17 +662,17 @@ class _AttachmentPropertyClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -726,19 +726,19 @@ class _AttachmentPropertyClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -792,17 +792,17 @@ class _AttachmentPropertyClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -858,19 +858,19 @@ class _AttachmentPropertyClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -945,17 +945,17 @@ class _AttachmentPropertyClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1009,19 +1009,19 @@ class _AttachmentPropertyClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1075,17 +1075,17 @@ class _AttachmentPropertyClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1141,19 +1141,19 @@ class _AttachmentPropertyClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object containing the attachment.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

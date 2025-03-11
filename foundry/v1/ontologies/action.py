@@ -70,9 +70,9 @@ class ActionClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
@@ -141,9 +141,9 @@ class ActionClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param requests:
         :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
@@ -211,9 +211,9 @@ class ActionClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to validate. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
@@ -298,9 +298,9 @@ class _ActionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
@@ -369,9 +369,9 @@ class _ActionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param requests:
         :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
@@ -439,9 +439,9 @@ class _ActionClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to validate. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
@@ -526,9 +526,9 @@ class _ActionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
@@ -597,9 +597,9 @@ class _ActionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param requests:
         :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
@@ -667,9 +667,9 @@ class _ActionClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param action_type: actionType
+        :param action_type: The API name of the action to validate. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]

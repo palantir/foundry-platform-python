@@ -63,11 +63,11 @@ class AgentVersionClient:
     ) -> aip_agents_models.AgentVersion:
         """
         Get version details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version_string: agentVersionString
+        :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -117,13 +117,13 @@ class AgentVersionClient:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -170,13 +170,13 @@ class AgentVersionClient:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -247,11 +247,11 @@ class _AgentVersionClientRaw:
     ) -> core.ApiResponse[aip_agents_models.AgentVersion]:
         """
         Get version details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version_string: agentVersionString
+        :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -301,13 +301,13 @@ class _AgentVersionClientRaw:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -354,13 +354,13 @@ class _AgentVersionClientRaw:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -431,11 +431,11 @@ class _AgentVersionClientStreaming:
     ) -> core.StreamingContextManager[aip_agents_models.AgentVersion]:
         """
         Get version details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version_string: agentVersionString
+        :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -485,13 +485,13 @@ class _AgentVersionClientStreaming:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -538,13 +538,13 @@ class _AgentVersionClientStreaming:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

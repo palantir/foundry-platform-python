@@ -63,11 +63,11 @@ class ProjectClient:
     ) -> None:
         """
         Adds a list of Organizations to a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -148,7 +148,7 @@ class ProjectClient:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -246,7 +246,7 @@ class ProjectClient:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
@@ -342,9 +342,9 @@ class ProjectClient:
     ) -> filesystem_models.Project:
         """
         Get the Project with the specified rid.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -393,13 +393,13 @@ class ProjectClient:
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -446,13 +446,13 @@ class ProjectClient:
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -502,11 +502,11 @@ class ProjectClient:
     ) -> None:
         """
         Removes Organizations from a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -580,11 +580,11 @@ class _ProjectClientRaw:
     ) -> core.ApiResponse[None]:
         """
         Adds a list of Organizations to a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -665,7 +665,7 @@ class _ProjectClientRaw:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -763,7 +763,7 @@ class _ProjectClientRaw:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
@@ -859,9 +859,9 @@ class _ProjectClientRaw:
     ) -> core.ApiResponse[filesystem_models.Project]:
         """
         Get the Project with the specified rid.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -910,13 +910,13 @@ class _ProjectClientRaw:
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -963,13 +963,13 @@ class _ProjectClientRaw:
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1019,11 +1019,11 @@ class _ProjectClientRaw:
     ) -> core.ApiResponse[None]:
         """
         Removes Organizations from a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1097,11 +1097,11 @@ class _ProjectClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
         Adds a list of Organizations to a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1182,7 +1182,7 @@ class _ProjectClientStreaming:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1280,7 +1280,7 @@ class _ProjectClientStreaming:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
@@ -1376,9 +1376,9 @@ class _ProjectClientStreaming:
     ) -> core.StreamingContextManager[filesystem_models.Project]:
         """
         Get the Project with the specified rid.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1427,13 +1427,13 @@ class _ProjectClientStreaming:
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1480,13 +1480,13 @@ class _ProjectClientStreaming:
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1536,11 +1536,11 @@ class _ProjectClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
         Removes Organizations from a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

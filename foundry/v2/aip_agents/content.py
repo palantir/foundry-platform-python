@@ -62,11 +62,11 @@ class ContentClient:
     ) -> aip_agents_models.Content:
         """
         Get the conversation content for a session between the calling user and an Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -134,11 +134,11 @@ class _ContentClientRaw:
     ) -> core.ApiResponse[aip_agents_models.Content]:
         """
         Get the conversation content for a session between the calling user and an Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -206,11 +206,11 @@ class _ContentClientStreaming:
     ) -> core.StreamingContextManager[aip_agents_models.Content]:
         """
         Get the conversation content for a session between the calling user and an Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param session_rid: sessionRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

@@ -16,9 +16,9 @@ Optional parameters do not need to be supplied.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_api_name** | QueryApiName | queryApiName |  |
+**query_api_name** | QueryApiName |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -34,11 +34,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# QueryApiName | queryApiName
+# QueryApiName
 query_api_name = None
-# Dict[ParameterId, Optional[DataValue]] |
+# Dict[ParameterId, Optional[DataValue]]
 parameters = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -76,8 +76,8 @@ Gets a specific query type with the given API name.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_api_name** | QueryApiName | queryApiName |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**query_api_name** | QueryApiName |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Query**
@@ -93,9 +93,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# QueryApiName | queryApiName
+# QueryApiName
 query_api_name = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -133,7 +133,7 @@ Gets a specific query type with the given RID.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **rid** | FunctionRid |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Query**
@@ -149,9 +149,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# FunctionRid |
+# FunctionRid
 rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

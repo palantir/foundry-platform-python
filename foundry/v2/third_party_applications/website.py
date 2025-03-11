@@ -71,7 +71,7 @@ class WebsiteClient:
     ) -> third_party_applications_models.Website:
         """
         Deploy a version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
         :type version: VersionVersion
@@ -123,7 +123,7 @@ class WebsiteClient:
     ) -> third_party_applications_models.Website:
         """
         Get the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -165,7 +165,7 @@ class WebsiteClient:
     ) -> third_party_applications_models.Website:
         """
         Remove the currently deployed version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -229,7 +229,7 @@ class _WebsiteClientRaw:
     ) -> core.ApiResponse[third_party_applications_models.Website]:
         """
         Deploy a version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
         :type version: VersionVersion
@@ -281,7 +281,7 @@ class _WebsiteClientRaw:
     ) -> core.ApiResponse[third_party_applications_models.Website]:
         """
         Get the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -323,7 +323,7 @@ class _WebsiteClientRaw:
     ) -> core.ApiResponse[third_party_applications_models.Website]:
         """
         Remove the currently deployed version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -387,7 +387,7 @@ class _WebsiteClientStreaming:
     ) -> core.StreamingContextManager[third_party_applications_models.Website]:
         """
         Deploy a version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
         :type version: VersionVersion
@@ -439,7 +439,7 @@ class _WebsiteClientStreaming:
     ) -> core.StreamingContextManager[third_party_applications_models.Website]:
         """
         Get the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -481,7 +481,7 @@ class _WebsiteClientStreaming:
     ) -> core.StreamingContextManager[third_party_applications_models.Website]:
         """
         Remove the currently deployed version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

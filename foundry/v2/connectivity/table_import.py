@@ -74,7 +74,7 @@ class TableImportClient:
     ) -> connectivity_models.TableImport:
         """
         Creates a new TableImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
@@ -88,7 +88,7 @@ class TableImportClient:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -166,11 +166,11 @@ class TableImportClient:
         Deleting the table import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -217,11 +217,11 @@ class TableImportClient:
         Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -268,11 +268,11 @@ class TableImportClient:
     ) -> connectivity_models.TableImport:
         """
         Get the TableImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -324,13 +324,13 @@ class TableImportClient:
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -377,13 +377,13 @@ class TableImportClient:
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -464,7 +464,7 @@ class _TableImportClientRaw:
     ) -> core.ApiResponse[connectivity_models.TableImport]:
         """
         Creates a new TableImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
@@ -478,7 +478,7 @@ class _TableImportClientRaw:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -556,11 +556,11 @@ class _TableImportClientRaw:
         Deleting the table import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -607,11 +607,11 @@ class _TableImportClientRaw:
         Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -658,11 +658,11 @@ class _TableImportClientRaw:
     ) -> core.ApiResponse[connectivity_models.TableImport]:
         """
         Get the TableImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -714,13 +714,13 @@ class _TableImportClientRaw:
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -767,13 +767,13 @@ class _TableImportClientRaw:
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -854,7 +854,7 @@ class _TableImportClientStreaming:
     ) -> core.StreamingContextManager[connectivity_models.TableImport]:
         """
         Creates a new TableImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
@@ -868,7 +868,7 @@ class _TableImportClientStreaming:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -946,11 +946,11 @@ class _TableImportClientStreaming:
         Deleting the table import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -997,11 +997,11 @@ class _TableImportClientStreaming:
         Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1048,11 +1048,11 @@ class _TableImportClientStreaming:
     ) -> core.StreamingContextManager[connectivity_models.TableImport]:
         """
         Get the TableImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1104,13 +1104,13 @@ class _TableImportClientStreaming:
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1157,13 +1157,13 @@ class _TableImportClientStreaming:
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

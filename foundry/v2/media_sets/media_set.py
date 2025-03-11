@@ -65,11 +65,11 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -113,11 +113,11 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -161,11 +161,11 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param branch_name: branchName
+        :param branch_name: The branch on which to open the transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -212,13 +212,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -269,13 +269,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -304,13 +304,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -341,13 +341,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -379,13 +379,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -449,13 +449,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -484,13 +484,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -521,13 +521,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -559,13 +559,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -626,13 +626,13 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -686,21 +686,21 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.
         :type branch_name: Optional[BranchName]
-        :param branch_rid: branchRid
+        :param branch_rid: Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided.
         :type branch_rid: Optional[BranchRid]
-        :param media_item_path: mediaItemPath
+        :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param transaction_id: transactionId
+        :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
         :type transaction_id: Optional[TransactionId]
-        :param view_rid: viewRid
+        :param view_rid: Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided.
         :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -772,11 +772,11 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -820,11 +820,11 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -868,11 +868,11 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param branch_name: branchName
+        :param branch_name: The branch on which to open the transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -919,13 +919,13 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -973,13 +973,13 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1027,13 +1027,13 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1081,13 +1081,13 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1141,21 +1141,21 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.
         :type branch_name: Optional[BranchName]
-        :param branch_rid: branchRid
+        :param branch_rid: Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided.
         :type branch_rid: Optional[BranchRid]
-        :param media_item_path: mediaItemPath
+        :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param transaction_id: transactionId
+        :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
         :type transaction_id: Optional[TransactionId]
-        :param view_rid: viewRid
+        :param view_rid: Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided.
         :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1227,11 +1227,11 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1275,11 +1275,11 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1323,11 +1323,11 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param branch_name: branchName
+        :param branch_name: The branch on which to open the transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1374,13 +1374,13 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1428,13 +1428,13 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1482,13 +1482,13 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1536,13 +1536,13 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1596,21 +1596,21 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.
         :type branch_name: Optional[BranchName]
-        :param branch_rid: branchRid
+        :param branch_rid: Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided.
         :type branch_rid: Optional[BranchRid]
-        :param media_item_path: mediaItemPath
+        :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param transaction_id: transactionId
+        :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
         :type transaction_id: Optional[TransactionId]
-        :param view_rid: viewRid
+        :param view_rid: Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided.
         :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

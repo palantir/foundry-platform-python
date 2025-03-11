@@ -63,9 +63,9 @@ class ScheduleVersionClient:
     ) -> orchestration_models.ScheduleVersion:
         """
         Get the ScheduleVersion with the specified rid.
-        :param schedule_version_rid: scheduleVersionRid
+        :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -110,9 +110,9 @@ class ScheduleVersionClient:
     ) -> typing.Optional[orchestration_models.Schedule]:
         """
 
-        :param schedule_version_rid: scheduleVersionRid
+        :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -174,9 +174,9 @@ class _ScheduleVersionClientRaw:
     ) -> core.ApiResponse[orchestration_models.ScheduleVersion]:
         """
         Get the ScheduleVersion with the specified rid.
-        :param schedule_version_rid: scheduleVersionRid
+        :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -221,9 +221,9 @@ class _ScheduleVersionClientRaw:
     ) -> core.ApiResponse[typing.Optional[orchestration_models.Schedule]]:
         """
 
-        :param schedule_version_rid: scheduleVersionRid
+        :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -285,9 +285,9 @@ class _ScheduleVersionClientStreaming:
     ) -> core.StreamingContextManager[orchestration_models.ScheduleVersion]:
         """
         Get the ScheduleVersion with the specified rid.
-        :param schedule_version_rid: scheduleVersionRid
+        :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -332,9 +332,9 @@ class _ScheduleVersionClientStreaming:
     ) -> core.StreamingContextManager[typing.Optional[orchestration_models.Schedule]]:
         """
 
-        :param schedule_version_rid: scheduleVersionRid
+        :param schedule_version_rid: The RID of a schedule version
         :type schedule_version_rid: ScheduleVersionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

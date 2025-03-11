@@ -147,7 +147,7 @@ class DatasetClient:
     ) -> datasets_models.Dataset:
         """
         Get the Dataset with the specified rid.
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -205,19 +205,19 @@ class DatasetClient:
 
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch.
         :type branch_name: Optional[BranchName]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -257,19 +257,19 @@ class DatasetClient:
 
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch.
         :type branch_name: Optional[BranchName]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -311,19 +311,19 @@ class DatasetClient:
 
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch.
         :type branch_name: Optional[BranchName]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -366,19 +366,19 @@ class DatasetClient:
 
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch.
         :type branch_name: Optional[BranchName]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -527,7 +527,7 @@ class _DatasetClientRaw:
     ) -> core.ApiResponse[datasets_models.Dataset]:
         """
         Get the Dataset with the specified rid.
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -582,19 +582,19 @@ class _DatasetClientRaw:
 
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch.
         :type branch_name: Optional[BranchName]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -730,7 +730,7 @@ class _DatasetClientStreaming:
     ) -> core.StreamingContextManager[datasets_models.Dataset]:
         """
         Get the Dataset with the specified rid.
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -785,19 +785,19 @@ class _DatasetClientStreaming:
 
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch.
         :type branch_name: Optional[BranchName]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

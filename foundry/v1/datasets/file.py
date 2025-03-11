@@ -79,13 +79,13 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to delete the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -153,15 +153,15 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -235,17 +235,17 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -320,17 +320,17 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -412,15 +412,15 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -472,15 +472,15 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -534,15 +534,15 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -597,15 +597,15 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -686,17 +686,17 @@ class FileClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to upload the File.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: bytes
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to upload the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open Transaction on which to upload the File.
         :type transaction_rid: Optional[TransactionRid]
-        :param transaction_type: transactionType
+        :param transaction_type: The type of the Transaction to create when using branchId. Defaults to `UPDATE`.
         :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -780,13 +780,13 @@ class _FileClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to delete the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -854,15 +854,15 @@ class _FileClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -936,17 +936,17 @@ class _FileClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1021,17 +1021,17 @@ class _FileClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1110,15 +1110,15 @@ class _FileClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1186,17 +1186,17 @@ class _FileClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to upload the File.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: bytes
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to upload the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open Transaction on which to upload the File.
         :type transaction_rid: Optional[TransactionRid]
-        :param transaction_type: transactionType
+        :param transaction_type: The type of the Transaction to create when using branchId. Defaults to `UPDATE`.
         :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1280,13 +1280,13 @@ class _FileClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to delete the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1354,15 +1354,15 @@ class _FileClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1436,17 +1436,17 @@ class _FileClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1521,17 +1521,17 @@ class _FileClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1610,15 +1610,15 @@ class _FileClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1686,17 +1686,17 @@ class _FileClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to upload the File.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: bytes
-        :param file_path: filePath
+        :param file_path: The File's path within the Dataset.
         :type file_path: FilePath
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to upload the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open Transaction on which to upload the File.
         :type transaction_rid: Optional[TransactionRid]
-        :param transaction_type: transactionType
+        :param transaction_type: The type of the Transaction to create when using branchId. Defaults to `UPDATE`.
         :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

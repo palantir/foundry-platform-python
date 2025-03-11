@@ -16,14 +16,14 @@ Creates a new TableImport.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
+**connection_rid** | ConnectionRid |  |  |
 **config** | Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
 **allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **TableImport**
@@ -39,21 +39,21 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |
+# Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
 config = None
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# TableImportDisplayName |
+# TableImportDisplayName
 display_name = "My table import"
-# TableImportMode |
+# TableImportMode
 import_mode = "SNAPSHOT"
 # Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
 allow_schema_changes = True
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -98,9 +98,9 @@ be updated by this import.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**table_import_rid** | TableImportRid | tableImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**table_import_rid** | TableImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -116,11 +116,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# TableImportRid | tableImportRid
+# TableImportRid
 table_import_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -159,9 +159,9 @@ The returned BuildRid can be used to check the status via the Orchestration API.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**table_import_rid** | TableImportRid | tableImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**table_import_rid** | TableImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **BuildRid**
@@ -177,11 +177,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# TableImportRid | tableImportRid
+# TableImportRid
 table_import_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -218,9 +218,9 @@ Get the TableImport with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**table_import_rid** | TableImportRid | tableImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**table_import_rid** | TableImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **TableImport**
@@ -236,11 +236,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# TableImportRid | tableImportRid
+# TableImportRid
 table_import_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -279,10 +279,10 @@ Only table imports that the user has permissions to view will be returned.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListTableImportsResponse**
@@ -298,13 +298,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -343,10 +343,10 @@ Only table imports that the user has permissions to view will be returned.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListTableImportsResponse**
@@ -362,13 +362,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

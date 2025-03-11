@@ -64,11 +64,11 @@ class AuthenticationProviderClient:
     ) -> admin_models.AuthenticationProvider:
         """
         Get the AuthenticationProvider with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -116,9 +116,9 @@ class AuthenticationProviderClient:
         Lists all AuthenticationProviders.
 
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -164,15 +164,15 @@ class AuthenticationProviderClient:
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
         :type name: GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
         :type organizations: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -239,9 +239,9 @@ class AuthenticationProviderClient:
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
         :type organization: OrganizationRid
@@ -255,7 +255,7 @@ class AuthenticationProviderClient:
         :type family_name: Optional[str]
         :param given_name:
         :type given_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -343,11 +343,11 @@ class _AuthenticationProviderClientRaw:
     ) -> core.ApiResponse[admin_models.AuthenticationProvider]:
         """
         Get the AuthenticationProvider with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -395,9 +395,9 @@ class _AuthenticationProviderClientRaw:
         Lists all AuthenticationProviders.
 
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -443,15 +443,15 @@ class _AuthenticationProviderClientRaw:
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
         :type name: GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
         :type organizations: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -518,9 +518,9 @@ class _AuthenticationProviderClientRaw:
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
         :type organization: OrganizationRid
@@ -534,7 +534,7 @@ class _AuthenticationProviderClientRaw:
         :type family_name: Optional[str]
         :param given_name:
         :type given_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -622,11 +622,11 @@ class _AuthenticationProviderClientStreaming:
     ) -> core.StreamingContextManager[admin_models.AuthenticationProvider]:
         """
         Get the AuthenticationProvider with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -674,9 +674,9 @@ class _AuthenticationProviderClientStreaming:
         Lists all AuthenticationProviders.
 
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -722,15 +722,15 @@ class _AuthenticationProviderClientStreaming:
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
         :type name: GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
         :type organizations: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -797,9 +797,9 @@ class _AuthenticationProviderClientStreaming:
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param authentication_provider_rid: authenticationProviderRid
+        :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
         :type organization: OrganizationRid
@@ -813,7 +813,7 @@ class _AuthenticationProviderClientStreaming:
         :type family_name: Optional[str]
         :param given_name:
         :type given_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

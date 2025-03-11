@@ -12,8 +12,8 @@ Get the GroupProviderInfo.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId | groupId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**group_id** | PrincipalId |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GroupProviderInfo**
@@ -29,9 +29,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | groupId
+# PrincipalId
 group_id = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -67,9 +67,9 @@ Replace the GroupProviderInfo.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId | groupId |  |
+**group_id** | PrincipalId |  |  |
 **provider_id** | ProviderId | The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GroupProviderInfo**
@@ -85,11 +85,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | groupId
+# PrincipalId
 group_id = None
 # ProviderId | The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
 provider_id = "2838c8f3-d76a-4e99-acf1-1dee537e4c48"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

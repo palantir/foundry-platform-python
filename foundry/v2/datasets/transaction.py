@@ -63,9 +63,9 @@ class TransactionClient:
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -113,11 +113,11 @@ class TransactionClient:
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -165,9 +165,9 @@ class TransactionClient:
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -213,11 +213,11 @@ class TransactionClient:
         """
         Creates a Transaction on a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param transaction_type:
         :type transaction_type: TransactionType
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -277,9 +277,9 @@ class TransactionClient:
         """
         Gets a Transaction of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -327,11 +327,11 @@ class TransactionClient:
         given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -400,9 +400,9 @@ class _TransactionClientRaw:
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -450,11 +450,11 @@ class _TransactionClientRaw:
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -502,9 +502,9 @@ class _TransactionClientRaw:
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -550,11 +550,11 @@ class _TransactionClientRaw:
         """
         Creates a Transaction on a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param transaction_type:
         :type transaction_type: TransactionType
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -614,9 +614,9 @@ class _TransactionClientRaw:
         """
         Gets a Transaction of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -664,11 +664,11 @@ class _TransactionClientRaw:
         given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -737,9 +737,9 @@ class _TransactionClientStreaming:
         Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
         not updated.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -787,11 +787,11 @@ class _TransactionClientStreaming:
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -839,9 +839,9 @@ class _TransactionClientStreaming:
         Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
         updated to point to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -887,11 +887,11 @@ class _TransactionClientStreaming:
         """
         Creates a Transaction on a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param transaction_type:
         :type transaction_type: TransactionType
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -951,9 +951,9 @@ class _TransactionClientStreaming:
         """
         Gets a Transaction of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1001,11 +1001,11 @@ class _TransactionClientStreaming:
         given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid:
         :type transaction_rid: TransactionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

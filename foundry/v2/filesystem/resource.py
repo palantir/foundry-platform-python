@@ -74,11 +74,11 @@ class ResourceClient:
     ) -> None:
         """
         Adds a list of Markings to a resource.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -132,9 +132,9 @@ class ResourceClient:
         Move the given resource to the trash. Following this operation, the resource can be restored, using the
         `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -177,9 +177,9 @@ class ResourceClient:
     ) -> filesystem_models.Resource:
         """
         Get the Resource with the specified rid.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -226,9 +226,9 @@ class ResourceClient:
         Returns a list of access requirements a user needs in order to view a resource. Access requirements are
         composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -273,9 +273,9 @@ class ResourceClient:
     ) -> filesystem_models.Resource:
         """
         Get a Resource by its absolute path.
-        :param path: path
+        :param path: The path to the Resource. The leading slash is optional.
         :type path: ResourcePath
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -323,13 +323,13 @@ class ResourceClient:
         List of Markings directly applied to a resource. The number of Markings on a resource is typically small
         so the `pageSize` and `pageToken` parameters are not required.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -376,13 +376,13 @@ class ResourceClient:
         List of Markings directly applied to a resource. The number of Markings on a resource is typically small
         so the `pageSize` and `pageToken` parameters are not required.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -433,9 +433,9 @@ class ResourceClient:
         Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
         `ResourceNotTrashed` error will be thrown.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -479,11 +479,11 @@ class ResourceClient:
     ) -> None:
         """
         Removes Markings from a resource.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -537,9 +537,9 @@ class ResourceClient:
         Restore the given resource and any directly trashed ancestors from the trash. If the resource is not
         trashed, this operation will be ignored.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -604,11 +604,11 @@ class _ResourceClientRaw:
     ) -> core.ApiResponse[None]:
         """
         Adds a list of Markings to a resource.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -662,9 +662,9 @@ class _ResourceClientRaw:
         Move the given resource to the trash. Following this operation, the resource can be restored, using the
         `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -707,9 +707,9 @@ class _ResourceClientRaw:
     ) -> core.ApiResponse[filesystem_models.Resource]:
         """
         Get the Resource with the specified rid.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -756,9 +756,9 @@ class _ResourceClientRaw:
         Returns a list of access requirements a user needs in order to view a resource. Access requirements are
         composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -803,9 +803,9 @@ class _ResourceClientRaw:
     ) -> core.ApiResponse[filesystem_models.Resource]:
         """
         Get a Resource by its absolute path.
-        :param path: path
+        :param path: The path to the Resource. The leading slash is optional.
         :type path: ResourcePath
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -853,13 +853,13 @@ class _ResourceClientRaw:
         List of Markings directly applied to a resource. The number of Markings on a resource is typically small
         so the `pageSize` and `pageToken` parameters are not required.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -906,13 +906,13 @@ class _ResourceClientRaw:
         List of Markings directly applied to a resource. The number of Markings on a resource is typically small
         so the `pageSize` and `pageToken` parameters are not required.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -963,9 +963,9 @@ class _ResourceClientRaw:
         Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
         `ResourceNotTrashed` error will be thrown.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1009,11 +1009,11 @@ class _ResourceClientRaw:
     ) -> core.ApiResponse[None]:
         """
         Removes Markings from a resource.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1067,9 +1067,9 @@ class _ResourceClientRaw:
         Restore the given resource and any directly trashed ancestors from the trash. If the resource is not
         trashed, this operation will be ignored.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1134,11 +1134,11 @@ class _ResourceClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
         Adds a list of Markings to a resource.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1192,9 +1192,9 @@ class _ResourceClientStreaming:
         Move the given resource to the trash. Following this operation, the resource can be restored, using the
         `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1237,9 +1237,9 @@ class _ResourceClientStreaming:
     ) -> core.StreamingContextManager[filesystem_models.Resource]:
         """
         Get the Resource with the specified rid.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1286,9 +1286,9 @@ class _ResourceClientStreaming:
         Returns a list of access requirements a user needs in order to view a resource. Access requirements are
         composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1333,9 +1333,9 @@ class _ResourceClientStreaming:
     ) -> core.StreamingContextManager[filesystem_models.Resource]:
         """
         Get a Resource by its absolute path.
-        :param path: path
+        :param path: The path to the Resource. The leading slash is optional.
         :type path: ResourcePath
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1383,13 +1383,13 @@ class _ResourceClientStreaming:
         List of Markings directly applied to a resource. The number of Markings on a resource is typically small
         so the `pageSize` and `pageToken` parameters are not required.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1436,13 +1436,13 @@ class _ResourceClientStreaming:
         List of Markings directly applied to a resource. The number of Markings on a resource is typically small
         so the `pageSize` and `pageToken` parameters are not required.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1493,9 +1493,9 @@ class _ResourceClientStreaming:
         Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
         `ResourceNotTrashed` error will be thrown.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1539,11 +1539,11 @@ class _ResourceClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
         Removes Markings from a resource.
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1597,9 +1597,9 @@ class _ResourceClientStreaming:
         Restore the given resource and any directly trashed ancestors from the trash. If the resource is not
         trashed, this operation will be ignored.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

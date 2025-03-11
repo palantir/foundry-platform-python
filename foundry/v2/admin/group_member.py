@@ -63,7 +63,7 @@ class GroupMemberClient:
     ) -> None:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -130,13 +130,13 @@ class GroupMemberClient:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -188,13 +188,13 @@ class GroupMemberClient:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -243,7 +243,7 @@ class GroupMemberClient:
     ) -> None:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -319,7 +319,7 @@ class _GroupMemberClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -386,13 +386,13 @@ class _GroupMemberClientRaw:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -444,13 +444,13 @@ class _GroupMemberClientRaw:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -499,7 +499,7 @@ class _GroupMemberClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -575,7 +575,7 @@ class _GroupMemberClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -642,13 +642,13 @@ class _GroupMemberClientStreaming:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -700,13 +700,13 @@ class _GroupMemberClientStreaming:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -755,7 +755,7 @@ class _GroupMemberClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]

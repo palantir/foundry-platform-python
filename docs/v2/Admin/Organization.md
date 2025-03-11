@@ -12,8 +12,8 @@ Get the Organization with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**organization_rid** | OrganizationRid | organizationRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**organization_rid** | OrganizationRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Organization**
@@ -29,9 +29,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OrganizationRid | organizationRid
+# OrganizationRid
 organization_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -67,11 +67,11 @@ Replace the Organization with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**organization_rid** | OrganizationRid | organizationRid |  |
+**organization_rid** | OrganizationRid |  |  |
 **name** | OrganizationName |  |  |
 **description** | Optional[str] |  | [optional] |
 **host** | Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Organization**
@@ -87,15 +87,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OrganizationRid | organizationRid
+# OrganizationRid
 organization_rid = None
-# OrganizationName |
+# OrganizationName
 name = "Example Organization"
-# Optional[str] |
+# Optional[str]
 description = None
 # Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
 host = "example.palantirfoundry.com"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

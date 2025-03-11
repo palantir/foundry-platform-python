@@ -77,9 +77,9 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The type of the object to aggregate on.
         :type object_type: ObjectTypeApiName
         :param aggregation:
         :type aggregation: List[Union[Aggregation, AggregationDict]]
@@ -156,13 +156,13 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -213,17 +213,17 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the link originates. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param linked_object_primary_key: linkedObjectPrimaryKey
+        :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -290,17 +290,17 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -369,21 +369,21 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -452,17 +452,17 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -537,21 +537,21 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -637,9 +637,9 @@ class OntologyObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The type of the requested objects.
         :type object_type: ObjectTypeApiName
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]
@@ -746,9 +746,9 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The type of the object to aggregate on.
         :type object_type: ObjectTypeApiName
         :param aggregation:
         :type aggregation: List[Union[Aggregation, AggregationDict]]
@@ -825,13 +825,13 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -882,17 +882,17 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the link originates. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param linked_object_primary_key: linkedObjectPrimaryKey
+        :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -959,17 +959,17 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1038,21 +1038,21 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1121,17 +1121,17 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1206,21 +1206,21 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1306,9 +1306,9 @@ class _OntologyObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The type of the requested objects.
         :type object_type: ObjectTypeApiName
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]
@@ -1415,9 +1415,9 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The type of the object to aggregate on.
         :type object_type: ObjectTypeApiName
         :param aggregation:
         :type aggregation: List[Union[Aggregation, AggregationDict]]
@@ -1494,13 +1494,13 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1551,17 +1551,17 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the link originates. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param linked_object_primary_key: linkedObjectPrimaryKey
+        :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1628,17 +1628,17 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1707,21 +1707,21 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1790,17 +1790,17 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1875,21 +1875,21 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param properties: properties
+        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1975,9 +1975,9 @@ class _OntologyObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The type of the requested objects.
         :type object_type: ObjectTypeApiName
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]

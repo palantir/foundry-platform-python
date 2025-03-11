@@ -63,11 +63,11 @@ class VersionIdClient:
         """
         Gets a specific value type with the given RID. The specified version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param version_id_version_id: versionIdVersionId
+        :param version_id_version_id:
         :type version_id_version_id: ValueTypeVersionId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -136,11 +136,11 @@ class _VersionIdClientRaw:
         """
         Gets a specific value type with the given RID. The specified version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param version_id_version_id: versionIdVersionId
+        :param version_id_version_id:
         :type version_id_version_id: ValueTypeVersionId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -209,11 +209,11 @@ class _VersionIdClientStreaming:
         """
         Gets a specific value type with the given RID. The specified version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param version_id_version_id: versionIdVersionId
+        :param version_id_version_id:
         :type version_id_version_id: ValueTypeVersionId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

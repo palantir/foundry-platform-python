@@ -63,9 +63,9 @@ class TransactionClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -109,9 +109,9 @@ class TransactionClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -155,9 +155,9 @@ class TransactionClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Transaction.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param transaction_type:
         :type transaction_type: Optional[TransactionType]
@@ -211,9 +211,9 @@ class TransactionClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -278,9 +278,9 @@ class _TransactionClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -324,9 +324,9 @@ class _TransactionClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -370,9 +370,9 @@ class _TransactionClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Transaction.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param transaction_type:
         :type transaction_type: Optional[TransactionType]
@@ -426,9 +426,9 @@ class _TransactionClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -493,9 +493,9 @@ class _TransactionClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -539,9 +539,9 @@ class _TransactionClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -585,9 +585,9 @@ class _TransactionClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Transaction.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param transaction_type:
         :type transaction_type: Optional[TransactionType]
@@ -641,9 +641,9 @@ class _TransactionClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
         :type dataset_rid: DatasetRid
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the Transaction.
         :type transaction_rid: TransactionRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

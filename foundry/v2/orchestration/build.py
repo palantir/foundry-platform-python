@@ -64,9 +64,9 @@ class BuildClient:
         """
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
-        :param build_rid: buildRid
+        :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -135,7 +135,7 @@ class BuildClient:
         :type force_build: Optional[ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
         :type notifications_enabled: Optional[NotificationsEnabled]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
         :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
@@ -213,9 +213,9 @@ class BuildClient:
     ) -> orchestration_models.Build:
         """
         Get the Build with the specified rid.
-        :param build_rid: buildRid
+        :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -272,7 +272,7 @@ class BuildClient:
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
         :type body: List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -333,7 +333,7 @@ class BuildClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -420,9 +420,9 @@ class _BuildClientRaw:
         """
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
-        :param build_rid: buildRid
+        :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -491,7 +491,7 @@ class _BuildClientRaw:
         :type force_build: Optional[ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
         :type notifications_enabled: Optional[NotificationsEnabled]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
         :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
@@ -569,9 +569,9 @@ class _BuildClientRaw:
     ) -> core.ApiResponse[orchestration_models.Build]:
         """
         Get the Build with the specified rid.
-        :param build_rid: buildRid
+        :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -628,7 +628,7 @@ class _BuildClientRaw:
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
         :type body: List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -689,7 +689,7 @@ class _BuildClientRaw:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -776,9 +776,9 @@ class _BuildClientStreaming:
         """
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
-        :param build_rid: buildRid
+        :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -847,7 +847,7 @@ class _BuildClientStreaming:
         :type force_build: Optional[ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
         :type notifications_enabled: Optional[NotificationsEnabled]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
         :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
@@ -925,9 +925,9 @@ class _BuildClientStreaming:
     ) -> core.StreamingContextManager[orchestration_models.Build]:
         """
         Get the Build with the specified rid.
-        :param build_rid: buildRid
+        :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -984,7 +984,7 @@ class _BuildClientStreaming:
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
         :type body: List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1045,7 +1045,7 @@ class _BuildClientStreaming:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

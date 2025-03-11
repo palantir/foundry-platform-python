@@ -64,9 +64,9 @@ class QueryClient:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -117,7 +117,7 @@ class QueryClient:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -181,9 +181,9 @@ class QueryClient:
         Gets the results of a query. This endpoint implements long polling and requests will time out after
         one minute.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -214,9 +214,9 @@ class QueryClient:
         Gets the results of a query. This endpoint implements long polling and requests will time out after
         one minute.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -249,9 +249,9 @@ class QueryClient:
         Gets the results of a query. This endpoint implements long polling and requests will time out after
         one minute.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -285,9 +285,9 @@ class QueryClient:
         Gets the results of a query. This endpoint implements long polling and requests will time out after
         one minute.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -352,9 +352,9 @@ class QueryClient:
         """
         Gets the status of a query.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -423,9 +423,9 @@ class _QueryClientRaw:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -476,7 +476,7 @@ class _QueryClientRaw:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -537,9 +537,9 @@ class _QueryClientRaw:
         Gets the results of a query. This endpoint implements long polling and requests will time out after
         one minute.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -591,9 +591,9 @@ class _QueryClientRaw:
         """
         Gets the status of a query.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -662,9 +662,9 @@ class _QueryClientStreaming:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -715,7 +715,7 @@ class _QueryClientStreaming:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -776,9 +776,9 @@ class _QueryClientStreaming:
         Gets the results of a query. This endpoint implements long polling and requests will time out after
         one minute.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -830,9 +830,9 @@ class _QueryClientStreaming:
         """
         Gets the status of a query.
 
-        :param query_id: queryId
+        :param query_id: The id of a query.
         :type query_id: QueryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

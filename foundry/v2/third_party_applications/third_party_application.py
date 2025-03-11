@@ -74,9 +74,9 @@ class ThirdPartyApplicationClient:
     ) -> third_party_applications_models.ThirdPartyApplication:
         """
         Get the ThirdPartyApplication with the specified rid.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -142,9 +142,9 @@ class _ThirdPartyApplicationClientRaw:
     ) -> core.ApiResponse[third_party_applications_models.ThirdPartyApplication]:
         """
         Get the ThirdPartyApplication with the specified rid.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -210,9 +210,9 @@ class _ThirdPartyApplicationClientStreaming:
     ) -> core.StreamingContextManager[third_party_applications_models.ThirdPartyApplication]:
         """
         Get the ThirdPartyApplication with the specified rid.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

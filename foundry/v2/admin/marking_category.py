@@ -64,9 +64,9 @@ class MarkingCategoryClient:
     ) -> admin_models.MarkingCategory:
         """
         Get the MarkingCategory with the specified id.
-        :param marking_category_id: markingCategoryId
+        :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -114,11 +114,11 @@ class MarkingCategoryClient:
     ) -> core.ResourceIterator[admin_models.MarkingCategory]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -160,11 +160,11 @@ class MarkingCategoryClient:
     ) -> admin_models.ListMarkingCategoriesResponse:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -232,9 +232,9 @@ class _MarkingCategoryClientRaw:
     ) -> core.ApiResponse[admin_models.MarkingCategory]:
         """
         Get the MarkingCategory with the specified id.
-        :param marking_category_id: markingCategoryId
+        :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -282,11 +282,11 @@ class _MarkingCategoryClientRaw:
     ) -> core.ApiResponse[admin_models.ListMarkingCategoriesResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -328,11 +328,11 @@ class _MarkingCategoryClientRaw:
     ) -> core.ApiResponse[admin_models.ListMarkingCategoriesResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -400,9 +400,9 @@ class _MarkingCategoryClientStreaming:
     ) -> core.StreamingContextManager[admin_models.MarkingCategory]:
         """
         Get the MarkingCategory with the specified id.
-        :param marking_category_id: markingCategoryId
+        :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -450,11 +450,11 @@ class _MarkingCategoryClientStreaming:
     ) -> core.StreamingContextManager[admin_models.ListMarkingCategoriesResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -496,11 +496,11 @@ class _MarkingCategoryClientStreaming:
     ) -> core.StreamingContextManager[admin_models.ListMarkingCategoriesResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

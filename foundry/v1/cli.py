@@ -89,9 +89,21 @@ def datasets_dataset_create(
 
 @datasets_dataset.command("delete_schema")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The ID of the Branch on which to delete the schema.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.option(
+    "--transaction_rid",
+    type=str,
+    required=False,
+    help="""The RID of the Transaction on which to delete the schema.
+""",
+)
 @click.pass_obj
 def datasets_dataset_delete_schema(
     client: foundry.v1.FoundryClient,
@@ -134,9 +146,21 @@ def datasets_dataset_get(
 
 @datasets_dataset.command("get_schema")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
-@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The ID of the Branch.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""""")
+@click.option(
+    "--transaction_rid",
+    type=str,
+    required=False,
+    help="""The TransactionRid that contains the Schema.
+""",
+)
 @click.pass_obj
 def datasets_dataset_get_schema(
     client: foundry.v1.FoundryClient,
@@ -160,12 +184,42 @@ def datasets_dataset_get_schema(
 
 @datasets_dataset.command("read")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--format", type=click.Choice(["ARROW", "CSV"]), required=True, help="""format""")
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--columns", type=str, required=False, help="""columns""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--row_limit", type=int, required=False, help="""rowLimit""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--format",
+    type=click.Choice(["ARROW", "CSV"]),
+    required=True,
+    help="""The export format. Must be `ARROW` or `CSV`.
+""",
+)
+@click.option(
+    "--branch_id", type=str, required=False, help="""The identifier (name) of the Branch."""
+)
+@click.option(
+    "--columns",
+    type=str,
+    required=False,
+    help="""A subset of the dataset columns to include in the result. Defaults to all columns.
+""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.""",
+)
+@click.option(
+    "--row_limit",
+    type=int,
+    required=False,
+    help="""A limit on the number of rows to return. Note that row ordering is non-deterministic.
+""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.""",
+)
 @click.pass_obj
 def datasets_dataset_read(
     client: foundry.v1.FoundryClient,
@@ -200,8 +254,14 @@ def datasets_dataset_read(
 @datasets_dataset.command("replace_schema")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("body", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--preview", type=bool, required=False, help="""preview""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The ID of the Branch on which to put the Schema.
+""",
+)
+@click.option("--preview", type=bool, required=False, help="""""")
 @click.pass_obj
 def datasets_dataset_replace_schema(
     client: foundry.v1.FoundryClient,
@@ -276,7 +336,13 @@ def datasets_dataset_transaction_commit(
 
 @datasets_dataset_transaction.command("create")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
+""",
+)
 @click.option(
     "--transaction_type",
     type=click.Choice(["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]),
@@ -334,8 +400,18 @@ def datasets_dataset_file():
 @datasets_dataset_file.command("delete")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The identifier (name) of the Branch on which to delete the File. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the open delete Transaction on which to delete the File.""",
+)
 @click.pass_obj
 def datasets_dataset_file_delete(
     client: foundry.v1.FoundryClient,
@@ -375,9 +451,24 @@ def datasets_dataset_file_delete(
 @datasets_dataset_file.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.""",
+)
 @click.pass_obj
 def datasets_dataset_file_get(
     client: foundry.v1.FoundryClient,
@@ -426,11 +517,33 @@ def datasets_dataset_file_get(
 
 @datasets_dataset_file.command("list")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.""",
+)
 @click.pass_obj
 def datasets_dataset_file_list(
     client: foundry.v1.FoundryClient,
@@ -483,11 +596,33 @@ def datasets_dataset_file_list(
 
 @datasets_dataset_file.command("page")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.""",
+)
 @click.pass_obj
 def datasets_dataset_file_page(
     client: foundry.v1.FoundryClient,
@@ -541,9 +676,24 @@ def datasets_dataset_file_page(
 @datasets_dataset_file.command("read")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--end_transaction_rid", type=str, required=False, help="""endTransactionRid""")
-@click.option("--start_transaction_rid", type=str, required=False, help="""startTransactionRid""")
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.""",
+)
+@click.option(
+    "--start_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the start Transaction.""",
+)
 @click.pass_obj
 def datasets_dataset_file_read(
     client: foundry.v1.FoundryClient,
@@ -594,14 +744,26 @@ def datasets_dataset_file_read(
 @datasets_dataset_file.command("upload")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
-@click.option("--file_path", type=str, required=True, help="""filePath""")
-@click.option("--branch_id", type=str, required=False, help="""branchId""")
-@click.option("--transaction_rid", type=str, required=False, help="""transactionRid""")
+@click.option(
+    "--file_path", type=str, required=True, help="""The File's path within the Dataset."""
+)
+@click.option(
+    "--branch_id",
+    type=str,
+    required=False,
+    help="""The identifier (name) of the Branch on which to upload the File. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the open Transaction on which to upload the File.""",
+)
 @click.option(
     "--transaction_type",
     type=click.Choice(["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]),
     required=False,
-    help="""transactionType""",
+    help="""The type of the Transaction to create when using branchId. Defaults to `UPDATE`.""",
 )
 @click.pass_obj
 def datasets_dataset_file_upload(
@@ -723,8 +885,15 @@ def datasets_dataset_branch_get(
 
 @datasets_dataset_branch.command("list")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def datasets_dataset_branch_list(
     client: foundry.v1.FoundryClient,
@@ -748,8 +917,15 @@ def datasets_dataset_branch_list(
 
 @datasets_dataset_branch.command("page")
 @click.argument("dataset_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def datasets_dataset_branch_page(
     client: foundry.v1.FoundryClient,
@@ -851,7 +1027,14 @@ def ontologies_ontology_object_aggregate(
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
-@click.option("--properties", type=str, required=False, help="""properties""")
+@click.option(
+    "--properties",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_get(
     client: foundry.v1.FoundryClient,
@@ -881,7 +1064,14 @@ def ontologies_ontology_object_get(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
 @click.argument("linked_object_primary_key", type=str, required=True)
-@click.option("--properties", type=str, required=False, help="""properties""")
+@click.option(
+    "--properties",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_get_linked_object(
     client: foundry.v1.FoundryClient,
@@ -913,10 +1103,24 @@ def ontologies_ontology_object_get_linked_object(
 @ontologies_ontology_object.command("list")
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--properties", type=str, required=False, help="""properties""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--properties",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_list(
     client: foundry.v1.FoundryClient,
@@ -964,10 +1168,24 @@ def ontologies_ontology_object_list(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--properties", type=str, required=False, help="""properties""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--properties",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_list_linked_objects(
     client: foundry.v1.FoundryClient,
@@ -1017,10 +1235,24 @@ def ontologies_ontology_object_list_linked_objects(
 @ontologies_ontology_object.command("page")
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--properties", type=str, required=False, help="""properties""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--properties",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_page(
     client: foundry.v1.FoundryClient,
@@ -1068,10 +1300,24 @@ def ontologies_ontology_object_page(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
-@click.option("--order_by", type=str, required=False, help="""orderBy""")
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
-@click.option("--properties", type=str, required=False, help="""properties""")
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--properties",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_page_linked_objects(
     client: foundry.v1.FoundryClient,
@@ -1250,8 +1496,15 @@ def ontologies_ontology_query_type_get(
 
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 100.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_query_type_list(
     client: foundry.v1.FoundryClient,
@@ -1278,8 +1531,15 @@ def ontologies_ontology_query_type_list(
 
 @ontologies_ontology_query_type.command("page")
 @click.argument("ontology_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 100.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_query_type_page(
     client: foundry.v1.FoundryClient,
@@ -1359,8 +1619,15 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 
 @ontologies_ontology_object_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_list(
     client: foundry.v1.FoundryClient,
@@ -1389,8 +1656,10 @@ def ontologies_ontology_object_type_list(
 @ontologies_ontology_object_type.command("list_outgoing_link_types")
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The desired size of the page to be returned."""
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_list_outgoing_link_types(
     client: foundry.v1.FoundryClient,
@@ -1417,8 +1686,15 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
 
 @ontologies_ontology_object_type.command("page")
 @click.argument("ontology_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_page(
     client: foundry.v1.FoundryClient,
@@ -1447,8 +1723,10 @@ def ontologies_ontology_object_type_page(
 @ontologies_ontology_object_type.command("page_outgoing_link_types")
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size", type=int, required=False, help="""The desired size of the page to be returned."""
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_page_outgoing_link_types(
     client: foundry.v1.FoundryClient,
@@ -1502,8 +1780,15 @@ def ontologies_ontology_action_type_get(
 
 @ontologies_ontology_action_type.command("list")
 @click.argument("ontology_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_action_type_list(
     client: foundry.v1.FoundryClient,
@@ -1530,8 +1815,15 @@ def ontologies_ontology_action_type_list(
 
 @ontologies_ontology_action_type.command("page")
 @click.argument("ontology_rid", type=str, required=True)
-@click.option("--page_size", type=int, required=False, help="""pageSize""")
-@click.option("--page_token", type=str, required=False, help="""pageToken""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_action_type_page(
     client: foundry.v1.FoundryClient,

@@ -17,13 +17,13 @@ Creates a new FileImport.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
+**connection_rid** | ConnectionRid |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
 **file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
@@ -40,19 +40,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# FileImportDisplayName |
+# FileImportDisplayName
 display_name = "My file import"
 # List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None
-# FileImportMode |
+# FileImportMode
 import_mode = "SNAPSHOT"
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"
@@ -99,9 +99,9 @@ be updated by this import.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**file_import_rid** | FileImportRid | fileImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**file_import_rid** | FileImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -117,11 +117,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# FileImportRid | fileImportRid
+# FileImportRid
 file_import_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -160,9 +160,9 @@ The returned BuildRid can be used to check the status via the Orchestration API.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**file_import_rid** | FileImportRid | fileImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**file_import_rid** | FileImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **BuildRid**
@@ -178,11 +178,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# FileImportRid | fileImportRid
+# FileImportRid
 file_import_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -219,9 +219,9 @@ Get the FileImport with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**file_import_rid** | FileImportRid | fileImportRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**file_import_rid** | FileImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **FileImport**
@@ -237,11 +237,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# FileImportRid | fileImportRid
+# FileImportRid
 file_import_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -280,10 +280,10 @@ Only file imports that the user has permissions to view will be returned.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListFileImportsResponse**
@@ -299,13 +299,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -344,10 +344,10 @@ Only file imports that the user has permissions to view will be returned.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**connection_rid** | ConnectionRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListFileImportsResponse**
@@ -363,13 +363,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -407,14 +407,14 @@ Replace the FileImport with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid | connectionRid |  |
-**file_import_rid** | FileImportRid | fileImportRid |  |
+**connection_rid** | ConnectionRid |  |  |
+**file_import_rid** | FileImportRid |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
 **file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
@@ -431,21 +431,21 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid | connectionRid
+# ConnectionRid
 connection_rid = None
-# FileImportRid | fileImportRid
+# FileImportRid
 file_import_rid = None
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# FileImportDisplayName |
+# FileImportDisplayName
 display_name = "My file import"
 # List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None
-# FileImportMode |
+# FileImportMode
 import_mode = "SNAPSHOT"
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
 branch_name = "master"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"

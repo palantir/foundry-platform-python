@@ -65,11 +65,11 @@ class ResourceRoleClient:
     ) -> None:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -129,15 +129,15 @@ class ResourceRoleClient:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -185,15 +185,15 @@ class ResourceRoleClient:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -246,11 +246,11 @@ class ResourceRoleClient:
     ) -> None:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -330,11 +330,11 @@ class _ResourceRoleClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -394,15 +394,15 @@ class _ResourceRoleClientRaw:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -450,15 +450,15 @@ class _ResourceRoleClientRaw:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -511,11 +511,11 @@ class _ResourceRoleClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -595,11 +595,11 @@ class _ResourceRoleClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -659,15 +659,15 @@ class _ResourceRoleClientStreaming:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -715,15 +715,15 @@ class _ResourceRoleClientStreaming:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -776,11 +776,11 @@ class _ResourceRoleClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

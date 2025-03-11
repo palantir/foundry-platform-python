@@ -82,7 +82,7 @@ class ScheduleClient:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
@@ -157,9 +157,9 @@ class ScheduleClient:
     ) -> None:
         """
         Delete the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -202,9 +202,9 @@ class ScheduleClient:
     ) -> orchestration_models.Schedule:
         """
         Get the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -249,9 +249,9 @@ class ScheduleClient:
     ) -> None:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -309,7 +309,7 @@ class ScheduleClient:
     ) -> orchestration_models.Schedule:
         """
         Replace the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
         :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
@@ -317,7 +317,7 @@ class ScheduleClient:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
@@ -394,9 +394,9 @@ class ScheduleClient:
     ) -> orchestration_models.ScheduleRun:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -444,13 +444,13 @@ class ScheduleClient:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -496,13 +496,13 @@ class ScheduleClient:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -551,9 +551,9 @@ class ScheduleClient:
     ) -> None:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -637,7 +637,7 @@ class _ScheduleClientRaw:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
@@ -712,9 +712,9 @@ class _ScheduleClientRaw:
     ) -> core.ApiResponse[None]:
         """
         Delete the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -757,9 +757,9 @@ class _ScheduleClientRaw:
     ) -> core.ApiResponse[orchestration_models.Schedule]:
         """
         Get the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -804,9 +804,9 @@ class _ScheduleClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -864,7 +864,7 @@ class _ScheduleClientRaw:
     ) -> core.ApiResponse[orchestration_models.Schedule]:
         """
         Replace the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
         :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
@@ -872,7 +872,7 @@ class _ScheduleClientRaw:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
@@ -949,9 +949,9 @@ class _ScheduleClientRaw:
     ) -> core.ApiResponse[orchestration_models.ScheduleRun]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -999,13 +999,13 @@ class _ScheduleClientRaw:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1051,13 +1051,13 @@ class _ScheduleClientRaw:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1106,9 +1106,9 @@ class _ScheduleClientRaw:
     ) -> core.ApiResponse[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1192,7 +1192,7 @@ class _ScheduleClientStreaming:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
@@ -1267,9 +1267,9 @@ class _ScheduleClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
         Delete the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1312,9 +1312,9 @@ class _ScheduleClientStreaming:
     ) -> core.StreamingContextManager[orchestration_models.Schedule]:
         """
         Get the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1359,9 +1359,9 @@ class _ScheduleClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1419,7 +1419,7 @@ class _ScheduleClientStreaming:
     ) -> core.StreamingContextManager[orchestration_models.Schedule]:
         """
         Replace the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
         :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
@@ -1427,7 +1427,7 @@ class _ScheduleClientStreaming:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
@@ -1504,9 +1504,9 @@ class _ScheduleClientStreaming:
     ) -> core.StreamingContextManager[orchestration_models.ScheduleRun]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1554,13 +1554,13 @@ class _ScheduleClientStreaming:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1606,13 +1606,13 @@ class _ScheduleClientStreaming:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1661,9 +1661,9 @@ class _ScheduleClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

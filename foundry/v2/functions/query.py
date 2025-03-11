@@ -67,11 +67,11 @@ class QueryClient:
 
         Optional parameters do not need to be supplied.
 
-        :param query_api_name: queryApiName
+        :param query_api_name:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -128,9 +128,9 @@ class QueryClient:
         """
         Gets a specific query type with the given API name.
 
-        :param query_api_name: queryApiName
+        :param query_api_name:
         :type query_api_name: QueryApiName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -178,7 +178,7 @@ class QueryClient:
 
         :param rid:
         :type rid: FunctionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -256,11 +256,11 @@ class _QueryClientRaw:
 
         Optional parameters do not need to be supplied.
 
-        :param query_api_name: queryApiName
+        :param query_api_name:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -317,9 +317,9 @@ class _QueryClientRaw:
         """
         Gets a specific query type with the given API name.
 
-        :param query_api_name: queryApiName
+        :param query_api_name:
         :type query_api_name: QueryApiName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -367,7 +367,7 @@ class _QueryClientRaw:
 
         :param rid:
         :type rid: FunctionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -445,11 +445,11 @@ class _QueryClientStreaming:
 
         Optional parameters do not need to be supplied.
 
-        :param query_api_name: queryApiName
+        :param query_api_name:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -506,9 +506,9 @@ class _QueryClientStreaming:
         """
         Gets a specific query type with the given API name.
 
-        :param query_api_name: queryApiName
+        :param query_api_name:
         :type query_api_name: QueryApiName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -556,7 +556,7 @@ class _QueryClientStreaming:
 
         :param rid:
         :type rid: FunctionRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

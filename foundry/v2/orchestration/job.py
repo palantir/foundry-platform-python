@@ -61,9 +61,9 @@ class JobClient:
     ) -> orchestration_models.Job:
         """
         Get the Job with the specified rid.
-        :param job_rid: jobRid
+        :param job_rid: The RID of a Job.
         :type job_rid: JobRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -129,9 +129,9 @@ class _JobClientRaw:
     ) -> core.ApiResponse[orchestration_models.Job]:
         """
         Get the Job with the specified rid.
-        :param job_rid: jobRid
+        :param job_rid: The RID of a Job.
         :type job_rid: JobRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -197,9 +197,9 @@ class _JobClientStreaming:
     ) -> core.StreamingContextManager[orchestration_models.Job]:
         """
         Get the Job with the specified rid.
-        :param job_rid: jobRid
+        :param job_rid: The RID of a Job.
         :type job_rid: JobRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

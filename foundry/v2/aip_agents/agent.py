@@ -86,11 +86,11 @@ class AgentClient:
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
-        :param page_size: pageSize
+        :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -138,11 +138,11 @@ class AgentClient:
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
-        :param page_size: pageSize
+        :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -194,11 +194,11 @@ class AgentClient:
     ) -> aip_agents_models.Agent:
         """
         Get details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param version: version
+        :param version: The version of the Agent to retrieve. If not specified, the latest published version will be returned.
         :type version: Optional[AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -272,11 +272,11 @@ class _AgentClientRaw:
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
-        :param page_size: pageSize
+        :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -324,11 +324,11 @@ class _AgentClientRaw:
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
-        :param page_size: pageSize
+        :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -380,11 +380,11 @@ class _AgentClientRaw:
     ) -> core.ApiResponse[aip_agents_models.Agent]:
         """
         Get details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param version: version
+        :param version: The version of the Agent to retrieve. If not specified, the latest published version will be returned.
         :type version: Optional[AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -458,11 +458,11 @@ class _AgentClientStreaming:
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
-        :param page_size: pageSize
+        :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -510,11 +510,11 @@ class _AgentClientStreaming:
         List all conversation sessions between the calling user and all accessible Agents that were created by this client.
         Sessions are returned in order of most recently updated first.
 
-        :param page_size: pageSize
+        :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -566,11 +566,11 @@ class _AgentClientStreaming:
     ) -> core.StreamingContextManager[aip_agents_models.Agent]:
         """
         Get details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param version: version
+        :param version: The version of the Agent to retrieve. If not specified, the latest published version will be returned.
         :type version: Optional[AgentVersionString]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

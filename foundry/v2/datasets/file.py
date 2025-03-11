@@ -85,15 +85,15 @@ class FileClient:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -142,15 +142,15 @@ class FileClient:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -201,15 +201,15 @@ class FileClient:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -261,15 +261,15 @@ class FileClient:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -348,13 +348,13 @@ class FileClient:
         single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
         open a transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -424,15 +424,15 @@ class FileClient:
         To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -508,17 +508,17 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -591,17 +591,17 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -675,17 +675,17 @@ class FileClient:
         `transactionRid`. This is useful for uploading multiple files in a single transaction.
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to upload the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open Transaction on which to upload the File.
         :type transaction_rid: Optional[TransactionRid]
-        :param transaction_type: transactionType
+        :param transaction_type: The type of the Transaction to create when using branchName. Defaults to `UPDATE`.
         :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -783,15 +783,15 @@ class _FileClientRaw:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -857,13 +857,13 @@ class _FileClientRaw:
         single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
         open a transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -933,15 +933,15 @@ class _FileClientRaw:
         To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1017,17 +1017,17 @@ class _FileClientRaw:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1100,17 +1100,17 @@ class _FileClientRaw:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1184,17 +1184,17 @@ class _FileClientRaw:
         `transactionRid`. This is useful for uploading multiple files in a single transaction.
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to upload the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open Transaction on which to upload the File.
         :type transaction_rid: Optional[TransactionRid]
-        :param transaction_type: transactionType
+        :param transaction_type: The type of the Transaction to create when using branchName. Defaults to `UPDATE`.
         :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1292,15 +1292,15 @@ class _FileClientStreaming:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1366,13 +1366,13 @@ class _FileClientStreaming:
         single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
         open a transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1442,15 +1442,15 @@ class _FileClientStreaming:
         To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1526,17 +1526,17 @@ class _FileClientStreaming:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1609,17 +1609,17 @@ class _FileClientStreaming:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1693,17 +1693,17 @@ class _FileClientStreaming:
         `transactionRid`. This is useful for uploading multiple files in a single transaction.
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param file_path: filePath
+        :param file_path:
         :type file_path: FilePath
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: The name of the Branch on which to upload the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The Resource Identifier (RID) of the open Transaction on which to upload the File.
         :type transaction_rid: Optional[TransactionRid]
-        :param transaction_type: transactionType
+        :param transaction_type: The type of the Transaction to create when using branchName. Defaults to `UPDATE`.
         :type transaction_type: Optional[TransactionType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

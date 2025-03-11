@@ -15,9 +15,9 @@ Sessions are returned in order of most recently updated first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **AgentsSessionsPage**
@@ -33,11 +33,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -75,9 +75,9 @@ Sessions are returned in order of most recently updated first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **AgentsSessionsPage**
@@ -93,11 +93,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -134,9 +134,9 @@ Get details for an AIP Agent.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | agentRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**version** | Optional[AgentVersionString] | version | [optional] |
+**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**version** | Optional[AgentVersionString] | The version of the Agent to retrieve. If not specified, the latest published version will be returned.  | [optional] |
 
 ### Return type
 **Agent**
@@ -152,11 +152,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | agentRid
+# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[AgentVersionString] | version
+# Optional[AgentVersionString] | The version of the Agent to retrieve. If not specified, the latest published version will be returned.
 version = None
 
 

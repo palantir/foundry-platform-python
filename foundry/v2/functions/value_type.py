@@ -73,9 +73,9 @@ class ValueTypeClient:
         """
         Gets a specific value type with the given RID. The latest version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -142,9 +142,9 @@ class _ValueTypeClientRaw:
         """
         Gets a specific value type with the given RID. The latest version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -211,9 +211,9 @@ class _ValueTypeClientStreaming:
         """
         Gets a specific value type with the given RID. The latest version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

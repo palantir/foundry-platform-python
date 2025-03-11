@@ -64,7 +64,7 @@ class BranchClient:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
@@ -126,9 +126,9 @@ class BranchClient:
         """
         Deletes the Branch with the given BranchName.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -175,9 +175,9 @@ class BranchClient:
         """
         Get a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -227,11 +227,11 @@ class BranchClient:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -281,11 +281,11 @@ class BranchClient:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -362,7 +362,7 @@ class _BranchClientRaw:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
@@ -424,9 +424,9 @@ class _BranchClientRaw:
         """
         Deletes the Branch with the given BranchName.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -473,9 +473,9 @@ class _BranchClientRaw:
         """
         Get a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -525,11 +525,11 @@ class _BranchClientRaw:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -579,11 +579,11 @@ class _BranchClientRaw:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -660,7 +660,7 @@ class _BranchClientStreaming:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
@@ -722,9 +722,9 @@ class _BranchClientStreaming:
         """
         Deletes the Branch with the given BranchName.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -771,9 +771,9 @@ class _BranchClientStreaming:
         """
         Get a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -823,11 +823,11 @@ class _BranchClientStreaming:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -877,11 +877,11 @@ class _BranchClientStreaming:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

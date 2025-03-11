@@ -147,13 +147,13 @@ class DatasetClient:
         """
         Deletes the Schema from a Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to delete the schema.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to delete the schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The RID of the Transaction on which to delete the schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -196,7 +196,7 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -238,13 +238,13 @@ class DatasetClient:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The TransactionRid that contains the Schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -300,19 +300,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -346,19 +346,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -394,19 +394,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -443,19 +443,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -517,13 +517,13 @@ class DatasetClient:
         """
         Puts a Schema on an existing Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to put the Schema.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: Any
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to put the Schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -641,13 +641,13 @@ class _DatasetClientRaw:
         """
         Deletes the Schema from a Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to delete the schema.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to delete the schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The RID of the Transaction on which to delete the schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -690,7 +690,7 @@ class _DatasetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -732,13 +732,13 @@ class _DatasetClientRaw:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The TransactionRid that contains the Schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -791,19 +791,19 @@ class _DatasetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -852,13 +852,13 @@ class _DatasetClientRaw:
         """
         Puts a Schema on an existing Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to put the Schema.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: Any
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to put the Schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -976,13 +976,13 @@ class _DatasetClientStreaming:
         """
         Deletes the Schema from a Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to delete the schema.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to delete the schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The RID of the Transaction on which to delete the schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1025,7 +1025,7 @@ class _DatasetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1067,13 +1067,13 @@ class _DatasetClientStreaming:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The TransactionRid that contains the Schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1126,19 +1126,19 @@ class _DatasetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1187,13 +1187,13 @@ class _DatasetClientStreaming:
         """
         Puts a Schema on an existing Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to put the Schema.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: Any
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to put the Schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

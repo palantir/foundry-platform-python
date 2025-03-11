@@ -61,9 +61,9 @@ class OrganizationClient:
     ) -> admin_models.Organization:
         """
         Get the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -111,7 +111,7 @@ class OrganizationClient:
     ) -> admin_models.Organization:
         """
         Replace the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
         :type name: OrganizationName
@@ -119,7 +119,7 @@ class OrganizationClient:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -199,9 +199,9 @@ class _OrganizationClientRaw:
     ) -> core.ApiResponse[admin_models.Organization]:
         """
         Get the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -249,7 +249,7 @@ class _OrganizationClientRaw:
     ) -> core.ApiResponse[admin_models.Organization]:
         """
         Replace the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
         :type name: OrganizationName
@@ -257,7 +257,7 @@ class _OrganizationClientRaw:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -337,9 +337,9 @@ class _OrganizationClientStreaming:
     ) -> core.StreamingContextManager[admin_models.Organization]:
         """
         Get the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -387,7 +387,7 @@ class _OrganizationClientStreaming:
     ) -> core.StreamingContextManager[admin_models.Organization]:
         """
         Replace the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
         :type name: OrganizationName
@@ -395,7 +395,7 @@ class _OrganizationClientStreaming:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

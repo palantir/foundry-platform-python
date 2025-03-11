@@ -64,7 +64,7 @@ class AttachmentClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -109,7 +109,7 @@ class AttachmentClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -136,7 +136,7 @@ class AttachmentClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -165,7 +165,7 @@ class AttachmentClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -195,7 +195,7 @@ class AttachmentClient:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -259,11 +259,11 @@ class AttachmentClient:
 
         :param body: Body of the request
         :type body: bytes
-        :param content_length: Content-Length
+        :param content_length: The size in bytes of the file content being uploaded.
         :type content_length: ContentLength
-        :param content_type: Content-Type
+        :param content_type: The media type of the file being uploaded.
         :type content_type: ContentType
-        :param filename: filename
+        :param filename: The name of the file being uploaded.
         :type filename: Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -329,7 +329,7 @@ class _AttachmentClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -371,7 +371,7 @@ class _AttachmentClientRaw:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -422,11 +422,11 @@ class _AttachmentClientRaw:
 
         :param body: Body of the request
         :type body: bytes
-        :param content_length: Content-Length
+        :param content_length: The size in bytes of the file content being uploaded.
         :type content_length: ContentLength
-        :param content_type: Content-Type
+        :param content_type: The media type of the file being uploaded.
         :type content_type: ContentType
-        :param filename: filename
+        :param filename: The name of the file being uploaded.
         :type filename: Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -492,7 +492,7 @@ class _AttachmentClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -534,7 +534,7 @@ class _AttachmentClientStreaming:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param attachment_rid: attachmentRid
+        :param attachment_rid: The RID of the attachment.
         :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -585,11 +585,11 @@ class _AttachmentClientStreaming:
 
         :param body: Body of the request
         :type body: bytes
-        :param content_length: Content-Length
+        :param content_length: The size in bytes of the file content being uploaded.
         :type content_length: ContentLength
-        :param content_type: Content-Type
+        :param content_type: The media type of the file being uploaded.
         :type content_type: ContentType
-        :param filename: filename
+        :param filename: The name of the file being uploaded.
         :type filename: Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

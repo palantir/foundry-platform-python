@@ -82,9 +82,9 @@ class EnrollmentClient:
     ) -> admin_models.Enrollment:
         """
         Get the Enrollment with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -129,7 +129,7 @@ class EnrollmentClient:
         """
         Returns the Enrollment associated with the current User's primary organization.
 
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -193,9 +193,9 @@ class _EnrollmentClientRaw:
     ) -> core.ApiResponse[admin_models.Enrollment]:
         """
         Get the Enrollment with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -240,7 +240,7 @@ class _EnrollmentClientRaw:
         """
         Returns the Enrollment associated with the current User's primary organization.
 
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -304,9 +304,9 @@ class _EnrollmentClientStreaming:
     ) -> core.StreamingContextManager[admin_models.Enrollment]:
         """
         Get the Enrollment with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -351,7 +351,7 @@ class _EnrollmentClientStreaming:
         """
         Returns the Enrollment associated with the current User's primary organization.
 
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

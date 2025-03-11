@@ -100,7 +100,7 @@ class MarkingClient:
         :type name: MarkingName
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -169,9 +169,9 @@ class MarkingClient:
     ) -> admin_models.Marking:
         """
         Get the Marking with the specified id.
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -230,7 +230,7 @@ class MarkingClient:
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
         :type body: List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -274,11 +274,11 @@ class MarkingClient:
     ) -> core.ResourceIterator[admin_models.Marking]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -320,11 +320,11 @@ class MarkingClient:
     ) -> admin_models.ListMarkingsResponse:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -408,7 +408,7 @@ class _MarkingClientRaw:
         :type name: MarkingName
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -477,9 +477,9 @@ class _MarkingClientRaw:
     ) -> core.ApiResponse[admin_models.Marking]:
         """
         Get the Marking with the specified id.
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -538,7 +538,7 @@ class _MarkingClientRaw:
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
         :type body: List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -582,11 +582,11 @@ class _MarkingClientRaw:
     ) -> core.ApiResponse[admin_models.ListMarkingsResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -628,11 +628,11 @@ class _MarkingClientRaw:
     ) -> core.ApiResponse[admin_models.ListMarkingsResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -716,7 +716,7 @@ class _MarkingClientStreaming:
         :type name: MarkingName
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -785,9 +785,9 @@ class _MarkingClientStreaming:
     ) -> core.StreamingContextManager[admin_models.Marking]:
         """
         Get the Marking with the specified id.
-        :param marking_id: markingId
+        :param marking_id:
         :type marking_id: MarkingId
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -846,7 +846,7 @@ class _MarkingClientStreaming:
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
         :type body: List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -890,11 +890,11 @@ class _MarkingClientStreaming:
     ) -> core.StreamingContextManager[admin_models.ListMarkingsResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -936,11 +936,11 @@ class _MarkingClientStreaming:
     ) -> core.StreamingContextManager[admin_models.ListMarkingsResponse]:
         """
         Maximum page size 100.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

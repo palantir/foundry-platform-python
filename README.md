@@ -145,11 +145,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# BranchId |
+# BranchId
 branch_id = "my-branch"
-# Optional[TransactionRid] |
+# Optional[TransactionRid]
 transaction_rid = None
 
 

@@ -73,7 +73,7 @@ class FileImportClient:
     ) -> connectivity_models.FileImport:
         """
         Creates a new FileImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
@@ -85,7 +85,7 @@ class FileImportClient:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
@@ -175,11 +175,11 @@ class FileImportClient:
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -226,11 +226,11 @@ class FileImportClient:
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -277,11 +277,11 @@ class FileImportClient:
     ) -> connectivity_models.FileImport:
         """
         Get the FileImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -331,13 +331,13 @@ class FileImportClient:
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -384,13 +384,13 @@ class FileImportClient:
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -450,9 +450,9 @@ class FileImportClient:
     ) -> connectivity_models.FileImport:
         """
         Replace the FileImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
@@ -464,7 +464,7 @@ class FileImportClient:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
@@ -578,7 +578,7 @@ class _FileImportClientRaw:
     ) -> core.ApiResponse[connectivity_models.FileImport]:
         """
         Creates a new FileImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
@@ -590,7 +590,7 @@ class _FileImportClientRaw:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
@@ -680,11 +680,11 @@ class _FileImportClientRaw:
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -731,11 +731,11 @@ class _FileImportClientRaw:
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -782,11 +782,11 @@ class _FileImportClientRaw:
     ) -> core.ApiResponse[connectivity_models.FileImport]:
         """
         Get the FileImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -836,13 +836,13 @@ class _FileImportClientRaw:
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -889,13 +889,13 @@ class _FileImportClientRaw:
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -955,9 +955,9 @@ class _FileImportClientRaw:
     ) -> core.ApiResponse[connectivity_models.FileImport]:
         """
         Replace the FileImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
@@ -969,7 +969,7 @@ class _FileImportClientRaw:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
@@ -1083,7 +1083,7 @@ class _FileImportClientStreaming:
     ) -> core.StreamingContextManager[connectivity_models.FileImport]:
         """
         Creates a new FileImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
@@ -1095,7 +1095,7 @@ class _FileImportClientStreaming:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
@@ -1185,11 +1185,11 @@ class _FileImportClientStreaming:
         Deleting the file import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1236,11 +1236,11 @@ class _FileImportClientStreaming:
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1287,11 +1287,11 @@ class _FileImportClientStreaming:
     ) -> core.StreamingContextManager[connectivity_models.FileImport]:
         """
         Get the FileImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1341,13 +1341,13 @@ class _FileImportClientStreaming:
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1394,13 +1394,13 @@ class _FileImportClientStreaming:
         Lists all file imports defined for this connection.
         Only file imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1460,9 +1460,9 @@ class _FileImportClientStreaming:
     ) -> core.StreamingContextManager[connectivity_models.FileImport]:
         """
         Replace the FileImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param file_import_rid: fileImportRid
+        :param file_import_rid:
         :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: DatasetRid
@@ -1474,7 +1474,7 @@ class _FileImportClientStreaming:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]

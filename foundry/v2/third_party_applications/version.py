@@ -62,9 +62,9 @@ class VersionClient:
     ) -> None:
         """
         Delete the Version with the specified version.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param version_version: versionVersion
+        :param version_version: The semantic version of the Website.
         :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -106,9 +106,9 @@ class VersionClient:
     ) -> third_party_applications_models.Version:
         """
         Get the Version with the specified version.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param version_version: versionVersion
+        :param version_version: The semantic version of the Website.
         :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -155,11 +155,11 @@ class VersionClient:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -204,11 +204,11 @@ class VersionClient:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -257,11 +257,11 @@ class VersionClient:
     ) -> third_party_applications_models.Version:
         """
         Upload a new version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
-        :param version: version
+        :param version:
         :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -311,15 +311,15 @@ class VersionClient:
         """
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
 
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
-        :param version: version
+        :param version:
         :type version: VersionVersion
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param snapshot_identifier: snapshotIdentifier
+        :param snapshot_identifier: The identifier of the snapshot. If the identifier follows the format `foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be accessible from foundry code repositories.
         :type snapshot_identifier: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -388,9 +388,9 @@ class _VersionClientRaw:
     ) -> core.ApiResponse[None]:
         """
         Delete the Version with the specified version.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param version_version: versionVersion
+        :param version_version: The semantic version of the Website.
         :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -432,9 +432,9 @@ class _VersionClientRaw:
     ) -> core.ApiResponse[third_party_applications_models.Version]:
         """
         Get the Version with the specified version.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param version_version: versionVersion
+        :param version_version: The semantic version of the Website.
         :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -481,11 +481,11 @@ class _VersionClientRaw:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -530,11 +530,11 @@ class _VersionClientRaw:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -583,11 +583,11 @@ class _VersionClientRaw:
     ) -> core.ApiResponse[third_party_applications_models.Version]:
         """
         Upload a new version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
-        :param version: version
+        :param version:
         :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -637,15 +637,15 @@ class _VersionClientRaw:
         """
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
 
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
-        :param version: version
+        :param version:
         :type version: VersionVersion
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param snapshot_identifier: snapshotIdentifier
+        :param snapshot_identifier: The identifier of the snapshot. If the identifier follows the format `foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be accessible from foundry code repositories.
         :type snapshot_identifier: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -714,9 +714,9 @@ class _VersionClientStreaming:
     ) -> core.StreamingContextManager[None]:
         """
         Delete the Version with the specified version.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param version_version: versionVersion
+        :param version_version: The semantic version of the Website.
         :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -758,9 +758,9 @@ class _VersionClientStreaming:
     ) -> core.StreamingContextManager[third_party_applications_models.Version]:
         """
         Get the Version with the specified version.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param version_version: versionVersion
+        :param version_version: The semantic version of the Website.
         :type version_version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -807,11 +807,11 @@ class _VersionClientStreaming:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -856,11 +856,11 @@ class _VersionClientStreaming:
         Lists all Versions.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -909,11 +909,11 @@ class _VersionClientStreaming:
     ) -> core.StreamingContextManager[third_party_applications_models.Version]:
         """
         Upload a new version of the Website.
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
-        :param version: version
+        :param version:
         :type version: VersionVersion
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -963,15 +963,15 @@ class _VersionClientStreaming:
         """
         Upload a snapshot version of the Website. Snapshot versions are automatically deleted after two days.
 
-        :param third_party_application_rid: thirdPartyApplicationRid
+        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
-        :param version: version
+        :param version:
         :type version: VersionVersion
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param snapshot_identifier: snapshotIdentifier
+        :param snapshot_identifier: The identifier of the snapshot. If the identifier follows the format `foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be accessible from foundry code repositories.
         :type snapshot_identifier: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
