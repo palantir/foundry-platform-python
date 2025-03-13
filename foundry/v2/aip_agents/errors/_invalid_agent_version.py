@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class InvalidAgentVersionParameters(TypedDict):
+class InvalidAgentVersionParameters(typing_extensions.TypedDict):
     """The provided version string is not a valid format for an Agent version."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
-
-    version: AgentVersionString
+    agentRid: aip_agents_models.AgentRid
+    version: aip_agents_models.AgentVersionString
 
 
 @dataclass
-class InvalidAgentVersion(BadRequestError):
-    name: Literal["InvalidAgentVersion"]
+class InvalidAgentVersion(errors.BadRequestError):
+    name: typing.Literal["InvalidAgentVersion"]
     parameters: InvalidAgentVersionParameters
     error_instance_id: str
 

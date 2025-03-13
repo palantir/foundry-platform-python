@@ -13,31 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._file_path import FilePath
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 
 
-class GetFileContentPermissionDeniedParameters(TypedDict):
+class GetFileContentPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not content the File."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
-    filePath: FilePath
+    datasetRid: datasets_models.DatasetRid
+    filePath: core_models.FilePath
 
 
 @dataclass
-class GetFileContentPermissionDenied(PermissionDeniedError):
-    name: Literal["GetFileContentPermissionDenied"]
+class GetFileContentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetFileContentPermissionDenied"]
     parameters: GetFileContentPermissionDeniedParameters
     error_instance_id: str
 

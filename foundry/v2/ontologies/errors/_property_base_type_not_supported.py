@@ -13,20 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
-from foundry.v2.ontologies.models._value_type import ValueType
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class PropertyBaseTypeNotSupportedParameters(TypedDict):
+class PropertyBaseTypeNotSupportedParameters(typing_extensions.TypedDict):
     """
     The type of the requested property is not currently supported by this API. If you need support for this,
     please reach out to Palantir Support.
@@ -34,16 +30,14 @@ class PropertyBaseTypeNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
-
-    property: PropertyApiName
-
-    propertyBaseType: ValueType
+    objectType: ontologies_models.ObjectTypeApiName
+    property: ontologies_models.PropertyApiName
+    propertyBaseType: ontologies_models.ValueType
 
 
 @dataclass
-class PropertyBaseTypeNotSupported(BadRequestError):
-    name: Literal["PropertyBaseTypeNotSupported"]
+class PropertyBaseTypeNotSupported(errors.BadRequestError):
+    name: typing.Literal["PropertyBaseTypeNotSupported"]
     parameters: PropertyBaseTypeNotSupportedParameters
     error_instance_id: str
 

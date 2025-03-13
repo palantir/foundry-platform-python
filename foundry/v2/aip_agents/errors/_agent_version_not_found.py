@@ -13,32 +13,30 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class AgentVersionNotFoundParameters(TypedDict):
+class AgentVersionNotFoundParameters(typing_extensions.TypedDict):
     """The given AgentVersion could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
-    agentVersionString: AgentVersionString
+
+    agentVersionString: aip_agents_models.AgentVersionString
     """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
 
 @dataclass
-class AgentVersionNotFound(NotFoundError):
-    name: Literal["AgentVersionNotFound"]
+class AgentVersionNotFound(errors.NotFoundError):
+    name: typing.Literal["AgentVersionNotFound"]
     parameters: AgentVersionNotFoundParameters
     error_instance_id: str
 

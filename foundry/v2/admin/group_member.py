@@ -13,35 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._group_member import GroupMember
-from foundry.v2.admin.models._group_membership_expiration import GroupMembershipExpiration  # NOQA
-from foundry.v2.admin.models._list_group_members_response import ListGroupMembersResponse  # NOQA
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class GroupMemberClient:
@@ -55,33 +37,33 @@ class GroupMemberClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _GroupMemberClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _GroupMemberClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        principal_ids: List[PrincipalId],
-        expiration: Optional[GroupMembershipExpiration] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        principal_ids: typing.List[core_models.PrincipalId],
+        expiration: typing.Optional[admin_models.GroupMembershipExpiration] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -93,11 +75,13 @@ class GroupMemberClient:
         :rtype: None
 
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/add",
                 query_params={},
@@ -111,34 +95,36 @@ class GroupMemberClient:
                     "principalIds": principal_ids,
                     "expiration": expiration,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
-                        "expiration": Optional[GroupMembershipExpiration],
+                        "principalIds": typing.List[core_models.PrincipalId],
+                        "expiration": typing.Optional[admin_models.GroupMembershipExpiration],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[GroupMember]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[admin_models.GroupMember]:
         """
         Lists all members (which can be a User or a Group) of a given Group.
 
@@ -148,22 +134,22 @@ class GroupMemberClient:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[GroupMember]
+        :rtype: core.ResourceIterator[admin_models.GroupMember]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
@@ -179,24 +165,24 @@ class GroupMemberClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupMembersResponse,
+                response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListGroupMembersResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.ListGroupMembersResponse:
         """
         Lists all members (which can be a User or a Group) of a given Group.
 
@@ -206,18 +192,18 @@ class GroupMemberClient:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListGroupMembersResponse
+        :rtype: admin_models.ListGroupMembersResponse
         """
 
         warnings.warn(
@@ -227,7 +213,7 @@ class GroupMemberClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
@@ -243,25 +229,25 @@ class GroupMemberClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupMembersResponse,
+                response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        principal_ids: List[PrincipalId],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        principal_ids: typing.List[core_models.PrincipalId],
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -270,12 +256,14 @@ class GroupMemberClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/remove",
                 query_params={},
@@ -288,16 +276,18 @@ class GroupMemberClient:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                     "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                 },
             ),
@@ -315,29 +305,29 @@ class _GroupMemberClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        principal_ids: List[PrincipalId],
-        expiration: Optional[GroupMembershipExpiration] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        expiration: typing.Optional[admin_models.GroupMembershipExpiration] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -346,14 +336,16 @@ class _GroupMemberClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/add",
                 query_params={},
@@ -367,34 +359,36 @@ class _GroupMemberClientRaw:
                     "principalIds": principal_ids,
                     "expiration": expiration,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
-                        "expiration": Optional[GroupMembershipExpiration],
+                        "principalIds": typing.List[core_models.PrincipalId],
+                        "expiration": typing.Optional[admin_models.GroupMembershipExpiration],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListGroupMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListGroupMembersResponse]:
         """
         Lists all members (which can be a User or a Group) of a given Group.
 
@@ -404,22 +398,22 @@ class _GroupMemberClientRaw:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListGroupMembersResponse]
+        :rtype: core.ApiResponse[admin_models.ListGroupMembersResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
@@ -435,24 +429,24 @@ class _GroupMemberClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupMembersResponse,
+                response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListGroupMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListGroupMembersResponse]:
         """
         Lists all members (which can be a User or a Group) of a given Group.
 
@@ -462,18 +456,18 @@ class _GroupMemberClientRaw:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListGroupMembersResponse]
+        :rtype: core.ApiResponse[admin_models.ListGroupMembersResponse]
         """
 
         warnings.warn(
@@ -483,7 +477,7 @@ class _GroupMemberClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
@@ -499,39 +493,41 @@ class _GroupMemberClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupMembersResponse,
+                response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        principal_ids: List[PrincipalId],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
+        :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/remove",
                 query_params={},
@@ -544,16 +540,18 @@ class _GroupMemberClientRaw:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                     "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                 },
             ),
@@ -571,29 +569,29 @@ class _GroupMemberClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        principal_ids: List[PrincipalId],
-        expiration: Optional[GroupMembershipExpiration] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        expiration: typing.Optional[admin_models.GroupMembershipExpiration] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
@@ -602,14 +600,16 @@ class _GroupMemberClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
+        :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/add",
                 query_params={},
@@ -623,34 +623,36 @@ class _GroupMemberClientStreaming:
                     "principalIds": principal_ids,
                     "expiration": expiration,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
-                        "expiration": Optional[GroupMembershipExpiration],
+                        "principalIds": typing.List[core_models.PrincipalId],
+                        "expiration": typing.Optional[admin_models.GroupMembershipExpiration],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
+                    "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListGroupMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListGroupMembersResponse]:
         """
         Lists all members (which can be a User or a Group) of a given Group.
 
@@ -660,22 +662,22 @@ class _GroupMemberClientStreaming:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListGroupMembersResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListGroupMembersResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
@@ -691,24 +693,24 @@ class _GroupMemberClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupMembersResponse,
+                response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        transitive: Optional[bool] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListGroupMembersResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListGroupMembersResponse]:
         """
         Lists all members (which can be a User or a Group) of a given Group.
 
@@ -718,18 +720,18 @@ class _GroupMemberClientStreaming:
         to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
         in the response, you are on the last page.
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: transitive
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListGroupMembersResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListGroupMembersResponse]
         """
 
         warnings.warn(
@@ -739,7 +741,7 @@ class _GroupMemberClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
@@ -755,39 +757,41 @@ class _GroupMemberClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupMembersResponse,
+                response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        principal_ids: List[PrincipalId],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        principal_ids: typing.List[core_models.PrincipalId],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
+        :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers/remove",
                 query_params={},
@@ -800,16 +804,18 @@ class _GroupMemberClientStreaming:
                 body={
                     "principalIds": principal_ids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "principalIds": List[PrincipalId],
+                        "principalIds": typing.List[core_models.PrincipalId],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                     "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                 },
             ),

@@ -16,8 +16,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**query_api_name** | QueryApiName | queryApiName |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**query_api_name** | QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.  |  |
 
 ### Return type
 **QueryTypeV2**
@@ -33,9 +33,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# QueryApiName | queryApiName
+# QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
 query_api_name = "getEmployeesInCity"
 
 
@@ -77,12 +77,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
 
 ### Return type
-**ResourceIterator[QueryTypeV2]**
+**ListQueryTypesResponseV2**
 
 ### Example
 
@@ -95,11 +95,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
 
 
@@ -141,9 +141,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
 
 ### Return type
 **ListQueryTypesResponseV2**
@@ -159,11 +159,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
 
 

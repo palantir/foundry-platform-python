@@ -16,8 +16,8 @@ Delete the Version with the specified version.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**version_version** | VersionVersion | versionVersion |  |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
+**version_version** | VersionVersion | The semantic version of the Website. |  |
 
 ### Return type
 **None**
@@ -33,11 +33,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ThirdPartyApplicationRid | thirdPartyApplicationRid
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# VersionVersion | versionVersion
+# VersionVersion | The semantic version of the Website.
 version_version = "1.2.0"
 
 
@@ -75,8 +75,8 @@ Get the Version with the specified version.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**version_version** | VersionVersion | versionVersion |  |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
+**version_version** | VersionVersion | The semantic version of the Website. |  |
 
 ### Return type
 **Version**
@@ -92,11 +92,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ThirdPartyApplicationRid | thirdPartyApplicationRid
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# VersionVersion | versionVersion
+# VersionVersion | The semantic version of the Website.
 version_version = "1.2.0"
 
 
@@ -136,12 +136,12 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 
 ### Return type
-**ResourceIterator[Version]**
+**ListVersionsResponse**
 
 ### Example
 
@@ -154,13 +154,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ThirdPartyApplicationRid | thirdPartyApplicationRid
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
 
 
@@ -200,9 +200,9 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 
 ### Return type
 **ListVersionsResponse**
@@ -218,13 +218,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ThirdPartyApplicationRid | thirdPartyApplicationRid
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
 
 
@@ -263,9 +263,9 @@ Upload a new version of the Website.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
 **body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
-**version** | VersionVersion | version |  |
+**version** | VersionVersion |  |  |
 
 ### Return type
 **Version**
@@ -281,13 +281,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ThirdPartyApplicationRid | thirdPartyApplicationRid
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
 # bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
 body = None
-# VersionVersion | version
+# VersionVersion
 version = None
 
 
@@ -327,11 +327,11 @@ Upload a snapshot version of the Website. Snapshot versions are automatically de
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
 **body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
-**version** | VersionVersion | version |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
-**snapshot_identifier** | Optional[str] | snapshotIdentifier | [optional] |
+**version** | VersionVersion |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**snapshot_identifier** | Optional[str] | The identifier of the snapshot. If the identifier follows the format `foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be accessible from foundry code repositories.  | [optional] |
 
 ### Return type
 **Version**
@@ -347,17 +347,17 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ThirdPartyApplicationRid | thirdPartyApplicationRid
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
 # bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
 body = None
-# VersionVersion | version
+# VersionVersion
 version = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[str] | snapshotIdentifier
+# Optional[str] | The identifier of the snapshot. If the identifier follows the format `foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be accessible from foundry code repositories.
 snapshot_identifier = (
     "foundry.v1@ri.stemma.main.repository.a@ri.pull-request.main.pull-request.a@hash"
 )

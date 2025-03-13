@@ -90,7 +90,7 @@ Delete the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId | groupId |  |
+**group_id** | PrincipalId |  |  |
 
 ### Return type
 **None**
@@ -106,7 +106,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | groupId
+# PrincipalId
 group_id = None
 
 
@@ -141,7 +141,7 @@ Get the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId | groupId |  |
+**group_id** | PrincipalId |  |  |
 
 ### Return type
 **Group**
@@ -157,7 +157,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId | groupId
+# PrincipalId
 group_id = None
 
 
@@ -194,7 +194,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request |  |
+**body** | List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request |  |
 
 ### Return type
 **GetGroupsBatchResponse**
@@ -210,7 +210,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request
+# List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request
 body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
@@ -247,11 +247,11 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 
 ### Return type
-**ResourceIterator[Group]**
+**ListGroupsResponse**
 
 ### Example
 
@@ -264,9 +264,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
 
 
@@ -303,8 +303,8 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 
 ### Return type
 **ListGroupsResponse**
@@ -320,9 +320,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
 
 
@@ -377,11 +377,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Union[GroupSearchFilter, GroupSearchFilterDict] |
+# Union[GroupSearchFilter, GroupSearchFilterDict]
 where = {"type": "queryString"}
-# Optional[PageSize] |
+# Optional[PageSize]
 page_size = 100
-# Optional[PageToken] |
+# Optional[PageToken]
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
 
 

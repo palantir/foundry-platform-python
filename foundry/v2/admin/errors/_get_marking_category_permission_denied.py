@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
+from foundry import _errors as errors
+from foundry.v2.admin import models as admin_models
 
 
-class GetMarkingCategoryPermissionDeniedParameters(TypedDict):
+class GetMarkingCategoryPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to view the marking category."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    markingCategoryId: MarkingCategoryId
+    markingCategoryId: admin_models.MarkingCategoryId
 
 
 @dataclass
-class GetMarkingCategoryPermissionDenied(PermissionDeniedError):
-    name: Literal["GetMarkingCategoryPermissionDenied"]
+class GetMarkingCategoryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetMarkingCategoryPermissionDenied"]
     parameters: GetMarkingCategoryPermissionDeniedParameters
     error_instance_id: str
 

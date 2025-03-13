@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class BuildTargetsResolutionErrorParameters(TypedDict):
+class BuildTargetsResolutionErrorParameters(typing_extensions.TypedDict):
     """Unable to resolve the given target to a set of targets to build."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class BuildTargetsResolutionError(BadRequestError):
-    name: Literal["BuildTargetsResolutionError"]
+class BuildTargetsResolutionError(errors.BadRequestError):
+    name: typing.Literal["BuildTargetsResolutionError"]
     parameters: BuildTargetsResolutionErrorParameters
     error_instance_id: str
 

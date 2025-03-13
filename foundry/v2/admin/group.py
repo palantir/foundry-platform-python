@@ -13,50 +13,19 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
 
+import annotated_types
 import pydantic
-from annotated_types import Len
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._attribute_name import AttributeName
-from foundry.v2.admin.models._attribute_values import AttributeValues
-from foundry.v2.admin.models._get_groups_batch_request_element import (
-    GetGroupsBatchRequestElement,
-)  # NOQA
-from foundry.v2.admin.models._get_groups_batch_request_element_dict import (
-    GetGroupsBatchRequestElementDict,
-)  # NOQA
-from foundry.v2.admin.models._get_groups_batch_response import GetGroupsBatchResponse
-from foundry.v2.admin.models._group import Group
-from foundry.v2.admin.models._group_name import GroupName
-from foundry.v2.admin.models._group_search_filter import GroupSearchFilter
-from foundry.v2.admin.models._group_search_filter_dict import GroupSearchFilterDict
-from foundry.v2.admin.models._list_groups_response import ListGroupsResponse
-from foundry.v2.admin.models._search_groups_response import SearchGroupsResponse
-from foundry.v2.core.models._organization_rid import OrganizationRid
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class GroupClient:
@@ -70,14 +39,14 @@ class GroupClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _GroupClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -103,18 +72,18 @@ class GroupClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        attributes: Dict[AttributeName, AttributeValues],
-        name: GroupName,
-        organizations: List[OrganizationRid],
-        description: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Group:
+        attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues],
+        name: admin_models.GroupName,
+        organizations: typing.List[core_models.OrganizationRid],
+        description: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.Group:
         """
         Creates a new Group.
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
@@ -128,15 +97,17 @@ class GroupClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Group
+        :rtype: admin_models.Group
 
+        :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
         :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
+        :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups",
                 query_params={},
@@ -151,37 +122,41 @@ class GroupClient:
                     "description": description,
                     "attributes": attributes,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": GroupName,
-                        "organizations": List[OrganizationRid],
-                        "description": Optional[str],
-                        "attributes": Dict[AttributeName, AttributeValues],
+                        "name": admin_models.GroupName,
+                        "organizations": typing.List[core_models.OrganizationRid],
+                        "description": typing.Optional[str],
+                        "attributes": typing.Dict[
+                            admin_models.AttributeName, admin_models.AttributeValues
+                        ],
                     },
                 ),
-                response_type=Group,
+                response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
+                    "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
                     "GroupNameAlreadyExists": admin_errors.GroupNameAlreadyExists,
                     "InvalidGroupOrganizations": admin_errors.InvalidGroupOrganizations,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
                 },
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Delete the Group with the specified id.
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -192,7 +167,7 @@ class GroupClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/groups/{groupId}",
                 query_params={},
@@ -210,29 +185,29 @@ class GroupClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Group:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.Group:
         """
         Get the Group with the specified id.
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Group
+        :rtype: admin_models.Group
 
         :raises GroupNotFound: The given Group could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}",
                 query_params={},
@@ -244,7 +219,7 @@ class GroupClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Group,
+                response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GroupNotFound": admin_errors.GroupNotFound,
@@ -252,32 +227,37 @@ class GroupClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]],
-            Len(min_length=1, max_length=500),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    admin_models.GetGroupsBatchRequestElement,
+                    admin_models.GetGroupsBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> GetGroupsBatchResponse:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.GetGroupsBatchResponse:
         """
         Execute multiple get requests on Group.
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: GetGroupsBatchResponse
+        :rtype: admin_models.GetGroupsBatchResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/getBatch",
                 query_params={},
@@ -287,41 +267,42 @@ class GroupClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)
+                body_type=typing_extensions.Annotated[
+                    typing.List[admin_models.GetGroupsBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=500),
                 ],
-                response_type=GetGroupsBatchResponse,
+                response_type=admin_models.GetGroupsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[Group]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[admin_models.Group]:
         """
         Lists all Groups.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[Group]
+        :rtype: core.ResourceIterator[admin_models.Group]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups",
                 query_params={
@@ -334,34 +315,34 @@ class GroupClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupsResponse,
+                response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListGroupsResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.ListGroupsResponse:
         """
         Lists all Groups.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListGroupsResponse
+        :rtype: admin_models.ListGroupsResponse
         """
 
         warnings.warn(
@@ -371,7 +352,7 @@ class GroupClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups",
                 query_params={
@@ -384,23 +365,23 @@ class GroupClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupsResponse,
+                response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[GroupSearchFilter, GroupSearchFilterDict],
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> SearchGroupsResponse:
+        where: typing.Union[admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict],
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.SearchGroupsResponse:
         """
         Perform a case-insensitive prefix search for groups based on group name.
 
@@ -413,13 +394,13 @@ class GroupClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: SearchGroupsResponse
+        :rtype: admin_models.SearchGroupsResponse
 
         :raises SearchGroupsPermissionDenied: Could not search the Group.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/search",
                 query_params={},
@@ -433,15 +414,17 @@ class GroupClient:
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[GroupSearchFilter, GroupSearchFilterDict],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
+                        "where": typing.Union[
+                            admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
                     },
                 ),
-                response_type=SearchGroupsResponse,
+                response_type=admin_models.SearchGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchGroupsPermissionDenied": admin_errors.SearchGroupsPermissionDenied,
@@ -461,27 +444,27 @@ class _GroupClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        attributes: Dict[AttributeName, AttributeValues],
-        name: GroupName,
-        organizations: List[OrganizationRid],
-        description: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Group]:
+        attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues],
+        name: admin_models.GroupName,
+        organizations: typing.List[core_models.OrganizationRid],
+        description: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.Group]:
         """
         Creates a new Group.
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
@@ -495,15 +478,17 @@ class _GroupClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Group]
+        :rtype: core.ApiResponse[admin_models.Group]
 
+        :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
         :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
+        :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups",
                 query_params={},
@@ -518,48 +503,52 @@ class _GroupClientRaw:
                     "description": description,
                     "attributes": attributes,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": GroupName,
-                        "organizations": List[OrganizationRid],
-                        "description": Optional[str],
-                        "attributes": Dict[AttributeName, AttributeValues],
+                        "name": admin_models.GroupName,
+                        "organizations": typing.List[core_models.OrganizationRid],
+                        "description": typing.Optional[str],
+                        "attributes": typing.Dict[
+                            admin_models.AttributeName, admin_models.AttributeValues
+                        ],
                     },
                 ),
-                response_type=Group,
+                response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
+                    "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
                     "GroupNameAlreadyExists": admin_errors.GroupNameAlreadyExists,
                     "InvalidGroupOrganizations": admin_errors.InvalidGroupOrganizations,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
                 },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Delete the Group with the specified id.
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises DeleteGroupPermissionDenied: Could not delete the Group.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/groups/{groupId}",
                 query_params={},
@@ -577,29 +566,29 @@ class _GroupClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Group]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.Group]:
         """
         Get the Group with the specified id.
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Group]
+        :rtype: core.ApiResponse[admin_models.Group]
 
         :raises GroupNotFound: The given Group could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}",
                 query_params={},
@@ -611,7 +600,7 @@ class _GroupClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Group,
+                response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GroupNotFound": admin_errors.GroupNotFound,
@@ -619,32 +608,37 @@ class _GroupClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]],
-            Len(min_length=1, max_length=500),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    admin_models.GetGroupsBatchRequestElement,
+                    admin_models.GetGroupsBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[GetGroupsBatchResponse]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.GetGroupsBatchResponse]:
         """
         Execute multiple get requests on Group.
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[GetGroupsBatchResponse]
+        :rtype: core.ApiResponse[admin_models.GetGroupsBatchResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/getBatch",
                 query_params={},
@@ -654,41 +648,42 @@ class _GroupClientRaw:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)
+                body_type=typing_extensions.Annotated[
+                    typing.List[admin_models.GetGroupsBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=500),
                 ],
-                response_type=GetGroupsBatchResponse,
+                response_type=admin_models.GetGroupsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListGroupsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListGroupsResponse]:
         """
         Lists all Groups.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListGroupsResponse]
+        :rtype: core.ApiResponse[admin_models.ListGroupsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups",
                 query_params={
@@ -701,34 +696,34 @@ class _GroupClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupsResponse,
+                response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListGroupsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.ListGroupsResponse]:
         """
         Lists all Groups.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListGroupsResponse]
+        :rtype: core.ApiResponse[admin_models.ListGroupsResponse]
         """
 
         warnings.warn(
@@ -738,7 +733,7 @@ class _GroupClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups",
                 query_params={
@@ -751,23 +746,23 @@ class _GroupClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupsResponse,
+                response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[GroupSearchFilter, GroupSearchFilterDict],
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[SearchGroupsResponse]:
+        where: typing.Union[admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict],
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.SearchGroupsResponse]:
         """
         Perform a case-insensitive prefix search for groups based on group name.
 
@@ -780,13 +775,13 @@ class _GroupClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[SearchGroupsResponse]
+        :rtype: core.ApiResponse[admin_models.SearchGroupsResponse]
 
         :raises SearchGroupsPermissionDenied: Could not search the Group.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/search",
                 query_params={},
@@ -800,15 +795,17 @@ class _GroupClientRaw:
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[GroupSearchFilter, GroupSearchFilterDict],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
+                        "where": typing.Union[
+                            admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
                     },
                 ),
-                response_type=SearchGroupsResponse,
+                response_type=admin_models.SearchGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchGroupsPermissionDenied": admin_errors.SearchGroupsPermissionDenied,
@@ -828,27 +825,27 @@ class _GroupClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        attributes: Dict[AttributeName, AttributeValues],
-        name: GroupName,
-        organizations: List[OrganizationRid],
-        description: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Group]:
+        attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues],
+        name: admin_models.GroupName,
+        organizations: typing.List[core_models.OrganizationRid],
+        description: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.Group]:
         """
         Creates a new Group.
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
@@ -862,15 +859,17 @@ class _GroupClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Group]
+        :rtype: core.StreamingContextManager[admin_models.Group]
 
+        :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
         :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
+        :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups",
                 query_params={},
@@ -885,48 +884,52 @@ class _GroupClientStreaming:
                     "description": description,
                     "attributes": attributes,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": GroupName,
-                        "organizations": List[OrganizationRid],
-                        "description": Optional[str],
-                        "attributes": Dict[AttributeName, AttributeValues],
+                        "name": admin_models.GroupName,
+                        "organizations": typing.List[core_models.OrganizationRid],
+                        "description": typing.Optional[str],
+                        "attributes": typing.Dict[
+                            admin_models.AttributeName, admin_models.AttributeValues
+                        ],
                     },
                 ),
-                response_type=Group,
+                response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
+                    "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
                     "GroupNameAlreadyExists": admin_errors.GroupNameAlreadyExists,
                     "InvalidGroupOrganizations": admin_errors.InvalidGroupOrganizations,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
                 },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Delete the Group with the specified id.
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises DeleteGroupPermissionDenied: Could not delete the Group.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/admin/groups/{groupId}",
                 query_params={},
@@ -944,29 +947,29 @@ class _GroupClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        group_id: PrincipalId,
+        group_id: core_models.PrincipalId,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Group]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.Group]:
         """
         Get the Group with the specified id.
-        :param group_id: groupId
+        :param group_id:
         :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Group]
+        :rtype: core.StreamingContextManager[admin_models.Group]
 
         :raises GroupNotFound: The given Group could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}",
                 query_params={},
@@ -978,7 +981,7 @@ class _GroupClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Group,
+                response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GroupNotFound": admin_errors.GroupNotFound,
@@ -986,32 +989,37 @@ class _GroupClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_batch(
         self,
-        body: Annotated[
-            List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]],
-            Len(min_length=1, max_length=500),
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    admin_models.GetGroupsBatchRequestElement,
+                    admin_models.GetGroupsBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[GetGroupsBatchResponse]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.GetGroupsBatchResponse]:
         """
         Execute multiple get requests on Group.
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: Annotated[List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]], Len(min_length=1, max_length=500)]
+        :type body: List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[GetGroupsBatchResponse]
+        :rtype: core.StreamingContextManager[admin_models.GetGroupsBatchResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/getBatch",
                 query_params={},
@@ -1021,41 +1029,42 @@ class _GroupClientStreaming:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=Annotated[
-                    List[GetGroupsBatchRequestElementDict], Len(min_length=1, max_length=500)
+                body_type=typing_extensions.Annotated[
+                    typing.List[admin_models.GetGroupsBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=500),
                 ],
-                response_type=GetGroupsBatchResponse,
+                response_type=admin_models.GetGroupsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListGroupsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListGroupsResponse]:
         """
         Lists all Groups.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListGroupsResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListGroupsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups",
                 query_params={
@@ -1068,34 +1077,34 @@ class _GroupClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupsResponse,
+                response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListGroupsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.ListGroupsResponse]:
         """
         Lists all Groups.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListGroupsResponse]
+        :rtype: core.StreamingContextManager[admin_models.ListGroupsResponse]
         """
 
         warnings.warn(
@@ -1105,7 +1114,7 @@ class _GroupClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups",
                 query_params={
@@ -1118,23 +1127,23 @@ class _GroupClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListGroupsResponse,
+                response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: Union[GroupSearchFilter, GroupSearchFilterDict],
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[SearchGroupsResponse]:
+        where: typing.Union[admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict],
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.SearchGroupsResponse]:
         """
         Perform a case-insensitive prefix search for groups based on group name.
 
@@ -1147,13 +1156,13 @@ class _GroupClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[SearchGroupsResponse]
+        :rtype: core.StreamingContextManager[admin_models.SearchGroupsResponse]
 
         :raises SearchGroupsPermissionDenied: Could not search the Group.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/groups/search",
                 query_params={},
@@ -1167,15 +1176,17 @@ class _GroupClientStreaming:
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": Union[GroupSearchFilter, GroupSearchFilterDict],
-                        "pageSize": Optional[PageSize],
-                        "pageToken": Optional[PageToken],
+                        "where": typing.Union[
+                            admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict
+                        ],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
                     },
                 ),
-                response_type=SearchGroupsResponse,
+                response_type=admin_models.SearchGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "SearchGroupsPermissionDenied": admin_errors.SearchGroupsPermissionDenied,

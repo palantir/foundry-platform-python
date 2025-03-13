@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidDescriptionParameters(TypedDict):
+class InvalidDescriptionParameters(typing_extensions.TypedDict):
     """Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidDescription(BadRequestError):
-    name: Literal["InvalidDescription"]
+class InvalidDescription(errors.BadRequestError):
+    name: typing.Literal["InvalidDescription"]
     parameters: InvalidDescriptionParameters
     error_instance_id: str
 

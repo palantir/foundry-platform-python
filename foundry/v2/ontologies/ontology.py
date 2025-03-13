@@ -13,27 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.ontologies.models._ontology_full_metadata import OntologyFullMetadata
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._ontology_v2 import OntologyV2
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class OntologyClient:
@@ -47,14 +35,14 @@ class OntologyClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _OntologyClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -90,30 +78,30 @@ class OntologyClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> OntologyV2:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.OntologyV2:
         """
         Gets a specific ontology with the given Ontology RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: OntologyV2
+        :rtype: ontologies_models.OntologyV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}",
                 query_params={},
@@ -125,34 +113,34 @@ class OntologyClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyV2,
+                response_type=ontologies_models.OntologyV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_full_metadata(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> OntologyFullMetadata:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.OntologyFullMetadata:
         """
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: OntologyFullMetadata
+        :rtype: ontologies_models.OntologyFullMetadata
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
                 query_params={},
@@ -164,7 +152,7 @@ class OntologyClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyFullMetadata,
+                response_type=ontologies_models.OntologyFullMetadata,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -182,39 +170,39 @@ class _OntologyClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[OntologyV2]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.OntologyV2]:
         """
         Gets a specific ontology with the given Ontology RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[OntologyV2]
+        :rtype: core.ApiResponse[ontologies_models.OntologyV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}",
                 query_params={},
@@ -226,34 +214,34 @@ class _OntologyClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyV2,
+                response_type=ontologies_models.OntologyV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_full_metadata(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[OntologyFullMetadata]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.OntologyFullMetadata]:
         """
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[OntologyFullMetadata]
+        :rtype: core.ApiResponse[ontologies_models.OntologyFullMetadata]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
                 query_params={},
@@ -265,7 +253,7 @@ class _OntologyClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyFullMetadata,
+                response_type=ontologies_models.OntologyFullMetadata,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -283,39 +271,39 @@ class _OntologyClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[OntologyV2]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.OntologyV2]:
         """
         Gets a specific ontology with the given Ontology RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[OntologyV2]
+        :rtype: core.StreamingContextManager[ontologies_models.OntologyV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}",
                 query_params={},
@@ -327,34 +315,34 @@ class _OntologyClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyV2,
+                response_type=ontologies_models.OntologyV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_full_metadata(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[OntologyFullMetadata]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.OntologyFullMetadata]:
         """
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[OntologyFullMetadata]
+        :rtype: core.StreamingContextManager[ontologies_models.OntologyFullMetadata]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
                 query_params={},
@@ -366,7 +354,7 @@ class _OntologyClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyFullMetadata,
+                response_type=ontologies_models.OntologyFullMetadata,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class GetAllSessionsAgentsPermissionDeniedParameters(TypedDict):
+class GetAllSessionsAgentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """
     The calling user does not have permission to list all sessions across all Agents.
     Listing all sessions across all agents requires the `api:aip-agents-write` scope.
@@ -33,8 +31,8 @@ class GetAllSessionsAgentsPermissionDeniedParameters(TypedDict):
 
 
 @dataclass
-class GetAllSessionsAgentsPermissionDenied(PermissionDeniedError):
-    name: Literal["GetAllSessionsAgentsPermissionDenied"]
+class GetAllSessionsAgentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetAllSessionsAgentsPermissionDenied"]
     parameters: GetAllSessionsAgentsPermissionDeniedParameters
     error_instance_id: str
 

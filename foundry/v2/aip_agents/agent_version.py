@@ -13,36 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.aip_agents import errors as aip_agents_errors
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._agent_version import AgentVersion
-from foundry.v2.aip_agents.models._agent_version_string import AgentVersionString
-from foundry.v2.aip_agents.models._list_agent_versions_response import (
-    ListAgentVersionsResponse,
-)  # NOQA
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.aip_agents import models as aip_agents_models
+from foundry.v2.core import models as core_models
 
 
 class AgentVersionClient:
@@ -56,48 +37,48 @@ class AgentVersionClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _AgentVersionClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _AgentVersionClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        agent_version_string: AgentVersionString,
+        agent_rid: aip_agents_models.AgentRid,
+        agent_version_string: aip_agents_models.AgentVersionString,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AgentVersion:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.AgentVersion:
         """
         Get version details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version_string: agentVersionString
+        :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AgentVersion
+        :rtype: aip_agents_models.AgentVersion
 
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions/{agentVersionString}",
                 query_params={
@@ -112,7 +93,7 @@ class AgentVersionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentVersion,
+                response_type=aip_agents_models.AgentVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
@@ -120,38 +101,38 @@ class AgentVersionClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[AgentVersion]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[aip_agents_models.AgentVersion]:
         """
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[AgentVersion]
+        :rtype: core.ResourceIterator[aip_agents_models.AgentVersion]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions",
                 query_params={
@@ -167,40 +148,40 @@ class AgentVersionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAgentVersionsResponse,
+                response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListAgentVersionsResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> aip_agents_models.ListAgentVersionsResponse:
         """
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListAgentVersionsResponse
+        :rtype: aip_agents_models.ListAgentVersionsResponse
         """
 
         warnings.warn(
@@ -210,7 +191,7 @@ class AgentVersionClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions",
                 query_params={
@@ -226,7 +207,7 @@ class AgentVersionClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAgentVersionsResponse,
+                response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -244,44 +225,44 @@ class _AgentVersionClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        agent_version_string: AgentVersionString,
+        agent_rid: aip_agents_models.AgentRid,
+        agent_version_string: aip_agents_models.AgentVersionString,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AgentVersion]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.AgentVersion]:
         """
         Get version details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version_string: agentVersionString
+        :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AgentVersion]
+        :rtype: core.ApiResponse[aip_agents_models.AgentVersion]
 
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions/{agentVersionString}",
                 query_params={
@@ -296,7 +277,7 @@ class _AgentVersionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentVersion,
+                response_type=aip_agents_models.AgentVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
@@ -304,38 +285,38 @@ class _AgentVersionClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListAgentVersionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.ListAgentVersionsResponse]:
         """
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListAgentVersionsResponse]
+        :rtype: core.ApiResponse[aip_agents_models.ListAgentVersionsResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions",
                 query_params={
@@ -351,40 +332,40 @@ class _AgentVersionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAgentVersionsResponse,
+                response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListAgentVersionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[aip_agents_models.ListAgentVersionsResponse]:
         """
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListAgentVersionsResponse]
+        :rtype: core.ApiResponse[aip_agents_models.ListAgentVersionsResponse]
         """
 
         warnings.warn(
@@ -394,7 +375,7 @@ class _AgentVersionClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions",
                 query_params={
@@ -410,7 +391,7 @@ class _AgentVersionClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAgentVersionsResponse,
+                response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -428,44 +409,44 @@ class _AgentVersionClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        agent_rid: AgentRid,
-        agent_version_string: AgentVersionString,
+        agent_rid: aip_agents_models.AgentRid,
+        agent_version_string: aip_agents_models.AgentVersionString,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AgentVersion]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.AgentVersion]:
         """
         Get version details for an AIP Agent.
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param agent_version_string: agentVersionString
+        :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AgentVersion]
+        :rtype: core.StreamingContextManager[aip_agents_models.AgentVersion]
 
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions/{agentVersionString}",
                 query_params={
@@ -480,7 +461,7 @@ class _AgentVersionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=AgentVersion,
+                response_type=aip_agents_models.AgentVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
@@ -488,38 +469,38 @@ class _AgentVersionClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListAgentVersionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.ListAgentVersionsResponse]:
         """
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListAgentVersionsResponse]
+        :rtype: core.StreamingContextManager[aip_agents_models.ListAgentVersionsResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions",
                 query_params={
@@ -535,40 +516,40 @@ class _AgentVersionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAgentVersionsResponse,
+                response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        agent_rid: AgentRid,
+        agent_rid: aip_agents_models.AgentRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListAgentVersionsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[aip_agents_models.ListAgentVersionsResponse]:
         """
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: agentRid
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListAgentVersionsResponse]
+        :rtype: core.StreamingContextManager[aip_agents_models.ListAgentVersionsResponse]
         """
 
         warnings.warn(
@@ -578,7 +559,7 @@ class _AgentVersionClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/aipAgents/agents/{agentRid}/agentVersions",
                 query_params={
@@ -594,7 +575,7 @@ class _AgentVersionClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListAgentVersionsResponse,
+                response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

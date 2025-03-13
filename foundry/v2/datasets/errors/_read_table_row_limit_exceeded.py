@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class ReadTableRowLimitExceededParameters(TypedDict):
+class ReadTableRowLimitExceededParameters(typing_extensions.TypedDict):
     """
     The request to read the table generates a result that exceeds the allowed number of rows. For datasets not
     stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
@@ -32,12 +30,12 @@ class ReadTableRowLimitExceededParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
 
 @dataclass
-class ReadTableRowLimitExceeded(BadRequestError):
-    name: Literal["ReadTableRowLimitExceeded"]
+class ReadTableRowLimitExceeded(errors.BadRequestError):
+    name: typing.Literal["ReadTableRowLimitExceeded"]
     parameters: ReadTableRowLimitExceededParameters
     error_instance_id: str
 

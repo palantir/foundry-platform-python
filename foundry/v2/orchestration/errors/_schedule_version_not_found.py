@@ -13,29 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.orchestration.models._schedule_version_rid import ScheduleVersionRid
+from foundry import _errors as errors
+from foundry.v2.orchestration import models as orchestration_models
 
 
-class ScheduleVersionNotFoundParameters(TypedDict):
+class ScheduleVersionNotFoundParameters(typing_extensions.TypedDict):
     """The given ScheduleVersion could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleVersionRid: ScheduleVersionRid
+    scheduleVersionRid: orchestration_models.ScheduleVersionRid
     """The RID of a schedule version"""
 
 
 @dataclass
-class ScheduleVersionNotFound(NotFoundError):
-    name: Literal["ScheduleVersionNotFound"]
+class ScheduleVersionNotFound(errors.NotFoundError):
+    name: typing.Literal["ScheduleVersionNotFound"]
     parameters: ScheduleVersionNotFoundParameters
     error_instance_id: str
 

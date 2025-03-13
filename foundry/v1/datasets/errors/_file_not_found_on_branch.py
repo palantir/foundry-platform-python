@@ -13,34 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.core.models._file_path import FilePath
-from foundry.v1.datasets.models._branch_id import BranchId
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
+from foundry.v1.datasets import models as datasets_models
 
 
-class FileNotFoundOnBranchParameters(TypedDict):
+class FileNotFoundOnBranchParameters(typing_extensions.TypedDict):
     """The requested file could not be found on the given branch, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
-    branchId: BranchId
-
-    path: FilePath
+    datasetRid: datasets_models.DatasetRid
+    branchId: datasets_models.BranchId
+    path: core_models.FilePath
 
 
 @dataclass
-class FileNotFoundOnBranch(NotFoundError):
-    name: Literal["FileNotFoundOnBranch"]
+class FileNotFoundOnBranch(errors.NotFoundError):
+    name: typing.Literal["FileNotFoundOnBranch"]
     parameters: FileNotFoundOnBranchParameters
     error_instance_id: str
 

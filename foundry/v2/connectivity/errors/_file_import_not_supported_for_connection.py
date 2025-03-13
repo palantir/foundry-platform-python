@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class FileImportNotSupportedForConnectionParameters(TypedDict):
+class FileImportNotSupportedForConnectionParameters(typing_extensions.TypedDict):
     """The specified connection does not support file imports."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    connectionRid: ConnectionRid
+    connectionRid: connectivity_models.ConnectionRid
 
 
 @dataclass
-class FileImportNotSupportedForConnection(BadRequestError):
-    name: Literal["FileImportNotSupportedForConnection"]
+class FileImportNotSupportedForConnection(errors.BadRequestError):
+    name: typing.Literal["FileImportNotSupportedForConnection"]
     parameters: FileImportNotSupportedForConnectionParameters
     error_instance_id: str
 

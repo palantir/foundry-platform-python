@@ -13,35 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.datasets import errors as datasets_errors
-from foundry.v2.datasets.models._branch import Branch
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
-from foundry.v2.datasets.models._list_branches_response import ListBranchesResponse
-from foundry.v2.datasets.models._transaction_rid import TransactionRid
+from foundry.v2.datasets import models as datasets_models
 
 
 class BranchClient:
@@ -55,34 +37,34 @@ class BranchClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _BranchClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _BranchClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        name: BranchName,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Branch:
+        name: datasets_models.BranchName,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Branch:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
@@ -91,7 +73,7 @@ class BranchClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Branch
+        :rtype: datasets_models.Branch
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
@@ -99,7 +81,7 @@ class BranchClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={},
@@ -114,14 +96,14 @@ class BranchClient:
                     "transactionRid": transaction_rid,
                     "name": name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionRid": Optional[TransactionRid],
-                        "name": BranchName,
+                        "transactionRid": typing.Optional[datasets_models.TransactionRid],
+                        "name": datasets_models.BranchName,
                     },
                 ),
-                response_type=Branch,
+                response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -131,22 +113,22 @@ class BranchClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Deletes the Branch with the given BranchName.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -159,7 +141,7 @@ class BranchClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
                 query_params={},
@@ -180,27 +162,27 @@ class BranchClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Branch:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Branch:
         """
         Get a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Branch
+        :rtype: datasets_models.Branch
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
@@ -208,7 +190,7 @@ class BranchClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
                 query_params={},
@@ -221,7 +203,7 @@ class BranchClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Branch,
+                response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -231,37 +213,37 @@ class BranchClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[Branch]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[datasets_models.Branch]:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[Branch]
+        :rtype: core.ResourceIterator[datasets_models.Branch]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={
@@ -276,7 +258,7 @@ class BranchClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListBranchesResponse,
+                response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -285,30 +267,30 @@ class BranchClient:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListBranchesResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.ListBranchesResponse:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListBranchesResponse
+        :rtype: datasets_models.ListBranchesResponse
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -321,7 +303,7 @@ class BranchClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={
@@ -336,7 +318,7 @@ class BranchClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListBranchesResponse,
+                response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -357,30 +339,30 @@ class _BranchClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        name: BranchName,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Branch]:
+        name: datasets_models.BranchName,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Branch]:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
@@ -389,7 +371,7 @@ class _BranchClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Branch]
+        :rtype: core.ApiResponse[datasets_models.Branch]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
@@ -397,7 +379,7 @@ class _BranchClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={},
@@ -412,14 +394,14 @@ class _BranchClientRaw:
                     "transactionRid": transaction_rid,
                     "name": name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionRid": Optional[TransactionRid],
-                        "name": BranchName,
+                        "transactionRid": typing.Optional[datasets_models.TransactionRid],
+                        "name": datasets_models.BranchName,
                     },
                 ),
-                response_type=Branch,
+                response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -429,27 +411,27 @@ class _BranchClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Deletes the Branch with the given BranchName.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -457,7 +439,7 @@ class _BranchClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
                 query_params={},
@@ -478,27 +460,27 @@ class _BranchClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Branch]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Branch]:
         """
         Get a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Branch]
+        :rtype: core.ApiResponse[datasets_models.Branch]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
@@ -506,7 +488,7 @@ class _BranchClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
                 query_params={},
@@ -519,7 +501,7 @@ class _BranchClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Branch,
+                response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -529,37 +511,37 @@ class _BranchClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListBranchesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.ListBranchesResponse]:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListBranchesResponse]
+        :rtype: core.ApiResponse[datasets_models.ListBranchesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={
@@ -574,7 +556,7 @@ class _BranchClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListBranchesResponse,
+                response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -583,30 +565,30 @@ class _BranchClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListBranchesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.ListBranchesResponse]:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListBranchesResponse]
+        :rtype: core.ApiResponse[datasets_models.ListBranchesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -619,7 +601,7 @@ class _BranchClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={
@@ -634,7 +616,7 @@ class _BranchClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListBranchesResponse,
+                response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -655,30 +637,30 @@ class _BranchClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        name: BranchName,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Branch]:
+        name: datasets_models.BranchName,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Branch]:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param name:
         :type name: BranchName
@@ -687,7 +669,7 @@ class _BranchClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Branch]
+        :rtype: core.StreamingContextManager[datasets_models.Branch]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
@@ -695,7 +677,7 @@ class _BranchClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={},
@@ -710,14 +692,14 @@ class _BranchClientStreaming:
                     "transactionRid": transaction_rid,
                     "name": name,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "transactionRid": Optional[TransactionRid],
-                        "name": BranchName,
+                        "transactionRid": typing.Optional[datasets_models.TransactionRid],
+                        "name": datasets_models.BranchName,
                     },
                 ),
-                response_type=Branch,
+                response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -727,27 +709,27 @@ class _BranchClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: DatasetRid,
-        branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Deletes the Branch with the given BranchName.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -755,7 +737,7 @@ class _BranchClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
                 query_params={},
@@ -776,27 +758,27 @@ class _BranchClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Branch]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Branch]:
         """
         Get a Branch of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param branch_name: branchName
+        :param branch_name:
         :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Branch]
+        :rtype: core.StreamingContextManager[datasets_models.Branch]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
@@ -804,7 +786,7 @@ class _BranchClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches/{branchName}",
                 query_params={},
@@ -817,7 +799,7 @@ class _BranchClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Branch,
+                response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -827,37 +809,37 @@ class _BranchClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListBranchesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.ListBranchesResponse]:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListBranchesResponse]
+        :rtype: core.StreamingContextManager[datasets_models.ListBranchesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={
@@ -872,7 +854,7 @@ class _BranchClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListBranchesResponse,
+                response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
@@ -881,30 +863,30 @@ class _BranchClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListBranchesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.ListBranchesResponse]:
         """
         Lists the Branches of a Dataset.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListBranchesResponse]
+        :rtype: core.StreamingContextManager[datasets_models.ListBranchesResponse]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -917,7 +899,7 @@ class _BranchClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/datasets/{datasetRid}/branches",
                 query_params={
@@ -932,7 +914,7 @@ class _BranchClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListBranchesResponse,
+                response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,

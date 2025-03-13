@@ -18,15 +18,15 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**primary_key** | PropertyValueEscapedString | primaryKey |  |
-**link_type** | LinkTypeApiName | linkType |  |
-**linked_object_primary_key** | PropertyValueEscapedString | linkedObjectPrimaryKey |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | excludeRid | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
+**linked_object_primary_key** | PropertyValueEscapedString | The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.  |  |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**select** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
 **OntologyObjectV2**
@@ -42,23 +42,23 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# PropertyValueEscapedString | primaryKey
+# PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# LinkTypeApiName | linkType
+# LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
-# PropertyValueEscapedString | linkedObjectPrimaryKey
+# PropertyValueEscapedString | The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
 linked_object_primary_key = 80060
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[bool] | excludeRid
+# Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
-# Optional[List[SelectedPropertyApiName]] | select
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 select = None
 
 
@@ -116,20 +116,20 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**primary_key** | PropertyValueEscapedString | primaryKey |  |
-**link_type** | LinkTypeApiName | linkType |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | excludeRid | [optional] |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | Optional[OrderBy] |  | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**select** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
-**ResourceIterator[OntologyObjectV2]**
+**ListLinkedObjectsResponseV2**
 
 ### Example
 
@@ -142,27 +142,27 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# PropertyValueEscapedString | primaryKey
+# PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# LinkTypeApiName | linkType
+# LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[bool] | excludeRid
+# Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[OrderBy] | orderBy
+# Optional[OrderBy]
 order_by = None
-# Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | select
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 select = None
 
 
@@ -221,17 +221,17 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**primary_key** | PropertyValueEscapedString | primaryKey |  |
-**link_type** | LinkTypeApiName | linkType |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**exclude_rid** | Optional[bool] | excludeRid | [optional] |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**select** | Optional[List[SelectedPropertyApiName]] | select | [optional] |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | Optional[OrderBy] |  | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**select** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
 **ListLinkedObjectsResponseV2**
@@ -247,27 +247,27 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# PropertyValueEscapedString | primaryKey
+# PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# LinkTypeApiName | linkType
+# LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[bool] | excludeRid
+# Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[OrderBy] | orderBy
+# Optional[OrderBy]
 order_by = None
-# Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | select
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 select = None
 
 

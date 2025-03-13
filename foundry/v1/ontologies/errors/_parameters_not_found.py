@@ -13,20 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._action_type_api_name import ActionTypeApiName
-from foundry.v1.ontologies.models._parameter_id import ParameterId
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class ParametersNotFoundParameters(TypedDict):
+class ParametersNotFoundParameters(typing_extensions.TypedDict):
     """
     The provided parameter ID was not found for the action. Please look at the `configuredParameterIds` field
     to see which ones are available.
@@ -34,16 +30,14 @@ class ParametersNotFoundParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    actionType: ActionTypeApiName
-
-    unknownParameterIds: List[ParameterId]
-
-    configuredParameterIds: List[ParameterId]
+    actionType: ontologies_models.ActionTypeApiName
+    unknownParameterIds: typing.List[ontologies_models.ParameterId]
+    configuredParameterIds: typing.List[ontologies_models.ParameterId]
 
 
 @dataclass
-class ParametersNotFound(BadRequestError):
-    name: Literal["ParametersNotFound"]
+class ParametersNotFound(errors.BadRequestError):
+    name: typing.Literal["ParametersNotFound"]
     parameters: ParametersNotFoundParameters
     error_instance_id: str
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._size_bytes import SizeBytes
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class FileSizeFilterGreaterThanCannotBeNegativeParameters(TypedDict):
+class FileSizeFilterGreaterThanCannotBeNegativeParameters(typing_extensions.TypedDict):
     """The `gt` property in the FileSizeFilter cannot be a negative number."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    gt: SizeBytes
+    gt: core_models.SizeBytes
 
 
 @dataclass
-class FileSizeFilterGreaterThanCannotBeNegative(BadRequestError):
-    name: Literal["FileSizeFilterGreaterThanCannotBeNegative"]
+class FileSizeFilterGreaterThanCannotBeNegative(errors.BadRequestError):
+    name: typing.Literal["FileSizeFilterGreaterThanCannotBeNegative"]
     parameters: FileSizeFilterGreaterThanCannotBeNegativeParameters
     error_instance_id: str
 

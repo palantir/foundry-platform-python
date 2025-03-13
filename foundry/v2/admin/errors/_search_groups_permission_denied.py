@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class SearchGroupsPermissionDeniedParameters(TypedDict):
+class SearchGroupsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not search the Group."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class SearchGroupsPermissionDenied(PermissionDeniedError):
-    name: Literal["SearchGroupsPermissionDenied"]
+class SearchGroupsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["SearchGroupsPermissionDenied"]
     parameters: SearchGroupsPermissionDeniedParameters
     error_instance_id: str
 

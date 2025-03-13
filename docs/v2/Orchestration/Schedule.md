@@ -22,7 +22,7 @@ Name | Type | Description  | Notes |
 **action** | Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |  |  |
 **description** | Optional[str] |  | [optional] |
 **display_name** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **scope_mode** | Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |  | [optional] |
 **trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
@@ -40,7 +40,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |
+# Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -57,13 +57,13 @@ action = {
         ],
     },
 }
-# Optional[str] |
+# Optional[str]
 description = "Run all the transforms at midnight"
-# Optional[str] |
+# Optional[str]
 display_name = "My Daily Schedule"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |
+# Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
 scope_mode = {"type": "user"}
 # Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
@@ -105,8 +105,8 @@ Delete the Schedule with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_rid** | ScheduleRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -122,9 +122,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -160,8 +160,8 @@ Get the Schedule with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_rid** | ScheduleRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Schedule**
@@ -177,9 +177,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -215,8 +215,8 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_rid** | ScheduleRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -232,9 +232,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -270,11 +270,11 @@ Replace the Schedule with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
+**schedule_rid** | ScheduleRid |  |  |
 **action** | Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |  |  |
 **description** | Optional[str] |  | [optional] |
 **display_name** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **scope_mode** | Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |  | [optional] |
 **trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
@@ -292,9 +292,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |
+# Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -311,13 +311,13 @@ action = {
         ],
     },
 }
-# Optional[str] |
+# Optional[str]
 description = "Run all the transforms at midnight"
-# Optional[str] |
+# Optional[str]
 display_name = "My Daily Schedule"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |
+# Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
 scope_mode = {"type": "user"}
 # Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
@@ -360,8 +360,8 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_rid** | ScheduleRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ScheduleRun**
@@ -377,9 +377,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -416,13 +416,13 @@ Get the most recent runs of a Schedule. If no page size is provided, a page size
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_rid** | ScheduleRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**ResourceIterator[ScheduleRun]**
+**ListRunsOfScheduleResponse**
 
 ### Example
 
@@ -435,13 +435,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -479,10 +479,10 @@ Get the most recent runs of a Schedule. If no page size is provided, a page size
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_rid** | ScheduleRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListRunsOfScheduleResponse**
@@ -498,13 +498,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -542,8 +542,8 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid | scheduleRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_rid** | ScheduleRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -559,9 +559,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleRid | scheduleRid
+# ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

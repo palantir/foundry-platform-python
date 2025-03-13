@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import RID
-from foundry._errors import NotFoundError
+from foundry import _core as core
+from foundry import _errors as errors
 
 
-class BuildInputsNotFoundParameters(TypedDict):
+class BuildInputsNotFoundParameters(typing_extensions.TypedDict):
     """The given build inputs could be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRids: List[RID]
+    resourceRids: typing.List[core.RID]
 
 
 @dataclass
-class BuildInputsNotFound(NotFoundError):
-    name: Literal["BuildInputsNotFound"]
+class BuildInputsNotFound(errors.NotFoundError):
+    name: typing.Literal["BuildInputsNotFound"]
     parameters: BuildInputsNotFoundParameters
     error_instance_id: str
 

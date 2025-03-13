@@ -13,10 +13,9 @@
 #  limitations under the License.
 
 
-from typing import Optional
+import typing
 
-from foundry._core import Auth
-from foundry._core import Config
+from foundry import _core as core
 
 
 class FoundryClient:
@@ -30,9 +29,9 @@ class FoundryClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         from foundry.v1.datasets._client import DatasetsClient
         from foundry.v1.ontologies._client import OntologiesClient

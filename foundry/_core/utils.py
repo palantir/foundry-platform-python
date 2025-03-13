@@ -51,6 +51,9 @@ Long = Annotated[
 ]
 
 
+Timeout = Annotated[int, pydantic.Field(gt=0)]
+
+
 def remove_prefixes(text: str, prefixes: List[str]):
     for prefix in prefixes:
         if text.startswith(prefix):

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class FolderNotFoundParameters(TypedDict):
+class FolderNotFoundParameters(typing_extensions.TypedDict):
     """The given Folder could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    folderRid: FolderRid
+    folderRid: filesystem_models.FolderRid
 
 
 @dataclass
-class FolderNotFound(NotFoundError):
-    name: Literal["FolderNotFound"]
+class FolderNotFound(errors.NotFoundError):
+    name: typing.Literal["FolderNotFound"]
     parameters: FolderNotFoundParameters
     error_instance_id: str
 

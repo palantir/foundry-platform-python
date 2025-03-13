@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.core.models._page_size import PageSize
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
 
 
-class InvalidPageSizeParameters(TypedDict):
+class InvalidPageSizeParameters(typing_extensions.TypedDict):
     """The provided page size was zero or negative. Page sizes must be greater than zero."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    pageSize: PageSize
+    pageSize: core_models.PageSize
 
 
 @dataclass
-class InvalidPageSize(BadRequestError):
-    name: Literal["InvalidPageSize"]
+class InvalidPageSize(errors.BadRequestError):
+    name: typing.Literal["InvalidPageSize"]
     parameters: InvalidPageSizeParameters
     error_instance_id: str
 

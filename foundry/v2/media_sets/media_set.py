@@ -13,44 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._media_item_path import MediaItemPath
-from foundry.v2.core.models._media_item_read_token import MediaItemReadToken
-from foundry.v2.core.models._media_item_rid import MediaItemRid
-from foundry.v2.core.models._media_reference import MediaReference
-from foundry.v2.core.models._media_set_rid import MediaSetRid
-from foundry.v2.core.models._media_set_view_rid import MediaSetViewRid
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.media_sets.models._branch_name import BranchName
-from foundry.v2.media_sets.models._branch_rid import BranchRid
-from foundry.v2.media_sets.models._get_media_item_info_response import (
-    GetMediaItemInfoResponse,
-)  # NOQA
-from foundry.v2.media_sets.models._put_media_item_response import PutMediaItemResponse
-from foundry.v2.media_sets.models._transaction_id import TransactionId
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.media_sets import models as media_sets_models
 
 
 class MediaSetClient:
@@ -64,40 +36,40 @@ class MediaSetClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _MediaSetClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _MediaSetClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        media_set_rid: MediaSetRid,
-        transaction_id: TransactionId,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -106,7 +78,7 @@ class MediaSetClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort",
                 query_params={
@@ -125,27 +97,27 @@ class MediaSetClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        media_set_rid: MediaSetRid,
-        transaction_id: TransactionId,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -154,7 +126,7 @@ class MediaSetClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit",
                 query_params={
@@ -173,36 +145,36 @@ class MediaSetClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        media_set_rid: MediaSetRid,
+        media_set_rid: core_models.MediaSetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> TransactionId:
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> media_sets_models.TransactionId:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param branch_name: branchName
+        :param branch_name: The branch on which to open the transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: TransactionId
+        :rtype: media_sets_models.TransactionId
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions",
                 query_params={
@@ -217,45 +189,45 @@ class MediaSetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=TransactionId,
+                response_type=media_sets_models.TransactionId,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def info(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> GetMediaItemInfoResponse:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> media_sets_models.GetMediaItemInfoResponse:
         """
         Gets information about the media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: GetMediaItemInfoResponse
+        :rtype: media_sets_models.GetMediaItemInfoResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}",
                 query_params={
@@ -271,39 +243,39 @@ class MediaSetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=GetMediaItemInfoResponse,
+                response_type=media_sets_models.GetMediaItemInfoResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        stream: Literal[True],
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Gets the content of a media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -312,33 +284,33 @@ class MediaSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def read(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Gets the content of a media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -349,33 +321,33 @@ class MediaSetClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         stream: bool,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -384,36 +356,36 @@ class MediaSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -422,7 +394,7 @@ class MediaSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -433,7 +405,7 @@ class MediaSetClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content",
                 query_params={
@@ -457,33 +429,33 @@ class MediaSetClient:
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read_original(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        stream: Literal[True],
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -492,33 +464,33 @@ class MediaSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def read_original(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -529,33 +501,33 @@ class MediaSetClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read_original(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         stream: bool,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -564,36 +536,36 @@ class MediaSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_original(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -602,7 +574,7 @@ class MediaSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -613,7 +585,7 @@ class MediaSetClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
                 query_params={
@@ -637,39 +609,39 @@ class MediaSetClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def reference(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> MediaReference:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core_models.MediaReference:
         """
         Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: MediaReference
+        :rtype: core_models.MediaReference
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference",
                 query_params={
@@ -685,28 +657,28 @@ class MediaSetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=MediaReference,
+                response_type=core_models.MediaReference,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        media_set_rid: MediaSetRid,
+        media_set_rid: core_models.MediaSetRid,
         body: bytes,
         *,
-        branch_name: Optional[BranchName] = None,
-        branch_rid: Optional[BranchRid] = None,
-        media_item_path: Optional[MediaItemPath] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_id: Optional[TransactionId] = None,
-        view_rid: Optional[MediaSetViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> PutMediaItemResponse:
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
+        media_item_path: typing.Optional[core_models.MediaItemPath] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_id: typing.Optional[media_sets_models.TransactionId] = None,
+        view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> media_sets_models.PutMediaItemResponse:
         """
         Uploads a media item to an existing media set.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -714,30 +686,30 @@ class MediaSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.
         :type branch_name: Optional[BranchName]
-        :param branch_rid: branchRid
+        :param branch_rid: Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided.
         :type branch_rid: Optional[BranchRid]
-        :param media_item_path: mediaItemPath
+        :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param transaction_id: transactionId
+        :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
         :type transaction_id: Optional[TransactionId]
-        :param view_rid: viewRid
+        :param view_rid: Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided.
         :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: PutMediaItemResponse
+        :rtype: media_sets_models.PutMediaItemResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/items",
                 query_params={
@@ -757,7 +729,7 @@ class MediaSetClient:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=PutMediaItemResponse,
+                response_type=media_sets_models.PutMediaItemResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -775,45 +747,45 @@ class _MediaSetClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        media_set_rid: MediaSetRid,
-        transaction_id: TransactionId,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort",
                 query_params={
@@ -832,36 +804,36 @@ class _MediaSetClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        media_set_rid: MediaSetRid,
-        transaction_id: TransactionId,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit",
                 query_params={
@@ -880,36 +852,36 @@ class _MediaSetClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        media_set_rid: MediaSetRid,
+        media_set_rid: core_models.MediaSetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[TransactionId]:
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[media_sets_models.TransactionId]:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param branch_name: branchName
+        :param branch_name: The branch on which to open the transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[TransactionId]
+        :rtype: core.ApiResponse[media_sets_models.TransactionId]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions",
                 query_params={
@@ -924,45 +896,45 @@ class _MediaSetClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=TransactionId,
+                response_type=media_sets_models.TransactionId,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def info(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[GetMediaItemInfoResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[media_sets_models.GetMediaItemInfoResponse]:
         """
         Gets information about the media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[GetMediaItemInfoResponse]
+        :rtype: core.ApiResponse[media_sets_models.GetMediaItemInfoResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}",
                 query_params={
@@ -978,45 +950,45 @@ class _MediaSetClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=GetMediaItemInfoResponse,
+                response_type=media_sets_models.GetMediaItemInfoResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Gets the content of a media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content",
                 query_params={
@@ -1038,39 +1010,39 @@ class _MediaSetClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_original(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
                 query_params={
@@ -1092,39 +1064,39 @@ class _MediaSetClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def reference(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[MediaReference]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[core_models.MediaReference]:
         """
         Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[MediaReference]
+        :rtype: core.ApiResponse[core_models.MediaReference]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference",
                 query_params={
@@ -1140,28 +1112,28 @@ class _MediaSetClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=MediaReference,
+                response_type=core_models.MediaReference,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        media_set_rid: MediaSetRid,
+        media_set_rid: core_models.MediaSetRid,
         body: bytes,
         *,
-        branch_name: Optional[BranchName] = None,
-        branch_rid: Optional[BranchRid] = None,
-        media_item_path: Optional[MediaItemPath] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_id: Optional[TransactionId] = None,
-        view_rid: Optional[MediaSetViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[PutMediaItemResponse]:
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
+        media_item_path: typing.Optional[core_models.MediaItemPath] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_id: typing.Optional[media_sets_models.TransactionId] = None,
+        view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[media_sets_models.PutMediaItemResponse]:
         """
         Uploads a media item to an existing media set.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -1169,30 +1141,30 @@ class _MediaSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.
         :type branch_name: Optional[BranchName]
-        :param branch_rid: branchRid
+        :param branch_rid: Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided.
         :type branch_rid: Optional[BranchRid]
-        :param media_item_path: mediaItemPath
+        :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param transaction_id: transactionId
+        :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
         :type transaction_id: Optional[TransactionId]
-        :param view_rid: viewRid
+        :param view_rid: Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided.
         :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[PutMediaItemResponse]
+        :rtype: core.ApiResponse[media_sets_models.PutMediaItemResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/items",
                 query_params={
@@ -1212,7 +1184,7 @@ class _MediaSetClientRaw:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=PutMediaItemResponse,
+                response_type=media_sets_models.PutMediaItemResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -1230,45 +1202,45 @@ class _MediaSetClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def abort(
         self,
-        media_set_rid: MediaSetRid,
-        transaction_id: TransactionId,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort",
                 query_params={
@@ -1287,36 +1259,36 @@ class _MediaSetClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def commit(
         self,
-        media_set_rid: MediaSetRid,
-        transaction_id: TransactionId,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param transaction_id: transactionId
+        :param transaction_id:
         :type transaction_id: TransactionId
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit",
                 query_params={
@@ -1335,36 +1307,36 @@ class _MediaSetClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        media_set_rid: MediaSetRid,
+        media_set_rid: core_models.MediaSetRid,
         *,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[TransactionId]:
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[media_sets_models.TransactionId]:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param branch_name: branchName
+        :param branch_name: The branch on which to open the transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[TransactionId]
+        :rtype: core.StreamingContextManager[media_sets_models.TransactionId]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/transactions",
                 query_params={
@@ -1379,45 +1351,45 @@ class _MediaSetClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=TransactionId,
+                response_type=media_sets_models.TransactionId,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def info(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[GetMediaItemInfoResponse]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[media_sets_models.GetMediaItemInfoResponse]:
         """
         Gets information about the media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[GetMediaItemInfoResponse]
+        :rtype: core.StreamingContextManager[media_sets_models.GetMediaItemInfoResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}",
                 query_params={
@@ -1433,45 +1405,45 @@ class _MediaSetClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=GetMediaItemInfoResponse,
+                response_type=media_sets_models.GetMediaItemInfoResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Gets the content of a media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content",
                 query_params={
@@ -1493,39 +1465,39 @@ class _MediaSetClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read_original(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid:
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original",
                 query_params={
@@ -1547,39 +1519,39 @@ class _MediaSetClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def reference(
         self,
-        media_set_rid: MediaSetRid,
-        media_item_rid: MediaItemRid,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        read_token: Optional[MediaItemReadToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[MediaReference]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[core_models.MediaReference]:
         """
         Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
-        :param media_item_rid: mediaItemRid
+        :param media_item_rid: The RID of the media item.
         :type media_item_rid: MediaItemRid
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param read_token: ReadToken
+        :param read_token:
         :type read_token: Optional[MediaItemReadToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[MediaReference]
+        :rtype: core.StreamingContextManager[core_models.MediaReference]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference",
                 query_params={
@@ -1595,28 +1567,28 @@ class _MediaSetClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=MediaReference,
+                response_type=core_models.MediaReference,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def upload(
         self,
-        media_set_rid: MediaSetRid,
+        media_set_rid: core_models.MediaSetRid,
         body: bytes,
         *,
-        branch_name: Optional[BranchName] = None,
-        branch_rid: Optional[BranchRid] = None,
-        media_item_path: Optional[MediaItemPath] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_id: Optional[TransactionId] = None,
-        view_rid: Optional[MediaSetViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[PutMediaItemResponse]:
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
+        media_item_path: typing.Optional[core_models.MediaItemPath] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_id: typing.Optional[media_sets_models.TransactionId] = None,
+        view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[media_sets_models.PutMediaItemResponse]:
         """
         Uploads a media item to an existing media set.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -1624,30 +1596,30 @@ class _MediaSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
-        :param media_set_rid: mediaSetRid
+        :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
-        :param branch_name: branchName
+        :param branch_name: Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.
         :type branch_name: Optional[BranchName]
-        :param branch_rid: branchRid
+        :param branch_rid: Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided.
         :type branch_rid: Optional[BranchRid]
-        :param media_item_path: mediaItemPath
+        :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
-        :param transaction_id: transactionId
+        :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
         :type transaction_id: Optional[TransactionId]
-        :param view_rid: viewRid
+        :param view_rid: Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided.
         :type view_rid: Optional[MediaSetViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[PutMediaItemResponse]
+        :rtype: core.StreamingContextManager[media_sets_models.PutMediaItemResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/mediasets/{mediaSetRid}/items",
                 query_params={
@@ -1667,7 +1639,7 @@ class _MediaSetClientStreaming:
                 },
                 body=body,
                 body_type=bytes,
-                response_type=PutMediaItemResponse,
+                response_type=media_sets_models.PutMediaItemResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

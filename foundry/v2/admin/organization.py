@@ -13,31 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._host_name import HostName
-from foundry.v2.admin.models._organization import Organization
-from foundry.v2.admin.models._organization_name import OrganizationName
-from foundry.v2.core.models._organization_rid import OrganizationRid
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class OrganizationClient:
@@ -51,45 +36,45 @@ class OrganizationClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _OrganizationClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _OrganizationClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        organization_rid: OrganizationRid,
+        organization_rid: core_models.OrganizationRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Organization:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.Organization:
         """
         Get the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Organization
+        :rtype: admin_models.Organization
 
         :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}",
                 query_params={
@@ -103,7 +88,7 @@ class OrganizationClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Organization,
+                response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "OrganizationNotFound": admin_errors.OrganizationNotFound,
@@ -111,22 +96,22 @@ class OrganizationClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        organization_rid: OrganizationRid,
+        organization_rid: core_models.OrganizationRid,
         *,
-        name: OrganizationName,
-        description: Optional[str] = None,
-        host: Optional[HostName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Organization:
+        name: admin_models.OrganizationName,
+        description: typing.Optional[str] = None,
+        host: typing.Optional[admin_models.HostName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.Organization:
         """
         Replace the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
         :type name: OrganizationName
@@ -134,19 +119,19 @@ class OrganizationClient:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Organization
+        :rtype: admin_models.Organization
 
         :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
         :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/organizations/{organizationRid}",
                 query_params={
@@ -164,15 +149,15 @@ class OrganizationClient:
                     "host": host,
                     "description": description,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": OrganizationName,
-                        "host": Optional[HostName],
-                        "description": Optional[str],
+                        "name": admin_models.OrganizationName,
+                        "host": typing.Optional[admin_models.HostName],
+                        "description": typing.Optional[str],
                     },
                 ),
-                response_type=Organization,
+                response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidHostName": admin_errors.InvalidHostName,
@@ -193,41 +178,41 @@ class _OrganizationClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        organization_rid: OrganizationRid,
+        organization_rid: core_models.OrganizationRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Organization]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.Organization]:
         """
         Get the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Organization]
+        :rtype: core.ApiResponse[admin_models.Organization]
 
         :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}",
                 query_params={
@@ -241,7 +226,7 @@ class _OrganizationClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Organization,
+                response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "OrganizationNotFound": admin_errors.OrganizationNotFound,
@@ -249,22 +234,22 @@ class _OrganizationClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        organization_rid: OrganizationRid,
+        organization_rid: core_models.OrganizationRid,
         *,
-        name: OrganizationName,
-        description: Optional[str] = None,
-        host: Optional[HostName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Organization]:
+        name: admin_models.OrganizationName,
+        description: typing.Optional[str] = None,
+        host: typing.Optional[admin_models.HostName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.Organization]:
         """
         Replace the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
         :type name: OrganizationName
@@ -272,19 +257,19 @@ class _OrganizationClientRaw:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Organization]
+        :rtype: core.ApiResponse[admin_models.Organization]
 
         :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
         :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/organizations/{organizationRid}",
                 query_params={
@@ -302,15 +287,15 @@ class _OrganizationClientRaw:
                     "host": host,
                     "description": description,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": OrganizationName,
-                        "host": Optional[HostName],
-                        "description": Optional[str],
+                        "name": admin_models.OrganizationName,
+                        "host": typing.Optional[admin_models.HostName],
+                        "description": typing.Optional[str],
                     },
                 ),
-                response_type=Organization,
+                response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidHostName": admin_errors.InvalidHostName,
@@ -331,41 +316,41 @@ class _OrganizationClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        organization_rid: OrganizationRid,
+        organization_rid: core_models.OrganizationRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Organization]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.Organization]:
         """
         Get the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Organization]
+        :rtype: core.StreamingContextManager[admin_models.Organization]
 
         :raises OrganizationNotFound: The given Organization could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}",
                 query_params={
@@ -379,7 +364,7 @@ class _OrganizationClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Organization,
+                response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "OrganizationNotFound": admin_errors.OrganizationNotFound,
@@ -387,22 +372,22 @@ class _OrganizationClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        organization_rid: OrganizationRid,
+        organization_rid: core_models.OrganizationRid,
         *,
-        name: OrganizationName,
-        description: Optional[str] = None,
-        host: Optional[HostName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Organization]:
+        name: admin_models.OrganizationName,
+        description: typing.Optional[str] = None,
+        host: typing.Optional[admin_models.HostName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.Organization]:
         """
         Replace the Organization with the specified rid.
-        :param organization_rid: organizationRid
+        :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
         :type name: OrganizationName
@@ -410,19 +395,19 @@ class _OrganizationClientStreaming:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Organization]
+        :rtype: core.StreamingContextManager[admin_models.Organization]
 
         :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
         :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/organizations/{organizationRid}",
                 query_params={
@@ -440,15 +425,15 @@ class _OrganizationClientStreaming:
                     "host": host,
                     "description": description,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": OrganizationName,
-                        "host": Optional[HostName],
-                        "description": Optional[str],
+                        "name": admin_models.OrganizationName,
+                        "host": typing.Optional[admin_models.HostName],
+                        "description": typing.Optional[str],
                     },
                 ),
-                response_type=Organization,
+                response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidHostName": admin_errors.InvalidHostName,

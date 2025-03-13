@@ -15,8 +15,8 @@ Cancels a query. If the query is no longer running this is effectively a no-op.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | QueryId | queryId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**query_id** | QueryId | The id of a query.  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -32,9 +32,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# QueryId | queryId
+# QueryId | The id of a query.
 query_id = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query** | str | The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.  |  |
 **fallback_branch_ids** | Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **QueryStatus**
@@ -93,7 +93,7 @@ foundry_client = FoundryClient(
 query = None
 # Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
 fallback_branch_ids = ["master"]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -132,8 +132,8 @@ one minute.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | QueryId | queryId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**query_id** | QueryId | The id of a query.  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **bytes**
@@ -149,9 +149,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# QueryId | queryId
+# QueryId | The id of a query.
 query_id = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -188,8 +188,8 @@ Gets the status of a query.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | QueryId | queryId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**query_id** | QueryId | The id of a query.  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **QueryStatus**
@@ -205,9 +205,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# QueryId | queryId
+# QueryId | The id of a query.
 query_id = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

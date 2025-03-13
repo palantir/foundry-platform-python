@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class UnsupportedObjectSetParameters(TypedDict):
+class UnsupportedObjectSetParameters(typing_extensions.TypedDict):
     """The requested object set is not supported."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class UnsupportedObjectSet(BadRequestError):
-    name: Literal["UnsupportedObjectSet"]
+class UnsupportedObjectSet(errors.BadRequestError):
+    name: typing.Literal["UnsupportedObjectSet"]
     parameters: UnsupportedObjectSetParameters
     error_instance_id: str
 

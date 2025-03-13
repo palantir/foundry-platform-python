@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class ParentAttachmentPermissionDeniedParameters(TypedDict):
+class ParentAttachmentPermissionDeniedParameters(typing_extensions.TypedDict):
     """The user does not have permission to parent attachments."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class ParentAttachmentPermissionDenied(PermissionDeniedError):
-    name: Literal["ParentAttachmentPermissionDenied"]
+class ParentAttachmentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ParentAttachmentPermissionDenied"]
     parameters: ParentAttachmentPermissionDeniedParameters
     error_instance_id: str
 

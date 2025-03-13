@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._table_import_rid import TableImportRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class TableImportNotFoundParameters(TypedDict):
+class TableImportNotFoundParameters(typing_extensions.TypedDict):
     """The given TableImport could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    tableImportRid: TableImportRid
-
-    connectionRid: ConnectionRid
+    tableImportRid: connectivity_models.TableImportRid
+    connectionRid: connectivity_models.ConnectionRid
 
 
 @dataclass
-class TableImportNotFound(NotFoundError):
-    name: Literal["TableImportNotFound"]
+class TableImportNotFound(errors.NotFoundError):
+    name: typing.Literal["TableImportNotFound"]
     parameters: TableImportNotFoundParameters
     error_instance_id: str
 

@@ -13,34 +13,30 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.third_party_applications.models._third_party_application_rid import (
-    ThirdPartyApplicationRid,
-)  # NOQA
-from foundry.v2.third_party_applications.models._version_version import VersionVersion
+from foundry import _errors as errors
+from foundry.v2.third_party_applications import models as third_party_applications_models  # NOQA
 
 
-class VersionNotFoundParameters(TypedDict):
+class VersionNotFoundParameters(typing_extensions.TypedDict):
     """The given Version could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    thirdPartyApplicationRid: ThirdPartyApplicationRid
+    thirdPartyApplicationRid: third_party_applications_models.ThirdPartyApplicationRid
     """An RID identifying a third-party application created in Developer Console."""
-    versionVersion: VersionVersion
+
+    versionVersion: third_party_applications_models.VersionVersion
     """The semantic version of the Website."""
 
 
 @dataclass
-class VersionNotFound(NotFoundError):
-    name: Literal["VersionNotFound"]
+class VersionNotFound(errors.NotFoundError):
+    name: typing.Literal["VersionNotFound"]
     parameters: VersionNotFoundParameters
     error_instance_id: str
 

@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class FileAtLeastCountFilterInvalidMinCountParameters(TypedDict):
+class FileAtLeastCountFilterInvalidMinCountParameters(typing_extensions.TypedDict):
     """The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class FileAtLeastCountFilterInvalidMinCountParameters(TypedDict):
 
 
 @dataclass
-class FileAtLeastCountFilterInvalidMinCount(BadRequestError):
-    name: Literal["FileAtLeastCountFilterInvalidMinCount"]
+class FileAtLeastCountFilterInvalidMinCount(errors.BadRequestError):
+    name: typing.Literal["FileAtLeastCountFilterInvalidMinCount"]
     parameters: FileAtLeastCountFilterInvalidMinCountParameters
     error_instance_id: str
 

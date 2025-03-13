@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class PropertyCannotBeBlankParameters(TypedDict):
+class PropertyCannotBeBlankParameters(typing_extensions.TypedDict):
     """The specified property cannot be blank."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class PropertyCannotBeBlankParameters(TypedDict):
 
 
 @dataclass
-class PropertyCannotBeBlank(BadRequestError):
-    name: Literal["PropertyCannotBeBlank"]
+class PropertyCannotBeBlank(errors.BadRequestError):
+    name: typing.Literal["PropertyCannotBeBlank"]
     parameters: PropertyCannotBeBlankParameters
     error_instance_id: str
 

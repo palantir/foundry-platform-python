@@ -13,32 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._secret_name import SecretName
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class SecretNamesDoNotExistParameters(TypedDict):
+class SecretNamesDoNotExistParameters(typing_extensions.TypedDict):
     """The secret names provided do not exist on the connection."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    connectionRid: ConnectionRid
-
-    secretNames: List[SecretName]
+    connectionRid: connectivity_models.ConnectionRid
+    secretNames: typing.List[connectivity_models.SecretName]
 
 
 @dataclass
-class SecretNamesDoNotExist(BadRequestError):
-    name: Literal["SecretNamesDoNotExist"]
+class SecretNamesDoNotExist(errors.BadRequestError):
+    name: typing.Literal["SecretNamesDoNotExist"]
     parameters: SecretNamesDoNotExistParameters
     error_instance_id: str
 

@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v2.ontologies.models._function_rid import FunctionRid
-from foundry.v2.ontologies.models._function_version import FunctionVersion
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class QueryEncounteredUserFacingErrorParameters(TypedDict):
+class QueryEncounteredUserFacingErrorParameters(typing_extensions.TypedDict):
     """
     The authored `Query` failed to execute because of a user induced error. The message argument
     is meant to be displayed to the user.
@@ -33,16 +30,14 @@ class QueryEncounteredUserFacingErrorParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
-
-    functionVersion: FunctionVersion
-
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
     message: str
 
 
 @dataclass
-class QueryEncounteredUserFacingError(ConflictError):
-    name: Literal["QueryEncounteredUserFacingError"]
+class QueryEncounteredUserFacingError(errors.ConflictError):
+    name: typing.Literal["QueryEncounteredUserFacingError"]
     parameters: QueryEncounteredUserFacingErrorParameters
     error_instance_id: str
 

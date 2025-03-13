@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class MissingDisplayNameParameters(TypedDict):
+class MissingDisplayNameParameters(typing_extensions.TypedDict):
     """A Display Name must be provided."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class MissingDisplayName(BadRequestError):
-    name: Literal["MissingDisplayName"]
+class MissingDisplayName(errors.BadRequestError):
+    name: typing.Literal["MissingDisplayName"]
     parameters: MissingDisplayNameParameters
     error_instance_id: str
 

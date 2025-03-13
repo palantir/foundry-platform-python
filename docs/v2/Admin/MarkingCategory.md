@@ -13,8 +13,8 @@ Get the MarkingCategory with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_category_id** | MarkingCategoryId | markingCategoryId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**marking_category_id** | MarkingCategoryId |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **MarkingCategory**
@@ -30,9 +30,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingCategoryId | markingCategoryId
+# MarkingCategoryId
 marking_category_id = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -68,12 +68,12 @@ Maximum page size 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**ResourceIterator[MarkingCategory]**
+**ListMarkingCategoriesResponse**
 
 ### Example
 
@@ -86,11 +86,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -126,9 +126,9 @@ Maximum page size 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListMarkingCategoriesResponse**
@@ -144,11 +144,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

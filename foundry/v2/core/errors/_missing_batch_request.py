@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class MissingBatchRequestParameters(TypedDict):
+class MissingBatchRequestParameters(typing_extensions.TypedDict):
     """Batch requests must contain at least one element."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class MissingBatchRequest(BadRequestError):
-    name: Literal["MissingBatchRequest"]
+class MissingBatchRequest(errors.BadRequestError):
+    name: typing.Literal["MissingBatchRequest"]
     parameters: MissingBatchRequestParameters
     error_instance_id: str
 

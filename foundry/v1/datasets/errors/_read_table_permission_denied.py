@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v1.datasets import models as datasets_models
 
 
-class ReadTablePermissionDeniedParameters(TypedDict):
+class ReadTablePermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to read the given dataset as a table."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
+    datasetRid: datasets_models.DatasetRid
 
 
 @dataclass
-class ReadTablePermissionDenied(PermissionDeniedError):
-    name: Literal["ReadTablePermissionDenied"]
+class ReadTablePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReadTablePermissionDenied"]
     parameters: ReadTablePermissionDeniedParameters
     error_instance_id: str
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class GroupNotFoundParameters(TypedDict):
+class GroupNotFoundParameters(typing_extensions.TypedDict):
     """The given Group could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: PrincipalId
+    groupId: core_models.PrincipalId
 
 
 @dataclass
-class GroupNotFound(NotFoundError):
-    name: Literal["GroupNotFound"]
+class GroupNotFound(errors.NotFoundError):
+    name: typing.Literal["GroupNotFound"]
     parameters: GroupNotFoundParameters
     error_instance_id: str
 

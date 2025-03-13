@@ -13,30 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
-from foundry.v1.ontologies.models._function_rid import FunctionRid
-from foundry.v1.ontologies.models._function_version import FunctionVersion
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class FunctionExecutionTimedOutParameters(TypedDict):
+class FunctionExecutionTimedOutParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
-
-    functionVersion: FunctionVersion
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
 
 
 @dataclass
-class FunctionExecutionTimedOut(InternalServerError):
-    name: Literal["FunctionExecutionTimedOut"]
+class FunctionExecutionTimedOut(errors.InternalServerError):
+    name: typing.Literal["FunctionExecutionTimedOut"]
     parameters: FunctionExecutionTimedOutParameters
     error_instance_id: str
 

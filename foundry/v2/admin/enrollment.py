@@ -13,28 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.admin import errors as admin_errors
-from foundry.v2.admin.models._enrollment import Enrollment
-from foundry.v2.core.models._enrollment_rid import EnrollmentRid
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
 class EnrollmentClient:
@@ -48,14 +37,14 @@ class EnrollmentClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _EnrollmentClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -81,32 +70,32 @@ class EnrollmentClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Enrollment:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.Enrollment:
         """
         Get the Enrollment with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Enrollment
+        :rtype: admin_models.Enrollment
 
         :raises EnrollmentNotFound: The given Enrollment could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}",
                 query_params={
@@ -120,7 +109,7 @@ class EnrollmentClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Enrollment,
+                response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
@@ -128,30 +117,30 @@ class EnrollmentClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_current(
         self,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Enrollment:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> admin_models.Enrollment:
         """
         Returns the Enrollment associated with the current User's primary organization.
 
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Enrollment
+        :rtype: admin_models.Enrollment
 
         :raises GetCurrentEnrollmentPermissionDenied: Could not getCurrent the Enrollment.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/getCurrent",
                 query_params={
@@ -163,7 +152,7 @@ class EnrollmentClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Enrollment,
+                response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetCurrentEnrollmentPermissionDenied": admin_errors.GetCurrentEnrollmentPermissionDenied,
@@ -183,41 +172,41 @@ class _EnrollmentClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Enrollment]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.Enrollment]:
         """
         Get the Enrollment with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Enrollment]
+        :rtype: core.ApiResponse[admin_models.Enrollment]
 
         :raises EnrollmentNotFound: The given Enrollment could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}",
                 query_params={
@@ -231,7 +220,7 @@ class _EnrollmentClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Enrollment,
+                response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
@@ -239,30 +228,30 @@ class _EnrollmentClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_current(
         self,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Enrollment]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[admin_models.Enrollment]:
         """
         Returns the Enrollment associated with the current User's primary organization.
 
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Enrollment]
+        :rtype: core.ApiResponse[admin_models.Enrollment]
 
         :raises GetCurrentEnrollmentPermissionDenied: Could not getCurrent the Enrollment.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/getCurrent",
                 query_params={
@@ -274,7 +263,7 @@ class _EnrollmentClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Enrollment,
+                response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetCurrentEnrollmentPermissionDenied": admin_errors.GetCurrentEnrollmentPermissionDenied,
@@ -294,41 +283,41 @@ class _EnrollmentClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: EnrollmentRid,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Enrollment]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.Enrollment]:
         """
         Get the Enrollment with the specified rid.
-        :param enrollment_rid: enrollmentRid
+        :param enrollment_rid:
         :type enrollment_rid: EnrollmentRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Enrollment]
+        :rtype: core.StreamingContextManager[admin_models.Enrollment]
 
         :raises EnrollmentNotFound: The given Enrollment could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/{enrollmentRid}",
                 query_params={
@@ -342,7 +331,7 @@ class _EnrollmentClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Enrollment,
+                response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
@@ -350,30 +339,30 @@ class _EnrollmentClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_current(
         self,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Enrollment]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[admin_models.Enrollment]:
         """
         Returns the Enrollment associated with the current User's primary organization.
 
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Enrollment]
+        :rtype: core.StreamingContextManager[admin_models.Enrollment]
 
         :raises GetCurrentEnrollmentPermissionDenied: Could not getCurrent the Enrollment.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/enrollments/getCurrent",
                 query_params={
@@ -385,7 +374,7 @@ class _EnrollmentClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Enrollment,
+                response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetCurrentEnrollmentPermissionDenied": admin_errors.GetCurrentEnrollmentPermissionDenied,

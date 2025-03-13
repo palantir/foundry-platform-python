@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidStreamTypeParameters(TypedDict):
+class InvalidStreamTypeParameters(typing_extensions.TypedDict):
     """The stream type is invalid."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class InvalidStreamTypeParameters(TypedDict):
 
 
 @dataclass
-class InvalidStreamType(BadRequestError):
-    name: Literal["InvalidStreamType"]
+class InvalidStreamType(errors.BadRequestError):
+    name: typing.Literal["InvalidStreamType"]
     parameters: InvalidStreamTypeParameters
     error_instance_id: str
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._organization_rid import OrganizationRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class ReplaceOrganizationPermissionDeniedParameters(TypedDict):
+class ReplaceOrganizationPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the Organization."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organizationRid: OrganizationRid
+    organizationRid: core_models.OrganizationRid
 
 
 @dataclass
-class ReplaceOrganizationPermissionDenied(PermissionDeniedError):
-    name: Literal["ReplaceOrganizationPermissionDenied"]
+class ReplaceOrganizationPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceOrganizationPermissionDenied"]
     parameters: ReplaceOrganizationPermissionDeniedParameters
     error_instance_id: str
 

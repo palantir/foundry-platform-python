@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class ConnectionTypeNotSupportedParameters(TypedDict):
+class ConnectionTypeNotSupportedParameters(typing_extensions.TypedDict):
     """The specified connection is not yet supported in the Platform API."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class ConnectionTypeNotSupportedParameters(TypedDict):
 
 
 @dataclass
-class ConnectionTypeNotSupported(BadRequestError):
-    name: Literal["ConnectionTypeNotSupported"]
+class ConnectionTypeNotSupported(errors.BadRequestError):
+    name: typing.Literal["ConnectionTypeNotSupported"]
     parameters: ConnectionTypeNotSupportedParameters
     error_instance_id: str
 

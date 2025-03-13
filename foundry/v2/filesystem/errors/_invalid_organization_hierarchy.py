@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._organization_rid import OrganizationRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class InvalidOrganizationHierarchyParameters(TypedDict):
+class InvalidOrganizationHierarchyParameters(typing_extensions.TypedDict):
     """
     Organizations on a project must also exist on the parent space. This error is thrown if the configuration
     of a project's organizations (on creation or subsequently) results in the project being marked with either
@@ -34,12 +31,12 @@ class InvalidOrganizationHierarchyParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organizationRids: List[OrganizationRid]
+    organizationRids: typing.List[core_models.OrganizationRid]
 
 
 @dataclass
-class InvalidOrganizationHierarchy(BadRequestError):
-    name: Literal["InvalidOrganizationHierarchy"]
+class InvalidOrganizationHierarchy(errors.BadRequestError):
+    name: typing.Literal["InvalidOrganizationHierarchy"]
     parameters: InvalidOrganizationHierarchyParameters
     error_instance_id: str
 

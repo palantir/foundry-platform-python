@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class CreateConnectionPermissionDeniedParameters(TypedDict):
+class CreateConnectionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Connection."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class CreateConnectionPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateConnectionPermissionDenied"]
+class CreateConnectionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateConnectionPermissionDenied"]
     parameters: CreateConnectionPermissionDeniedParameters
     error_instance_id: str
 

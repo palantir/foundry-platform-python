@@ -13,34 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v1.ontologies.models._query_api_name import QueryApiName
-from foundry.v1.ontologies.models._sdk_package_name import SdkPackageName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class MarketplaceQueryMappingNotFoundParameters(TypedDict):
+class MarketplaceQueryMappingNotFoundParameters(typing_extensions.TypedDict):
     """The given query could not be mapped to a Marketplace installation."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryType: QueryApiName
-
-    artifactRepository: ArtifactRepositoryRid
-
-    packageName: SdkPackageName
+    queryType: ontologies_models.QueryApiName
+    artifactRepository: ontologies_models.ArtifactRepositoryRid
+    packageName: ontologies_models.SdkPackageName
 
 
 @dataclass
-class MarketplaceQueryMappingNotFound(NotFoundError):
-    name: Literal["MarketplaceQueryMappingNotFound"]
+class MarketplaceQueryMappingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceQueryMappingNotFound"]
     parameters: MarketplaceQueryMappingNotFoundParameters
     error_instance_id: str
 

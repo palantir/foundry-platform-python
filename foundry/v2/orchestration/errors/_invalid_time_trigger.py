@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.orchestration.models._cron_expression import CronExpression
+from foundry import _errors as errors
+from foundry.v2.orchestration import models as orchestration_models
 
 
-class InvalidTimeTriggerParameters(TypedDict):
+class InvalidTimeTriggerParameters(typing_extensions.TypedDict):
     """The schedule trigger cron expression is invalid."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    cronExpression: CronExpression
+    cronExpression: orchestration_models.CronExpression
 
 
 @dataclass
-class InvalidTimeTrigger(BadRequestError):
-    name: Literal["InvalidTimeTrigger"]
+class InvalidTimeTrigger(errors.BadRequestError):
+    name: typing.Literal["InvalidTimeTrigger"]
     parameters: InvalidTimeTriggerParameters
     error_instance_id: str
 

@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import RequestEntityTooLargeError
+from foundry import _errors as errors
 
 
-class RecordTooLargeParameters(TypedDict):
+class RecordTooLargeParameters(typing_extensions.TypedDict):
     """A record is too large to be published to the stream. On most enrollments, the maximum record size is 1MB."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class RecordTooLarge(RequestEntityTooLargeError):
-    name: Literal["RecordTooLarge"]
+class RecordTooLarge(errors.RequestEntityTooLargeError):
+    name: typing.Literal["RecordTooLarge"]
     parameters: RecordTooLargeParameters
     error_instance_id: str
 

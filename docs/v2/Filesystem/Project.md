@@ -17,9 +17,9 @@ Adds a list of Organizations to a Project.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**project_rid** | ProjectRid | projectRid |  |
+**project_rid** | ProjectRid |  |  |
 **organization_rids** | List[OrganizationRid] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -35,11 +35,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ProjectRid | projectRid
+# ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# List[OrganizationRid] |
+# List[OrganizationRid]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes |
 **role_grants** | Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]] |  |  |
 **space_rid** | SpaceRid |  |  |
 **description** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Project**
@@ -103,23 +103,23 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# List[RoleId] |
+# List[RoleId]
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
-# ResourceDisplayName |
+# ResourceDisplayName
 display_name = "My Important Project"
-# List[OrganizationRid] |
+# List[OrganizationRid]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]] |
+# Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
 role_grants = {
     "8bf49052-dc37-4528-8bf0-b551cfb71268": [
         {"principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de", "principalType": "USER"}
     ]
 }
-# SpaceRid |
+# SpaceRid
 space_rid = "ri.compass.main.folder.a86ad5f5-3db5-48e4-9fdd-00aa3e5731ca"
-# Optional[str] |
+# Optional[str]
 description = "project description"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes |
 **variable_values** | Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |  |  |
 **default_roles** | Optional[List[RoleId]] |  | [optional] |
 **organization_rids** | Optional[List[OrganizationRid]] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **project_description** | Optional[str] |  | [optional] |
 
 ### Return type
@@ -181,17 +181,17 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ProjectTemplateRid |
+# ProjectTemplateRid
 template_rid = "ri.compass.main.template.c410f510-2937-420e-8ea3-8c9bcb3c1791"
-# Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |
+# Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
 variable_values = {"name": "my project name"}
-# Optional[List[RoleId]] |
+# Optional[List[RoleId]]
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
-# Optional[List[OrganizationRid]] |
+# Optional[List[OrganizationRid]]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[str] |
+# Optional[str]
 project_description = None
 
 
@@ -231,8 +231,8 @@ Get the Project with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**project_rid** | ProjectRid | projectRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**project_rid** | ProjectRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Project**
@@ -248,9 +248,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ProjectRid | projectRid
+# ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -288,13 +288,13 @@ typically small so the `pageSize` and `pageToken` parameters are not required.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**project_rid** | ProjectRid | projectRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**project_rid** | ProjectRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**ResourceIterator[OrganizationRid]**
+**ListOrganizationsOfProjectResponse**
 
 ### Example
 
@@ -307,13 +307,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ProjectRid | projectRid
+# ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -352,10 +352,10 @@ typically small so the `pageSize` and `pageToken` parameters are not required.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**project_rid** | ProjectRid | projectRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**project_rid** | ProjectRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListOrganizationsOfProjectResponse**
@@ -371,13 +371,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ProjectRid | projectRid
+# ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -415,9 +415,9 @@ Removes Organizations from a Project.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**project_rid** | ProjectRid | projectRid |  |
+**project_rid** | ProjectRid |  |  |
 **organization_rids** | List[OrganizationRid] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -433,11 +433,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ProjectRid | projectRid
+# ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# List[OrganizationRid] |
+# List[OrganizationRid]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

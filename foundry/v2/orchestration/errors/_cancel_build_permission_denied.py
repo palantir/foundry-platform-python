@@ -13,29 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._build_rid import BuildRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class CancelBuildPermissionDeniedParameters(TypedDict):
+class CancelBuildPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not cancel the Build."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    buildRid: BuildRid
+    buildRid: core_models.BuildRid
     """The RID of a Build."""
 
 
 @dataclass
-class CancelBuildPermissionDenied(PermissionDeniedError):
-    name: Literal["CancelBuildPermissionDenied"]
+class CancelBuildPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CancelBuildPermissionDenied"]
     parameters: CancelBuildPermissionDeniedParameters
     error_instance_id: str
 

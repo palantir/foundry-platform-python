@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class GetMarkingsUserPermissionDeniedParameters(TypedDict):
+class GetMarkingsUserPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getMarkings the User."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: PrincipalId
+    userId: core_models.PrincipalId
 
 
 @dataclass
-class GetMarkingsUserPermissionDenied(PermissionDeniedError):
-    name: Literal["GetMarkingsUserPermissionDenied"]
+class GetMarkingsUserPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetMarkingsUserPermissionDenied"]
     parameters: GetMarkingsUserPermissionDeniedParameters
     error_instance_id: str
 

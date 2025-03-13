@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._organization_rid import OrganizationRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class CreateGroupPermissionDeniedParameters(TypedDict):
+class CreateGroupPermissionDeniedParameters(typing_extensions.TypedDict):
     """The user is not authorized to create the group in the organization required to create the project from template."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    organizationsWithoutPermission: List[OrganizationRid]
+    organizationsWithoutPermission: typing.List[core_models.OrganizationRid]
 
 
 @dataclass
-class CreateGroupPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateGroupPermissionDenied"]
+class CreateGroupPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateGroupPermissionDenied"]
     parameters: CreateGroupPermissionDeniedParameters
     error_instance_id: str
 

@@ -13,52 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.ontologies.models._aggregate_objects_response_v2 import (
-    AggregateObjectsResponseV2,
-)  # NOQA
-from foundry.v2.ontologies.models._aggregation_accuracy_request import (
-    AggregationAccuracyRequest,
-)  # NOQA
-from foundry.v2.ontologies.models._aggregation_group_by_v2 import AggregationGroupByV2
-from foundry.v2.ontologies.models._aggregation_group_by_v2_dict import (
-    AggregationGroupByV2Dict,
-)  # NOQA
-from foundry.v2.ontologies.models._aggregation_v2 import AggregationV2
-from foundry.v2.ontologies.models._aggregation_v2_dict import AggregationV2Dict
-from foundry.v2.ontologies.models._interface_type import InterfaceType
-from foundry.v2.ontologies.models._interface_type_api_name import InterfaceTypeApiName
-from foundry.v2.ontologies.models._list_interface_types_response import (
-    ListInterfaceTypesResponse,
-)  # NOQA
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._search_json_query_v2 import SearchJsonQueryV2
-from foundry.v2.ontologies.models._search_json_query_v2_dict import SearchJsonQueryV2Dict  # NOQA
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class OntologyInterfaceClient:
@@ -72,14 +36,14 @@ class OntologyInterfaceClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _OntologyInterfaceClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -87,21 +51,31 @@ class OntologyInterfaceClient:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: OntologyIdentifier,
-        interface_type: InterfaceTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
         *,
-        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
-        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-        accuracy: Optional[AggregationAccuracyRequest] = None,
-        preview: Optional[PreviewMode] = None,
-        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AggregateObjectsResponseV2:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
+            ]
+        ],
+        accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[
+            typing.Union[
+                ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict
+            ]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.AggregateObjectsResponseV2:
         """
         :::callout{theme=warning title=Warning}
         This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
@@ -117,9 +91,9 @@ class OntologyInterfaceClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param interface_type: interfaceType
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -127,18 +101,18 @@ class OntologyInterfaceClient:
         :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param where:
         :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AggregateObjectsResponseV2
+        :rtype: ontologies_models.AggregateObjectsResponseV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate",
                 query_params={
@@ -158,32 +132,46 @@ class OntologyInterfaceClient:
                     "groupBy": group_by,
                     "accuracy": accuracy,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
-                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
-                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-                        "accuracy": Optional[AggregationAccuracyRequest],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
+                            ]
+                        ],
+                        "where": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchJsonQueryV2,
+                                ontologies_models.SearchJsonQueryV2Dict,
+                            ]
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupByV2,
+                                ontologies_models.AggregationGroupByV2Dict,
+                            ]
+                        ],
+                        "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
-                response_type=AggregateObjectsResponseV2,
+                response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        interface_type: InterfaceTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> InterfaceType:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.InterfaceType:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -194,20 +182,20 @@ class OntologyInterfaceClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param interface_type: interfaceType
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: InterfaceType
+        :rtype: ontologies_models.InterfaceType
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}",
                 query_params={
@@ -222,24 +210,24 @@ class OntologyInterfaceClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=InterfaceType,
+                response_type=ontologies_models.InterfaceType,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[InterfaceType]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[ontologies_models.InterfaceType]:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -253,22 +241,22 @@ class OntologyInterfaceClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[InterfaceType]
+        :rtype: core.ResourceIterator[ontologies_models.InterfaceType]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
@@ -284,24 +272,24 @@ class OntologyInterfaceClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListInterfaceTypesResponse,
+                response_type=ontologies_models.ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListInterfaceTypesResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListInterfaceTypesResponse:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -315,18 +303,18 @@ class OntologyInterfaceClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListInterfaceTypesResponse
+        :rtype: ontologies_models.ListInterfaceTypesResponse
         """
 
         warnings.warn(
@@ -336,7 +324,7 @@ class OntologyInterfaceClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
@@ -352,7 +340,7 @@ class OntologyInterfaceClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListInterfaceTypesResponse,
+                response_type=ontologies_models.ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -370,30 +358,40 @@ class _OntologyInterfaceClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: OntologyIdentifier,
-        interface_type: InterfaceTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
         *,
-        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
-        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-        accuracy: Optional[AggregationAccuracyRequest] = None,
-        preview: Optional[PreviewMode] = None,
-        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AggregateObjectsResponseV2]:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
+            ]
+        ],
+        accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[
+            typing.Union[
+                ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict
+            ]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.AggregateObjectsResponseV2]:
         """
         :::callout{theme=warning title=Warning}
         This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
@@ -409,9 +407,9 @@ class _OntologyInterfaceClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param interface_type: interfaceType
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -419,18 +417,18 @@ class _OntologyInterfaceClientRaw:
         :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param where:
         :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AggregateObjectsResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.AggregateObjectsResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate",
                 query_params={
@@ -450,32 +448,46 @@ class _OntologyInterfaceClientRaw:
                     "groupBy": group_by,
                     "accuracy": accuracy,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
-                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
-                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-                        "accuracy": Optional[AggregationAccuracyRequest],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
+                            ]
+                        ],
+                        "where": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchJsonQueryV2,
+                                ontologies_models.SearchJsonQueryV2Dict,
+                            ]
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupByV2,
+                                ontologies_models.AggregationGroupByV2Dict,
+                            ]
+                        ],
+                        "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
-                response_type=AggregateObjectsResponseV2,
+                response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        interface_type: InterfaceTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[InterfaceType]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.InterfaceType]:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -486,20 +498,20 @@ class _OntologyInterfaceClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param interface_type: interfaceType
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[InterfaceType]
+        :rtype: core.ApiResponse[ontologies_models.InterfaceType]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}",
                 query_params={
@@ -514,24 +526,24 @@ class _OntologyInterfaceClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=InterfaceType,
+                response_type=ontologies_models.InterfaceType,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListInterfaceTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListInterfaceTypesResponse]:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -545,22 +557,22 @@ class _OntologyInterfaceClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListInterfaceTypesResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListInterfaceTypesResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
@@ -576,24 +588,24 @@ class _OntologyInterfaceClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListInterfaceTypesResponse,
+                response_type=ontologies_models.ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListInterfaceTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListInterfaceTypesResponse]:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -607,18 +619,18 @@ class _OntologyInterfaceClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListInterfaceTypesResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListInterfaceTypesResponse]
         """
 
         warnings.warn(
@@ -628,7 +640,7 @@ class _OntologyInterfaceClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
@@ -644,7 +656,7 @@ class _OntologyInterfaceClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListInterfaceTypesResponse,
+                response_type=ontologies_models.ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -662,30 +674,40 @@ class _OntologyInterfaceClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: OntologyIdentifier,
-        interface_type: InterfaceTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
         *,
-        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
-        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-        accuracy: Optional[AggregationAccuracyRequest] = None,
-        preview: Optional[PreviewMode] = None,
-        where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AggregateObjectsResponseV2]:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
+            ]
+        ],
+        accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[
+            typing.Union[
+                ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict
+            ]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.AggregateObjectsResponseV2]:
         """
         :::callout{theme=warning title=Warning}
         This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
@@ -701,9 +723,9 @@ class _OntologyInterfaceClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param interface_type: interfaceType
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -711,18 +733,18 @@ class _OntologyInterfaceClientStreaming:
         :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param where:
         :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AggregateObjectsResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.AggregateObjectsResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate",
                 query_params={
@@ -742,32 +764,46 @@ class _OntologyInterfaceClientStreaming:
                     "groupBy": group_by,
                     "accuracy": accuracy,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
-                        "where": Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]],
-                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-                        "accuracy": Optional[AggregationAccuracyRequest],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
+                            ]
+                        ],
+                        "where": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchJsonQueryV2,
+                                ontologies_models.SearchJsonQueryV2Dict,
+                            ]
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupByV2,
+                                ontologies_models.AggregationGroupByV2Dict,
+                            ]
+                        ],
+                        "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
-                response_type=AggregateObjectsResponseV2,
+                response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        interface_type: InterfaceTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[InterfaceType]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.InterfaceType]:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -778,20 +814,20 @@ class _OntologyInterfaceClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param interface_type: interfaceType
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[InterfaceType]
+        :rtype: core.StreamingContextManager[ontologies_models.InterfaceType]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}",
                 query_params={
@@ -806,24 +842,24 @@ class _OntologyInterfaceClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=InterfaceType,
+                response_type=ontologies_models.InterfaceType,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListInterfaceTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListInterfaceTypesResponse]:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -837,22 +873,22 @@ class _OntologyInterfaceClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListInterfaceTypesResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListInterfaceTypesResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
@@ -868,24 +904,24 @@ class _OntologyInterfaceClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListInterfaceTypesResponse,
+                response_type=ontologies_models.ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListInterfaceTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListInterfaceTypesResponse]:
         """
         :::callout{theme=warning title=Warning}
           This endpoint is in preview and may be modified or removed at any time.
@@ -899,18 +935,18 @@ class _OntologyInterfaceClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListInterfaceTypesResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListInterfaceTypesResponse]
         """
 
         warnings.warn(
@@ -920,7 +956,7 @@ class _OntologyInterfaceClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
@@ -936,7 +972,7 @@ class _OntologyInterfaceClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListInterfaceTypesResponse,
+                response_type=ontologies_models.ListInterfaceTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

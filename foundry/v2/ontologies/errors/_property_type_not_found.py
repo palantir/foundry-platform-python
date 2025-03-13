@@ -13,32 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class PropertyTypeNotFoundParameters(TypedDict):
+class PropertyTypeNotFoundParameters(typing_extensions.TypedDict):
     """The requested property type is not found, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectTypeApiName: NotRequired[ObjectTypeApiName]
-
-    propertyApiName: NotRequired[PropertyApiName]
+    objectTypeApiName: typing_extensions.NotRequired[ontologies_models.ObjectTypeApiName]
+    propertyApiName: typing_extensions.NotRequired[ontologies_models.PropertyApiName]
 
 
 @dataclass
-class PropertyTypeNotFound(NotFoundError):
-    name: Literal["PropertyTypeNotFound"]
+class PropertyTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["PropertyTypeNotFound"]
     parameters: PropertyTypeNotFoundParameters
     error_instance_id: str
 

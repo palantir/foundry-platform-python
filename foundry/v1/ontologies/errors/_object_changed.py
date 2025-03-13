@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
+from foundry import _errors as errors
 
 
-class ObjectChangedParameters(TypedDict):
+class ObjectChangedParameters(typing_extensions.TypedDict):
     """An object used by this `Action` was changed by someone else while the `Action` was running."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class ObjectChanged(ConflictError):
-    name: Literal["ObjectChanged"]
+class ObjectChanged(errors.ConflictError):
+    name: typing.Literal["ObjectChanged"]
     parameters: ObjectChangedParameters
     error_instance_id: str
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._size_bytes import SizeBytes
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class FileSizeFilterLessThanMustBeOneByteOrLargerParameters(TypedDict):
+class FileSizeFilterLessThanMustBeOneByteOrLargerParameters(typing_extensions.TypedDict):
     """The `lt` property in the FileSizeFilter must be at least 1 byte."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    lt: SizeBytes
+    lt: core_models.SizeBytes
 
 
 @dataclass
-class FileSizeFilterLessThanMustBeOneByteOrLarger(BadRequestError):
-    name: Literal["FileSizeFilterLessThanMustBeOneByteOrLarger"]
+class FileSizeFilterLessThanMustBeOneByteOrLarger(errors.BadRequestError):
+    name: typing.Literal["FileSizeFilterLessThanMustBeOneByteOrLarger"]
     parameters: FileSizeFilterLessThanMustBeOneByteOrLargerParameters
     error_instance_id: str
 

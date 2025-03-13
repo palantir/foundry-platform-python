@@ -13,30 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidParameterCombinationParameters(TypedDict):
+class InvalidParameterCombinationParameters(typing_extensions.TypedDict):
     """The given parameters are individually valid but cannot be used in the given combination."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    validCombinations: List[List[str]]
-
-    providedParameters: List[str]
+    validCombinations: typing.List[typing.List[str]]
+    providedParameters: typing.List[str]
 
 
 @dataclass
-class InvalidParameterCombination(BadRequestError):
-    name: Literal["InvalidParameterCombination"]
+class InvalidParameterCombination(errors.BadRequestError):
+    name: typing.Literal["InvalidParameterCombination"]
     parameters: InvalidParameterCombinationParameters
     error_instance_id: str
 

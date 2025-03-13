@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._object_type_rid import ObjectTypeRid
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class ActionEditsReadOnlyEntityParameters(TypedDict):
+class ActionEditsReadOnlyEntityParameters(typing_extensions.TypedDict):
     """The given action request performs edits on a type that is read-only or does not allow edits."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    entityTypeRid: NotRequired[ObjectTypeRid]
+    entityTypeRid: typing_extensions.NotRequired[ontologies_models.ObjectTypeRid]
 
 
 @dataclass
-class ActionEditsReadOnlyEntity(BadRequestError):
-    name: Literal["ActionEditsReadOnlyEntity"]
+class ActionEditsReadOnlyEntity(errors.BadRequestError):
+    name: typing.Literal["ActionEditsReadOnlyEntity"]
     parameters: ActionEditsReadOnlyEntityParameters
     error_instance_id: str
 

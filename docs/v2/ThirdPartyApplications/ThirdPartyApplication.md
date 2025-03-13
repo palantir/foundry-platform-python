@@ -11,8 +11,8 @@ Get the ThirdPartyApplication with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | thirdPartyApplicationRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ThirdPartyApplication**
@@ -28,11 +28,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ThirdPartyApplicationRid | thirdPartyApplicationRid
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.functions.models._query_api_name import QueryApiName
+from foundry import _errors as errors
+from foundry.v2.functions import models as functions_models
 
 
-class ExecuteQueryPermissionDeniedParameters(TypedDict):
+class ExecuteQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not execute the Query."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryApiName: QueryApiName
+    queryApiName: functions_models.QueryApiName
 
 
 @dataclass
-class ExecuteQueryPermissionDenied(PermissionDeniedError):
-    name: Literal["ExecuteQueryPermissionDenied"]
+class ExecuteQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ExecuteQueryPermissionDenied"]
     parameters: ExecuteQueryPermissionDeniedParameters
     error_instance_id: str
 

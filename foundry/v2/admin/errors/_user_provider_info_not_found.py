@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class UserProviderInfoNotFoundParameters(TypedDict):
+class UserProviderInfoNotFoundParameters(typing_extensions.TypedDict):
     """The given UserProviderInfo could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: PrincipalId
+    userId: core_models.PrincipalId
 
 
 @dataclass
-class UserProviderInfoNotFound(NotFoundError):
-    name: Literal["UserProviderInfoNotFound"]
+class UserProviderInfoNotFound(errors.NotFoundError):
+    name: typing.Literal["UserProviderInfoNotFound"]
     parameters: UserProviderInfoNotFoundParameters
     error_instance_id: str
 

@@ -13,56 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.ontologies.models._aggregate_objects_response_v2 import (
-    AggregateObjectsResponseV2,
-)  # NOQA
-from foundry.v2.ontologies.models._aggregation_accuracy_request import (
-    AggregationAccuracyRequest,
-)  # NOQA
-from foundry.v2.ontologies.models._aggregation_group_by_v2 import AggregationGroupByV2
-from foundry.v2.ontologies.models._aggregation_group_by_v2_dict import (
-    AggregationGroupByV2Dict,
-)  # NOQA
-from foundry.v2.ontologies.models._aggregation_v2 import AggregationV2
-from foundry.v2.ontologies.models._aggregation_v2_dict import AggregationV2Dict
-from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v2.ontologies.models._create_temporary_object_set_response_v2 import (
-    CreateTemporaryObjectSetResponseV2,
-)  # NOQA
-from foundry.v2.ontologies.models._load_object_set_response_v2 import (
-    LoadObjectSetResponseV2,
-)  # NOQA
-from foundry.v2.ontologies.models._object_set import ObjectSet
-from foundry.v2.ontologies.models._object_set_dict import ObjectSetDict
-from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
-from foundry.v2.ontologies.models._search_order_by_v2 import SearchOrderByV2
-from foundry.v2.ontologies.models._search_order_by_v2_dict import SearchOrderByV2Dict
-from foundry.v2.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class OntologyObjectSetClient:
@@ -76,14 +35,14 @@ class OntologyObjectSetClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _OntologyObjectSetClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -91,27 +50,33 @@ class OntologyObjectSetClient:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
-        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-        object_set: Union[ObjectSet, ObjectSetDict],
-        accuracy: Optional[AggregationAccuracyRequest] = None,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> AggregateObjectsResponseV2:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
+            ]
+        ],
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.AggregateObjectsResponseV2:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -121,18 +86,18 @@ class OntologyObjectSetClient:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: AggregateObjectsResponseV2
+        :rtype: ontologies_models.AggregateObjectsResponseV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
@@ -152,49 +117,60 @@ class OntologyObjectSetClient:
                     "groupBy": group_by,
                     "accuracy": accuracy,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
-                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-                        "accuracy": Optional[AggregationAccuracyRequest],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
+                            ]
+                        ],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupByV2,
+                                ontologies_models.AggregationGroupByV2Dict,
+                            ]
+                        ],
+                        "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
-                response_type=AggregateObjectsResponseV2,
+                response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create_temporary(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: Union[ObjectSet, ObjectSetDict],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> CreateTemporaryObjectSetResponseV2:
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.CreateTemporaryObjectSetResponseV2:
         """
         Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: CreateTemporaryObjectSetResponseV2
+        :rtype: ontologies_models.CreateTemporaryObjectSetResponseV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={},
@@ -208,45 +184,47 @@ class OntologyObjectSetClient:
                 body={
                     "objectSet": object_set,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
                     },
                 ),
-                response_type=CreateTemporaryObjectSetResponseV2,
+                response_type=ontologies_models.CreateTemporaryObjectSetResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        object_set_rid: ObjectSetRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_set_rid: ontologies_models.ObjectSetRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ObjectSet:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ObjectSet:
         """
         Gets the definition of the `ObjectSet` with the given RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_set_rid: objectSetRid
+        :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ObjectSet
+        :rtype: ontologies_models.ObjectSet
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectSets/{objectSetRid}",
                 query_params={},
@@ -259,29 +237,31 @@ class OntologyObjectSetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ObjectSet,
+                response_type=ontologies_models.ObjectSet,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def load(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: Union[ObjectSet, ObjectSetDict],
-        select: List[SelectedPropertyApiName],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> LoadObjectSetResponseV2:
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        select: typing.List[ontologies_models.SelectedPropertyApiName],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.LoadObjectSetResponseV2:
         """
         Load the ontology objects present in the `ObjectSet` from the provided object set definition.
 
@@ -292,19 +272,19 @@ class OntologyObjectSetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
@@ -313,11 +293,11 @@ class OntologyObjectSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: LoadObjectSetResponseV2
+        :rtype: ontologies_models.LoadObjectSetResponseV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
@@ -339,18 +319,25 @@ class OntologyObjectSetClient:
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
-                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
-                        "select": List[SelectedPropertyApiName],
-                        "pageToken": Optional[PageToken],
-                        "pageSize": Optional[PageSize],
-                        "excludeRid": Optional[bool],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderByV2,
+                                ontologies_models.SearchOrderByV2Dict,
+                            ]
+                        ],
+                        "select": typing.List[ontologies_models.SelectedPropertyApiName],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "excludeRid": typing.Optional[bool],
                     },
                 ),
-                response_type=LoadObjectSetResponseV2,
+                response_type=ontologies_models.LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -368,36 +355,42 @@ class _OntologyObjectSetClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
-        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-        object_set: Union[ObjectSet, ObjectSetDict],
-        accuracy: Optional[AggregationAccuracyRequest] = None,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[AggregateObjectsResponseV2]:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
+            ]
+        ],
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.AggregateObjectsResponseV2]:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -407,18 +400,18 @@ class _OntologyObjectSetClientRaw:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[AggregateObjectsResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.AggregateObjectsResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
@@ -438,49 +431,60 @@ class _OntologyObjectSetClientRaw:
                     "groupBy": group_by,
                     "accuracy": accuracy,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
-                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-                        "accuracy": Optional[AggregationAccuracyRequest],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
+                            ]
+                        ],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupByV2,
+                                ontologies_models.AggregationGroupByV2Dict,
+                            ]
+                        ],
+                        "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
-                response_type=AggregateObjectsResponseV2,
+                response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create_temporary(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: Union[ObjectSet, ObjectSetDict],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[CreateTemporaryObjectSetResponseV2]:
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.CreateTemporaryObjectSetResponseV2]:
         """
         Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[CreateTemporaryObjectSetResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.CreateTemporaryObjectSetResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={},
@@ -494,45 +498,47 @@ class _OntologyObjectSetClientRaw:
                 body={
                     "objectSet": object_set,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
                     },
                 ),
-                response_type=CreateTemporaryObjectSetResponseV2,
+                response_type=ontologies_models.CreateTemporaryObjectSetResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        object_set_rid: ObjectSetRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_set_rid: ontologies_models.ObjectSetRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ObjectSet]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ObjectSet]:
         """
         Gets the definition of the `ObjectSet` with the given RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_set_rid: objectSetRid
+        :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ObjectSet]
+        :rtype: core.ApiResponse[ontologies_models.ObjectSet]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectSets/{objectSetRid}",
                 query_params={},
@@ -545,29 +551,31 @@ class _OntologyObjectSetClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ObjectSet,
+                response_type=ontologies_models.ObjectSet,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def load(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: Union[ObjectSet, ObjectSetDict],
-        select: List[SelectedPropertyApiName],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[LoadObjectSetResponseV2]:
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        select: typing.List[ontologies_models.SelectedPropertyApiName],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.LoadObjectSetResponseV2]:
         """
         Load the ontology objects present in the `ObjectSet` from the provided object set definition.
 
@@ -578,19 +586,19 @@ class _OntologyObjectSetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
@@ -599,11 +607,11 @@ class _OntologyObjectSetClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[LoadObjectSetResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.LoadObjectSetResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
@@ -625,18 +633,25 @@ class _OntologyObjectSetClientRaw:
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
-                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
-                        "select": List[SelectedPropertyApiName],
-                        "pageToken": Optional[PageToken],
-                        "pageSize": Optional[PageSize],
-                        "excludeRid": Optional[bool],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderByV2,
+                                ontologies_models.SearchOrderByV2Dict,
+                            ]
+                        ],
+                        "select": typing.List[ontologies_models.SelectedPropertyApiName],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "excludeRid": typing.Optional[bool],
                     },
                 ),
-                response_type=LoadObjectSetResponseV2,
+                response_type=ontologies_models.LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -654,36 +669,42 @@ class _OntologyObjectSetClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        aggregation: List[Union[AggregationV2, AggregationV2Dict]],
-        group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-        object_set: Union[ObjectSet, ObjectSetDict],
-        accuracy: Optional[AggregationAccuracyRequest] = None,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[AggregateObjectsResponseV2]:
+        aggregation: typing.List[
+            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
+        ],
+        group_by: typing.List[
+            typing.Union[
+                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
+            ]
+        ],
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.AggregateObjectsResponseV2]:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
@@ -693,18 +714,18 @@ class _OntologyObjectSetClientStreaming:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[AggregateObjectsResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.AggregateObjectsResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
@@ -724,49 +745,60 @@ class _OntologyObjectSetClientStreaming:
                     "groupBy": group_by,
                     "accuracy": accuracy,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": List[Union[AggregationV2, AggregationV2Dict]],
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
-                        "groupBy": List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]],
-                        "accuracy": Optional[AggregationAccuracyRequest],
+                        "aggregation": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
+                            ]
+                        ],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "groupBy": typing.List[
+                            typing.Union[
+                                ontologies_models.AggregationGroupByV2,
+                                ontologies_models.AggregationGroupByV2Dict,
+                            ]
+                        ],
+                        "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
-                response_type=AggregateObjectsResponseV2,
+                response_type=ontologies_models.AggregateObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create_temporary(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: Union[ObjectSet, ObjectSetDict],
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[CreateTemporaryObjectSetResponseV2]:
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.CreateTemporaryObjectSetResponseV2]:
         """
         Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[CreateTemporaryObjectSetResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.CreateTemporaryObjectSetResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={},
@@ -780,45 +812,47 @@ class _OntologyObjectSetClientStreaming:
                 body={
                     "objectSet": object_set,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
                     },
                 ),
-                response_type=CreateTemporaryObjectSetResponseV2,
+                response_type=ontologies_models.CreateTemporaryObjectSetResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        object_set_rid: ObjectSetRid,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_set_rid: ontologies_models.ObjectSetRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ObjectSet]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ObjectSet]:
         """
         Gets the definition of the `ObjectSet` with the given RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_set_rid: objectSetRid
+        :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ObjectSet]
+        :rtype: core.StreamingContextManager[ontologies_models.ObjectSet]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectSets/{objectSetRid}",
                 query_params={},
@@ -831,29 +865,31 @@ class _OntologyObjectSetClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ObjectSet,
+                response_type=ontologies_models.ObjectSet,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def load(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: Union[ObjectSet, ObjectSetDict],
-        select: List[SelectedPropertyApiName],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[LoadObjectSetResponseV2]:
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        select: typing.List[ontologies_models.SelectedPropertyApiName],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.LoadObjectSetResponseV2]:
         """
         Load the ontology objects present in the `ObjectSet` from the provided object set definition.
 
@@ -864,19 +900,19 @@ class _OntologyObjectSetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
@@ -885,11 +921,11 @@ class _OntologyObjectSetClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[LoadObjectSetResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.LoadObjectSetResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
@@ -911,18 +947,25 @@ class _OntologyObjectSetClientStreaming:
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": Union[ObjectSet, ObjectSetDict],
-                        "orderBy": Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]],
-                        "select": List[SelectedPropertyApiName],
-                        "pageToken": Optional[PageToken],
-                        "pageSize": Optional[PageSize],
-                        "excludeRid": Optional[bool],
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderByV2,
+                                ontologies_models.SearchOrderByV2Dict,
+                            ]
+                        ],
+                        "select": typing.List[ontologies_models.SelectedPropertyApiName],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "excludeRid": typing.Optional[bool],
                     },
                 ),
-                response_type=LoadObjectSetResponseV2,
+                response_type=ontologies_models.LoadObjectSetResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

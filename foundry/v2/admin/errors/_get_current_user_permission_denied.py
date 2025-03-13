@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class GetCurrentUserPermissionDeniedParameters(TypedDict):
+class GetCurrentUserPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getCurrent the User."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class GetCurrentUserPermissionDenied(PermissionDeniedError):
-    name: Literal["GetCurrentUserPermissionDenied"]
+class GetCurrentUserPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetCurrentUserPermissionDenied"]
     parameters: GetCurrentUserPermissionDeniedParameters
     error_instance_id: str
 

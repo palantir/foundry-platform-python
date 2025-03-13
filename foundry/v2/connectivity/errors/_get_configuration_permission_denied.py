@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class GetConfigurationPermissionDeniedParameters(TypedDict):
+class GetConfigurationPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getConfiguration the Connection."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    connectionRid: ConnectionRid
+    connectionRid: connectivity_models.ConnectionRid
 
 
 @dataclass
-class GetConfigurationPermissionDenied(PermissionDeniedError):
-    name: Literal["GetConfigurationPermissionDenied"]
+class GetConfigurationPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetConfigurationPermissionDenied"]
     parameters: GetConfigurationPermissionDeniedParameters
     error_instance_id: str
 

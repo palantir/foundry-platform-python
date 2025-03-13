@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
-from foundry.v2.aip_agents.models._session_rid import SessionRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class ContextSizeExceededLimitParameters(TypedDict):
+class ContextSizeExceededLimitParameters(typing_extensions.TypedDict):
     """
     Failed to generate a response for a session because the context size of the LLM has been exceeded.
     Clients should either retry with a shorter message or create a new session and try re-sending the message.
@@ -33,17 +30,15 @@ class ContextSizeExceededLimitParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
-
-    sessionRid: SessionRid
-
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: aip_agents_models.SessionRid
     details: str
     """Any additional details provided for the error."""
 
 
 @dataclass
-class ContextSizeExceededLimit(BadRequestError):
-    name: Literal["ContextSizeExceededLimit"]
+class ContextSizeExceededLimit(errors.BadRequestError):
+    name: typing.Literal["ContextSizeExceededLimit"]
     parameters: ContextSizeExceededLimitParameters
     error_instance_id: str
 

@@ -13,43 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v2.ontologies.models._link_type_api_name import LinkTypeApiName
-from foundry.v2.ontologies.models._list_linked_objects_response_v2 import (
-    ListLinkedObjectsResponseV2,
-)  # NOQA
-from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._ontology_object_v2 import OntologyObjectV2
-from foundry.v2.ontologies.models._order_by import OrderBy
-from foundry.v2.ontologies.models._property_value_escaped_string import (
-    PropertyValueEscapedString,
-)  # NOQA
-from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
-from foundry.v2.ontologies.models._selected_property_api_name import SelectedPropertyApiName  # NOQA
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class LinkedObjectClient:
@@ -63,36 +36,36 @@ class LinkedObjectClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _LinkedObjectClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _LinkedObjectClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_linked_object(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
-        linked_object_primary_key: PropertyValueEscapedString,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
+        linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        package_name: Optional[SdkPackageName] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> OntologyObjectV2:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.OntologyObjectV2:
         """
         Get a specific linked object that originates from another object.
 
@@ -100,32 +73,32 @@ class LinkedObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param linked_object_primary_key: linkedObjectPrimaryKey
+        :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: OntologyObjectV2
+        :rtype: ontologies_models.OntologyObjectV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
@@ -146,31 +119,31 @@ class LinkedObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObjectV2,
+                response_type=ontologies_models.OntologyObjectV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_linked_objects(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[OrderBy] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[OntologyObjectV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[ontologies_models.OntologyObjectV2]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -188,36 +161,36 @@ class LinkedObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[OntologyObjectV2]
+        :rtype: core.ResourceIterator[ontologies_models.OntologyObjectV2]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -240,31 +213,31 @@ class LinkedObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponseV2,
+                response_type=ontologies_models.ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_linked_objects(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[OrderBy] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListLinkedObjectsResponseV2:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListLinkedObjectsResponseV2:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -282,32 +255,32 @@ class LinkedObjectClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListLinkedObjectsResponseV2
+        :rtype: ontologies_models.ListLinkedObjectsResponseV2
         """
 
         warnings.warn(
@@ -317,7 +290,7 @@ class LinkedObjectClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -340,7 +313,7 @@ class LinkedObjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponseV2,
+                response_type=ontologies_models.ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -358,32 +331,32 @@ class _LinkedObjectClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_linked_object(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
-        linked_object_primary_key: PropertyValueEscapedString,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
+        linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        package_name: Optional[SdkPackageName] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[OntologyObjectV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.OntologyObjectV2]:
         """
         Get a specific linked object that originates from another object.
 
@@ -391,32 +364,32 @@ class _LinkedObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param linked_object_primary_key: linkedObjectPrimaryKey
+        :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[OntologyObjectV2]
+        :rtype: core.ApiResponse[ontologies_models.OntologyObjectV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
@@ -437,31 +410,31 @@ class _LinkedObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObjectV2,
+                response_type=ontologies_models.OntologyObjectV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_linked_objects(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[OrderBy] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListLinkedObjectsResponseV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListLinkedObjectsResponseV2]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -479,36 +452,36 @@ class _LinkedObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListLinkedObjectsResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.ListLinkedObjectsResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -531,31 +504,31 @@ class _LinkedObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponseV2,
+                response_type=ontologies_models.ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_linked_objects(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[OrderBy] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListLinkedObjectsResponseV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListLinkedObjectsResponseV2]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -573,32 +546,32 @@ class _LinkedObjectClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListLinkedObjectsResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.ListLinkedObjectsResponseV2]
         """
 
         warnings.warn(
@@ -608,7 +581,7 @@ class _LinkedObjectClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -631,7 +604,7 @@ class _LinkedObjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponseV2,
+                response_type=ontologies_models.ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -649,32 +622,32 @@ class _LinkedObjectClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_linked_object(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
-        linked_object_primary_key: PropertyValueEscapedString,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
+        linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        package_name: Optional[SdkPackageName] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[OntologyObjectV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.OntologyObjectV2]:
         """
         Get a specific linked object that originates from another object.
 
@@ -682,32 +655,32 @@ class _LinkedObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param linked_object_primary_key: linkedObjectPrimaryKey
+        :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[OntologyObjectV2]
+        :rtype: core.StreamingContextManager[ontologies_models.OntologyObjectV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
@@ -728,31 +701,31 @@ class _LinkedObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=OntologyObjectV2,
+                response_type=ontologies_models.OntologyObjectV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_linked_objects(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[OrderBy] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListLinkedObjectsResponseV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponseV2]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -770,36 +743,36 @@ class _LinkedObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListLinkedObjectsResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -822,31 +795,31 @@ class _LinkedObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponseV2,
+                response_type=ontologies_models.ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_linked_objects(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        link_type: LinkTypeApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        exclude_rid: Optional[bool] = None,
-        order_by: Optional[OrderBy] = None,
-        package_name: Optional[SdkPackageName] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        select: Optional[List[SelectedPropertyApiName]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListLinkedObjectsResponseV2]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[ontologies_models.OrderBy] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponseV2]:
         """
         Lists the linked objects for a specific object and the given link type.
 
@@ -864,32 +837,32 @@ class _LinkedObjectClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param link_type: linkType
+        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param exclude_rid: excludeRid
+        :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param order_by: orderBy
+        :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
-        :param select: select
+        :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListLinkedObjectsResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.ListLinkedObjectsResponseV2]
         """
 
         warnings.warn(
@@ -899,7 +872,7 @@ class _LinkedObjectClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
@@ -922,7 +895,7 @@ class _LinkedObjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListLinkedObjectsResponseV2,
+                response_type=ontologies_models.ListLinkedObjectsResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

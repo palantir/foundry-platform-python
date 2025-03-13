@@ -14,9 +14,9 @@ Method | HTTP request | Release Stage |
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
+**marking_id** | MarkingId |  |  |
 **role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -32,11 +32,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# MarkingId
 marking_id = None
-# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
+# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
 role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -74,13 +74,13 @@ List all principals who are assigned a role for the given Marking. Ignores the `
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**marking_id** | MarkingId |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**ResourceIterator[MarkingRoleAssignment]**
+**ListMarkingRoleAssignmentsResponse**
 
 ### Example
 
@@ -93,13 +93,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# MarkingId
 marking_id = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -137,10 +137,10 @@ List all principals who are assigned a role for the given Marking. Ignores the `
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**marking_id** | MarkingId |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListMarkingRoleAssignmentsResponse**
@@ -156,13 +156,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# MarkingId
 marking_id = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -200,9 +200,9 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
+**marking_id** | MarkingId |  |  |
 **role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -218,11 +218,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# MarkingId
 marking_id = None
-# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] |
+# List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
 role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

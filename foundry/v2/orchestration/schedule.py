@@ -13,64 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.orchestration import errors as orchestration_errors
-from foundry.v2.orchestration.models._create_schedule_request_action import (
-    CreateScheduleRequestAction,
-)  # NOQA
-from foundry.v2.orchestration.models._create_schedule_request_action_dict import (
-    CreateScheduleRequestActionDict,
-)  # NOQA
-from foundry.v2.orchestration.models._create_schedule_request_scope_mode import (
-    CreateScheduleRequestScopeMode,
-)  # NOQA
-from foundry.v2.orchestration.models._create_schedule_request_scope_mode_dict import (
-    CreateScheduleRequestScopeModeDict,
-)  # NOQA
-from foundry.v2.orchestration.models._list_runs_of_schedule_response import (
-    ListRunsOfScheduleResponse,
-)  # NOQA
-from foundry.v2.orchestration.models._replace_schedule_request_action import (
-    ReplaceScheduleRequestAction,
-)  # NOQA
-from foundry.v2.orchestration.models._replace_schedule_request_action_dict import (
-    ReplaceScheduleRequestActionDict,
-)  # NOQA
-from foundry.v2.orchestration.models._replace_schedule_request_scope_mode import (
-    ReplaceScheduleRequestScopeMode,
-)  # NOQA
-from foundry.v2.orchestration.models._replace_schedule_request_scope_mode_dict import (
-    ReplaceScheduleRequestScopeModeDict,
-)  # NOQA
-from foundry.v2.orchestration.models._schedule import Schedule
-from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
-from foundry.v2.orchestration.models._schedule_run import ScheduleRun
-from foundry.v2.orchestration.models._trigger import Trigger
-from foundry.v2.orchestration.models._trigger_dict import TriggerDict
+from foundry.v2.orchestration import models as orchestration_models
 
 
 class ScheduleClient:
@@ -84,35 +37,43 @@ class ScheduleClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ScheduleClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ScheduleClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict],
-        description: Optional[str] = None,
-        display_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[
-            Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]
+        action: typing.Union[
+            orchestration_models.CreateScheduleRequestAction,
+            orchestration_models.CreateScheduleRequestActionDict,
+        ],
+        description: typing.Optional[str] = None,
+        display_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scope_mode: typing.Optional[
+            typing.Union[
+                orchestration_models.CreateScheduleRequestScopeMode,
+                orchestration_models.CreateScheduleRequestScopeModeDict,
+            ]
         ] = None,
-        trigger: Optional[Union[Trigger, TriggerDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Schedule:
+        trigger: typing.Optional[
+            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.Schedule:
         """
         Creates a new Schedule.
         :param action:
@@ -121,7 +82,7 @@ class ScheduleClient:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
@@ -130,13 +91,13 @@ class ScheduleClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Schedule
+        :rtype: orchestration_models.Schedule
 
         :raises CreateSchedulePermissionDenied: Could not create the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules",
                 query_params={
@@ -154,23 +115,29 @@ class ScheduleClient:
                     "trigger": trigger,
                     "scopeMode": scope_mode,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[str],
-                        "description": Optional[str],
-                        "action": Union[
-                            CreateScheduleRequestAction, CreateScheduleRequestActionDict
+                        "displayName": typing.Optional[str],
+                        "description": typing.Optional[str],
+                        "action": typing.Union[
+                            orchestration_models.CreateScheduleRequestAction,
+                            orchestration_models.CreateScheduleRequestActionDict,
                         ],
-                        "trigger": Optional[Union[Trigger, TriggerDict]],
-                        "scopeMode": Optional[
-                            Union[
-                                CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict
+                        "trigger": typing.Optional[
+                            typing.Union[
+                                orchestration_models.Trigger, orchestration_models.TriggerDict
+                            ]
+                        ],
+                        "scopeMode": typing.Optional[
+                            typing.Union[
+                                orchestration_models.CreateScheduleRequestScopeMode,
+                                orchestration_models.CreateScheduleRequestScopeModeDict,
                             ]
                         ],
                     },
                 ),
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateSchedulePermissionDenied": orchestration_errors.CreateSchedulePermissionDenied,
@@ -178,21 +145,21 @@ class ScheduleClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Delete the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -203,7 +170,7 @@ class ScheduleClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -223,32 +190,32 @@ class ScheduleClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Schedule:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.Schedule:
         """
         Get the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Schedule
+        :rtype: orchestration_models.Schedule
 
         :raises ScheduleNotFound: The given Schedule could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -262,7 +229,7 @@ class ScheduleClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
@@ -270,21 +237,21 @@ class ScheduleClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def pause(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -295,7 +262,7 @@ class ScheduleClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/pause",
                 query_params={
@@ -315,26 +282,34 @@ class ScheduleClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict],
-        description: Optional[str] = None,
-        display_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[
-            Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]
+        action: typing.Union[
+            orchestration_models.ReplaceScheduleRequestAction,
+            orchestration_models.ReplaceScheduleRequestActionDict,
+        ],
+        description: typing.Optional[str] = None,
+        display_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scope_mode: typing.Optional[
+            typing.Union[
+                orchestration_models.ReplaceScheduleRequestScopeMode,
+                orchestration_models.ReplaceScheduleRequestScopeModeDict,
+            ]
         ] = None,
-        trigger: Optional[Union[Trigger, TriggerDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Schedule:
+        trigger: typing.Optional[
+            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.Schedule:
         """
         Replace the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
         :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
@@ -342,7 +317,7 @@ class ScheduleClient:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
@@ -351,13 +326,13 @@ class ScheduleClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Schedule
+        :rtype: orchestration_models.Schedule
 
         :raises ReplaceSchedulePermissionDenied: Could not replace the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -377,23 +352,29 @@ class ScheduleClient:
                     "trigger": trigger,
                     "scopeMode": scope_mode,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[str],
-                        "description": Optional[str],
-                        "action": Union[
-                            ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict
+                        "displayName": typing.Optional[str],
+                        "description": typing.Optional[str],
+                        "action": typing.Union[
+                            orchestration_models.ReplaceScheduleRequestAction,
+                            orchestration_models.ReplaceScheduleRequestActionDict,
                         ],
-                        "trigger": Optional[Union[Trigger, TriggerDict]],
-                        "scopeMode": Optional[
-                            Union[
-                                ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict
+                        "trigger": typing.Optional[
+                            typing.Union[
+                                orchestration_models.Trigger, orchestration_models.TriggerDict
+                            ]
+                        ],
+                        "scopeMode": typing.Optional[
+                            typing.Union[
+                                orchestration_models.ReplaceScheduleRequestScopeMode,
+                                orchestration_models.ReplaceScheduleRequestScopeModeDict,
                             ]
                         ],
                     },
                 ),
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ReplaceSchedulePermissionDenied": orchestration_errors.ReplaceSchedulePermissionDenied,
@@ -401,32 +382,32 @@ class ScheduleClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def run(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ScheduleRun:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.ScheduleRun:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ScheduleRun
+        :rtype: orchestration_models.ScheduleRun
 
         :raises RunSchedulePermissionDenied: Could not run the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/run",
                 query_params={
@@ -440,7 +421,7 @@ class ScheduleClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ScheduleRun,
+                response_type=orchestration_models.ScheduleRun,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RunSchedulePermissionDenied": orchestration_errors.RunSchedulePermissionDenied,
@@ -448,37 +429,37 @@ class ScheduleClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def runs(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[ScheduleRun]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[orchestration_models.ScheduleRun]:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[ScheduleRun]
+        :rtype: core.ResourceIterator[orchestration_models.ScheduleRun]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
                 query_params={
@@ -494,39 +475,39 @@ class ScheduleClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListRunsOfScheduleResponse,
+                response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def runs_page(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListRunsOfScheduleResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> orchestration_models.ListRunsOfScheduleResponse:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListRunsOfScheduleResponse
+        :rtype: orchestration_models.ListRunsOfScheduleResponse
         """
 
         warnings.warn(
@@ -536,7 +517,7 @@ class ScheduleClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
                 query_params={
@@ -552,27 +533,27 @@ class ScheduleClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListRunsOfScheduleResponse,
+                response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def unpause(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -583,7 +564,7 @@ class ScheduleClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/unpause",
                 query_params={
@@ -615,31 +596,39 @@ class _ScheduleClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict],
-        description: Optional[str] = None,
-        display_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[
-            Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]
+        action: typing.Union[
+            orchestration_models.CreateScheduleRequestAction,
+            orchestration_models.CreateScheduleRequestActionDict,
+        ],
+        description: typing.Optional[str] = None,
+        display_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scope_mode: typing.Optional[
+            typing.Union[
+                orchestration_models.CreateScheduleRequestScopeMode,
+                orchestration_models.CreateScheduleRequestScopeModeDict,
+            ]
         ] = None,
-        trigger: Optional[Union[Trigger, TriggerDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Schedule]:
+        trigger: typing.Optional[
+            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.Schedule]:
         """
         Creates a new Schedule.
         :param action:
@@ -648,7 +637,7 @@ class _ScheduleClientRaw:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
@@ -657,13 +646,13 @@ class _ScheduleClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Schedule]
+        :rtype: core.ApiResponse[orchestration_models.Schedule]
 
         :raises CreateSchedulePermissionDenied: Could not create the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules",
                 query_params={
@@ -681,23 +670,29 @@ class _ScheduleClientRaw:
                     "trigger": trigger,
                     "scopeMode": scope_mode,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[str],
-                        "description": Optional[str],
-                        "action": Union[
-                            CreateScheduleRequestAction, CreateScheduleRequestActionDict
+                        "displayName": typing.Optional[str],
+                        "description": typing.Optional[str],
+                        "action": typing.Union[
+                            orchestration_models.CreateScheduleRequestAction,
+                            orchestration_models.CreateScheduleRequestActionDict,
                         ],
-                        "trigger": Optional[Union[Trigger, TriggerDict]],
-                        "scopeMode": Optional[
-                            Union[
-                                CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict
+                        "trigger": typing.Optional[
+                            typing.Union[
+                                orchestration_models.Trigger, orchestration_models.TriggerDict
+                            ]
+                        ],
+                        "scopeMode": typing.Optional[
+                            typing.Union[
+                                orchestration_models.CreateScheduleRequestScopeMode,
+                                orchestration_models.CreateScheduleRequestScopeModeDict,
                             ]
                         ],
                     },
                 ),
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateSchedulePermissionDenied": orchestration_errors.CreateSchedulePermissionDenied,
@@ -705,32 +700,32 @@ class _ScheduleClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Delete the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises DeleteSchedulePermissionDenied: Could not delete the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -750,32 +745,32 @@ class _ScheduleClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Schedule]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.Schedule]:
         """
         Get the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Schedule]
+        :rtype: core.ApiResponse[orchestration_models.Schedule]
 
         :raises ScheduleNotFound: The given Schedule could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -789,7 +784,7 @@ class _ScheduleClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
@@ -797,32 +792,32 @@ class _ScheduleClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def pause(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises PauseSchedulePermissionDenied: Could not pause the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/pause",
                 query_params={
@@ -842,26 +837,34 @@ class _ScheduleClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict],
-        description: Optional[str] = None,
-        display_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[
-            Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]
+        action: typing.Union[
+            orchestration_models.ReplaceScheduleRequestAction,
+            orchestration_models.ReplaceScheduleRequestActionDict,
+        ],
+        description: typing.Optional[str] = None,
+        display_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scope_mode: typing.Optional[
+            typing.Union[
+                orchestration_models.ReplaceScheduleRequestScopeMode,
+                orchestration_models.ReplaceScheduleRequestScopeModeDict,
+            ]
         ] = None,
-        trigger: Optional[Union[Trigger, TriggerDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Schedule]:
+        trigger: typing.Optional[
+            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.Schedule]:
         """
         Replace the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
         :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
@@ -869,7 +872,7 @@ class _ScheduleClientRaw:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
@@ -878,13 +881,13 @@ class _ScheduleClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Schedule]
+        :rtype: core.ApiResponse[orchestration_models.Schedule]
 
         :raises ReplaceSchedulePermissionDenied: Could not replace the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -904,23 +907,29 @@ class _ScheduleClientRaw:
                     "trigger": trigger,
                     "scopeMode": scope_mode,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[str],
-                        "description": Optional[str],
-                        "action": Union[
-                            ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict
+                        "displayName": typing.Optional[str],
+                        "description": typing.Optional[str],
+                        "action": typing.Union[
+                            orchestration_models.ReplaceScheduleRequestAction,
+                            orchestration_models.ReplaceScheduleRequestActionDict,
                         ],
-                        "trigger": Optional[Union[Trigger, TriggerDict]],
-                        "scopeMode": Optional[
-                            Union[
-                                ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict
+                        "trigger": typing.Optional[
+                            typing.Union[
+                                orchestration_models.Trigger, orchestration_models.TriggerDict
+                            ]
+                        ],
+                        "scopeMode": typing.Optional[
+                            typing.Union[
+                                orchestration_models.ReplaceScheduleRequestScopeMode,
+                                orchestration_models.ReplaceScheduleRequestScopeModeDict,
                             ]
                         ],
                     },
                 ),
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ReplaceSchedulePermissionDenied": orchestration_errors.ReplaceSchedulePermissionDenied,
@@ -928,32 +937,32 @@ class _ScheduleClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def run(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ScheduleRun]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.ScheduleRun]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ScheduleRun]
+        :rtype: core.ApiResponse[orchestration_models.ScheduleRun]
 
         :raises RunSchedulePermissionDenied: Could not run the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/run",
                 query_params={
@@ -967,7 +976,7 @@ class _ScheduleClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ScheduleRun,
+                response_type=orchestration_models.ScheduleRun,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RunSchedulePermissionDenied": orchestration_errors.RunSchedulePermissionDenied,
@@ -975,37 +984,37 @@ class _ScheduleClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def runs(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListRunsOfScheduleResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.ListRunsOfScheduleResponse]:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListRunsOfScheduleResponse]
+        :rtype: core.ApiResponse[orchestration_models.ListRunsOfScheduleResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
                 query_params={
@@ -1021,39 +1030,39 @@ class _ScheduleClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListRunsOfScheduleResponse,
+                response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def runs_page(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListRunsOfScheduleResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[orchestration_models.ListRunsOfScheduleResponse]:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListRunsOfScheduleResponse]
+        :rtype: core.ApiResponse[orchestration_models.ListRunsOfScheduleResponse]
         """
 
         warnings.warn(
@@ -1063,7 +1072,7 @@ class _ScheduleClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
                 query_params={
@@ -1079,38 +1088,38 @@ class _ScheduleClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListRunsOfScheduleResponse,
+                response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def unpause(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises UnpauseSchedulePermissionDenied: Could not unpause the Schedule.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/unpause",
                 query_params={
@@ -1142,31 +1151,39 @@ class _ScheduleClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict],
-        description: Optional[str] = None,
-        display_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[
-            Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]
+        action: typing.Union[
+            orchestration_models.CreateScheduleRequestAction,
+            orchestration_models.CreateScheduleRequestActionDict,
+        ],
+        description: typing.Optional[str] = None,
+        display_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scope_mode: typing.Optional[
+            typing.Union[
+                orchestration_models.CreateScheduleRequestScopeMode,
+                orchestration_models.CreateScheduleRequestScopeModeDict,
+            ]
         ] = None,
-        trigger: Optional[Union[Trigger, TriggerDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Schedule]:
+        trigger: typing.Optional[
+            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.Schedule]:
         """
         Creates a new Schedule.
         :param action:
@@ -1175,7 +1192,7 @@ class _ScheduleClientStreaming:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
@@ -1184,13 +1201,13 @@ class _ScheduleClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Schedule]
+        :rtype: core.StreamingContextManager[orchestration_models.Schedule]
 
         :raises CreateSchedulePermissionDenied: Could not create the Schedule.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules",
                 query_params={
@@ -1208,23 +1225,29 @@ class _ScheduleClientStreaming:
                     "trigger": trigger,
                     "scopeMode": scope_mode,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[str],
-                        "description": Optional[str],
-                        "action": Union[
-                            CreateScheduleRequestAction, CreateScheduleRequestActionDict
+                        "displayName": typing.Optional[str],
+                        "description": typing.Optional[str],
+                        "action": typing.Union[
+                            orchestration_models.CreateScheduleRequestAction,
+                            orchestration_models.CreateScheduleRequestActionDict,
                         ],
-                        "trigger": Optional[Union[Trigger, TriggerDict]],
-                        "scopeMode": Optional[
-                            Union[
-                                CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict
+                        "trigger": typing.Optional[
+                            typing.Union[
+                                orchestration_models.Trigger, orchestration_models.TriggerDict
+                            ]
+                        ],
+                        "scopeMode": typing.Optional[
+                            typing.Union[
+                                orchestration_models.CreateScheduleRequestScopeMode,
+                                orchestration_models.CreateScheduleRequestScopeModeDict,
                             ]
                         ],
                     },
                 ),
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateSchedulePermissionDenied": orchestration_errors.CreateSchedulePermissionDenied,
@@ -1232,32 +1255,32 @@ class _ScheduleClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Delete the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises DeleteSchedulePermissionDenied: Could not delete the Schedule.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -1277,32 +1300,32 @@ class _ScheduleClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Schedule]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.Schedule]:
         """
         Get the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Schedule]
+        :rtype: core.StreamingContextManager[orchestration_models.Schedule]
 
         :raises ScheduleNotFound: The given Schedule could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -1316,7 +1339,7 @@ class _ScheduleClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
@@ -1324,32 +1347,32 @@ class _ScheduleClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def pause(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises PauseSchedulePermissionDenied: Could not pause the Schedule.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/pause",
                 query_params={
@@ -1369,26 +1392,34 @@ class _ScheduleClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict],
-        description: Optional[str] = None,
-        display_name: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        scope_mode: Optional[
-            Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]
+        action: typing.Union[
+            orchestration_models.ReplaceScheduleRequestAction,
+            orchestration_models.ReplaceScheduleRequestActionDict,
+        ],
+        description: typing.Optional[str] = None,
+        display_name: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        scope_mode: typing.Optional[
+            typing.Union[
+                orchestration_models.ReplaceScheduleRequestScopeMode,
+                orchestration_models.ReplaceScheduleRequestScopeModeDict,
+            ]
         ] = None,
-        trigger: Optional[Union[Trigger, TriggerDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Schedule]:
+        trigger: typing.Optional[
+            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.Schedule]:
         """
         Replace the Schedule with the specified rid.
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
         :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
@@ -1396,7 +1427,7 @@ class _ScheduleClientStreaming:
         :type description: Optional[str]
         :param display_name:
         :type display_name: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
         :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
@@ -1405,13 +1436,13 @@ class _ScheduleClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Schedule]
+        :rtype: core.StreamingContextManager[orchestration_models.Schedule]
 
         :raises ReplaceSchedulePermissionDenied: Could not replace the Schedule.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
                 query_params={
@@ -1431,23 +1462,29 @@ class _ScheduleClientStreaming:
                     "trigger": trigger,
                     "scopeMode": scope_mode,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": Optional[str],
-                        "description": Optional[str],
-                        "action": Union[
-                            ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict
+                        "displayName": typing.Optional[str],
+                        "description": typing.Optional[str],
+                        "action": typing.Union[
+                            orchestration_models.ReplaceScheduleRequestAction,
+                            orchestration_models.ReplaceScheduleRequestActionDict,
                         ],
-                        "trigger": Optional[Union[Trigger, TriggerDict]],
-                        "scopeMode": Optional[
-                            Union[
-                                ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict
+                        "trigger": typing.Optional[
+                            typing.Union[
+                                orchestration_models.Trigger, orchestration_models.TriggerDict
+                            ]
+                        ],
+                        "scopeMode": typing.Optional[
+                            typing.Union[
+                                orchestration_models.ReplaceScheduleRequestScopeMode,
+                                orchestration_models.ReplaceScheduleRequestScopeModeDict,
                             ]
                         ],
                     },
                 ),
-                response_type=Schedule,
+                response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ReplaceSchedulePermissionDenied": orchestration_errors.ReplaceSchedulePermissionDenied,
@@ -1455,32 +1492,32 @@ class _ScheduleClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def run(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ScheduleRun]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.ScheduleRun]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ScheduleRun]
+        :rtype: core.StreamingContextManager[orchestration_models.ScheduleRun]
 
         :raises RunSchedulePermissionDenied: Could not run the Schedule.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/run",
                 query_params={
@@ -1494,7 +1531,7 @@ class _ScheduleClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ScheduleRun,
+                response_type=orchestration_models.ScheduleRun,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RunSchedulePermissionDenied": orchestration_errors.RunSchedulePermissionDenied,
@@ -1502,37 +1539,37 @@ class _ScheduleClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def runs(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListRunsOfScheduleResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.ListRunsOfScheduleResponse]:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListRunsOfScheduleResponse]
+        :rtype: core.StreamingContextManager[orchestration_models.ListRunsOfScheduleResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
                 query_params={
@@ -1548,39 +1585,39 @@ class _ScheduleClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListRunsOfScheduleResponse,
+                response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def runs_page(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListRunsOfScheduleResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[orchestration_models.ListRunsOfScheduleResponse]:
         """
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListRunsOfScheduleResponse]
+        :rtype: core.StreamingContextManager[orchestration_models.ListRunsOfScheduleResponse]
         """
 
         warnings.warn(
@@ -1590,7 +1627,7 @@ class _ScheduleClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
                 query_params={
@@ -1606,38 +1643,38 @@ class _ScheduleClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListRunsOfScheduleResponse,
+                response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def unpause(
         self,
-        schedule_rid: ScheduleRid,
+        schedule_rid: orchestration_models.ScheduleRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
-        :param schedule_rid: scheduleRid
+        :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises UnpauseSchedulePermissionDenied: Could not unpause the Schedule.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/unpause",
                 query_params={

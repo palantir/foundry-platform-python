@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.ontologies.models._parameter_id import ParameterId
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class ActionParameterInterfaceTypeNotFoundParameters(TypedDict):
+class ActionParameterInterfaceTypeNotFoundParameters(typing_extensions.TypedDict):
     """The parameter references an interface type that could not be found, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parameterId: ParameterId
+    parameterId: ontologies_models.ParameterId
 
 
 @dataclass
-class ActionParameterInterfaceTypeNotFound(NotFoundError):
-    name: Literal["ActionParameterInterfaceTypeNotFound"]
+class ActionParameterInterfaceTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["ActionParameterInterfaceTypeNotFound"]
     parameters: ActionParameterInterfaceTypeNotFoundParameters
     error_instance_id: str
 

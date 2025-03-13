@@ -13,37 +13,37 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Any
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidRangeQueryParameters(TypedDict):
+class InvalidRangeQueryParameters(typing_extensions.TypedDict):
     """The specified query range filter is invalid."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    lt: NotRequired[Any]
+    lt: typing_extensions.NotRequired[typing.Any]
     """Less than"""
-    gt: NotRequired[Any]
+
+    gt: typing_extensions.NotRequired[typing.Any]
     """Greater than"""
-    lte: NotRequired[Any]
+
+    lte: typing_extensions.NotRequired[typing.Any]
     """Less than or equal"""
-    gte: NotRequired[Any]
+
+    gte: typing_extensions.NotRequired[typing.Any]
     """Greater than or equal"""
+
     field: str
 
 
 @dataclass
-class InvalidRangeQuery(BadRequestError):
-    name: Literal["InvalidRangeQuery"]
+class InvalidRangeQuery(errors.BadRequestError):
+    name: typing.Literal["InvalidRangeQuery"]
     parameters: InvalidRangeQueryParameters
     error_instance_id: str
 

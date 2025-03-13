@@ -13,28 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.functions import errors as functions_errors
-from foundry.v2.functions.models._value_type import ValueType
-from foundry.v2.functions.models._value_type_rid import ValueTypeRid
+from foundry.v2.functions import models as functions_models
 
 
 class ValueTypeClient:
@@ -48,14 +37,14 @@ class ValueTypeClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ValueTypeClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -71,33 +60,33 @@ class ValueTypeClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: ValueTypeRid,
+        value_type_rid: functions_models.ValueTypeRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ValueType:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> functions_models.ValueType:
         """
         Gets a specific value type with the given RID. The latest version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ValueType
+        :rtype: functions_models.ValueType
 
         :raises ValueTypeNotFound: The given ValueType could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/functions/valueTypes/{valueTypeRid}",
                 query_params={
@@ -111,7 +100,7 @@ class ValueTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ValueType,
+                response_type=functions_models.ValueType,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ValueTypeNotFound": functions_errors.ValueTypeNotFound,
@@ -131,42 +120,42 @@ class _ValueTypeClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: ValueTypeRid,
+        value_type_rid: functions_models.ValueTypeRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ValueType]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[functions_models.ValueType]:
         """
         Gets a specific value type with the given RID. The latest version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ValueType]
+        :rtype: core.ApiResponse[functions_models.ValueType]
 
         :raises ValueTypeNotFound: The given ValueType could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/functions/valueTypes/{valueTypeRid}",
                 query_params={
@@ -180,7 +169,7 @@ class _ValueTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ValueType,
+                response_type=functions_models.ValueType,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ValueTypeNotFound": functions_errors.ValueTypeNotFound,
@@ -200,42 +189,42 @@ class _ValueTypeClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: ValueTypeRid,
+        value_type_rid: functions_models.ValueTypeRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ValueType]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[functions_models.ValueType]:
         """
         Gets a specific value type with the given RID. The latest version is returned.
 
-        :param value_type_rid: valueTypeRid
+        :param value_type_rid:
         :type value_type_rid: ValueTypeRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ValueType]
+        :rtype: core.StreamingContextManager[functions_models.ValueType]
 
         :raises ValueTypeNotFound: The given ValueType could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/functions/valueTypes/{valueTypeRid}",
                 query_params={
@@ -249,7 +238,7 @@ class _ValueTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ValueType,
+                response_type=functions_models.ValueType,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ValueTypeNotFound": functions_errors.ValueTypeNotFound,

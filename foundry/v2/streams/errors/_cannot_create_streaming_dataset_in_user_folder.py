@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class CannotCreateStreamingDatasetInUserFolderParameters(TypedDict):
+class CannotCreateStreamingDatasetInUserFolderParameters(typing_extensions.TypedDict):
     """Cannot create a streaming dataset in a user folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parentFolderRid: FolderRid
+    parentFolderRid: filesystem_models.FolderRid
 
 
 @dataclass
-class CannotCreateStreamingDatasetInUserFolder(BadRequestError):
-    name: Literal["CannotCreateStreamingDatasetInUserFolder"]
+class CannotCreateStreamingDatasetInUserFolder(errors.BadRequestError):
+    name: typing.Literal["CannotCreateStreamingDatasetInUserFolder"]
     parameters: CannotCreateStreamingDatasetInUserFolderParameters
     error_instance_id: str
 

@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidAggregationRangeParameters(TypedDict):
+class InvalidAggregationRangeParameters(typing_extensions.TypedDict):
     """Aggregation range should include one lt or lte and one gt or gte."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidAggregationRange(BadRequestError):
-    name: Literal["InvalidAggregationRange"]
+class InvalidAggregationRange(errors.BadRequestError):
+    name: typing.Literal["InvalidAggregationRange"]
     parameters: InvalidAggregationRangeParameters
     error_instance_id: str
 

@@ -13,34 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
-from foundry.v1.ontologies.models._value_type import ValueType
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class InvalidDurationGroupByPropertyTypeParameters(TypedDict):
+class InvalidDurationGroupByPropertyTypeParameters(typing_extensions.TypedDict):
     """Invalid property type for duration groupBy."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    property: PropertyApiName
-
-    objectType: ObjectTypeApiName
-
-    propertyBaseType: ValueType
+    property: ontologies_models.PropertyApiName
+    objectType: ontologies_models.ObjectTypeApiName
+    propertyBaseType: ontologies_models.ValueType
 
 
 @dataclass
-class InvalidDurationGroupByPropertyType(BadRequestError):
-    name: Literal["InvalidDurationGroupByPropertyType"]
+class InvalidDurationGroupByPropertyType(errors.BadRequestError):
+    name: typing.Literal["InvalidDurationGroupByPropertyType"]
     parameters: InvalidDurationGroupByPropertyTypeParameters
     error_instance_id: str
 

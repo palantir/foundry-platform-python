@@ -21,8 +21,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. |  |
+**object_type** | ObjectTypeApiName | The type of the object to aggregate on. |  |
 **aggregation** | List[Union[Aggregation, AggregationDict]] |  |  |
 **group_by** | List[Union[AggregationGroupBy, AggregationGroupByDict]] |  |  |
 **query** | Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] |  | [optional] |
@@ -41,16 +41,16 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The type of the object to aggregate on.
 object_type = "employee"
-# List[Union[Aggregation, AggregationDict]] |
+# List[Union[Aggregation, AggregationDict]]
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[Union[AggregationGroupBy, AggregationGroupByDict]] |
+# List[Union[AggregationGroupBy, AggregationGroupByDict]]
 group_by = [
     {
         "field": "properties.startDate",
@@ -59,7 +59,7 @@ group_by = [
     },
     {"field": "properties.city", "type": "exact"},
 ]
-# Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] |
+# Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
 query = {"not": {"field": "properties.name", "eq": "john"}}
 
 
@@ -101,10 +101,10 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**primary_key** | PropertyValueEscapedString | primaryKey |  |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
 **OntologyObject**
@@ -120,13 +120,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# PropertyValueEscapedString | primaryKey
+# PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# Optional[List[SelectedPropertyApiName]] | properties
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 properties = None
 
 
@@ -168,12 +168,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**primary_key** | PropertyValueEscapedString | primaryKey |  |
-**link_type** | LinkTypeApiName | linkType |  |
-**linked_object_primary_key** | PropertyValueEscapedString | linkedObjectPrimaryKey |  |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**. |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object from which the link originates. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
+**linked_object_primary_key** | PropertyValueEscapedString | The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.  |  |
+**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
 **OntologyObject**
@@ -189,17 +189,17 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# PropertyValueEscapedString | primaryKey
+# PropertyValueEscapedString | The primary key of the object from which the link originates. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# LinkTypeApiName | linkType
+# LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
-# PropertyValueEscapedString | linkedObjectPrimaryKey
+# PropertyValueEscapedString | The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
 linked_object_primary_key = 80060
-# Optional[List[SelectedPropertyApiName]] | properties
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 properties = None
 
 
@@ -257,15 +257,15 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**order_by** | Optional[OrderBy] |  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
-**ResourceIterator[OntologyObject]**
+**ListObjectsResponse**
 
 ### Example
 
@@ -278,17 +278,17 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# Optional[OrderBy] | orderBy
+# Optional[OrderBy]
 order_by = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 properties = None
 
 
@@ -345,17 +345,17 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**primary_key** | PropertyValueEscapedString | primaryKey |  |
-**link_type** | LinkTypeApiName | linkType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
+**order_by** | Optional[OrderBy] |  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
-**ResourceIterator[OntologyObject]**
+**ListLinkedObjectsResponse**
 
 ### Example
 
@@ -368,21 +368,21 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# PropertyValueEscapedString | primaryKey
+# PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# LinkTypeApiName | linkType
+# LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
-# Optional[OrderBy] | orderBy
+# Optional[OrderBy]
 order_by = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 properties = None
 
 
@@ -441,12 +441,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**order_by** | Optional[OrderBy] |  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
 **ListObjectsResponse**
@@ -462,17 +462,17 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# Optional[OrderBy] | orderBy
+# Optional[OrderBy]
 order_by = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 properties = None
 
 
@@ -530,14 +530,14 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
-**primary_key** | PropertyValueEscapedString | primaryKey |  |
-**link_type** | LinkTypeApiName | linkType |  |
-**order_by** | Optional[OrderBy] | orderBy | [optional] |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | properties | [optional] |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
+**order_by** | Optional[OrderBy] |  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
 **ListLinkedObjectsResponse**
@@ -553,21 +553,21 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# PropertyValueEscapedString | primaryKey
+# PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# LinkTypeApiName | linkType
+# LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
-# Optional[OrderBy] | orderBy
+# Optional[OrderBy]
 order_by = None
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
-# Optional[List[SelectedPropertyApiName]] | properties
+# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 properties = None
 
 
@@ -633,8 +633,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | ontologyRid |  |
-**object_type** | ObjectTypeApiName | objectType |  |
+**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. |  |
+**object_type** | ObjectTypeApiName | The type of the requested objects. |  |
 **fields** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
 **query** | Union[SearchJsonQuery, SearchJsonQueryDict] |  |  |
 **order_by** | Optional[Union[SearchOrderBy, SearchOrderByDict]] |  | [optional] |
@@ -655,19 +655,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyRid | ontologyRid
+# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | objectType
+# ObjectTypeApiName | The type of the requested objects.
 object_type = "employee"
 # List[PropertyApiName] | The API names of the object type properties to include in the response.
 fields = None
-# Union[SearchJsonQuery, SearchJsonQueryDict] |
+# Union[SearchJsonQuery, SearchJsonQueryDict]
 query = {"not": {"field": "properties.age", "eq": 21}}
-# Optional[Union[SearchOrderBy, SearchOrderByDict]] |
+# Optional[Union[SearchOrderBy, SearchOrderByDict]]
 order_by = None
-# Optional[PageSize] |
+# Optional[PageSize]
 page_size = None
-# Optional[PageToken] |
+# Optional[PageToken]
 page_token = None
 
 

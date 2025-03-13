@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class LinkTypeNotFoundParameters(TypedDict):
+class LinkTypeNotFoundParameters(typing_extensions.TypedDict):
     """The link type is not found, or the user does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
-
-    linkType: LinkTypeApiName
+    objectType: ontologies_models.ObjectTypeApiName
+    linkType: ontologies_models.LinkTypeApiName
 
 
 @dataclass
-class LinkTypeNotFound(NotFoundError):
-    name: Literal["LinkTypeNotFound"]
+class LinkTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["LinkTypeNotFound"]
     parameters: LinkTypeNotFoundParameters
     error_instance_id: str
 

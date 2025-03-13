@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidVersionParameters(TypedDict):
+class InvalidVersionParameters(typing_extensions.TypedDict):
     """The given website version is invalid. Versions must follow semantic versioning with major, minor, and patch versions separate by periods, e.g. `0.1.0` or `1.2.3`."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class InvalidVersionParameters(TypedDict):
 
 
 @dataclass
-class InvalidVersion(BadRequestError):
-    name: Literal["InvalidVersion"]
+class InvalidVersion(errors.BadRequestError):
+    name: typing.Literal["InvalidVersion"]
     parameters: InvalidVersionParameters
     error_instance_id: str
 

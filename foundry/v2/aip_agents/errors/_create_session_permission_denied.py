@@ -13,29 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class CreateSessionPermissionDeniedParameters(TypedDict):
+class CreateSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Session."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
 
 @dataclass
-class CreateSessionPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateSessionPermissionDenied"]
+class CreateSessionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateSessionPermissionDenied"]
     parameters: CreateSessionPermissionDeniedParameters
     error_instance_id: str
 

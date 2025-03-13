@@ -13,32 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidVariableEnumOptionParameters(TypedDict):
+class InvalidVariableEnumOptionParameters(typing_extensions.TypedDict):
     """The value passed in the request to create project from template for an enum type variable is not a valid option."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     variableId: str
-
     invalidOption: str
-
-    validOptions: List[str]
+    validOptions: typing.List[str]
 
 
 @dataclass
-class InvalidVariableEnumOption(BadRequestError):
-    name: Literal["InvalidVariableEnumOption"]
+class InvalidVariableEnumOption(errors.BadRequestError):
+    name: typing.Literal["InvalidVariableEnumOption"]
     parameters: InvalidVariableEnumOptionParameters
     error_instance_id: str
 

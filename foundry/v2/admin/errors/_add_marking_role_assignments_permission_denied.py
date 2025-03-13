@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._marking_id import MarkingId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class AddMarkingRoleAssignmentsPermissionDeniedParameters(TypedDict):
+class AddMarkingRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not add the MarkingRoleAssignment."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    markingId: MarkingId
+    markingId: core_models.MarkingId
 
 
 @dataclass
-class AddMarkingRoleAssignmentsPermissionDenied(PermissionDeniedError):
-    name: Literal["AddMarkingRoleAssignmentsPermissionDenied"]
+class AddMarkingRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddMarkingRoleAssignmentsPermissionDenied"]
     parameters: AddMarkingRoleAssignmentsPermissionDeniedParameters
     error_instance_id: str
 

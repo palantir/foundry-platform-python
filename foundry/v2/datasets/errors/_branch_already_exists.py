@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class BranchAlreadyExistsParameters(TypedDict):
+class BranchAlreadyExistsParameters(typing_extensions.TypedDict):
     """The branch cannot be created because a branch with that name already exists."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
-    branchName: BranchName
+    datasetRid: datasets_models.DatasetRid
+    branchName: datasets_models.BranchName
 
 
 @dataclass
-class BranchAlreadyExists(ConflictError):
-    name: Literal["BranchAlreadyExists"]
+class BranchAlreadyExists(errors.ConflictError):
+    name: typing.Literal["BranchAlreadyExists"]
     parameters: BranchAlreadyExistsParameters
     error_instance_id: str
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class InvalidFolderParameters(TypedDict):
+class InvalidFolderParameters(typing_extensions.TypedDict):
     """The given Resource is not a Folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRid: ResourceRid
+    resourceRid: filesystem_models.ResourceRid
 
 
 @dataclass
-class InvalidFolder(BadRequestError):
-    name: Literal["InvalidFolder"]
+class InvalidFolder(errors.BadRequestError):
+    name: typing.Literal["InvalidFolder"]
     parameters: InvalidFolderParameters
     error_instance_id: str
 

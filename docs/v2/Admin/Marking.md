@@ -20,7 +20,7 @@ Name | Type | Description  | Notes |
 **initial_role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
 **name** | MarkingName |  |  |
 **description** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Marking**
@@ -36,7 +36,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingCategoryId |
+# MarkingCategoryId
 category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
 # List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
 initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
@@ -44,11 +44,11 @@ initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 initial_role_assignments = [
     {"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
 ]
-# MarkingName |
+# MarkingName
 name = "PII"
-# Optional[str] |
+# Optional[str]
 description = "Contains personally identifiable information about our customers"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -88,8 +88,8 @@ Get the Marking with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_id** | MarkingId | markingId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**marking_id** | MarkingId |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Marking**
@@ -105,9 +105,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingId | markingId
+# MarkingId
 marking_id = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -145,8 +145,8 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**body** | List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetMarkingsBatchResponse**
@@ -162,9 +162,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Annotated[List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]], Len(min_length=1, max_length=500)] | Body of the request
+# List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]] | Body of the request
 body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -200,12 +200,12 @@ Maximum page size 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**ResourceIterator[Marking]**
+**ListMarkingsResponse**
 
 ### Example
 
@@ -218,11 +218,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -258,9 +258,9 @@ Maximum page size 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListMarkingsResponse**
@@ -276,11 +276,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

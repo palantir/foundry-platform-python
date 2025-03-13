@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.datasets.models._branch_name import BranchName
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class ChangingBranchNameNotSupportedForImportsParameters(TypedDict):
+class ChangingBranchNameNotSupportedForImportsParameters(typing_extensions.TypedDict):
     """Changing of branch name is not supported for imports."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    existingBranchName: NotRequired[BranchName]
-
-    newBranchName: NotRequired[BranchName]
+    existingBranchName: typing_extensions.NotRequired[datasets_models.BranchName]
+    newBranchName: typing_extensions.NotRequired[datasets_models.BranchName]
 
 
 @dataclass
-class ChangingBranchNameNotSupportedForImports(BadRequestError):
-    name: Literal["ChangingBranchNameNotSupportedForImports"]
+class ChangingBranchNameNotSupportedForImports(errors.BadRequestError):
+    name: typing.Literal["ChangingBranchNameNotSupportedForImports"]
     parameters: ChangingBranchNameNotSupportedForImportsParameters
     error_instance_id: str
 

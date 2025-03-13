@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._file_import_rid import FileImportRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class FileImportNotFoundParameters(TypedDict):
+class FileImportNotFoundParameters(typing_extensions.TypedDict):
     """The given FileImport could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    fileImportRid: FileImportRid
-
-    connectionRid: ConnectionRid
+    fileImportRid: connectivity_models.FileImportRid
+    connectionRid: connectivity_models.ConnectionRid
 
 
 @dataclass
-class FileImportNotFound(NotFoundError):
-    name: Literal["FileImportNotFound"]
+class FileImportNotFound(errors.NotFoundError):
+    name: typing.Literal["FileImportNotFound"]
     parameters: FileImportNotFoundParameters
     error_instance_id: str
 

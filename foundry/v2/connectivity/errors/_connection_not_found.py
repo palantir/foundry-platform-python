@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
+from foundry import _errors as errors
+from foundry.v2.connectivity import models as connectivity_models
 
 
-class ConnectionNotFoundParameters(TypedDict):
+class ConnectionNotFoundParameters(typing_extensions.TypedDict):
     """The given Connection could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    connectionRid: ConnectionRid
+    connectionRid: connectivity_models.ConnectionRid
 
 
 @dataclass
-class ConnectionNotFound(NotFoundError):
-    name: Literal["ConnectionNotFound"]
+class ConnectionNotFound(errors.NotFoundError):
+    name: typing.Literal["ConnectionNotFound"]
     parameters: ConnectionNotFoundParameters
     error_instance_id: str
 

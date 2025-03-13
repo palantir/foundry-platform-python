@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class MissingPostBodyParameters(TypedDict):
+class MissingPostBodyParameters(typing_extensions.TypedDict):
     """A post body is required for this endpoint, but was not found in the request."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class MissingPostBody(BadRequestError):
-    name: Literal["MissingPostBody"]
+class MissingPostBody(errors.BadRequestError):
+    name: typing.Literal["MissingPostBody"]
     parameters: MissingPostBodyParameters
     error_instance_id: str
 

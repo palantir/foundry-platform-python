@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.functions.models._parameter_id import ParameterId
+from foundry import _errors as errors
+from foundry.v2.functions import models as functions_models
 
 
-class UnknownParameterParameters(TypedDict):
+class UnknownParameterParameters(typing_extensions.TypedDict):
     """
     The provided parameters were not found. Please look at the `knownParameters` field
     to see which ones are available.
@@ -33,14 +30,13 @@ class UnknownParameterParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    unknownParameters: List[ParameterId]
-
-    expectedParameters: List[ParameterId]
+    unknownParameters: typing.List[functions_models.ParameterId]
+    expectedParameters: typing.List[functions_models.ParameterId]
 
 
 @dataclass
-class UnknownParameter(BadRequestError):
-    name: Literal["UnknownParameter"]
+class UnknownParameter(errors.BadRequestError):
+    name: typing.Literal["UnknownParameter"]
     parameters: UnknownParameterParameters
     error_instance_id: str
 

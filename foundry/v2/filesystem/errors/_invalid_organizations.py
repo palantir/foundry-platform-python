@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidOrganizationsParameters(TypedDict):
+class InvalidOrganizationsParameters(typing_extensions.TypedDict):
     """Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidOrganizations(BadRequestError):
-    name: Literal["InvalidOrganizations"]
+class InvalidOrganizations(errors.BadRequestError):
+    name: typing.Literal["InvalidOrganizations"]
     parameters: InvalidOrganizationsParameters
     error_instance_id: str
 

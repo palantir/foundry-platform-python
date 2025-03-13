@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class TooManyNearestNeighborsRequestedParameters(TypedDict):
+class TooManyNearestNeighborsRequestedParameters(typing_extensions.TypedDict):
     """The value of numNeighbors must be in the range 1 &lt;= numNeighbors &lt;= 500."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class TooManyNearestNeighborsRequested(BadRequestError):
-    name: Literal["TooManyNearestNeighborsRequested"]
+class TooManyNearestNeighborsRequested(errors.BadRequestError):
+    name: typing.Literal["TooManyNearestNeighborsRequested"]
     parameters: TooManyNearestNeighborsRequestedParameters
     error_instance_id: str
 

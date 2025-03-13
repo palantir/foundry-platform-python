@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidChangeDataCaptureConfigurationParameters(TypedDict):
+class InvalidChangeDataCaptureConfigurationParameters(typing_extensions.TypedDict):
     """The change data capture configuration is invalid."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidChangeDataCaptureConfiguration(BadRequestError):
-    name: Literal["InvalidChangeDataCaptureConfiguration"]
+class InvalidChangeDataCaptureConfiguration(errors.BadRequestError):
+    name: typing.Literal["InvalidChangeDataCaptureConfiguration"]
     parameters: InvalidChangeDataCaptureConfigurationParameters
     error_instance_id: str
 
