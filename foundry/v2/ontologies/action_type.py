@@ -44,10 +44,9 @@ class ActionTypeClient:
         self._hostname = hostname
         self._config = config
         self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-        self.with_streaming_response = _ActionTypeClientStreaming(
-            auth=auth, hostname=hostname, config=config
-        )
-        self.with_raw_response = _ActionTypeClientRaw(auth=auth, hostname=hostname, config=config)
+
+        self.with_streaming_response = _ActionTypeClientStreaming(self)
+        self.with_raw_response = _ActionTypeClientRaw(self)
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -58,6 +57,7 @@ class ActionTypeClient:
         action_type: ontologies_models.ActionTypeApiName,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ActionTypeV2:
         """
         Gets a specific action type with the given API name.
@@ -91,8 +91,9 @@ class ActionTypeClient:
                 response_type=ontologies_models.ActionTypeV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -104,6 +105,7 @@ class ActionTypeClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[ontologies_models.ActionTypeV2]:
         """
         Lists the action types for the given Ontology.
@@ -125,7 +127,7 @@ class ActionTypeClient:
         :rtype: core.ResourceIterator[ontologies_models.ActionTypeV2]
         """
 
-        return self._api_client.iterate_api(
+        return self._api_client.call_api(
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/actionTypes",
@@ -144,6 +146,7 @@ class ActionTypeClient:
                 response_type=ontologies_models.ListActionTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
 
@@ -157,6 +160,7 @@ class ActionTypeClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ListActionTypesResponseV2:
         """
         Lists the action types for the given Ontology.
@@ -203,361 +207,28 @@ class ActionTypeClient:
                 response_type=ontologies_models.ListActionTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
 
 class _ActionTypeClientRaw:
-    """
-    The API client for the ActionType Resource.
+    def __init__(self, client: ActionTypeClient) -> None:
+        def get(_: ontologies_models.ActionTypeV2): ...
+        def list(_: ontologies_models.ListActionTypesResponseV2): ...
+        def page(_: ontologies_models.ListActionTypesResponseV2): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        action_type: ontologies_models.ActionTypeApiName,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[ontologies_models.ActionTypeV2]:
-        """
-        Gets a specific action type with the given API name.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param action_type: The name of the action type in the API.
-        :type action_type: ActionTypeApiName
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[ontologies_models.ActionTypeV2]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "actionType": action_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ActionTypeV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[ontologies_models.ListActionTypesResponseV2]:
-        """
-        Lists the action types for the given Ontology.
-
-        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-        results available, at least one result will be present in the response.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[ontologies_models.ListActionTypesResponseV2]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/actionTypes",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListActionTypesResponseV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def page(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[ontologies_models.ListActionTypesResponseV2]:
-        """
-        Lists the action types for the given Ontology.
-
-        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-        results available, at least one result will be present in the response.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[ontologies_models.ListActionTypesResponseV2]
-        """
-
-        warnings.warn(
-            "The client.ontologies.ActionType.page(...) method has been deprecated. Please use client.ontologies.ActionType.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/actionTypes",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListActionTypesResponseV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
+        self.get = core.with_raw_response(get, client.get)
+        self.list = core.with_raw_response(list, client.list)
+        self.page = core.with_raw_response(page, client.page)
 
 
 class _ActionTypeClientStreaming:
-    """
-    The API client for the ActionType Resource.
+    def __init__(self, client: ActionTypeClient) -> None:
+        def get(_: ontologies_models.ActionTypeV2): ...
+        def list(_: ontologies_models.ListActionTypesResponseV2): ...
+        def page(_: ontologies_models.ListActionTypesResponseV2): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        action_type: ontologies_models.ActionTypeApiName,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[ontologies_models.ActionTypeV2]:
-        """
-        Gets a specific action type with the given API name.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param action_type: The name of the action type in the API.
-        :type action_type: ActionTypeApiName
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[ontologies_models.ActionTypeV2]
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
-                query_params={},
-                path_params={
-                    "ontology": ontology,
-                    "actionType": action_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ActionTypeV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def list(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[ontologies_models.ListActionTypesResponseV2]:
-        """
-        Lists the action types for the given Ontology.
-
-        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-        results available, at least one result will be present in the response.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[ontologies_models.ListActionTypesResponseV2]
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/actionTypes",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListActionTypesResponseV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def page(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[ontologies_models.ListActionTypesResponseV2]:
-        """
-        Lists the action types for the given Ontology.
-
-        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-        results available, at least one result will be present in the response.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[ontologies_models.ListActionTypesResponseV2]
-        """
-
-        warnings.warn(
-            "The client.ontologies.ActionType.page(...) method has been deprecated. Please use client.ontologies.ActionType.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/actionTypes",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListActionTypesResponseV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
+        self.get = core.with_streaming_response(get, client.get)
+        self.list = core.with_streaming_response(list, client.list)
+        self.page = core.with_streaming_response(page, client.page)

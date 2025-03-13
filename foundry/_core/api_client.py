@@ -13,18 +13,20 @@
 #  limitations under the License.
 
 
+from __future__ import annotations
+
 import functools
 import json
 import re
-import sys
-from contextlib import contextmanager
 from dataclasses import dataclass
 from inspect import isclass
 from typing import Any
+from typing import Callable
 from typing import Dict
 from typing import Generic
 from typing import Iterator
 from typing import List
+from typing import Literal
 from typing import Optional
 from typing import Tuple
 from typing import Type
@@ -35,6 +37,9 @@ from urllib.parse import quote
 
 import httpx
 import pydantic
+from typing_extensions import NotRequired
+from typing_extensions import ParamSpec
+from typing_extensions import TypedDict
 from typing_extensions import deprecated
 
 from foundry._core.auth_utils import Auth
@@ -85,6 +90,61 @@ def _get_type_adapter(_type: Any) -> pydantic.TypeAdapter:
         return pydantic.TypeAdapter(_type)
 
 
+AnyParameters = ParamSpec("AnyParameters")
+
+
+R = TypeVar("R")
+
+
+def with_raw_response(
+    # HACK: There is no generic way to accept a "type"
+    # See https://github.com/python/mypy/issues/9773
+    # This is solved in py 3.14 but for now, this allows us to accept a type R
+    # The purpose of passing in the response type "R" is so that we can properly
+    # type the modified function so that mypy/pyright (and code assist tools)
+    # understand the return value
+    # For example, if the return type is "User" then the new return type would
+    # be "ApiResponse[User]"
+    # We can't reliably get it from "func" which doesn't always match the return
+    # type of the API (e.g. the iterator response types)
+    response_type: Callable[[R], None],
+    func: Callable[AnyParameters, Any],
+) -> Callable[AnyParameters, ApiResponse[R]]:
+    return cast(
+        Callable[AnyParameters, ApiResponse[R]],
+        functools.partial(func, _sdk_internal={"response_mode": "RAW"}),  # type: ignore
+    )
+
+
+def with_streaming_response(
+    # HACK: There is no generic way to accept a "type"
+    # See https://github.com/python/mypy/issues/9773
+    # This is solved in py 3.14 but for now, this allows us to accept a type R
+    # The purpose of passing in the response type "R" is so that we can properly
+    # type the modified function so that mypy/pyright (and code assist tools)
+    # understand the return value
+    # For example, if the return type is "User" then the new return type would
+    # be "StreamingContextManager[User]"
+    # We can't reliably get it from "func" which doesn't always match the return
+    # type of the API (e.g. the iterator response types)
+    response_type: Callable[[R], None],
+    func: Callable[AnyParameters, Any],
+) -> Callable[AnyParameters, StreamingContextManager[R]]:
+    return cast(
+        Callable[AnyParameters, StreamingContextManager[R]],
+        functools.partial(func, _sdk_internal={"response_mode": "STREAMING"}),  # type: ignore
+    )
+
+
+ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING"]
+
+
+# The SdkInternal dictionary is a flexible way to pass additional information to the API client
+# when calling a method. Currently the only use case is setting the response mode but it can easily
+# be extended without having to add additional parameters to the method signature.
+SdkInternal = TypedDict("SdkInternal", {"response_mode": NotRequired[ResponseMode]})
+
+
 @dataclass(frozen=True)
 class RequestInfo:
     method: str
@@ -97,6 +157,7 @@ class RequestInfo:
     body_type: Any
     request_timeout: Optional[int]
     throwable_errors: Dict[str, Type[PalantirRPCException]]
+    response_mode: Optional[ResponseMode] = None
 
     # DEPRECATED: Remove the streaming details
     stream: bool = False
@@ -107,6 +168,7 @@ class RequestInfo:
         query_params: Optional[Dict[str, Any]] = None,
         header_params: Optional[Dict[str, Any]] = None,
         stream: Optional[bool] = None,
+        response_mode: Optional[ResponseMode] = None,
     ):
         return RequestInfo(
             method=self.method,
@@ -120,6 +182,7 @@ class RequestInfo:
             request_timeout=self.request_timeout,
             stream=stream if stream is not None else self.stream,
             throwable_errors=self.throwable_errors,
+            response_mode=response_mode if response_mode is not None else self.response_mode,
         )
 
     @classmethod
@@ -137,6 +200,7 @@ class RequestInfo:
         stream: bool = False,
         chunk_size: Optional[int] = None,
         throwable_errors: Dict[str, Type[PalantirRPCException]] = {},
+        response_mode: Optional[ResponseMode] = None,
     ):
         return cls(
             method=method,
@@ -151,6 +215,7 @@ class RequestInfo:
             stream=stream,
             chunk_size=chunk_size,
             throwable_errors=throwable_errors,
+            response_mode=response_mode,
         )
 
 
@@ -177,6 +242,10 @@ class ApiResponse(Generic[T]):
     @property
     def status_code(self) -> int:
         return self._response.status_code
+
+    @property
+    def text(self) -> str:
+        return self._response.text
 
     def json(self):
         content_type = self._response.headers.get("content-type")
@@ -300,24 +369,32 @@ class ApiClient:
         # will have code that continues to work (now we just return the ApiClient)
         return self
 
-    def iterate_api(self, request_info: RequestInfo) -> ResourceIterator[Any]:
-        def fetch_page(
-            page_size: Optional[int],
-            next_page_token: Optional[str],
-        ) -> Tuple[Optional[str], List[Any]]:
-            result = self.call_api(
-                request_info.update(
-                    # pageSize will already be present in the query params dictionary
-                    query_params={"pageToken": next_page_token},
-                ),
-            ).decode()
-
-            return result.next_page_token, result.data or []
-
-        return ResourceIterator(paged_func=fetch_page)
-
-    def call_api(self, request_info: RequestInfo) -> ApiResponse[Any]:
+    def call_api(self, request_info: RequestInfo) -> Any:
         """Makes the HTTP request (synchronous)"""
+        response_mode = (
+            request_info.response_mode if request_info.response_mode is not None else "DECODED"
+        )
+
+        if response_mode == "ITERATOR":
+
+            def fetch_page(
+                page_size: Optional[int],
+                next_page_token: Optional[str],
+            ) -> Tuple[Optional[str], List[Any]]:
+                result = self.call_api(
+                    request_info.update(
+                        # pageSize will already be present in the query params dictionary
+                        query_params={"pageToken": next_page_token},
+                        # We want the response to be decoded for us
+                        # If we don't do this, it will cause an infinite loop
+                        response_mode="DECODED",
+                    ),
+                )
+
+                return result.next_page_token, result.data or []
+
+            return ResourceIterator(paged_func=fetch_page)
+
         try:
 
             def make_request(token: Token):
@@ -334,7 +411,11 @@ class ApiClient:
                     ),
                 )
 
-                return self._session.send(request=request, stream=request_info.stream)
+                return self._session.send(
+                    request=request,
+                    # DEPRECATED: We will be removing the stream parameter from the request_info
+                    stream=response_mode == "STREAMING" or request_info.stream,
+                )
 
             res = self._auth.execute_with_token(make_request)
         except httpx.ProxyError as e:
@@ -349,13 +430,14 @@ class ApiClient:
             raise WriteTimeout(str(e)) from e
 
         self._check_for_errors(request_info, res)
-        return ApiResponse(request_info, res)
+        api_response: ApiResponse[Any] = ApiResponse(request_info, res)
 
-    def stream_api(self, request_info: RequestInfo) -> StreamingContextManager[Any]:
-        """Makes the HTTP request (synchronous) and returns a streamed result"""
-        return StreamingContextManager(
-            request_info, self.call_api(request_info.update(stream=True))
-        )
+        if response_mode == "STREAMING":
+            return StreamingContextManager(request_info, api_response)
+        elif response_mode == "RAW":
+            return api_response
+        else:
+            return api_response.decode()
 
     def _process_query_parameters(self, query_params: QueryParameters):
         result: List[Tuple[str, Any]] = []
@@ -403,7 +485,7 @@ class ApiClient:
         # wait for the entire response to be streamed back before we can access
         # the content. If we don't do this, accessing "text" or calling ".json()"
         # will raise an exception.
-        if req.stream:
+        if req.stream or req.response_mode == "STREAMING":
             res.read()
 
         if res.status_code == 404 and res.text == "":

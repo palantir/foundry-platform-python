@@ -49,6 +49,7 @@ from foundry import WriteTimeout
 from foundry import __version__
 from foundry._core import ApiClient
 from foundry._core import RequestInfo
+from tests.server import FooData
 
 HOSTNAME = "localhost:8123"
 
@@ -285,15 +286,49 @@ def test_write_timeout():
 
 def test_stream_consumed_error():
     client = create_client()
-    request_info = RequestInfo.with_defaults("GET", "/foo/stream")
+    request_info = RequestInfo.with_defaults("GET", "/foo/stream", response_mode="STREAMING")
 
-    with client.stream_api(request_info) as response:
+    with client.call_api(request_info) as response:
         for _ in response.iter_bytes():
             pass
 
         with pytest.raises(StreamConsumedError):
             for _ in response.iter_bytes():
                 pass
+
+
+def test_streaming_response_type():
+    client = create_client()
+    request_info = RequestInfo.with_defaults("GET", "/foo/stream", response_mode="STREAMING")
+
+    with client.call_api(request_info) as response:
+        iterator = response.iter_bytes()
+        assert next(iterator) == b"foo\n"
+        assert next(iterator) == b"bar\n"
+        assert next(iterator) == b"baz"
+
+
+def test_raw_response_type():
+    client = create_client()
+    request_info = RequestInfo.with_defaults("GET", "/foo/bar", response_mode="RAW")
+
+    response = client.call_api(request_info)
+    assert response.text == '{"foo":"foo","bar":2}'
+    assert response.json() == {"foo": "foo", "bar": 2}
+
+
+def test_iterator_response_type():
+    client = create_client()
+    request_info = RequestInfo.with_defaults(
+        "GET",
+        "/foo/iterator",
+        response_mode="ITERATOR",
+        response_type=FooData,
+    )
+
+    response = client.call_api(request_info)
+    assert len(response.data) == 2
+    assert len(list(response)) == 2
 
 
 def test_proxy_error():
